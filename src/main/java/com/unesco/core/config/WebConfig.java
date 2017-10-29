@@ -1,4 +1,4 @@
-package com.luwojtaszek.springbootjsp.config;
+package com.unesco.core.config;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;

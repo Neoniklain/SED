@@ -1,4 +1,4 @@
-package com.luwojtaszek.springbootjsp.web.controller;
+package com.unesco.core.web.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,5 +16,4 @@ public class HomeController {
         model.addAttribute("message", "Spring Boot application that uses JSP With Embedded Tomcat");
         return "index";
     }
-
 }
