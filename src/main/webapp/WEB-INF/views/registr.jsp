@@ -10,18 +10,20 @@
         <div class="col-sm-6 col-md-4 col-md-offset-4">
             <div class="login-form">
                 <div class="account-wall">
-                    <h1 class="text-center login-title">Добро пожаловать</h1>
+                    <h1 class="text-center login-title">Регистрация</h1>
                     <img class="profile-img" src="/img/anon-user.jpg"
                          alt="">
-                    <form class="form-signin" th:action="@{/login}" method="post">
-                        <input type="text" class="form-control" placeholder="Имя" name="username" required autofocus>
-                        <input type="password" class="form-control" placeholder="Пароль" name="password" required>
+                    <form class="form-signin">
+                        <input type="text" class="form-control" placeholder="Имя" required autofocus>
+                        <input type="text" class="form-control" placeholder="Email" required autofocus>
+                        <input type="password" class="form-control" placeholder="Пароль" required>
+                        <input type="password" class="form-control" placeholder="Повторите пароль" required>
                         <button class="btn btn-lg btn-login btn-block" type="submit">
-                            Вход</button>
+                            Зарегистрироваться</button>
                         <span class="clearfix"></span>
                     </form>
                 </div>
-                <a href="#" class="text-center new-account">Зарегистрироваться</a>
+                <a href="#" class="text-center new-account">Вход</a>
             </div>
         </div>
     </div>

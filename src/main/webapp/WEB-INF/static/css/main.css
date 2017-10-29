@@ -37,11 +37,11 @@ p{
 
 a{
   color: #008080;
-
 }
+
 a:hover{
+  cursor: pointer;
   text-decoration: none;
-  border-bottom: 1px dashed #000080;
 }
 
 hr{
@@ -55,10 +55,6 @@ hr{
 .navbar{
   margin-bottom: 1em;
 }
-
-
-
-
 
 .header
 {

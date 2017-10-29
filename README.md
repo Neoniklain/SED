@@ -1,92 +1,20 @@
-# springboot-jsp
-An example of Spring Boot application that uses an embedded tomcat and jsp.
+#### Запуск проекта
 
-## Use JSP in your current Spring Boot project
+1. Необходима InteliJ IDEA 2017
+2. java jdk1.8.0_151
+2. Копируем репозиторий
+3. Запускаем через IDEA.
+4. Жмем зеленый треугольник
 
-1. Add required dependencies:
+#### База Данных
 
-```xml
-<dependency>
-    <groupId>javax.servlet</groupId>
-    <artifactId>jstl</artifactId>
-</dependency>
-<dependency>
-    <groupId>org.apache.tomcat.embed</groupId>
-    <artifactId>tomcat-embed-jasper</artifactId>
-</dependency>
-<dependency><!-- Optional, use this only when you need spring security taglibs -->
-    <groupId>org.springframework.security</groupId>
-    <artifactId>spring-security-taglibs</artifactId>
-</dependency>
-```
+Для проекта необходима база данных MySQl.
 
-2. Add view prefixes in application properties (yaml example below)
+1. Создаем базу с названием unesco
+2. Выолняем скрипт который находится [здесь](Дамп%20БД.txt)
+3. если нужно то изменяем логин/пароль к базе в файле src/main/java/resources/application.properties
 
-```yml
-spring:
-  mvc:
-    view:
-      prefix: /WEB-INF/
-      suffix: .jsp
-```
+##### Примечания
 
-3. Configure view resolver:
-
-```java
-@EnableWebMvc
-@Configuration
-public class WebConfig extends WebMvcConfigurerAdapter {
-
-    @Value("${spring.mvc.view.prefix}")
-    private String prefix;
-
-    @Value("${spring.mvc.view.suffix}")
-    private String suffix;
-
-    /**
-     * Configures view resolver for jsp views.
-     */
-    @Bean
-    public InternalResourceViewResolver setupViewResolver() {
-        InternalResourceViewResolver resolver = new InternalResourceViewResolver();
-        resolver.setPrefix(prefix);
-        resolver.setSuffix(suffix);
-        resolver.setViewClass(JstlView.class);
-        return resolver;
-    }
-}
-```
-
-4. Create jsp views in src/main/webapp/WEB-INF/ directory.
-
-## How to run this application
-
-### Extract project
-
-Extract project in some location on your local machine.
-
-### Build application
-
-Go to the project location:
-
-```bash
-cd /path/to/project/location
-```
-
-Build project with maven by executing command:
-
-```bash
-./mvnw clean install
-```
-
-### Start application
-
-Execute .jar file:
-
-```bash
-java -jar target/rxjava2-simultaneous-tasks-0.0.1-SNAPSHOT.jar
-```
-
-By default application should be accessible under localhost:8080. 
-
-There is one endpoint which returns simple jsp home page.
+1. Часть 1 - https://habrahabr.ru/post/262323/
+2. Часть 2 - https://habrahabr.ru/post/262361/
