@@ -17,4 +17,21 @@ public class HomeController {
         return "index";
     }
 
+    @GetMapping("/login")
+    public String LoginPage()
+    {
+        return "login";
+    }
+
+    @GetMapping("/register")
+    public String RegisterPage()
+    {
+        return "register";
+    }
+
+    @GetMapping("/account")
+    public String AccountPage(String test)
+    {
+        return "lk";
+    }
 }
