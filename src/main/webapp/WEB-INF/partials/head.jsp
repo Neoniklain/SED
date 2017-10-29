@@ -1,3 +1,4 @@
+﻿<%@ include file="../partials/taglibs.jsp" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -15,3 +16,4 @@
     <!--  Статичные файлы -->
 </head>
 <body>
+<jsp:include page="../partials/navigation.jsp"/>

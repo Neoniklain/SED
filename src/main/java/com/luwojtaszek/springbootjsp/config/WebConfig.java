@@ -37,6 +37,7 @@ public class WebConfig extends WebMvcConfigurerAdapter {
                 "/libs/**"
         )
                 .addResourceLocations(
+                        "/WEB-INF/static/img/",
                         "/WEB-INF/static/js/",
                         "/WEB-INF/static/css/",
                         "/WEB-INF/static/fonts/",
