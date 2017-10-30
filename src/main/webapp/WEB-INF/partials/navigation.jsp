@@ -16,11 +16,11 @@
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav">
-                <li class="active"><a href="#"><i class="fa fa-home" aria-hidden="true"></i> Главная</a></li>
-                <li><a href="#"><i class="fa fa-address-card-o" aria-hidden="true"></i> Личный кабинет</a></li>
+                <li class="active"><a href="/"><i class="fa fa-home" aria-hidden="true"></i> Главная</a></li>
+                <li><a href="/account"><i class="fa fa-address-card-o" aria-hidden="true"></i> Личный кабинет</a></li>
             </ul>
             <form class="navbar-form navbar-right" role="search">
-                <button type="submit" class="btn btn-default"><i class="fa fa-sign-out" aria-hidden="true"></i> Выход</button>
+                <a href="/login" class="btn btn-default"><i class="fa fa-sign-out" aria-hidden="true"></i> Вход</a>
             </form>
         </div><!-- /.navbar-collapse -->
     </div><!-- /.container-fluid -->

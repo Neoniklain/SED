@@ -23,7 +23,7 @@
                         <span class="clearfix"></span>
                     </form>
                 </div>
-                <a href="#" class="text-center new-account">Вход</a>
+                <a href="/login" class="text-center new-account">Вход</a>
             </div>
         </div>
     </div>
