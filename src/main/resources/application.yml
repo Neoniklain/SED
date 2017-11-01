@@ -3,3 +3,7 @@ spring:
     view:
       prefix: /WEB-INF/views/
       suffix: .jsp
+  datasource:
+    url: jdbc:mysql://localhost:3306/unesco
+    username: root
+    password: root
