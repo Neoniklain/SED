@@ -31,6 +31,14 @@
                             </div>
                         </div>
                         <hr>
+
+                        <h3>Basic</h3>
+                        <div id="default"></div>
+
+                        <button id="btn-info" type="button">Info</button>
+                        <button id="btn-warn" type="button">Warn</button>
+                        <button id="btn-error" type="button">Error</button>
+                        <button id="btn-multiple" type="button">Multiple</button>
                     </div>
 
                 </div>
@@ -53,4 +61,7 @@
     </div>
 </div>
 
+
+
 <jsp:include page="../partials/footer.jsp"/>
+

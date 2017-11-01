@@ -16,3 +16,24 @@ $(function() {
 	});
 
 });
+
+$(function() {
+    $('#default').puigrowl();
+    $('#btn-info').puibutton().click(function() {
+        addMessage([{severity: 'info', summary: 'Message Title', detail: 'Message Detail here.'}]);
+    });
+    $('#btn-warn').puibutton().click(function() {
+        addMessage([{severity: 'warn', summary: 'Message Title', detail: 'Message Detail here.'}]);
+    });
+    $('#btn-error').puibutton().click(function() {
+        addMessage([{severity: 'error', summary: 'Message Title', detail: 'Message Detail here.'}]);
+    });
+    $('#btn-multiple').puibutton().click(function() {
+        addMessage([{severity: 'info', summary: 'Message Title', detail: 'Message Detail here.'}
+            , {severity: 'warn', summary: 'Message Title', detail: 'Message Detail here.'}
+            , {severity: 'error', summary: 'Message Title', detail: 'Message Detail here.'}]);
+    });
+    addMessage = function(msg) {
+        $('#default').puigrowl('show', msg);
+    };
+});
