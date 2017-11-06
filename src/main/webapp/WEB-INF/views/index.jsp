@@ -1,4 +1,7 @@
-﻿<jsp:include page="../partials/head.jsp"/>
+﻿<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<jsp:include page="../partials/head.jsp"/>
 
 <div class="header">
     <h1><i class="fa fa-university" aria-hidden="true"></i> КемГУ Кафедра Юнеско</h1>
@@ -13,32 +16,29 @@
                     <div class="panel-heading"><h3><i class="fa fa-newspaper-o" aria-hidden="true"></i> Новости</h3></div>
 
                     <div class="panel-body news">
+
+                        <c:forEach items="${News}" var="n">
+
                         <div class="row">
                             <div class="col-xs-12 col-md-4">
-                                <a href="#" class="thumbnail">
-                                    <img src="/img/news.png" alt="Первая запись">
-                                </a>
+                                <div class="thumbnail">
+                                    <img src="${n.image}" alt="Первая запись">
+                                </div>
                             </div>
                             <div class="col-xs-12 col-md-8">
                                 <div class="news-header">
-                                    <h2><a href="#">Заголовок первой записи</a></h2>
-                                    <p><i class="fa fa-calendar" aria-hidden="true"></i> 30.10.17</p>
+                                    <h2><a href="#">${n.header}</a></h2>
+                                    <p><i class="fa fa-calendar" aria-hidden="true"></i>
+                                        <fmt:formatDate value="${n.date}" pattern="dd.MM.yyyy" /></p>
                                     <hr>
                                 </div>
                                 <div class="news-content">
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nesciunt eius voluptatem tempora, et veritatis temporibus molestiae ea consectetur quasi dolore fugiat rem cumque at deserunt, minima officiis ipsum beatae labore! Quos ab sint ad inventore harum quas sunt tempora fugit pariatur iusto, similique deleniti iste <a>illo id cum ipsum quasi exercitationem odio</a> itaque nostrum, placeat dolorem architecto. Voluptatibus, consequuntur, beatae! Suscipit totam, illum aliquid, corrupti excepturi ut similique. Hic nesciunt vero corporis ducimus nihil quidem! Illum dolore quas dignissimos at minima sit blanditiis! Veniam, expedita! Magni cum eligendi, consequuntur consequatur. Animi incidunt sint dolorem nisi adipisci nesciunt veritatis consequuntur, saepe repudiandae sequi, similique maiores placeat! Illum itaque repellendus mollitia ullam cum officiis sunt provident asperiores? Dolor molestias sed error exercitationem.</p>
+                                    <p>${n.content}</p>
                                 </div>
                             </div>
                         </div>
                         <hr>
-
-                        <h3>Basic</h3>
-                        <div id="default"></div>
-
-                        <button id="btn-info" type="button">Info</button>
-                        <button id="btn-warn" type="button">Warn</button>
-                        <button id="btn-error" type="button">Error</button>
-                        <button id="btn-multiple" type="button">Multiple</button>
+                        </c:forEach >
                     </div>
 
                 </div>
