@@ -1,4 +1,6 @@
-﻿<jsp:include page="../partials/head.jsp"/>
+﻿<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<jsp:include page="../partials/head.jsp"/>
+<script src="${request.contextPath}/js/news.js"></script>
 
 <div class="header">
     <h1><i class="fa fa-university" aria-hidden="true"></i> КемГУ Кафедра Юнеско</h1>
@@ -14,37 +16,39 @@
 
                     <div class="panel-body edit-news">
                         <div class="row">
+                            <form:form name="newsForm" commandName="News">
                             <div class="col-xs-12 col-md-12">
                                 <div class="input-group input-group-lg">
                                     <span class="input-group-addon">Заголовок: </span>
-                                    <input type="text" class="form-control" placeholder="Название статьи">
+                                    <form:input path="header" type="text" class="form-control" id="header" name="myheader" placeholder="Название статьи" />
                                 </div>
                             </div>
                             <div class="col-xs-6 col-md-3">
                                 <div class="input-group">
                                     <span class="input-group-addon">Дата: </span>
-                                    <input type="date" class="form-control" id="date" name="date" placeholder="Дата" required>
+                                    <form:input path="date" type="date" class="form-control" id="date" name="date" placeholder="Дата" />
                                 </div>
                             </div>
                             <div class="col-xs-6 col-md-3">
                                 <div class="input-group">
                                     <span class="input-group-addon">Автор: </span>
-                                    <input type="text" value="Admin" disabled class="form-control">
+                                    <form:input path="author" type="text" value="Admin" class="form-control" />
                                 </div>
                             </div>
                             <div class="col-xs-12 col-md-6">
                                 <div class="input-group">
                                     <span class="input-group-addon">Тэги: </span>
-                                    <input type="text" class="form-control" placeholder="Username">
+                                    <form:input path="tags" type="text" class="form-control" placeholder="tags, anytags..." />
                                 </div>
                             </div>
                             <div class="col-xs-12 col-md-12">
-                                <textarea class="form-control" rows="10" id="comment"></textarea>
+                                <form:textarea name="content" class="form-control" rows="10" id="content" path="content"></form:textarea>
                             </div>
                             <div class="col-xs-12 col-md-12">
-                                <button class="btn btn-success">Схранить изменения</button>
-                                <button class="btn btn-danger">Отмена</button>
+                                <button type="button" id="create-news-button" class="btn btn-success">Схранить изменения</button>
+                                <button type="button" class="btn btn-danger">Отмена</button>
                             </div>
+                            </form:form>
                         </div>
                     </div>
                 </div>
@@ -57,7 +61,7 @@
                     Указать файл <input type="file" hidden>
                 </label>
                 <div class="thumbnail">
-                    <img src="news.png" alt="Миниатюра">
+                    <img src="${request.contextPath}/img/news.png" alt="Миниатюра">
                 </div>
             </div>
         </div>

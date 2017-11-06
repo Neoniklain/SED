@@ -16,16 +16,6 @@ public class HomeController {
         return "index";
     }
 
-    @GetMapping("/editor")
-    public String getEditorPage() {
-        return "editor_news";
-    }
-
-    @GetMapping("/account")
-    public String getAccountPage() {
-        return "lk";
-    }
-
     @GetMapping("/login")
     public String getLoginPage() {
         return "login";

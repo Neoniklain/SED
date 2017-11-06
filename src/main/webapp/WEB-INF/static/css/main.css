@@ -8,11 +8,11 @@ html, body {
 
 @font-face {
   font-family: Franklin-Gothic-Bold;
-  src: url(fonts/FranklinGothicBold.ttf);
+  src: url(../fonts/FranklinGothicBold.ttf);
 }
 @font-face {
   font-family: Souvenir;
-  src: url(fonts/Souvenir.ttf);
+  src: url(../fonts/Souvenir.ttf);
 }
 
 h1,h2,h3,h4,h5,h6{
@@ -50,26 +50,26 @@ hr{
 
 .btn-success{
   background-color: #008080 !important;
-  background-image: linear-gradient(to bottom,#00AEAE 0,#008080 100%); */
+  background-image: linear-gradient(to bottom,#00AEAE 0,#008080 100%);
 color: white;
 }
 
 .btn-success:hover,.btn-success:focus,.btn-success:visited{
   background-color: #39B1B1 !important;
-  background-image: linear-gradient(to bottom,#43E0E0 0,#39B1B1 100%); */
+  background-image: linear-gradient(to bottom,#43E0E0 0,#39B1B1 100%);
 color: white;
 }
 
 .btn-danger{
   background-color: #981D2B !important;
-  background-image: linear-gradient(to bottom,#DB4F60 0,#953742 100%); */
-color: white;
+  background-image: linear-gradient(to bottom,#DB4F60 0,#953742 100%);
+  color: white;
 }
 
-.btn-danger:hover,.btn-success:focus,.btn-success:visited{
+.btn-danger:hover,.btn-danger:focus,.btn-danger:visited{
   background-color: #DB4F60 !important;
-  background-image: linear-gradient(to bottom,#F77A89 0,#DB4F60 100%); */
-color: white;
+  background-image: linear-gradient(to bottom,#F77A89 0,#DB4F60 100%);
+  color: white;
 }
 
 .container-block{
