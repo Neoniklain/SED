@@ -24,4 +24,4 @@ SELECT @@max_allowed_packet;
 ```
 
 ##### Ссылки
-1. [О снятий на отправляемые пакеты ограничения в БД](https://confluence.atlassian.com/confkb/exceeds-max-allowed-packet-for-mysql-179443425.html)
+1. [О снятии ограничения на отправляемые пакеты в БД](https://confluence.atlassian.com/confkb/exceeds-max-allowed-packet-for-mysql-179443425.html)
