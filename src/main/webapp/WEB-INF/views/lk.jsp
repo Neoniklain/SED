@@ -10,8 +10,8 @@
                             <img src="/img/anon-user.jpg" alt="">
                         </div>
                         <div class="user-desc">
-                            <p class="user-desc-name">Семенов Семен</p>
-                            <p class="user-desc-role">Администратор</p>
+                            <p class="user-desc-name"> ${username}</p>
+                            <p class="user-desc-role"> ${role}</p>
                         </div>
                     </div>
                 </div>

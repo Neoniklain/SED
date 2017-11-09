@@ -25,3 +25,11 @@ function sendData(data, url, successMEsageHeader, successMesage) {
         }
     });
 }
+
+$.fn.FormToJSON = function() {
+    var formData = {};
+    this.find('[name]').each(function() {
+        formData[this.name] = this.value;
+    })
+    return formData;
+};

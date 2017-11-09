@@ -21,8 +21,8 @@ public class HomeController {
         return "login";
     }
 
-    @GetMapping("/registr")
-    public String getRegistrPage() {
-        return "registr";
+    @GetMapping("/register")
+    public String getRegisterPage() {
+        return "register";
     }
 }

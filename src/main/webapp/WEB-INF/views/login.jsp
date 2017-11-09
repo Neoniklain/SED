@@ -13,7 +13,7 @@
                     <h1 class="text-center login-title">Добро пожаловать</h1>
                     <img class="profile-img" src="/img/anon-user.jpg"
                          alt="">
-                    <form class="form-signin" th:action="@{/login}" method="post">
+                    <form class="form-signin" action="/Account/login" method="post">
                         <input type="text" class="form-control" placeholder="Имя" name="username" required autofocus>
                         <input type="password" class="form-control" placeholder="Пароль" name="password" required>
                         <button class="btn btn-lg btn-login btn-block" type="submit">

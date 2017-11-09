@@ -11,12 +11,22 @@ public class User {
     private long id;
     private String username;
     private String password;
+    private String email;
 
     @ManyToMany
     @JoinTable(name = "users_roles",
             joinColumns = {@JoinColumn(name = "user_id")},
             inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<Role> roles;
+
+    public void setEmail(String email)
+    {
+        this.email = email;
+    }
+
+    public String getEmail() {
+        return email;
+    }
 
     public Set<Role> getRoles() {
         return roles;
@@ -51,9 +61,10 @@ public class User {
     }
 
     protected User(){}
-    public User(String name, String pass) {
-        username = name;
-        password = pass;
+    public User(String name, String email, String pass ) {
+        this.username = name;
+        this.password = pass;
+        this.email = email;
     }
 
 }
