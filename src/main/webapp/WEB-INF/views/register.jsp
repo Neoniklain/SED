@@ -28,7 +28,7 @@
                         Зарегистрироваться
                     </button>-->
                 </div>
-                <a href="/login" class="text-center new-account">Вход</a>
+                <a href="/Account/login" class="text-center new-account">Вход</a>
             </div>
         </div>
     </div>

@@ -21,7 +21,7 @@
                         <span class="clearfix"></span>
                     </form>
                 </div>
-                <a href="/registr" class="text-center new-account">Зарегистрироваться</a>
+                <a href="/Account/register" class="text-center new-account">Зарегистрироваться</a>
             </div>
         </div>
     </div>

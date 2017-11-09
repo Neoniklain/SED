@@ -1,7 +1,7 @@
 --
 -- Скрипт сгенерирован Devart dbForge Studio for MySQL, Версия 7.2.78.0
 -- Домашняя страница продукта: http://www.devart.com/ru/dbforge/mysql/studio
--- Дата скрипта: 09.11.2017 20:23:27
+-- Дата скрипта: 09.11.2017 20:53:58
 -- Версия сервера: 5.5.57
 -- Версия клиента: 4.1
 --
@@ -23,5 +23,7 @@ INSERT INTO unesco.roles(id, role) VALUES
 INSERT INTO unesco.roles(id, role) VALUES
 (2, 'USER');
 
-INSERT INTO unesco.users(id, username, password, feedback) VALUES
-(1, 'user', 'user', NULL);
+INSERT INTO unesco.users(id, username, password, feedback, email) VALUES
+(1, 'user', 'user', NULL, NULL);
+INSERT INTO unesco.users(id, username, password, feedback, email) VALUES
+(2, 'vash', 'vash', NULL, 'vash');
