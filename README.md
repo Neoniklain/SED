@@ -12,9 +12,16 @@
 
 1. Создаем базу с названием unesco
 2. Выолняем скрипт который находится [здесь](Дамп%20БД.txt)
-3. если нужно то изменяем логин/пароль к базе в файле src/main/java/resources/application.properties
+3. Eсли нужно то изменяем логин/пароль к базе в файле src/main/java/resources/application.properties
+4. Чтобы загружать новости в БД необходимо снять ограничение на отправляемые пакеты в ней.
+Sql запрос:
+```sql
+SET GLOBAL max_allowed_packet=268435456;
+```
+5. Проверить:   
+```sql
+SELECT @@max_allowed_packet;
+```
 
-##### Примечания
-
-1. Часть 1 - https://habrahabr.ru/post/262323/
-2. Часть 2 - https://habrahabr.ru/post/262361/
+##### Ссылки
+1. [О снятий на отправляемые пакеты ограничения в БД](https://confluence.atlassian.com/confkb/exceeds-max-allowed-packet-for-mysql-179443425.html)

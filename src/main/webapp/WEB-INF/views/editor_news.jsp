@@ -16,23 +16,24 @@
 
                     <div class="panel-body edit-news">
                         <div class="row">
-                            <form:form name="newsForm" commandName="News">
+                            <form:form id="newsForm" commandName="News">
                             <div class="col-xs-12 col-md-12">
                                 <div class="input-group input-group-lg">
                                     <span class="input-group-addon">Заголовок: </span>
-                                    <form:input path="header" type="text" class="form-control" id="header" name="myheader" placeholder="Название статьи" />
+                                    <form:input path="header" type="text" class="form-control" id="header" name="header" placeholder="Название статьи" />
                                 </div>
                             </div>
                             <div class="col-xs-6 col-md-3">
                                 <div class="input-group">
                                     <span class="input-group-addon">Дата: </span>
-                                    <form:input path="date" type="date" class="form-control" id="date" name="date" placeholder="Дата" />
+                                    <form:input path="date" class="form-control" type="text" readonly="true" name="date"/>
+
                                 </div>
                             </div>
                             <div class="col-xs-6 col-md-3">
                                 <div class="input-group">
                                     <span class="input-group-addon">Автор: </span>
-                                    <form:input path="author" type="text" value="Admin" class="form-control" />
+                                    <form:input path="author" type="text" readonly="true" value="Admin" class="form-control" />
                                 </div>
                             </div>
                             <div class="col-xs-12 col-md-6">
@@ -58,10 +59,13 @@
             <div class="panel panel-default edit-news-picture">
                 <div class="panel-heading"><h3><i class="fa fa-picture-o" aria-hidden="true"></i> Миниатюра</h3></div>
                 <label class="btn btn-default btn-block">
-                    Указать файл <input type="file" hidden>
+                    Указать файл <input id="selectFile" accept="image/jpeg,image/png,image/gif" type="file" multiple onchange="SaveImgAsB64(this)" hidden>
                 </label>
                 <div class="thumbnail">
-                    <img src="${request.contextPath}/img/news.png" alt="Миниатюра">
+                    <img id="preview" src="${request.contextPath}/img/news.png" alt="Миниатюра">
+                </div>
+                <div class="thumbnail-name">
+                    <p></p>
                 </div>
             </div>
         </div>

@@ -1,4 +1,10 @@
-// Для отправки данных на формы
+/**
+ * Для отправки данных
+ * @data Данные в формате ассоциативного масива
+ * @url Путь куда отправляем
+ * @successMEsageHeader Заголовок сообщения при успешной отправке
+ * @successMesage Сообщение при успешной отправке
+ */
 function sendData(data, url, successMEsageHeader, successMesage) {
     // Для отображения спец опопвещений
     $('#short_message').puigrowl();
@@ -21,15 +27,29 @@ function sendData(data, url, successMEsageHeader, successMesage) {
             }
         },
         error: function (data) {
-            showMessage([{severity: 'info', summary: 'Новость не создана!', detail: data}]);
+            console.log(data);
+            showMessage([{severity: 'error', summary: 'Ошибка!', detail: "Подробности в консоли."}]);
         }
     });
 }
+/**
+ * Переводчит все поля формы в ассоциативный массив
+ * @name Имя формы (ИД или класс)
+ */
+function FormToJson(name) {
 
-$.fn.FormToJSON = function() {
     var formData = {};
-    this.find('[name]').each(function() {
+    $(name).find('[name]').each(function() {
         formData[this.name] = this.value;
     })
     return formData;
 };
+/**
+ * Устанавивает картинку в формате base64 a указаную форму
+ * @image_container_id ID формы куда установить картинку
+ * @data_image Сама картинка в формате JSON
+ */
+function LoadImgFromB64(image_container_id,data_image)
+{
+    $(image_container_id).attr('src', data_image);
+}

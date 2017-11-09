@@ -101,11 +101,21 @@ color: white;
 
 .news-header h2{
   padding-bottom: 0.1em;
+  text-transform: lowercase !important;
+}
+
+.news-header h2::first-letter{
+  text-transform: uppercase;
 }
 
 .news-header p{
   color: #8B8B8B;
-  padding: 0;
+  padding-top: 0.5em;
+}
+
+.news-header p{
+  color: #8B8B8B;
+  padding-top: 0.3em;
 }
 
 .news-content{
@@ -252,9 +262,9 @@ color: white;
   margin: 0 !important;
 }
 
-.edit-news > .row > [class^="col-"]
+.edit-news > .row > form > [class^="col-"]
 {
-  padding-bottom: 1em;
+  padding-bottom: 1em !important;
 }
 
 [hidden] {
@@ -269,12 +279,18 @@ color: white;
 
 .edit-news-picture .thumbnail
 {
-  width: 90%;
-  margin: 1em auto;
+    width: 90%;
+    margin: 1em auto;
+    margin-bottom: 0em;
 }
 
 .edit-news textarea
 {
   font-size: 19px;
   resize: none;
+}
+
+.thumbnail-name {
+    text-align: center;
+    padding: 1em;
 }

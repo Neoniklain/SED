@@ -17,6 +17,7 @@
         <link rel="stylesheet" href="${request.contextPath}/libs/PrimeUi/primeui.min.css">
         <link rel="stylesheet" href="${request.contextPath}/libs/PrimeUi/primeui-all.min.css">
         <link rel="stylesheet" href="${request.contextPath}/libs/PrimeUi/primeui-ng-all.min.css">
+        <link rel="stylesheet" href="${request.contextPath}/libs/PrimeUi/themes/dark-hive/theme.css">
         <!--  Bootstrap -->
         <link rel="stylesheet" href="${request.contextPath}/libs/bootstrap/css/bootstrap.min.css">
         <link rel="stylesheet" href="${request.contextPath}/libs/bootstrap/css/bootstrap-responsive.css">

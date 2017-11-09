@@ -1,5 +1,10 @@
 ﻿<jsp:include page="../partials/head.jsp"/>
 
+<script>
+    $(".navbar-nav li").removeClass("active");
+    $("#nav-manu-account").addClass("active");
+</script>
+
 <div class="container container-block">
     <div class="row">
         <div class="col-md-12">
