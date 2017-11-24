@@ -46,5 +46,4 @@ public class NewsController {
         _NewsRepository.save(news);
         return news;
     }
-
 }
