@@ -11,39 +11,34 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import javax.validation.Valid;
+import java.util.Collections;
 import java.util.Date;
+import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
 
 /**
  * Created by lukasz on 27.08.2017.
  * With IntelliJ IDEA 15
  */
-@Controller
-@RequestMapping("/news")
+@RestController
+@RequestMapping("api/news")
 public class NewsController {
 
     @Autowired
     private NewsRepository _NewsRepository;
 
-    @GetMapping("/editor")
-    public ModelAndView getEditorPage() {
-        ModelAndView mav = new ModelAndView("editor_news");
-        News news = new News();
-        Date day = new Date();
-        news.setDate(day);
-        mav.addObject("News", news);
-        return mav;
+    @GetMapping("/getallnews")
+    public List<News> GetAllNews() {
+        Iterable<News> news = _NewsRepository.findAll();
+        List<News> array = StreamSupport.stream(news.spliterator(), false).collect(Collectors.toList());
+        Collections.reverse(array);
+        return array;
     }
 
-    @GetMapping("/account")
-    public String getAccountPage() {
-        return "lk";
-    }
-
-    @RequestMapping(value="/create", method=RequestMethod.POST,
-            produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
-    @ResponseBody
-    public News AddNews(@RequestBody News news) {
+    @RequestMapping(value = "/save")
+    public String save(@RequestBody News news) {
         _NewsRepository.save(news);
-        return news;
+        return "OK";
     }
 }

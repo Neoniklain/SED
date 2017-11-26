@@ -3,6 +3,8 @@ import { CommonModule } from '@angular/common';
 
 // services ----------------
 import { TestService} from "./services/test.service";
+import {AccountService} from './services/account.service';
+import {NewsService} from "./services/news.service";
 
 @NgModule({
   imports: [
@@ -15,7 +17,9 @@ export class CoreModule {
     return {
       ngModule: CoreModule,
       providers: [
-        TestService
+        TestService,
+        AccountService,
+        NewsService
       ]
     };
   }

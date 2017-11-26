@@ -5,5 +5,6 @@ import { Component } from '@angular/core';
   templateUrl: './app.component.html'
 })
 export class AppComponent {
-  title = 'Valya title for AppComponent';
+  private temp:Date = new Date();
+  public curYear:any = this.temp.getFullYear();
 }
