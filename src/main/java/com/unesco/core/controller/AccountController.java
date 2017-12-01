@@ -23,7 +23,7 @@ public class AccountController {
         }
         else
         {
-            return new User("","","");
+            return null;
         }
     }
 
