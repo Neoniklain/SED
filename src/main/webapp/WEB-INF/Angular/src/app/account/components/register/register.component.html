@@ -10,13 +10,13 @@
       <div class="login-form">
         <div class="account-wall">
           <h1 class="text-center login-title">Регистрация</h1>
-          <img class="profile-img" src="/img/anon-user.jpg"
+          <img class="profile-img" src="http://www.nr-style.com.ua/images/anonymous.png"
                alt="">
-          <input type="text" class="form-control" placeholder="Имя" name="username" [(ngModel)]="user.username" required autofocus>
-          <input type="text" class="form-control" placeholder="Email" name="email" [(ngModel)]="user.email" required autofocus>
-          <input type="password" class="form-control" placeholder="Пароль" name="password" [(ngModel)]="user.password" required>
-          <input type="password" class="form-control" placeholder="Повторите пароль" name="confirm-password" [(ngModel)]="PassConfirm" required>
-          <button class="btn btn-lg btn-login btn-block" (click)="Register()">Зарегистрироваться</button>
+          <input type="text" class="form-control vertical-offset" placeholder="Имя" name="username" [(ngModel)]="user.username" required autofocus>
+          <input type="text" class="form-control vertical-offset" placeholder="Email" name="email" [(ngModel)]="user.email" required autofocus>
+          <input type="password" class="form-control vertical-offset" placeholder="Пароль" name="password" [(ngModel)]="user.password" required>
+          <input type="password" class="form-control vertical-offset" placeholder="Повторите пароль" name="confirm-password" [(ngModel)]="PassConfirm" required>
+          <button class="btn btn-lg btn-login btn-block vertical-offset" (click)="Register()">Зарегистрироваться</button>
         </div>
         <a [routerLink]="['/account/login']"  class="text-center new-account">Вход</a>
       </div>
