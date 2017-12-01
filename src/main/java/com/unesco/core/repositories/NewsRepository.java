@@ -1,7 +1,6 @@
 package com.unesco.core.repositories;
 
 import com.unesco.core.entities.News;
-import com.unesco.core.entities.User;
 import org.springframework.data.repository.CrudRepository;
 
 import java.util.List;

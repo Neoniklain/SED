@@ -6,6 +6,22 @@
 -- Версия клиента: 4.1
 --
 
+CREATE TABLE news (
+  id bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
+  header varchar(255) DEFAULT NULL,
+  author varchar(255) DEFAULT NULL,
+  content text DEFAULT NULL,
+  tags varchar(255) DEFAULT NULL,
+  date datetime DEFAULT NULL,
+  image longblob DEFAULT NULL,
+  PRIMARY KEY (id)
+)
+ENGINE = INNODB
+AUTO_INCREMENT = 20
+AVG_ROW_LENGTH = 1054037
+CHARACTER SET utf8
+COLLATE utf8_general_ci;
+
 
 -- 
 -- Отключение внешних ключей

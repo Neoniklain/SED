@@ -38,6 +38,8 @@ public class NewsController {
 
     @RequestMapping(value = "/save")
     public String save(@RequestBody News news) {
+        Date day = new Date();
+        news.setDate(day);
         _NewsRepository.save(news);
         return "OK";
     }
