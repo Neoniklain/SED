@@ -11,9 +11,9 @@
           <h1 class="text-center login-title">Добро пожаловать</h1>
           <img class="profile-img" src="http://www.nr-style.com.ua/images/anonymous.png"
                alt="">
-          <input type="text" class="form-control vertical-offset" placeholder="Имя" name="username" [(ngModel)]="user.username" required autofocus>
-          <input type="password" class="form-control vertical-offset" placeholder="Пароль" name="password" [(ngModel)]="user.password" required>
-          <button class="btn btn-lg btn-login btn-block vertical-offset" (click)="LogIn()">Вход</button>
+          <input type="text" class="form-control" placeholder="Имя" name="username" [(ngModel)]="user.username" required autofocus>
+          <input type="password" class="form-control" placeholder="Пароль" name="password" [(ngModel)]="user.password" required>
+          <button class="btn btn-lg btn-login btn-block" (click)="LogIn()">Вход</button>
         </div>
         <a [routerLink]="['/account/register']" class="text-center new-account">Зарегистрироваться</a>
       </div>

@@ -262,7 +262,7 @@ hr{
   margin: 0 !important;
 }
 
-.edit-news > .row > form > [class^="col-"]
+.edit-news > .row > [class^="col-"]
 {
   padding-bottom: 1em !important;
 }
@@ -281,7 +281,6 @@ hr{
 {
   width: 90%;
   margin: 1em auto;
-  margin-bottom: 0em;
 }
 
 .edit-news textarea
@@ -293,8 +292,4 @@ hr{
 .thumbnail-name {
   text-align: center;
   padding: 1em;
-}
-.vertical-offset
-{
-  margin-top: 5px!important;
 }

@@ -20,18 +20,34 @@
                     <input type="text" class="form-control" id="header" name="header" placeholder="Название статьи" [(ngModel)]="newNews.header" />
                   </div>
                 </div>
+            </div>
+            <div class="row ">
+              <div class="col-xs-6 col-md-3">
+                <div class="input-group">
+                  <span class="input-group-addon">Дата: </span>
+                  <input class="form-control" type="text" readonly="true" value="Дата"/>
+                </div>
+              </div>
+              <div class="col-xs-6 col-md-3">
+                <div class="input-group">
+                  <span class="input-group-addon">Автор: </span>
+                  <input type="text" readonly="true" value="Admin" class="form-control" />
+                </div>
+              </div>
                 <div class="col-xs-12 col-md-6">
                   <div class="input-group">
                     <span class="input-group-addon">Тэги: </span>
                     <input path="tags" type="text" class="form-control" placeholder="tags, anytags..." [(ngModel)]="newNews.tags" />
                   </div>
                 </div>
+            </div>
+            <div class="row ">
                 <div class="col-xs-12 col-md-12">
                   <textarea name="content" class="form-control" rows="10" id="content" path="content" [(ngModel)]="newNews.content"></textarea>
                 </div>
                 <div class="col-xs-12 col-md-12">
-                  <button type="button" id="create-news-button" class="btn btn-success" (click)="SaveNews()">Схранить изменения</button>
-                  <button type="button" class="btn btn-danger" (click)="ClearFields()">Отмена</button>
+                  <button type="button" id="create-news-button" class="btn btn-success " (click)="SaveNews()">Схранить изменения</button>
+                  <button type="button" class="btn btn-danger " (click)="ClearFields()">Отмена</button>
                 </div>
             </div>
           </div>
@@ -42,14 +58,11 @@
       <div class="panel panel-default edit-news-picture">
         <div class="panel-heading"><h3><i class="fa fa-picture-o" aria-hidden="true"></i> Миниатюра</h3></div>
         <label class="btn btn-default btn-block">
-          Указать файл <br>
+          Указать файл
           <input type="file" id="avatar" (change)="onFileChange($event)" hidden> <br>
         </label>
         <div class="thumbnail">
           <img id="preview" [src]="newNews.image" alt="Миниатюра">
-        </div>
-        <div class="thumbnail-name">
-          <p></p>
         </div>
       </div>
     </div>
