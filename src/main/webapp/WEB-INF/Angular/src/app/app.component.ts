@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -7,4 +8,9 @@ import { Component } from '@angular/core';
 export class AppComponent {
   private temp:Date = new Date();
   public curYear:any = this.temp.getFullYear();
+  constructor(
+    private router: Router)
+  {
+
+  }
 }

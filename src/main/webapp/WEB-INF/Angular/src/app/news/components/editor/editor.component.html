@@ -42,10 +42,11 @@
       <div class="panel panel-default edit-news-picture">
         <div class="panel-heading"><h3><i class="fa fa-picture-o" aria-hidden="true"></i> Миниатюра</h3></div>
         <label class="btn btn-default btn-block">
-          Указать файл <input id="selectFile" accept="image/jpeg,image/png,image/gif" type="file" multiple onchange="SaveImgAsB64(this)" hidden>
+          Указать файл <br>
+          <input type="file" id="avatar" (change)="onFileChange($event)" hidden> <br>
         </label>
         <div class="thumbnail">
-          <img id="preview" src="${request.contextPath}/img/news.png" alt="Миниатюра">
+          <img id="preview" [src]="newNews.image" alt="Миниатюра">
         </div>
         <div class="thumbnail-name">
           <p></p>
