@@ -8,10 +8,6 @@ html, body {
 }
 
 @font-face {
-  font-family: Franklin-Gothic-Bold;
-  src: url(./fonts/FranklinGothicBold.ttf);
-}
-@font-face {
   font-family: Souvenir;
   src: url(./fonts/Souvenir.ttf);
 }
@@ -83,7 +79,8 @@ hr{
 
 .header
 {
-  padding: 2em 0;
+  padding: 3em 0;
+  font-size: 1.5em;
   text-align: center;
 }
 
