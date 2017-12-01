@@ -28,14 +28,14 @@ export class LogInComponent  {
         this.auth_user = res;
         if(this.auth_user.username!="") {
           console.log("Авторизация успешна");
-          this.router.navigate(['/account/account']);
+          //this.router.navigate(['/account/account']);
         }
         else {
           console.log("Авторизация не успешна");
         }
       },
       (error:any)=> {
-        console.log("Ошибка авторизации");
+        console.log("Ошибка авторизации: "+error);
       });
   }
 }

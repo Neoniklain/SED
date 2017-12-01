@@ -74,7 +74,11 @@ public class User {
         this.username = username;
     }
 
-    protected User(){}
+    public User(){
+        this.username = "";
+        this.password = "";
+        this.email = "";
+    }
     public User(String name, String email, String pass ) {
         this.username = name;
         this.password = pass;

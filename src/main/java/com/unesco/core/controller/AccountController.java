@@ -14,15 +14,14 @@ import org.springframework.web.servlet.ModelAndView;
 public class AccountController {
     @Autowired
     private UsersRepository _UserRepository;
-
     @RequestMapping(value = "/login", method = RequestMethod.POST)
     public User LogIn(@RequestBody User user) {
+
         User temp = _UserRepository.findByUsername(user.getUsername());
         if(temp.getPassword().equals(user.getPassword())) {
             return temp;
         }
-        else
-        {
+        else {
             return null;
         }
     }
@@ -33,8 +32,7 @@ public class AccountController {
             _UserRepository.save(user);
             return "OK";
         }
-        catch (Exception ex)
-        {
+        catch (Exception ex) {
             return "Not OK";
         }
     }
