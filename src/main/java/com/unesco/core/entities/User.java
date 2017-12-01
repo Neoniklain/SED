@@ -1,5 +1,7 @@
 package com.unesco.core.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.Set;
 
@@ -12,6 +14,18 @@ public class User {
     private String username;
     private String password;
     private String email;
+    @OneToOne
+    @JsonIgnore
+    @JoinColumn(name = "role_id")
+    private Role role;
+
+    public Role getRole() {
+        return role;
+    }
+
+    public void setRole(Role role) {
+        this.role = role;
+    }
 
     @ManyToMany
     @JoinTable(name = "users_roles",
@@ -60,7 +74,11 @@ public class User {
         this.username = username;
     }
 
-    protected User(){}
+    public User(){
+        this.username = "";
+        this.password = "";
+        this.email = "";
+    }
     public User(String name, String email, String pass ) {
         this.username = name;
         this.password = pass;

@@ -1,10 +1,26 @@
---
+﻿--
 -- Скрипт сгенерирован Devart dbForge Studio for MySQL, Версия 7.2.78.0
 -- Домашняя страница продукта: http://www.devart.com/ru/dbforge/mysql/studio
 -- Дата скрипта: 10.11.2017 23:47:38
 -- Версия сервера: 5.5.57
 -- Версия клиента: 4.1
 --
+
+CREATE TABLE news (
+  id bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
+  header varchar(255) DEFAULT NULL,
+  author varchar(255) DEFAULT NULL,
+  content text DEFAULT NULL,
+  tags varchar(255) DEFAULT NULL,
+  date datetime DEFAULT NULL,
+  image longblob DEFAULT NULL,
+  PRIMARY KEY (id)
+)
+ENGINE = INNODB
+AUTO_INCREMENT = 20
+AVG_ROW_LENGTH = 1054037
+CHARACTER SET utf8
+COLLATE utf8_general_ci;
 
 
 -- 
@@ -18,6 +34,19 @@
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 
 -- 
+<<<<<<< HEAD
+-- Отключение внешних ключей
+-- 
+/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
+
+-- 
+-- Установить режим SQL (SQL mode)
+-- 
+/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
+
+-- 
+=======
+>>>>>>> dev/v1.1
 -- Установка кодировки, с использованием которой клиент будет посылать запросы на сервер
 --
 SET NAMES 'utf8';

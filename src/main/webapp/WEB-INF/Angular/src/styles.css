@@ -1,0 +1,292 @@
+/* You can add global styles to this file, and also import other style files */
+html, body {
+  height: 100%;
+  width: 100%;
+  padding: 0;
+  margin: 0;
+  background-color: #F8F8FF;
+}
+
+@font-face {
+  font-family: Souvenir;
+  src: url(./fonts/Souvenir.ttf);
+}
+
+h1,h2,h3,h4,h5,h6{
+  padding: 0;
+  margin: 0;
+  font-family: Franklin-Gothic-Bold;
+  color: #3d3d3d;
+}
+
+p{
+  font-family: Souvenir;
+}
+@media (min-width: 1400px)
+{
+  .container,
+  .navbar-static-top .container,
+  .navbar-fixed-top .container,
+  .navbar-fixed-bottom .container {
+    width: 1400px;
+  }
+}
+
+a{
+  color: #008080;
+
+}
+a:hover{
+  text-decoration: none;
+  border-bottom: 1px dashed #000080;
+}
+
+hr{
+  border-top: 1px solid #C8EDED;
+}
+
+.btn-success{
+  background-color: #008080 !important;
+  background-image: linear-gradient(to bottom,#00AEAE 0,#008080 100%);
+  color: white;
+}
+
+.btn-success:hover,.btn-success:focus,.btn-success:visited{
+  background-color: #39B1B1 !important;
+  background-image: linear-gradient(to bottom,#43E0E0 0,#39B1B1 100%);
+  color: white;
+}
+
+.btn-danger{
+  background-color: #981D2B !important;
+  background-image: linear-gradient(to bottom,#DB4F60 0,#953742 100%);
+  color: white;
+}
+
+.btn-danger:hover,.btn-danger:focus,.btn-danger:visited{
+  background-color: #DB4F60 !important;
+  background-image: linear-gradient(to bottom,#F77A89 0,#DB4F60 100%);
+  color: white;
+}
+
+.container-block{
+  margin-bottom: 1em;
+}
+
+.navbar{
+  margin-bottom: 1em;
+}
+
+.header
+{
+  padding: 3em 0;
+  font-size: 1.5em;
+  text-align: center;
+}
+
+.header p
+{
+  color: #8B8B8B;
+}
+
+.news .label{
+  text-align: left;
+}
+
+.news{
+  margin: 1em;
+}
+
+.news-header h2{
+  padding-bottom: 0.1em;
+  text-transform: lowercase !important;
+}
+
+.news-header h2::first-letter{
+  text-transform: uppercase;
+}
+
+.news-header p{
+  color: #8B8B8B;
+  padding-top: 0.5em;
+}
+
+.news-header p{
+  color: #8B8B8B;
+  padding-top: 0.3em;
+}
+
+.news-content{
+  font-size: 16px;
+}
+.news-content p::first-letter{
+  font-size: 20px;
+  color: black;
+  padding-left: 1.5em;
+}
+
+.user-info .user-img img{
+  border-radius: 50%;
+  border: 1px solid #3B3939;
+  width: 4em;
+}
+.user-img
+{
+  float: left;
+}
+
+.user-desc
+{
+  padding-left: 5em;
+}
+
+.user-desc p
+{
+  font-family: Franklin-Gothic-Bold !important;
+  font-size: 16px;
+  margin: 0;
+}
+
+.user-desc .user-desc-name
+{
+  font-size: 21px;
+  font-weight: bold;
+}
+
+.user-desc .user-desc-role
+{
+  color: #8B8B8B;
+}
+
+/* Форма входа */
+.form-signin
+{
+  font-family: Franklin-Gothic-Bold;
+  max-width: 330px;
+  padding: 15px;
+  margin: 0 auto;
+}
+.form-signin .form-signin-heading, .form-signin .checkbox
+{
+  margin-bottom: 10px;
+}
+.form-signin .checkbox
+{
+  font-weight: normal;
+}
+.form-signin .form-control
+{
+  position: relative;
+  font-size: 16px;
+  height: auto;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+.form-signin .form-control:focus
+{
+  z-index: 2;
+}
+.form-signin input[type="text"]
+{
+  margin-bottom: -1px;
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+}
+.form-signin input[type="password"]
+{
+  margin-bottom: 10px;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+}
+.account-wall
+{
+  margin-top: 20px;
+  margin-bottom: 10px;
+  padding: 40px 20px 20px 20px;
+  background-color: #FFFFFF;
+  -moz-box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
+  -webkit-box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
+  box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
+}
+.login-title
+{
+  font-family: Franklin-Gothic-Bold;
+  color: #555;
+  font-size: 25px;
+  padding-bottom: 1em;
+  font-weight: 400;
+  display: block;
+}
+.btn-login
+{
+  background-color: #008080;
+  color: white;
+}
+.btn-login:hover
+{
+  background-color: #41B2B2;
+  color: white;
+}
+.profile-img
+{
+  width: 96px;
+  height: 96px;
+  margin: 0 auto 10px;
+  display: block;
+  -moz-border-radius: 50%;
+  -webkit-border-radius: 50%;
+  border-radius: 50%;
+  border:2px solid #C1E1E1;
+}
+.need-help
+{
+  margin-top: 10px;
+}
+.login-form
+{
+  text-align: center;
+}
+/* Конец форма входа */
+
+.edit-news-header
+{
+  text-align: left;
+}
+
+.edit-news .row{
+  padding: 0 !important;
+  margin: 0 !important;
+}
+
+.edit-news > .row > [class^="col-"]
+{
+  padding-bottom: 1em !important;
+}
+
+[hidden] {
+  display: none !important;
+}
+
+.edit-news-picture label
+{
+  width: 90%;
+  margin: 1em auto;
+}
+
+.edit-news-picture .thumbnail
+{
+  width: 90%;
+  margin: 1em auto;
+}
+
+.edit-news textarea
+{
+  font-size: 19px;
+  resize: none;
+}
+
+.thumbnail-name {
+  text-align: center;
+  padding: 1em;
+}
