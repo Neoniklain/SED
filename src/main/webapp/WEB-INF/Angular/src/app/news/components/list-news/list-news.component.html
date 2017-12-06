@@ -11,25 +11,7 @@
 
           <div class="panel-body news">
             <div *ngFor="let item of _listOfNews">
-              <div class="row">
-                <div class="col-xs-12 col-md-4">
-                  <div class="thumbnail">
-                    <img [src]="item.image" alt="Первая запись">
-                  </div>
-                </div>
-                <div class="col-xs-12 col-md-8">
-                  <div class="news-header">
-                    <h2><a href="#">{{item.header}}</a></h2>
-                    <p><i class="fa fa-calendar" aria-hidden="true"></i>
-                      {{item.date}}
-                    </p>
-                    <hr>
-                  </div>
-                  <div class="news-content">
-                    <p>{{item.content}}</p>
-                  </div>
-                </div>
-              </div>
+              <single-news [item]="item"></single-news>
               <hr>
             </div>
           </div>

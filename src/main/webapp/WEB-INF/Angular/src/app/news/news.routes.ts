@@ -1,5 +1,5 @@
 import { Routes, RouterModule } from '@angular/router';
-import {ListNewsComponent} from "./components/listNews/listNews.component";
+import {ListNewsComponent} from "./components/list-news/list-news.component";
 import {EditorComponent} from "./components/editor/editor.component";
 
 const routes: Routes = [

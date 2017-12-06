@@ -36,6 +36,12 @@ public class NewsController {
         return array;
     }
 
+    @GetMapping("/getlastnews")
+    public News GetLastNews() {
+        News news = _NewsRepository.findTop1ByOrderByDateDesc();
+        return news;
+    }
+
     @RequestMapping(value = "/save")
     public String save(@RequestBody News news) {
         Date day = new Date();

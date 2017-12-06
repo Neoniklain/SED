@@ -32,21 +32,16 @@
             <h3><i class="fa fa-bars" aria-hidden="true"></i> Меню</h3>
           </div>
           <div class="list-group">
-            <a href="#" class="list-group-item">Управление аккаунтом</a>
+            <a style="cursor: pointer;" (click)="menuToole('news-dispatcher-page')" class="list-group-item">Управление новостями</a>
+            <a style="cursor: pointer;" (click)="menuToole('document-page')" class="list-group-item">Докуметооборот</a>
           </div>
         </div>
       </div>
     </div>
     <div class="col-md-9">
       <div class="head">
-        <div class="panel panel-default panel-inverse">
-          <div class="panel-heading">
-            <h3> Стриница Управление аккаунтом</h3>
-          </div>
-          <div class="panel-body">
-              <a [routerLink]="['/news/editor']"  class="btn btn-default btn-sm">Создать статью</a>
-          </div>
-        </div>
+        <document-page></document-page>
+        <news-dispatcher-page></news-dispatcher-page>
       </div>
     </div>
   </div>

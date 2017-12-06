@@ -4,10 +4,12 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 //Компоненты
-import {ListNewsComponent} from "./components/listNews/listNews.component";
+import {ListNewsComponent} from "./components/list-news/list-news.component";
 import {EditorComponent} from "./components/editor/editor.component";
 //Роутинг
 import {NewsRoutes} from "./news.routes";
+
+//Экспорты
 
 @NgModule({
   declarations: [

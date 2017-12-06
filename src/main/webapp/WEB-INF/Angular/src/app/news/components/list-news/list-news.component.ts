@@ -4,13 +4,12 @@ import {NewsService} from "../../../core/services/news.service";
 
 @Component({
   selector: 'list-news-page',
-  templateUrl: './listNews.component.html'
+  templateUrl: './list-news.component.html'
 })
 
 export class ListNewsComponent  {
 public _listOfNews:News[];
-  constructor(
-    private newsService:NewsService)
+  constructor(private newsService:NewsService)
   {
     this._listOfNews = [];
     this.GetNews();

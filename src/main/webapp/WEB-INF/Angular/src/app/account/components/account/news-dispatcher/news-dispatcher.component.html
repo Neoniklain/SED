@@ -1,0 +1,12 @@
+<div *ngIf="show" class="panel panel-default panel-inverse">
+  <div class="panel-heading">
+    <h3 > Стриница управления новостями</h3>
+  </div>
+  <div class="panel-body">
+    <a [routerLink]="['/news/editor']"  class="btn btn-default btn-sm">Создать статью</a>
+  </div>
+  <div class="panel-body">
+      <p>Последняя статья</p>
+      <single-news [item]="_lastNews"></single-news>
+  </div>
+</div>

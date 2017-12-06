@@ -6,6 +6,7 @@ import { FormsModule } from "@angular/forms";
 import { CoreModule } from "./core/core.module";
 import { AppComponent } from './app.component';
 import { AppRoutes } from "./app.routes";
+import { ExportModule } from "./export/export.module";
 
 @NgModule({
   declarations: [
@@ -16,9 +17,12 @@ import { AppRoutes } from "./app.routes";
     AppRoutes,
     CoreModule.forRoot(),
     HttpModule,
-    FormsModule
+    FormsModule,
+    ExportModule
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  exports: [
+  ],
 })
 export class AppModule { }

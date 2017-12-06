@@ -16,6 +16,10 @@ export class NewsService
     return this.http.get(this.path + "getallnews", { headers: this.getHeaders() }).map(res => <any>res.json());
   }
 
+  public GetLastNews() {
+    return this.http.get(this.path + "getlastnews", { headers: this.getHeaders() }).map(res => <any>res.json());
+  }
+
   public SaveNews(data?: any, mapJson = true) {
     let uri = this.path + "save";
     if (mapJson) return this.http.post(uri, data, { headers: this.getHeaders() })
