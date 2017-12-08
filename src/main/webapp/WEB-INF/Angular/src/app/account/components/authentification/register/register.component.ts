@@ -4,7 +4,8 @@ import {LogInUser} from "../../../../models/user.model";
 
 @Component({
   selector: 'register-page',
-  templateUrl: './register.component.html'
+  templateUrl: './register.component.html',
+  styleUrls: ['./register.component.css']
 })
 
 export class RegisterComponent  {

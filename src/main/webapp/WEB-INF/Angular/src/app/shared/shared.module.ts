@@ -5,22 +5,19 @@ import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 //Компоненты
 //Роутинг
-import {ExportRoutes} from "./export.routes";
-import {SingleNewsComponent} from "./component/news/single-news.component";
+import {SharedRoutes} from "./shared.routes";
 
 @NgModule({
   declarations: [
-    SingleNewsComponent
   ],
   imports: [
-    ExportRoutes,
+    SharedRoutes,
     HttpModule,
     FormsModule
   ],
   providers: [],
   bootstrap: [],
   exports: [
-    SingleNewsComponent
   ],
 })
-export class ExportModule { }
+export class SharedModule { }

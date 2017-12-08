@@ -6,7 +6,8 @@ import {NewsDispatcherComponent} from "./news-dispatcher/news-dispatcher.compone
 
 @Component({
   selector: 'account-page',
-  templateUrl: './account.component.html'
+  templateUrl: './account.component.html',
+  styleUrls: ['./account.component.css']
 })
 @Injectable()
 export class AccountComponent implements OnInit {
@@ -24,7 +25,7 @@ export class AccountComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.documentComponent.toogle();
+    this.newsDispatcherComponent.toogle();
   }
 
   private menuToole(menuName)

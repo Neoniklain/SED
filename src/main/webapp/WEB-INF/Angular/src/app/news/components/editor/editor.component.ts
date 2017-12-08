@@ -4,12 +4,17 @@ import {NewsService} from "../../../core/services/news.service";
 
 @Component({
   selector: 'editor-page',
-  templateUrl: './editor.component.html'
+  templateUrl: './editor.component.html',
+  styleUrls: [ './editor.component.css' ]
 })
 
 export class EditorComponent  {
   public newNews:NewNews;
   private typeOfImg:String="";
+
+  private temp:Date = new Date();
+  public curDate:any = this.temp.toDateString();
+
   constructor(
     private newsService:NewsService)
   {

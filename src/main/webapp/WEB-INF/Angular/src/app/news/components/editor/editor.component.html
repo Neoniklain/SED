@@ -25,7 +25,7 @@
               <div class="col-xs-6 col-md-3">
                 <div class="input-group">
                   <span class="input-group-addon">Дата: </span>
-                  <input class="form-control" type="text" readonly="true" value="Дата"/>
+                  <input class="form-control" type="text" readonly="true" value="{{curDate | date:'dd.MM.yyyy'}}"/>
                 </div>
               </div>
               <div class="col-xs-6 col-md-3">
@@ -66,5 +66,12 @@
         </div>
       </div>
     </div>
+    <div *ngIf="newNews.header && newNews.image" class="col-md-9">
+      <div class="panel panel-default edit-news-picture">
+        <div class="panel-heading"><h3><i class="fa fa-picture-o" aria-hidden="true"></i> Предпросмотр</h3></div>
+        <single-news [item]="newNews"></single-news>
+      </div>
+    </div>
   </div>
 </div>
+

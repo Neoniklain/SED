@@ -3,7 +3,8 @@ import {News} from "../../../models/news.model";
 
 @Component({
   selector: 'single-news',
-  templateUrl: './single-news.component.html'
+  templateUrl: './single-news.component.html',
+  styleUrls: ['./single-news.component.css']
 })
 
 export class SingleNewsComponent implements OnInit{

@@ -8,25 +8,28 @@ import {AccountComponent} from "./components/account/account.component";
 import {LogInComponent} from "./components/authentification/login/login.component";
 import {RegisterComponent} from "./components/authentification/register/register.component";
 import { DocumentComponent } from "./components/account/documents/document.component";
-import {SingleNewsComponent} from "../export/component/news/single-news.component";
 
 //Роутинг
 import {AccountRoutes} from "./account.routes";
+import {NewsDispatcherComponent} from "./components/account/news-dispatcher/news-dispatcher.component";
+import {NewsModule} from "../news/news.module";
+
 @NgModule({
   declarations: [
     AccountComponent,
     LogInComponent,
     RegisterComponent,
-    DocumentComponent
+    DocumentComponent,
+    NewsDispatcherComponent
   ],
   imports: [   //Сюда импорты (типа файлы, которые нужно добавить в код)
     AccountRoutes,
     CommonModule,
     FormsModule,
-    HttpModule
+    HttpModule,
+    NewsModule
   ],
   exports: [
-    SingleNewsComponent
     //    OrderListComponent, OrderDetailsComponent, OrderNewComponent
   ],
   providers: [] //Сюда сервисы

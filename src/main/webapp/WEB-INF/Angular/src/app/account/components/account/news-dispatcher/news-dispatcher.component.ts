@@ -4,7 +4,8 @@ import {News} from "../../../../models/news.model";
 
 @Component({
   selector: 'news-dispatcher-page',
-  templateUrl: './news-dispatcher.component.html'
+  templateUrl: './news-dispatcher.component.html',
+  styleUrls: ['./news-dispatcher.component.css']
 })
 
 export class NewsDispatcherComponent{
