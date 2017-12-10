@@ -1,9 +1,3 @@
-export class NewNews {
-  public header:string;
-  public content:string;
-  public tags:string;
-  public image:string;
-}
 
 export class News {
   public id:number;
@@ -12,5 +6,14 @@ export class News {
   public content:string;
   public tags:string;
   public image:string;
-  public date:string;
+  public date:Date;
+  constructor()
+  {
+    this.header="";
+    this.author="";
+    this.content="";
+    this.tags="";
+    this.image="";
+    this.date= new Date();
+  }
 }

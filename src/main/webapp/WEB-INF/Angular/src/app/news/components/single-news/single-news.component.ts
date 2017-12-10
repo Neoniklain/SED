@@ -9,11 +9,14 @@ import {News} from "../../../models/news.model";
 
 export class SingleNewsComponent implements OnInit{
 
+  public tags:string[];
+
   private show:boolean = false;
   @Input() item: News;
 
   ngOnInit(): void {
-
+    if(this.item.tags!="")
+      this.tags = this.item.tags.split(' ');
   }
 
   public Show() {

@@ -7,4 +7,5 @@ import java.util.List;
 
 public interface NewsRepository extends CrudRepository<News, Long> {
     News findTop1ByOrderByDateDesc();
+    News findById(long id);
 }

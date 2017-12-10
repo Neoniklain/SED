@@ -17,9 +17,6 @@ public class News {
     private String content;
     private String tags;
     private String image;
-
-    @DateTimeFormat(pattern = "dd.MM.yyyy")
-    @JsonFormat(pattern = "dd.MM.yyyy")
     private Date date;
 
     public long getId() {

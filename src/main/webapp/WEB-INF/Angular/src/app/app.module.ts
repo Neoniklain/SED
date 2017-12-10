@@ -6,6 +6,8 @@ import { FormsModule } from "@angular/forms";
 import { CoreModule } from "./core/core.module";
 import { AppComponent } from './app.component';
 import { AppRoutes } from "./app.routes";
+import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
+
 
 @NgModule({
   declarations: [
@@ -16,7 +18,8 @@ import { AppRoutes } from "./app.routes";
     AppRoutes,
     CoreModule.forRoot(),
     HttpModule,
-    FormsModule
+    FormsModule,
+    BrowserAnimationsModule
   ],
   providers: [],
   bootstrap: [AppComponent],

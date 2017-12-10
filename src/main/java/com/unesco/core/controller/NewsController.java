@@ -28,7 +28,7 @@ public class NewsController {
     @Autowired
     private NewsRepository _NewsRepository;
 
-    @GetMapping("/getallnews")
+    @GetMapping("/getall")
     public List<News> GetAllNews() {
         Iterable<News> news = _NewsRepository.findAll();
         List<News> array = StreamSupport.stream(news.spliterator(), false).collect(Collectors.toList());
@@ -36,16 +36,32 @@ public class NewsController {
         return array;
     }
 
-    @GetMapping("/getlastnews")
-    public News GetLastNews() {
+    @GetMapping("/getlast")
+    public News GetLast() {
         News news = _NewsRepository.findTop1ByOrderByDateDesc();
         return news;
     }
 
+    @RequestMapping(value = "/get/{id}")
+    public News Get(@PathVariable("id") long id) {
+        News news = _NewsRepository.findById(id);
+        return news;
+    }
+
+    @RequestMapping(value = "/delete/{id}")
+    public String Delete(@PathVariable("id") long id) {
+        _NewsRepository.delete(id);
+        return "OK";
+    }
+
     @RequestMapping(value = "/save")
     public String save(@RequestBody News news) {
-        Date day = new Date();
-        news.setDate(day);
+        if(_NewsRepository.findById(news.getId())!=null) {
+
+        }else{
+            Date day = new Date();
+            news.setDate(day);
+        }
         _NewsRepository.save(news);
         return "OK";
     }

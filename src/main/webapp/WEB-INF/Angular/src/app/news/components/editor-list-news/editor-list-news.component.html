@@ -1,0 +1,54 @@
+<div class="container">
+  <div class="header">
+    <h1><i class="fa fa-university" aria-hidden="true"></i> КемГУ Кафедра ЮНЕСКО</h1>
+    <p>Информационный кафедральный портал.</p>
+  </div>
+  <div class="row">
+    <div class="col-md-12">
+      <div class="head">
+        <div class="panel panel-default panel-inverse">
+          <div class="panel-heading"><h3><i class="fa fa-newspaper-o" aria-hidden="true"></i> Новости</h3></div>
+
+          <div class="panel-body news">
+             <table class="table table-news">
+              <thead class="thead-inverse">
+                <tr>
+                  <th>ID</th>
+                  <th>Заголовок</th>
+                  <th>Сообщение</th>
+                  <th>Автор</th>
+                  <th>Тэги</th>
+                  <th>Дата</th>
+                  <th></th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let item of _listOfNews">
+                  <td id="id">{{item.id}}</td>
+                  <td id="header">{{item.header}}</td>
+                  <td id="content">{{item.content}}</td>
+                  <td id="author">{{item.author}}</td>
+                  <td id="tags">{{item.tags}}</td>
+                  <td id="date">{{item.date | date:'dd.MM.yyyy'}}</td>
+                  <td id="edit"><button [routerLink]="['/news/editor',item.id]" class="btn btn-warning"><i class="fa fa-pencil" aria-hidden="true"></i></button></td>
+                  <td id="remove"><button (click)="Delete(item.id)" class="btn btn-danger"><i class="fa fa-times" aria-hidden="true"></i></button></td>
+                </tr>
+              </tbody>
+            </table>
+
+            <!-- <p-dataTable [value]="_listOfNews">
+              <p-column field="id" header="ID"></p-column>
+              <p-column field="header" header="Заголовок"></p-column>
+              <p-column field="content" header="Сообщение"></p-column>
+              <p-column field="date" header="Дата"></p-column>
+            </p-dataTable> -->
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<p-growl [(value)]="msgs"></p-growl>
+<p-confirmDialog acceptLabel="Да" rejectLabel="Нет" width="425"></p-confirmDialog>

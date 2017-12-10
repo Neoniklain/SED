@@ -15,7 +15,8 @@ export class NewsDispatcherComponent{
   public _lastNews:News;
   constructor(private newsService:NewsService)
   {
-    this.newsService.GetLastNews()
+    this._lastNews = new News();
+    this.newsService.GetLast()
       .subscribe((res: any) => {
           this._lastNews = res;
           console.log("Данные получены");

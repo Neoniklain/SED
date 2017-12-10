@@ -36,3 +36,18 @@
   color: black;
   padding-left: 1.5em;
 }
+
+.tags{
+  padding-left: 2em;
+}
+
+.tags a:hover{
+  text-decoration: underline;
+  border-bottom: none !important;
+}
+
+.single-tag{
+  color: #008080;
+  cursor: pointer;
+  padding-left: 0.5em;
+}

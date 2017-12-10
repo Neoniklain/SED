@@ -17,7 +17,7 @@ public _listOfNews:News[];
 
   public GetNews()
   {
-    this.newsService.GetAllNews()
+    this.newsService.GetAll()
       .subscribe((res: any) => {
           this._listOfNews = res;
           console.log("Данные получены");
