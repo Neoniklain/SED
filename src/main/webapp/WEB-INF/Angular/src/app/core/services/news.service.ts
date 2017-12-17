@@ -36,9 +36,13 @@ export class NewsService
   }
 
   private getHeaders(): Headers {
-    return new Headers({
+    let token = localStorage.getItem('token');
+    let headers = new Headers({
       'Content-Type': 'application/json',
       'Accept': 'application/json'
     });
+    if(token)
+      headers.append('Authorization', token);
+    return headers;
   }
 }

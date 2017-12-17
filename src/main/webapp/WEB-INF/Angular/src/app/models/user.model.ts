@@ -12,3 +12,11 @@ export class LogInUser
   password:string;
   email:string;
 }
+
+export class Token
+{
+  username:string;
+  password:string;
+  email:string;
+}
+

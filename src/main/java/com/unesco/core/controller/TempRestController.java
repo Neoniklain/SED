@@ -17,6 +17,13 @@ public class TempRestController {
         return temp;
     }
 
+    @RequestMapping(value = "/test")
+    public String test() {
+        return "{\"users\":[{\"firstname\":\"Richard\", \"lastname\":\"Feynman\"}," +
+                "{\"firstname\":\"Marie\",\"lastname\":\"Curie\"}]}";
+    }
+
+
     //Тестовый метод для получения данных из View
     @RequestMapping(value = "/set")
     public User set(@RequestBody User user) {

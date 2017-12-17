@@ -4,6 +4,8 @@ import com.unesco.core.entities.News;
 import com.unesco.core.repositories.NewsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
@@ -38,6 +40,8 @@ public class NewsController {
 
     @GetMapping("/getlast")
     public News GetLast() {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        Object role = auth.getPrincipal();
         News news = _NewsRepository.findTop1ByOrderByDateDesc();
         return news;
     }

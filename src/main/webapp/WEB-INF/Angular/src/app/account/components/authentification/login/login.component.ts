@@ -26,9 +26,11 @@ export class LogInComponent  {
   {
     this.accountService.LogIn(this.user)
       .subscribe((res:any)=> {
-        this.auth_user = res;
-        if(this.auth_user.username!="") {
-          console.log("Авторизация успешна");
+      console.info("token",res.headers.get("Authorization"));
+        let token = res.headers.get("Authorization");
+        if(token!="") {
+          console.log("Авторизация успешна, получен токен: "+token);
+          localStorage.setItem("token",token);
           //this.router.navigate(['/account/account']);
         }
         else {

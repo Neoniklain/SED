@@ -14,8 +14,9 @@ export class AccountService
   //Тестовые методы для получения и отправки данных. Позже скомуниздю с работы удобный API для этого!
   public LogIn(data?: any, mapJson = true) {
     let uri = this.path + "login";
+    console.log("data reg",data);
     if (mapJson) return this.http.post(uri, data, { headers: this.getHeaders() })
-      .map(response => <any>(<Response>response).json());
+      .map(response => <any>(<Response>response));
     else return this.http.post(uri, data, { headers: this.getHeaders() });
   }
 
