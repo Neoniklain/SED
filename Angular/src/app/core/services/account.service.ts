@@ -12,19 +12,22 @@ export class AccountService
   }
 
   //Тестовые методы для получения и отправки данных. Позже скомуниздю с работы удобный API для этого!
-  public LogIn(data?: any, mapJson = true) {
+  public LogIn(data?: any) {
     let uri = this.path + "login";
-    console.log("data reg",data);
-    if (mapJson) return this.http.post(uri, data, { headers: this.getHeaders() })
+    return this.http.post(uri, data, { headers: this.getHeaders() })
       .map(response => <any>(<Response>response));
-    else return this.http.post(uri, data, { headers: this.getHeaders() });
   }
 
-  public Register(data?: any, mapJson = true) {
+  public Register(data?: any) {
     let uri = this.path + "register";
-    if (mapJson) return this.http.post(uri, data, { headers: this.getHeaders() })
+    return this.http.post(uri, data, { headers: this.getHeaders() })
       .map(response => <any>(<Response>response).json());
-    else return this.http.post(uri, data, { headers: this.getHeaders() });
+  }
+
+  public GetRole() {
+    let uri = this.path + "register";
+    return this.http.get(uri, { headers: this.getHeaders() })
+      .map(response => <any>(<Response>response).json());
   }
 
   private getHeaders(): Headers {

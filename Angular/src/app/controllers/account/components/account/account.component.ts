@@ -1,6 +1,6 @@
 import {Component, ContentChild, ElementRef, Injectable, NgModule, OnInit, ViewChild} from '@angular/core';
-import {AccountService} from "../../../core/services/account.service";
-import {User} from "../../../models/user.model";
+import {AccountService} from "../../../../core/services/account.service";
+import {User} from "../../../../models/user.model";
 import {DocumentComponent} from "./documents/document.component";
 import {NewsDispatcherComponent} from "./news-dispatcher/news-dispatcher.component";
 

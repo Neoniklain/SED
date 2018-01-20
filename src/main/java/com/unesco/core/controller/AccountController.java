@@ -2,8 +2,11 @@ package com.unesco.core.controller;
 
 import com.unesco.core.entities.News;
 import com.unesco.core.repositories.NewsRepository;
+import com.unesco.core.srvices.CustomUserDetails;
+import com.unesco.core.srvices.CustomUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
@@ -22,8 +25,15 @@ import java.util.stream.StreamSupport;
  * With IntelliJ IDEA 15
  */
 @RestController
-@RequestMapping("account/news")
+@RequestMapping("api/account")
 public class AccountController {
 
+    @Autowired
+    private CustomUserDetailsService _CustomUserDetailsService;
 
+    @GetMapping("/role")
+    public String GetLast() {
+        CustomUserDetails user = _CustomUserDetailsService.getUserDetails();
+        return user.getRole();
+    }
 }

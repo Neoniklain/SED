@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import {News} from "../../../models/news.model";
-import {NewsService} from "../../../core/services/news.service";
+import {News} from "../../../../models/news.model";
+import {NewsService} from "../../../../core/services/news.service";
 
 @Component({
   selector: 'list-news-page',

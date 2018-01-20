@@ -1,2 +1,2 @@
-cd src\main\webapp\WEB-INF\Angular
+cd Angular
 npm start

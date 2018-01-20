@@ -1,6 +1,6 @@
 import {Component, Input} from '@angular/core';
-import {NewsService} from "../../../../core/services/news.service";
-import {News} from "../../../../models/news.model";
+import {NewsService} from "../../../../../core/services/news.service";
+import {News} from "../../../../../models/news.model";
 
 @Component({
   selector: 'news-dispatcher-page',

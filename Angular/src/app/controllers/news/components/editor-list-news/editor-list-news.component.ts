@@ -1,8 +1,8 @@
 import {ConfirmationService, Message} from "primeng/primeng";
 import {MessageService} from "primeng/components/common/messageservice";
 import { Component } from '@angular/core';
-import {News} from "../../../models/news.model";
-import {NewsService} from "../../../core/services/news.service";
+import {News} from "../../../../models/news.model";
+import {NewsService} from "../../../../core/services/news.service";
 
 @Component({
   selector: 'editor-list-news-page',

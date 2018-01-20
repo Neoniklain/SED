@@ -2,17 +2,16 @@ package com.unesco.core.controller;
 
 import com.unesco.core.entities.News;
 import com.unesco.core.repositories.NewsRepository;
+import com.unesco.core.srvices.CustomUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.MediaType;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.ui.ModelMap;
-import org.springframework.validation.BindingResult;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.ModelAndView;
-import javax.validation.Valid;
+
+import java.lang.reflect.Array;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
@@ -29,8 +28,10 @@ public class NewsController {
 
     @Autowired
     private NewsRepository _NewsRepository;
+    @Autowired
+    private CustomUserDetailsService _CustomUserDetailsService;
 
-    @GetMapping("/getall")
+    @GetMapping("/all")
     public List<News> GetAllNews() {
         Iterable<News> news = _NewsRepository.findAll();
         List<News> array = StreamSupport.stream(news.spliterator(), false).collect(Collectors.toList());
@@ -38,10 +39,9 @@ public class NewsController {
         return array;
     }
 
-    @GetMapping("/getlast")
+    @GetMapping("/last")
     public News GetLast() {
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        Object role = auth.getPrincipal();
+        UserDetails user = _CustomUserDetailsService.getUserDetails();
         News news = _NewsRepository.findTop1ByOrderByDateDesc();
         return news;
     }
