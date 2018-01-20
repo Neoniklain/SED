@@ -20,12 +20,18 @@ export class AccountComponent implements OnInit {
   constructor(private accountService:AccountService)
   {
     this.user=new User();
-    this.user.username="Валя/Виталя";
-    this.user.email="SED@kemsu.ru";
   }
 
   ngOnInit(): void {
     this.newsDispatcherComponent.toogle();
+    this.accountService.GetUser().subscribe(
+      (res: any) => {
+        this.user = res;
+        console.log("Данные получены",this.user);
+      },
+      (error: any) => {
+        console.error('Error: ' + error);
+      });
   }
 
   private menuToole(menuName)

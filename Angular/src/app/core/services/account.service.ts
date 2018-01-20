@@ -1,6 +1,7 @@
 import { Http, Response, Headers } from '@angular/http';
 import {Injectable} from "@angular/core";
 import "rxjs/add/operator/map";
+import {User} from "../../models/user.model";
 
 @Injectable()
 export class AccountService
@@ -24,16 +25,26 @@ export class AccountService
       .map(response => <any>(<Response>response).json());
   }
 
-  public GetRole() {
-    let uri = this.path + "register";
+  public GetRole(data?: any) {
+    let uri = this.path + "role";
+    return this.http.get(uri, { headers: this.getHeaders() })
+      .map(response => <any>(<Response>response).json());
+  }
+
+  public GetUser(data?: any) {
+    let uri = this.path + "user";
     return this.http.get(uri, { headers: this.getHeaders() })
       .map(response => <any>(<Response>response).json());
   }
 
   private getHeaders(): Headers {
-    return new Headers({
+    let token = localStorage.getItem('token');
+    let headers = new Headers({
       'Content-Type': 'application/json',
       'Accept': 'application/json'
     });
+    if(token)
+      headers.append('Authorization', token);
+    return headers;
   }
 }

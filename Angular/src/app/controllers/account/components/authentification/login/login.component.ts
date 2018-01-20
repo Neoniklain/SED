@@ -29,9 +29,8 @@ export class LogInComponent  {
       console.info("token",res.headers.get("Authorization"));
         let token = res.headers.get("Authorization");
         if(token!="") {
-          console.log("Авторизация успешна, получен токен: "+token);
           localStorage.setItem("token",token);
-          //this.router.navigate(['/account/account']);
+          this.router.navigate(['/news']);
         }
         else {
           console.log("Авторизация не успешна");

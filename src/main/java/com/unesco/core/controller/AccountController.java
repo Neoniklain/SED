@@ -36,4 +36,9 @@ public class AccountController {
         CustomUserDetails user = _CustomUserDetailsService.getUserDetails();
         return user.getRole();
     }
+
+    @GetMapping("/user")
+    public CustomUserDetails GetUser() {
+        return _CustomUserDetailsService.getUserDetails();
+    }
 }
