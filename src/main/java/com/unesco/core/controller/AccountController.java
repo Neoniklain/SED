@@ -1,7 +1,9 @@
 package com.unesco.core.controller;
 
 import com.unesco.core.entities.News;
+import com.unesco.core.entities.User;
 import com.unesco.core.repositories.NewsRepository;
+import com.unesco.core.repositories.UserRepository;
 import com.unesco.core.srvices.CustomUserDetails;
 import com.unesco.core.srvices.CustomUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +16,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import javax.validation.Valid;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
@@ -30,6 +33,8 @@ public class AccountController {
 
     @Autowired
     private CustomUserDetailsService _CustomUserDetailsService;
+    @Autowired
+    private UserRepository _UserRepository;
 
     @GetMapping("/role")
     public String GetLast() {
@@ -40,5 +45,18 @@ public class AccountController {
     @GetMapping("/user")
     public CustomUserDetails GetUser() {
         return _CustomUserDetailsService.getUserDetails();
+    }
+
+    @RequestMapping(value = "/FindUsersByName/{req}")
+    public List<User> FindUsersByName(@PathVariable("req") String req) {
+        Iterable<User> allUsers = _UserRepository.findAll();
+        List<User> res = new ArrayList<User>();
+        for (User item:allUsers) {
+            if(item.getUsername().toLowerCase().contains(req.toLowerCase()))
+            {
+                res.add(item);
+            }
+        }
+        return res;
     }
 }

@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
+import { AutoCompleteModule } from 'primeng/components/autocomplete/autocomplete';
 //Компоненты
 import {AccountComponent} from "./components/account/account.component";
 import {LogInComponent} from "./components/authentification/login/login.component";
@@ -34,7 +35,8 @@ import {IssueService} from "../../core/services/issues.service";
     NewsModule,
     GrowlModule,
     DialogModule,
-    ButtonModule
+    ButtonModule,
+    AutoCompleteModule
   ],
   exports: [
     //    OrderListComponent, OrderDetailsComponent, OrderNewComponent

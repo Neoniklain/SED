@@ -1,9 +1,12 @@
 import {Component, Input} from '@angular/core';
 import {DialogModule} from "primeng/primeng";
 import {ButtonModule} from "primeng/primeng";
+//import { AutoCompleteModule } from 'primeng/components/autocomplete/autocomplete';
 import {IssueService} from "../../../../../core/services/issues.service";
+import {AccountService} from "../../../../../core/services/account.service";
 import {Router} from "@angular/router";
 import {Issue} from "../../../../../models/issue.model";
+import {User} from "../../../../../models/user.model";
 
 
 @Component({
@@ -18,10 +21,13 @@ export class DocumentComponent{
   public displayDialog: boolean = false;
   public issueName: string;
   public issueList: Array<Issue>;
+  public executors: User[] = [];
+  public results: User[] = [];
 
   constructor(
     private issueService:IssueService,
-    private router:Router
+    private router:Router,
+    private accountService:AccountService
   )
   {
   }
@@ -31,7 +37,10 @@ export class DocumentComponent{
   }
   CreateIssue() {
     this.displayDialog=false;
-    this.issueService.Create(this.issueName).subscribe((res:any)=> {
+    let newIssue: Issue = new Issue();
+    newIssue.collaborators = this.executors;
+    newIssue.name=this.issueName;
+    this.issueService.Create(newIssue).subscribe((res:any)=> {
           console.info("res",res);
         this.UpdateIssueList();
         },
@@ -72,4 +81,16 @@ export class DocumentComponent{
       this.show=false;
   }
 
+  public searchUser(event:any)
+  {
+    let query = event.query.substring(0, 60);
+    this.accountService.FindUserByName(query)
+      .subscribe((res:any)=> {
+          console.log("FindUserByName result:", res);
+          this.results = res;
+        },
+        (error:any)=> {
+          console.log("Ошибка"+error);
+        });
+  }
 }

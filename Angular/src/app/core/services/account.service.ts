@@ -37,6 +37,10 @@ export class AccountService
       .map(response => <any>(<Response>response).json());
   }
 
+  public FindUserByName(data?: any) {
+    return this.http.get(this.path + "FindUsersByName/"+ data, { headers: this.getHeaders() }).map(res => <Response>res.json());
+  }
+
   private getHeaders(): Headers {
     let token = localStorage.getItem('token');
     let headers = new Headers({

@@ -44,11 +44,12 @@ public class IssueController {
     }
 
     @RequestMapping(value = "/create")
-    public String Create(@RequestBody String issueName) {
+    public String Create(@RequestBody Issue newIssue) {
         Issue issue = new Issue();
-        issue.setName(issueName);
+        issue.setName(newIssue.getName());
         User creator = _UserRepository.findByUsername(_CustomUserDetailsService.getUserDetails().getUsername());
         issue.setCreator(creator);
+        issue.setCollaborators(newIssue.getCollaborators());
         _IssuesRepository.save(issue);
         return "OK";
     }

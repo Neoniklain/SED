@@ -44,6 +44,7 @@
 <p-dialog header="Создание задачи" [(visible)]="displayDialog" modal="modal" width="300" [responsive]="true">
   <p>Введите название задачи:</p>
   <input type="text" class="form-control" id="header" name="header" placeholder="Название задчи" [(ngModel)]="issueName" />
+  <p-autoComplete [(ngModel)]="executors" [suggestions]="results" (completeMethod)="searchUser($event)" [multiple]="true" field="username"></p-autoComplete>
   <p-footer>
     <button type="button" pButton icon="fa-check" (click)="CreateIssue()" label="Ок"></button>
   </p-footer>

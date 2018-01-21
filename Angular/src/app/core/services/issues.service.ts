@@ -17,7 +17,7 @@ export class IssueService
   }
 
   public Delete(id) {
-    return this.http.post(this.path + "delete/"+ id, { headers: this.getHeaders() }).map(res => <Response>res);
+    return this.http.get(this.path + "delete/"+ id, { headers: this.getHeaders() }).map(res => <Response>res.json());
   }
 
   public GetList() {
