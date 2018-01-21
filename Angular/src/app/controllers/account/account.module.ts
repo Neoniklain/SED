@@ -13,6 +13,10 @@ import { DocumentComponent } from "./components/account/documents/document.compo
 import {AccountRoutes} from "./account.routes";
 import {NewsDispatcherComponent} from "./components/account/news-dispatcher/news-dispatcher.component";
 import {NewsModule} from "../news/news.module";
+import {GrowlModule} from "primeng/primeng";
+import {DialogModule} from "primeng/components/dialog/dialog";
+import {ButtonModule} from "primeng/components/button/button";
+import {IssueService} from "../../core/services/issues.service";
 
 @NgModule({
   declarations: [
@@ -27,11 +31,14 @@ import {NewsModule} from "../news/news.module";
     CommonModule,
     FormsModule,
     HttpModule,
-    NewsModule
+    NewsModule,
+    GrowlModule,
+    DialogModule,
+    ButtonModule
   ],
   exports: [
     //    OrderListComponent, OrderDetailsComponent, OrderNewComponent
   ],
-  providers: [] //Сюда сервисы
+  providers: [ IssueService] //Сюда сервисы
 })
 export class AccountModule { }

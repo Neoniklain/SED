@@ -4,9 +4,10 @@ import {RegisterComponent} from "./components/authentification/register/register
 import {LogInComponent} from "./components/authentification/login/login.component";
 
 const routes: Routes = [
-  { path: '', component: LogInComponent }, //Путь по умолчанию
+  { path: '', component: AccountComponent }, //Путь по умолчанию
+  { path: 'account', component: AccountComponent }, //Путь по умолчанию
   { path: 'login', component: LogInComponent},
   { path: 'register', component: RegisterComponent},
-  { path: 'account', component: AccountComponent},
+  { path: 'lk', component: AccountComponent},
 ];
 export const AccountRoutes = RouterModule.forChild(routes);

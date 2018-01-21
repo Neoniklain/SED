@@ -14,6 +14,8 @@ import {EditorSingleNewsComponent} from "./components/editor-single-news/editor-
 import {GrowlModule} from 'primeng/primeng';
 import {MessageService} from "primeng/components/common/messageservice";
 import {ConfirmDialogModule,ConfirmationService} from 'primeng/primeng';
+import {ButtonModule} from "primeng/components/button/button";
+
 //Экспорты
 
 @NgModule({
@@ -29,10 +31,12 @@ import {ConfirmDialogModule,ConfirmationService} from 'primeng/primeng';
     FormsModule,
     HttpModule,
     GrowlModule,
-    ConfirmDialogModule
+    ConfirmDialogModule,
+    ButtonModule
   ],
   exports: [
-    SingleNewsComponent
+    SingleNewsComponent,
+    ListNewsComponent
     //    OrderListComponent, OrderDetailsComponent, OrderNewComponent
   ],
   providers: [MessageService,ConfirmationService] //Сюда сервисы

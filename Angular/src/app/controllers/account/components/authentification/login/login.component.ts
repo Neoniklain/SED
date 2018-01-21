@@ -30,7 +30,7 @@ export class LogInComponent  {
         let token = res.headers.get("Authorization");
         if(token!="") {
           localStorage.setItem("token",token);
-          this.router.navigate(['/news']);
+          this.router.navigate(['/account']);
         }
         else {
           console.log("Авторизация не успешна");

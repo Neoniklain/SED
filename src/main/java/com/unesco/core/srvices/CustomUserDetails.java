@@ -21,7 +21,7 @@ public class CustomUserDetails implements UserDetails {
     public CustomUserDetails(User user){
         this.username = user.getUsername();
         this.email = user.getEmail();
-        this.role = user.getRole().getRole();
+        this.role = user.getRole().getRoleName();
     }
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

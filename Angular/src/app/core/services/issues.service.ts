@@ -4,17 +4,12 @@ import "rxjs/add/operator/map";
 import {Observable} from "rxjs/Observable";
 
 @Injectable()
-export class NewsService
+export class IssueService
 {
   private path:string;
   constructor(private http:Http)
   {
-    this.path="/api/news/"
-  }
-
-  //Тестовые методы для получения и отправки данных. Позже скомуниздю с работы удобный API для этого!
-  public GetAll() {
-    return this.http.get(this.path + "all", { headers: this.getHeaders() }).map(res => <any>res.json());
+    this.path="/api/issue/"
   }
 
   public Get(id) {
@@ -25,17 +20,16 @@ export class NewsService
     return this.http.post(this.path + "delete/"+ id, { headers: this.getHeaders() }).map(res => <Response>res);
   }
 
-  public GetLast() {
-    let result = this.http.get(this.path + "last", { headers: this.getHeaders() })
-      .map(res => <any>res.json());
-    return result;
+  public GetList() {
+    let uri = this.path + "list";
+    return this.http.get(uri, { headers: this.getHeaders() })
+      .map(response => <any>(<Response>response.json()));
   }
 
-  public Save(data?: any, mapJson = true) {
-    let uri = this.path + "save";
-    if (mapJson) return this.http.post(uri, data, { headers: this.getHeaders() })
+  public Create(data?: any) {
+    let uri = this.path + "create";
+    return this.http.post(uri, data, { headers: this.getHeaders() })
       .map(response => <any>(<Response>response));
-    else return this.http.post(uri, data, { headers: this.getHeaders() });
   }
 
   private getHeaders(): Headers {

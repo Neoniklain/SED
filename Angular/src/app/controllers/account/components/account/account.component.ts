@@ -3,6 +3,7 @@ import {AccountService} from "../../../../core/services/account.service";
 import {User} from "../../../../models/user.model";
 import {DocumentComponent} from "./documents/document.component";
 import {NewsDispatcherComponent} from "./news-dispatcher/news-dispatcher.component";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'account-page',
@@ -17,21 +18,22 @@ export class AccountComponent implements OnInit {
   @ViewChild(DocumentComponent) documentComponent: DocumentComponent;
   @ViewChild(NewsDispatcherComponent) newsDispatcherComponent: NewsDispatcherComponent;
 
-  constructor(private accountService:AccountService)
+  constructor(private accountService:AccountService,
+              private router:Router)
   {
     this.user=new User();
+    this.accountService.GetUser().subscribe(
+      (res: any) => {
+        this.user = res;
+      },
+      (error: any) => {
+        if (error.statusText==="Forbidden")
+          this.router.navigate(['/404']);
+      });
   }
 
   ngOnInit(): void {
     this.newsDispatcherComponent.toogle();
-    this.accountService.GetUser().subscribe(
-      (res: any) => {
-        this.user = res;
-        console.log("Данные получены",this.user);
-      },
-      (error: any) => {
-        console.error('Error: ' + error);
-      });
   }
 
   private menuToole(menuName)

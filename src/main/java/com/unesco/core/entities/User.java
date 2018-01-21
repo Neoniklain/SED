@@ -14,6 +14,7 @@ public class User {
     private String username;
     private String password;
     private String email;
+
     @OneToOne
     @JsonIgnore
     @JoinColumn(name = "role_id")

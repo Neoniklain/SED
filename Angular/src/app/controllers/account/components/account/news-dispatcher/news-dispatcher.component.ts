@@ -22,7 +22,7 @@ export class NewsDispatcherComponent{
           console.log("Данные получены");
         },
         (error: any) => {
-          console.error('Error: ' + error);
+          console.error('Error222: '+ error);
         });
   }
 
