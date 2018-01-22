@@ -32,7 +32,7 @@
           <td class="text-center"  id="name">{{item.name}}</td>
           <td class="text-center" id="creator">{{item.creator.username}}</td>
           <td class="text-center" id="status">В процессе.</td>
-          <td class="text-center" id="edit"><button [routerLink]="['/news/editor',item.id]" class="btn btn-warning"><i class="fa fa-pencil" aria-hidden="true"></i></button></td>
+          <td class="text-center" id="edit"><button (click)="ChangeIssue(item.id)" class="btn btn-warning"><i class="fa fa-pencil" aria-hidden="true"></i></button></td>
           <td class="text-center" id="remove"><button (click)="DeleteIssue(item.id)" class="btn btn-danger"><i class="fa fa-times" aria-hidden="true"></i></button></td>
         </tr>
         </tbody>
@@ -40,6 +40,15 @@
     </div>
   </div>
 </div>
+
+<p-dialog header="Редактирование задачи" [(visible)]="displayChangeDialog" modal="modal" width="300" [responsive]="true">
+  <p>Название задачи:</p>
+  <input type="text" class="form-control" id="header" name="header" placeholder="Название задчи" [(ngModel)]="issueName" />
+  <p-autoComplete [(ngModel)]="executors" [suggestions]="results" (completeMethod)="searchUser($event)" [multiple]="true" field="username"></p-autoComplete>
+  <p-footer>
+    <button type="button" pButton icon="fa-check" (click)="UpdateIssue()" label="Изменить"></button>
+  </p-footer>
+</p-dialog>
 
 <p-dialog header="Создание задачи" [(visible)]="displayDialog" modal="modal" width="300" [responsive]="true">
   <p>Введите название задачи:</p>

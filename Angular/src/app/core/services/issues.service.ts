@@ -2,6 +2,7 @@ import { Http, Response, Headers } from '@angular/http';
 import {Injectable} from "@angular/core";
 import "rxjs/add/operator/map";
 import {Observable} from "rxjs/Observable";
+import {Issue} from "../../models/issue.model";
 
 @Injectable()
 export class IssueService
@@ -13,7 +14,7 @@ export class IssueService
   }
 
   public Get(id) {
-    return this.http.post(this.path + "get/"+ id, { headers: this.getHeaders() }).map(res => <Response>res.json());
+    return this.http.get(this.path + "get/"+ id, { headers: this.getHeaders() }).map(res => <Response>res.json());
   }
 
   public Delete(id) {
@@ -24,6 +25,13 @@ export class IssueService
     let uri = this.path + "list";
     return this.http.get(uri, { headers: this.getHeaders() })
       .map(response => <any>(<Response>response.json()));
+  }
+
+  public Update(data:Issue)
+  {
+    let uri = this.path +"update";
+    return this.http.post(uri, data, { headers: this.getHeaders() })
+      .map(response => <any>(<Response>response));
   }
 
   public Create(data?: any) {

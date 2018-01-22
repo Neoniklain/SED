@@ -19,6 +19,8 @@ export class DocumentComponent{
 
   private show:boolean = false;
   public displayDialog: boolean = false;
+  public displayChangeDialog:boolean = false;
+  public tempIssue:Issue = new Issue();
   public issueName: string;
   public issueList: Array<Issue>;
   public executors: User[] = [];
@@ -88,6 +90,38 @@ export class DocumentComponent{
       .subscribe((res:any)=> {
           console.log("FindUserByName result:", res);
           this.results = res;
+        },
+        (error:any)=> {
+          console.log("Ошибка"+error);
+        });
+  }
+
+  public ChangeIssue(IssueID:number)
+  {
+    this.displayChangeDialog = true;
+    this.issueService.Get(IssueID)
+      .subscribe((res:any)=>
+        {
+          console.log("Get Issue result:", res);
+          this.tempIssue = res;
+          this.issueName = this.tempIssue.name;
+          this.executors = this.tempIssue.collaborators;
+        },
+        (error:any)=> {
+          console.log("Ошибка"+error);
+        });
+  }
+
+  public UpdateIssue()
+  {
+    this.tempIssue.name = this.issueName;
+    this.tempIssue.collaborators = this.executors;
+    this.issueService.Update(this.tempIssue)
+      .subscribe((res:any)=>
+        {
+          console.log("Update Issue result: ", res);
+          this.displayChangeDialog = false;
+          this.tempIssue = new Issue();
         },
         (error:any)=> {
           console.log("Ошибка"+error);

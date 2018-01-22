@@ -54,6 +54,17 @@ public class IssueController {
         return "OK";
     }
 
+    @RequestMapping(value = "/update")
+    public String Update(@RequestBody Issue newIssue) {
+        Issue issue = _IssuesRepository.findById(newIssue.getId());
+        issue.setName(newIssue.getName());
+        User creator = _UserRepository.findByUsername(_CustomUserDetailsService.getUserDetails().getUsername());
+        issue.setCreator(creator);
+        issue.setCollaborators(newIssue.getCollaborators());
+        _IssuesRepository.save(issue);
+        return "OK";
+    }
+
     @RequestMapping(value = "/get/{id}")
     public Issue Get(@PathVariable("id") long id) {
         Issue issue = _IssuesRepository.findById(id);
