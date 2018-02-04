@@ -1,5 +1,3 @@
-export class Role
-{
-  id:string;
-  role:string;
+export class Role {
+  roleName: string;
 }

@@ -3,17 +3,18 @@ package com.unesco.core.controller;
 
 import com.unesco.core.ViewModel.JSONResponseStatus;
 import com.unesco.core.entities.Issue;
-import com.unesco.core.entities.News;
+import com.unesco.core.entities.Role;
 import com.unesco.core.entities.User;
 import com.unesco.core.repositories.IssueRepository;
 import com.unesco.core.repositories.UserRepository;
-import com.unesco.core.srvices.CustomUserDetails;
 import com.unesco.core.srvices.CustomUserDetailsService;
+import org.hibernate.mapping.Array;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @CrossOrigin
 @RestController
@@ -31,17 +32,17 @@ public class IssueController {
     public Iterable<Issue> GetList() {
         User user = _UserRepository.findByUsername(_CustomUserDetailsService.getUserDetails().getUsername());
         Iterable<Issue> result = null;
-        switch (user.getRole().getRoleName()) {
-            case "ADMIN":
-                result = _IssuesRepository.findAll();
-            break;
-            case "MANAGER":
-                result = _IssuesRepository.findByCreator(user.getId());
-            break;
-            case "USER":
+        List<String> role = new ArrayList<Role>(user.getRoles())
+                .stream()
+                .map(Role::getRoleName)
+                .collect(Collectors.toList());
 
-                break;
-        }
+        if(role.contains("ADMIN"))
+            result = _IssuesRepository.findAll();
+        if(role.contains("MANAGER"))
+            result =  _IssuesRepository.findByCreator(user.getId());
+        /*if(role.contains(new Role("USER")))
+            result = _IssuesRepository.findAll();*/
         return result;
     }
 

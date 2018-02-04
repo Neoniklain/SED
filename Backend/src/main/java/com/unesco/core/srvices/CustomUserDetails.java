@@ -14,18 +14,20 @@ import org.springframework.security.core.userdetails.UserDetails;
 public class CustomUserDetails implements UserDetails {
 
     private String username;
+    private String password;
     private String email;
-    private String role;
+    private List<Role> roles;
     private static final long serialVersionUID = 1L;
 
     public CustomUserDetails(User user){
         this.username = user.getUsername();
+        this.password = user.getPassword();
         this.email = user.getEmail();
-        this.role = user.getRole().getRoleName();
+        this.roles = new ArrayList<Role>(user.getRoles());
     }
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return AuthorityUtils.createAuthorityList("ROLE_"+role);
+        return AuthorityUtils.createAuthorityList("ROLE_"+roles);
     }
     @Override
     public boolean isAccountNonExpired() {
@@ -44,8 +46,8 @@ public class CustomUserDetails implements UserDetails {
         return true;
     }
 
-    public String getRole() {
-        return this.role;
+    public List<Role> getRole() {
+        return this.roles;
     }
 
     public String getEmail() {
@@ -57,6 +59,6 @@ public class CustomUserDetails implements UserDetails {
     }
 
     public String getPassword() {
-        return "vash";
+        return this.password;
     }
 }

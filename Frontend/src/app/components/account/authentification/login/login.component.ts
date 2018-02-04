@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import {LogInUser, User} from "../../../../models/user.model";
+import {MessageService} from "primeng/components/common/messageservice";
 import {AuthenticationService} from "../../../../services/authService";
 
 @Component({
@@ -15,7 +16,8 @@ export class LogInComponent  {
 
   constructor(
     private authenticationService: AuthenticationService,
-    private router: Router
+    private router: Router,
+    private messageService: MessageService
   ) {
     this.user = new LogInUser();
     this.auth_user = new User();
@@ -29,7 +31,12 @@ export class LogInComponent  {
               this.authenticationService.handleAuth();
           }
       },
-      err => { console.error(err); }
+      err => {
+          console.log(err);
+          if (err.status === 401) {
+              this.messageService.add({severity: 'error', summary: 'Неудача.', detail: 'Не верный логин пароль.'});
+          }
+      }
     );
   }
 }

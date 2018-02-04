@@ -1,12 +1,9 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {HttpClient, HttpErrorResponse, HttpParams} from '@angular/common/http';
-import { Observable } from 'rxjs/Observable';
-import { BehaviorSubject } from 'rxjs/BehaviorSubject';
-
-import { Router } from "@angular/router";
+import {Observable} from 'rxjs/Observable';
+import {Router} from "@angular/router";
 import {ApiRouteConstants, RouteConstants} from "../bootstrap/app.route.constants";
-import { ErrorResponse } from "../models/errorResponse";
-import * as jwt_decode from 'jwt-decode';
+import {ErrorResponse} from "../models/errorResponse";
 import {LogInUser, User} from "../models/user.model";
 
 export const TOKEN_NAME: string = 'token';
@@ -23,7 +20,7 @@ export class AuthenticationService {
             { username: user.username, password: user.password });
     }
 
-    register(user: User): Observable<any> {
+    register(user: LogInUser): Observable<any> {
         let params = new HttpParams();
         return this.http.post(ApiRouteConstants.Authentication.Registration, user, {params: params })
             .catch(this.handleError);
@@ -34,7 +31,7 @@ export class AuthenticationService {
             .catch(this.handleError);
     }
 
-    getUser(): Observable<any> {
+    getUser(): Observable<User> {
         return this.http.get(ApiRouteConstants.Authentication.User)
             .catch(this.handleError);
     }

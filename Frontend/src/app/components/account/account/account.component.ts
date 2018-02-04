@@ -19,14 +19,13 @@ export class AccountComponent implements OnInit {
   @ViewChild(NewsDispatcherComponent) newsDispatcherComponent: NewsDispatcherComponent;
 
   constructor(private authenticationService: AuthenticationService,
-              private router: Router)
-  {
+              private router: Router) {
     this.user = new User();
     this.authenticationService.getUser().subscribe(
-      (res: any) => {
-        this.user = res;
-      },
-      (error: any) => {
+        res => {
+          this.user = res;
+        },
+      error => {
         if (error.statusText === "Forbidden")
           this.router.navigate(['/404']);
       });
@@ -36,8 +35,7 @@ export class AccountComponent implements OnInit {
     this.newsDispatcherComponent.toogle();
   }
 
-  private menuToole(menuName)
-  {
+  private menuToole(menuName) {
     if (menuName == "document-page")
       this.documentComponent.Show();
     else
