@@ -1,0 +1,22 @@
+<div *ngIf="show" class="panel panel-default panel-inverse">
+  <div class="panel-heading">
+    <h3 > Управление новостями</h3>
+  </div>
+  <div class="panel-body">
+    <div class="header-panel-body">
+      <h3>Действия</h3>
+    </div>
+    <div class="news-action-buttons">
+      <div class="btn-group" role="group" aria-label="Basic example">
+        <button [routerLink]="['/'+RouteConstants.News.Create]" type="button" class="btn btn-success">Создать статью</button>
+        <button [routerLink]="['/'+RouteConstants.News.EditList]" type="button" class="btn btn-success">Показать список статей</button>
+      </div>
+    </div>
+  </div>
+  <div class="panel-body">
+    <div class="header-panel-body">
+      <h3>Последняя созданная статья</h3>
+    </div>
+    <single-news [item]="_lastNews"></single-news>
+  </div>
+</div>

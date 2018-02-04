@@ -1,0 +1,19 @@
+.table-news tbody {
+  font-family: "Roboto", "Trebuchet MS", Arial, Helvetica, sans-serif;
+  color: #3e3e3e;
+}
+
+#header{
+  padding-bottom: 0.1em;
+  text-transform: lowercase !important;
+  width: 20%;
+}
+
+#header:first-letter{
+  text-transform: uppercase !important;
+}
+
+#content{
+  overflow: hidden;
+  text-overflow: ellipsis;
+}

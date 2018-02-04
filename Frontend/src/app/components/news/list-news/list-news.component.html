@@ -1,0 +1,35 @@
+<div class="container">
+  <div class="header">
+    <h1><i class="fa fa-university" aria-hidden="true"></i> КемГУ Кафедра ЮНЕСКО</h1>
+    <p>Информационный кафедральный портал.</p>
+  </div>
+  <div class="row">
+    <div class="col-md-9">
+      <div class="head">
+        <div class="panel panel-default panel-inverse">
+          <div class="panel-heading"><h3><i class="fa fa-newspaper-o" aria-hidden="true"></i> Новости</h3></div>
+
+          <div class="panel-body news">
+            <div *ngFor="let item of _listOfNews">
+              <single-news [item]="item"></single-news>
+              <hr>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div class="head">
+        <div class="panel panel-default">
+          <div class="panel-heading"><h3><i class="fa fa-th" aria-hidden="true"></i> Разное</h3></div>
+          <ul class="list-group">
+            <li class="list-group-item">Сюда можно</li>
+            <li class="list-group-item">Например</li>
+            <li class="list-group-item">Вставить любые ссылки</li>
+            <li class="list-group-item">Или другие штуки</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
