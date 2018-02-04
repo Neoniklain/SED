@@ -1,7 +1,7 @@
 ﻿--
 -- Скрипт сгенерирован Devart dbForge Studio for MySQL, Версия 7.2.78.0
 -- Домашняя страница продукта: http://www.devart.com/ru/dbforge/mysql/studio
--- Дата скрипта: 04.02.2018 16:27:53
+-- Дата скрипта: 04.02.2018 19:09:24
 -- Версия сервера: 5.5.57
 -- Версия клиента: 4.1
 --
@@ -36,6 +36,7 @@ CREATE TABLE issue_collaborators (
   issue_id VARCHAR(255) DEFAULT NULL
 )
 ENGINE = INNODB
+AVG_ROW_LENGTH = 16384
 CHARACTER SET utf8
 COLLATE utf8_general_ci;
 
@@ -131,8 +132,8 @@ COLLATE utf8_general_ci;
 -- 
 -- Вывод данных для таблицы issue_collaborators
 --
-
--- Таблица unesco.issue_collaborators не содержит данных
+INSERT INTO issue_collaborators VALUES
+(19, '2');
 
 -- 
 -- Вывод данных для таблицы issues
@@ -167,14 +168,14 @@ INSERT INTO roles VALUES
 -- Вывод данных для таблицы users
 --
 INSERT INTO users VALUES
-(18, 'Neoniklain', '12345', 'vet-vash@yandex.ru'),
+(12, 'Neoniklain', '12345', 'vet-vash@yandex.ru'),
 (19, 'test', 'testt', 'test@mail.com');
 
 -- 
 -- Вывод данных для таблицы users_roles
 --
 INSERT INTO users_roles VALUES
-(18, 1),
+(12, 1),
 (19, 1);
 
 -- 

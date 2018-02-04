@@ -35,7 +35,7 @@
             <input type="password" class="form-control pass-confirm" placeholder="Повторите пароль" name="confirm-password" [(ngModel)]="PassConfirm" required>
           </div>
           <div class="form-group">
-            <button [disabled]="username.invalid || email.invalid" class="btn btn-lg btn-login btn-block " (click)="Register()">Зарегистрироваться</button>
+            <button [disabled]="username.invalid || username.untouched" class="btn btn-lg btn-login btn-block " (click)="Register()">Зарегистрироваться</button>
           </div>
         </div>
         </div>

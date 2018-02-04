@@ -9,13 +9,29 @@
       <div class="login-form">
         <div class="account-wall">
           <div class="form-signin">
-          <h1 class="text-center login-title">Добро пожаловать</h1>
-          <img class="profile-img" src="http://www.nr-style.com.ua/images/anonymous.png"
-               alt="">
-          <input type="text" class="form-control" placeholder="Имя" name="username" [(ngModel)]="user.username" required>
-          <input type="password" class="form-control" placeholder="Пароль" name="password" [(ngModel)]="user.password" required>
-          <button class="btn btn-lg btn-login btn-block" (click)="LogIn()">Вход</button>
-        </div>
+            <h1 class="text-center login-title">Добро пожаловать</h1>
+            <img class="profile-img" src="http://www.nr-style.com.ua/images/anonymous.png" alt="">
+            <div class="form-group">
+              <div *ngIf="error" class="alert alert-danger">
+                {{error}}
+              </div>
+            </div>
+            <form #myForm="ngForm">
+              <div class="form-group">
+                <input #username="ngModel" type="text" class="form-control" placeholder="Имя" name="username" [(ngModel)]="user.username" required>
+                <div [hidden]="username.valid || username.untouched" class="alert alert-danger">
+                  Введите имя пользователя.
+                </div>
+              </div>
+              <div class="form-group">
+                <input #password="ngModel" type="password" class="form-control" placeholder="Пароль" name="password" [(ngModel)]="user.password" required pattern=".{5,}">
+                <div [hidden]="password.valid || password.untouched" class="alert alert-danger">
+                  Пароль должен содержать более 5 символов.
+                </div>
+              </div>
+              <button class="btn btn-lg btn-login btn-block" (click)="LogIn(myForm)">Вход</button>
+            </form>
+          </div>
         </div>
         <a [routerLink]="['/account/register']" class="text-center new-account">Зарегистрироваться</a>
       </div>

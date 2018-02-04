@@ -15,16 +15,15 @@ export class RegisterComponent  {
   public user: LogInUser;
   public PassConfirm: string;
 
-  constructor(
+    constructor(
       private authenticationService: AuthenticationService,
       private router: Router,
       private messageService: MessageService
-  ) {
-    this.user = new LogInUser();
-  }
+    ) {
+        this.user = new LogInUser();
+    }
 
-  public Register()
-  {
+    public Register() {
     if (this.PassConfirm === this.user.password) {
       this.authenticationService.register(this.user).subscribe(
           result => {
@@ -41,5 +40,5 @@ export class RegisterComponent  {
     }
     else
         this.messageService.add({severity: 'error', summary: 'Ошибка.', detail: 'Пароли должны совпадать!'});
-  }
+    }
 }

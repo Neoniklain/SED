@@ -40,7 +40,7 @@ public class IssueController {
         if(role.contains("ADMIN"))
             result = _IssuesRepository.findAll();
         if(role.contains("MANAGER"))
-            result =  _IssuesRepository.findByCreator(user.getId());
+            result = _IssuesRepository.findByCreator(user.getId());
         /*if(role.contains(new Role("USER")))
             result = _IssuesRepository.findAll();*/
         return result;
