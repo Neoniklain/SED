@@ -7,21 +7,21 @@
 5. Проект запущен.
 
 #### Запуск фронтендовой части на Angular
- 1. Запускаем cmd, переходим в папку проекта, и выполняем:
+ 1. Запускаем cmd, переходим в папку проекта (./SED), и выполняем:
     ```
-        StartAng
+        stang
     ```
 
 #### Установка Angular (Выполнять только при первом запуске)
 
-1. Качаем и устанавливаем Node.js 7.5.0
+1. Качаем и устанавливаем Node.js 7.5.0 (Важно, именно такой версии)
 2. В cmd вводим node -v & npm –v. Должно вывести вот так:
 ```aidl
 > node -v & npm –v
 v7.10.0
 4.2.0
 ```
-3. Далее преходим в папку с Angular (SED\src\main\webapp\WEB-INF\Angular)
+3. Далее преходим в папку с Angular (SED\Frontend)
 4. Прописываем команду:
 ```aidl
 > npm install
@@ -34,30 +34,32 @@ v7.10.0
 node: 7.10.0
 os: win32 x64
 ```
-7. Далее запускаем проект:
-```aidl
-> gulp watch:dev
-```
+7. Далее запускаем проект
 8. Ангуляр запустится на порту localhost:4200)
+
+##### Возможные ошибки при установке
+
+Если при установке возникают ошибки то пробуем такое:
+Все команды желательнло в cmd от админа:
+Сначала.
+```aidl
+> npm install —global —production windows-build-tools 
+```
+Потом
+```aidl
+> npm install -g node-gyp 
+```
+Скачать GTK для Windows, распаковать содержимое архива в папку C:/GTK.
+
 
 #### База Данных
 
-Для проекта необходима база данных MySQl.
+Для проекта необходима база данных PostgreSQL.
 
 1. Создаем базу с названием unesco
 2. Выполняем скрипт который находится [здесь](Дамп%20БД.sql)
 3. Eсли нужно то изменяем логин/пароль к базе в файле src/main/java/resources/application.properties
-4. Чтобы загружать новости в БД необходимо снять ограничение на отправляемые пакеты в ней.
-Sql запрос:
-```sql
-SET GLOBAL max_allowed_packet=268435456;
-```
-5. Перед проверкой нужно перезайти в sql.
-5. Проверить:   
-```sql
-SELECT @@max_allowed_packet;
-```
 
 ##### Ссылки
-1. [О снятии ограничения на отправляемые пакеты в БД](https://confluence.atlassian.com/confkb/exceeds-max-allowed-packet-for-mysql-179443425.html)
-2. [Node.js 7.5.0](https://nodejs.org/en/download/releases/)
+1. [Node.js 7.5.0](https://nodejs.org/en/download/releases/)
+2. [PostgreSQL](https://www.openscg.com/bigsql/postgresql/installers/)
