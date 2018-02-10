@@ -77,15 +77,10 @@
             <groupId>org.apache.tomcat.embed</groupId>
             <artifactId>tomcat-embed-jasper</artifactId>
         </dependency>
-        <!-- Optional if you want to use Spring Security taglibs
-                <dependency>
-                    <groupId>org.springframework.security</groupId>
-                    <artifactId>spring-security-taglibs</artifactId>
-                </dependency>
-        -->
         <dependency>
-            <groupId>mysql</groupId>
-            <artifactId>mysql-connector-java</artifactId>
+            <groupId>org.postgresql</groupId>
+            <artifactId>postgresql</artifactId>
+            <version>9.4-1200-jdbc4</version>
         </dependency>
         <dependency>
             <groupId>org.projectlombok</groupId>

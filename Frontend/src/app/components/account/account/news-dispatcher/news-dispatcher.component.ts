@@ -11,7 +11,7 @@ import { RouteConstants } from "../../../../bootstrap/app.route.constants";
 
 export class NewsDispatcherComponent {
 
-  private show: boolean = false;
+  public show: boolean = false;
   public RouteConstants = RouteConstants;
   public _lastNews: News;
   constructor(private newsService: NewsService)

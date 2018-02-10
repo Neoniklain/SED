@@ -13,7 +13,7 @@ import {AccountService} from "../../../../services/accountService";
 
 export class DocumentComponent{
 
-  private show: boolean = false;
+  public show: boolean = false;
   public displayDialog: boolean = false;
   public displayChangeDialog: boolean = false;
   public tempIssue: Issue = new Issue();

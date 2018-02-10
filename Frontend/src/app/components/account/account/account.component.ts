@@ -35,7 +35,7 @@ export class AccountComponent implements OnInit {
     this.newsDispatcherComponent.toogle();
   }
 
-  private menuToole(menuName) {
+  menuToole(menuName) {
     if (menuName == "document-page")
       this.documentComponent.Show();
     else

@@ -14,6 +14,7 @@ import {RouteConstants} from "../../../../bootstrap/app.route.constants";
 export class RegisterComponent  {
   public user: LogInUser;
   public PassConfirm: string;
+  public msgs: string;
 
     constructor(
       private authenticationService: AuthenticationService,
