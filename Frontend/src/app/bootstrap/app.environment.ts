@@ -9,7 +9,7 @@ export class AppSettings {
 }
 
 export let appSettings = {
-    BaseApiUrl: "",
+    BaseApiUrl: 'http://localhost:8080/api/',
 }
 
 let environment = Enviromnent.Development;
@@ -23,4 +23,5 @@ let environment = Enviromnent.Development;
 /// #endif
 /// #if ENVIRONMENT == "prod"
     environment = Enviromnent.Production;
+    appSettings.BaseApiUrl = 'http://localhost:8080/api/';
 /// #endif

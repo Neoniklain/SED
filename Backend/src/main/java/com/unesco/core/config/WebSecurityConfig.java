@@ -49,7 +49,12 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
             .csrf().disable()
             .authorizeRequests()
             .antMatchers("/api/account/login").permitAll()
-                .antMatchers("/api/account/registration").permitAll()
+            .antMatchers("/api/account/registration").permitAll()
+            .antMatchers( "/images/**").permitAll()
+            .antMatchers( "/fonts/**").permitAll()
+            .antMatchers( "/js/**").permitAll()
+            .antMatchers( "/vendor/**").permitAll()
+            .antMatchers( "/css/**").permitAll()
             .anyRequest().authenticated()
             .and()
             // We filter the api/login requests
@@ -60,10 +65,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                     UsernamePasswordAuthenticationFilter.class);
     }
 
-
     @Override
     public void configure(WebSecurity web) throws Exception {
-        web.ignoring().antMatchers("/api/news/all");
+        web.ignoring().antMatchers("/*","/api/news/all");
     }
 
     @Autowired
