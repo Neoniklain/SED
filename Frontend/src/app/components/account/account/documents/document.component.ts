@@ -2,8 +2,14 @@ import {Component} from '@angular/core';
 import {Router} from "@angular/router";
 import {Issue} from "../../../../models/issue.model";
 import {IssueService} from "../../../../services/issues.service";
+import {AuthenticationService} from "../../../../services/authService";
 import {User} from "../../../../models/user.model";
 import {AccountService} from "../../../../services/accountService";
+import { FileUploader, FileUploaderOptions } from 'ng2-file-upload';
+
+// upload url
+const URL = 'http://localhost:8080/api/excel/ParseStudyPlan';
+const MB = 1024 * 1024;
 
 @Component({
   selector: 'document-page',
@@ -21,12 +27,35 @@ export class DocumentComponent{
   public issueList: Array<Issue>;
   public executors: User[] = [];
   public results: User[] = [];
+  public _uploader: FileUploader;
+  public _fileOptions: FileUploaderOptions = {
+        url: URL,
+        maxFileSize: 50 * MB,
+        allowedMimeType: [
+            'application/msexcel',
+            'application/vnd.ms-excel',
+            'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' // excell
+        ],
+        headers: [
+            { name: 'Authorization', value: this.authService.getToken() }
+        ]
+    };
 
   constructor(
     private issueService: IssueService,
     private router: Router,
-    private accountService: AccountService
-  ) { }
+    private accountService: AccountService,
+    private authService: AuthenticationService
+  ) {
+      this._uploader = new FileUploader(this._fileOptions);
+  }
+
+  public tryUpload(item: any) {
+      console.log("Try to upload file");
+      console.log("FILE = ", item);
+      item.upload();
+      console.log("End of try");
+  }
 
   ngOnInit(): void {
     this.UpdateIssueList();
@@ -37,7 +66,7 @@ export class DocumentComponent{
     let newIssue: Issue = new Issue();
     newIssue.collaborators = this.executors;
     newIssue.name = this.issueName;
-    this.issueService.Create(newIssue).subscribe((res:any)=> {
+    this.issueService.Create(newIssue).subscribe((res: any)=> {
         this.UpdateIssueList();
         },
         (error: any) => {
@@ -92,8 +121,7 @@ export class DocumentComponent{
       this.tempIssue.name = this.issueName;
       this.tempIssue.collaborators = this.executors;
       this.issueService.Update(this.tempIssue)
-          .subscribe((res: any) =>
-              {
+          .subscribe((res: any) => {
                   this.displayChangeDialog = false;
                   this.tempIssue = new Issue();
               },

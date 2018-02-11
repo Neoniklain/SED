@@ -2,8 +2,14 @@ spring:
   jpa:
     database: POSTGRESQL
     show-sql: true
+    hibernate:
+      ddl-auto:
   datasource:
     url: jdbc:postgresql://localhost:5432/unesco
     username: postgres
     password: admin
     driverClassName: org.postgresql.Driver
+  http:
+    multipart:
+      max-file-size: 50Mb
+      max-request-size: 50Mb

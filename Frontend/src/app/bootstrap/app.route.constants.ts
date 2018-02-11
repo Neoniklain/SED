@@ -40,5 +40,9 @@ export const ApiRouteConstants = {
         Update: "issue/update",
         Get: "issue/get/:id",
         Delete: "issue/delete/:id"
-    }
+    },
+    Excel:
+        {
+            ParseStudyPlan: "excel/ParseStudyPlan"
+        }
 }

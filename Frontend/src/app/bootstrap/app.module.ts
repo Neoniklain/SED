@@ -9,6 +9,7 @@ import { TranslationModule, TranslationService } from "angular-l10n";
 import { ToastrModule } from "ngx-toastr";
 import { Ng2AutoCompleteModule } from "ng2-auto-complete";
 import { AutoCompleteModule } from 'primeng/components/autocomplete/autocomplete';
+import { FileSelectDirective } from 'ng2-file-upload';
 
 // custom
 import { routing } from "./app.routes";
@@ -79,6 +80,7 @@ import {AccountService} from "../services/accountService";
         EditorListNewsComponent,
         NotFoundComponent,
         EnumKeysPipe,
+        FileSelectDirective
     ],
     providers: [
         { provide: RequestOptions, useClass: GlobalHttpOptions },
