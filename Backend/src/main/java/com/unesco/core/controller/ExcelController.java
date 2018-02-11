@@ -52,6 +52,6 @@ public class ExcelController {
         }
         myExcelBook.close();
         _DisciplineRepository.save(disciplines);
-        return "{'Disciplines':'added'}";
+        return JSONResponseStatus.OK;
     }
 }
