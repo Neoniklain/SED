@@ -13,16 +13,6 @@ public class Role implements GrantedAuthority {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
     private String role;
-    @JsonIgnore
-    @ManyToMany(mappedBy = "roles")
-    Set<User> users;
-
-    public Set<User> getUsers() {
-        return users;
-    }
-    public void setUsers(Set<User> users) {
-        this.users = users;
-    }
 
     public long getId() {
         return id;

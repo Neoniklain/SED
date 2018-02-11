@@ -3,7 +3,7 @@ spring:
     database: POSTGRESQL
     show-sql: true
     hibernate:
-      ddl-auto:
+      ddl-auto: update
   datasource:
     url: jdbc:postgresql://localhost:5432/unesco
     username: postgres

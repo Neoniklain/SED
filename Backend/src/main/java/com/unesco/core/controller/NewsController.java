@@ -3,6 +3,7 @@ package com.unesco.core.controller;
 import com.unesco.core.ViewModel.JSONResponseStatus;
 import com.unesco.core.entities.News;
 import com.unesco.core.repositories.NewsRepository;
+import com.unesco.core.repositories.UserRepository;
 import com.unesco.core.srvices.CustomUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -29,6 +30,8 @@ import java.util.stream.StreamSupport;
 public class NewsController {
 
     @Autowired
+    private UserRepository _UserRepository;
+    @Autowired
     private NewsRepository _NewsRepository;
     @Autowired
     private CustomUserDetailsService _CustomUserDetailsService;
@@ -45,7 +48,7 @@ public class NewsController {
     public News GetLast() {
         UserDetails user = _CustomUserDetailsService.getUserDetails();
         News news = _NewsRepository.findTop1ByOrderByDateDesc();
-        return news;
+        return news == null ? new News(): news;
     }
 
     @RequestMapping(value = "/get/{id}")
@@ -67,6 +70,8 @@ public class NewsController {
         }else{
             Date day = new Date();
             news.setDate(day);
+            UserDetails user = _CustomUserDetailsService.getUserDetails();
+            news.setAuthor(_UserRepository.findByUsername(user.getUsername()));
         }
         _NewsRepository.save(news);
         return JSONResponseStatus.OK;

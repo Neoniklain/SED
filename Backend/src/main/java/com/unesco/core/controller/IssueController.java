@@ -31,7 +31,7 @@ public class IssueController {
     @GetMapping(value = "/list")
     public Iterable<Issue> GetList() {
         User user = _UserRepository.findByUsername(_CustomUserDetailsService.getUserDetails().getUsername());
-        Iterable<Issue> result = null;
+        Iterable<Issue> result =  new ArrayList<Issue>();
         List<String> role = new ArrayList<Role>(user.getRoles())
                 .stream()
                 .map(Role::getRoleName)
@@ -41,8 +41,8 @@ public class IssueController {
             result = _IssuesRepository.findAll();
         if(role.contains("MANAGER"))
             result = _IssuesRepository.findByCreator(user.getId());
-        /*if(role.contains(new Role("USER")))
-            result = _IssuesRepository.findAll();*/
+        if(role.contains("USER"))
+            result = _IssuesRepository.findByCollaborators(user);
         return result;
     }
 
