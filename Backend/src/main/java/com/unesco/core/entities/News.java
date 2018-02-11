@@ -1,8 +1,5 @@
 package com.unesco.core.entities;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
-import org.springframework.format.annotation.DateTimeFormat;
-
 import javax.persistence.*;
 import java.util.Date;
 
@@ -13,7 +10,8 @@ public class News {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
     private String header;
-    private String author;
+    @ManyToOne
+    private User author;
     private String content;
     private String tags;
     private String image;
@@ -33,10 +31,10 @@ public class News {
         this.header = header;
     }
 
-    public String getAuthor() {
+    public User getAuthor() {
         return author;
     }
-    public void setAuthor(String author) {
+    public void setAuthor(User author) {
         this.author = author;
     }
 
@@ -69,7 +67,7 @@ public class News {
     }
 
     public News(){}
-    public News(String header,String content,Date date,String tags,String author)
+    public News(String header,String content,Date date,String tags,User author)
     {
         this.header = header;
         this.content = content;

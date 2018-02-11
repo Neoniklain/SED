@@ -52,8 +52,7 @@ export class EditorListNewsComponent  {
         this.newsService.Delete(id).subscribe(
           (res: any) => {
             for (let item of this._listOfNews) {
-              if (item.id == id)
-              {
+              if (item.id == id) {
                 this.messageService.add({severity: 'success', summary: 'Успешно.', detail: 'Новость успешно удалена.'});
                 this._listOfNews.splice(this._listOfNews.indexOf(item), 1);
               }

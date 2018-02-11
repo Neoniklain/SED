@@ -6,6 +6,7 @@ import {MessageService} from "primeng/components/common/messageservice";
 import {Message} from "primeng/components/common/message";
 import {News} from "../../../models/news.model";
 import {NewsService} from "../../../services/news.service";
+import {AuthenticationService} from "../../../services/authService";
 
 @Component({
   selector: 'editor-single-news-page',
@@ -24,8 +25,16 @@ export class EditorSingleNewsComponent  {
     private _location: Location,
     private activateRoute: ActivatedRoute,
     private newsService: NewsService,
+    private authenticationService: AuthenticationService,
     private messageService: MessageService) {
       this.newNews = new News();
+      this.authenticationService.getUser().subscribe((res: any) => {
+              this.newNews.author = res;
+              console.log("this.newNews", this.newNews);
+          },
+          (error: any) => {
+              console.error('Error: ' + error);
+          });
       this.id = activateRoute.snapshot.params['id'];
       if (!isUndefined(this.id)) {
         this.GetNews(this.id);

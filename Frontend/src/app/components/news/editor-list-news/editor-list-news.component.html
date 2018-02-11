@@ -28,7 +28,7 @@
                   <td id="id">{{item.id}}</td>
                   <td id="header">{{item.header}}</td>
                   <td id="content">{{item.content}}</td>
-                  <td id="author">{{item.author}}</td>
+                  <td id="author">{{item.author.username}}</td>
                   <td id="tags">{{item.tags}}</td>
                   <td id="date">{{item.date | date:'dd.MM.yyyy'}}</td>
                   <td id="edit"><button (click)="gotoEdit(item.id)" class="btn btn-warning"><i class="fa fa-pencil" aria-hidden="true"></i></button></td>
