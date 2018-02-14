@@ -57,6 +57,12 @@ export class AuthenticationService {
         this.router.navigate([RouteConstants.News.All]);
     }
 
+   redirectToAccessDenied(redirect?: string) {
+      const _redirect = redirect ? redirect : this.router.url;
+      localStorage.setItem('authRedirect', _redirect);
+      this.router.navigate([RouteConstants.Account.AccessDenied]);
+   }
+
     handleAuth() {
         this.router.navigate([localStorage.getItem('authRedirect') || RouteConstants.News.All]);
         this._clearRedirect();

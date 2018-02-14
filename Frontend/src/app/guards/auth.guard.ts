@@ -1,31 +1,44 @@
-import { Injectable } from '@angular/core';
-import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
-import { Observable } from 'rxjs/Observable';
-import { AuthenticationService } from '../services/authService';
+import {Injectable} from '@angular/core';
+import {ActivatedRouteSnapshot, CanActivate, RouterStateSnapshot} from '@angular/router';
+import {Observable} from 'rxjs/Observable';
+import {AuthenticationService} from '../services/authService';
+import {Role} from "../models/role.model";
 
 @Injectable()
 export class AuthGuard implements CanActivate {
 
-    constructor(private authService: AuthenticationService) { }
+   constructor(private authService: AuthenticationService) {
+   }
 
-    canActivate(
-      next: ActivatedRouteSnapshot,
-      state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {
+   canActivate(next: ActivatedRouteSnapshot,
+               state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {
 
-      let role = this.authService.getRole();
-      if (typeof(role) === "string")
-        role = role;
-
-        const expectedRoles = role;
-        // const isInExpectedRole = expectedRoles != undefined ? expectedRoles.filter(role).length > 0 : true;
-
-      /*if (true) {
-          return true;
+      const expectedRoles: string[] = next.data.expectedRoles;
+      let accessAlowed = false;
+      if (expectedRoles) {
+          return this.authService.getRole().map(
+              result => {
+                 let roles: Role[] = result;
+                 console.log("expectedRoles", expectedRoles);
+                 for (let expectedRole of expectedRoles) {
+                    for (let role of roles) {
+                       if (role.roleName === expectedRole)
+                          accessAlowed = true;
+                    }
+                 }
+                 if (accessAlowed) {
+                    console.log("f1");
+                    return true;
+                 } else {
+                    console.log("f2");
+                    this.authService.redirectToAccessDenied(state.url);
+                    return false;
+                 }
+              }
+          );
       } else {
-          this.authService.redirectToLogin(state.url);
-          return false;
-      }*/
-    return true;
-    }
+         return true;
+      }
+   }
 
 }

@@ -12,3 +12,9 @@ export class LogInUser {
   email: string;
 }
 
+export const Roles = {
+   Administrator: "ADMIN",
+   Manager: "MANAGER",
+   User: "USER"
+}
+

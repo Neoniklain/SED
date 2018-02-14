@@ -12,7 +12,8 @@ export const RouteConstants = {
     Account: {
         All: "account",
         Login: "account/login",
-        Register: "account/register"
+        Register: "account/register",
+        AccessDenied: "account/accessDenied"
     },
     NotFound: "404"
 }
