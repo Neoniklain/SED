@@ -1,7 +1,5 @@
 package com.unesco.core.entities;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 import javax.persistence.*;
 import java.util.Set;
 
@@ -9,7 +7,8 @@ import java.util.Set;
 @Table(name="users")
 public class User {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @SequenceGenerator(name = "userSequenceGen", sequenceName = "userSequenceGen", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "userSequenceGen")
     private long id;
     @Column(unique=true)
     private String username;
@@ -20,7 +19,6 @@ public class User {
             joinColumns = {@JoinColumn(name = "user_id")},
             inverseJoinColumns = {@JoinColumn(name = "role_id")})
     private Set<Role> roles;
-
 
     public long getId() {
         return id;

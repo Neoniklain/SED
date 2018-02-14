@@ -7,10 +7,11 @@ import javax.persistence.*;
 import java.util.Set;
 
 @Entity
-@Table(name="roles")
+@Table(name="role")
 public class Role implements GrantedAuthority {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @SequenceGenerator(name = "roleSequenceGen", sequenceName = "roleSequenceGen", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "roleSequenceGen")
     private long id;
     private String role;
 

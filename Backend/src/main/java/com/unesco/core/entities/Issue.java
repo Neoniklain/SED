@@ -1,15 +1,14 @@
 package com.unesco.core.entities;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 import javax.persistence.*;
 import java.util.Set;
 
 @Entity
-@Table(name="issues")
+@Table(name="issue")
 public class Issue {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @SequenceGenerator(name = "issueSequenceGen", sequenceName = "issueSequenceGen", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "issueSequenceGen")
     private long id;
     private String name;
     @OneToOne

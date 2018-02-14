@@ -13,10 +13,10 @@
       </div>
     </div>
   </div>
-  <div class="panel-body">
-    <div class="header-panel-body">
-      <h3>Последняя созданная статья</h3>
-    </div>
-    <single-news [item]="_lastNews"></single-news>
+  <div *ngIf="_lastNews.header" class="panel-body">
+      <div class="header-panel-body">
+        <h3>Последняя созданная статья</h3>
+      </div>
+      <single-news [item]="_lastNews"></single-news>
   </div>
 </div>

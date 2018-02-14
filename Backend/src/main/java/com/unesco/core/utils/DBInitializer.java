@@ -21,14 +21,20 @@ public class DBInitializer implements ApplicationRunner {
     private RoleRepository _RoleRepository;
 
     public void run(ApplicationArguments args) {
+        // Инициализация ролей
+        if(_RoleRepository.findByRole("ADMIN") == null)
+            _RoleRepository.save(new Role("ADMIN"));
+        if(_RoleRepository.findByRole("MANAGER") == null)
+            _RoleRepository.save(new Role("MANAGER"));
+        if(_RoleRepository.findByRole("USER") == null)
+            _RoleRepository.save(new Role("USER"));
         // Инициализация Тестового пользователя.
-        User findUser = _UserRepository.findByUsername("test");
-        if(findUser == null)
+        if(_UserRepository.findByUsername("admin") == null)
         {
             Set<Role> role = new HashSet<Role>();
             Role userRole = _RoleRepository.findByRole("ADMIN");
             role.add(userRole);
-            User testUser = new User("test", "test@mail.com", "12345");
+            User testUser = new User("admin", "admin@mail.com", "12345");
             testUser.setRoles(role);
             _UserRepository.save(testUser);
         }

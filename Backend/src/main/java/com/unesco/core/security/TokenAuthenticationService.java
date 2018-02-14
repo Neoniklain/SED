@@ -1,10 +1,7 @@
 package com.unesco.core.security;
 
-import com.unesco.core.entities.User;
-import com.unesco.core.repositories.NewsRepository;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security
         .authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;

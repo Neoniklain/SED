@@ -8,7 +8,6 @@ import com.unesco.core.entities.User;
 import com.unesco.core.repositories.IssueRepository;
 import com.unesco.core.repositories.UserRepository;
 import com.unesco.core.srvices.CustomUserDetailsService;
-import org.hibernate.mapping.Array;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 

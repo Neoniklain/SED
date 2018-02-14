@@ -7,7 +7,8 @@ import java.util.Date;
 @Table(name="news")
 public class News {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @SequenceGenerator(name = "newsSequenceGen", sequenceName = "newsSequenceGen", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "newsSequenceGen")
     private long id;
     private String header;
     @ManyToOne
