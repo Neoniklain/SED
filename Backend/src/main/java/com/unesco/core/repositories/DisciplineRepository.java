@@ -9,5 +9,8 @@ import java.util.List;
 
 public interface DisciplineRepository extends CrudRepository<Discipline, Long> {
     Discipline findById(long id);
+
+    Discipline findDisciplineByName(String name);
+
     Page findAll(Pageable pageRequest);
 }
