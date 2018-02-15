@@ -6,4 +6,5 @@ import org.springframework.data.repository.CrudRepository;
 
 public interface DisciplineRepository extends CrudRepository<Discipline, Long> {
     Discipline findById(long id);
+    Discipline findDisciplineByName(String name);
 }

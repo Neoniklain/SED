@@ -41,4 +41,9 @@ public class Department {
    public void setPlan(Set<Plan> plan) {
       this.plan = plan;
    }
+
+   public Department(String name)
+   {
+      this.name = name;
+   }
 }
