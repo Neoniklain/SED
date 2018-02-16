@@ -125,61 +125,64 @@ public class ExcelController {
                             System.out.println("План добавлен для: " + name);
                         }
                         // ↓ Получение значений для таблицы Semester
-                        // ↓ Доделать через цикл.
-                        /*for(Integer course=0; course < 4; course++)
-                        {
-                            for(Integer semestr=0; semestr<2;semestr++) {
-                                Semester sem = new Semester();
-                                Integer offset = semestr*2;
-                                //Добавить ссылку у семестра на план
-                                //sem.setPlans(_PlanRepository.findByDiscipline(plan.getDiscipline()));
-                                if (row.getCell(25+offset).getStringCellValue().length() > 0) {
-                                    plan.setCourseWorkQuantity(Integer.parseInt(row.getCell(8).getStringCellValue()));
+                        Integer offset = 0;
+                        for (Integer semestr = 0; semestr < 8; semestr++) {
+                            Semester sem = new Semester();
+                            //Добавить ссылку у семестра на план
+                            //sem.setPlans(_PlanRepository.findByDiscipline(plan.getDiscipline()));
+                            if (row.getCell(25 + offset).getCellType() == 1) {
+                                if (row.getCell(25 + offset).getStringCellValue().length() > 0) {
+                                    sem.setLection_hours((int) Float.parseFloat(row.getCell(25 + offset).getStringCellValue()));
                                 }
-                                if (row.getCell(26+offset).getStringCellValue().length() > 0) {
-                                    plan.setCourseWorkQuantity(Integer.parseInt(row.getCell(8).getStringCellValue()));
-                                }
-                                if (row.getCell(27+offset).getStringCellValue().length() > 0) {
-                                    plan.setCourseWorkQuantity(Integer.parseInt(row.getCell(8).getStringCellValue()));
-                                }
-                                if (row.getCell(28+offset).getStringCellValue().length() > 0) {
-                                    plan.setCourseWorkQuantity(Integer.parseInt(row.getCell(8).getStringCellValue()));
-                                }
-                                if (row.getCell(29+offset).getStringCellValue().length() > 0) {
-                                    plan.setCourseWorkQuantity(Integer.parseInt(row.getCell(8).getStringCellValue()));
-                                }
-                                if (row.getCell(30+offset).getStringCellValue().length() > 0) {
-                                    plan.setCourseWorkQuantity(Integer.parseInt(row.getCell(8).getStringCellValue()));
-                                }
-                            }
-                        }*/
+                            } else if (row.getCell(25+ offset).getCellType() == 0) {
+                                sem.setLection_hours((int) row.getCell(25 + offset).getNumericCellValue());
+                            } else System.out.println("Incorrect type of item for setLection_hours");
 
-                        // ↓ 1 семестр
-                        Semester sem = new Semester();
-                        //Добавить ссылку у семестра на план
-                        //sem.setPlans(_PlanRepository.findByDiscipline(plan.getDiscipline()));
-                        if (row.getCell(25).getStringCellValue().length() > 0) {
-                            sem.setLection_hours(Integer.parseInt(row.getCell(25).getStringCellValue()));
-                        }
-                        if (row.getCell(26).getStringCellValue().length() > 0) {
-                            sem.setLaboratory_hours(Integer.parseInt(row.getCell(26).getStringCellValue()));
-                        }
-                        if (row.getCell(27).getStringCellValue().length() > 0) {
-                            sem.setPractice_hours(Integer.parseInt(row.getCell(27).getStringCellValue()));
-                        }
-                        if (row.getCell(28).getStringCellValue().length() > 0) {
-                            sem.setSRS_hours(Integer.parseInt(row.getCell(28).getStringCellValue()));
-                        }
-                        if (row.getCell(29).getStringCellValue().length() > 0) {
-                            sem.setControl_hours(Integer.parseInt(row.getCell(29).getStringCellValue()));
-                        }
-                        if (row.getCell(30).getStringCellValue().length() > 0) {
-                            sem.setZET_hours(Integer.parseInt(row.getCell(30).getStringCellValue()));
-                        }
-                        if(_SemesterRepository.findByPlans(_PlanRepository.findByDiscipline(plan.getDiscipline()))==null)
-                        {
-                            //_SemesterRepository.save(sem);
-                            System.out.println("Семестр 1 добавлен для: " + name);
+
+                            if (row.getCell(26 + offset).getCellType() == 1) {
+                                if (row.getCell(26 + offset).getStringCellValue().length() > 0) {
+                                    sem.setLaboratory_hours((int) Float.parseFloat(row.getCell(26 + offset).getStringCellValue()));
+                                }
+                            } else if (row.getCell(26+ offset).getCellType() == 0) {
+                                sem.setLaboratory_hours((int) row.getCell(26 + offset).getNumericCellValue());
+                            } else System.out.println("Incorrect type of item for setLaboratory_hours");
+
+                            if (row.getCell(27 + offset).getCellType() == 1) {
+                                if (row.getCell(27 + offset).getStringCellValue().length() > 0) {
+                                    sem.setPractice_hours((int) Float.parseFloat(row.getCell(27 + offset).getStringCellValue()));
+                                }
+                            } else if (row.getCell(27+ offset).getCellType() == 0) {
+                                sem.setPractice_hours((int) row.getCell(27 + offset).getNumericCellValue());
+                            } else System.out.println("Incorrect type of item for setPractice_hours");
+
+                            if (row.getCell(28 + offset).getCellType() == 1) {
+                                if (row.getCell(28 + offset).getStringCellValue().length() > 0) {
+                                    sem.setSRS_hours((int) Float.parseFloat(row.getCell(28 + offset).getStringCellValue()));
+                                }
+                            } else if (row.getCell(28+ offset).getCellType() == 0) {
+                                sem.setSRS_hours((int) row.getCell(28 + offset).getNumericCellValue());
+                            } else System.out.println("Incorrect type of item for setSRS_hours");
+
+                            if (row.getCell(29 + offset).getCellType() == 1) {
+                                if (row.getCell(29 + offset).getStringCellValue().length() > 0) {
+                                    sem.setControl_hours((int) Float.parseFloat(row.getCell(29 + offset).getStringCellValue()));
+                                }
+                            } else if (row.getCell(29+ offset).getCellType() == 0) {
+                                sem.setControl_hours((int) row.getCell(29 + offset).getNumericCellValue());
+                            } else System.out.println("Incorrect type of item for setControl_hours");
+
+                            if (row.getCell(30 + offset).getCellType() == 1) {
+                                if (row.getCell(30 + offset).getStringCellValue().length() > 0) {
+                                    sem.setZET_hours((int) Float.parseFloat(row.getCell(30 + offset).getStringCellValue()));
+                                }
+                            } else if (row.getCell(30+ offset).getCellType() == 0) {
+                                sem.setZET_hours((int) row.getCell(30 + offset).getNumericCellValue());
+                            } else System.out.println("Incorrect type of item for setZET_hours");
+                            if (semestr % 2 != 0) {
+                                offset += 10;
+                            } else {
+                                offset += 7;
+                            }
                         }
                     }
                 }
