@@ -9,9 +9,9 @@ import {LogInComponent} from "../components/account/authentification/login/login
 import {RegisterComponent} from "../components/account/authentification/register/register.component";
 import {EditorListNewsComponent} from "../components/news/editor-list-news/editor-list-news.component";
 import {EditorSingleNewsComponent} from "../components/news/editor-single-news/editor-single-news.component";
-import {Roles} from "../models/user.model";
 import {AccessDeniedComponent} from "../components/account/accessDenied/accessDenied.component";
 import {AdminPanelComponent} from "../components/adminPanel/adminPanel";
+import {Roles} from "../models/role.model";
 
 export const routes: Routes = [
    {
@@ -51,7 +51,7 @@ export const routes: Routes = [
       data: {title: "Регистрация"}
    },
    {
-      path: RouteConstants.Account.All,
+      path: RouteConstants.Account.Lk,
       component: AccountComponent,
       canActivate: [AuthGuard],
       data: {title: "Личный кабинет"}

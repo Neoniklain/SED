@@ -11,7 +11,7 @@ export const RouteConstants = {
       EditList: "news/editList"
    },
    Account: {
-      All: "account",
+      Lk: "account",
       Login: "account/login",
       Register: "account/register",
       AccessDenied: "account/accessDenied"
