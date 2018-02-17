@@ -16,12 +16,15 @@
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav">
                 <li id="nav-manu-main"><a [routerLink]="['/']"><i class="fa fa-home" aria-hidden="true"></i> Главная</a></li>
-                <li *hasRole="[Roles.User]" id="nav-manu-account"><a [routerLink]="['/account']"><i class="fa fa-address-card-o" aria-hidden="true"></i> Личный кабинет</a></li>
+                <template [hasRole]="[Roles.Authorized]" [userRole]="globals.role" ><li id="nav-manu-account"><a [routerLink]="[RouteConstants.Account.Lk]"><i class="fa fa-address-card-o" aria-hidden="true"></i> Личный кабинет</a></li></template>
             </ul>
             <form class="navbar-form navbar-right" role="search">
-                <a *hasRole="[Roles.Anonim]" [routerLink]="['account/login']" class="btn btn-default"><i class="fa fa-sign-out" aria-hidden="true"></i> Вход</a>
-                <a *hasRole="[Roles.User]" (click)="logout()" class="btn btn-default"><i class="fa fa-sign-out" aria-hidden="true"></i> Выход</a>
+                <template [hasRole]="[Roles.Anonim]" [userRole]="globals.role" ><a [routerLink]="[RouteConstants.Account.Login]" class="btn btn-default"><i class="fa fa-sign-out" aria-hidden="true"></i> Вход</a></template>
+                <template [hasRole]="[Roles.Authorized]" [userRole]="globals.role" ><a (click)="logout()" class="btn btn-default"><i class="fa fa-sign-out" aria-hidden="true"></i> Выход</a></template>
             </form>
+            <ul class="nav navbar-nav navbar-right">
+                <template [hasRole]="[Roles.Administrator]" [userRole]="globals.role" ><li id="nav-manu-account"><a [routerLink]="[RouteConstants.Admin.All]"><i class="fa fa-lock" aria-hidden="true"></i> Адмика</a></li></template>
+            </ul>
         </div><!-- /.navbar-collapse -->
     </div><!-- /.container-fluid -->
 </nav>

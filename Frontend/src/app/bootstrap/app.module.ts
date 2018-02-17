@@ -46,7 +46,7 @@ import {AccountService} from "../services/accountService";
 import {AccessDeniedComponent} from "../components/account/accessDenied/accessDenied.component";
 import {AdminPanelComponent} from "../components/adminPanel/adminPanel";
 import {HasRoleDirective} from "../guards/hasRole.dirictive";
-import {Globals} from "../models/role.model";
+import {Globals} from "../globals";
 
 @NgModule({
    imports: [
