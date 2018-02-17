@@ -16,14 +16,14 @@
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav">
                 <li id="nav-manu-main"><a [routerLink]="['/']"><i class="fa fa-home" aria-hidden="true"></i> Главная</a></li>
-                <template [hasRole]="[Roles.Authorized]" [userRole]="globals.role" ><li id="nav-manu-account"><a [routerLink]="[RouteConstants.Account.Lk]"><i class="fa fa-address-card-o" aria-hidden="true"></i> Личный кабинет</a></li></template>
+                <li *hasRole="[Roles.Authorized]"><a [routerLink]="[RouteConstants.Account.Lk]"><i class="fa fa-address-card-o" aria-hidden="true"></i> Личный кабинет</a></li>
             </ul>
             <form class="navbar-form navbar-right" role="search">
-                <template [hasRole]="[Roles.Anonim]" [userRole]="globals.role" ><a [routerLink]="[RouteConstants.Account.Login]" class="btn btn-default"><i class="fa fa-sign-out" aria-hidden="true"></i> Вход</a></template>
-                <template [hasRole]="[Roles.Authorized]" [userRole]="globals.role" ><a (click)="logout()" class="btn btn-default"><i class="fa fa-sign-out" aria-hidden="true"></i> Выход</a></template>
+                <a *hasRole="[Roles.Anonim]" [routerLink]="[RouteConstants.Account.Login]" class="btn btn-default"><i class="fa fa-sign-out" aria-hidden="true"></i> Вход</a>
+                <a *hasRole="[Roles.Authorized]" (click)="logout()" class="btn btn-default"><i class="fa fa-sign-out" aria-hidden="true"></i> Выход</a>
             </form>
             <ul class="nav navbar-nav navbar-right">
-                <template [hasRole]="[Roles.Administrator]" [userRole]="globals.role" ><li id="nav-manu-account"><a [routerLink]="[RouteConstants.Admin.All]"><i class="fa fa-lock" aria-hidden="true"></i> Адмика</a></li></template>
+                <li *hasRole="[Roles.Administrator]"><a [routerLink]="[RouteConstants.Admin.All]"><i class="fa fa-lock" aria-hidden="true"></i> Адмика</a></li>
             </ul>
         </div><!-- /.navbar-collapse -->
     </div><!-- /.container-fluid -->
