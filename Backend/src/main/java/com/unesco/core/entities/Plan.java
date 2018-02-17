@@ -108,15 +108,14 @@ public class Plan {
       this.competence = competence;
    }
 
-   @ManyToOne
-   @JoinColumn(name = "semester_id", referencedColumnName = "id")
+   @OneToMany(cascade = CascadeType.ALL, mappedBy = "plan")
    /** Поле семестра */
-   private Semester semester;
+   private Set<Semester> semesters;
 
-   public Semester getSemester() {
-      return semester;
+   public Set<Semester> getSemesters() {
+      return semesters;
    }
-   public void setSemester(Semester semester) {
-      this.semester = semester;
+   public void setSemesters(Set<Semester> semesters) {
+      this.semesters = semesters;
    }
 }

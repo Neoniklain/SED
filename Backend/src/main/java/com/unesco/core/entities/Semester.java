@@ -11,9 +11,12 @@ public class Semester {
    @SequenceGenerator(name = "semesterSequenceGen", sequenceName = "semesterSequenceGen", allocationSize = 1)
    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "semesterSequenceGen")
    private long id;
-   @OneToMany(cascade = CascadeType.ALL, mappedBy = "semester")
-   /** Поле дисциплина*/
-   private Set<Plan> plans;
+   /** Поле номера семестра*/
+   private int number;
+   @ManyToOne
+   @JoinColumn(name = "plan_id", referencedColumnName = "id")
+   /** Поле плана*/
+   private Plan plan;
    /** Поле колличество часов лекций*/
    private int lection_hours;
    /** Поле колличество часов лабороторных*/
@@ -34,11 +37,18 @@ public class Semester {
       this.id = id;
    }
 
-   public Set<Plan> getPlans() {
-      return plans;
+   public int getNumber() {
+      return number;
    }
-   public void setPlans(Set<Plan> plans) {
-      this.plans = plans;
+   public void setNumber(int number) {
+      this.number = number;
+   }
+
+   public Plan getPlan() {
+      return plan;
+   }
+   public void setPlan(Plan plan) {
+      this.plan = plan;
    }
 
    public int getLection_hours() {
