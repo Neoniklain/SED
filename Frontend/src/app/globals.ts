@@ -1,7 +1,16 @@
 import {Role} from "./models/role.model";
-import {Injectable} from "@angular/core";
+import {Injectable, Input} from "@angular/core";
+import {Observable} from "rxjs/Observable";
+import {Observer} from "rxjs/Observer";
+import {BehaviorSubject} from "rxjs/BehaviorSubject";
 
-Injectable()
+Injectable();
 export class Globals {
-   role: Role[];
+   private _role: BehaviorSubject<Role[]> = new BehaviorSubject([]);
+   public getRole = this._role.asObservable();
+
+   set role(value) {
+      this._role.next(value);
+   }
+
 }
