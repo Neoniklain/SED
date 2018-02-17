@@ -1,1 +1,3 @@
-﻿
+﻿.navbar-nav>li>a {
+    padding-bottom: 14px !important;
+}

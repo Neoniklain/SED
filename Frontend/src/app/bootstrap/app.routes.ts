@@ -11,6 +11,7 @@ import {EditorListNewsComponent} from "../components/news/editor-list-news/edito
 import {EditorSingleNewsComponent} from "../components/news/editor-single-news/editor-single-news.component";
 import {Roles} from "../models/user.model";
 import {AccessDeniedComponent} from "../components/account/accessDenied/accessDenied.component";
+import {AdminPanelComponent} from "../components/adminPanel/adminPanel";
 
 export const routes: Routes = [
    {
@@ -59,6 +60,12 @@ export const routes: Routes = [
       path: RouteConstants.Account.AccessDenied,
       component: AccessDeniedComponent,
       data: {title: "Доступ запрещен"}
+   },
+   {
+      path: RouteConstants.Admin.All,
+      component: AdminPanelComponent,
+      canActivate: [AuthGuard],
+      data: {expectedRoles: [Roles.Administrator], title: "Админ-панель"}
    }
 ];
 

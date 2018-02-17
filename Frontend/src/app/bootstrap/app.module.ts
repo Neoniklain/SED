@@ -44,6 +44,9 @@ import {MessageService} from "primeng/components/common/messageservice";
 import {ConfirmationService} from "primeng/primeng";
 import {AccountService} from "../services/accountService";
 import {AccessDeniedComponent} from "../components/account/accessDenied/accessDenied.component";
+import {AdminPanelComponent} from "../components/adminPanel/adminPanel";
+import {HasRoleDirective} from "../guards/hasRole.dirictive";
+import {Globals} from "../models/role.model";
 
 @NgModule({
    imports: [
@@ -74,10 +77,12 @@ import {AccessDeniedComponent} from "../components/account/accessDenied/accessDe
       HeaderComponent,
       EditorSingleNewsComponent,
       EditorListNewsComponent,
+      AdminPanelComponent,
       NotFoundComponent,
       AccessDeniedComponent,
       EnumKeysPipe,
-      FileSelectDirective
+      FileSelectDirective,
+      HasRoleDirective
    ],
    providers: [
       {provide: RequestOptions, useClass: GlobalHttpOptions},
@@ -91,6 +96,7 @@ import {AccessDeniedComponent} from "../components/account/accessDenied/accessDe
       AccountService,
       ConfirmationService,
       AuthGuard,
+      Globals
    ],
    entryComponents: [],
    bootstrap: [

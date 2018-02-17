@@ -15,6 +15,7 @@ export class LogInUser {
 export const Roles = {
    Administrator: "ADMIN",
    Manager: "MANAGER",
-   User: "USER"
+   User: "USER",
+   Anonim: "ANONIM"
 }
 

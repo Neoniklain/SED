@@ -16,11 +16,11 @@
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav">
                 <li id="nav-manu-main"><a [routerLink]="['/']"><i class="fa fa-home" aria-hidden="true"></i> Главная</a></li>
-                <li *ngIf="isAuthoried" id="nav-manu-account"><a [routerLink]="['/account']"><i class="fa fa-address-card-o" aria-hidden="true"></i> Личный кабинет</a></li>
+                <li *hasRole="[Roles.User]" id="nav-manu-account"><a [routerLink]="['/account']"><i class="fa fa-address-card-o" aria-hidden="true"></i> Личный кабинет</a></li>
             </ul>
             <form class="navbar-form navbar-right" role="search">
-                <a *ngIf="!isAuthoried" [routerLink]="['account/login']" class="btn btn-default"><i class="fa fa-sign-out" aria-hidden="true"></i> Вход</a>
-                <a *ngIf="isAuthoried" (click)="logout()" class="btn btn-default"><i class="fa fa-sign-out" aria-hidden="true"></i> Выход</a>
+                <a *hasRole="[Roles.Anonim]" [routerLink]="['account/login']" class="btn btn-default"><i class="fa fa-sign-out" aria-hidden="true"></i> Вход</a>
+                <a *hasRole="[Roles.User]" (click)="logout()" class="btn btn-default"><i class="fa fa-sign-out" aria-hidden="true"></i> Выход</a>
             </form>
         </div><!-- /.navbar-collapse -->
     </div><!-- /.container-fluid -->

@@ -5,6 +5,7 @@ import {Router} from "@angular/router";
 import {ApiRouteConstants, RouteConstants} from "../bootstrap/app.route.constants";
 import {ErrorResponse} from "../models/errorResponse";
 import {LogInUser, User} from "../models/user.model";
+import {Role} from "../models/role.model";
 
 export const TOKEN_NAME: string = 'token';
  
@@ -26,7 +27,7 @@ export class AuthenticationService {
             .catch(this.handleError);
     }
 
-    getRole(): Observable<any> {
+    getRole(): Observable<Role[]> {
         return this.http.get(ApiRouteConstants.Authentication.Role)
             .catch(this.handleError);
     }
