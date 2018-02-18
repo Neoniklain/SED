@@ -49,5 +49,9 @@ export const ApiRouteConstants = {
    Excel:
        {
           ParseStudyPlan: "excel/ParseStudyPlan"
-       }
+       },
+   Admin: {
+      Users: "admin/users",
+      Disciplines: "admin/disciplines"
+   }
 }

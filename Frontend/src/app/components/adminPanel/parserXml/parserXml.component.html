@@ -1,0 +1,29 @@
+﻿<div class="wrapper">
+   <div class="container_form">
+      <h1 class="text-center">Загрузка плана из xml файла.</h1>
+      <div class="form-horizontal">
+         <div class="form-group">
+            <div class="btn-group" role="group" aria-label="Basic example">
+               <label *ngIf="_uploader.queue.length == 0" class="btn btn-success">
+                  Указать файл
+                  <input type="file" ng2FileSelect [uploader]="_uploader" style="display: none"> <br>
+               </label>
+               <div *ngFor="let item of _uploader.queue" class="input-group">
+                  <span class="input-group-addon" id="basic-addon3">Выбран файл:</span>
+                  <input disabled type="text" class="form-control" placeholder="Search for..." value="{{item._file.name}}">
+                  <span class="input-group-btn">
+                     <label class="btn btn-secondary label-btn">
+                        <input type="file" ng2FileSelect [uploader]="_uploader" style="display: none">
+                        ...
+                     </label>
+                     <button type="button" class="btn btn-secondary" (click)="tryUpload(item)">
+                        <i class="fa fa-upload" aria-hidden="true"></i>
+                     </button>
+                  </span>
+               </div>
+
+            </div>
+         </div>
+      </div>
+   </div>
+</div>

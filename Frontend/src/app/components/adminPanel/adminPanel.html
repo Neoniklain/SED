@@ -6,8 +6,17 @@
          </ul>
          <hr>
          <ul class="nav navbar-nav">
-            <li><a><i class="fa fa-home"></i> Главная</a></li>
-            <li><a><i class="fa fa-address-card-o"></i> Личный кабинет</a></li>
+            <li><a (click)="menuToogle='downloadPlan'"><i class="fa fa-download"></i> Загрузить план</a></li>
+            <li class="dropdown">
+               <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                  <i class="fa fa-book"></i> Справочники
+                  <span class="caret"></span>
+               </a>
+               <ul class="dropdown-menu">
+                  <li><a (click)="setMenuToogle('userList')"><i class="fa fa-users"></i> Пользователи</a></li>
+                  <li><a (click)="setMenuToogle('disciplineList')"><i class="fa fa-users"></i> Дисциплины</a></li>
+               </ul>
+            </li>
          </ul>
       </div>
    </nav>
@@ -18,8 +27,20 @@
       <div class="col-md-2">
       </div>
       <div class="col-md-10">
-         <div class="row">
-            <div class="main-header col-md-12 text-center"><h1>Заголовок</h1></div>
+         <div [ngSwitch]="menuToogle" class="row">
+
+            <dictionary-table *ngSwitchCase="'userList'"
+               [data]="users"
+               [header]="'Пользователи'"></dictionary-table>
+
+            <dictionary-table *ngSwitchCase="'disciplineList'"
+                              [data]="disciplines"
+                              [header]="'Дисциплины'"
+                              (loadData)="updateDictionary($event)"
+                              [totalRecords]="totalRecords"></dictionary-table>
+
+            <parser-xml *ngSwitchCase="'downloadPlan'"></parser-xml>
+
          </div>
       </div>
    </div>

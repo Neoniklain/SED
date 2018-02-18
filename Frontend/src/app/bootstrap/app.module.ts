@@ -41,12 +41,15 @@ import {DialogModule} from "primeng/components/dialog/dialog";
 import {GrowlModule} from "primeng/components/growl/growl";
 import {ConfirmDialogModule} from "primeng/components/confirmdialog/confirmdialog";
 import {MessageService} from "primeng/components/common/messageservice";
-import {ConfirmationService} from "primeng/primeng";
+import {ConfirmationService, DataTableModule} from "primeng/primeng";
 import {AccountService} from "../services/accountService";
 import {AccessDeniedComponent} from "../components/account/accessDenied/accessDenied.component";
 import {AdminPanelComponent} from "../components/adminPanel/adminPanel";
 import {HasRoleDirective} from "../guards/hasRole.dirictive";
 import {Globals} from "../globals";
+import {DictionaryTableComponent} from "../components/adminPanel/dictionaryTable/dictionaryTable.component";
+import {AdminService} from "../services/admin.service";
+import {ParserXmlComponent} from "../components/adminPanel/parserXml/parserXml.component";
 
 @NgModule({
    imports: [
@@ -62,6 +65,7 @@ import {Globals} from "../globals";
       TranslationModule.forRoot(),
       DialogModule,
       GrowlModule,
+      DataTableModule,
       AutoCompleteModule,
       ConfirmDialogModule
    ],
@@ -82,6 +86,8 @@ import {Globals} from "../globals";
       AccessDeniedComponent,
       EnumKeysPipe,
       FileSelectDirective,
+      DictionaryTableComponent,
+      ParserXmlComponent,
       HasRoleDirective
    ],
    providers: [
@@ -94,6 +100,7 @@ import {Globals} from "../globals";
       NewsService,
       MessageService,
       AccountService,
+      AdminService,
       ConfirmationService,
       AuthGuard,
       Globals
