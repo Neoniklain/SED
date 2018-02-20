@@ -1,6 +1,7 @@
 package com.unesco.core.ViewModel;
 
 import com.unesco.core.entities.Role;
+import com.unesco.core.entities.User;
 import com.unesco.core.srvices.CustomUserDetails;
 
 import java.util.ArrayList;
@@ -31,6 +32,15 @@ public class UserViewModel {
     }
     public void setRoles(List<RoleViewModel> roles) {
         this.roles = roles;
+    }
+
+    public UserViewModel(User user) {
+        this.username = user.getUsername();
+        this.email = user.getEmail();
+        this.roles = new ArrayList<>();
+        for (Role r: user.getRoles()) {
+            this.roles.add(new RoleViewModel(r.getRoleName()));
+        }
     }
 
     public UserViewModel(CustomUserDetails u) {

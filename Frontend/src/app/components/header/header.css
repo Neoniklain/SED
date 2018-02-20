@@ -1,3 +1,8 @@
 ﻿.navbar-nav>li>a {
     padding-bottom: 14px !important;
 }
+
+.navbar {
+    border-radius: 0px;
+    z-index: 100;
+}

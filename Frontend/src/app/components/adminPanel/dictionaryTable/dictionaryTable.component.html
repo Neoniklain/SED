@@ -1,0 +1,30 @@
+﻿<div class="main-header col-md-12 text-center">
+   <h1>{{header}}</h1>
+</div>
+<div class="main-header col-md-12 text-center">
+   <p-dataTable
+           [value]="data"
+           [lazy]="true"
+           [rows]="10"
+           [paginator]="true"
+           [rowsPerPageOptions]="[5,10,20]"
+           [totalRecords]="totalRecords"
+           (onLazyLoad)="loadLazy($event)">
+      <p-column *ngFor="let field of columnsName"
+                field="{{field}}"
+                header="{{field | translate}}">
+         <ng-template let-col let-fields="rowData" let-ri="rowIndex" pTemplate="body">
+            <template [ngIf]="!isArray(fields[field])">
+               <span>{{fields[field]}}</span>
+            </template>
+            <template [ngIf]="isArray(fields[field])">
+               <ng-template ngFor let-item [ngForOf]="fields[field]">
+                  <span *ngFor="let itemField of getKeys(item)">
+                     {{item[itemField]}}
+                  </span>
+               </ng-template>
+            </template>
+         </ng-template>
+      </p-column>
+   </p-dataTable>
+</div>

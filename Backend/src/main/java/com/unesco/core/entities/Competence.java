@@ -23,7 +23,7 @@ public class Competence {
            joinColumns = {@JoinColumn(name = "plan_id")},
            inverseJoinColumns = {@JoinColumn(name = "competence_id")})
    /** Поле список компетенций */
-   private Set<Plan> plan;
+   private Set<Plan> plans;
 
    public long getId() {
       return id;
@@ -44,6 +44,13 @@ public class Competence {
    }
    public void setDescription(String description) {
       this.description = description;
+   }
+
+   public Set<Plan> getPlans() {
+      return plans;
+   }
+   public void setPlans(Set<Plan> plans) {
+      this.plans = plans;
    }
 
 

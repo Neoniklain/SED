@@ -1,0 +1,49 @@
+﻿.form-group {
+    margin-left: 5em;
+    margin-right: 5em;
+}
+
+.container_form h1 {
+    margin-bottom: 0;
+}
+
+.container_form hr {
+    margin-left: 6em;
+    margin-right: 6em;
+    margin-top: 1em;
+    margin-bottom: 2em;
+    border-top: 1px solid #353c3c;
+}
+
+.btn-go {
+    margin-top: 1.5em;
+}
+
+.label-btn {
+    background: #DDDDDD;
+}
+.choose-file {
+    font-size: 19px;
+    color: gray;
+}
+.container_form {
+    padding-bottom: 2em;
+    padding-top: 2em;
+    border: 2px solid rgba(51, 51, 51, 0.17);
+    box-shadow: 4px 5px 10px rgba(27, 27, 27, 0.36);
+    border-radius: 1px;
+    width: 60em;
+    display: inline-block;
+    background: rgba(255, 255, 255, 0);
+    margin-top: 4em;
+}
+.wrapper {
+    content: '';
+    width: 100%;
+    padding-top: 5em;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}

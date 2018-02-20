@@ -17,8 +17,7 @@ const MB = 1024 * 1024;
   styleUrls: ['./document.component.css']
 })
 
-export class DocumentComponent{
-
+export class DocumentComponent {
   public show: boolean = false;
   public displayDialog: boolean = false;
   public displayChangeDialog: boolean = false;

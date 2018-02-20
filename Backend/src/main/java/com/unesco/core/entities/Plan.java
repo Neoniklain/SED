@@ -21,16 +21,6 @@ public class Plan {
    private Department department;
    /** Поле индекса */
    private String index;
-   /** Колличество экзаменов */
-   private int examsQuantity;
-   /** Колличество зачетов */
-   private int setoffQuantity;
-   /** Колличество зачетов с оценкой*/
-   private int setOffWithMarkQuantity;
-   /** Колличество курсовых проектов*/
-   private int courseProjectQuantity;
-   /** Колличество курсовых работ*/
-   private int courseWorkQuantity;
    @ManyToMany(fetch = FetchType.EAGER, cascade = { CascadeType.MERGE })
    @JoinTable(name = "plan_competence",
            joinColumns = {@JoinColumn(name = "competence_id")},
@@ -64,41 +54,6 @@ public class Plan {
    }
    public void setIndex(String index) {
       this.index = index;
-   }
-
-   public int getExamsQuantity() {
-      return examsQuantity;
-   }
-   public void setExamsQuantity(int examsQuantity) {
-      this.examsQuantity = examsQuantity;
-   }
-
-   public int getSetoffQuantity() {
-      return setoffQuantity;
-   }
-   public void setSetoffQuantity(int setoffQuantity) {
-      this.setoffQuantity = setoffQuantity;
-   }
-
-   public int getSetOffWithMarkQuantity() {
-      return setOffWithMarkQuantity;
-   }
-   public void setSetOffWithMarkQuantity(int setOffWithMarkQuantity) {
-      this.setOffWithMarkQuantity = setOffWithMarkQuantity;
-   }
-
-   public int getCourseProjectQuantity() {
-      return courseProjectQuantity;
-   }
-   public void setCourseProjectQuantity(int courseProjectQuantity) {
-      this.courseProjectQuantity = courseProjectQuantity;
-   }
-
-   public int getCourseWorkQuantity() {
-      return courseWorkQuantity;
-   }
-   public void setCourseWorkQuantity(int courseWorkQuantity) {
-      this.courseWorkQuantity = courseWorkQuantity;
    }
 
    public Set<Competence> getCompetence() {
