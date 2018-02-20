@@ -15,6 +15,7 @@ const URL = 'http://localhost:8080/api/excel/ParseStudyPlan';
 export class ParserXmlComponent implements OnInit, OnChanges {
 
    public _uploader: FileUploader;
+   public planDate: Date;
    public _fileOptions: FileUploaderOptions = {
       url: URL,
       maxFileSize: 50 * MB,
@@ -31,6 +32,7 @@ export class ParserXmlComponent implements OnInit, OnChanges {
    constructor(private router: Router,
                private authService: AuthenticationService) {
       this._uploader = new FileUploader(this._fileOptions);
+      this.planDate = new Date();
    }
 
    ngOnInit(): void {

@@ -1,9 +1,26 @@
-﻿.label-btn {
-    background: #DDDDDD;
+﻿.form-group {
+    margin-left: 5em;
+    margin-right: 5em;
 }
-.input-group {
-    margin-left: 10em;
-    margin-right: 10em;
+
+.container_form h1 {
+    margin-bottom: 0;
+}
+
+.container_form hr {
+    margin-left: 6em;
+    margin-right: 6em;
+    margin-top: 1em;
+    margin-bottom: 2em;
+    border-top: 1px solid #353c3c;
+}
+
+.btn-go {
+    margin-top: 1.5em;
+}
+
+.label-btn {
+    background: #DDDDDD;
 }
 .choose-file {
     font-size: 19px;
@@ -19,9 +36,6 @@
     display: inline-block;
     background: rgba(255, 255, 255, 0);
     margin-top: 4em;
-}
-.container_form h1{
-    margin-bottom: 1em;
 }
 .wrapper {
     content: '';
