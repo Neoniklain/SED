@@ -3,12 +3,12 @@
 </div>
 <div class="main-header col-md-12 text-center">
    <p-dataTable
-           [value]="data"
+           [value]="data.content"
            [lazy]="true"
            [rows]="10"
            [paginator]="true"
-           [rowsPerPageOptions]="[5,10,20]"
-           [totalRecords]="totalRecords"
+           [rowsPerPageOptions]="[5,10,15]"
+           [totalRecords]="data.totalNumber"
            (onLazyLoad)="loadLazy($event)">
       <p-column *ngFor="let field of columnsName"
                 field="{{field}}"

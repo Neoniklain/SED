@@ -1,6 +1,7 @@
 ﻿import {Component, EventEmitter, Input, OnChanges, OnInit, Output} from "@angular/core";
 import {Router} from "@angular/router";
 import {LazyLoadEvent} from "primeng/api";
+import {PageResult} from "../../../models/admin/PageResult.model.list";
 
 @Component({
    selector: 'dictionary-table',
@@ -10,9 +11,8 @@ import {LazyLoadEvent} from "primeng/api";
 
 export class DictionaryTableComponent implements OnInit, OnChanges {
 
-   @Input() data;
+   @Input() data: PageResult;
    @Input() header;
-   @Input() totalRecords;
    @Output() loadData = new EventEmitter();
    public columnsName: string[];
 
@@ -27,8 +27,8 @@ export class DictionaryTableComponent implements OnInit, OnChanges {
    }
 
    fillColumn() {
-      if (this.data && this.data.length > 0) this.columnsName = Object.keys(this.data[0]);
-      else this.data = [];
+      if (this.data.content && this.data.content.length > 0) this.columnsName = Object.keys(this.data.content[0]);
+      else this.data.content = [];
    }
 
    isArray(obj: any ) {

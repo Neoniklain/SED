@@ -31,13 +31,13 @@
 
             <dictionary-table *ngSwitchCase="'userList'"
                [data]="users"
-               [header]="'Пользователи'"></dictionary-table>
+               [header]="'Пользователи'"
+               (loadData)="updateDictionary($event)"></dictionary-table>
 
             <dictionary-table *ngSwitchCase="'disciplineList'"
                               [data]="disciplines"
                               [header]="'Дисциплины'"
-                              (loadData)="updateDictionary($event)"
-                              [totalRecords]="totalRecords"></dictionary-table>
+                              (loadData)="updateDictionary($event)"></dictionary-table>
 
             <parser-xml *ngSwitchCase="'downloadPlan'"></parser-xml>
 

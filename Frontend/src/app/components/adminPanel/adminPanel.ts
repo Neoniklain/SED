@@ -4,6 +4,7 @@ import {AdminService} from "../../services/admin.service";
 import {User} from "../../models/user.model";
 import {Discipline} from "../../models/Discipline.model";
 import {LazyLoadEvent} from "primeng/api";
+import {PageResult} from "../../models/admin/PageResult.model.list";
 
 @Component({
    selector: 'admin-panel-page',
@@ -15,9 +16,8 @@ export class AdminPanelComponent implements OnInit {
    // Common
    public menuToogle: string;
    // Dictionary
-   public users: Array<User>;
-   public disciplines: Array<Discipline>;
-   public totalRecords: number;
+   public users: PageResult;
+   public disciplines: PageResult;
 
    constructor(private router: Router,
                private adminService: AdminService) {
@@ -26,9 +26,8 @@ export class AdminPanelComponent implements OnInit {
 
    ngOnInit() {
       this.menuToogle = "downloadPlan";
-      this.users = [];
-      this.disciplines = [];
-      this.totalRecords = 50;
+      this.users = new PageResult();
+      this.disciplines = new PageResult();
    }
 
    setMenuToogle(toogle: string) {
@@ -42,6 +41,7 @@ export class AdminPanelComponent implements OnInit {
             this.adminService.GetUsers(event).subscribe(
                 result => {
                    this.users = result;
+                   console.log(this.users);
                 }, error => console.log(error)
             );
          break;
