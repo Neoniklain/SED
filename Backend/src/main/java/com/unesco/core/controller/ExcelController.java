@@ -33,6 +33,8 @@ public class ExcelController {
     private PlanRepository _PlanRepository;
     @Autowired
     private SemesterRepository _SemesterRepository;
+    @Autowired
+    private LessonTypeRepository _LessonTypeRepository;
 
     @RequestMapping(value = "/ParseStudyPlan")
     public String ParseStudyPlan(@RequestParam("file") MultipartFile file) throws IOException {
@@ -87,17 +89,24 @@ public class ExcelController {
                             //_DisciplineRepository.save(new Discipline(name, new Date()));
                             System.out.println("Дисциплина добавлена: " + name);
                         }
+                        Discipline discipline = _DisciplineRepository.findDisciplineByName(name);
 
                         // ↓ Получение значений для таблицы Plan
                         Plan plan = new Plan();
-                        plan.setDiscipline(_DisciplineRepository.findDisciplineByName(name));
+                        plan.setDiscipline(discipline);
+                        if(discipline == null){
+                            System.out.println("Пары нет в БД");
+                            plan.setDiscipline(new Discipline(name,new Date()));
+                        }
                         plan.setDepartment(_DepartmentRepository.findByName(row.getCell(101).getStringCellValue()));
                         if(row.getCell(2).getStringCellValue().length()>0)
                         {
                             //Доделать получение индекса. Проблему получения смотри на 134 строке в excel файле.
                             plan.setIndex(row.getCell(2).getStringCellValue());
                         }
-                        if(row.getCell(6).getStringCellValue().length()>0)
+
+                        //Старые поля для старой БД
+                        /*if(row.getCell(6).getStringCellValue().length()>0)
                         {
                             plan.setExamsQuantity(Integer.parseInt(row.getCell(6).getStringCellValue()));
                         }
@@ -119,65 +128,159 @@ public class ExcelController {
                         if(row.getCell(10).getStringCellValue().length()>0)
                         {
                             plan.setCourseWorkQuantity(Integer.parseInt(row.getCell(8).getStringCellValue()));
-                        }
+                        }*/
+
                         if(_PlanRepository.findByDiscipline(plan.getDiscipline())==null) {
                             //_PlanRepository.save(plan);
                             System.out.println("План добавлен для: " + name);
                         }
+                        //plan = _PlanRepository.findByDiscipline(plan.getDiscipline());
+
                         // ↓ Получение значений для таблицы Semester
                         Integer offset = 0;
                         for (Integer semestr = 0; semestr < 8; semestr++) {
                             Semester sem = new Semester();
-                            //Добавить ссылку у семестра на план
-                            //sem.setPlans(_PlanRepository.findByDiscipline(plan.getDiscipline()));
+
+                            //Нету поля "control_type" + пока не знаю как определять тип контроля. (Возможно с помощью итератора и значений в столбцах "формы контроля из excel")
+                            //sem.setPlan(plan);
+                            // _SemesterRepository.save(sem);
+                            // sem = _SemesterRepository.findByPlanId(plan.getId());
+
+                            //  getCellType()
+                            //      1 - Стринговое значение ячейки
+                            //      0 - Числовое значение ячейки
                             if (row.getCell(25 + offset).getCellType() == 1) {
                                 if (row.getCell(25 + offset).getStringCellValue().length() > 0) {
-                                    sem.setLection_hours((int) Float.parseFloat(row.getCell(25 + offset).getStringCellValue()));
+                                    LessonType lection = new LessonType();
+                                    lection.setHours((int) Float.parseFloat(row.getCell(25 + offset).getStringCellValue()));
+                                    lection.setName("Лекция");
+                                    lection.setSemester(sem);
+                                    //_LessonTypeRepository.save(lection);
+                                    //sem.setLection_hours((int) Float.parseFloat(row.getCell(25 + offset).getStringCellValue()));
+                                    System.out.println(plan.getDiscipline().getName()+": Лекция");
                                 }
                             } else if (row.getCell(25+ offset).getCellType() == 0) {
-                                sem.setLection_hours((int) row.getCell(25 + offset).getNumericCellValue());
+                                LessonType lection = new LessonType();
+                                lection.setHours((int) row.getCell(25 + offset).getNumericCellValue());
+                                lection.setName("Лекция");
+                                lection.setSemester(sem);
+                                //_LessonTypeRepository.save(lection);
+                                //sem.setLection_hours((int) row.getCell(25 + offset).getNumericCellValue());
+                                System.out.println(plan.getDiscipline().getName()+": Лекция");
                             } else System.out.println("Incorrect type of item for setLection_hours");
 
+//------------------------------------------------------------------------------------------------------------------------------------------------
 
                             if (row.getCell(26 + offset).getCellType() == 1) {
                                 if (row.getCell(26 + offset).getStringCellValue().length() > 0) {
-                                    sem.setLaboratory_hours((int) Float.parseFloat(row.getCell(26 + offset).getStringCellValue()));
+                                    LessonType lection = new LessonType();
+                                    lection.setHours((int) Float.parseFloat(row.getCell(26 + offset).getStringCellValue()));
+                                    lection.setName("Лабораторная");
+                                    lection.setSemester(sem);
+                                    //_LessonTypeRepository.save(lection);
+                                    //sem.setLaboratory_hours((int) Float.parseFloat(row.getCell(26 + offset).getStringCellValue()));
+                                    System.out.println(plan.getDiscipline().getName()+": Лабораторная");
                                 }
                             } else if (row.getCell(26+ offset).getCellType() == 0) {
-                                sem.setLaboratory_hours((int) row.getCell(26 + offset).getNumericCellValue());
+                                LessonType lection = new LessonType();
+                                lection.setHours((int) row.getCell(26 + offset).getNumericCellValue());
+                                lection.setName("Лабораторная");
+                                lection.setSemester(sem);
+                                //_LessonTypeRepository.save(lection);
+                                //sem.setLaboratory_hours((int) row.getCell(26 + offset).getNumericCellValue());
+                                System.out.println(plan.getDiscipline().getName()+": Лабораторная");
                             } else System.out.println("Incorrect type of item for setLaboratory_hours");
+
+//------------------------------------------------------------------------------------------------------------------------------------------------
 
                             if (row.getCell(27 + offset).getCellType() == 1) {
                                 if (row.getCell(27 + offset).getStringCellValue().length() > 0) {
-                                    sem.setPractice_hours((int) Float.parseFloat(row.getCell(27 + offset).getStringCellValue()));
+                                    LessonType lection = new LessonType();
+                                    lection.setHours((int) Float.parseFloat(row.getCell(27 + offset).getStringCellValue()));
+                                    lection.setName("Практика");
+                                    lection.setSemester(sem);
+                                    //_LessonTypeRepository.save(lection);
+                                    //sem.setPractice_hours((int) Float.parseFloat(row.getCell(27 + offset).getStringCellValue()));
+                                    System.out.println(plan.getDiscipline().getName()+": Практика");
                                 }
                             } else if (row.getCell(27+ offset).getCellType() == 0) {
-                                sem.setPractice_hours((int) row.getCell(27 + offset).getNumericCellValue());
+                                LessonType lection = new LessonType();
+                                lection.setHours((int) row.getCell(27 + offset).getNumericCellValue());
+                                lection.setName("Практика");
+                                lection.setSemester(sem);
+                                //_LessonTypeRepository.save(lection);
+                                //sem.setPractice_hours((int) row.getCell(27 + offset).getNumericCellValue());
+                                System.out.println(plan.getDiscipline().getName()+": Практика");
                             } else System.out.println("Incorrect type of item for setPractice_hours");
+
+//------------------------------------------------------------------------------------------------------------------------------------------------
 
                             if (row.getCell(28 + offset).getCellType() == 1) {
                                 if (row.getCell(28 + offset).getStringCellValue().length() > 0) {
-                                    sem.setSRS_hours((int) Float.parseFloat(row.getCell(28 + offset).getStringCellValue()));
+                                    LessonType lection = new LessonType();
+                                    lection.setHours((int) Float.parseFloat(row.getCell(28 + offset).getStringCellValue()));
+                                    lection.setName("СРС");
+                                    lection.setSemester(sem);
+                                    //_LessonTypeRepository.save(lection);
+                                    //sem.setSRS_hours((int) Float.parseFloat(row.getCell(28 + offset).getStringCellValue()));
+                                    System.out.println(plan.getDiscipline().getName()+": СРС");
                                 }
                             } else if (row.getCell(28+ offset).getCellType() == 0) {
-                                sem.setSRS_hours((int) row.getCell(28 + offset).getNumericCellValue());
+                                LessonType lection = new LessonType();
+                                lection.setHours((int) row.getCell(28 + offset).getNumericCellValue());
+                                lection.setName("СРС");
+                                lection.setSemester(sem);
+                                //_LessonTypeRepository.save(lection);
+                                //sem.setSRS_hours((int) row.getCell(28 + offset).getNumericCellValue());
+                                System.out.println(plan.getDiscipline().getName()+": СРС");
                             } else System.out.println("Incorrect type of item for setSRS_hours");
+
+//------------------------------------------------------------------------------------------------------------------------------------------------
 
                             if (row.getCell(29 + offset).getCellType() == 1) {
                                 if (row.getCell(29 + offset).getStringCellValue().length() > 0) {
-                                    sem.setControl_hours((int) Float.parseFloat(row.getCell(29 + offset).getStringCellValue()));
+                                    LessonType lection = new LessonType();
+                                    lection.setHours((int) Float.parseFloat(row.getCell(29 + offset).getStringCellValue()));
+                                    lection.setName("Контроль");
+                                    lection.setSemester(sem);
+                                    //_LessonTypeRepository.save(lection);
+                                    //sem.setControl_hours((int) Float.parseFloat(row.getCell(29 + offset).getStringCellValue()));
+                                    System.out.println(plan.getDiscipline().getName()+": Контроль");
                                 }
                             } else if (row.getCell(29+ offset).getCellType() == 0) {
-                                sem.setControl_hours((int) row.getCell(29 + offset).getNumericCellValue());
+                                LessonType lection = new LessonType();
+                                lection.setHours((int) row.getCell(29 + offset).getNumericCellValue());
+                                lection.setName("Контроль");
+                                lection.setSemester(sem);
+                                //_LessonTypeRepository.save(lection);
+                                //sem.setControl_hours((int) row.getCell(29 + offset).getNumericCellValue());
+                                System.out.println(plan.getDiscipline().getName()+": Контроль");
                             } else System.out.println("Incorrect type of item for setControl_hours");
+
+//------------------------------------------------------------------------------------------------------------------------------------------------
 
                             if (row.getCell(30 + offset).getCellType() == 1) {
                                 if (row.getCell(30 + offset).getStringCellValue().length() > 0) {
-                                    sem.setZET_hours((int) Float.parseFloat(row.getCell(30 + offset).getStringCellValue()));
+                                    LessonType lection = new LessonType();
+                                    lection.setHours((int) Float.parseFloat(row.getCell(30 + offset).getStringCellValue()));
+                                    lection.setName("ЗЕТ");
+                                    lection.setSemester(sem);
+                                    //_LessonTypeRepository.save(lection);
+                                    //sem.setZET_hours((int) Float.parseFloat(row.getCell(30 + offset).getStringCellValue()));
+                                    System.out.println(plan.getDiscipline().getName()+": ЗЕТ");
                                 }
                             } else if (row.getCell(30+ offset).getCellType() == 0) {
-                                sem.setZET_hours((int) row.getCell(30 + offset).getNumericCellValue());
+                                LessonType lection = new LessonType();
+                                lection.setHours((int) row.getCell(30 + offset).getNumericCellValue());
+                                lection.setName("ЗЕТ");
+                                lection.setSemester(sem);
+                                //_LessonTypeRepository.save(lection);
+                                //sem.setZET_hours((int) row.getCell(30 + offset).getNumericCellValue());
+                                System.out.println(plan.getDiscipline().getName()+": ЗЕТ");
                             } else System.out.println("Incorrect type of item for setZET_hours");
+
+//------------------------------------------------------------------------------------------------------------------------------------------------
+
                             if (semestr % 2 != 0) {
                                 offset += 10;
                             } else {
