@@ -35,7 +35,7 @@ public class PairController {
             if(p.getWeektype().getType().equals("Чет")) {
                 chetPairList.add(new PairViewModel(p.getPairNumber(), p.getWeektype().getType(),
                         p.getDayofweek().getDayofweek(), p.getProfessor().getFio(),
-                        p.getRoom().getRoom(), p.getDiscipline().getDiscipline(), p.getGroup().getGroup()));
+                        p.getRoom().getRoom(), p.getDiscipline().getName(), p.getGroup().getName()));
             }
         }
         return chetPairList;
@@ -50,7 +50,7 @@ public class PairController {
             if(p.getWeektype().getType().equals("Нечет")) {
                 nechetPairList.add(new PairViewModel(p.getPairNumber(), p.getWeektype().getType(),
                         p.getDayofweek().getDayofweek(), p.getProfessor().getFio(),
-                        p.getRoom().getRoom(), p.getDiscipline().getDiscipline(), p.getGroup().getGroup()));
+                        p.getRoom().getRoom(), p.getDiscipline().getName(), p.getGroup().getName()));
             }
         }
         return nechetPairList;
