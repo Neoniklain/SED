@@ -3,7 +3,7 @@ import {Router} from "@angular/router";
 import {Issue} from "../../../../models/issue.model";
 import {IssueService} from "../../../../services/issues.service";
 import {AuthenticationService} from "../../../../services/authService";
-import {User} from "../../../../models/user.model";
+import {TestUser, User} from "../../../../models/user.model";
 import {AccountService} from "../../../../services/accountService";
 import { FileUploader, FileUploaderOptions } from 'ng2-file-upload';
 
@@ -21,9 +21,11 @@ export class DocumentComponent {
   public show: boolean = false;
   public displayDialog: boolean = false;
   public displayChangeDialog: boolean = false;
+  public showUsers: boolean = false;
   public tempIssue: Issue = new Issue();
   public issueName: string;
   public issueList: Array<Issue>;
+  public UsersTest: TestUser[] = [];
   public executors: User[] = [];
   public results: User[] = [];
   public _uploader: FileUploader;
@@ -56,6 +58,16 @@ export class DocumentComponent {
       console.log("End of try");
   }
 
+  public Test() {
+      this.showUsers = true;
+      this.issueService.Test().subscribe((res: any) => {
+              this.UsersTest = res;
+          },
+          (error: any) => {
+              console.log("Ошибка" + error);
+          });
+  }
+
   ngOnInit(): void {
     this.UpdateIssueList();
   }
@@ -65,7 +77,7 @@ export class DocumentComponent {
     let newIssue: Issue = new Issue();
     newIssue.collaborators = this.executors;
     newIssue.name = this.issueName;
-    this.issueService.Create(newIssue).subscribe((res: any)=> {
+    this.issueService.Create(newIssue).subscribe((res: any) => {
         this.UpdateIssueList();
         },
         (error: any) => {

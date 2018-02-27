@@ -2,10 +2,12 @@ package com.unesco.core.controller;
 
 
 import com.unesco.core.ViewModel.JSONResponseStatus;
+import com.unesco.core.ViewModel.UserViewModel;
 import com.unesco.core.entities.Issue;
 import com.unesco.core.entities.Role;
 import com.unesco.core.entities.User;
 import com.unesco.core.repositories.IssueRepository;
+import com.unesco.core.repositories.IssueRepositoryTest;
 import com.unesco.core.repositories.UserRepository;
 import com.unesco.core.srvices.CustomUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +28,21 @@ public class IssueController {
     private IssueRepository _IssuesRepository;
     @Autowired
     private CustomUserDetailsService _CustomUserDetailsService;
+
+    @GetMapping(value = "/test")
+    public List<IssueRepositoryTest> GetListUsersWithIssue() {
+        Iterable<User> users = _UserRepository.findAll();
+        List<IssueRepositoryTest> res = new ArrayList<>();
+        for (User item:users) {
+            if(_IssuesRepository.findByCollaborators(item)!=null)
+            {
+                IssueRepositoryTest temp = new IssueRepositoryTest();
+                temp.setUser(item);
+                res.add(temp);
+            }
+        }
+        return res;
+    }
 
     @GetMapping(value = "/list")
     public Iterable<Issue> GetList() {

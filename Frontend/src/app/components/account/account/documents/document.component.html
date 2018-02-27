@@ -11,6 +11,9 @@
             <button (click)="displayDialog = true" type="button" class="btn btn-success">Добавить задачу</button>
          </div>
          <div class="btn-group" role="group" aria-label="Basic example">
+            <button (click)="Test()" type="button" class="btn btn-success">Показать юзеров</button>
+         </div>
+         <div class="btn-group" role="group" aria-label="Basic example">
             <input type="file" ng2FileSelect [uploader]="_uploader"/><br>
             <p *ngFor="let item of _uploader.queue">
                <button type="button" class="btn btn-success btn-sm"
@@ -79,4 +82,32 @@
    <p-footer>
       <button type="button" pButton icon="fa-check" (click)="CreateIssue()" label="Ок"></button>
    </p-footer>
+</p-dialog>
+
+<p-dialog header="Пользователи" [(visible)]="showUsers" modal="modal" width="300"
+          [responsive]="true">
+   <table>
+      <thead>
+      <tr>
+         <th>
+            Имя
+         </th>
+         <th>
+            Задача
+         </th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let user of UsersTest">
+         <td>
+            {{user.User.username}}
+         </td>
+         <td>
+            <div *ngFor="let issue of user.Issues">
+               {{issue.name}}
+            </div>
+         </td>
+      </tr>
+      </tbody>
+   </table>
 </p-dialog>

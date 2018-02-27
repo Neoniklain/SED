@@ -68,9 +68,4 @@ public class Department {
    {
       this.name = name;
    }
-
-   public Department(String name)
-   {
-      this.name = name;
-   }
 }

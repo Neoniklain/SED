@@ -38,6 +38,11 @@ export class IssueService {
         .catch(this.handleError);
     }
 
+    public Test(): Observable<any> {
+        return this.http.get(ApiRouteConstants.Issue.Test)
+            .catch(this.handleError);
+    }
+
     private handleError(error: HttpErrorResponse | any) {
         let errMsg: string;
         if (error instanceof HttpErrorResponse) {

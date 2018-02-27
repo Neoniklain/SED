@@ -44,7 +44,8 @@ export const ApiRouteConstants = {
       Create: "issue/create",
       Update: "issue/update",
       Get: "issue/get/:id",
-      Delete: "issue/delete/:id"
+      Delete: "issue/delete/:id",
+       Test: "issue/test"
    },
    Excel:
        {
