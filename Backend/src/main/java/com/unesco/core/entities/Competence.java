@@ -46,6 +46,10 @@ public class Competence {
       this.description = description;
    }
 
+   public Competence(String code)
+   {
+      this.code = code;
+   }
    public Set<Plan> getPlans() {
       return plans;
    }
@@ -53,5 +57,9 @@ public class Competence {
       this.plans = plans;
    }
 
-
+   public Competence(String code, String description)
+   {
+      this.code = code;
+      this.description = description;
+   }
 }
