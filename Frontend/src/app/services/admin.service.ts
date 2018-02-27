@@ -22,7 +22,8 @@ export class AdminService {
        let params = new HttpParams();
        let filter = {
           rows: filterQuery ? filterQuery.rows : 0,
-          first: filterQuery ? filterQuery.first : 0
+          first: filterQuery ? filterQuery.first : 0,
+          globalFilter: filterQuery.globalFilter
        }
         return this.http.post(ApiRouteConstants.Admin.Page.Users, filter, {params: params })
             .catch(this.handleError);
@@ -32,7 +33,8 @@ export class AdminService {
       let params = new HttpParams();
       let filter = {
          rows: filterQuery ? filterQuery.rows : 0,
-         first: filterQuery ? filterQuery.first : 0
+         first: filterQuery ? filterQuery.first : 0,
+         globalFilter: filterQuery.globalFilter
       }
       return this.http.post(ApiRouteConstants.Admin.Page.Disciplines, filter, {params: params })
           .catch(this.handleError);

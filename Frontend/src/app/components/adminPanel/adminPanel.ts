@@ -36,6 +36,7 @@ export class AdminPanelComponent implements OnInit {
    }
 
    updateDictionary(event?: LazyLoadEvent) {
+      console.log("event", event);
       switch (this.menuToogle) {
          case "userList":
             this.adminService.GetUsers(event).subscribe(

@@ -2,6 +2,7 @@
    <h1>{{header}}</h1>
 </div>
 <div class="main-header col-md-12 text-center">
+   <input #gb type="text" placeholder="Global search">
    <p-dataTable
            [value]="data.content"
            [lazy]="true"
@@ -9,7 +10,8 @@
            [paginator]="true"
            [rowsPerPageOptions]="[5,10,15]"
            [totalRecords]="data.totalNumber"
-           (onLazyLoad)="loadLazy($event)">
+           (onLazyLoad)="loadLazy($event)"
+           [globalFilter]="gb">
       <p-column *ngFor="let field of columnsName"
                 field="{{field}}"
                 header="{{field | translate}}">

@@ -1,0 +1,25 @@
+<div class="container container-block">
+  <div class="row">
+    <div class="col-md-12">
+      <h1>Журнал</h1>
+    </div>
+    <div class="col-md-12">
+      <table *ngIf="journal">
+        <thead>
+          <tr>
+            <td></td>
+            <td *ngFor="let date of journal.dates">{{date}}</td>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let student of journal.students">
+            <td>{{student.name}}</td>
+              <td *ngFor="let cell of journal.journalCell" [ngClass]="{displayNo: cell.student.name!=student.name}">
+                <input [(ngModel)]="cell.mark" type="text">
+              </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

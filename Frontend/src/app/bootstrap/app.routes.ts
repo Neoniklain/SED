@@ -12,6 +12,7 @@ import {EditorSingleNewsComponent} from "../components/news/editor-single-news/e
 import {AccessDeniedComponent} from "../components/account/accessDenied/accessDenied.component";
 import {AdminPanelComponent} from "../components/adminPanel/adminPanel";
 import {Roles} from "../models/role.model";
+import {JournalComponent} from "../components/journal/journal.component";
 
 export const routes: Routes = [
    {
@@ -66,6 +67,12 @@ export const routes: Routes = [
       component: AdminPanelComponent,
       canActivate: [AuthGuard],
       data: {expectedRoles: [Roles.Administrator], title: "Админ-панель"}
+   }
+   ,
+   {
+      path: RouteConstants.Journal.All,
+      component: JournalComponent,
+      data: { title: "Журнал"}
    }
 ];
 

@@ -19,6 +19,9 @@ export const RouteConstants = {
    Admin: {
       All: "admin"
    },
+   Journal: {
+      All: "journal"
+   },
    NotFound: "404"
 }
 
@@ -45,6 +48,9 @@ export const ApiRouteConstants = {
       Update: "issue/update",
       Get: "issue/get/:id",
       Delete: "issue/delete/:id"
+   },
+   Journal: {
+      All: "jurnal/all"
    },
    Excel:
        {

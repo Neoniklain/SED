@@ -50,6 +50,8 @@ import {Globals} from "../globals";
 import {DictionaryTableComponent} from "../components/adminPanel/dictionaryTable/dictionaryTable.component";
 import {AdminService} from "../services/admin.service";
 import {ParserXmlComponent} from "../components/adminPanel/parserXml/parserXml.component";
+import {JournalComponent} from "../components/journal/journal.component";
+import {JournalService} from "../services/journal.service";
 
 @NgModule({
    imports: [
@@ -88,6 +90,7 @@ import {ParserXmlComponent} from "../components/adminPanel/parserXml/parserXml.c
       FileSelectDirective,
       DictionaryTableComponent,
       ParserXmlComponent,
+      JournalComponent,
       HasRoleDirective
    ],
    providers: [
@@ -102,6 +105,7 @@ import {ParserXmlComponent} from "../components/adminPanel/parserXml/parserXml.c
       AccountService,
       AdminService,
       ConfirmationService,
+      JournalService,
       AuthGuard,
       Globals
    ],

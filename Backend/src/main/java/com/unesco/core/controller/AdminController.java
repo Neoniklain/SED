@@ -35,8 +35,8 @@ public class AdminController {
    @RequestMapping(value = "page/users")
    public PageResult<UserViewModel> GetUserList(@RequestBody FilterQuery filter) {
       List<UserViewModel> usersViewModel= new ArrayList<>();
-      int rows = filter.getRows()>0? filter.getRows() : 1;
-      Page<User> page = _UserRepository.findAll(new PageRequest(filter.getFirst(), rows));
+      int rows = filter.getRows()>0? filter.getRows() : 10;
+      Page<User> page = _UserRepository.findAll(new PageRequest(filter.getFirst()/rows, rows));
       for (User u: page.getContent()) {
          usersViewModel.add(new UserViewModel(u));
       }
@@ -47,8 +47,8 @@ public class AdminController {
    @RequestMapping(value = "page/disciplines")
    public PageResult<DisciplineViewModel> GetDisciplineList(@RequestBody FilterQuery filter) {
       List<DisciplineViewModel> disciplineViewModel= new ArrayList<>();
-      int rows = filter.getRows()>0? filter.getRows() : 1;
-      Page<Discipline> page = _DisciplineRepository.findAll(new PageRequest(filter.getFirst(), rows));
+      int rows = filter.getRows()>0? filter.getRows() : 10;
+      Page<Discipline> page = _DisciplineRepository.findAll(new PageRequest(filter.getFirst()/rows, rows));
       for (Discipline d: page.getContent()) {
          disciplineViewModel.add(new DisciplineViewModel(d));
       }
