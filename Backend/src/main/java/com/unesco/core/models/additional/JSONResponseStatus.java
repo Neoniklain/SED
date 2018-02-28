@@ -1,4 +1,4 @@
-package com.unesco.core.ViewModel;
+package com.unesco.core.models.additional;
 
 public class JSONResponseStatus {
     public static final String OK = "{\"status\" : \"ok\"}";

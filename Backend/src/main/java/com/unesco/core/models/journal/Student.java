@@ -1,4 +1,4 @@
-package com.unesco.core.ViewModel.Journal;
+package com.unesco.core.models.journal;
 
 public class Student {
    private String name;

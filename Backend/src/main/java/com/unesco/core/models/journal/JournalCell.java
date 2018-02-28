@@ -1,6 +1,4 @@
-package com.unesco.core.ViewModel.Journal;
-
-import java.util.List;
+package com.unesco.core.models.journal;
 
 public class JournalCell {
    private Student student;

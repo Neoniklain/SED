@@ -1,21 +1,14 @@
 package com.unesco.core.controller;
 
-import com.unesco.core.ViewModel.JSONResponseStatus;
-import com.unesco.core.ViewModel.Journal.Journal;
-import com.unesco.core.entities.News;
-import com.unesco.core.repositories.NewsRepository;
-import com.unesco.core.repositories.UserRepository;
-import com.unesco.core.srvices.CustomUserDetailsService;
-import com.unesco.core.srvices.dataInterface.JournalDataInterface;
+import com.unesco.core.models.journal.Journal;
+import com.unesco.core.models.journal.JournalCell;
+import com.unesco.core.models.journal.Student;
+import com.unesco.core.srvices.journalDataService.IJournalDataService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Collections;
-import java.util.Date;
 import java.util.List;
-import java.util.stream.Collectors;
-import java.util.stream.StreamSupport;
 
 /**
  * Created by lukasz on 27.08.2017.
@@ -27,11 +20,16 @@ import java.util.stream.StreamSupport;
 public class JournalController {
 
     @Autowired
-    private JournalDataInterface _JournalDataInterface;
+    @Qualifier("journalDataService") /* Указываю реализацию интерфейса, если ее не укзать то
+                                        выпадет исключени о том, что найдено две реализации
+                                         (IJournalDataService и JournalDataService)*/
+    private IJournalDataService journalDataService;
 
     @GetMapping("/all")
     public Journal GetJournal() {
-        Journal journal = _JournalDataInterface.getJoutnal();
+        Journal journal = journalDataService.getJournal();
+        List<JournalCell> CellsForDate = journalDataService.getCellsForDate(10);
+        List<JournalCell> CellsForStudent = journalDataService.getCellsForStudent(new Student("Василий Пупкин"));
         return journal;
     }
 }
