@@ -63,4 +63,14 @@ public class Department {
    public void setGroups(Set<Group> groups) {
       this.groups = groups;
    }
+
+   public Department(String name)
+   {
+      this.name = name;
+   }
+
+   public Department(String name)
+   {
+      this.name = name;
+   }
 }
