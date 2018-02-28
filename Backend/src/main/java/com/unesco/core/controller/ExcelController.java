@@ -1,11 +1,8 @@
 package com.unesco.core.controller;
 
-import com.unesco.core.ViewModel.JSONResponseStatus;
+import com.unesco.core.models.additional.JSONResponseStatus;
 import com.unesco.core.entities.Discipline;
-import com.unesco.core.entities.News;
-import com.unesco.core.repositories.DisciplineRepository;
-import org.apache.poi.hssf.usermodel.HSSFCell;
-import org.apache.poi.hssf.usermodel.HSSFRow;
+import com.unesco.core.repositories.plan.DisciplineRepository;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.Row;
@@ -13,7 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;

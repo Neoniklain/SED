@@ -1,4 +1,4 @@
-package com.unesco.core.ViewModel;
+package com.unesco.core.models.additional;
 
 public class FilterQuery {
    private String[] filters;

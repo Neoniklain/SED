@@ -1,4 +1,4 @@
-package com.unesco.core.repositories;
+package com.unesco.core.repositories.issue;
 
 
 import com.unesco.core.entities.Issue;

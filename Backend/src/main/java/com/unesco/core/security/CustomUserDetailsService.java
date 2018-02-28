@@ -1,7 +1,7 @@
-package com.unesco.core.srvices;
+package com.unesco.core.security;
 
 import com.unesco.core.entities.User;
-import com.unesco.core.repositories.UserRepository;
+import com.unesco.core.repositories.account.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -26,6 +26,7 @@ public class CustomUserDetailsService implements UserDetailsService{
             return new CustomUserDetails(user);
         }
     }
+
     @Override
     public CustomUserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         User user=userRepository.findByUsername(username);

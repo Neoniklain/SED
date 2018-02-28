@@ -1,16 +1,11 @@
-package com.unesco.core.ViewModel;
+package com.unesco.core.models;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.unesco.core.entities.Discipline;
-import com.unesco.core.entities.FieldOfKnowledge;
-import com.unesco.core.entities.Plan;
 
-import javax.persistence.*;
 import java.util.Date;
-import java.util.Set;
 
-public class DisciplineViewModel {
+public class DisciplineModel {
 
    /** Поле название */
    private String name;
@@ -41,13 +36,13 @@ public class DisciplineViewModel {
       this.fieldOfKnowledge = fieldOfKnowledge;
    }
 
-   public DisciplineViewModel(Discipline discipline){
+   public DisciplineModel(Discipline discipline){
       this.name = discipline.getName();
       this.datecreate = discipline.getDatecreate();
       if(discipline.getFieldOfKnowledge() != null)
          this.fieldOfKnowledge = discipline.getFieldOfKnowledge().getName();
    }
-   public DisciplineViewModel(String name, Date datecreate)
+   public DisciplineModel(String name, Date datecreate)
    {
       this.name = name;
       this.datecreate = datecreate;

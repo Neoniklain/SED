@@ -1,17 +1,17 @@
-package com.unesco.core.ViewModel;
+package com.unesco.core.models.account;
 
 import com.unesco.core.entities.Role;
 import com.unesco.core.entities.User;
-import com.unesco.core.srvices.CustomUserDetails;
+import com.unesco.core.security.CustomUserDetails;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class UserViewModel {
+public class UserModel {
 
     public String username;
     public String email;
-    public List<RoleViewModel> roles;
+    public List<RoleModel> roles;
 
     public String getUsername() {
         return username;
@@ -27,28 +27,28 @@ public class UserViewModel {
         this.email = email;
     }
 
-    public List<RoleViewModel> getRoles() {
+    public List<RoleModel> getRoles() {
         return roles;
     }
-    public void setRoles(List<RoleViewModel> roles) {
+    public void setRoles(List<RoleModel> roles) {
         this.roles = roles;
     }
 
-    public UserViewModel(User user) {
+    public UserModel(User user) {
         this.username = user.getUsername();
         this.email = user.getEmail();
         this.roles = new ArrayList<>();
         for (Role r: user.getRoles()) {
-            this.roles.add(new RoleViewModel(r.getRoleName()));
+            this.roles.add(new RoleModel(r.getRoleName()));
         }
     }
 
-    public UserViewModel(CustomUserDetails u) {
+    public UserModel(CustomUserDetails u) {
         this.username = u.getUsername();
         this.email = u.getEmail();
-        this.roles = new ArrayList<RoleViewModel>();
+        this.roles = new ArrayList<RoleModel>();
         for (Role role: u.getRole()) {
-            this.roles.add(new RoleViewModel(role.getRoleName()));
+            this.roles.add(new RoleModel(role.getRoleName()));
         }
     }
 }

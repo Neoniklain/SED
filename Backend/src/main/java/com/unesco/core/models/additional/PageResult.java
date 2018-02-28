@@ -1,4 +1,4 @@
-package com.unesco.core.ViewModel;
+package com.unesco.core.models.additional;
 
 import java.util.List;
 

@@ -1,15 +1,15 @@
 package com.unesco.core.controller;
 
-import com.unesco.core.ViewModel.DisciplineViewModel;
-import com.unesco.core.ViewModel.FilterQuery;
-import com.unesco.core.ViewModel.PageResult;
-import com.unesco.core.ViewModel.UserViewModel;
+import com.unesco.core.models.DisciplineModel;
+import com.unesco.core.models.additional.FilterQuery;
+import com.unesco.core.models.additional.PageResult;
+import com.unesco.core.models.account.UserModel;
 import com.unesco.core.entities.Discipline;
 import com.unesco.core.entities.User;
-import com.unesco.core.repositories.DisciplineRepository;
-import com.unesco.core.repositories.NewsRepository;
-import com.unesco.core.repositories.UserRepository;
-import com.unesco.core.srvices.CustomUserDetailsService;
+import com.unesco.core.repositories.plan.DisciplineRepository;
+import com.unesco.core.repositories.news.NewsRepository;
+import com.unesco.core.repositories.account.UserRepository;
+import com.unesco.core.security.CustomUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -33,26 +33,26 @@ public class AdminController {
    private CustomUserDetailsService _CustomUserDetailsService;
 
    @RequestMapping(value = "page/users")
-   public PageResult<UserViewModel> GetUserList(@RequestBody FilterQuery filter) {
-      List<UserViewModel> usersViewModel= new ArrayList<>();
+   public PageResult<UserModel> GetUserList(@RequestBody FilterQuery filter) {
+      List<UserModel> usersViewModel= new ArrayList<>();
       int rows = filter.getRows()>0? filter.getRows() : 10;
       Page<User> page = _UserRepository.findAll(new PageRequest(filter.getFirst()/rows, rows));
       for (User u: page.getContent()) {
-         usersViewModel.add(new UserViewModel(u));
+         usersViewModel.add(new UserModel(u));
       }
-      PageResult<UserViewModel> result = new PageResult<UserViewModel>(usersViewModel, _UserRepository.count());
+      PageResult<UserModel> result = new PageResult<UserModel>(usersViewModel, _UserRepository.count());
       return result;
    }
 
    @RequestMapping(value = "page/disciplines")
-   public PageResult<DisciplineViewModel> GetDisciplineList(@RequestBody FilterQuery filter) {
-      List<DisciplineViewModel> disciplineViewModel= new ArrayList<>();
+   public PageResult<DisciplineModel> GetDisciplineList(@RequestBody FilterQuery filter) {
+      List<DisciplineModel> disciplineModel = new ArrayList<>();
       int rows = filter.getRows()>0? filter.getRows() : 10;
       Page<Discipline> page = _DisciplineRepository.findAll(new PageRequest(filter.getFirst()/rows, rows));
       for (Discipline d: page.getContent()) {
-         disciplineViewModel.add(new DisciplineViewModel(d));
+         disciplineModel.add(new DisciplineModel(d));
       }
-      PageResult<DisciplineViewModel> result = new PageResult<DisciplineViewModel>(disciplineViewModel, _DisciplineRepository.count());
+      PageResult<DisciplineModel> result = new PageResult<DisciplineModel>(disciplineModel, _DisciplineRepository.count());
       return result;
    }
 }

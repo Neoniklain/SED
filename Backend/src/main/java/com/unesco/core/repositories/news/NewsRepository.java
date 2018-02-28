@@ -1,4 +1,4 @@
-package com.unesco.core.repositories;
+package com.unesco.core.repositories.news;
 
 import com.unesco.core.entities.News;
 import org.springframework.data.repository.CrudRepository;

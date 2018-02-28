@@ -1,6 +1,6 @@
-package com.unesco.core.ViewModel;
+package com.unesco.core.models.account;
 
-public class RoleViewModel {
+public class RoleModel {
 
     public String roleName;
 
@@ -11,7 +11,7 @@ public class RoleViewModel {
         this.roleName = roleName;
     }
 
-    public RoleViewModel(String roleName) {
+    public RoleModel(String roleName) {
         this.roleName = roleName;
     }
 }

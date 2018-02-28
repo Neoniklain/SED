@@ -1,13 +1,13 @@
 package com.unesco.core.controller;
 
 
-import com.unesco.core.ViewModel.JSONResponseStatus;
+import com.unesco.core.models.additional.JSONResponseStatus;
 import com.unesco.core.entities.Issue;
 import com.unesco.core.entities.Role;
 import com.unesco.core.entities.User;
-import com.unesco.core.repositories.IssueRepository;
-import com.unesco.core.repositories.UserRepository;
-import com.unesco.core.srvices.CustomUserDetailsService;
+import com.unesco.core.repositories.issue.IssueRepository;
+import com.unesco.core.repositories.account.UserRepository;
+import com.unesco.core.security.CustomUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 

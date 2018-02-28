@@ -1,4 +1,4 @@
-package com.unesco.core.repositories;
+package com.unesco.core.repositories.account;
 
 import com.unesco.core.entities.Role;
 import org.springframework.data.repository.CrudRepository;

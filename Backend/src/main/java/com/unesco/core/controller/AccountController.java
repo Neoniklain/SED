@@ -1,16 +1,16 @@
 package com.unesco.core.controller;
 
-import com.unesco.core.ViewModel.JSONResponseStatus;
-import com.unesco.core.ViewModel.RoleViewModel;
-import com.unesco.core.ViewModel.UserViewModel;
+import com.unesco.core.models.additional.JSONResponseStatus;
+import com.unesco.core.models.account.RoleModel;
+import com.unesco.core.models.account.UserModel;
 import com.unesco.core.entities.Role;
-import com.unesco.core.repositories.RoleRepository;
-import com.unesco.core.srvices.CustomUserDetails;
-import com.unesco.core.srvices.CustomUserDetailsService;
+import com.unesco.core.repositories.account.RoleRepository;
+import com.unesco.core.security.CustomUserDetails;
+import com.unesco.core.security.CustomUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import com.unesco.core.entities.User;
 import org.springframework.web.bind.annotation.*;
-import com.unesco.core.repositories.UserRepository;
+import com.unesco.core.repositories.account.UserRepository;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -30,11 +30,11 @@ public class AccountController {
     private RoleRepository _RoleRepository;
 
     @GetMapping("/role")
-    public List<RoleViewModel> GetLast() {
+    public List<RoleModel> GetLast() {
         CustomUserDetails user = _CustomUserDetailsService.getUserDetails();
-        List<RoleViewModel> roles = new ArrayList<RoleViewModel>();
+        List<RoleModel> roles = new ArrayList<RoleModel>();
         for (Role role: user.getRole()) {
-            roles.add(new RoleViewModel(role.getRoleName()));
+            roles.add(new RoleModel(role.getRoleName()));
         }
         return roles;
     }
@@ -50,8 +50,8 @@ public class AccountController {
     }
 
     @GetMapping("/user")
-    public UserViewModel GetUser() {
-        UserViewModel user = new UserViewModel(_CustomUserDetailsService.getUserDetails());
+    public UserModel GetUser() {
+        UserModel user = new UserModel(_CustomUserDetailsService.getUserDetails());
         return user;
     }
 

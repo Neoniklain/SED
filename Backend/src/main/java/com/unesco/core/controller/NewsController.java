@@ -1,19 +1,14 @@
 package com.unesco.core.controller;
 
-import com.unesco.core.ViewModel.JSONResponseStatus;
+import com.unesco.core.models.additional.JSONResponseStatus;
 import com.unesco.core.entities.News;
-import com.unesco.core.repositories.NewsRepository;
-import com.unesco.core.repositories.UserRepository;
-import com.unesco.core.srvices.CustomUserDetailsService;
+import com.unesco.core.repositories.news.NewsRepository;
+import com.unesco.core.repositories.account.UserRepository;
+import com.unesco.core.security.CustomUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
-import java.lang.reflect.Array;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
