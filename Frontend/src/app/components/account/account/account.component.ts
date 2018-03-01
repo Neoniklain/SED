@@ -14,6 +14,7 @@ import {AuthenticationService} from "../../../services/authService";
 export class AccountComponent implements OnInit {
 
   public user: User;
+  public menuName: string;
 
   @ViewChild(DocumentComponent) documentComponent: DocumentComponent;
   @ViewChild(NewsDispatcherComponent) newsDispatcherComponent: NewsDispatcherComponent;
@@ -32,19 +33,11 @@ export class AccountComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.newsDispatcherComponent.toogle();
+    this.menuName = "news-dispatcher-page";
   }
 
   menuToole(menuName) {
-    if (menuName == "document-page")
-      this.documentComponent.Show();
-    else
-      this.documentComponent.Hide();
-
-    if (menuName == "news-dispatcher-page")
-      this.newsDispatcherComponent.Show();
-    else
-      this.newsDispatcherComponent.Hide();
+    this.menuName = menuName;
   }
 
 }

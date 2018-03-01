@@ -31,17 +31,4 @@ export class NewsDispatcherComponent {
 
   }
 
-  public Show() {
-      this.show = true;
-  }
-  public Hide() {
-    this.show = false;
-  }
-  public toogle() {
-    if (this.show == false)
-      this.show = true;
-    else
-      this.show = false;
-  }
-
 }

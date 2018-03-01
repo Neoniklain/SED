@@ -8,4 +8,7 @@ export const LANG_RU_TRANS = {
    "name": "Название",
    "datecreate": "Дата создания",
    "fieldOfKnowledge": "Раздел знаний",
+   "document-page" : "Документооборот",
+   "news-dispatcher-page" : "Управление новостями",
+   "journal-page": "Журнал"
 };

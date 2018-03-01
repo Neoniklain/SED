@@ -39,10 +39,30 @@
   display: none;
 }
 
+input {
+  border: none;
+  outline: none;
+}
+
+input:hover,input:focus {
+  border: none;
+  outline: none;
+}
+
+table {
+  width: 100%;
+  border: 2px solid white;
+}
+
 td {
   padding: 5px;
   border: 1px solid #3d3d3d;
   text-align: center;
+}
+thead
+{
+  background: #0000002b;
+  color: black;
 }
 
 td input {

@@ -27,14 +27,23 @@
           <div class="list-group">
             <a style="cursor: pointer;" (click)="menuToole('news-dispatcher-page')" class="list-group-item">Управление новостями</a>
             <a style="cursor: pointer;" (click)="menuToole('document-page')" class="list-group-item">Докуметооборот</a>
+            <a style="cursor: pointer;" (click)="menuToole('journal-page')" class="list-group-item">Журнал</a>
           </div>
         </div>
       </div>
     </div>
     <div class="col-md-9">
-      <div class="head">
-        <document-page></document-page>
-        <news-dispatcher-page></news-dispatcher-page>
+      <div class="head" [ngSwitch]="menuName">
+        <div class="panel panel-default panel-inverse">
+          <div class="panel-heading">
+            <h3>{{menuName | translate}}</h3>
+          </div>
+          <div class="panel-body">
+            <document-page *ngSwitchCase="'document-page'"></document-page>
+            <news-dispatcher-page *ngSwitchCase="'news-dispatcher-page'"></news-dispatcher-page>
+            <journal-page *ngSwitchCase="'journal-page'"></journal-page>
+          </div>
+        </div>
       </div>
     </div>
   </div>

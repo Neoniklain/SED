@@ -8,10 +8,6 @@
   position: relative;
 }
 
-.panel-body {
-   padding-bottom: 2em;
- }
-
 .header-panel-body:after {
   content: '';
   width: 100%;
