@@ -1,7 +1,7 @@
 package com.unesco.core.utils;
 
-import com.unesco.core.entities.Role;
-import com.unesco.core.entities.User;
+import com.unesco.core.entities.account.Role;
+import com.unesco.core.entities.account.User;
 import com.unesco.core.repositories.account.RoleRepository;
 import com.unesco.core.repositories.account.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;

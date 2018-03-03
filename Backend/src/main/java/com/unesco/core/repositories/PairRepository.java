@@ -1,6 +1,6 @@
 package com.unesco.core.repositories;
 
-import com.unesco.core.entities.Pair;
+import com.unesco.core.entities.schedule.Pair;
 import com.unesco.core.entities.Professor;
 import org.springframework.data.repository.CrudRepository;
 

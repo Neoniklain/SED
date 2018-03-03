@@ -1,4 +1,4 @@
-package com.unesco.core.entities;
+package com.unesco.core.entities.plan;
 
 import javax.persistence.*;
 import java.util.Set;

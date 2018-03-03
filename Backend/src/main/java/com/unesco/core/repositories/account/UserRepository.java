@@ -1,6 +1,6 @@
 package com.unesco.core.repositories.account;
 
-import com.unesco.core.entities.User;
+import com.unesco.core.entities.account.User;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.repository.CrudRepository;

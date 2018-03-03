@@ -1,5 +1,8 @@
 package com.unesco.core.controller;
 
+import com.unesco.core.entities.plan.LessonType;
+import com.unesco.core.entities.plan.Plan;
+import com.unesco.core.entities.plan.Semester;
 import com.unesco.core.models.additional.JSONResponseStatus;
 import com.unesco.core.entities.*;
 import com.unesco.core.repositories.plan.*;

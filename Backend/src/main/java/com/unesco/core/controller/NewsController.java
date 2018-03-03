@@ -1,7 +1,7 @@
 package com.unesco.core.controller;
 
 import com.unesco.core.models.additional.JSONResponseStatus;
-import com.unesco.core.entities.News;
+import com.unesco.core.entities.news.News;
 import com.unesco.core.repositories.news.NewsRepository;
 import com.unesco.core.repositories.account.UserRepository;
 import com.unesco.core.security.CustomUserDetailsService;

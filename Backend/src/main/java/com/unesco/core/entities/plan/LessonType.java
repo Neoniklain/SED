@@ -1,4 +1,6 @@
-package com.unesco.core.entities;
+package com.unesco.core.entities.plan;
+
+import com.unesco.core.entities.plan.Semester;
 
 import javax.persistence.*;
 

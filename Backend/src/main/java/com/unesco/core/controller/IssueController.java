@@ -2,9 +2,9 @@ package com.unesco.core.controller;
 
 
 import com.unesco.core.models.additional.JSONResponseStatus;
-import com.unesco.core.entities.Issue;
-import com.unesco.core.entities.Role;
-import com.unesco.core.entities.User;
+import com.unesco.core.entities.workflow.Issue;
+import com.unesco.core.entities.account.Role;
+import com.unesco.core.entities.account.User;
 import com.unesco.core.repositories.issue.IssueRepository;
 import com.unesco.core.repositories.account.UserRepository;
 import com.unesco.core.security.CustomUserDetailsService;

@@ -1,4 +1,7 @@
-package com.unesco.core.entities;
+package com.unesco.core.entities.plan;
+
+import com.unesco.core.entities.Department;
+import com.unesco.core.entities.Discipline;
 
 import javax.persistence.*;
 import java.util.Set;

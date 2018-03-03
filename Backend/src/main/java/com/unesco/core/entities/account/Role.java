@@ -1,4 +1,4 @@
-package com.unesco.core.entities;
+package com.unesco.core.entities.account;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.springframework.security.core.GrantedAuthority;

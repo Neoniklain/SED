@@ -1,7 +1,7 @@
 package com.unesco.core.models.account;
 
-import com.unesco.core.entities.Role;
-import com.unesco.core.entities.User;
+import com.unesco.core.entities.account.Role;
+import com.unesco.core.entities.account.User;
 import com.unesco.core.security.CustomUserDetails;
 
 import java.util.ArrayList;

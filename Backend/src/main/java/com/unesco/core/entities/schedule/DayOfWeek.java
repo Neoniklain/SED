@@ -1,4 +1,4 @@
-package com.unesco.core.entities;
+package com.unesco.core.entities.schedule;
 
 import javax.persistence.*;
 

@@ -1,8 +1,8 @@
-package com.unesco.core.entities;
+package com.unesco.core.entities.schedule;
+
+import com.unesco.core.entities.*;
 
 import javax.persistence.*;
-import java.sql.Time;
-import java.util.Set;
 
 @Entity
 @Table(name = "pairs")

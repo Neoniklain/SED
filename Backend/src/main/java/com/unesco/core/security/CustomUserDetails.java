@@ -5,8 +5,8 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-import com.unesco.core.entities.Role;
-import com.unesco.core.entities.User;
+import com.unesco.core.entities.account.Role;
+import com.unesco.core.entities.account.User;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.core.userdetails.UserDetails;

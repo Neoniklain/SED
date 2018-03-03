@@ -1,8 +1,8 @@
 package com.unesco.core.repositories.issue;
 
 
-import com.unesco.core.entities.Issue;
-import com.unesco.core.entities.User;
+import com.unesco.core.entities.workflow.Issue;
+import com.unesco.core.entities.account.User;
 import org.springframework.data.repository.CrudRepository;
 
 import java.util.List;

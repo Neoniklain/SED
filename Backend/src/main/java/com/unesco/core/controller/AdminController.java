@@ -5,7 +5,7 @@ import com.unesco.core.models.additional.FilterQuery;
 import com.unesco.core.models.additional.PageResult;
 import com.unesco.core.models.account.UserModel;
 import com.unesco.core.entities.Discipline;
-import com.unesco.core.entities.User;
+import com.unesco.core.entities.account.User;
 import com.unesco.core.repositories.plan.DisciplineRepository;
 import com.unesco.core.repositories.news.NewsRepository;
 import com.unesco.core.repositories.account.UserRepository;

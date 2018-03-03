@@ -1,4 +1,6 @@
-package com.unesco.core.entities;
+package com.unesco.core.entities.news;
+
+import com.unesco.core.entities.account.User;
 
 import javax.persistence.*;
 import java.util.Date;

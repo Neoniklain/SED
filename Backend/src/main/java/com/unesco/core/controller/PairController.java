@@ -1,12 +1,10 @@
 package com.unesco.core.controller;
 
 import com.unesco.core.ViewModel.PairViewModel;
-import com.unesco.core.entities.Pair;
+import com.unesco.core.entities.schedule.Pair;
 import com.unesco.core.entities.Professor;
-import com.unesco.core.entities.WeekType;
 import com.unesco.core.repositories.PairRepository;
 import com.unesco.core.repositories.ProfessorRepository;
-import com.unesco.core.repositories.WeekTypeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -14,8 +12,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
-import java.util.stream.StreamSupport;
 
 @RestController
 @RequestMapping("/api/demo")
