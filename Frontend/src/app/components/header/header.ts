@@ -1,7 +1,7 @@
 ﻿import {ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit} from "@angular/core";
 import {Router} from "@angular/router";
 import {Message} from "primeng/components/common/message";
-import {Roles} from "../../models/role.model";
+import {Roles} from "../../models/account/role.model";
 
 import {AuthenticationService} from "../../services/authService";
 import {HasRoleDirective} from '../../guards/hasRole.dirictive';

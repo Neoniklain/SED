@@ -3,7 +3,7 @@ import "rxjs/add/operator/map";
 import {Observable} from "rxjs/Observable";
 import {HttpClient, HttpErrorResponse, HttpParams} from "@angular/common/http";
 import {Router} from "@angular/router";
-import {Issue} from "../models/issue.model";
+import {Issue} from "../models/workflow/issue.model";
 import {ApiRouteConstants} from "../bootstrap/app.route.constants";
 
 @Injectable()

@@ -1,4 +1,4 @@
-import {News} from "../../../models/news.model";
+import {News} from "../../../models/news/news.model";
 import {Component, Input, OnInit} from "@angular/core";
 
 @Component({

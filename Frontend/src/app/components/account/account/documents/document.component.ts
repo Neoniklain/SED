@@ -1,9 +1,9 @@
 import {Component} from '@angular/core';
 import {Router} from "@angular/router";
-import {Issue} from "../../../../models/issue.model";
+import {Issue} from "../../../../models/workflow/issue.model";
 import {IssueService} from "../../../../services/issues.service";
 import {AuthenticationService} from "../../../../services/authService";
-import {User} from "../../../../models/user.model";
+import {User} from "../../../../models/account/user.model";
 import {AccountService} from "../../../../services/accountService";
 import {FileUploader, FileUploaderOptions} from 'ng2-file-upload';
 

@@ -2,6 +2,7 @@
 import {Router} from "@angular/router";
 import {LazyLoadEvent} from "primeng/api";
 import {PageResult} from "../../../models/admin/PageResult.model.list";
+import {isUndefined} from "util";
 
 @Component({
    selector: 'dictionary-table',
@@ -27,8 +28,12 @@ export class DictionaryTableComponent implements OnInit, OnChanges {
    }
 
    fillColumn() {
-      if (this.data.content && this.data.content.length > 0) this.columnsName = Object.keys(this.data.content[0]);
-      else this.data.content = [];
+      if (this.data) {
+         if (!isUndefined(this.data.content) && this.data.content.length > 0)
+            this.columnsName = Object.keys(this.data.content[0]);
+         else
+            this.data.content = [];
+      }
    }
 
    isArray(obj: any ) {

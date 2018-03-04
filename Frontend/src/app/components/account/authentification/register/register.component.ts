@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import {LogInUser} from "../../../../models/user.model";
+import {LogInUser} from "../../../../models/account/user.model";
 import {AuthenticationService} from "../../../../services/authService";
 import {MessageService} from "primeng/components/common/messageservice";
 import {Router} from "@angular/router";

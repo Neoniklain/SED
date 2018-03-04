@@ -3,7 +3,7 @@ import { HttpClient, HttpResponse, HttpErrorResponse, HttpParams } from "@angula
 import { Observable } from "rxjs/Observable";
 import { Router } from "@angular/router";
 import { ApiRouteConstants } from "../bootstrap/app.route.constants";
-import { News } from "../models/news.model";
+import { News } from "../models/news/news.model";
 import 'rxjs/add/operator/catch';
 
 @Injectable()

@@ -1,7 +1,7 @@
 import { ConfirmationService, Message } from "primeng/primeng";
 import { MessageService } from "primeng/components/common/messageservice";
 import { Component } from '@angular/core';
-import { News } from "../../../models/news.model";
+import { News } from "../../../models/news/news.model";
 import { NewsService } from "../../../services/news.service";
 import {RouteConstants} from "../../../bootstrap/app.route.constants";
 import {Router} from "@angular/router";

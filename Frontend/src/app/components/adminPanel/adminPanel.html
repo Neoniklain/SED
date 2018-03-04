@@ -13,8 +13,11 @@
                   <span class="caret"></span>
                </a>
                <ul class="dropdown-menu">
-                  <li><a (click)="setMenuToogle('userList')"><i class="fa fa-users"></i> Пользователи</a></li>
-                  <li><a (click)="setMenuToogle('disciplineList')"><i class="fa fa-users"></i> Дисциплины</a></li>
+                  <li><a (click)="setMenuToogle('userList')"><i class="fa fa-user-o"></i> Пользователи</a></li>
+                  <li><a (click)="setMenuToogle('disciplineList')"><i class="fa fa-book"></i> Дисциплины</a></li>
+                  <li><a (click)="setMenuToogle('instituteList')"><i class="fa fa-university"></i> Институты</a></li>
+                  <li><a (click)="setMenuToogle('departmentList')"><i class="fa fa-users"></i> Кафедры</a></li>
+                  <li><a (click)="setMenuToogle('groupList')"><i class="fa fa-users"></i> Группы</a></li>
                </ul>
             </li>
          </ul>
@@ -35,9 +38,24 @@
                (loadData)="updateDictionary($event)"></dictionary-table>
 
             <dictionary-table *ngSwitchCase="'disciplineList'"
-                              [data]="disciplines"
-                              [header]="'Дисциплины'"
-                              (loadData)="updateDictionary($event)"></dictionary-table>
+               [data]="disciplines"
+               [header]="'Дисциплины'"
+               (loadData)="updateDictionary($event)"></dictionary-table>
+
+            <dictionary-table *ngSwitchCase="'instituteList'"
+               [data]="institute"
+               [header]="'Институты'"
+               (loadData)="updateDictionary($event)"></dictionary-table>
+
+            <dictionary-table *ngSwitchCase="'departmentList'"
+               [data]="department"
+               [header]="'Кафедры'"
+               (loadData)="updateDictionary($event)"></dictionary-table>
+
+            <dictionary-table *ngSwitchCase="'groupList'"
+               [data]="group"
+               [header]="'Группы'"
+               (loadData)="updateDictionary($event)"></dictionary-table>
 
             <parser-xml *ngSwitchCase="'downloadPlan'"></parser-xml>
 

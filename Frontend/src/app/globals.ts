@@ -1,4 +1,4 @@
-import {Role} from "./models/role.model";
+import {Role} from "./models/account/role.model";
 import {Injectable, Input} from "@angular/core";
 import {Observable} from "rxjs/Observable";
 import {Observer} from "rxjs/Observer";

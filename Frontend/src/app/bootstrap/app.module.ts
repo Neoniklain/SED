@@ -48,10 +48,11 @@ import {AdminPanelComponent} from "../components/adminPanel/adminPanel";
 import {HasRoleDirective} from "../guards/hasRole.dirictive";
 import {Globals} from "../globals";
 import {DictionaryTableComponent} from "../components/adminPanel/dictionaryTable/dictionaryTable.component";
-import {AdminService} from "../services/admin.service";
+import {DictionaryService} from "../services/dictionary.service";
 import {ParserXmlComponent} from "../components/adminPanel/parserXml/parserXml.component";
 import {JournalComponent} from "../components/journal/journal.component";
 import {JournalService} from "../services/journal.service";
+import {DictionaryTableAddComponent} from "../components/adminPanel/dictionaryTable/added/dictionaryTableAdd.component";
 
 @NgModule({
    imports: [
@@ -90,6 +91,7 @@ import {JournalService} from "../services/journal.service";
       FileSelectDirective,
       DictionaryTableComponent,
       ParserXmlComponent,
+      DictionaryTableAddComponent,
       JournalComponent,
       HasRoleDirective
    ],
@@ -103,7 +105,7 @@ import {JournalService} from "../services/journal.service";
       NewsService,
       MessageService,
       AccountService,
-      AdminService,
+      DictionaryService,
       ConfirmationService,
       JournalService,
       AuthGuard,

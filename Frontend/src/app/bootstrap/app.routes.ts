@@ -11,7 +11,7 @@ import {EditorListNewsComponent} from "../components/news/editor-list-news/edito
 import {EditorSingleNewsComponent} from "../components/news/editor-single-news/editor-single-news.component";
 import {AccessDeniedComponent} from "../components/account/accessDenied/accessDenied.component";
 import {AdminPanelComponent} from "../components/adminPanel/adminPanel";
-import {Roles} from "../models/role.model";
+import {Roles} from "../models/account/role.model";
 import {JournalComponent} from "../components/journal/journal.component";
 
 export const routes: Routes = [

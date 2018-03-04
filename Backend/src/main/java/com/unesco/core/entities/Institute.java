@@ -12,7 +12,7 @@ public class Institute {
    private long id;
    private String name;
    @OneToMany(cascade = CascadeType.ALL, mappedBy = "institute")
-   /** Поле набор планов */
+   /** Поле набор кафедр */
    private Set<Department> departments;
 
    public long getId() {

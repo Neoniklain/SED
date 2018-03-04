@@ -3,9 +3,9 @@ import {HttpClient, HttpErrorResponse, HttpParams} from '@angular/common/http';
 import {Observable} from 'rxjs/Observable';
 import {Router} from "@angular/router";
 import {ApiRouteConstants, RouteConstants} from "../bootstrap/app.route.constants";
-import {ErrorResponse} from "../models/errorResponse";
-import {LogInUser, User} from "../models/user.model";
-import {Role} from "../models/role.model";
+import {ErrorResponse} from "../models/additional/errorResponse";
+import {LogInUser, User} from "../models/account/user.model";
+import {Role} from "../models/account/role.model";
 
 export const TOKEN_NAME: string = 'token';
  

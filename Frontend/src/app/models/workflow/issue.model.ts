@@ -1,4 +1,4 @@
-import {User} from "./user.model";
+import {User} from "../account/user.model";
 
 export class Issue {
   public id:number;

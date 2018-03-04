@@ -1,32 +1,63 @@
 ﻿<div class="main-header col-md-12 text-center">
    <h1>{{header}}</h1>
 </div>
-<div class="main-header col-md-12 text-center">
-   <input #gb type="text" placeholder="Global search">
-   <p-dataTable
-           [value]="data.content"
-           [lazy]="true"
-           [rows]="10"
-           [paginator]="true"
-           [rowsPerPageOptions]="[5,10,15]"
-           [totalRecords]="data.totalNumber"
-           (onLazyLoad)="loadLazy($event)"
-           [globalFilter]="gb">
-      <p-column *ngFor="let field of columnsName"
-                field="{{field}}"
-                header="{{field | translate}}">
-         <ng-template let-col let-fields="rowData" let-ri="rowIndex" pTemplate="body">
-            <template [ngIf]="!isArray(fields[field])">
-               <span>{{fields[field]}}</span>
-            </template>
-            <template [ngIf]="isArray(fields[field])">
-               <ng-template ngFor let-item [ngForOf]="fields[field]">
-                  <span *ngFor="let itemField of getKeys(item)">
-                     {{item[itemField]}}
-                  </span>
-               </ng-template>
-            </template>
-         </ng-template>
-      </p-column>
-   </p-dataTable>
+
+<div *ngIf="data" class="main-header col-md-12">
+   <div class="panel panel-default panel-inverse">
+      <div class="panel-heading">
+         <h3>Добавить</h3>
+      </div>
+      <div class="panel-body">
+         <div class="form-group row" *ngFor="let column of columnsName">
+            <label for="{{column}}" class="col-sm-offset-2 col-sm-2 col-form-label">{{column | translate}}</label>
+            <div class="col-sm-6">
+               <input type="text" class="form-control" id="{{column}}">
+            </div>
+         </div>
+         <div class="form-group row">
+            <div class="col-sm-10 text-right">
+               <input type="button" class="btn btn-success" value="Добавить">
+            </div>
+         </div>
+      </div>
+   </div>
+   <div class="panel panel-default panel-inverse">
+      <div class="panel-heading">
+         <h3>Список</h3>
+      </div>
+      <div class="panel-body">
+         <div class="find-place text-left">
+            <span>Найти </span>
+            <input #gb type="text" placeholder="Текст поиска">
+         </div>
+         <div class=" text-center">
+            <p-dataTable
+                    [value]="data.content"
+                    [lazy]="true"
+                    [rows]="10"
+                    [paginator]="true"
+                    [rowsPerPageOptions]="[5,10,15]"
+                    [totalRecords]="data.totalNumber"
+                    (onLazyLoad)="loadLazy($event)"
+                    [globalFilter]="gb">
+               <p-column *ngFor="let field of columnsName"
+                         field="{{field}}"
+                         header="{{field | translate}}">
+                  <ng-template let-col let-fields="rowData" let-ri="rowIndex" pTemplate="body">
+                     <template [ngIf]="!isArray(fields[field])">
+                        <span>{{fields[field]}}</span>
+                     </template>
+                     <template [ngIf]="isArray(fields[field])">
+                        <ng-template ngFor let-item [ngForOf]="fields[field]">
+                           <span *ngFor="let itemField of getKeys(item)">
+                              {{item[itemField]}}
+                           </span>
+                        </ng-template>
+                     </template>
+                  </ng-template>
+               </p-column>
+            </p-dataTable>
+         </div>
+      </div>
+   </div>
 </div>

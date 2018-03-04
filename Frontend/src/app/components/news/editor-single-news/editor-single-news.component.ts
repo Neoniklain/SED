@@ -4,7 +4,7 @@ import {isUndefined} from "util";
 import {Location} from '@angular/common';
 import {MessageService} from "primeng/components/common/messageservice";
 import {Message} from "primeng/components/common/message";
-import {News} from "../../../models/news.model";
+import {News} from "../../../models/news/news.model";
 import {NewsService} from "../../../services/news.service";
 import {AuthenticationService} from "../../../services/authService";
 

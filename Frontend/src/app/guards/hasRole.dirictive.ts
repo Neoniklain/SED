@@ -1,6 +1,6 @@
 import {Directive, Input, OnChanges, OnInit, TemplateRef, ViewContainerRef} from "@angular/core";
 import {AuthenticationService} from "../services/authService";
-import {Role, Roles} from "../models/role.model";
+import {Role, Roles} from "../models/account/role.model";
 import {Globals} from "../globals";
 import {Subscription} from "rxjs/Subscription";
 

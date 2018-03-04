@@ -2,7 +2,7 @@ import {Component, ContentChild, ElementRef, Injectable, NgModule, OnInit, ViewC
 import {DocumentComponent} from "./documents/document.component";
 import {NewsDispatcherComponent} from "./news-dispatcher/news-dispatcher.component";
 import {Router} from "@angular/router";
-import {User} from "../../../models/user.model";
+import {User} from "../../../models/account/user.model";
 import {AuthenticationService} from "../../../services/authService";
 
 @Component({
