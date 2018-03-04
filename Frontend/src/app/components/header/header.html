@@ -12,19 +12,45 @@
             </a>
         </div>
 
+        <!--<li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="TestDropDown" data-toggle="dropdown"
+               aria-haspopup="true" aria-expanded="false">
+                <i class="fa fa-list-alt"></i>&nbsp;\\Типа юзернэйм//
+                <b class="caret"></b>
+            </a>
+            <div class="dropdown-menu" aria-labelledby="TestDropDown">
+                <a class="dropdown-item" href="https://www.google.ru/">\\Google//</a>
+                <a class="dropdown-item" href="https://vk.com/dremwerk">\\Валентин Карпов ВК//</a>
+                <a class="dropdown-item" href="https://vk.com/id145378914">\\Виталий Ващенко ВК//</a>
+            </div>
+        </li>-->
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav">
                 <li id="nav-manu-main"><a [routerLink]="['/']"><i class="fa fa-home" aria-hidden="true"></i> Главная</a></li>
-                <li *hasRole="[Roles.Authorized]"><a [routerLink]="[RouteConstants.Account.Lk]"><i class="fa fa-address-card-o" aria-hidden="true"></i> Личный кабинет</a></li>
+                <!--<li *hasRole="[Roles.Authorized]"><a [routerLink]="[RouteConstants.Account.Lk]"><i class="fa fa-address-card-o" aria-hidden="true"></i> Личный кабинет</a></li>-->
             </ul>
-            <form class="navbar-form navbar-right" role="search">
+
+            <div class="navbar-right" role="search">
                 <a *hasRole="[Roles.Anonim]" [routerLink]="[RouteConstants.Account.Login]" class="btn btn-default"><i class="fa fa-sign-out" aria-hidden="true"></i> Вход</a>
-                <a *hasRole="[Roles.Authorized]" (click)="logout()" class="btn btn-default"><i class="fa fa-sign-out" aria-hidden="true"></i> Выход</a>
-            </form>
-            <ul class="nav navbar-nav navbar-right">
+                <!--<a *hasRole="[Roles.Authorized]" (click)="logout()" class="btn btn-default"><i class="fa fa-sign-out" aria-hidden="true"></i> Выход</a>-->
+                <ul *hasRole="[Roles.Authorized]" class="nav navbar-nav margin-zero-topbot">
+                    <li class="dropdown">
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                            <i class="fa fa-book"></i> {{user.username}}
+                            <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a [routerLink]="[RouteConstants.Account.Lk]"><i class="fa fa-address-card-o" aria-hidden="true"></i> Личный кабинет</a></li>
+                            <li *hasRole="[Roles.Administrator]"><a [routerLink]="[RouteConstants.Admin.All]"><i class="fa fa-lock" aria-hidden="true"></i> Админка</a></li>
+                            <li><a (click)="logout()"><i class="fa fa-sign-out" aria-hidden="true"></i> Выход</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <!--<ul class="nav navbar-nav navbar-right">
                 <li *hasRole="[Roles.Administrator]"><a [routerLink]="[RouteConstants.Admin.All]"><i class="fa fa-lock" aria-hidden="true"></i> Адмика</a></li>
-            </ul>
+            </ul>-->
         </div><!-- /.navbar-collapse -->
     </div><!-- /.container-fluid -->
 </nav>
