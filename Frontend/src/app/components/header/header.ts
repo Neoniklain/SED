@@ -7,6 +7,7 @@ import {AuthenticationService} from "../../services/authService";
 import {HasRoleDirective} from '../../guards/hasRole.dirictive';
 import {Globals} from "../../globals";
 import {RouteConstants} from "../../bootstrap/app.route.constants";
+import {User} from "../../models/user.model";
 
 @Component({
    selector: 'header-component',
@@ -19,6 +20,7 @@ export class HeaderComponent implements OnInit {
    public RouteConstants;
    accountService: any;
    public Roles;
+   public user: User;
    public msgs: Message[] = [];
 
    constructor(private router: Router,
@@ -33,6 +35,15 @@ export class HeaderComponent implements OnInit {
              this.globals.role = result;
           }
       );
+      this.user = new User();
+      this.authService.getUser().subscribe(
+           res => {
+               this.user = res;
+           },
+           error => {
+               if (error.statusText === "Forbidden")
+                   this.router.navigate(['/404']);
+           });
    }
 
    logout() {

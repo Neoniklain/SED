@@ -24,10 +24,12 @@ public class DBInitializer implements ApplicationRunner {
         // Инициализация ролей
         if(_RoleRepository.findByRole("ADMIN") == null)
             _RoleRepository.save(new Role("ADMIN"));
-        if(_RoleRepository.findByRole("MANAGER") == null)
-            _RoleRepository.save(new Role("MANAGER"));
-        if(_RoleRepository.findByRole("USER") == null)
-            _RoleRepository.save(new Role("USER"));
+        if(_RoleRepository.findByRole("STUDENT") == null)
+            _RoleRepository.save(new Role("STUDENT"));
+        if(_RoleRepository.findByRole("PROFESSOR") == null)
+            _RoleRepository.save(new Role("PROFESSOR"));
+        if(_RoleRepository.findByRole("ENGINEER") == null)
+            _RoleRepository.save(new Role("ENGINEER"));
         // Инициализация Тестового пользователя.
         if(_UserRepository.findByUsername("admin") == null)
         {
