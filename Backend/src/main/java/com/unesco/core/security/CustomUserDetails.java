@@ -14,6 +14,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 public class CustomUserDetails implements UserDetails {
 
     private String username;
+    private String userFIO;
     private String password;
     private String email;
     private List<Role> roles;
@@ -21,6 +22,7 @@ public class CustomUserDetails implements UserDetails {
 
     public CustomUserDetails(User user){
         this.username = user.getUsername();
+        this.userFIO = user.getUserFIO();
         this.password = user.getPassword();
         this.email = user.getEmail();
         this.roles = new ArrayList<Role>(user.getRoles());
@@ -56,6 +58,10 @@ public class CustomUserDetails implements UserDetails {
 
     public String getUsername() {
         return username;
+    }
+
+    public String getUserFIO() {
+        return userFIO;
     }
 
     public String getPassword() {

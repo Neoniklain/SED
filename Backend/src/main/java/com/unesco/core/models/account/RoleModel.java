@@ -1,8 +1,13 @@
 package com.unesco.core.models.account;
 
+import com.unesco.core.entities.Role;
+
+import javax.swing.*;
+
 public class RoleModel {
 
     public String roleName;
+    public String roleNameRus;
 
     public String getRoleName() {
         return roleName;
@@ -11,7 +16,26 @@ public class RoleModel {
         this.roleName = roleName;
     }
 
-    public RoleModel(String roleName) {
-        this.roleName = roleName;
+    public String getRoleNameRus() {
+        return roleNameRus;
     }
+    public void setRoleNameRus(String roleNameRus) {
+        this.roleNameRus = roleNameRus;
+    }
+
+    /*public RoleModel(String roleName) {
+        this.roleName = roleName;
+    }*/
+
+    public RoleModel(Role role)
+    {
+        this.roleNameRus = role.getRoleNameRus();
+        this.roleName = role.getRoleName();
+    }
+
+    public RoleModel(String roleName, String roleNameRus) {
+        this.roleName = roleName;
+        this.roleNameRus = roleNameRus;
+    }
+
 }

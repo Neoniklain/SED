@@ -10,6 +10,7 @@ import java.util.List;
 public class UserModel {
 
     public String username;
+    public String userFIO;
     public String email;
     public List<RoleModel> roles;
 
@@ -18,6 +19,13 @@ public class UserModel {
     }
     public void setUsername(String username) {
         this.username = username;
+    }
+
+    public String getUserFIO() {
+        return userFIO;
+    }
+    public void setUserFIO(String userFIO) {
+        this.userFIO = userFIO;
     }
 
     public String getEmail() {
@@ -38,17 +46,19 @@ public class UserModel {
         this.username = user.getUsername();
         this.email = user.getEmail();
         this.roles = new ArrayList<>();
+        this.userFIO = user.getUserFIO();
         for (Role r: user.getRoles()) {
-            this.roles.add(new RoleModel(r.getRoleName()));
+            this.roles.add(new RoleModel(r));
         }
     }
 
     public UserModel(CustomUserDetails u) {
         this.username = u.getUsername();
+        this.userFIO = u.getUserFIO();
         this.email = u.getEmail();
         this.roles = new ArrayList<RoleModel>();
         for (Role role: u.getRole()) {
-            this.roles.add(new RoleModel(role.getRoleName()));
+            this.roles.add(new RoleModel(role));
         }
     }
 }
