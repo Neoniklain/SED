@@ -31,8 +31,11 @@
                 <!--<li *hasRole="[Roles.Authorized]"><a [routerLink]="[RouteConstants.Account.Lk]"><i class="fa fa-address-card-o" aria-hidden="true"></i> Личный кабинет</a></li>-->
             </ul>
 
+            <form *hasRole="[Roles.Anonim]" class="navbar-form navbar-right" role="search">
+                <a [routerLink]="[RouteConstants.Account.Login]" class="btn btn-default"><i class="fa fa-sign-out" aria-hidden="true"></i> Вход</a>
+            </form>
+
             <div class="navbar-right" role="search">
-                <a *hasRole="[Roles.Anonim]" [routerLink]="[RouteConstants.Account.Login]" class="btn btn-default"><i class="fa fa-sign-out" aria-hidden="true"></i> Вход</a>
                 <!--<a *hasRole="[Roles.Authorized]" (click)="logout()" class="btn btn-default"><i class="fa fa-sign-out" aria-hidden="true"></i> Выход</a>-->
                 <ul *hasRole="[Roles.Authorized]" class="nav navbar-nav margin-zero-topbot">
                     <li class="dropdown">

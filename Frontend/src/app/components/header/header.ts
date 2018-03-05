@@ -7,7 +7,7 @@ import {AuthenticationService} from "../../services/authService";
 import {HasRoleDirective} from '../../guards/hasRole.dirictive';
 import {Globals} from "../../globals";
 import {RouteConstants} from "../../bootstrap/app.route.constants";
-import {User} from "../../models/user.model";
+import {User} from "../../models/account/user.model";
 
 @Component({
    selector: 'header-component',

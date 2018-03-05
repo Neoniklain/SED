@@ -32,7 +32,4 @@ public class RoleModel {
         this.roleNameRus = role.getRoleNameRus();
         this.roleName = role.getRoleName();
     }
-    public RoleModel(Role role) {
-        this.roleName = role.getRoleName();
-    }
 }

@@ -2,12 +2,13 @@ package com.unesco.core.controller;
 
 import com.unesco.core.ViewModel.PairViewModel;
 import com.unesco.core.entities.Department;
-import com.unesco.core.entities.Pair;
 import com.unesco.core.entities.Professor;
-import com.unesco.core.repositories.DepartmentRepository;
+import com.unesco.core.entities.schedule.Pair;
 import com.unesco.core.repositories.PairRepository;
 import com.unesco.core.repositories.ProfessorRepository;
+import com.unesco.core.repositories.plan.DepartmentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -19,6 +20,7 @@ import java.util.Map;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
+@CrossOrigin
 @RestController
 @RequestMapping("/api/demo")
 public class DepartmentController {
