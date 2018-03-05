@@ -13,6 +13,10 @@ public class Professor {
     @Column(name = "fio")
     private String fio;
 
+    @ManyToOne
+    @JoinColumn(name = "professor_id", referencedColumnName = "id")
+    private Department department;
+
     public long getId() {
         return id;
     }
@@ -27,5 +31,13 @@ public class Professor {
 
     public void setFio(String fio) {
         this.fio = fio;
+    }
+
+    public Department getDepartment() {
+        return department;
+    }
+
+    public void setDepartment(Department department) {
+        this.department = department;
     }
 }

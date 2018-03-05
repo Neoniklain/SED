@@ -4,63 +4,70 @@ import javax.persistence.*;
 import java.util.Set;
 
 @Entity
-@Table(name="department")
+@Table(name = "department")
 /**
  * Класс кафедры
  */
 public class Department {
 
-   @Id
-   @SequenceGenerator(name = "departmentSequenceGen", sequenceName = "departmentSequenceGen", allocationSize = 1)
-   @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "departmentSequenceGen")
-   private long id;
-   /** Поле название */
-   private String name;
-   @ManyToOne
-   @JoinColumn(name = "institute_id", referencedColumnName = "id")
-   /** Поле Институты */
-   private Institute institute;
+    @Id
+    @SequenceGenerator(name = "departmentSequenceGen", sequenceName = "departmentSequenceGen", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "departmentSequenceGen")
+    private long id;
+    /**
+     * Поле название
+     */
+    private String name;
+    @ManyToOne
+    @JoinColumn(name = "institute_id", referencedColumnName = "id")
+    /** Поле Институты */
+    private Institute institute;
 
-   public long getId() {
-      return id;
-   }
-   public void setId(long id) {
-      this.id = id;
-   }
+    public long getId() {
+        return id;
+    }
 
-   public String getName() {
-      return name;
-   }
-   public void setName(String name) {
-      this.name = name;
-   }
+    public void setId(long id) {
+        this.id = id;
+    }
 
-   public Institute getInstitute() {
-      return institute;
-   }
-   public void setInstitute(Institute institute) {
-      this.institute = institute;
-   }
+    public String getName() {
+        return name;
+    }
 
-   @OneToMany(cascade = CascadeType.ALL, mappedBy = "department")
-   /** Поле набор планов */
-   private Set<Plan> plans;
+    public void setName(String name) {
+        this.name = name;
+    }
 
-   public Set<Plan> getPlans() {
-      return plans;
-   }
-   public void setPlans(Set<Plan> plans) {
-      this.plans = plans;
-   }
+    public Institute getInstitute() {
+        return institute;
+    }
 
-   @OneToMany(cascade = CascadeType.ALL, mappedBy = "department")
-   /** Поле набор планов */
-   private Set<Group> groups;
+    public void setInstitute(Institute institute) {
+        this.institute = institute;
+    }
 
-   public Set<Group> getGroups() {
-      return groups;
-   }
-   public void setGroups(Set<Group> groups) {
-      this.groups = groups;
-   }
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "department")
+    /** Поле набор планов */
+    private Set<Plan> plans;
+
+    public Set<Plan> getPlans() {
+        return plans;
+    }
+
+    public void setPlans(Set<Plan> plans) {
+        this.plans = plans;
+    }
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "department")
+    /** Поле набор планов */
+    private Set<Group> groups;
+
+    public Set<Group> getGroups() {
+        return groups;
+    }
+
+    public void setGroups(Set<Group> groups) {
+        this.groups = groups;
+    }
 }

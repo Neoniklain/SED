@@ -8,6 +8,19 @@ public class PairViewModel {
     private String room;
     private String discipline;
     private String group;
+    private String department;
+
+    public PairViewModel(int pairnumber, String weektype,
+                         String dayofweek, String professor, String room, String discipline, String group, String department) {
+        this.pairnumber = pairnumber;
+        this.weektype = weektype;
+        this.dayofweek = dayofweek;
+        this.professor = professor;
+        this.room = room;
+        this.discipline = discipline;
+        this.group = group;
+        this.department = department;
+    }
 
     public PairViewModel(int pairnumber, String weektype,
                          String dayofweek, String professor, String room, String discipline, String group) {
@@ -74,5 +87,13 @@ public class PairViewModel {
 
     public void setGroup(String group) {
         this.group = group;
+    }
+
+    public String getDepartment() {
+        return department;
+    }
+
+    public void setDepartment(String department) {
+        this.department = department;
     }
 }

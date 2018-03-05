@@ -1,10 +1,12 @@
 package com.unesco.core.controller;
 
 import com.unesco.core.ViewModel.PairViewModel;
+import com.unesco.core.entities.Department;
+import com.unesco.core.entities.Group;
 import com.unesco.core.entities.Pair;
-import com.unesco.core.entities.Professor;
+import com.unesco.core.repositories.DepartmentRepository;
+import com.unesco.core.repositories.GroupRepository;
 import com.unesco.core.repositories.PairRepository;
-import com.unesco.core.repositories.ProfessorRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,17 +19,21 @@ import java.util.stream.StreamSupport;
 
 @RestController
 @RequestMapping("/api/demo")
-public class ProfessorController {
-    @Autowired
-    ProfessorRepository professorRepository;
-
+public class GroupController {
     @Autowired
     PairRepository pairRepository;
 
-    @RequestMapping("/professor/{id}/pairs/even")
-    public List<PairViewModel> getChetPairs(@PathVariable("id") int id) {
-        Professor professor = professorRepository.findOne((long) id);
-        Iterable<Pair> pairs = pairRepository.findPairsByProfessor(professor);
+    @Autowired
+    GroupRepository groupRepository;
+
+    @Autowired
+    DepartmentRepository departmentRepository;
+
+    @RequestMapping("/group/{id}/pairs/even")
+    public List<PairViewModel> getChetPairsForGroup(@PathVariable("id") Long id) {
+        Group group = groupRepository.findOne(id);
+        Iterable<Pair> pairs = pairRepository.findPairsByGroup(group);
+        Department department;
         List<PairViewModel> chetPairList = new ArrayList<PairViewModel>();
         for (Pair p : pairs) {
             if (p.getWeektype().getType().equals("Чет")) {
@@ -39,10 +45,10 @@ public class ProfessorController {
         return chetPairList;
     }
 
-    @RequestMapping("/professor/{id}/pairs/odd")
-    public List<PairViewModel> getNechetPairs(@PathVariable("id") int id) {
-        Professor professor = professorRepository.findOne((long) id);
-        Iterable<Pair> pairs = pairRepository.findPairsByProfessor(professor);
+    @RequestMapping("/group/{id}/pairs/odd")
+    public List<PairViewModel> getNechetPairsForGroup(@PathVariable("id") Long id) {
+        Group group = groupRepository.findOne(id);
+        Iterable<Pair> pairs = pairRepository.findPairsByGroup(group);
         List<PairViewModel> nechetPairList = new ArrayList<PairViewModel>();
         for (Pair p : pairs) {
             if (p.getWeektype().getType().equals("Нечет")) {
@@ -54,14 +60,9 @@ public class ProfessorController {
         return nechetPairList;
     }
 
-    @RequestMapping("/professors")
-    public List<Professor> getProfessors() {
-        Iterable<Professor> tmp = professorRepository.findAll();
+    @RequestMapping("/groups")
+    public List<Group> getGroups() {
+        Iterable<Group> tmp = groupRepository.findAll();
         return StreamSupport.stream(tmp.spliterator(), false).collect(Collectors.toList());
-    }
-
-    @RequestMapping("/professor/{id}")
-    public Professor getProfessor(@PathVariable("id") Long id) {
-        return professorRepository.findOne(id);
     }
 }
