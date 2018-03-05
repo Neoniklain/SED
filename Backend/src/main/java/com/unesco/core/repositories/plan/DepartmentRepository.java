@@ -6,6 +6,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.repository.CrudRepository;
 
 public interface DepartmentRepository extends CrudRepository<Department, Long> {
+    Department findById(Long id);
     Department findByName(String name);
 
     Page findAll(Pageable pageRequest);
