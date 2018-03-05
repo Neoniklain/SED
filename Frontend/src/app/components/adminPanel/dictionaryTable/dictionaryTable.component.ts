@@ -13,7 +13,7 @@ import {isUndefined} from "util";
 export class DictionaryTableComponent implements OnInit, OnChanges {
 
    @Input() data: PageResult;
-   @Input() header;
+   @Input() type;
    @Output() loadData = new EventEmitter();
    public columnsName: string[];
 

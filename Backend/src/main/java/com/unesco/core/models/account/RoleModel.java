@@ -1,6 +1,6 @@
 package com.unesco.core.models.account;
 
-import com.unesco.core.entities.Role;
+import com.unesco.core.entities.account.Role;
 
 import javax.swing.*;
 
@@ -32,10 +32,7 @@ public class RoleModel {
         this.roleNameRus = role.getRoleNameRus();
         this.roleName = role.getRoleName();
     }
-
-    public RoleModel(String roleName, String roleNameRus) {
-        this.roleName = roleName;
-        this.roleNameRus = roleNameRus;
+    public RoleModel(Role role) {
+        this.roleName = role.getRoleName();
     }
-
 }

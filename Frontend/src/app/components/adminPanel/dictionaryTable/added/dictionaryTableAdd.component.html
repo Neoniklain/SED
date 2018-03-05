@@ -1,11 +1,94 @@
-﻿<div class="form-group row" *ngFor="let column of columnsName">
-   <label for="{{column}}" class="col-sm-offset-2 col-sm-2 col-form-label">{{column | translate}}</label>
-   <div class="col-sm-6">
-      <input type="text" class="form-control" id="{{column}}">
+﻿<div [ngSwitch]="type">
+
+   <div *ngSwitchCase="'users'">
+      <div class="form-group row">
+         <label for="username" class="col-sm-offset-2 col-sm-2 col-form-label">Имя пользователя</label>
+         <div class="col-sm-6">
+            <input type="text" class="form-control" id="username">
+         </div>
+      </div>
+      <div class="form-group row">
+         <label for="email" class="col-sm-offset-2 col-sm-2 col-form-label">E-mail</label>
+         <div class="col-sm-6">
+            <input type="text" class="form-control" id="email">
+         </div>
+      </div>
+      <div class="form-group row">
+         <label for="pass" class="col-sm-offset-2 col-sm-2 col-form-label">Пароль</label>
+         <div class="col-sm-6">
+            <input type="text" class="form-control" id="pass">
+         </div>
+      </div>
+      <div *ngIf="roles && roles.length > 0" class="form-group row">
+         <label for="role" class="col-sm-offset-2 col-sm-2 col-form-label">Роль</label>
+         <div class="col-sm-6" id="role">
+            <select class="form-control">
+               <option *ngFor="let role of roles" value="{{role.roleName}}">{{role.roleName}}</option>
+            </select>
+         </div>
+      </div>
+      <div class="form-group row">
+         <div class="col-sm-10 text-right">
+            <input type="button" class="btn btn-success" value="Добавить">
+         </div>
+      </div>
    </div>
-</div>
-<div class="form-group row">
-   <div class="col-sm-10 text-right">
-      <input type="button" class="btn btn-success" value="Добавить">
+
+   <div *ngSwitchCase="'disciplines'">
+      <div class="form-group row" *ngFor="let column of columnsName">
+         <label for="{{column}}" class="col-sm-offset-2 col-sm-2 col-form-label">{{column | translate}}</label>
+         <div class="col-sm-6">
+            <input type="text" class="form-control" id="{{column}}">
+         </div>
+      </div>
+      <div class="form-group row">
+         <div class="col-sm-10 text-right">
+            <input type="button" class="btn btn-success" value="Добавить">
+         </div>
+      </div>
    </div>
+
+   <div *ngSwitchCase="'institutes'">
+      <div class="form-group row" *ngFor="let column of columnsName">
+         <label for="{{column}}" class="col-sm-offset-2 col-sm-2 col-form-label">{{column | translate}}</label>
+         <div class="col-sm-6">
+            <input type="text" class="form-control" id="{{column}}">
+         </div>
+      </div>
+      <div class="form-group row">
+         <div class="col-sm-10 text-right">
+            <input type="button" class="btn btn-success" value="Добавить">
+         </div>
+      </div>
+   </div>
+
+   <div *ngSwitchCase="'departments'">
+      <div class="form-group row" *ngFor="let column of columnsName">
+         <label for="{{column}}" class="col-sm-offset-2 col-sm-2 col-form-label">{{column | translate}}</label>
+         <div class="col-sm-6">
+            <input type="text" class="form-control" id="{{column}}">
+         </div>
+      </div>
+      <div class="form-group row">
+         <div class="col-sm-10 text-right">
+            <input type="button" class="btn btn-success" value="Добавить">
+         </div>
+      </div>
+   </div>
+
+   <div *ngSwitchCase="'groups'">
+      <div class="form-group row" *ngFor="let column of columnsName">
+         <label for="{{column}}" class="col-sm-offset-2 col-sm-2 col-form-label">{{column | translate}}</label>
+         <div class="col-sm-6">
+            <input type="text" class="form-control" id="{{column}}">
+         </div>
+      </div>
+      <div class="form-group row">
+         <div class="col-sm-10 text-right">
+            <input type="button" class="btn btn-success" value="Добавить">
+         </div>
+      </div>
+   </div>
+
 </div>
+

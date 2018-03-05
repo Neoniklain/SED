@@ -1,26 +1,18 @@
 ﻿<div class="main-header col-md-12 text-center">
-   <h1>{{header}}</h1>
+   <h1>{{type | translate}}</h1>
 </div>
 
 <div *ngIf="data" class="main-header col-md-12">
-   <div class="panel panel-default panel-inverse">
-      <div class="panel-heading">
+   <details class="panel panel-default panel-inverse">
+      <summary class="panel-heading">
          <h3>Добавить</h3>
-      </div>
+      </summary>
       <div class="panel-body">
-         <div class="form-group row" *ngFor="let column of columnsName">
-            <label for="{{column}}" class="col-sm-offset-2 col-sm-2 col-form-label">{{column | translate}}</label>
-            <div class="col-sm-6">
-               <input type="text" class="form-control" id="{{column}}">
-            </div>
-         </div>
-         <div class="form-group row">
-            <div class="col-sm-10 text-right">
-               <input type="button" class="btn btn-success" value="Добавить">
-            </div>
-         </div>
+         <dictionary-table-add
+            [type]="type">
+         </dictionary-table-add>
       </div>
-   </div>
+   </details>
    <div class="panel panel-default panel-inverse">
       <div class="panel-heading">
          <h3>Список</h3>

@@ -30,3 +30,7 @@
     text-align: center;
     padding-bottom: 1em;
 }
+
+summary h3 {
+    display: inline-block;
+}

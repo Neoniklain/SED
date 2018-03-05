@@ -5,6 +5,7 @@ import {Discipline} from "../../models/discipline.model";
 import {LazyLoadEvent} from "primeng/api";
 import {PageResult} from "../../models/admin/PageResult.model.list";
 import {DictionaryService} from "../../services/dictionary.service";
+import {Dictionary} from "../../models/admin/dictionary.model";
 
 @Component({
    selector: 'admin-panel-page',
@@ -16,21 +17,17 @@ export class AdminPanelComponent implements OnInit {
    // Common
    public menuToogle: string;
    // Dictionary
-   public users: PageResult;
-   public disciplines: PageResult;
-   public institute: PageResult;
-   public department: PageResult;
-   public group: PageResult;
+   public currentModel: PageResult;
+
+   public Dictionary;
 
    constructor(private router: Router,
-               private dictionaryService: DictionaryService) {
-
-   }
+               private dictionaryService: DictionaryService) {}
 
    ngOnInit() {
       this.menuToogle = "downloadPlan";
-      this.users = new PageResult();
-      this.disciplines = new PageResult();
+      this.currentModel = new PageResult();
+      this.Dictionary = Dictionary;
    }
 
    setMenuToogle(toogle: string) {
@@ -40,23 +37,27 @@ export class AdminPanelComponent implements OnInit {
 
    updateDictionary(event?: LazyLoadEvent) {
       switch (this.menuToogle) {
-         case "userList":
-            this.dictionaryService.GetUsers(event).subscribe(result => { this.users = result; });
+         case Dictionary[1]:
+            this.dictionaryService.GetUsers(event).subscribe(result => { this.currentModel = result; });
          break;
-         case "disciplineList":
-            this.dictionaryService.GetDisciplines(event).subscribe(result => { this.disciplines = result; });
+         case Dictionary[2]:
+            this.dictionaryService.GetDisciplines(event).subscribe(result => { this.currentModel = result; });
          break;
-         case "instituteList":
-            this.dictionaryService.GetInstitutes(event).subscribe(result => { this.institute = result; });
+         case Dictionary[3]:
+            this.dictionaryService.GetInstitutes(event).subscribe(result => { this.currentModel = result; });
             break;
-         case "departmentList":
-            this.dictionaryService.GetDepartments(event).subscribe(result => { this.department = result; });
+         case Dictionary[4]:
+            this.dictionaryService.GetDepartments(event).subscribe(result => { this.currentModel = result; });
             break;
-         case "groupList":
-            this.dictionaryService.GetGroups(event).subscribe(result => { this.group = result; });
+         case Dictionary[5]:
+            this.dictionaryService.GetGroups(event).subscribe(result => { this.currentModel = result; });
             break;
       }
 
+   }
+
+   isDictionary() {
+         return Object.keys(this.Dictionary).indexOf(this.menuToogle)!=-1;
    }
 
 }

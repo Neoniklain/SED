@@ -2,6 +2,9 @@
 import {Router} from "@angular/router";
 import {LazyLoadEvent} from "primeng/api";
 import {isUndefined} from "util";
+import {Dictionary} from "../../../../models/admin/dictionary.model";
+import {DictionaryService} from "../../../../services/dictionary.service";
+import {Role} from "../../../../models/account/role.model";
 
 @Component({
    selector: 'dictionary-table-add',
@@ -11,11 +14,20 @@ import {isUndefined} from "util";
 
 export class DictionaryTableAddComponent implements OnInit {
 
+   @Input() type;
    public columnsName: string[];
+   public roles: Array<Role>;
 
-   constructor(private router: Router) { }
+   constructor(private router: Router,
+               private dictionaryService: DictionaryService) { }
 
-   ngOnInit() {}
+   ngOnInit() {
+      switch (this.type) {
+         case Dictionary[1]:
+            this.dictionaryService.GetRoles().subscribe(result => { this.roles = result.content; console.log(this.roles); });
+            break;
+      }
+   }
 
 
 

@@ -5,6 +5,7 @@ import com.unesco.core.models.DepartmentModel;
 import com.unesco.core.models.DisciplineModel;
 import com.unesco.core.models.GroupModel;
 import com.unesco.core.models.InstituteModel;
+import com.unesco.core.models.account.RoleModel;
 import com.unesco.core.models.additional.FilterQuery;
 import com.unesco.core.models.additional.PageResult;
 import com.unesco.core.models.account.UserModel;
@@ -44,12 +45,16 @@ public class AdminController {
       PageResult<InstituteModel> result = ditionaryDataService.getInstitutePage(filter);
       return result;
    }
-   @RequestMapping(value = "page/department")
+   @RequestMapping(value = "page/departments")
    public PageResult<DepartmentModel> GetDepartmentList(@RequestBody FilterQuery filter) {
       return ditionaryDataService.getDepartmentPage(filter);
    }
-   @RequestMapping(value = "page/group")
+   @RequestMapping(value = "page/groups")
    public PageResult<GroupModel> GetGroupList(@RequestBody FilterQuery filter) {
       return ditionaryDataService.getGroupPage(filter);
+   }
+   @RequestMapping(value = "page/roles")
+   public PageResult<RoleModel> GetRoleList(@RequestBody FilterQuery filter) {
+      return ditionaryDataService.getRolePage(filter);
    }
 }

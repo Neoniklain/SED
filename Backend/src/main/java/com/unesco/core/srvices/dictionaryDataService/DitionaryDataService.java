@@ -4,14 +4,17 @@ import com.unesco.core.entities.Department;
 import com.unesco.core.entities.Discipline;
 import com.unesco.core.entities.Group;
 import com.unesco.core.entities.Institute;
+import com.unesco.core.entities.account.Role;
 import com.unesco.core.entities.account.User;
 import com.unesco.core.models.DepartmentModel;
 import com.unesco.core.models.DisciplineModel;
 import com.unesco.core.models.GroupModel;
 import com.unesco.core.models.InstituteModel;
+import com.unesco.core.models.account.RoleModel;
 import com.unesco.core.models.account.UserModel;
 import com.unesco.core.models.additional.FilterQuery;
 import com.unesco.core.models.additional.PageResult;
+import com.unesco.core.repositories.account.RoleRepository;
 import com.unesco.core.repositories.account.UserRepository;
 import com.unesco.core.repositories.plan.DepartmentRepository;
 import com.unesco.core.repositories.plan.DisciplineRepository;
@@ -40,6 +43,8 @@ public class DitionaryDataService implements IDitionaryDataService {
    private UserRepository userRepository;
    @Autowired
    private DisciplineRepository disciplineRepository;
+   @Autowired
+   private RoleRepository roleRepository;
 
    DitionaryDataService() {
 
@@ -77,6 +82,13 @@ public class DitionaryDataService implements IDitionaryDataService {
       List<UserModel> users = new ArrayList<UserModel>();
       for (User user : userRepository.findAll()) {
          users.add(new UserModel(user));
+      }
+      return users;
+   }
+   public List<RoleModel> getRoles() {
+      List<RoleModel> users = new ArrayList<RoleModel>();
+      for (Role role : roleRepository.findAll()) {
+         users.add(new RoleModel(role));
       }
       return users;
    }
@@ -133,6 +145,16 @@ public class DitionaryDataService implements IDitionaryDataService {
          usersViewModel.add(new UserModel(u));
       }
       PageResult<UserModel> result = new PageResult<UserModel>(usersViewModel, userRepository.count());
+      return result;
+   }
+   public PageResult<RoleModel> getRolePage(FilterQuery filter) {
+      List<RoleModel> rolesViewModel= new ArrayList<>();
+      int rows = filter.getRows()>0? filter.getRows() : 10;
+      Page<Role> page = roleRepository.findAll(new PageRequest(filter.getFirst()/rows, rows));
+      for (Role r: page.getContent()) {
+         rolesViewModel.add(new RoleModel(r));
+      }
+      PageResult<RoleModel> result = new PageResult<RoleModel>(rolesViewModel, roleRepository.count());
       return result;
    }
 

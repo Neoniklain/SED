@@ -10,5 +10,10 @@ export const LANG_RU_TRANS = {
    "fieldOfKnowledge": "Раздел знаний",
    "document-page" : "Документооборот",
    "news-dispatcher-page" : "Управление новостями",
-   "journal-page": "Журнал"
+   "journal-page": "Журнал",
+   "users": "Пользователи",
+   "disciplines": "Дисциплины",
+   "institutes": "Институты",
+   "departments": "Кафедры",
+   "groups": "Группы",
 };

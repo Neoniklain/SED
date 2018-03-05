@@ -18,33 +18,38 @@ export class DictionaryService {
         private router: Router
     ) { }
 
-   public GetUsers(filterQuery: LazyLoadEvent): Observable<PageResult> {
+   public GetUsers(filterQuery?: LazyLoadEvent): Observable<PageResult> {
        let params = new HttpParams();
         return this.http.post(ApiRouteConstants.Dictonary.Page.Users, this.initFilter(filterQuery), {params: params })
             .catch(this.handleError);
     }
-   public GetDisciplines(filterQuery: LazyLoadEvent): Observable<PageResult> {
+   public GetDisciplines(filterQuery?: LazyLoadEvent): Observable<PageResult> {
       let params = new HttpParams();
       return this.http.post(ApiRouteConstants.Dictonary.Page.Disciplines, this.initFilter(filterQuery), {params: params })
           .catch(this.handleError);
    }
-   public GetInstitutes(filterQuery: LazyLoadEvent): Observable<PageResult> {
+   public GetInstitutes(filterQuery?: LazyLoadEvent): Observable<PageResult> {
       let params = new HttpParams();
       return this.http.post(ApiRouteConstants.Dictonary.Page.Institutes, this.initFilter(filterQuery), {params: params })
           .catch(this.handleError);
    }
-   public GetDepartments(filterQuery: LazyLoadEvent): Observable<PageResult> {
+   public GetDepartments(filterQuery?: LazyLoadEvent): Observable<PageResult> {
       let params = new HttpParams();
-      return this.http.post(ApiRouteConstants.Dictonary.Page.Department, this.initFilter(filterQuery), {params: params })
+      return this.http.post(ApiRouteConstants.Dictonary.Page.Departments, this.initFilter(filterQuery), {params: params })
           .catch(this.handleError);
    }
-   public GetGroups(filterQuery: LazyLoadEvent): Observable<PageResult> {
+   public GetGroups(filterQuery?: LazyLoadEvent): Observable<PageResult> {
       let params = new HttpParams();
-      return this.http.post(ApiRouteConstants.Dictonary.Page.Group, this.initFilter(filterQuery), {params: params })
+      return this.http.post(ApiRouteConstants.Dictonary.Page.Groups, this.initFilter(filterQuery), {params: params })
+          .catch(this.handleError);
+   }
+   public GetRoles(filterQuery?: LazyLoadEvent): Observable<PageResult> {
+      let params = new HttpParams();
+      return this.http.post(ApiRouteConstants.Dictonary.Page.Roles, this.initFilter(filterQuery), {params: params })
           .catch(this.handleError);
    }
 
-   private initFilter(filterQuery: LazyLoadEvent) {
+   private initFilter(filterQuery?: LazyLoadEvent) {
       let filter = {
          rows: filterQuery ? filterQuery.rows : 0,
          first: filterQuery ? filterQuery.first : 0,
