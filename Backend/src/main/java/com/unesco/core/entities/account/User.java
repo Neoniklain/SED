@@ -12,6 +12,7 @@ public class User {
     private long id;
     @Column(unique=true)
     private String username;
+    private String userFIO;
     private String password;
     private String email;
     @ManyToMany(fetch = FetchType.EAGER, cascade = { CascadeType.MERGE })
@@ -33,6 +34,9 @@ public class User {
     public void setUsername(String username) {
         this.username = username;
     }
+
+    public String getUserFIO() { return userFIO; }
+    public void setUserFIO(String userFIO) { this.userFIO = userFIO;  }
 
     public String getPassword() {
         return password;
@@ -60,11 +64,13 @@ public class User {
         this.username = "";
         this.password = "";
         this.email = "";
+        this.userFIO = "";
     }
-    public User(String name, String email, String pass ) {
+    public User(String name, String FIO, String email, String pass ) {
         this.username = name;
         this.password = pass;
         this.email = email;
+        this.userFIO = FIO;
     }
 
     public User(User user) {
@@ -72,6 +78,6 @@ public class User {
         this.username = user.username;
         this.email = user.email;
         this.password = user.password;
+        this.userFIO = user.userFIO;
     }
-
 }

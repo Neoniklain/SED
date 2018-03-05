@@ -34,7 +34,7 @@ public class AccountController {
         CustomUserDetails user = _CustomUserDetailsService.getUserDetails();
         List<RoleModel> roles = new ArrayList<RoleModel>();
         for (Role role: user.getRole()) {
-            roles.add(new RoleModel(role.getRoleName()));
+            roles.add(new RoleModel(role));
         }
         return roles;
     }

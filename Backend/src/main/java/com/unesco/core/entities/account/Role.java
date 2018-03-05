@@ -14,6 +14,7 @@ public class Role implements GrantedAuthority {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "roleSequenceGen")
     private long id;
     private String role;
+    private String roleNameRus;
 
     public long getId() {
         return id;
@@ -29,10 +30,16 @@ public class Role implements GrantedAuthority {
         this.role = role;
     }
 
+    public String getRoleNameRus() { return roleNameRus; }
+    public void setRoleNameRus(String roleNameRus) {
+        this.roleNameRus = roleNameRus;
+    }
+
     protected Role(){}
-    public Role(String name)
+    public Role(String name, String roleName)
     {
         role = name;
+        roleNameRus = roleName;
     }
 
     @Override
