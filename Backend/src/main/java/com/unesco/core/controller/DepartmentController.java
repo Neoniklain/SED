@@ -4,7 +4,7 @@ import com.unesco.core.ViewModel.PairViewModel;
 import com.unesco.core.entities.Department;
 import com.unesco.core.entities.Pair;
 import com.unesco.core.entities.Professor;
-import com.unesco.core.repositories.DepartmentRepository;
+import com.unesco.core.repositories.plan.DepartmentRepository;
 import com.unesco.core.repositories.PairRepository;
 import com.unesco.core.repositories.ProfessorRepository;
 import org.springframework.beans.factory.annotation.Autowired;
