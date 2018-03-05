@@ -49,10 +49,6 @@ public class Department {
         this.institute = institute;
     }
 
-   @OneToMany(cascade = CascadeType.ALL, mappedBy = "department")
-   /** Поле набор планов */
-   private Set<Group> groups;
-
    public Set<Group> getGroups() {
       return groups;
    }
