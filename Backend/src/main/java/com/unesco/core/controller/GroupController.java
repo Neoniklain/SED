@@ -1,6 +1,6 @@
 package com.unesco.core.controller;
 
-import com.unesco.core.ViewModel.PairViewModel;
+import com.unesco.core.models.PairModel;
 import com.unesco.core.entities.Department;
 import com.unesco.core.entities.Group;
 import com.unesco.core.entities.schedule.Pair;
@@ -30,14 +30,14 @@ public class GroupController {
     DepartmentRepository departmentRepository;
 
     @RequestMapping("/group/{id}/pairs/even")
-    public List<PairViewModel> getChetPairsForGroup(@PathVariable("id") Long id) {
+    public List<PairModel> getChetPairsForGroup(@PathVariable("id") Long id) {
         Group group = groupRepository.findOne(id);
         Iterable<Pair> pairs = pairRepository.findPairsByGroup(group);
         Department department;
-        List<PairViewModel> chetPairList = new ArrayList<PairViewModel>();
+        List<PairModel> chetPairList = new ArrayList<PairModel>();
         for (Pair p : pairs) {
             if (p.getWeektype().getType().equals("Чет")) {
-                chetPairList.add(new PairViewModel(p.getPairNumber(), p.getWeektype().getType(),
+                chetPairList.add(new PairModel(p.getPairNumber(), p.getWeektype().getType(),
                         p.getDayofweek().getDayofweek(), p.getProfessor().getFio(),
                         p.getRoom().getRoom(), p.getDiscipline().getName(), p.getGroup().getName()));
             }
@@ -46,13 +46,13 @@ public class GroupController {
     }
 
     @RequestMapping("/group/{id}/pairs/odd")
-    public List<PairViewModel> getNechetPairsForGroup(@PathVariable("id") Long id) {
+    public List<PairModel> getNechetPairsForGroup(@PathVariable("id") Long id) {
         Group group = groupRepository.findOne(id);
         Iterable<Pair> pairs = pairRepository.findPairsByGroup(group);
-        List<PairViewModel> nechetPairList = new ArrayList<PairViewModel>();
+        List<PairModel> nechetPairList = new ArrayList<PairModel>();
         for (Pair p : pairs) {
             if (p.getWeektype().getType().equals("Нечет")) {
-                nechetPairList.add(new PairViewModel(p.getPairNumber(), p.getWeektype().getType(),
+                nechetPairList.add(new PairModel(p.getPairNumber(), p.getWeektype().getType(),
                         p.getDayofweek().getDayofweek(), p.getProfessor().getFio(),
                         p.getRoom().getRoom(), p.getDiscipline().getName(), p.getGroup().getName()));
             }

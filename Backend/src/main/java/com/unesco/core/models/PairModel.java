@@ -1,6 +1,6 @@
-package com.unesco.core.ViewModel;
+package com.unesco.core.models;
 
-public class PairViewModel {
+public class PairModel {
     private int pairnumber;
     private String weektype;
     private String dayofweek;
@@ -10,8 +10,8 @@ public class PairViewModel {
     private String group;
     private String department;
 
-    public PairViewModel(int pairnumber, String weektype,
-                         String dayofweek, String professor, String room, String discipline, String group, String department) {
+    public PairModel(int pairnumber, String weektype,
+                     String dayofweek, String professor, String room, String discipline, String group, String department) {
         this.pairnumber = pairnumber;
         this.weektype = weektype;
         this.dayofweek = dayofweek;
@@ -22,8 +22,8 @@ public class PairViewModel {
         this.department = department;
     }
 
-    public PairViewModel(int pairnumber, String weektype,
-                         String dayofweek, String professor, String room, String discipline, String group) {
+    public PairModel(int pairnumber, String weektype,
+                     String dayofweek, String professor, String room, String discipline, String group) {
         this.pairnumber = pairnumber;
         this.weektype = weektype;
         this.dayofweek = dayofweek;
