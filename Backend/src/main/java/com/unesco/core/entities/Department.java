@@ -49,13 +49,6 @@ public class Department {
         this.institute = institute;
     }
 
-   public Set<Group> getGroups() {
-      return groups;
-   }
-   public void setGroups(Set<Group> groups) {
-      this.groups = groups;
-   }
-
    public Department(String name)
    {
       this.name = name;
