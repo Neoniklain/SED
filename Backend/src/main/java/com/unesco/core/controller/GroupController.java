@@ -3,7 +3,7 @@ package com.unesco.core.controller;
 import com.unesco.core.models.PairModel;
 import com.unesco.core.entities.Department;
 import com.unesco.core.entities.Group;
-import com.unesco.core.entities.Pair;
+import com.unesco.core.entities.schedule.Pair;
 import com.unesco.core.repositories.plan.DepartmentRepository;
 import com.unesco.core.repositories.plan.GroupRepository;
 import com.unesco.core.repositories.PairRepository;

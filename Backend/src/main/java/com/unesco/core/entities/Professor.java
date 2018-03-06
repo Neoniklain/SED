@@ -4,7 +4,7 @@ import javax.persistence.*;
 import java.util.Set;
 
 @Entity
-@Table(name = "professors")
+@Table(name = "professor")
 public class Professor {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -14,7 +14,7 @@ public class Professor {
     private String fio;
 
     @ManyToOne
-    @JoinColumn(name = "professor_id", referencedColumnName = "id")
+    @JoinColumn(name = "department_id", referencedColumnName = "id")
     private Department department;
 
     public long getId() {

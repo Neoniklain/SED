@@ -1,8 +1,8 @@
 package com.unesco.core.controller;
 
+import com.unesco.core.entities.schedule.Pair;
 import com.unesco.core.models.PairModel;
 import com.unesco.core.entities.Professor;
-import com.unesco.core.repositories.DepartmentRepository;
 import com.unesco.core.repositories.PairRepository;
 import com.unesco.core.repositories.ProfessorRepository;
 import com.unesco.core.repositories.plan.DepartmentRepository;

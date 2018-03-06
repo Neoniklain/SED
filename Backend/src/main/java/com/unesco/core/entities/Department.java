@@ -49,9 +49,20 @@ public class Department {
         this.institute = institute;
     }
 
-   public Department(String name)
-   {
-      this.name = name;
-   }
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "department")
+    /** Поле набор планов */
+    private Set<Group> groups;
+
+    public Set<Group> getGroups() {
+        return groups;
+    }
+    public void setGroups(Set<Group> groups) {
+        this.groups = groups;
+    }
+
+    public Department(String name)
+    {
+        this.name = name;
+    }
 
 }

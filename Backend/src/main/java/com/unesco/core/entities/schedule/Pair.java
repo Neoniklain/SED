@@ -5,7 +5,7 @@ import com.unesco.core.entities.*;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "pairs")
+@Table(name = "pair")
 public class Pair {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

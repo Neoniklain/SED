@@ -3,7 +3,7 @@ package com.unesco.core.entities.schedule;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "weektypes")
+@Table(name = "weektype")
 public class WeekType {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
