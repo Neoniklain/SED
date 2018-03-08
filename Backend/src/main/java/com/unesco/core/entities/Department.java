@@ -1,7 +1,5 @@
 package com.unesco.core.entities;
 
-import com.unesco.core.entities.plan.Plan;
-
 import javax.persistence.*;
 import java.util.Set;
 
@@ -56,13 +54,15 @@ public class Department {
     public Set<Group> getGroups() {
         return groups;
     }
+
     public void setGroups(Set<Group> groups) {
         this.groups = groups;
     }
 
-    public Department(String name)
-    {
+    public Department(String name) {
         this.name = name;
     }
 
+    public Department() {
+    }
 }

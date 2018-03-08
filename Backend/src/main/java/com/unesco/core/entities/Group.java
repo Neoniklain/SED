@@ -3,7 +3,7 @@ package com.unesco.core.entities;
 import javax.persistence.*;
 
 @Entity
-@Table(name="group")
+@Table(name="gruppa")
 public class Group {
    @Id
    @SequenceGenerator(name = "groupSequenceGen", sequenceName = "groupSequenceGen", allocationSize = 1)

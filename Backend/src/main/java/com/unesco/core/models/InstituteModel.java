@@ -22,10 +22,10 @@ public class InstituteModel {
    public InstituteModel(Institute institute) {
       this.name = institute.getName();
       this.departments = new ArrayList<DepartmentModel>();
-      for(Department department : institute.getDepartments())
-      {
-         this.departments.add(new DepartmentModel(department));
-      }
+//      for(Department department : institute.getDepartments())
+//      {
+//         this.departments.add(new DepartmentModel(department));
+//      }
    }
 
    public String getName() {
