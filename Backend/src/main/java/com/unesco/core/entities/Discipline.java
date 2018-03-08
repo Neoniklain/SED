@@ -18,8 +18,6 @@ public class Discipline {
     private long id;
     /** Поле название */
     private String name;
-    /** Поле дата создания */
-    private Date datecreate;
     @ManyToOne
     @JoinColumn(name = "fieldOfKnowledge_id", referencedColumnName = "id")
     /** Поле раздел знаний */
@@ -37,13 +35,6 @@ public class Discipline {
     }
     public void setName(String name) {
         this.name = name;
-    }
-
-    public Date getDatecreate() {
-        return datecreate;
-    }
-    public void setDatecreate(Date datecreate) {
-        this.datecreate = datecreate;
     }
 
     public FieldOfKnowledge getFieldOfKnowledge() {
@@ -65,9 +56,8 @@ public class Discipline {
     }
 
     public Discipline(){}
-    public Discipline(String name, Date datecreate)
+    public Discipline(String name)
     {
         this.name = name;
-        this.datecreate = datecreate;
     }
 }

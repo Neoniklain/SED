@@ -18,5 +18,8 @@ public class PairController {
         return pairRepository.findById(id);
     }
 
-
+    @RequestMapping("pairs/add")
+    public void addNewPair() {
+        
+    }
 }

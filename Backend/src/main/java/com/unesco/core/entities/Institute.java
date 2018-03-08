@@ -11,9 +11,9 @@ public class Institute {
    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "instituteSequenceGen")
    private long id;
    private String name;
-   @OneToMany(cascade = CascadeType.ALL, mappedBy = "institute")
-   /** Поле набор кафедр */
-   private Set<Department> departments;
+//   @OneToMany(cascade = CascadeType.ALL, mappedBy = "institute")
+//   /** Поле набор кафедр */
+//   private Set<Department> departments;
 
    public long getId() {
       return id;
@@ -27,12 +27,5 @@ public class Institute {
    }
    public void setName(String name) {
       this.name = name;
-   }
-
-   public Set<Department> getDepartments() {
-      return departments;
-   }
-   public void setDepartments(Set<Department> departments) {
-      this.departments = departments;
    }
 }
