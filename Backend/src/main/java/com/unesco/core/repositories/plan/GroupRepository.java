@@ -6,6 +6,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.repository.CrudRepository;
 
 public interface GroupRepository extends CrudRepository<Group, Long> {
-
    Page findAll(Pageable pageRequest);
+   Group findGroupByName(String name);
 }

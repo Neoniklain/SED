@@ -11,4 +11,5 @@ public interface PairRepository extends CrudRepository<Pair, Integer> {
     Pair findById(int id);
     List<Pair> findPairsByProfessor(Professor professor);
     List<Pair> findPairsByGroup(Group group);
+    List<Pair> findPairsByProfessorFio(String fio);
 }

@@ -38,7 +38,6 @@ public class DisciplineModel {
 
    public DisciplineModel(Discipline discipline){
       this.name = discipline.getName();
-      this.datecreate = discipline.getDatecreate();
       if(discipline.getFieldOfKnowledge() != null)
          this.fieldOfKnowledge = discipline.getFieldOfKnowledge().getName();
    }

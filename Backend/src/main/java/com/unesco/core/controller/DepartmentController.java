@@ -1,8 +1,10 @@
 package com.unesco.core.controller;
 
 import com.unesco.core.entities.schedule.Pair;
+import com.unesco.core.models.DepartmentPairModel;
 import com.unesco.core.models.PairModel;
 import com.unesco.core.entities.Professor;
+import com.unesco.core.models.ProfessorModel;
 import com.unesco.core.repositories.PairRepository;
 import com.unesco.core.repositories.ProfessorRepository;
 import com.unesco.core.repositories.plan.DepartmentRepository;
@@ -36,49 +38,59 @@ public class DepartmentController {
      */
 
     @RequestMapping("/department/even")
-    public Map<Professor, List<PairModel>> getDepartmentSheduleChet(/*@PathVariable("id") Long id*/) {
+    public List<DepartmentPairModel> getDepartmentSheduleChet(/*@PathVariable("id") Long id*/) {
         //Department department = departmentRepository.findById(id);
         List<Professor> professors = StreamSupport
                 .stream(professorRepository.findAll().spliterator(), false)
                 .collect(Collectors.toList());
 
-        Map<Professor, List<PairModel>> pairsMap = new HashMap<>();
+        List<DepartmentPairModel> pairModels = new ArrayList<>();
+        List<String> professorsStr = new ArrayList<>();
+        for(Professor professor : professors) {
+            professorsStr.add(professor.getFio());
+        }
+
         List<PairModel> pairsList = new ArrayList<>();
-        for(Professor p : professors) {
-            List <Pair> pairs = pairRepository.findPairsByProfessor(p);
+        for(String p : professorsStr) {
+            List <Pair> pairs = pairRepository.findPairsByProfessorFio(p);
             for(Pair pair : pairs) {
                 if(pair.getWeektype().getType().equals("Чет"))
                     pairsList.add(new PairModel(pair.getPairNumber(), pair.getWeektype().getType(),
                             pair.getDayofweek().getDayofweek(), pair.getProfessor().getFio(),
                             pair.getRoom().getRoom(), pair.getDiscipline().getName(), pair.getGroup().getName()));
             }
-            pairsMap.put(p, pairsList);
+            pairModels.add(new DepartmentPairModel(p, pairsList));
         }
 
-        return pairsMap;
+        return pairModels;
     }
 
     @RequestMapping("/department/odd")
-    public Map<Professor, List<PairModel>> getDepartmentSheduleNechet(/*@PathVariable("id") Long id*/) {
+    public List<DepartmentPairModel> getDepartmentSheduleNechet(/*@PathVariable("id") Long id*/) {
         //Department department = departmentRepository.findById(id);
         List<Professor> professors = StreamSupport
                 .stream(professorRepository.findAll().spliterator(), false)
                 .collect(Collectors.toList());
 
-        Map<Professor, List<PairModel>> pairsMap = new HashMap<>();
+        List<DepartmentPairModel> pairModels = new ArrayList<>();
+        List<String> professorsStr = new ArrayList<>();
+        for(Professor professor : professors) {
+            professorsStr.add(professor.getFio());
+        }
+
         List<PairModel> pairsList = new ArrayList<>();
-        for(Professor p : professors) {
-            List <Pair> pairs = pairRepository.findPairsByProfessor(p);
+        for(String p : professorsStr) {
+            List <Pair> pairs = pairRepository.findPairsByProfessorFio(p);
             for(Pair pair : pairs) {
                 if(pair.getWeektype().getType().equals("Нечет"))
                     pairsList.add(new PairModel(pair.getPairNumber(), pair.getWeektype().getType(),
                             pair.getDayofweek().getDayofweek(), pair.getProfessor().getFio(),
                             pair.getRoom().getRoom(), pair.getDiscipline().getName(), pair.getGroup().getName()));
             }
-            pairsMap.put(p, pairsList);
+            pairModels.add(new DepartmentPairModel(p, pairsList));
         }
 
-        return pairsMap;
+        return pairModels;
     }
 
 }
