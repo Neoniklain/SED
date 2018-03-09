@@ -94,7 +94,7 @@ public class ExcelController {
                         plan.setDiscipline(discipline);
                         if(discipline == null){
                             System.out.println("Пары нет в БД");
-                            plan.setDiscipline(new Discipline(name,new Date()));
+                            plan.setDiscipline(new Discipline(name));
                         }
                         plan.setDepartment(_DepartmentRepository.findByName(row.getCell(101).getStringCellValue()));
                         if(row.getCell(2).getStringCellValue().length()>0)
