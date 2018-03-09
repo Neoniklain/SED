@@ -41,10 +41,24 @@ public class PairController {
         return pairRepository.findById(id);
     }
 
-    @RequestMapping("pairs/add")
+    @RequestMapping("pairs/create")
     public String addNewPair(@RequestBody PairModel pairModel) {
         Pair pair = new Pair();
         //pair.setId(130);
+        modelToPair(pair, pairModel);
+        pairRepository.save(pair);
+        return JSONResponseStatus.OK;
+    }
+
+    @RequestMapping("/pairs/update/{id}")
+    public String updatePair(@PathVariable("id") int id, @RequestBody PairModel pairModel) {
+        Pair pair = pairRepository.findById(pairModel.getId());
+        modelToPair(pair, pairModel);
+        pairRepository.save(pair);
+        return JSONResponseStatus.OK;
+    }
+
+    void modelToPair(Pair pair, PairModel pairModel) {
         pair.setPairNumber(pairModel.getPairnumber());
         pair.setDayofweek(dayOfWeekRepository.findDayOfWeekByDayofweek(pairModel.getDayofweek()));
         pair.setDiscipline(disciplineRepository.findDisciplineByName(pairModel.getDiscipline()));
@@ -52,7 +66,5 @@ public class PairController {
         pair.setProfessor(professorRepository.findByFio(pairModel.getProfessor()));
         pair.setRoom(roomRepository.findRoomByRoom(pairModel.getRoom()));
         pair.setWeektype(weekTypeRepository.findWeekTypeByType(pairModel.getWeektype()));
-        pairRepository.save(pair);
-        return JSONResponseStatus.OK;
     }
 }

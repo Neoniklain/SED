@@ -1,6 +1,7 @@
 package com.unesco.core.models;
 
 public class PairModel {
+    private int id;
     private int pairnumber;
     private String weektype;
     private String dayofweek;
@@ -10,8 +11,9 @@ public class PairModel {
     private String group;
     private String department;
 
-    public PairModel(int pairnumber, String weektype,
+    public PairModel(int id, int pairnumber, String weektype,
                      String dayofweek, String professor, String room, String discipline, String group, String department) {
+        this.id = id;
         this.pairnumber = pairnumber;
         this.weektype = weektype;
         this.dayofweek = dayofweek;
@@ -31,6 +33,14 @@ public class PairModel {
         this.room = room;
         this.discipline = discipline;
         this.group = group;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public int getPairnumber() {
