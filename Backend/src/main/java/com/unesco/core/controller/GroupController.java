@@ -39,7 +39,7 @@ public class GroupController {
         List<PairModel> chetPairList = new ArrayList<PairModel>();
         for (Pair p : pairs) {
             if (p.getWeektype().getType().equals("Чет")) {
-                chetPairList.add(new PairModel(p.getPairNumber(), p.getWeektype().getType(),
+                chetPairList.add(new PairModel(p.getId(), p.getPairNumber(), p.getWeektype().getType(),
                         p.getDayofweek().getDayofweek(), p.getProfessor().getFio(),
                         p.getRoom().getRoom(), p.getDiscipline().getName(), p.getGroup().getName()));
             }
@@ -54,7 +54,7 @@ public class GroupController {
         List<PairModel> nechetPairList = new ArrayList<PairModel>();
         for (Pair p : pairs) {
             if (p.getWeektype().getType().equals("Нечет")) {
-                nechetPairList.add(new PairModel(p.getPairNumber(), p.getWeektype().getType(),
+                nechetPairList.add(new PairModel(p.getId(), p.getPairNumber(), p.getWeektype().getType(),
                         p.getDayofweek().getDayofweek(), p.getProfessor().getFio(),
                         p.getRoom().getRoom(), p.getDiscipline().getName(), p.getGroup().getName()));
             }

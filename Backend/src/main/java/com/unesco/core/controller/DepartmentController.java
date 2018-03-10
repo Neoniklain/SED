@@ -55,7 +55,7 @@ public class DepartmentController {
             List <Pair> pairs = pairRepository.findPairsByProfessorFio(p);
             for(Pair pair : pairs) {
                 if(pair.getWeektype().getType().equals("Чет"))
-                    pairsList.add(new PairModel(pair.getPairNumber(), pair.getWeektype().getType(),
+                    pairsList.add(new PairModel(pair.getId(), pair.getPairNumber(), pair.getWeektype().getType(),
                             pair.getDayofweek().getDayofweek(), pair.getProfessor().getFio(),
                             pair.getRoom().getRoom(), pair.getDiscipline().getName(), pair.getGroup().getName()));
             }
@@ -83,7 +83,7 @@ public class DepartmentController {
             List <Pair> pairs = pairRepository.findPairsByProfessorFio(p);
             for(Pair pair : pairs) {
                 if(pair.getWeektype().getType().equals("Нечет"))
-                    pairsList.add(new PairModel(pair.getPairNumber(), pair.getWeektype().getType(),
+                    pairsList.add(new PairModel(pair.getId(), pair.getPairNumber(), pair.getWeektype().getType(),
                             pair.getDayofweek().getDayofweek(), pair.getProfessor().getFio(),
                             pair.getRoom().getRoom(), pair.getDiscipline().getName(), pair.getGroup().getName()));
             }
