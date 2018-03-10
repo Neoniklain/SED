@@ -47,8 +47,9 @@ public class PairModel implements EntityModel<Pair> {
         this.department = department;
     }
 
-    public PairModel(int pairnumber, String weektype,
+    public PairModel(int id, int pairnumber, String weektype,
                      String dayofweek, String professor, String room, String discipline, String group) {
+        this.id = id;
         this.pairnumber = pairnumber;
         this.weektype = weektype;
         this.dayofweek = dayofweek;
