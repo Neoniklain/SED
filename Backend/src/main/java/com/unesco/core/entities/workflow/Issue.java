@@ -6,7 +6,7 @@ import javax.persistence.*;
 import java.util.Set;
 
 @Entity
-@Table(name="issue")
+@Table(name="un_issue")
 public class Issue {
     @Id
     @SequenceGenerator(name = "issueSequenceGen", sequenceName = "issueSequenceGen", allocationSize = 1)
@@ -17,7 +17,7 @@ public class Issue {
     @JoinColumn(name = "user_id")
     private User creator;
     @ManyToMany
-    @JoinTable(name = "issue_collaborators",
+    @JoinTable(name = "un_issue_collaborator",
             joinColumns = {@JoinColumn(name = "issue_id")},
             inverseJoinColumns = @JoinColumn(name = "user_id"))
     private Set<User> collaborators;

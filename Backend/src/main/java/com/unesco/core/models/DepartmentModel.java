@@ -2,28 +2,28 @@ package com.unesco.core.models;
 
 import com.unesco.core.entities.Department;
 import com.unesco.core.entities.Group;
+import com.unesco.core.models.additional.EntityModel;
 
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
-public class DepartmentModel {
+public class DepartmentModel implements EntityModel<Department> {
    private String name;
    /** Поле Группы */
    private List<GroupModel> groups;
 
-   DepartmentModel() {
+   public DepartmentModel() {
       this.groups = new ArrayList<GroupModel>();
    }
 
-   public DepartmentModel(Department department) {
+   public void EntityToModel(Department department) {
       this.name = department.getName();
       this.groups = new ArrayList<GroupModel>();
       for(Group group : department.getGroups())
       {
-         this.groups.add(new GroupModel(group));
+         GroupModel groupModel = new GroupModel();
+         groupModel.EntityToModel(group);
+         this.groups.add(groupModel);
       }
    }
 

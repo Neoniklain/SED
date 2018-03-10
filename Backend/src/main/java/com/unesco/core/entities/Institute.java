@@ -4,7 +4,7 @@ import javax.persistence.*;
 import java.util.Set;
 
 @Entity
-@Table(name="institute")
+@Table(name="un_institute")
 public class Institute {
    @Id
    @SequenceGenerator(name = "instituteSequenceGen", sequenceName = "instituteSequenceGen", allocationSize = 1)

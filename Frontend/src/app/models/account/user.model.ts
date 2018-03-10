@@ -13,3 +13,9 @@ export class LogInUser {
   email: string;
 }
 
+export class UserCreate {
+   username: string;
+   password: string;
+   email: string;
+   roles: Array<Role>;
+}

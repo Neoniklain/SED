@@ -2,12 +2,13 @@ package com.unesco.core.models.account;
 
 import com.unesco.core.entities.account.Role;
 import com.unesco.core.entities.account.User;
+import com.unesco.core.models.additional.EntityModel;
 import com.unesco.core.security.CustomUserDetails;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class UserModel {
+public class UserModel implements EntityModel<User> {
 
     public String username;
     public String userFIO;
@@ -42,23 +43,32 @@ public class UserModel {
         this.roles = roles;
     }
 
-    public UserModel(User user) {
+    public void EntityToModel(User user) {
         this.username = user.getUsername();
         this.email = user.getEmail();
         this.roles = new ArrayList<>();
         this.userFIO = user.getUserFIO();
-        for (Role r: user.getRoles()) {
-            this.roles.add(new RoleModel(r));
+        for (Role role: user.getRoles()) {
+            RoleModel roleModel = new RoleModel();
+            roleModel.EntityToModel(role);
+            this.roles.add(roleModel);
         }
     }
-
+    public UserModel() {
+        this.username = "";
+        this.userFIO = "";
+        this.email = "";
+        this.roles = new ArrayList<RoleModel>();
+    }
     public UserModel(CustomUserDetails u) {
         this.username = u.getUsername();
         this.userFIO = u.getUserFIO();
         this.email = u.getEmail();
         this.roles = new ArrayList<RoleModel>();
         for (Role role: u.getRole()) {
-            this.roles.add(new RoleModel(role));
+            RoleModel roleModel = new RoleModel();
+            roleModel.EntityToModel(role);
+            this.roles.add(roleModel);
         }
     }
 }

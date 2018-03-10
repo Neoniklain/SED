@@ -1,6 +1,9 @@
 package com.unesco.core.models;
 
-public class PairModel {
+import com.unesco.core.entities.schedule.Pair;
+import com.unesco.core.models.additional.EntityModel;
+
+public class PairModel implements EntityModel<Pair> {
     private int pairnumber;
     private String weektype;
     private String dayofweek;
@@ -9,6 +12,28 @@ public class PairModel {
     private String discipline;
     private String group;
     private String department;
+
+    public void EntityToModel(Pair pair) {
+        this.pairnumber = pair.getPairNumber();
+        this.weektype = pair.getWeektype().getType();
+        this.dayofweek = pair.getDayofweek().getDayofweek();
+        this.professor = pair.getProfessor().getFio();
+        this.room = pair.getRoom().getRoom();
+        this.discipline = pair.getDiscipline().getName();
+        this.group = pair.getGroup().getName();
+        this.department = "";
+    }
+
+    public PairModel() {
+        this.pairnumber = 0;
+        this.weektype = "";
+        this.dayofweek = "";
+        this.professor = "";
+        this.room = "";
+        this.discipline = "";
+        this.group = "";
+        this.department = "";
+    }
 
     public PairModel(int pairnumber, String weektype,
                      String dayofweek, String professor, String room, String discipline, String group, String department) {

@@ -41,7 +41,9 @@ export class AdminPanelComponent implements OnInit {
             this.dictionaryService.GetUsers(event).subscribe(result => { this.currentModel = result; });
          break;
          case Dictionary[2]:
-            this.dictionaryService.GetDisciplines(event).subscribe(result => { this.currentModel = result; });
+            this.dictionaryService.GetDisciplines(event).subscribe(result => {
+               console.log("this.currentModel", this.currentModel);
+               this.currentModel = result; });
          break;
          case Dictionary[3]:
             this.dictionaryService.GetInstitutes(event).subscribe(result => { this.currentModel = result; });

@@ -1,10 +1,9 @@
 package com.unesco.core.models.account;
 
 import com.unesco.core.entities.account.Role;
+import com.unesco.core.models.additional.EntityModel;
 
-import javax.swing.*;
-
-public class RoleModel {
+public class RoleModel implements EntityModel<Role> {
 
     public String roleName;
     public String roleNameRus;
@@ -23,13 +22,12 @@ public class RoleModel {
         this.roleNameRus = roleNameRus;
     }
 
-    /*public RoleModel(String roleName) {
-        this.roleName = roleName;
-    }*/
+    public RoleModel() {
+        this.roleName = "";
+    }
 
-    public RoleModel(Role role)
+    public void EntityToModel(Role role)
     {
-        this.roleNameRus = role.getRoleNameRus();
         this.roleName = role.getRoleName();
     }
 }

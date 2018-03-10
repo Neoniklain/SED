@@ -3,28 +3,29 @@ package com.unesco.core.models;
 
 import com.unesco.core.entities.Department;
 import com.unesco.core.entities.Institute;
+import com.unesco.core.models.additional.EntityModel;
 
-import javax.persistence.CascadeType;
-import javax.persistence.OneToMany;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
-public class InstituteModel {
+public class InstituteModel implements EntityModel<Institute> {
    private String name;
    /** Поле набор кафедр */
    private List<DepartmentModel> departments;
 
-   InstituteModel() {
+   public InstituteModel() {
+      this.name = "";
       this.departments = new ArrayList<DepartmentModel>();
    }
 
-   public InstituteModel(Institute institute) {
+   public void EntityToModel(Institute institute) {
       this.name = institute.getName();
       this.departments = new ArrayList<DepartmentModel>();
       for(Department department : institute.getDepartments())
       {
-         this.departments.add(new DepartmentModel(department));
+         DepartmentModel departmentModel = new DepartmentModel();
+         departmentModel.EntityToModel(department);
+         this.departments.add(departmentModel);
       }
    }
 

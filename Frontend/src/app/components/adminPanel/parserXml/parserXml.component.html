@@ -27,7 +27,7 @@
          </div>
 
          <div *ngIf="_uploader.queue.length > 0" class="form-group">
-            <label class="control-label col-sm-4" for="email">Выбран файл:</label>
+            <label class="control-label col-sm-4">Выбран файл:</label>
             <div class="col-sm-8">
                <div class="input-group">
                   <input disabled type="text" class="form-control" value="{{_uploader.queue[0]._file.name}}">

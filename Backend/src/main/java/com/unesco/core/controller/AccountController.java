@@ -5,8 +5,8 @@ import com.unesco.core.models.account.RoleModel;
 import com.unesco.core.models.account.UserModel;
 import com.unesco.core.entities.account.Role;
 import com.unesco.core.repositories.account.RoleRepository;
-import com.unesco.core.security.CustomUserDetails;
 import com.unesco.core.security.CustomUserDetailsService;
+import com.unesco.core.services.dictionaryDataService.DitionaryDataService;
 import org.springframework.beans.factory.annotation.Autowired;
 import com.unesco.core.entities.account.User;
 import org.springframework.web.bind.annotation.*;
@@ -28,23 +28,29 @@ public class AccountController {
     private UserRepository _UserRepository;
     @Autowired
     private RoleRepository _RoleRepository;
+    @Autowired
+    private DitionaryDataService ditionaryDataService;
 
     @GetMapping("/role")
     public List<RoleModel> GetLast() {
-        CustomUserDetails user = _CustomUserDetailsService.getUserDetails();
-        List<RoleModel> roles = new ArrayList<RoleModel>();
-        for (Role role: user.getRole()) {
-            roles.add(new RoleModel(role));
-        }
-        return roles;
+        return ditionaryDataService.getRoles();
     }
 
     @RequestMapping("/registration")
     public String Registration(@RequestBody User user) {
-        Set<Role> role = new HashSet<Role>();
-        Role r = _RoleRepository.findByRole("USER");
-        role.add(r);
-        user.setRoles(role);
+        if(user.getRoles().size() == 0){
+            Set<Role> role = new HashSet<Role>();
+            Role r = _RoleRepository.findByRole("USER");
+            role.add(r);
+            user.setRoles(role);
+        } else {
+            Set<Role> UserRoles = new HashSet<Role>();
+            Role r = _RoleRepository.findByRole("USER");
+            for(Role role : user.getRoles()){
+                UserRoles.add(_RoleRepository.findByRole(role.getRoleName()));
+            }
+            user.setRoles(UserRoles);
+        }
         _UserRepository.save(user);
         return JSONResponseStatus.OK;
     }

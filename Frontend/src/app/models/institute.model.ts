@@ -1,6 +1,6 @@
 import {Department} from "./departmet.model";
 
-export class Discipline {
+export class Institute {
    name: string;
    departments: Department;
 }

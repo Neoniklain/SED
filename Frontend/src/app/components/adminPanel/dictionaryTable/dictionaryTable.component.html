@@ -5,11 +5,17 @@
 <div *ngIf="data" class="main-header col-md-12">
    <details class="panel panel-default panel-inverse">
       <summary class="panel-heading">
-         <h3>Добавить</h3>
+         <h3 *ngIf="!editMode">Добавить</h3>
+         <h3 *ngIf="editMode">Редактировать</h3>
       </summary>
       <div class="panel-body">
          <dictionary-table-add
-            [type]="type">
+            [type]="type"
+            (loadData)="onLoadData()"
+            (canelEditable)="canelEditableModel()"
+            [editableModel]="editableModel"
+            [editMode]="editMode"
+            [deleteModel]="deleteModel">
          </dictionary-table-add>
       </div>
    </details>
@@ -36,7 +42,7 @@
                          field="{{field}}"
                          header="{{field | translate}}">
                   <ng-template let-col let-fields="rowData" let-ri="rowIndex" pTemplate="body">
-                     <template [ngIf]="!isArray(fields[field])">
+                     <template [ngIf]="!isArray(fields[field]) && !itIsObject(fields[field])">
                         <span>{{fields[field]}}</span>
                      </template>
                      <template [ngIf]="isArray(fields[field])">
@@ -46,6 +52,19 @@
                            </span>
                         </ng-template>
                      </template>
+                     <template [ngIf]="itIsObject(fields[field]) && !isArray(fields[field])">
+                        <span *ngFor="let itemField of getKeys(fields[field])">
+                           {{fields[field][itemField]}}
+                        </span>
+                     </template>
+                  </ng-template>
+               </p-column>
+               <p-column
+                   field=""
+                   header="Действия">
+                  <ng-template let-item let-col let-fields="rowData" let-ri="rowIndex" pTemplate="body">
+                     <button (click)="edit(fields)" class="btn btn-success btn-sm"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></button>
+                     <button (click)="delete(fields)" class="btn btn-danger btn-sm"><i class="fa fa-times" aria-hidden="true"></i></button>
                   </ng-template>
                </p-column>
             </p-dataTable>

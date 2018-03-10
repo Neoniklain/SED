@@ -3,7 +3,7 @@ package com.unesco.core.entities.schedule;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "rooms")
+@Table(name = "un_room")
 public class Room {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

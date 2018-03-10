@@ -7,7 +7,7 @@ import javax.persistence.*;
 import java.util.Set;
 
 @Entity
-@Table(name="competence")
+@Table(name="un_competence")
 /**
  * Справочник компетенций
  */
@@ -21,7 +21,7 @@ public class Competence {
    /** Поле описания */
    private String description;
    @ManyToMany(fetch = FetchType.EAGER, cascade = { CascadeType.MERGE })
-   @JoinTable(name = "plan_competence",
+   @JoinTable(name = "un_plan_competence",
            joinColumns = {@JoinColumn(name = "plan_id")},
            inverseJoinColumns = {@JoinColumn(name = "competence_id")})
    /** Поле список компетенций */

@@ -23,13 +23,13 @@ public class DBInitializer implements ApplicationRunner {
     public void run(ApplicationArguments args) {
         // Инициализация ролей
         if(_RoleRepository.findByRole("ADMIN") == null)
-            _RoleRepository.save(new Role("ADMIN", "Администратор"));
+            _RoleRepository.save(new Role("ADMIN"));
         if(_RoleRepository.findByRole("STUDENT") == null)
-            _RoleRepository.save(new Role("STUDENT","Студент"));
+            _RoleRepository.save(new Role("STUDENT"));
         if(_RoleRepository.findByRole("PROFESSOR") == null)
-            _RoleRepository.save(new Role("PROFESSOR","Преподаватель"));
+            _RoleRepository.save(new Role("PROFESSOR"));
         if(_RoleRepository.findByRole("ENGINEER") == null)
-            _RoleRepository.save(new Role("ENGINEER","Инженер"));
+            _RoleRepository.save(new Role("ENGINEER"));
         // Инициализация Тестового пользователя.
         if(_UserRepository.findByUsername("admin") == null)
         {

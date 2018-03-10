@@ -1,31 +1,32 @@
 package com.unesco.core.models;
 
 import com.unesco.core.entities.Discipline;
+import com.unesco.core.entities.Professor;
+import com.unesco.core.models.additional.EntityModel;
 
+import java.util.ArrayList;
 import java.util.List;
 
-public class ProfessorModel {
+public class ProfessorModel implements EntityModel<Professor> {
     public String fio;
     public List<Discipline> disciplines;
+
+    public ProfessorModel() {
+        this.fio = "";
+        this.disciplines = new ArrayList();
+    }
+    public ProfessorModel(String fio, List<Discipline> disciplines) {
+        this.fio = fio;
+        this.disciplines = disciplines;
+    }
+    public void EntityToModel(Professor professor) {
+        this.fio = professor.getFio();
+    }
 
     public String getFio() {
         return fio;
     }
-
     public void setFio(String fio) {
         this.fio = fio;
-    }
-
-    public List<Discipline> getDisciplines() {
-        return disciplines;
-    }
-
-    public void setDisciplines(List<Discipline> disciplines) {
-        this.disciplines = disciplines;
-    }
-
-    public ProfessorModel(String fio, List<Discipline> disciplines) {
-        this.fio = fio;
-        this.disciplines = disciplines;
     }
 }

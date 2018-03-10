@@ -7,7 +7,7 @@ import javax.persistence.*;
 import java.util.Set;
 
 @Entity
-@Table(name="plan")
+@Table(name="un_plan")
 public class Plan {
 
    @Id
@@ -25,7 +25,7 @@ public class Plan {
    /** Поле индекса */
    private String index;
    @ManyToMany(fetch = FetchType.EAGER, cascade = { CascadeType.MERGE })
-   @JoinTable(name = "plan_competence",
+   @JoinTable(name = "un_plan_competence",
            joinColumns = {@JoinColumn(name = "competence_id")},
            inverseJoinColumns = {@JoinColumn(name = "plan_id")})
    /** Поле список компетенций */

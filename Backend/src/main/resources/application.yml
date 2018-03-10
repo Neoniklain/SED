@@ -2,10 +2,8 @@ spring:
   jpa:
     database: POSTGRESQL
     show-sql: true
-    hibernate:
-      ddl-auto: update
   datasource:
-    url: jdbc:postgresql://ictkem.ru:3254/ict?currentSchema=dev
+    url: jdbc:postgresql://ictkem.ru:3254/ict?currentSchema=public
     username: ict
     password: 123456
     driverClassName: org.postgresql.Driver

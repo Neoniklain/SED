@@ -7,7 +7,7 @@ import java.util.Date;
 import java.util.Set;
 
 @Entity
-@Table(name="discipline")
+@Table(name="un_discipline")
 /**
  * Класс предметов дисциплин (модулей)
  */

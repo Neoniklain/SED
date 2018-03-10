@@ -2,7 +2,7 @@
 import {Router} from "@angular/router";
 import {LazyLoadEvent} from "primeng/api";
 import {PageResult} from "../../../models/admin/PageResult.model.list";
-import {isUndefined} from "util";
+import {isDate, isObject, isUndefined} from "util";
 
 @Component({
    selector: 'dictionary-table',
@@ -15,7 +15,12 @@ export class DictionaryTableComponent implements OnInit, OnChanges {
    @Input() data: PageResult;
    @Input() type;
    @Output() loadData = new EventEmitter();
+
    public columnsName: string[];
+   public editableModel;
+   public deleteModel;
+   public editMode: boolean = false;
+
 
    constructor(private router: Router) { }
 
@@ -24,6 +29,8 @@ export class DictionaryTableComponent implements OnInit, OnChanges {
    }
 
    ngOnChanges(): void {
+      this.editableModel = null;
+      this.deleteModel = null;
       this.fillColumn();
    }
 
@@ -36,16 +43,37 @@ export class DictionaryTableComponent implements OnInit, OnChanges {
       }
    }
 
+   edit(item) {
+      this.editableModel = item;
+      this.editMode = true;
+   }
+   delete(item) {
+      this.deleteModel = item;
+   }
+
+   canelEditableModel() {
+      this.editableModel = null;
+      this.editMode = false;
+   }
+
    isArray(obj: any ) {
       return Array.isArray(obj);
    }
-
+   itIsObject(obj: any ) {
+      return isObject(obj);
+   }
    getKeys(obj: any ) {
       return Object.keys(obj);
    }
-
+   dateis(obj: any) {
+      isDate(obj);
+   }
    loadLazy(event: LazyLoadEvent) {
       this.loadData.emit(event);
    }
+   onLoadData() {
+      this.loadData.emit();
+   }
+
 
 }

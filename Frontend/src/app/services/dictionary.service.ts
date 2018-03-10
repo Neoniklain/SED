@@ -9,6 +9,7 @@ import {User} from "../models/account/user.model";
 import {Discipline} from "../models/discipline.model";
 import {LazyLoadEvent} from "primeng/api";
 import {PageResult} from "../models/admin/PageResult.model.list";
+import {ResponseStatus} from "../models/additional/responseStatus";
 
 @Injectable()
 export class DictionaryService {
@@ -25,7 +26,7 @@ export class DictionaryService {
     }
    public GetDisciplines(filterQuery?: LazyLoadEvent): Observable<PageResult> {
       let params = new HttpParams();
-      return this.http.post(ApiRouteConstants.Dictonary.Page.Disciplines, this.initFilter(filterQuery), {params: params })
+      return this.http.post(ApiRouteConstants.Dictonary.Page.Disciplines, this.initFilter(filterQuery), { params: params })
           .catch(this.handleError);
    }
    public GetInstitutes(filterQuery?: LazyLoadEvent): Observable<PageResult> {
@@ -46,6 +47,22 @@ export class DictionaryService {
    public GetRoles(filterQuery?: LazyLoadEvent): Observable<PageResult> {
       let params = new HttpParams();
       return this.http.post(ApiRouteConstants.Dictonary.Page.Roles, this.initFilter(filterQuery), {params: params })
+          .catch(this.handleError);
+   }
+   public GetFieldOfKnowlage(filterQuery?: LazyLoadEvent): Observable<PageResult> {
+      let params = new HttpParams();
+      return this.http.post(ApiRouteConstants.Dictonary.Page.FieldOfKnowlage, this.initFilter(filterQuery), {params: params })
+          .catch(this.handleError);
+   }
+
+   public AddOrUpdateDiscipline(discipline: Discipline): Observable<ResponseStatus> {
+      let params = new HttpParams();
+      return this.http.put(ApiRouteConstants.Dictonary.Page.Disciplines, discipline, {params: params })
+          .catch(this.handleError);
+   }
+
+   public DeleteDiscipline(id: number): Observable<ResponseStatus> {
+      return this.http.delete(ApiRouteConstants.Dictonary.Page.Disciplines + "/" + id)
           .catch(this.handleError);
    }
 

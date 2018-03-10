@@ -53,6 +53,7 @@ import {ParserXmlComponent} from "../components/adminPanel/parserXml/parserXml.c
 import {JournalComponent} from "../components/journal/journal.component";
 import {JournalService} from "../services/journal.service";
 import {DictionaryTableAddComponent} from "../components/adminPanel/dictionaryTable/added/dictionaryTableAdd.component";
+import {LoaderComponent} from "../components/shared/loader";
 
 @NgModule({
    imports: [
@@ -92,6 +93,7 @@ import {DictionaryTableAddComponent} from "../components/adminPanel/dictionaryTa
       DictionaryTableComponent,
       ParserXmlComponent,
       DictionaryTableAddComponent,
+      LoaderComponent,
       JournalComponent,
       HasRoleDirective
    ],

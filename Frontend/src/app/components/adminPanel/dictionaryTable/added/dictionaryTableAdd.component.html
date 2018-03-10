@@ -4,46 +4,67 @@
       <div class="form-group row">
          <label for="username" class="col-sm-offset-2 col-sm-2 col-form-label">Имя пользователя</label>
          <div class="col-sm-6">
-            <input type="text" class="form-control" id="username">
+            <input #username="ngModel" required [(ngModel)]="Model.username" type="text" class="form-control" id="username">
+            <div [hidden]="username.valid || username.untouched" class="alert alert-danger">
+               Некорректное имя.
+            </div>
          </div>
       </div>
       <div class="form-group row">
          <label for="email" class="col-sm-offset-2 col-sm-2 col-form-label">E-mail</label>
          <div class="col-sm-6">
-            <input type="text" class="form-control" id="email">
+            <input #email="ngModel" required email [(ngModel)]="Model.email" type="text" class="form-control" id="email">
+            <div [hidden]="email.valid || email.untouched" class="alert alert-danger">
+               Некорректный email.
+            </div>
          </div>
       </div>
       <div class="form-group row">
          <label for="pass" class="col-sm-offset-2 col-sm-2 col-form-label">Пароль</label>
          <div class="col-sm-6">
-            <input type="text" class="form-control" id="pass">
+            <input required pattern=".{5,}" [(ngModel)]="Model.password" #password="ngModel" type="text" class="form-control" id="pass">
+            <div [hidden]="password.valid || password.untouched" class="alert alert-danger">
+               Пароль должен содержать более 5 символов.
+            </div>
          </div>
       </div>
       <div *ngIf="roles && roles.length > 0" class="form-group row">
          <label for="role" class="col-sm-offset-2 col-sm-2 col-form-label">Роль</label>
          <div class="col-sm-6" id="role">
-            <select class="form-control">
-               <option *ngFor="let role of roles" value="{{role.roleName}}">{{role.roleName}}</option>
-            </select>
+            <p-autoComplete [(ngModel)]="Model.roles" [suggestions]="findRoles" (completeMethod)="searchRoles($event)"
+                            [multiple]="true" field="roleName" [dropdown]="true"></p-autoComplete>
          </div>
       </div>
       <div class="form-group row">
          <div class="col-sm-10 text-right">
-            <input type="button" class="btn btn-success" value="Добавить">
+            <input *ngIf="!editMode" [disabled]="username.invalid || password.invalid || email.invalid" (click)="AddOrUpdate()" type="button" class="btn btn-success" value="Добавить">
+            <input *ngIf="editMode" [disabled]="username.invalid || password.invalid || email.invalid" (click)="AddOrUpdate()" type="button" class="btn btn-success" value="Сохранить">
+            <input *ngIf="editMode" (click)="Cancel()" type="button" class="btn btn-danger" value="Отмена">
          </div>
       </div>
    </div>
 
    <div *ngSwitchCase="'disciplines'">
-      <div class="form-group row" *ngFor="let column of columnsName">
-         <label for="{{column}}" class="col-sm-offset-2 col-sm-2 col-form-label">{{column | translate}}</label>
+      <div class="form-group row">
+         <label for="name" class="col-sm-offset-2 col-sm-2 col-form-label">Название</label>
          <div class="col-sm-6">
-            <input type="text" class="form-control" id="{{column}}">
+            <input #name="ngModel" required [(ngModel)]="Model.name"  type="text" class="form-control" id="name">
+         </div>
+      </div>
+      <div class="form-group row">
+         <label for="fileOfKnowlage" class="col-sm-offset-2 col-sm-2 col-form-label">Раздел знаний</label>
+         <div class="col-sm-6" id="fileOfKnowlage">
+            <select #fileOfKnowlage="ngModel" required  [(ngModel)]="Model.fieldOfKnowledge.name" class="form-control">
+               <option disabled value="">Выбор раздела знаний</option>
+               <option *ngFor="let fileOfKnowlage of fileOfKnowlages" value="{{fileOfKnowlage.name}}">{{fileOfKnowlage.name}}</option>
+            </select>
          </div>
       </div>
       <div class="form-group row">
          <div class="col-sm-10 text-right">
-            <input type="button" class="btn btn-success" value="Добавить">
+            <input *ngIf="!editMode" [disabled]="name.invalid" (click)="AddOrUpdate()" type="button" class="btn btn-success" value="Добавить">
+            <input *ngIf="editMode" [disabled]="name.invalid" (click)="AddOrUpdate()" type="button" class="btn btn-success" value="Сохранить">
+            <input *ngIf="editMode" (click)="Cancel()" type="button" class="btn btn-success" value="Отмена">
          </div>
       </div>
    </div>
@@ -77,18 +98,18 @@
    </div>
 
    <div *ngSwitchCase="'groups'">
-      <div class="form-group row" *ngFor="let column of columnsName">
-         <label for="{{column}}" class="col-sm-offset-2 col-sm-2 col-form-label">{{column | translate}}</label>
-         <div class="col-sm-6">
-            <input type="text" class="form-control" id="{{column}}">
-         </div>
-      </div>
-      <div class="form-group row">
-         <div class="col-sm-10 text-right">
-            <input type="button" class="btn btn-success" value="Добавить">
-         </div>
+   <div class="form-group row" *ngFor="let column of columnsName">
+      <label for="{{column}}" class="col-sm-offset-2 col-sm-2 col-form-label">{{column | translate}}</label>
+      <div class="col-sm-6">
+         <input type="text" class="form-control" id="{{column}}">
       </div>
    </div>
+   <div class="form-group row">
+      <div class="col-sm-10 text-right">
+         <input type="button" class="btn btn-success" value="Добавить">
+      </div>
+   </div>
+</div>
 
 </div>
 

@@ -2,18 +2,26 @@ package com.unesco.core.models;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.unesco.core.entities.Discipline;
+import com.unesco.core.models.additional.EntityModel;
 
 import java.util.Date;
 
-public class DisciplineModel {
+public class DisciplineModel implements EntityModel<Discipline> {
 
+   private int id;
    /** Поле название */
    private String name;
-   @JsonFormat(shape=JsonFormat.Shape.STRING, pattern="yyyy-MM-dd HH:mm:ss", timezone="GMT")
    /** Поле дата создания */
    private Date datecreate;
    /** Поле раздел знаний */
-   private String fieldOfKnowledge;
+   private FieldOfKnowledgeModel fieldOfKnowledge;
+
+   public int getId() {
+      return id;
+   }
+   public void setId(int id) {
+      this.id = id;
+   }
 
    public String getName() {
       return name;
@@ -29,18 +37,28 @@ public class DisciplineModel {
       this.datecreate = datecreate;
    }
 
-   public String getFieldOfKnowledge() {
+   public FieldOfKnowledgeModel getFieldOfKnowledge() {
       return fieldOfKnowledge;
    }
-   public void setFieldOfKnowledge(String fieldOfKnowledge) {
+   public void setFieldOfKnowledge(FieldOfKnowledgeModel fieldOfKnowledge) {
       this.fieldOfKnowledge = fieldOfKnowledge;
    }
 
-   public DisciplineModel(Discipline discipline){
+   public void EntityToModel(Discipline discipline){
+      this.id = (int) discipline.getId();
       this.name = discipline.getName();
       this.datecreate = discipline.getDatecreate();
-      if(discipline.getFieldOfKnowledge() != null)
-         this.fieldOfKnowledge = discipline.getFieldOfKnowledge().getName();
+      if(discipline.getFieldOfKnowledge() != null) {
+         FieldOfKnowledgeModel fieldOfKnowledge = new FieldOfKnowledgeModel();
+         fieldOfKnowledge.EntityToModel(discipline.getFieldOfKnowledge());
+         this.fieldOfKnowledge = fieldOfKnowledge;
+      }
+   }
+
+   public DisciplineModel()
+   {
+      this.name = "";
+      this.datecreate = new Date();
    }
    public DisciplineModel(String name, Date datecreate)
    {

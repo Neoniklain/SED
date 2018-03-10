@@ -1,11 +1,9 @@
 package com.unesco.core.models;
 
 import com.unesco.core.entities.Group;
+import com.unesco.core.models.additional.EntityModel;
 
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-
-public class GroupModel {
+public class GroupModel implements EntityModel<Group> {
    private String name;
 
    public String getName() {
@@ -15,12 +13,12 @@ public class GroupModel {
       this.name = name;
    }
 
-   public GroupModel(Group group) {
+   public void EntityToModel(Group group) {
       this.name = group.getName();
    }
 
    public GroupModel() {
-
+      this.name = "";
    }
 
 }

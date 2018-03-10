@@ -4,7 +4,7 @@ import javax.persistence.*;
 import java.util.Set;
 
 @Entity
-@Table(name="fieldOfKnowledge")
+@Table(name="un_fieldOfKnowledge")
 /**
  * Класс справочник разделов знаний
  */
@@ -39,5 +39,4 @@ public class FieldOfKnowledge {
    public void setDiscipline(Set<Discipline> discipline) {
       this.discipline = discipline;
    }
-
 }

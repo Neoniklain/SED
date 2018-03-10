@@ -58,5 +58,12 @@ public class FilterQuery {
       this.sortOrder = sortOrder;
    }
 
-   public FilterQuery(){}
+   public FilterQuery(){
+      first = 0;
+      globalFilter = "";
+      multiSortMeta = false;
+      rows = 0;
+      sortField = "";
+      sortOrder = 0;
+   }
 }

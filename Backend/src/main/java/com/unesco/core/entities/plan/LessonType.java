@@ -5,7 +5,7 @@ import com.unesco.core.entities.plan.Semester;
 import javax.persistence.*;
 
 @Entity
-@Table(name="lessonType")
+@Table(name="un_lessonType")
 public class LessonType {
    @Id
    @SequenceGenerator(name = "lessonTypeSequenceGen", sequenceName = "lessonTypeSequenceGen", allocationSize = 1)

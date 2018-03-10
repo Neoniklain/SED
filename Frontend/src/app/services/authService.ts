@@ -21,7 +21,7 @@ export class AuthenticationService {
             { username: user.username, password: user.password });
     }
 
-    register(user: LogInUser): Observable<any> {
+    register(user): Observable<any> {
         let params = new HttpParams();
         return this.http.post(ApiRouteConstants.Authentication.Registration, user, {params: params })
             .catch(this.handleError);

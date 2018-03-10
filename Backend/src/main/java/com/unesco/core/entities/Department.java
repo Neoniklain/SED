@@ -6,7 +6,7 @@ import javax.persistence.*;
 import java.util.Set;
 
 @Entity
-@Table(name = "department")
+@Table(name = "un_department")
 /**
  * Класс кафедры
  */
