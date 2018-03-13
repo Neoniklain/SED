@@ -20,11 +20,11 @@ public class DepartmentModel {
 
    public DepartmentModel(Department department) {
       this.name = department.getName();
-      this.groups = new ArrayList<GroupModel>();
-      for(Group group : department.getGroups())
-      {
-         this.groups.add(new GroupModel(group));
-      }
+//      this.groups = new ArrayList<GroupModel>();
+//      for(Group group : department.getGroups())
+//      {
+//         this.groups.add(new GroupModel(group));
+//      }
    }
 
    public String getName() {
