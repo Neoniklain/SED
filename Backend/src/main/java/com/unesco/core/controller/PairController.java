@@ -36,12 +36,12 @@ public class PairController {
     @Autowired
     public WeekTypeRepository weekTypeRepository;
 
-    @RequestMapping("/pairs/{id}")
+    @RequestMapping("/pair/get/{id}")
     public Pair getPair(@PathVariable("id") int id) {
         return pairRepository.findById(id);
     }
 
-    @RequestMapping("pairs/create")
+    @RequestMapping("pairs/save")
     public String addNewPair(@RequestBody PairModel pairModel) {
         Pair pair = new Pair();
         //pair.setId(130);
@@ -50,11 +50,17 @@ public class PairController {
         return JSONResponseStatus.OK;
     }
 
-    @RequestMapping("/pairs/update/{id}")
+    @RequestMapping("/pair/{id}/edit")
     public String updatePair(@PathVariable("id") int id, @RequestBody PairModel pairModel) {
         Pair pair = pairRepository.findById(pairModel.getId());
         modelToPair(pair, pairModel);
         pairRepository.save(pair);
+        return JSONResponseStatus.OK;
+    }
+
+    @RequestMapping("/pair/delete/{id}")
+    public String deletePair(@PathVariable("id") int id) {
+        pairRepository.delete(id);
         return JSONResponseStatus.OK;
     }
 
