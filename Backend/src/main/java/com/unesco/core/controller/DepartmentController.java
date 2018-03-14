@@ -34,7 +34,7 @@ public class DepartmentController {
     ProfessorRepository professorRepository;
 
     /*
-    Оптимизацией кода займусь позже, главное, что работает.
+    Оптимизацией кода займусь позже, главное, что работает. точно!
      */
 
     @RequestMapping("/department/even")
@@ -50,8 +50,8 @@ public class DepartmentController {
             professorsStr.add(professor.getFio());
         }
 
-        List<PairModel> pairsList = new ArrayList<>();
         for(String p : professorsStr) {
+            List<PairModel> pairsList = new ArrayList<>();
             List <Pair> pairs = pairRepository.findPairsByProfessorFio(p);
             for(Pair pair : pairs) {
                 if(pair.getWeektype().getType().equals("Чет"))
@@ -78,8 +78,8 @@ public class DepartmentController {
             professorsStr.add(professor.getFio());
         }
 
-        List<PairModel> pairsList = new ArrayList<>();
         for(String p : professorsStr) {
+            List<PairModel> pairsList = new ArrayList<>();
             List <Pair> pairs = pairRepository.findPairsByProfessorFio(p);
             for(Pair pair : pairs) {
                 if(pair.getWeektype().getType().equals("Нечет"))

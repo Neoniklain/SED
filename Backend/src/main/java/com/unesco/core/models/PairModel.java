@@ -11,6 +11,10 @@ public class PairModel {
     private String group;
     private String department;
 
+    public PairModel() {
+
+    }
+
     public PairModel(int id, int pairnumber, String weektype,
                      String dayofweek, String professor, String room, String discipline, String group, String department) {
         this.id = id;

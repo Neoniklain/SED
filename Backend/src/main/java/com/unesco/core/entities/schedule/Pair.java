@@ -8,7 +8,8 @@ import javax.persistence.*;
 @Table(name = "pair")
 public class Pair {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @SequenceGenerator(name = "pairSequenceGen", sequenceName = "pairSequenceGen", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "pairSequenceGen")
     private int id;
 
     @Column(name = "pairnumber")
@@ -51,6 +52,16 @@ public class Pair {
     }
 
     public Pair() {
+    }
+
+    public Pair(Pair pair) {
+        this.pairNumber = pair.pairNumber;
+        this.dayofweek = pair.dayofweek;
+        this.weektype = pair.weektype;
+        this.discipline = pair.discipline;
+        this.room = pair.room;
+        this.professor = pair.professor;
+        this.group = pair.group;
     }
 
     public int getId() {

@@ -17,7 +17,7 @@ public class Discipline {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "disciplineSequenceGen")
     private long id;
     /** Поле название */
-    private String name;
+    private String name; //для каждого раздела свои контроллеры: для группы - в GroupContr, для преподов - в ProfessorContr, и так далее. :******
     @ManyToOne
     @JoinColumn(name = "fieldOfKnowledge_id", referencedColumnName = "id")
     /** Поле раздел знаний */

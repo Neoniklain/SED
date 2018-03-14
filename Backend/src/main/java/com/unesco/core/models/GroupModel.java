@@ -5,7 +5,7 @@ import com.unesco.core.entities.Group;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
-public class GroupModel {
+public class GroupModel { //видел путь?:D можно бло и не открывать мою*****
    private String name;
 
    public String getName() {
