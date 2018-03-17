@@ -1,15 +1,17 @@
-import {Component} from '@angular/core';
+import {Component, ViewChild} from '@angular/core';
 import {Router} from '@angular/router';
 import {LogInUser, User} from "../../../../models/account/user.model";
 import {MessageService} from "primeng/components/common/messageservice";
 import {AuthenticationService} from "../../../../services/authService";
 import {NgForm} from "@angular/forms";
 import {Globals} from "../../../../globals";
+/*import {HeaderComponent} from "../../../header/header";*/
 
 @Component({
    selector: 'login-page',
    templateUrl: './login.component.html',
-   styleUrls: ['./login.component.css']
+   styleUrls: ['./login.component.css']/*,
+    providers: [HeaderComponent]*/
 })
 
 export class LogInComponent {
@@ -21,7 +23,8 @@ export class LogInComponent {
    constructor(private authenticationService: AuthenticationService,
                private router: Router,
                private messageService: MessageService,
-               private globals: Globals) {
+               private globals: Globals,
+               /**private headerComponent: HeaderComponent*/) {
       this.user = new LogInUser();
       this.auth_user = new User();
       this.tryed = false;
@@ -43,6 +46,7 @@ export class LogInComponent {
                     result => {
                        console.log("login");
                        this.globals.role = result;
+                       // this.headerComponent.setUser(this.user.username);
                     }
                 );
              }

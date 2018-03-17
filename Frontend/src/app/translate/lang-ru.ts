@@ -16,4 +16,8 @@ export const LANG_RU_TRANS = {
    "institutes": "Институты",
    "departments": "Кафедры",
    "groups": "Группы",
+    "ADMIN": "Администратор",
+    "STUDENT": "Студент",
+    "PROFFESSOR": "Преподаватель",
+    "ENGINEER": "Инженер"
 };

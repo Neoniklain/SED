@@ -55,8 +55,8 @@ public class AccountController {
         return user;
     }
 
-    @RequestMapping(value = "/FindUsersByName/{req}")
-    public List<User> FindUsersByName(@PathVariable("req") String req) {
+    @RequestMapping(value = "/FindUsersByFIO/{req}")
+    public List<User> FindUsersByFIO(@PathVariable("req") String req) {
         Iterable<User> allUsers = _UserRepository.findAll();
         List<User> res = new ArrayList<User>();
         for (User item:allUsers) {
@@ -65,6 +65,12 @@ public class AccountController {
                 res.add(item);
             }
         }
+        return res;
+    }
+
+    @RequestMapping(value = "/FindUserByUsername/{req}")
+    public UserModel FindUserByUsername(@PathVariable("req") String req) {
+        UserModel res = new UserModel(_UserRepository.findByUsername(req));
         return res;
     }
 }

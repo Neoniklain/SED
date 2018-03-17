@@ -9,8 +9,13 @@ export class AccountService {
 
     constructor(private http: HttpClient) { }
 
-    public FindUserByName(req: string) {
-        return this.http.get(ApiRouteConstants.Account.FindUsersByName.replace(":req", req))
+    public FindUsersByFIO(req: string) {
+        return this.http.get(ApiRouteConstants.Account.FindUsersByFIO.replace(":req", req))
+            .catch(this.handleError);
+    }
+
+    public FindUserByLogin(req: string) {
+        return this.http.get(ApiRouteConstants.Account.FindUserByUsername.replace(":req", req))
             .catch(this.handleError);
     }
 
