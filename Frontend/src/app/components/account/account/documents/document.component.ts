@@ -71,7 +71,7 @@ export class DocumentComponent {
 
    public searchUser(event: any) {
       let query = event.query.substring(0, 60);
-      this.accountService.FindUserByName(query)
+      this.accountService.FindUsersByFIO(query)
           .subscribe((res: any) => {
                  this.results = res;
               },

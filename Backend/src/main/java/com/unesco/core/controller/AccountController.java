@@ -56,6 +56,19 @@ public class AccountController {
         return user;
     }
 
+    @RequestMapping(value = "/FindUsersByFIO/{req}")
+    public List<User> FindUsersByFIO(@PathVariable("req") String req) {
+        Iterable<User> allUsers = _UserRepository.findAll();
+        List<User> res = new ArrayList<User>();
+        for (User item:allUsers) {
+            if(item.getUsername().toLowerCase().contains(req.toLowerCase()))
+            {
+                res.add(item);
+            }
+        }
+        return res;
+    }
+
     @GetMapping("/professors")
     public List<ProfessorModel> GetProfessors() {
         List<ProfessorModel> professor = userService.getProfessors();
@@ -70,6 +83,12 @@ public class AccountController {
         } catch (Exception e) {
             return JSONResponseStatus.ERROR();
         }
+    }
+
+    @RequestMapping(value = "/FindUserByUsername/{req}")
+    public UserModel FindUserByUsername(@PathVariable("req") String req) {
+        UserModel res = new UserModel(_UserRepository.findByUsername(req));
+        return res;
     }
 
     @RequestMapping(value = "/student/{userId}/setGroup/{groupId}")
