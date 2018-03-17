@@ -1,5 +1,5 @@
 import {Component, ContentChild, ElementRef, Injectable, NgModule, OnInit, ViewChild} from '@angular/core';
-import {DocumentComponent} from "./documents/document.component";
+import {IssueComponent} from "./issues/issue.component";
 import {NewsDispatcherComponent} from "./news-dispatcher/news-dispatcher.component";
 import {Router} from "@angular/router";
 import {User} from "../../../models/account/user.model";
@@ -16,7 +16,7 @@ export class AccountComponent implements OnInit {
   public user: User;
   public menuName: string;
 
-  @ViewChild(DocumentComponent) documentComponent: DocumentComponent;
+  @ViewChild(IssueComponent) issueComponent: IssueComponent;
   @ViewChild(NewsDispatcherComponent) newsDispatcherComponent: NewsDispatcherComponent;
 
   constructor(private authenticationService: AuthenticationService,

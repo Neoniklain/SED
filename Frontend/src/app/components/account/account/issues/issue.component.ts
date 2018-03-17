@@ -12,12 +12,12 @@ const URL = 'http://localhost:8080/api/excel/ParseStudyPlan';
 const MB = 1024 * 1024;
 
 @Component({
-   selector: 'document-page',
-   templateUrl: './document.component.html',
-   styleUrls: ['./document.component.css']
+   selector: 'issue-page',
+   templateUrl: './issue.component.html',
+   styleUrls: ['./issue.component.css']
 })
 
-export class DocumentComponent {
+export class IssueComponent {
    public displayDialog: boolean = false;
    public displayChangeDialog: boolean = false;
    public tempIssue: Issue = new Issue();

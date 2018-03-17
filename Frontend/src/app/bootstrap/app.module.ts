@@ -22,7 +22,7 @@ import {ServiceHttpInterceptor} from "../http/serviceHttpInterceptor";
 import {AppComponent} from "./app.component";
 import {AccountComponent} from "../components/account/account/account.component";
 import {NewsDispatcherComponent} from "../components/account/account/news-dispatcher/news-dispatcher.component";
-import {DocumentComponent} from "../components/account/account/documents/document.component";
+import {IssueComponent} from "../components/account/account/issues/issue.component";
 import {RegisterComponent} from "../components/account/authentification/register/register.component";
 import {LogInComponent} from "../components/account/authentification/login/login.component";
 import {SingleNewsComponent} from "../components/news/single-news/single-news.component";
@@ -76,7 +76,7 @@ import {DictionaryTableAddComponent} from "../components/adminPanel/dictionaryTa
       AppComponent,
       AccountComponent,
       NewsDispatcherComponent,
-      DocumentComponent,
+       IssueComponent,
       LogInComponent,
       RegisterComponent,
       SingleNewsComponent,
