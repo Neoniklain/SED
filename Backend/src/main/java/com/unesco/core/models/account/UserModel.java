@@ -48,13 +48,7 @@ public class UserModel {
         this.roles = roles;
     }
 
-    public UserModel() {
-        this.id = 0;
-        this.username = "";
-        this.userFIO = "";
-        this.email = "";
-        this.roles = new ArrayList<RoleModel>();
-    }
+
     public UserModel(CustomUserDetails u) {
         this.id = u.getId();
         this.username = u.getUsername();
@@ -66,5 +60,14 @@ public class UserModel {
             roleModel.setRoleName(role.getRoleName());
             this.roles.add(roleModel);
         }
+    }
+
+    public UserModel()
+    {
+        this.id = 0;
+        this.roles = new ArrayList<>();
+        this.email = "";
+        this.username = "";
+        this.userFIO = "";
     }
 }

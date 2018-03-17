@@ -1,10 +1,10 @@
 import {User} from "../account/user.model";
 
-export class Issue {
-  public id:number;
-  public name:string;
-  public creator:User;
-  public collaborators:User[];
+export class Task {
+  public id: number;
+  public name: string;
+  public creator: User;
+  public collaborators: User[];
   constructor()
   {
     this.name = "";

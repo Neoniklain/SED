@@ -27,4 +27,5 @@ public interface UserRepository extends CrudRepository<User, Long>, CrudPagableR
 
     @Query("SELECT u FROM User u where lower(u.userFIO) LIKE CONCAT('%',lower(:filter),'%')")
     List<User> findWithFilter(Pageable pageable, @Param("filter")  String filter);
+    User findById(long id);
 }

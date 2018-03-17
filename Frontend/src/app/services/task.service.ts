@@ -3,11 +3,11 @@ import "rxjs/add/operator/map";
 import {Observable} from "rxjs/Observable";
 import {HttpClient, HttpErrorResponse, HttpParams} from "@angular/common/http";
 import {Router} from "@angular/router";
-import {Issue} from "../models/workflow/issue.model";
+import {Task} from "../models/workflow/task.model";
 import {ApiRouteConstants} from "../bootstrap/app.route.constants";
 
 @Injectable()
-export class IssueService {
+export class  TaskService {
     constructor(private http: HttpClient) { }
 
     public Get(id: number) {
@@ -21,18 +21,18 @@ export class IssueService {
           .catch(this.handleError);
     }
 
-    public GetList(): Observable<Array<Issue>> {
+    public GetList(): Observable<Array<Task>> {
     return this.http.get(ApiRouteConstants.Issue.All)
         .catch(this.handleError);
     }
 
-    public Update(issue: Issue) {
+    public Update(issue: Task) {
         let params = new HttpParams();
         return this.http.post(ApiRouteConstants.Issue.Update, issue, {params: params })
         .catch(this.handleError);
     }
 
-    public Create(issueName: Issue) {
+    public Create(issueName: Task) {
         let params = new HttpParams();
         return this.http.post(ApiRouteConstants.Issue.Create, issueName, {params: params })
         .catch(this.handleError);

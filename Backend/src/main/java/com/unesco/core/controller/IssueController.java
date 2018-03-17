@@ -1,13 +1,12 @@
 package com.unesco.core.controller;
 
 
+import com.unesco.core.models.TaskDescriptionModel;
+import com.unesco.core.models.account.RoleModel;
+import com.unesco.core.models.account.UserModel;
 import com.unesco.core.models.additional.JSONResponseStatus;
-import com.unesco.core.entities.workflow.Issue;
-import com.unesco.core.entities.account.Role;
-import com.unesco.core.entities.account.User;
-import com.unesco.core.repositories.issue.IssueRepository;
-import com.unesco.core.repositories.account.UserRepository;
 import com.unesco.core.security.CustomUserDetailsService;
+import com.unesco.core.services.taskDataService.TaskDescriptionDataService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -20,62 +19,54 @@ import java.util.stream.Collectors;
 @RequestMapping("api/issue")
 public class IssueController {
 
+
     @Autowired
-    private UserRepository _UserRepository;
-    @Autowired
-    private IssueRepository _IssuesRepository;
+    private TaskDescriptionDataService _IssueDataService;
     @Autowired
     private CustomUserDetailsService _CustomUserDetailsService;
 
     @GetMapping(value = "/list")
-    public Iterable<Issue> GetList() {
-        User user = _UserRepository.findByUsername(_CustomUserDetailsService.getUserDetails().getUsername());
-        Iterable<Issue> result =  new ArrayList<Issue>();
-        List<String> role = new ArrayList<Role>(user.getRoles())
+    public Iterable<TaskDescriptionModel> GetList() {
+        UserModel user = new UserModel(_CustomUserDetailsService.getUserDetails());
+        Iterable<TaskDescriptionModel> result =  new ArrayList<>();
+        List<String> role = new ArrayList<RoleModel>(user.getRoles())
                 .stream()
-                .map(Role::getRoleName)
+                .map(RoleModel::getRoleName)
                 .collect(Collectors.toList());
 
-        if(role.contains("ADMIN"))
-            result = _IssuesRepository.findAll();
-        if(role.contains("MANAGER"))
-            result = _IssuesRepository.findByCreator(user.getId());
-        if(role.contains("USER"))
-            result = _IssuesRepository.findByCollaborators(user);
+        if(role.contains("ADMIN")) {
+            result = _IssueDataService.getAllIssues();
+        }
+        else if(role.contains("MANAGER")) {
+            result = _IssueDataService.getIssueByCreator(user.getId());
+        }
+        else {
+            result = _IssueDataService.getIssuesByCollaborator(user.getId());
+        }
         return result;
     }
 
     @RequestMapping(value = "/create")
-    public JSONResponseStatus Create(@RequestBody Issue newIssue) {
-        Issue issue = new Issue();
-        issue.setName(newIssue.getName());
-        User creator = _UserRepository.findByUsername(_CustomUserDetailsService.getUserDetails().getUsername());
-        issue.setCreator(creator);
-        issue.setCollaborators(newIssue.getCollaborators());
-        _IssuesRepository.save(issue);
+    public JSONResponseStatus Create(@RequestBody TaskDescriptionModel newIssue) {
+        newIssue.setCreator(new UserModel(_CustomUserDetailsService.getUserDetails()));
+        _IssueDataService.createNewIssue(newIssue);
         return JSONResponseStatus.OK();
     }
 
     @RequestMapping(value = "/get/{id}")
-    public Issue Get(@PathVariable("id") long id) {
-        Issue issue = _IssuesRepository.findById(id);
-        return issue;
+    public TaskDescriptionModel Get(@PathVariable("id") long id) {
+        return _IssueDataService.getIssueById(id);
     }
 
     @RequestMapping(value = "/update")
-    public JSONResponseStatus Update(@RequestBody Issue newIssue) {
-        Issue issue = _IssuesRepository.findById(newIssue.getId());
-        issue.setName(newIssue.getName());
-        User creator = _UserRepository.findByUsername(_CustomUserDetailsService.getUserDetails().getUsername());
-        issue.setCreator(creator);
-        issue.setCollaborators(newIssue.getCollaborators());
-        _IssuesRepository.save(issue);
-        return JSONResponseStatus.OK();
+    public TaskDescriptionModel Update(@RequestBody TaskDescriptionModel newIssue) {
+        _IssueDataService.updateIssue(newIssue);
+        return newIssue;
     }
 
     @RequestMapping(value = "/delete/{id}")
     public JSONResponseStatus Delete(@PathVariable("id") long id) {
-        _IssuesRepository.delete(id);
+        _IssueDataService.deleteIssue(id);
         return JSONResponseStatus.OK();
     }
 }
