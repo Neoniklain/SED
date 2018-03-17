@@ -6,7 +6,7 @@
       <button (click)="displayDialog = true" type="button" class="btn btn-success">Добавить задачу</button>
    </div>
 </div>
-<div *ngIf="issueList.length > 0">
+<div *ngIf="taskList.length > 0">
    <div class="header-panel-body">
       <h3>Список задач</h3>
    </div>
@@ -22,18 +22,18 @@
             <th class="text-center"></th>
          </tr>
          </thead>
-         <tbody *ngIf="issueList.length > 0">
-         <tr *ngFor="let item of issueList">
+         <tbody *ngIf="taskList.length > 0">
+         <tr *ngFor="let item of taskList">
             <td class="text-center" id="id">{{item.id}}</td>
-            <td class="text-center" id="name">{{item.name}}</td>
-            <td class="text-center" id="creator">{{item.creator.username}}</td>
-            <td class="text-center" id="status">В процессе.</td>
+            <td (dblclick)="displayTaskDialog = true" class="text-center" id="name">{{item.name}}</td>
+            <td (dblclick)="displayTaskDialog = true" class="text-center" id="creator">{{item.creator.userFIO}}</td>
+            <td (dblclick)="displayTaskDialog = true" class="text-center" id="status">В процессе.</td>
             <td class="text-center" id="edit">
-               <button (click)="ChangeIssue(item.id)" class="btn btn-warning"><i class="fa fa-pencil"
+               <button (click)="ChangeTask(item)" class="btn btn-warning"><i class="fa fa-pencil"
                                                                                  aria-hidden="true"></i></button>
             </td>
             <td class="text-center" id="remove">
-               <button (click)="DeleteIssue(item.id)" class="btn btn-danger"><i class="fa fa-times"
+               <button (click)="DeleteTask(item.id)" class="btn btn-danger"><i class="fa fa-times"
                                                                                 aria-hidden="true"></i></button>
             </td>
          </tr>
@@ -45,22 +45,25 @@
 <p-dialog header="Редактирование задачи" [(visible)]="displayChangeDialog" modal="modal" width="300"
           [responsive]="true">
    <p>Название задачи:</p>
-   <input type="text" class="form-control" id="header" name="header" placeholder="Название задчи"
-          [(ngModel)]="issueName"/>
+   <input type="text" class="form-control" id="headerEdit" name="header" placeholder="Название задчи"
+          [(ngModel)]="taskName"/>
    <p-autoComplete [(ngModel)]="executors" [suggestions]="results" (completeMethod)="searchUser($event)"
                    [multiple]="true" field="username"></p-autoComplete>
    <p-footer>
-      <button type="button" pButton icon="fa-check" (click)="UpdateIssue()" label="Изменить"></button>
+      <button type="button" pButton icon="fa-check" (click)="UpdateTask()" label="Изменить"></button>
    </p-footer>
 </p-dialog>
 
 <p-dialog header="Создание задачи" [(visible)]="displayDialog" modal="modal" width="300" [responsive]="true">
    <p>Введите название задачи:</p>
-   <input type="text" class="form-control" id="header" name="header" placeholder="Название задчи"
-          [(ngModel)]="issueName"/>
+   <input type="text" class="form-control" id="headerCreate" name="header" placeholder="Название задчи"
+          [(ngModel)]="taskName"/>
    <p-autoComplete [(ngModel)]="executors" [suggestions]="results" (completeMethod)="searchUser($event)"
                    [multiple]="true" field="username"></p-autoComplete>
    <p-footer>
-      <button type="button" pButton icon="fa-check" (click)="CreateIssue()" label="Ок"></button>
+      <button type="button" pButton icon="fa-check" (click)="CreateTask()" label="Ок"></button>
    </p-footer>
+</p-dialog>
+
+<p-dialog header="Задача" [(visible)]="displayTaskDialog" modal="modal" width="300" [responsive]="true">
 </p-dialog>

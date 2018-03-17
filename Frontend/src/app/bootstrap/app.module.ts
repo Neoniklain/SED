@@ -22,7 +22,6 @@ import {ServiceHttpInterceptor} from "../http/serviceHttpInterceptor";
 import {AppComponent} from "./app.component";
 import {AccountComponent} from "../components/account/account/account.component";
 import {NewsDispatcherComponent} from "../components/account/account/news-dispatcher/news-dispatcher.component";
-import {IssueComponent} from "../components/account/account/issues/issue.component";
 import {RegisterComponent} from "../components/account/authentification/register/register.component";
 import {LogInComponent} from "../components/account/authentification/login/login.component";
 import {SingleNewsComponent} from "../components/news/single-news/single-news.component";
@@ -30,9 +29,10 @@ import {EditorSingleNewsComponent} from "../components/news/editor-single-news/e
 import {EditorListNewsComponent} from "../components/news/editor-list-news/editor-list-news.component";
 import {ListNewsComponent} from "../components/news/list-news/list-news.component";
 import {NotFoundComponent} from "../components/notfound/notfound.component";
+import {TaskComponent} from "../components/task/task.component";
 // services
 import {NewsService} from "../services/news.service";
-import {IssueService} from "../services/issues.service";
+import {TaskService} from "../services/task.service";
 import {AuthenticationService} from "../services/authService";
 // guards
 import {AuthGuard} from "../guards/auth.guard";
@@ -76,7 +76,7 @@ import {DictionaryTableAddComponent} from "../components/adminPanel/dictionaryTa
       AppComponent,
       AccountComponent,
       NewsDispatcherComponent,
-       IssueComponent,
+       TaskComponent,
       LogInComponent,
       RegisterComponent,
       SingleNewsComponent,
@@ -101,7 +101,7 @@ import {DictionaryTableAddComponent} from "../components/adminPanel/dictionaryTa
       {provide: HTTP_INTERCEPTORS, useClass: ServiceHttpInterceptor, multi: true},
       TranslationService,
       AuthenticationService,
-      IssueService,
+      TaskService,
       NewsService,
       MessageService,
       AccountService,

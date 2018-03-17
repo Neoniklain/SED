@@ -1,4 +1,4 @@
-package com.unesco.core.srvices.journalDataService;
+package com.unesco.core.services.journalDataService;
 
 import com.unesco.core.models.journal.Journal;
 import com.unesco.core.models.journal.JournalCell;

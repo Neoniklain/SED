@@ -9,10 +9,11 @@ import java.util.List;
 
 public class UserModel {
 
-    public String username;
-    public String userFIO;
-    public String email;
-    public List<RoleModel> roles;
+    private long id;
+    private String username;
+    private String userFIO;
+    private String email;
+    private List<RoleModel> roles;
 
     public String getUsername() {
         return username;
@@ -42,7 +43,16 @@ public class UserModel {
         this.roles = roles;
     }
 
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
     public UserModel(User user) {
+        this.id = user.getId();
         this.username = user.getUsername();
         this.email = user.getEmail();
         this.roles = new ArrayList<>();
@@ -53,6 +63,7 @@ public class UserModel {
     }
 
     public UserModel(CustomUserDetails u) {
+        this.id = u.getId();
         this.username = u.getUsername();
         this.userFIO = u.getUserFIO();
         this.email = u.getEmail();
@@ -60,5 +71,14 @@ public class UserModel {
         for (Role role: u.getRole()) {
             this.roles.add(new RoleModel(role));
         }
+    }
+
+    public UserModel()
+    {
+        this.id = 0;
+        this.roles = new ArrayList<>();
+        this.email = "";
+        this.username = "";
+        this.userFIO = "";
     }
 }

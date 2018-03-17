@@ -3,7 +3,7 @@ package com.unesco.core.controller;
 import com.unesco.core.models.journal.Journal;
 import com.unesco.core.models.journal.JournalCell;
 import com.unesco.core.models.journal.Student;
-import com.unesco.core.srvices.journalDataService.IJournalDataService;
+import com.unesco.core.services.journalDataService.IJournalDataService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.*;

@@ -1,4 +1,4 @@
-package com.unesco.core.srvices.dictionaryDataService;
+package com.unesco.core.services.dictionaryDataService;
 
 import org.springframework.stereotype.Service;
 

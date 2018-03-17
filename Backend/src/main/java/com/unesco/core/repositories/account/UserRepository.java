@@ -8,4 +8,5 @@ import org.springframework.data.repository.CrudRepository;
 public interface UserRepository extends CrudRepository<User, Long> {
     User findByUsername(String username);
     Page findAll(Pageable pageRequest);
+    User findById(long id);
 }

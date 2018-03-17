@@ -1,6 +1,5 @@
 package com.unesco.core.controller;
 
-import com.unesco.core.entities.Institute;
 import com.unesco.core.models.DepartmentModel;
 import com.unesco.core.models.DisciplineModel;
 import com.unesco.core.models.GroupModel;
@@ -9,20 +8,9 @@ import com.unesco.core.models.account.RoleModel;
 import com.unesco.core.models.additional.FilterQuery;
 import com.unesco.core.models.additional.PageResult;
 import com.unesco.core.models.account.UserModel;
-import com.unesco.core.entities.Discipline;
-import com.unesco.core.entities.account.User;
-import com.unesco.core.repositories.plan.DisciplineRepository;
-import com.unesco.core.repositories.news.NewsRepository;
-import com.unesco.core.repositories.account.UserRepository;
-import com.unesco.core.security.CustomUserDetailsService;
-import com.unesco.core.srvices.dictionaryDataService.DitionaryDataService;
+import com.unesco.core.services.dictionaryDataService.DitionaryDataService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.ArrayList;
-import java.util.List;
 
 @CrossOrigin
 @RestController

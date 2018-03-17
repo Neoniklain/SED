@@ -60,7 +60,7 @@ public class AccountController {
         Iterable<User> allUsers = _UserRepository.findAll();
         List<User> res = new ArrayList<User>();
         for (User item:allUsers) {
-            if(item.getUsername().toLowerCase().contains(req.toLowerCase()))
+            if(item.getUserFIO().toLowerCase().contains(req.toLowerCase()))
             {
                 res.add(item);
             }

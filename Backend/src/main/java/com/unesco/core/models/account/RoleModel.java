@@ -27,6 +27,12 @@ public class RoleModel {
         this.roleName = roleName;
     }*/
 
+    public RoleModel()
+    {
+        this.roleNameRus = "";
+        this.roleName = "";
+    }
+
     public RoleModel(Role role)
     {
         this.roleNameRus = role.getRoleNameRus();

@@ -1,4 +1,4 @@
-package com.unesco.core.srvices.dictionaryDataService;
+package com.unesco.core.services.dictionaryDataService;
 
 import com.unesco.core.entities.Department;
 import com.unesco.core.entities.Discipline;
@@ -23,10 +23,8 @@ import com.unesco.core.repositories.plan.InstituteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
-import java.lang.reflect.Constructor;
 import java.util.ArrayList;
 import java.util.List;
 
