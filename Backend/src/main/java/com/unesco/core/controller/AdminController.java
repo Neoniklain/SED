@@ -6,6 +6,7 @@ import com.unesco.core.models.additional.FilterQuery;
 import com.unesco.core.models.additional.PageResult;
 import com.unesco.core.models.account.UserModel;
 import com.unesco.core.services.dictionaryDataService.DitionaryDataService;
+import com.unesco.core.services.dictionaryDataService.IDitionaryDataService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -15,7 +16,7 @@ import org.springframework.web.bind.annotation.*;
 public class AdminController {
 
    @Autowired
-   private DitionaryDataService ditionaryDataService;
+   private IDitionaryDataService ditionaryDataService;
 
    @RequestMapping(method = RequestMethod.POST, value = "page/users")
    public PageResult<UserModel> GetUserList(@RequestBody FilterQuery filter) {
