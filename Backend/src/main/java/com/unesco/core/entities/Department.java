@@ -10,7 +10,7 @@ import java.util.Set;
 /**
  * Класс кафедры
  */
-public class Department {
+public class Department implements LongId {
 
     @Id
     @SequenceGenerator(name = "departmentSequenceGen", sequenceName = "departmentSequenceGen", allocationSize = 1)
@@ -64,5 +64,8 @@ public class Department {
    {
       this.name = name;
    }
+
+    public Department()
+    { }
 
 }

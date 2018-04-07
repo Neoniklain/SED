@@ -1,18 +1,20 @@
 package com.unesco.core.entities.schedule;
 
+import com.unesco.core.entities.LongId;
+
 import javax.persistence.*;
 
 @Entity
 @Table(name = "un_dayofweek")
-public class DayOfWeek {
+public class DayOfWeek implements LongId {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private int id;
+    private long id;
 
     @Column(name = "dayofweek")
     private String dayofweek;
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 

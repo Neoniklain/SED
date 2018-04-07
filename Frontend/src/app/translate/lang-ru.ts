@@ -2,7 +2,7 @@
 
 export const LANG_RU_TRANS = {
    "Any": "Любое",
-   "username": "Имя пользователя",
+   "username": "Логин",
    "email": "E-mail",
    "roles": "Роли",
    "name": "Название",
@@ -16,4 +16,9 @@ export const LANG_RU_TRANS = {
    "institutes": "Институты",
    "departments": "Кафедры",
    "groups": "Группы",
+    "department": "Кафедра",
+    "institute": "Институт",
+    "group": "Группа",
+    "userFIO": "ФИО пользователя",
+    "password": "Пароль"
 };

@@ -6,10 +6,10 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "un_pair")
-public class Pair {
+public class Pair implements LongId {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private int id;
+    private long id;
 
     @Column(name = "pairnumber")
     private int pairNumber;
@@ -53,7 +53,7 @@ public class Pair {
     public Pair() {
     }
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 

@@ -1,5 +1,6 @@
 package com.unesco.core.entities.news;
 
+import com.unesco.core.entities.LongId;
 import com.unesco.core.entities.account.User;
 
 import javax.persistence.*;
@@ -7,7 +8,7 @@ import java.util.Date;
 
 @Entity
 @Table(name="un_news")
-public class News {
+public class News implements LongId {
     @Id
     @SequenceGenerator(name = "newsSequenceGen", sequenceName = "newsSequenceGen", allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "newsSequenceGen")

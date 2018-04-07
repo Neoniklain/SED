@@ -1,11 +1,13 @@
 package com.unesco.core.entities.plan;
 
+import com.unesco.core.entities.LongId;
+
 import javax.persistence.*;
 import java.util.Set;
 
 @Entity
 @Table(name="un_semester")
-public class Semester {
+public class Semester implements LongId {
    @Id
    @SequenceGenerator(name = "semesterSequenceGen", sequenceName = "semesterSequenceGen", allocationSize = 1)
    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "semesterSequenceGen")

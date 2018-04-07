@@ -4,7 +4,7 @@ import javax.persistence.*;
 
 @Entity
 @Table(name="un_group")
-public class Group {
+public class Group implements LongId {
    @Id
    @SequenceGenerator(name = "groupSequenceGen", sequenceName = "groupSequenceGen", allocationSize = 1)
    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "groupSequenceGen")

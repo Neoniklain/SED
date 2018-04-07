@@ -5,7 +5,7 @@ import java.util.Set;
 
 @Entity
 @Table(name = "un_professor")
-public class Professor {
+public class Professor implements LongId {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;

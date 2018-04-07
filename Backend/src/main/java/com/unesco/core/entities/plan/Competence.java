@@ -1,6 +1,7 @@
 package com.unesco.core.entities.plan;
 
 
+import com.unesco.core.entities.LongId;
 import com.unesco.core.entities.plan.Plan;
 
 import javax.persistence.*;
@@ -11,7 +12,7 @@ import java.util.Set;
 /**
  * Справочник компетенций
  */
-public class Competence {
+public class Competence implements LongId {
    @Id
    @SequenceGenerator(name = "competenceSequenceGen", sequenceName = "competenceSequenceGen", allocationSize = 1)
    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "competenceSequenceGen")

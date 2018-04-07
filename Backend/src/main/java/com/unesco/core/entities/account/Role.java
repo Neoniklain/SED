@@ -1,6 +1,7 @@
 package com.unesco.core.entities.account;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.unesco.core.entities.LongId;
 import org.springframework.security.core.GrantedAuthority;
 
 import javax.persistence.*;
@@ -8,7 +9,7 @@ import java.util.Set;
 
 @Entity
 @Table(name="un_role")
-public class Role implements GrantedAuthority {
+public class Role implements GrantedAuthority, LongId {
     @Id
     @SequenceGenerator(name = "roleSequenceGen", sequenceName = "roleSequenceGen", allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "roleSequenceGen")
@@ -29,7 +30,7 @@ public class Role implements GrantedAuthority {
         this.role = role;
     }
 
-    protected Role(){}
+    public Role(){}
     public Role(String name)
     {
         role = name;

@@ -7,7 +7,7 @@ import com.unesco.core.models.additional.EntityModel;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ProfessorModel implements EntityModel<Professor> {
+public class ProfessorModel {
     public String fio;
     public List<Discipline> disciplines;
 
@@ -18,9 +18,6 @@ public class ProfessorModel implements EntityModel<Professor> {
     public ProfessorModel(String fio, List<Discipline> disciplines) {
         this.fio = fio;
         this.disciplines = disciplines;
-    }
-    public void EntityToModel(Professor professor) {
-        this.fio = professor.getFio();
     }
 
     public String getFio() {

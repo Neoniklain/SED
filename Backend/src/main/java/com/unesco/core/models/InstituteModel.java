@@ -8,25 +8,20 @@ import com.unesco.core.models.additional.EntityModel;
 import java.util.ArrayList;
 import java.util.List;
 
-public class InstituteModel implements EntityModel<Institute> {
+public class InstituteModel {
+
+   private long id;
    private String name;
-   /** Поле набор кафедр */
-   private List<DepartmentModel> departments;
+
+   public long getId() {
+      return id;
+   }
+   public void setId(long id) {
+      this.id = id;
+   }
 
    public InstituteModel() {
       this.name = "";
-      this.departments = new ArrayList<DepartmentModel>();
-   }
-
-   public void EntityToModel(Institute institute) {
-      this.name = institute.getName();
-      this.departments = new ArrayList<DepartmentModel>();
-      for(Department department : institute.getDepartments())
-      {
-         DepartmentModel departmentModel = new DepartmentModel();
-         departmentModel.EntityToModel(department);
-         this.departments.add(departmentModel);
-      }
    }
 
    public String getName() {
@@ -34,13 +29,6 @@ public class InstituteModel implements EntityModel<Institute> {
    }
    public void setName(String name) {
       this.name = name;
-   }
-
-   public List<DepartmentModel> getDepartments() {
-      return departments;
-   }
-   public void setDepartments(List<DepartmentModel> departments) {
-      this.departments = departments;
    }
 
 }

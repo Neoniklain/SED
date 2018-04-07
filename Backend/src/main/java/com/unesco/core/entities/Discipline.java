@@ -11,7 +11,7 @@ import java.util.Set;
 /**
  * Класс предметов дисциплин (модулей)
  */
-public class Discipline {
+public class Discipline implements LongId {
     @Id
     @SequenceGenerator(name = "disciplineSequenceGen", sequenceName = "disciplineSequenceGen", allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "disciplineSequenceGen")

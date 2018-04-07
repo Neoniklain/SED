@@ -3,7 +3,7 @@ package com.unesco.core.models;
 import com.unesco.core.entities.schedule.Pair;
 import com.unesco.core.models.additional.EntityModel;
 
-public class PairModel implements EntityModel<Pair> {
+public class PairModel {
     private int pairnumber;
     private String weektype;
     private String dayofweek;

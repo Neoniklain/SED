@@ -1,10 +1,19 @@
 package com.unesco.core.models;
 
-import com.unesco.core.entities.Group;
-import com.unesco.core.models.additional.EntityModel;
+public class GroupModel {
 
-public class GroupModel implements EntityModel<Group> {
+   private long id;
    private String name;
+
+   /** Поле кафедры */
+   private DepartmentModel department;
+
+   public long getId() {
+      return id;
+   }
+   public void setId(long id) {
+      this.id = id;
+   }
 
    public String getName() {
       return name;
@@ -13,8 +22,11 @@ public class GroupModel implements EntityModel<Group> {
       this.name = name;
    }
 
-   public void EntityToModel(Group group) {
-      this.name = group.getName();
+   public DepartmentModel getDepartment() {
+      return department;
+   }
+   public void setDepartment(DepartmentModel department) {
+      this.department = department;
    }
 
    public GroupModel() {

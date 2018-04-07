@@ -1,11 +1,13 @@
 package com.unesco.core.entities.account;
 
+import com.unesco.core.entities.LongId;
+
 import javax.persistence.*;
 import java.util.Set;
 
 @Entity
 @Table(name="un_user")
-public class User {
+public class User implements LongId {
     @Id
     @SequenceGenerator(name = "userSequenceGen", sequenceName = "userSequenceGen", allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "userSequenceGen")

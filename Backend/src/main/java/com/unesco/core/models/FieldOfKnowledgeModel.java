@@ -3,8 +3,17 @@ package com.unesco.core.models;
 import com.unesco.core.entities.FieldOfKnowledge;
 import com.unesco.core.models.additional.EntityModel;
 
-public class FieldOfKnowledgeModel implements EntityModel<FieldOfKnowledge> {
+public class FieldOfKnowledgeModel {
+
+   private long id;
    private String name;
+
+   public long getId() {
+      return id;
+   }
+   public void setId(long id) {
+      this.id = id;
+   }
 
    public String getName() {
       return name;

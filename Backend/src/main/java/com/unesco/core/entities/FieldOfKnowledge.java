@@ -8,7 +8,7 @@ import java.util.Set;
 /**
  * Класс справочник разделов знаний
  */
-public class FieldOfKnowledge {
+public class FieldOfKnowledge implements LongId {
    @Id
    @SequenceGenerator(name = "fieldOfKnowledgeSequenceGen", sequenceName = "fieldOfKnowledgeSequenceGen", allocationSize = 1)
    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "fieldOfKnowledgeSequenceGen")

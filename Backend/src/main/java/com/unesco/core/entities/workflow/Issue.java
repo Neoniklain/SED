@@ -1,5 +1,6 @@
 package com.unesco.core.entities.workflow;
 
+import com.unesco.core.entities.LongId;
 import com.unesco.core.entities.account.User;
 
 import javax.persistence.*;
@@ -7,7 +8,7 @@ import java.util.Set;
 
 @Entity
 @Table(name="un_issue")
-public class Issue {
+public class Issue implements LongId {
     @Id
     @SequenceGenerator(name = "issueSequenceGen", sequenceName = "issueSequenceGen", allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "issueSequenceGen")

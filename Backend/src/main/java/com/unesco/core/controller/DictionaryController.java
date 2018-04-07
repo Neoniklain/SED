@@ -5,7 +5,6 @@ import com.unesco.core.models.account.RoleModel;
 import com.unesco.core.models.additional.FilterQuery;
 import com.unesco.core.models.additional.PageResult;
 import com.unesco.core.models.account.UserModel;
-import com.unesco.core.services.dictionaryDataService.DitionaryDataService;
 import com.unesco.core.services.dictionaryDataService.IDitionaryDataService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -13,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 @CrossOrigin
 @RestController
 @RequestMapping("api/admin")
-public class AdminController {
+public class DictionaryController {
 
    @Autowired
    private IDitionaryDataService ditionaryDataService;
@@ -53,10 +52,40 @@ public class AdminController {
       String result = ditionaryDataService.AddOrUpdateDiscipline(discipline);
       return result;
    }
+   @RequestMapping(method = RequestMethod.PUT, value = "page/groups")
+   public String AddGroup(@RequestBody GroupModel group) {
+      String result = ditionaryDataService.AddOrUpdateGroup(group);
+      return result;
+   }
+   @RequestMapping(method = RequestMethod.PUT, value = "page/departments")
+   public String AddDepartment(@RequestBody DepartmentModel department) {
+      String result = ditionaryDataService.AddOrUpdateDepartment(department);
+      return result;
+   }
+   @RequestMapping(method = RequestMethod.PUT, value = "page/institutes")
+   public String AddInstitute(@RequestBody InstituteModel institute) {
+      String result = ditionaryDataService.AddOrUpdateInstitute(institute);
+      return result;
+   }
 
    @RequestMapping(method = RequestMethod.DELETE, value = "page/disciplines/{id}")
    public String DeleteDiscipline(@PathVariable("id") int id) {
       String result = ditionaryDataService.DeleteDiscipline(id);
+         return result;
+   }
+   @RequestMapping(method = RequestMethod.DELETE, value = "page/groups/{id}")
+   public String DeleteGroup(@PathVariable("id") int id) {
+      String result = ditionaryDataService.DeleteGroup(id);
+      return result;
+   }
+   @RequestMapping(method = RequestMethod.DELETE, value = "page/departments/{id}")
+   public String DeleteDepartment(@PathVariable("id") int id) {
+      String result = ditionaryDataService.DeleteDepartment(id);
+      return result;
+   }
+   @RequestMapping(method = RequestMethod.DELETE, value = "page/institutes/{id}")
+   public String DeleteInstitute(@PathVariable("id") int id) {
+      String result = ditionaryDataService.DeleteInstitute(id);
       return result;
    }
 }

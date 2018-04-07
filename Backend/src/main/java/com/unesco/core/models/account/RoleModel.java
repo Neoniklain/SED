@@ -3,7 +3,7 @@ package com.unesco.core.models.account;
 import com.unesco.core.entities.account.Role;
 import com.unesco.core.models.additional.EntityModel;
 
-public class RoleModel implements EntityModel<Role> {
+public class RoleModel {
 
     public String roleName;
     public String roleNameRus;
@@ -26,8 +26,4 @@ public class RoleModel implements EntityModel<Role> {
         this.roleName = "";
     }
 
-    public void EntityToModel(Role role)
-    {
-        this.roleName = role.getRoleName();
-    }
 }

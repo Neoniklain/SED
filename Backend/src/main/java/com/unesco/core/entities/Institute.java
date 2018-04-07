@@ -5,7 +5,7 @@ import java.util.Set;
 
 @Entity
 @Table(name="un_institute")
-public class Institute {
+public class Institute implements LongId {
    @Id
    @SequenceGenerator(name = "instituteSequenceGen", sequenceName = "instituteSequenceGen", allocationSize = 1)
    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "instituteSequenceGen")
