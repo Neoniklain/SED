@@ -13,6 +13,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 public class CustomUserDetails implements UserDetails {
 
+    private long id;
     private String username;
     private String userFIO;
     private String password;
@@ -21,6 +22,7 @@ public class CustomUserDetails implements UserDetails {
     private static final long serialVersionUID = 1L;
 
     public CustomUserDetails(User user){
+        this.id = user.getId();
         this.username = user.getUsername();
         this.userFIO = user.getUserFIO();
         this.password = user.getPassword();
@@ -46,6 +48,10 @@ public class CustomUserDetails implements UserDetails {
     @Override
     public boolean isEnabled() {
         return true;
+    }
+
+    public long getId() {
+        return this.id;
     }
 
     public List<Role> getRole() {

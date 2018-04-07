@@ -54,6 +54,7 @@ import {JournalComponent} from "../components/journal/journal.component";
 import {JournalService} from "../services/journal.service";
 import {DictionaryTableAddComponent} from "../components/adminPanel/dictionaryTable/added/dictionaryTableAdd.component";
 import {LoaderComponent} from "../components/shared/loader";
+import {UtilsService} from "../services/utils.service";
 
 @NgModule({
    imports: [
@@ -107,6 +108,7 @@ import {LoaderComponent} from "../components/shared/loader";
       NewsService,
       MessageService,
       AccountService,
+      UtilsService,
       DictionaryService,
       ConfirmationService,
       JournalService,

@@ -62,9 +62,9 @@ export const ApiRouteConstants = {
          Users: "admin/page/users",
          Institutes: "admin/page/institutes",
          Departments: "admin/page/departments",
-         Groups: "admin/page/grousp",
+         Groups: "admin/page/groups",
          Roles: "admin/page/roles",
-         FieldOfKnowlage: "admin/page/fieldOfKnowledge",
+         FieldOfKnowlage: "admin/page/fieldOfKnowledge"
       }
    }
 }

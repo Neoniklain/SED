@@ -1,7 +1,7 @@
 package com.unesco.core.services.dictionaryDataService;
 
-import com.unesco.core.entities.Discipline;
-import com.unesco.core.entities.FieldOfKnowledge;
+import com.unesco.core.entities.*;
+import com.unesco.core.entities.account.Role;
 import com.unesco.core.models.*;
 import com.unesco.core.models.account.RoleModel;
 import com.unesco.core.models.account.UserModel;
@@ -32,6 +32,16 @@ public interface IDitionaryDataService {
    PageResult<FieldOfKnowledgeModel> getFieldOfKnowledgePage(FilterQuery filter);
 
    String AddOrUpdateDiscipline(DisciplineModel discipline);
+   String AddOrUpdateInstitute(InstituteModel institute);
+   String AddOrUpdateDepartment(DepartmentModel department);
+   String AddOrUpdateGroup(GroupModel group);
+   String AddOrUpdateRole(RoleModel role);
+   String AddOrUpdateFieldOfKnowledge(FieldOfKnowledgeModel fieldOfKnowledge);
 
    String DeleteDiscipline(int id);
+   String DeleteInstitute(int id);
+   String DeleteDepartment(int id);
+   String DeleteGroup(int id);
+   String DeleteRole(int id);
+   String DeleteFieldOfKnowledge(int id);
 }
