@@ -3,44 +3,6 @@
 
           <div [ngSwitch]="column">
 
-            <div *ngSwitchCase="'username'">
-               <label for="{{column}}" class="col-sm-offset-2 col-sm-2 col-form-label">{{column | translate}}</label>
-               <div class="col-sm-6">
-                  <input #username="ngModel" required [(ngModel)]="model[column]" type="text" class="form-control">
-                  <div [hidden]="username.valid || username.untouched" class="alert alert-danger">
-                     Некорректное имя.
-                  </div>
-               </div>
-            </div>
-
-            <div *ngSwitchCase="'email'">
-               <label for="{{column}}" class="col-sm-offset-2 col-sm-2 col-form-label">{{column | translate}}</label>
-               <div class="col-sm-6">
-                  <input #email="ngModel" required email [(ngModel)]="model[column]" type="text" class="form-control">
-                  <div [hidden]="email.valid || email.untouched" class="alert alert-danger">
-                     Некорректный email.
-                  </div>
-               </div>
-            </div>
-
-            <div *ngSwitchCase="'password'">
-               <label for="{{column}}" class="col-sm-offset-2 col-sm-2 col-form-label">{{column | translate}}</label>
-               <div class="col-sm-6">
-                  <input #password="ngModel" required pattern=".{5,}" [(ngModel)]="model[column]" type="text" class="form-control">
-                  <div [hidden]="password.valid || password.untouched" class="alert alert-danger">
-                     Пароль должен содержать более 5 символов.
-                  </div>
-               </div>
-            </div>
-
-            <div *ngSwitchCase="'roles'">
-               <label for="{{column}}" class="col-sm-offset-2 col-sm-2 col-form-label">{{column | translate}}</label>
-               <div class="col-sm-6">
-                  <p-autoComplete [(ngModel)]="model[column]" [suggestions]="findRoles" (completeMethod)="searchRoles($event)"
-                               [multiple]="true" field="roleName" [dropdown]="true"></p-autoComplete>
-               </div>
-            </div>
-
             <div *ngSwitchCase="'id'">
             </div>
 
@@ -90,8 +52,5 @@
         <input *ngIf="!editMode" (click)="AddOrUpdate()" type="button" class="btn btn-success" value="Добавить">
         <input *ngIf="editMode" (click)="AddOrUpdate()" type="button" class="btn btn-success" value="Сохранить">
         <input *ngIf="editMode" (click)="Cancel()" type="button" class="btn btn-danger" value="Отмена">
-        <button *ngIf="type == Dictionary.users && !editMode" title="Сгенерировать" (click)="createRandomUser()" class="btn btn-default">
-            <i class="fa fa-random" aria-hidden="true"></i>
-        </button>
     </div>
 </div>

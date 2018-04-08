@@ -14,6 +14,7 @@ public class Role implements GrantedAuthority, LongId {
     @SequenceGenerator(name = "roleSequenceGen", sequenceName = "roleSequenceGen", allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "roleSequenceGen")
     private long id;
+    @Column(unique=true)
     private String role;
 
     public long getId() {

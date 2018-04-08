@@ -8,12 +8,22 @@ import com.unesco.core.models.account.UserModel;
 import com.unesco.core.models.additional.FilterQuery;
 import com.unesco.core.models.additional.JSONResponseStatus;
 import com.unesco.core.models.additional.PageResult;
+import com.unesco.core.models.enums.RoleType;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
 public interface IDitionaryDataService {
+
+   InstituteModel getInstitute(int id);
+   DepartmentModel getDepartment(int id);
+   GroupModel getGroup(int id);
+   DisciplineModel getDiscipline(int id);
+   UserModel getUser(int id);
+   RoleModel getRole(int id);
+   RoleModel getRole(RoleType roleType);
+   FieldOfKnowledgeModel getFieldOfKnowledges(int id);
 
    List<InstituteModel> getInstitutes();
    List<DepartmentModel> getDepartments();

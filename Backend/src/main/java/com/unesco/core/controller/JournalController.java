@@ -1,8 +1,6 @@
 package com.unesco.core.controller;
 
 import com.unesco.core.models.journal.Journal;
-import com.unesco.core.models.journal.JournalCell;
-import com.unesco.core.models.journal.Student;
 import com.unesco.core.services.journalDataService.IJournalDataService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -25,11 +23,9 @@ public class JournalController {
                                          (IJournalDataService и JournalDataService)*/
     private IJournalDataService journalDataService;
 
-    @GetMapping("/all")
-    public Journal GetJournal() {
-        Journal journal = journalDataService.getJournal();
-        List<JournalCell> CellsForDate = journalDataService.getCellsForDate(10);
-        List<JournalCell> CellsForStudent = journalDataService.getCellsForStudent(new Student("Василий Пупкин"));
+    @GetMapping("/professor/{professorId}/group/{groupId}")
+    public Journal GetJournal(@PathVariable("professorId") int professorId, @PathVariable("groupId") int groupId) {
+        Journal journal = journalDataService.getJournal(professorId, groupId);
         return journal;
     }
 }

@@ -1,53 +1,49 @@
 package com.unesco.core.services.journalDataService;
 
+import com.unesco.core.entities.Student;
+import com.unesco.core.models.StudentModel;
 import com.unesco.core.models.journal.Journal;
 import com.unesco.core.models.journal.JournalCell;
-import com.unesco.core.models.journal.Student;
+import com.unesco.core.repositories.account.StudentRepository;
+import com.unesco.core.services.mapperService.IMapperService;
+import com.unesco.core.services.userService.IUserService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 @Service
 public class JournalDataService implements IJournalDataService
 {
-   private Journal journal;
+   @Autowired
+   private IUserService userService;
+   @Autowired
+   private StudentRepository studentRepository;
+   @Autowired
+   private IMapperService mapperService;
 
-   public JournalDataService() {
-      List<Student> students = new ArrayList<>();
-      int[] days = new int[] {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16};
-      students.add(new Student("Василий Пупкин"));
-      students.add(new Student("Пуп Васильевич"));
-      students.add(new Student("Пупилий Василькин"));
-      students.add(new Student("Артем Савов"));
-      students.add(new Student("Сав Мартемов"));
-      journal = new Journal(students, days);
-   }
+   public JournalDataService() {}
 
-   public Journal getJournal() {
+   public Journal getJournal(int proffesorId, int groupId)
+   {
+      List<Student> studentsEntity = studentRepository.findAllByGroupId(groupId);
+      List<StudentModel> students = new ArrayList<StudentModel>();
+      for (Student s : studentsEntity) {
+         students.add((StudentModel) mapperService.toModel(s));
+      }
+      Calendar cal = Calendar.getInstance();
+      cal.set(Calendar.DAY_OF_MONTH, 1);
+      int maxDay = cal.getActualMaximum(Calendar.DAY_OF_MONTH);
+      List<Integer> days = new ArrayList<Integer>();
+      for(int i = 1; i <= maxDay; i++)
+      {
+         days.add(i);
+      }
+      Journal journal = new Journal(students, days);
       return journal;
-   }
-
-   public List<JournalCell> getCellsForDate(int date)
-   {
-      List<JournalCell> result = new ArrayList<>();
-      for (JournalCell cell : journal.getJournalCell())
-      {
-         if(cell.getDate()==date)
-            result.add(cell);
-      }
-      return result;
-   }
-
-   public List<JournalCell> getCellsForStudent(Student student)
-   {
-      List<JournalCell> result = new ArrayList<>();
-      for (JournalCell cell : journal.getJournalCell())
-      {
-         if(cell.getStudent().getName()==student.getName())
-            result.add(cell);
-      }
-      return result;
    }
 
 }

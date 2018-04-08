@@ -3,6 +3,7 @@ package com.unesco.core.entities.account;
 import com.unesco.core.entities.LongId;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.util.Set;
 
 @Entity
@@ -13,9 +14,13 @@ public class User implements LongId {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "userSequenceGen")
     private long id;
     @Column(unique=true)
+    @NotNull
     private String username;
     private String userFIO;
+    @NotNull
     private String password;
+    @NotNull
+    @Column(unique=true)
     private String email;
     @ManyToMany(fetch = FetchType.EAGER, cascade = { CascadeType.MERGE })
     @JoinTable(name = "un_user_role",

@@ -28,8 +28,6 @@ export class LogInComponent {
    }
 
    public LogIn(form: NgForm) {
-      console.log(form);
-      console.log("this.globals.role", this.globals.role);
       if (form.invalid) {
          form.submitted;
          return;
@@ -41,7 +39,6 @@ export class LogInComponent {
                 this.authenticationService.handleAuth();
                 this.authenticationService.getRole().subscribe(
                     result => {
-                       console.log("login");
                        this.globals.role = result;
                     }
                 );

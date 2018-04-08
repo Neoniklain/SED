@@ -27,7 +27,7 @@
           <div class="list-group">
             <a style="cursor: pointer;" (click)="menuToole('news-dispatcher-page')" class="list-group-item">Управление новостями</a>
             <a style="cursor: pointer;" (click)="menuToole('document-page')" class="list-group-item">Докуметооборот</a>
-            <a style="cursor: pointer;" (click)="menuToole('journal-page')" class="list-group-item">Журнал</a>
+            <a *hasRole="Roles.Professor" style="cursor: pointer;" (click)="menuToole('journal-page')" class="list-group-item">Расписание занятий</a>
           </div>
         </div>
       </div>

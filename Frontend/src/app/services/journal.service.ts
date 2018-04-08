@@ -20,6 +20,13 @@ export class JournalService {
           .catch(this.handleError);
    }
 
+    public GetJournal(professorId, groupId): Observable<Journal> {
+        return this.http.get(ApiRouteConstants.Journal.All
+            .replace(":professorId", professorId)
+            .replace(":groupId", groupId))
+            .catch(this.handleError);
+    }
+
    private handleError(error: HttpErrorResponse | any) {
       let errMsg: string;
       if (error instanceof HttpErrorResponse) {

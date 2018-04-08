@@ -13,6 +13,6 @@ import java.util.List;
 
 public interface PairRepository extends CrudRepository<Pair, Long>, CrudPagableRepository<Pair, Long> {
     Pair findById(int id);
-    List<Pair> findPairsByProfessor(Professor professor);
+    List<Pair> findPairsByProfessor(Professor professorId);
     List<Pair> findPairsByGroup(Group group);
 }

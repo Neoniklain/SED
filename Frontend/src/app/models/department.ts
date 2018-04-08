@@ -1,9 +1,9 @@
 import {Institute} from "./institute";
 
 export class Department {
-    private id: number;
-    private name: String;
-    private institute: Institute;
+    public id: number;
+    public name: String;
+    public institute: Institute;
 
     constructor() {
         this.id = 0;

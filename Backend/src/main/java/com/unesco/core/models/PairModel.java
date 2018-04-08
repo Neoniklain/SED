@@ -10,19 +10,8 @@ public class PairModel {
     private String professor;
     private String room;
     private String discipline;
-    private String group;
+    private GroupModel group;
     private String department;
-
-    public void EntityToModel(Pair pair) {
-        this.pairnumber = pair.getPairNumber();
-        this.weektype = pair.getWeektype().getType();
-        this.dayofweek = pair.getDayofweek().getDayofweek();
-        this.professor = pair.getProfessor().getFio();
-        this.room = pair.getRoom().getRoom();
-        this.discipline = pair.getDiscipline().getName();
-        this.group = pair.getGroup().getName();
-        this.department = "";
-    }
 
     public PairModel() {
         this.pairnumber = 0;
@@ -31,32 +20,10 @@ public class PairModel {
         this.professor = "";
         this.room = "";
         this.discipline = "";
-        this.group = "";
+        this.group = new GroupModel();
         this.department = "";
     }
 
-    public PairModel(int pairnumber, String weektype,
-                     String dayofweek, String professor, String room, String discipline, String group, String department) {
-        this.pairnumber = pairnumber;
-        this.weektype = weektype;
-        this.dayofweek = dayofweek;
-        this.professor = professor;
-        this.room = room;
-        this.discipline = discipline;
-        this.group = group;
-        this.department = department;
-    }
-
-    public PairModel(int pairnumber, String weektype,
-                     String dayofweek, String professor, String room, String discipline, String group) {
-        this.pairnumber = pairnumber;
-        this.weektype = weektype;
-        this.dayofweek = dayofweek;
-        this.professor = professor;
-        this.room = room;
-        this.discipline = discipline;
-        this.group = group;
-    }
 
     public int getPairnumber() {
         return pairnumber;
@@ -106,11 +73,11 @@ public class PairModel {
         this.discipline = discipline;
     }
 
-    public String getGroup() {
+    public GroupModel getGroup() {
         return group;
     }
 
-    public void setGroup(String group) {
+    public void setGroup(GroupModel group) {
         this.group = group;
     }
 

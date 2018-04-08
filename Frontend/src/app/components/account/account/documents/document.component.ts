@@ -47,7 +47,7 @@ export class DocumentComponent {
              this.UpdateIssueList();
           },
           (error: any) => {
-             console.log("Ошибка" + error);
+             console.log(error);
           });
    }
 

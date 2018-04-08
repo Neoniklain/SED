@@ -1,16 +1,24 @@
-<table *ngIf="journal">
-  <thead>
-    <tr>
-      <td></td>
-      <td *ngFor="let date of journal.dates">{{date}}</td>
-    </tr>
-  </thead>
-  <tbody>
-    <tr *ngFor="let student of journal.students">
-      <td>{{student.name}}</td>
-        <td *ngFor="let cell of journal.journalCell" [ngClass]="{displayNo: cell.student.name!=student.name}">
-          <input (click)="clearField(cell)" (blur)="cancelField(cell)" [(ngModel)]="cell.mark" type="text">
-        </td>
-    </tr>
-  </tbody>
-</table>
+<schedule-week *ngIf="!journal"
+    [pairs]="pairs"
+    (clickPair)="onClick($event)">
+</schedule-week>
+
+<div  *ngIf="journal">
+    <button (click)="back()" class="btn btn-info">Назад</button>
+    <table>
+        <thead>
+        <tr>
+            <td></td>
+            <td *ngFor="let date of journal.dates">{{date}}</td>
+        </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let student of journal.students">
+                <td>{{student.userFIO}}</td>
+                <td *ngFor="let cell of journal.journalCell" [ngClass]="{displayNo: cell.student.userFIO!=student.userFIO}">
+                    <input (click)="clearField(cell)" (blur)="cancelField(cell)" [(ngModel)]="cell.mark" type="text">
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>

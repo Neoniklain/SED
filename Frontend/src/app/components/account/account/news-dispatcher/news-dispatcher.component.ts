@@ -20,7 +20,6 @@ export class NewsDispatcherComponent {
     this.newsService.GetLast()
       .subscribe((res: any) => {
           this._lastNews = res;
-          console.log("Данные получены");
         },
         (error: any) => {
           console.error('Error222: ' + error);

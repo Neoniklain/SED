@@ -1,0 +1,93 @@
+<div class="main-header col-md-12 text-center">
+    <h1>Создание пользователя</h1>
+</div>
+
+<div *ngIf="model" class="main-header col-md-12">
+    <div class="panel panel-default panel-inverse">
+        <div class="panel-heading">
+            <h3>Список</h3>
+        </div>
+        <div class="panel-body">
+
+            <div class="form-group row">
+                <label for="username" class="col-sm-offset-2 col-sm-2 col-form-label">Имя пользователя</label>
+                <div class="col-sm-6">
+                    <input id="username" #username="ngModel" required [(ngModel)]="model.username" type="text" class="form-control">
+                    <div [hidden]="username.valid || username.untouched" class="alert alert-danger">
+                        Некорректное имя.
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label for="userFIO" class="col-sm-offset-2 col-sm-2 col-form-label">ФИО</label>
+                <div class="col-sm-6">
+                    <input id="userFIO" required [(ngModel)]="model.userFIO"  type="text" class="form-control">
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label for="email" class="col-sm-offset-2 col-sm-2 col-form-label">E-mail</label>
+                <div class="col-sm-6">
+                    <input id="email" #email="ngModel" required email [(ngModel)]="model.email" type="text" class="form-control">
+                    <div [hidden]="email.valid || email.untouched" class="alert alert-danger">
+                        Некорректный email.
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label for="password" class="col-sm-offset-2 col-sm-2 col-form-label">Пароль</label>
+                <div class="col-sm-6">
+                    <input id="password" #password="ngModel" required pattern=".{5,}" [(ngModel)]="model.password" type="text" class="form-control">
+                    <div [hidden]="password.valid || password.untouched" class="alert alert-danger">
+                        Пароль должен содержать более 5 символов.
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label class="col-sm-offset-2 col-sm-2 col-form-label">Роль</label>
+                <div class="col-sm-6">
+                    <p-autoComplete [(ngModel)]="model.roles" (ngModelChange)="setRole()" [suggestions]="findRoles" (completeMethod)="searchRoles($event)"
+                                    [multiple]="true" field="roleName" [dropdown]="true"></p-autoComplete>
+                </div>
+            </div>
+
+            <div *ngIf="isRole(Roles.Professor)" class="form-group row">
+                <label for="department" class="col-sm-offset-2 col-sm-2 col-form-label">Кафедра</label>
+                <div class="col-sm-6" id="department">
+                    <select #institute="ngModel" required  [(ngModel)]="currentDepartment.id" class="form-control">
+                        <option disabled value="0">Выбор кафедры</option>
+                        <option *ngFor="let item of departments" value="{{item.id}}">{{item.name}}</option>
+                    </select>
+                </div>
+            </div>
+
+            <div *ngIf="isRole(Roles.Student)" class="form-group row">
+                <label for="group" class="col-sm-offset-2 col-sm-2 col-form-label">Группа</label>
+                <div class="col-sm-6" id="group">
+                    <select #institute="ngModel" required  [(ngModel)]="currentGroup.id" class="form-control">
+                        <option disabled value="0">Выбор группы</option>
+                        <option *ngFor="let item of groups" value="{{item.id}}">{{item.name}}</option>
+                    </select>
+                </div>
+            </div>
+
+        </div>
+
+
+        <div class="form-group row">
+            <div class="col-sm-push-2 col-sm-4 text-left">
+                <button title="Сгенерировать" (click)="createRandomUser()" class="btn btn-info">
+                    Рандомный пользователь <i class="fa fa-random" aria-hidden="true"></i>
+                </button>
+            </div>
+            <div class="col-sm-6 text-right">
+                <input (click)="AddOrUpdate()" type="button" class="btn btn-success" value="Добавить">
+            </div>
+        </div>
+
+    </div>
+</div>
+

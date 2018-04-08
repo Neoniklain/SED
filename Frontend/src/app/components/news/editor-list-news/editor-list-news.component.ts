@@ -35,7 +35,6 @@ export class EditorListNewsComponent  {
         if (item.content.length > 200)
           item.content = item.content.slice(0, 300) + "...";
       }
-      console.log("Данные получены");
     },
     (error: any) => {
       console.error('Error: ' + error);

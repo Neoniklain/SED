@@ -1,3 +1,5 @@
+import {Student} from "../student";
+
 export class Journal {
    public students: Array<Student>;
    public dates: number[];
@@ -7,10 +9,6 @@ export class Journal {
       this.dates = [];
       this.journalCell = new Array();
    }
-}
-
-export class Student {
-   public name: string;
 }
 
 export class JournalCell {

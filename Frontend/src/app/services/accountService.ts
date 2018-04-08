@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {HttpClient, HttpErrorResponse} from '@angular/common/http';
+import {HttpClient, HttpErrorResponse, HttpParams} from '@angular/common/http';
 import {Observable} from 'rxjs/Observable';
 import {ApiRouteConstants, RouteConstants} from "../bootstrap/app.route.constants";
 
@@ -10,8 +10,24 @@ export class AccountService {
     constructor(private http: HttpClient) { }
 
     public FindUserByName(req: string) {
-        return this.http.get(ApiRouteConstants.Account.FindUsersByName.replace(":req", req))
+        return this.http.get(ApiRouteConstants.Account.FindUsersByName.replace(":req", req), {responseType: "text"})
             .catch(this.handleError);
+    }
+
+    public setProfessorDepartment(userId: number, departmentId: number) {
+        let params = new HttpParams();
+        return this.http.post(ApiRouteConstants.Account.SetProfessorDepartment
+                .replace(":userId", userId.toString())
+                .replace(":departmentId", departmentId.toString()),
+            null, params ).catch(this.handleError);
+    }
+
+    public setStudentGroup(userId: number, groupId: number) {
+        let params = new HttpParams();
+        return this.http.post(ApiRouteConstants.Account.SetStudentGroup
+            .replace(":userId", userId.toString())
+            .replace(":groupId", groupId.toString()),
+            null, params ).catch(this.handleError);
     }
 
     private handleError(error: HttpErrorResponse | any) {

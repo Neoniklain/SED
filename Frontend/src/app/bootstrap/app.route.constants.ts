@@ -27,13 +27,25 @@ export const RouteConstants = {
 
 export const ApiRouteConstants = {
    Account: {
-      FindUsersByName: "account/FindUsersByName/:req"
+      FindUsersByName: "account/FindUsersByName/:req",
+      SetProfessorDepartment: "account/professor/:userId/setDepartment/:departmentId",
+      SetStudentGroup: "account/student/:userId/setGroup/:groupId"
    },
    Authentication: {
       Login: "account/login",
       Registration: "account/registration",
       Role: "account/role",
       User: "account/user"
+   },
+   Shedule: {
+       getPair: "demo/pair/{id}",
+       getProfessorPairs: "demo/professor/:id/pairs",
+       getEvenProfessorPairs: "demo/professor/:id/pairs/even",
+       getOddProfessorPairs: "demo/professor/:id/pairs/odd",
+       getEvenGroupPairs: "demo/group/:id/pairs/even",
+       getOddGroupPairs: "demo/group/:id/pairs/odd",
+       getEvenDepartmentPairs: "demo/department/:id/pairs/even",
+       getOddDepartmentPairs: "demo/department/:id/pairs/odd",
    },
    News: {
       All: "news/all",
@@ -50,7 +62,7 @@ export const ApiRouteConstants = {
       Delete: "issue/delete/:id"
    },
    Journal: {
-      All: "jurnal/all"
+      All: "jurnal/professor/:professorId/group/:groupId"
    },
    Excel:
        {

@@ -5,21 +5,21 @@ import com.unesco.core.models.additional.EntityModel;
 
 public class RoleModel {
 
+    public int id;
     public String roleName;
-    public String roleNameRus;
+
+    public int getId() {
+        return id;
+    }
+    public void setId(int id) {
+        this.id = id;
+    }
 
     public String getRoleName() {
         return roleName;
     }
     public void setRoleName(String roleName) {
         this.roleName = roleName;
-    }
-
-    public String getRoleNameRus() {
-        return roleNameRus;
-    }
-    public void setRoleNameRus(String roleNameRus) {
-        this.roleNameRus = roleNameRus;
     }
 
     public RoleModel() {

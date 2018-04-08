@@ -1,12 +1,16 @@
 package com.unesco.core.controller;
 
+import com.unesco.core.models.account.UserCreateModel;
 import com.unesco.core.models.additional.JSONResponseStatus;
 import com.unesco.core.models.account.RoleModel;
 import com.unesco.core.models.account.UserModel;
 import com.unesco.core.entities.account.Role;
+import com.unesco.core.models.enums.RoleType;
 import com.unesco.core.repositories.account.RoleRepository;
 import com.unesco.core.security.CustomUserDetailsService;
 import com.unesco.core.services.dictionaryDataService.DitionaryDataService;
+import com.unesco.core.services.dictionaryDataService.IDitionaryDataService;
+import com.unesco.core.services.userService.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import com.unesco.core.entities.account.User;
 import org.springframework.web.bind.annotation.*;
@@ -23,36 +27,26 @@ import java.util.Set;
 public class AccountController {
 
     @Autowired
+    private IUserService userService;
+    @Autowired
     private CustomUserDetailsService _CustomUserDetailsService;
-    @Autowired
-    private UserRepository _UserRepository;
-    @Autowired
-    private RoleRepository _RoleRepository;
     @Autowired
     private DitionaryDataService ditionaryDataService;
 
     @GetMapping("/role")
-    public List<RoleModel> GetLast() {
-        return ditionaryDataService.getRoles();
+    public List<RoleModel> GetRoles() {
+        UserModel user = new UserModel(_CustomUserDetailsService.getUserDetails());
+        return user.getRoles();
     }
 
     @RequestMapping("/registration")
-    public String Registration(@RequestBody User user) {
-        if(user.getRoles().size() == 0){
-            Set<Role> role = new HashSet<Role>();
-            Role r = _RoleRepository.findByRole("USER");
-            role.add(r);
-            user.setRoles(role);
-        } else {
-            Set<Role> UserRoles = new HashSet<Role>();
-            Role r = _RoleRepository.findByRole("USER");
-            for(Role role : user.getRoles()){
-                UserRoles.add(_RoleRepository.findByRole(role.getRoleName()));
-            }
-            user.setRoles(UserRoles);
+    public String Registration(@RequestBody UserCreateModel user) {
+        try {
+            int result = userService.AddUser(user);
+            return ""+result;
+        } catch (Exception e) {
+            return "error";
         }
-        _UserRepository.save(user);
-        return JSONResponseStatus.OK;
     }
 
     @GetMapping("/user")
@@ -61,16 +55,23 @@ public class AccountController {
         return user;
     }
 
-    @RequestMapping(value = "/FindUsersByName/{req}")
-    public List<User> FindUsersByName(@PathVariable("req") String req) {
-        Iterable<User> allUsers = _UserRepository.findAll();
-        List<User> res = new ArrayList<User>();
-        for (User item:allUsers) {
-            if(item.getUsername().toLowerCase().contains(req.toLowerCase()))
-            {
-                res.add(item);
-            }
+    @RequestMapping(value = "/professor/{userId}/setDepartment/{departmentId}")
+    public String setProfessorDepartment(@PathVariable("userId") int userId, @PathVariable("departmentId") int departmentId) {
+        try {
+            userService.setProfessorDepartment(userId, departmentId);
+            return JSONResponseStatus.OK;
+        } catch (Exception e) {
+            return JSONResponseStatus.ERROR;
         }
-        return res;
+    }
+
+    @RequestMapping(value = "/student/{userId}/setGroup/{groupId}")
+    public String setStudentGroup(@PathVariable("userId") int userId, @PathVariable("groupId") int groupId) {
+        try {
+            userService.setUserGroup(userId, groupId);
+            return JSONResponseStatus.OK;
+        } catch (Exception e) {
+            return JSONResponseStatus.ERROR;
+        }
     }
 }

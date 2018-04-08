@@ -4,6 +4,7 @@ import {NewsDispatcherComponent} from "./news-dispatcher/news-dispatcher.compone
 import {Router} from "@angular/router";
 import {User} from "../../../models/account/user.model";
 import {AuthenticationService} from "../../../services/authService";
+import {Roles} from "../../../models/account/role.model";
 
 @Component({
   selector: 'account-page',
@@ -15,6 +16,7 @@ export class AccountComponent implements OnInit {
 
   public user: User;
   public menuName: string;
+  public Roles;
 
   @ViewChild(DocumentComponent) documentComponent: DocumentComponent;
   @ViewChild(NewsDispatcherComponent) newsDispatcherComponent: NewsDispatcherComponent;
@@ -33,6 +35,7 @@ export class AccountComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.Roles = Roles;
     this.menuName = "news-dispatcher-page";
   }
 

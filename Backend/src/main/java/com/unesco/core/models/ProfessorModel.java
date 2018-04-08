@@ -1,29 +1,25 @@
 package com.unesco.core.models;
 
+import com.unesco.core.entities.Department;
 import com.unesco.core.entities.Discipline;
 import com.unesco.core.entities.Professor;
+import com.unesco.core.models.account.UserModel;
 import com.unesco.core.models.additional.EntityModel;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class ProfessorModel {
-    public String fio;
-    public List<Discipline> disciplines;
+public class ProfessorModel extends UserModel {
+
+    public DepartmentModel department;
 
     public ProfessorModel() {
-        this.fio = "";
-        this.disciplines = new ArrayList();
-    }
-    public ProfessorModel(String fio, List<Discipline> disciplines) {
-        this.fio = fio;
-        this.disciplines = disciplines;
     }
 
-    public String getFio() {
-        return fio;
+    public DepartmentModel getDepartment() {
+        return department;
     }
-    public void setFio(String fio) {
-        this.fio = fio;
+    public void setDepartment(DepartmentModel department) {
+        this.department = department;
     }
 }

@@ -9,6 +9,7 @@ import com.unesco.core.models.additional.FilterQuery;
 import com.unesco.core.models.additional.JSONResponseStatus;
 import com.unesco.core.models.additional.PageResult;
 import com.unesco.core.models.additional.EntityModel;
+import com.unesco.core.models.enums.RoleType;
 import com.unesco.core.repositories.account.RoleRepository;
 import com.unesco.core.repositories.account.UserRepository;
 import com.unesco.core.repositories.plan.*;
@@ -40,13 +41,36 @@ public class DitionaryDataService implements IDitionaryDataService {
    private RoleRepository roleRepository;
    @Autowired
    private IMapperService mapperService;
-
-
    @Autowired
    private FieldOfKnowledgeRepository fieldOfKnowledgeRepository;
 
    DitionaryDataService() {
 
+   }
+
+   public InstituteModel getInstitute(int id) {
+      return (InstituteModel) mapperService.toModel(instituteRepository.findOne((long) id));
+   }
+   public DepartmentModel getDepartment(int id) {
+      return (DepartmentModel) mapperService.toModel(departmentRepository.findOne((long) id));
+   }
+   public GroupModel getGroup(int id) {
+      return (GroupModel) mapperService.toModel(groupRepository.findOne((long) id));
+   }
+   public DisciplineModel getDiscipline(int id) {
+      return (DisciplineModel) mapperService.toModel(disciplineRepository.findOne((long) id));
+   }
+   public UserModel getUser(int id) {
+      return (UserModel) mapperService.toModel(userRepository.findOne((long) id));
+   }
+   public RoleModel getRole(int id) {
+      return (RoleModel) mapperService.toModel(roleRepository.findOne((long) id));
+   }
+   public RoleModel getRole(RoleType roleType) {
+      return (RoleModel) mapperService.toModel(roleRepository.findByRole(roleType.toString()));
+   }
+   public FieldOfKnowledgeModel getFieldOfKnowledges(int id) {
+      return (FieldOfKnowledgeModel) mapperService.toModel(fieldOfKnowledgeRepository.findOne((long) id));
    }
 
    public List<InstituteModel> getInstitutes() {

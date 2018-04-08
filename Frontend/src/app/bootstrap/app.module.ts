@@ -30,6 +30,7 @@ import {EditorSingleNewsComponent} from "../components/news/editor-single-news/e
 import {EditorListNewsComponent} from "../components/news/editor-list-news/editor-list-news.component";
 import {ListNewsComponent} from "../components/news/list-news/list-news.component";
 import {NotFoundComponent} from "../components/notfound/notfound.component";
+import {UserAddComponent} from "../components/adminPanel/userAdd/userAdd";
 // services
 import {NewsService} from "../services/news.service";
 import {IssueService} from "../services/issues.service";
@@ -55,6 +56,8 @@ import {JournalService} from "../services/journal.service";
 import {DictionaryTableAddComponent} from "../components/adminPanel/dictionaryTable/added/dictionaryTableAdd.component";
 import {LoaderComponent} from "../components/shared/loader";
 import {UtilsService} from "../services/utils.service";
+import {SheduleService} from "../services/shedule.service";
+import {WeekScheduleComponent} from "../components/schedule/weekSchedule/weekSchedule.component";
 
 @NgModule({
    imports: [
@@ -83,6 +86,7 @@ import {UtilsService} from "../services/utils.service";
       RegisterComponent,
       SingleNewsComponent,
       ListNewsComponent,
+      UserAddComponent,
       HeaderComponent,
       EditorSingleNewsComponent,
       EditorListNewsComponent,
@@ -93,6 +97,7 @@ import {UtilsService} from "../services/utils.service";
       FileSelectDirective,
       DictionaryTableComponent,
       ParserXmlComponent,
+      WeekScheduleComponent,
       DictionaryTableAddComponent,
       LoaderComponent,
       JournalComponent,
@@ -111,6 +116,7 @@ import {UtilsService} from "../services/utils.service";
       UtilsService,
       DictionaryService,
       ConfirmationService,
+      SheduleService,
       JournalService,
       AuthGuard,
       Globals

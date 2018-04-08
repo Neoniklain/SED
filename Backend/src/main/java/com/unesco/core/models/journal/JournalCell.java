@@ -1,14 +1,16 @@
 package com.unesco.core.models.journal;
 
+import com.unesco.core.models.StudentModel;
+
 public class JournalCell {
-   private Student student;
+   private StudentModel student;
    private int date;
    int mark;
 
-   public Student getStudent() {
+   public StudentModel getStudent() {
       return student;
    }
-   public void setStudent(Student student) {
+   public void setStudent(StudentModel student) {
       this.student = student;
    }
 
@@ -26,13 +28,13 @@ public class JournalCell {
       this.mark = mark;
    }
 
-   JournalCell(Student _student, int _date, int _mark) {
+   JournalCell(StudentModel _student, int _date, int _mark) {
       student = _student;
       date = _date;
       mark = _mark;
    }
 
-   JournalCell(Student _student, int _date) {
+   JournalCell(StudentModel _student, int _date) {
       student = _student;
       date = _date;
       mark = 0;

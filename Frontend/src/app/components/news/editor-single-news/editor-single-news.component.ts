@@ -30,7 +30,6 @@ export class EditorSingleNewsComponent  {
       this.newNews = new News();
       this.authenticationService.getUser().subscribe((res: any) => {
               this.newNews.author = res;
-              console.log("this.newNews", this.newNews);
           },
           (error: any) => {
               console.error('Error: ' + error);
@@ -45,7 +44,6 @@ export class EditorSingleNewsComponent  {
     this.newsService.Get(id)
       .subscribe((res: any) => {
           this.newNews = res;
-          console.log("Новость получена");
         },
         (error: any) => {
           console.error('Error: ' + error);

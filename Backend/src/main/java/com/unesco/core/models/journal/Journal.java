@@ -1,21 +1,23 @@
 package com.unesco.core.models.journal;
 
+import com.unesco.core.models.StudentModel;
+
 import java.util.ArrayList;
 import java.util.List;
 
 public class Journal
 {
-   private List<Student> students;
-   private int[] dates;
+   private List<StudentModel> students;
+   private List<Integer> dates;
    private List<JournalCell> journalCell;
 
-   public Journal(List<Student> Students, int[] Dates)
+   public Journal(List<StudentModel> Students, List<Integer> Dates)
    {
       students = Students;
       dates = Dates;
       journalCell = new ArrayList<>();
 
-      for (Student student : students)
+      for (StudentModel student : students)
       {
          for (int date : dates)
          {
@@ -24,17 +26,17 @@ public class Journal
       }
    }
 
-   public List<Student> getStudents() {
+   public List<StudentModel> getStudents() {
       return students;
    }
-   public void setStudents(List<Student> students) {
+   public void setStudents(List<StudentModel> students) {
       this.students = students;
    }
 
-   public int[] getDates() {
+   public List<Integer> getDates() {
       return dates;
    }
-   public void setDates(int[] dates) {
+   public void setDates(List<Integer> dates) {
       this.dates = dates;
    }
 

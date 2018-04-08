@@ -6,6 +6,7 @@ import com.unesco.core.entities.account.User;
 import com.unesco.core.entities.schedule.Pair;
 import com.unesco.core.models.*;
 import com.unesco.core.models.account.RoleModel;
+import com.unesco.core.models.account.UserCreateModel;
 import com.unesco.core.models.account.UserModel;
 import org.springframework.stereotype.Service;
 
@@ -22,11 +23,17 @@ public class MapperService implements IMapperService {
         if (model instanceof ProfessorModel)
             return ProfessorToEntity((ProfessorModel) model);
 
+        if (model instanceof StudentModel)
+            return StudentToEntity((StudentModel) model);
+
         if (model instanceof RoleModel)
             return RoleToEntity((RoleModel) model);
 
         if (model instanceof UserModel)
             return UserToEntity((UserModel) model);
+
+        if (model instanceof UserCreateModel)
+            return UserCreateToEntity((UserCreateModel) model);
 
         if (model instanceof InstituteModel)
             return InstituteToEntity((InstituteModel) model);
@@ -48,8 +55,14 @@ public class MapperService implements IMapperService {
 
     public <T> Object toModel(T entity) {
 
+        if (entity == null)
+            return null;
+
         if (entity instanceof Professor)
             return ProfessorToModel((Professor) entity);
+
+        if (entity instanceof Student)
+            return StudentToModel((Student) entity);
 
         if (entity instanceof Pair)
             return PairToModel((Pair) entity);
@@ -82,13 +95,70 @@ public class MapperService implements IMapperService {
     public ProfessorModel ProfessorToModel(Professor Entity)
     {
         ProfessorModel Model = new ProfessorModel();
-        Model.setFio(Entity.getFio());
+        Model.setId(Entity.getUser().getId());
+        Model.setUsername(Entity.getUser().getUsername());
+        Model.setEmail(Entity.getUser().getEmail());
+        Model.setUserFIO(Entity.getUser().getUserFIO());
+        Model.setDepartment((DepartmentModel) toModel(Entity.getDepartment()));
+        List<RoleModel> roles = new ArrayList<RoleModel>();
+        for (Role role: Entity.getUser().getRoles()) {
+            RoleModel roleModel = (RoleModel) toModel(role);
+            roles.add(roleModel);
+        }
+        Model.setRoles(roles);
         return Model;
     }
     public Professor ProfessorToEntity(ProfessorModel Model)
     {
         Professor Entity = new Professor();
-        Entity.setFio(Model.getFio());
+        User user = new User();
+        user.setId(Model.getId());
+        user.setEmail(Model.getEmail());
+        user.setUsername(Model.getUsername());
+        user.setUserFIO(Model.getUserFIO());
+        Set<Role> roles = new HashSet<Role>();
+        for (RoleModel role: Model.getRoles()) {
+            Role roleEntity = (Role) toEntity(role);
+            roles.add(roleEntity);
+        }
+        user.setRoles(roles);
+        Entity.setUser(user);
+        Entity.setDepartment((Department) toEntity(Model.getDepartment()));
+        return Entity;
+    }
+
+    public StudentModel StudentToModel(Student Entity)
+    {
+        StudentModel Model = new StudentModel();
+        Model.setId(Entity.getUser().getId());
+        Model.setUsername(Entity.getUser().getUsername());
+        Model.setEmail(Entity.getUser().getEmail());
+        Model.setUserFIO(Entity.getUser().getUserFIO());
+        Model.setGroup((GroupModel) toModel(Entity.getGroup()));
+        List<RoleModel> roles = new ArrayList<RoleModel>();
+        for (Role role: Entity.getUser().getRoles()) {
+            RoleModel roleModel = (RoleModel) toModel(role);
+            roles.add(roleModel);
+        }
+        Model.setRoles(roles);
+        return Model;
+    }
+    public Student StudentToEntity(StudentModel Model)
+    {
+        Student Entity = new Student();
+        User user = new User();
+        user.setId(Model.getId());
+        user.setEmail(Model.getEmail());
+        user.setUsername(Model.getUsername());
+        user.setUserFIO(Model.getUserFIO());
+        Set<Role> roles = new HashSet<Role>();
+        for (RoleModel role: Model.getRoles()) {
+            Role roleEntity = (Role) toEntity(role);
+            roles.add(roleEntity);
+        }
+        user.setRoles(roles);
+        Entity.setUser(user);
+        Entity.setGroup((Group) toEntity(Model.getGroup()));
         return Entity;
     }
 
@@ -99,15 +169,33 @@ public class MapperService implements IMapperService {
         Model.setPairnumber(Entity.getPairNumber());
         Model.setWeektype(Entity.getWeektype().getType());
         Model.setDayofweek(Entity.getDayofweek().getDayofweek());
-        Model.setProfessor(Entity.getProfessor().getFio());
+        Model.setProfessor(Entity.getProfessor().getUser().getUserFIO());
         Model.setRoom(Entity.getRoom().getRoom());
         Model.setDiscipline(Entity.getDiscipline().getName());
-        Model.setGroup(Entity.getGroup().getName());
+        Model.setGroup(GroupToModel(Entity.getGroup()));
         Model.setDepartment("");
         return Model;
     }
 
+    public User UserCreateToEntity(UserCreateModel Model)
+    {
+        User Entity = new User();
 
+        Entity.setId(Model.getId());
+        Entity.setUsername(Model.getUsername());
+        Entity.setEmail(Model.getEmail());
+        Entity.setUserFIO(Model.getUserFIO());
+        Entity.setPassword(Model.getPassword());
+
+        Set<Role> roles = new HashSet<Role>();
+        for (RoleModel role: Model.getRoles()) {
+            Role roleEntity = (Role) toEntity(role);
+            roles.add(roleEntity);
+        }
+        Entity.setRoles(roles);
+
+        return Entity;
+    }
     public UserModel UserToModel(User Entity)
     {
         UserModel Model = new UserModel();
@@ -147,12 +235,14 @@ public class MapperService implements IMapperService {
     public RoleModel RoleToModel(Role Entity)
     {
         RoleModel Model = new RoleModel();
+        Model.setId((int) Entity.getId());
         Model.setRoleName(Entity.getRoleName());
         return Model;
     }
     public Role RoleToEntity(RoleModel Model)
     {
         Role Entity = new Role();
+        Entity.setId(Model.getId());
         Entity.setRoleName(Model.getRoleName());
         return Entity;
     }

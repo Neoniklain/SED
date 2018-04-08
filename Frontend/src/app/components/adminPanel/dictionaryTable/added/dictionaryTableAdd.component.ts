@@ -14,6 +14,7 @@ import {Institute} from "../../../../models/institute";
 import {Department} from "../../../../models/department";
 import {ToastrService} from "ngx-toastr";
 import {UtilsService} from "../../../../services/utils.service";
+import {Professor} from "../../../../models/professor";
 
 @Component({
 selector: 'dictionary-table-add',
@@ -31,8 +32,6 @@ export class DictionaryTableAddComponent implements OnInit, OnChanges {
     @Output() loadData = new EventEmitter();
     @Output() canelEditable = new EventEmitter();
 
-    public roles: Array<Role>;
-    public findRoles: Array<Role>;
     public fieldOfKnowledges: Array<FieldOfKnowledge>;
     public institutes: Array<Institute>;
     public departments: Array<Department>;
@@ -41,7 +40,6 @@ export class DictionaryTableAddComponent implements OnInit, OnChanges {
 
     constructor(private router: Router,
                 private dictionaryService: DictionaryService,
-                private utilsService: UtilsService,
                 private authenticationService: AuthenticationService,
                 private toastr: ToastrService) { }
 
@@ -132,24 +130,11 @@ export class DictionaryTableAddComponent implements OnInit, OnChanges {
       }
     }
     Cancel() {
-      this.changeType();
-      this.canelEditable.emit();
+        this.canelEditable.emit();
+        this.changeType();
     }
     AddOrUpdate() {
         switch (this.type.toString()) {
-            case Dictionary.users.toString():
-                this.authenticationService.register(this.model).subscribe(
-                    result => {
-                        this.model = new UserCreate();
-                        if (result.status === 'ok') {
-                            this.showMessage('success', 'Пользователи обновлены.');
-                            this.loadData.emit();
-                        }
-                        if (result.status === 'error') this.showMessage('error', 'Ошибка выполнения.');
-                    }, error => {
-                        this.showMessage('error', 'Ошибка выполнения.');
-                    });
-                break;
             case Dictionary.disciplines.toString():
                 this.dictionaryService.AddOrUpdateDiscipline(this.model).subscribe(
                     result => {
@@ -206,9 +191,6 @@ export class DictionaryTableAddComponent implements OnInit, OnChanges {
     }
     changeType() {
       switch (this.type.toString()) {
-         case Dictionary.users.toString():
-               this.dictionaryService.GetRoles().subscribe(result => { this.roles = result.content; });
-            break;
          case Dictionary.disciplines.toString():
                this.dictionaryService.GetFieldOfKnowladge().subscribe(result => { this.fieldOfKnowledges = result.content; });
             break;
@@ -222,18 +204,6 @@ export class DictionaryTableAddComponent implements OnInit, OnChanges {
             break;
       }
     }
-    public searchRoles(event: any) {
-      let query = event.query.substring(0, 60);
-      this.findRoles = this.roles;
-      let newRoles: Array<Role> = new Array();
-      for (let role of this.roles){
-         if (role.roleName.toLowerCase().indexOf(query.toLowerCase()) != -1) {
-            newRoles.push(role);
-         }
-      }
-      if (newRoles.length > 0)
-         this.findRoles = newRoles;
-    }
     showMessage(type, text) {
         if (type === 'success')
             this.toastr.success(text, "Успешно");
@@ -242,10 +212,4 @@ export class DictionaryTableAddComponent implements OnInit, OnChanges {
             this.toastr.error(text, "Ошибка");
     }
 
-    createRandomUser() {
-        this.model.username = this.utilsService.getNickname();
-        this.model.userFIO = this.utilsService.getFIO();
-        this.model.email = this.model.username + "@mail.ru";
-        this.model.password = this.utilsService.generatePassword(8);
-    }
 }

@@ -4,7 +4,7 @@ import {LazyLoadEvent} from "primeng/api";
 import {PageResult} from "../../models/admin/PageResult.model.list";
 import {DictionaryService} from "../../services/dictionary.service";
 import {Dictionary} from "../../models/admin/dictionary.model";
-import {UserCreate} from "../../models/account/user.model";
+import {User, UserCreate} from "../../models/account/user.model";
 import {Discipline} from "../../models/discipline";
 import {Institute} from "../../models/institute";
 import {Department} from "../../models/department";
@@ -41,7 +41,7 @@ export class AdminPanelComponent implements OnInit {
    updateDictionary(event?: LazyLoadEvent) {
       switch (this.menuToogle.toString()) {
          case Dictionary.users.toString():
-            this.currentModel = new UserCreate();
+            this.currentModel = new User();
          break;
          case Dictionary.disciplines.toString():
              this.currentModel = new Discipline();

@@ -42,10 +42,7 @@ export class ParserXmlComponent implements OnInit, OnChanges {
    }
 
    public tryUpload(item: any) {
-      console.log("Try to upload file");
-      console.log("FILE = ", item);
       item.upload();
-      console.log("End of try");
    }
 
 }

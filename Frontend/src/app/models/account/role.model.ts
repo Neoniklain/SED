@@ -1,11 +1,11 @@
 export class Role {
-  roleName: string;
-  roleNameRus: string;
+    id: number;
+    roleName: string;
 
-   constructor(role: string, roleNameRus: string) {
-     this.roleName = role;
-     this.roleNameRus = roleNameRus;
-   }
+    constructor() {
+        this.id = 0;
+        this.roleName = "";
+    }
 }
 
 export const Roles = {

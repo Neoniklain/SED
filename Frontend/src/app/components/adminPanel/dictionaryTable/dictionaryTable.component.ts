@@ -62,8 +62,8 @@ export class DictionaryTableComponent implements OnInit, OnChanges {
     }
     // Редактирование модели
     edit(item) {
-      this.editableModel = item;
-      this.editMode = true;
+        this.editableModel = item;
+        this.editMode = true;
     }
     // Удаление модели
     delete(item) {
@@ -73,6 +73,7 @@ export class DictionaryTableComponent implements OnInit, OnChanges {
     canelEditableModel() {
       this.editableModel = null;
       this.editMode = false;
+        this.loadData.emit();
     }
 
     isArray(obj: any ) {
@@ -93,6 +94,4 @@ export class DictionaryTableComponent implements OnInit, OnChanges {
     onLoadData() {
       this.getData();
 }
-
-
-    }
+}

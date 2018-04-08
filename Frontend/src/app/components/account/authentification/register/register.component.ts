@@ -28,7 +28,6 @@ export class RegisterComponent  {
     if (this.PassConfirm === this.user.password) {
       this.authenticationService.register(this.user).subscribe(
           result => {
-              console.log(result);
               if (result.status === "ok") {
                   this.messageService.add({severity: 'success', summary: 'Успешно.', detail: 'Регистрация выполненна успешно!'});
                   setTimeout(() => {

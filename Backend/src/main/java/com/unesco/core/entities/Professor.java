@@ -1,32 +1,38 @@
 package com.unesco.core.entities;
 
+import com.unesco.core.entities.account.User;
+
 import javax.persistence.*;
-import java.util.Set;
 
 @Entity
 @Table(name = "un_professor")
-public class Professor implements LongId {
+public class Professor {
+
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private long id;
-    @Column(name = "fio")
-    private String fio;
-    @ManyToOne
-    @JoinColumn(name = "professor_id", referencedColumnName = "id")
+    @SequenceGenerator(name = "professorSequenceGen", sequenceName = "professorSequenceGen", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "professorSequenceGen")
+    private int id;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "user_id")
+    private User user;
+
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "department_id", referencedColumnName = "id")
     private Department department;
 
-    public long getId() {
+    public int getId() {
         return id;
     }
-    public void setId(long id) {
+    public void setId(int id) {
         this.id = id;
     }
 
-    public String getFio() {
-        return fio;
+    public User getUser() {
+        return user;
     }
-    public void setFio(String fio) {
-        this.fio = fio;
+    public void setUser(User user) {
+        this.user = user;
     }
 
     public Department getDepartment() {
