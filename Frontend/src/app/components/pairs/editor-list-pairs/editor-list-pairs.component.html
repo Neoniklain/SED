@@ -1,0 +1,59 @@
+<div class="container">
+    <div class="header">
+        <h1><i class="fa fa-university" aria-hidden="true"></i> КемГУ Кафедра ЮНЕСКО</h1>
+        <p>Информационный кафедральный портал.</p>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="head">
+                <div class="panel panel-default">
+                    <div class="panel-heading"><h3><i class="fa fa-calendar" aria-hidden="true"></i>Список пар</h3></div>
+
+                    <div class="panel-body">
+                        <table class="table table-bordered">
+                            <!--<caption></caption>-->
+                            <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Номер пары</th>
+                                <th>Тип недели</th>
+                                <th>День недели</th>
+                                <th>Дисциплина</th>
+                                <th>Группа</th>
+                                <th>Номер аудитории</th>
+                                <th></th>
+                                <th></th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr *ngFor="let pair of chetPairs">
+                                <td>{{pair.id}}</td>
+                                <td>{{pair.pairnumber}}</td>
+                                <td>{{pair.weektype}}</td>
+                                <td>{{pair.dayofweek}}</td>
+                                <td>{{pair.discipline}}</td>
+                                <td>{{pair.group}}</td>
+                                <td>{{pair.room}}</td>
+                                <td><button (click)="gotoEdit(pair.id)" class="btn btn-warning"><i class="fa fa-pencil" aria-hidden="true"></i></button></td>
+                                <td><button (click)="DeleteChet(pair.id)" class="btn btn-danger"><i class="fa fa-times" aria-hidden="true"></i></button></td>
+                            </tr>
+                            <tr *ngFor="let pair of nechetPairs">
+                                <td>{{pair.id}}</td>
+                                <td>{{pair.pairnumber}}</td>
+                                <td>{{pair.weektype}}</td>
+                                <td>{{pair.dayofweek}}</td>
+                                <td>{{pair.discipline}}</td>
+                                <td>{{pair.group}}</td>
+                                <td>{{pair.room}}</td>
+                                <td><button (click)="gotoEdit(pair.id)" class="btn btn-warning"><i class="fa fa-pencil" aria-hidden="true"></i></button></td>
+                                <td><button (click)="DeleteNechet(pair.id)" class="btn btn-danger"><i class="fa fa-times" aria-hidden="true"></i></button></td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
