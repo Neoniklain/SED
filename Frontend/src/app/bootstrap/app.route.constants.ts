@@ -19,6 +19,24 @@ export const RouteConstants = {
    Admin: {
       All: "admin"
    },
+   Professor: {
+      All: "professors",
+      GetPairs:"professor/:id/pairs"
+   },
+   Group:{
+      All: "groups",
+      GetPairs: "group/:id/pairs"
+   },
+   Department:{
+      All:"departments",
+      GetPairs:"department/pairs"
+   },
+   Pair:{
+      All:"pairs",
+      Create:"pair/create",
+      Edit:"pair/:id/edit",
+      EditList:"professor/:id/pairs/editList"
+   },
    Journal: {
       All: "journal"
    },
@@ -78,5 +96,35 @@ export const ApiRouteConstants = {
          Roles: "admin/page/roles",
          FieldOfKnowlage: "admin/page/fieldOfKnowledge"
       }
+   },
+   Professor: {
+      All: "professors",
+      GetChetPairs:"professor/:id/pairs/even",
+      GetNechetPairs:"professor/:id/pairs/odd"
+   },
+   Group: {
+      All: "groups",
+      GetChetPairs:"group/:id/pairs/even",
+      GetNechetPairs:"group/:id/pairs/odd"
+   },
+   Department:{
+      GetChetPairs:"department/even",
+      GetNechetPairs:"department/odd"
+   },
+
+   Pair:{
+      All:"pairs",
+      Save:"pairs/save",
+      Get: "pair/get/:id",
+      Delete: "pair/delete/:id"
+   },
+   Discipline:{
+      All:"disciplines"
+   },
+   Room:{
+      All:"rooms"
+   },
+   Plugin:{
+      All:"plugins"
    }
 }
