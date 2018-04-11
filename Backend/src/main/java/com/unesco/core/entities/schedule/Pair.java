@@ -8,7 +8,8 @@ import javax.persistence.*;
 @Table(name = "un_pair")
 public class Pair implements LongId {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @SequenceGenerator(name = "pairSequenceGen", sequenceName = "pairSequenceGen", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "pairSequenceGen")
     private long id;
 
     @Column(name = "pairnumber")

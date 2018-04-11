@@ -17,9 +17,7 @@ public class Discipline implements LongId {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "disciplineSequenceGen")
     private long id;
     /** Поле название */
-    private String name;
-    /** Поле дата создания */
-    private Date datecreate;
+    private String name; //для каждого раздела свои контроллеры: для группы - в GroupContr, для преподов - в ProfessorContr, и так далее. :******
     @ManyToOne
     @JoinColumn(name = "fieldOfKnowledge_id", referencedColumnName = "id")
     /** Поле раздел знаний */
@@ -37,13 +35,6 @@ public class Discipline implements LongId {
     }
     public void setName(String name) {
         this.name = name;
-    }
-
-    public Date getDatecreate() {
-        return datecreate;
-    }
-    public void setDatecreate(Date datecreate) {
-        this.datecreate = datecreate;
     }
 
     public FieldOfKnowledge getFieldOfKnowledge() {
@@ -65,9 +56,8 @@ public class Discipline implements LongId {
     }
 
     public Discipline(){}
-    public Discipline(String name, Date datecreate)
+    public Discipline(String name)
     {
         this.name = name;
-        this.datecreate = datecreate;
     }
 }

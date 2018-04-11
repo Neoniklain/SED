@@ -1,7 +1,5 @@
 package com.unesco.core.entities;
 
-import com.unesco.core.entities.plan.Plan;
-
 import javax.persistence.*;
 import java.util.Set;
 
@@ -49,23 +47,8 @@ public class Department implements LongId {
         this.institute = institute;
     }
 
-   @OneToMany(cascade = CascadeType.ALL, mappedBy = "department")
-   /** Поле набор планов */
-   private Set<Group> groups;
 
-   public Set<Group> getGroups() {
-      return groups;
-   }
-   public void setGroups(Set<Group> groups) {
-      this.groups = groups;
-   }
 
-   public Department(String name)
-   {
-      this.name = name;
-   }
-
-    public Department()
-    { }
-
+    public Department() {
+    }
 }
