@@ -8,42 +8,43 @@ import java.util.Date;
 public class DisciplineModel {
 
    /** Поле название */
-   private String name;
-   @JsonFormat(shape=JsonFormat.Shape.STRING, pattern="yyyy-MM-dd HH:mm:ss", timezone="GMT")
-   /** Поле дата создания */
-   private Date datecreate;
-   /** Поле раздел знаний */
-   private String fieldOfKnowledge;
+   private int id;
+   private String discipline;
+//   @JsonFormat(shape=JsonFormat.Shape.STRING, pattern="yyyy-MM-dd HH:mm:ss", timezone="GMT")
+//   /** Поле дата создания */
+//   private Date datecreate;
+//   /** Поле раздел знаний */
+//   private String fieldOfKnowledge;
 
    public String getName() {
-      return name;
+      return discipline;
    }
    public void setName(String name) {
-      this.name = name;
+      this.discipline = name;
    }
 
-   public Date getDatecreate() {
-      return datecreate;
-   }
-   public void setDatecreate(Date datecreate) {
-      this.datecreate = datecreate;
-   }
-
-   public String getFieldOfKnowledge() {
-      return fieldOfKnowledge;
-   }
-   public void setFieldOfKnowledge(String fieldOfKnowledge) {
-      this.fieldOfKnowledge = fieldOfKnowledge;
-   }
+//   public Date getDatecreate() {
+//      return datecreate;
+//   }
+//   public void setDatecreate(Date datecreate) {
+//      this.datecreate = datecreate;
+//   }
+//
+//   public String getFieldOfKnowledge() {
+//      return fieldOfKnowledge;
+//   }
+//   public void setFieldOfKnowledge(String fieldOfKnowledge) {
+//      this.fieldOfKnowledge = fieldOfKnowledge;
+//   }
 
    public DisciplineModel(Discipline discipline){
-      this.name = discipline.getName();
-      if(discipline.getFieldOfKnowledge() != null)
-         this.fieldOfKnowledge = discipline.getFieldOfKnowledge().getName();
+      this.discipline = discipline.getName();
+//      if(discipline.getFieldOfKnowledge() != null)
+//         this.fieldOfKnowledge = discipline.getFieldOfKnowledge().getName();
    }
-   public DisciplineModel(String name, Date datecreate)
+   public DisciplineModel(String name/*, Date datecreate*/)
    {
-      this.name = name;
-      this.datecreate = datecreate;
+      this.discipline = name;
+//      this.datecreate = datecreate;
    }
 }

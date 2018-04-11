@@ -5,7 +5,8 @@ import com.unesco.core.entities.Group;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
-public class GroupModel { //видел путь?:D можно бло и не открывать мою*****
+public class GroupModel {
+   private int id;
    private String name;
 
    public String getName() {
@@ -13,6 +14,14 @@ public class GroupModel { //видел путь?:D можно бло и не о�
    }
    public void setName(String name) {
       this.name = name;
+   }
+
+   public int getId() {
+      return id;
+   }
+
+   public void setId(int id) {
+      this.id = id;
    }
 
    public GroupModel(Group group) {

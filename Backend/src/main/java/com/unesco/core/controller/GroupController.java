@@ -1,5 +1,6 @@
 package com.unesco.core.controller;
 
+import com.unesco.core.models.GroupModel;
 import com.unesco.core.models.PairModel;
 import com.unesco.core.entities.Department;
 import com.unesco.core.entities.Group;
@@ -63,8 +64,13 @@ public class GroupController {
     }
 
     @RequestMapping("/groups")
-    public List<Group> getGroups() {
+    public List<GroupModel> getGroups() {
         Iterable<Group> tmp = groupRepository.findAll();
-        return StreamSupport.stream(tmp.spliterator(), false).collect(Collectors.toList());
+        List<Group> groups = StreamSupport.stream(tmp.spliterator(), false).collect(Collectors.toList());
+        List<GroupModel> groupModels = new ArrayList<>();
+        for(Group g : groups)
+            groupModels.add(new GroupModel(g));
+
+        return groupModels;
     }
 }

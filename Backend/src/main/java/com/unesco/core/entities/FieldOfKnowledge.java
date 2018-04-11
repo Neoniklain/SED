@@ -16,8 +16,8 @@ public class FieldOfKnowledge {
    /** Поле название */
    private String name;
    @OneToMany(cascade = CascadeType.ALL, mappedBy = "fieldOfKnowledge")
-   /** Поле дисциплин */
-   private Set<Discipline> discipline;
+//   /** Поле дисциплин */
+//   private Set<Discipline> discipline;
 
    public long getId() {
       return id;
@@ -33,11 +33,11 @@ public class FieldOfKnowledge {
       this.name = name;
    }
 
-   public Set<Discipline> getDiscipline() {
-      return discipline;
-   }
-   public void setDiscipline(Set<Discipline> discipline) {
-      this.discipline = discipline;
-   }
+//   public Set<Discipline> getDiscipline() {
+//      return discipline;
+//   }
+//   public void setDiscipline(Set<Discipline> discipline) {
+//      this.discipline = discipline;
+//   }
 
 }
