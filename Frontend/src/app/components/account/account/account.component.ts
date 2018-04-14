@@ -3,7 +3,7 @@ import {NewsDispatcherComponent} from "./news-dispatcher/news-dispatcher.compone
 import {Router} from "@angular/router";
 import {User} from "../../../models/account/user.model";
 import {AuthenticationService} from "../../../services/authService";
-import {TaskComponent} from "../../task/task.component";
+import {TaskDescListComponent} from "../../task/taskDescList.component";
 import {Roles} from "../../../models/account/role.model";
 
 @Component({
@@ -18,10 +18,11 @@ export class AccountComponent implements OnInit {
   public menuName: string;
   public Roles;
 
-  @ViewChild(TaskComponent) taskComponent: TaskComponent;
   @ViewChild(NewsDispatcherComponent) newsDispatcherComponent: NewsDispatcherComponent;
+  @ViewChild(TaskDescListComponent) taskDescListComponent: TaskDescListComponent;
 
-  constructor(private authenticationService: AuthenticationService,
+
+    constructor(private authenticationService: AuthenticationService,
               private router: Router) {
     this.user = new User();
     this.authenticationService.getUser().subscribe(

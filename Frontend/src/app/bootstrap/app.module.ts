@@ -29,7 +29,7 @@ import {EditorSingleNewsComponent} from "../components/news/editor-single-news/e
 import {EditorListNewsComponent} from "../components/news/editor-list-news/editor-list-news.component";
 import {ListNewsComponent} from "../components/news/list-news/list-news.component";
 import {NotFoundComponent} from "../components/notfound/notfound.component";
-import {TaskComponent} from "../components/task/task.component";
+import {TaskDescListComponent} from "../components/task/taskDescList.component";
 import {UserAddComponent} from "../components/adminPanel/userAdd/userAdd";
 import {PairCreateComponent} from "../components/schedule/pairCreate/create-pair.component";
 // services
@@ -86,7 +86,7 @@ import {PairDetailsComponent} from "../components/schedule/pairDetails/pairDeata
       AppComponent,
       AccountComponent,
       NewsDispatcherComponent,
-       TaskComponent,
+      TaskDescListComponent,
       LogInComponent,
       RegisterComponent,
       SingleNewsComponent,

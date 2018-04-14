@@ -3,7 +3,7 @@ import "rxjs/add/operator/map";
 import {Observable} from "rxjs/Observable";
 import {HttpClient, HttpErrorResponse, HttpParams} from "@angular/common/http";
 import {Router} from "@angular/router";
-import {Task} from "../models/workflow/task.model";
+import {Task, TaskDescription} from "../models/workflow/task.model";
 import {ApiRouteConstants} from "../bootstrap/app.route.constants";
 
 @Injectable()
@@ -12,29 +12,29 @@ export class  TaskService {
 
     public Get(id: number) {
       let params: HttpParams = new HttpParams();
-      return this.http.get(ApiRouteConstants.Issue.Get.replace(":id", id.toString()))
+      return this.http.get(ApiRouteConstants.Task.Get.replace(":id", id.toString()))
           .catch(this.handleError);
     }
 
     public Delete(id: number) {
-      return this.http.get(ApiRouteConstants.Issue.Delete.replace(":id", id.toString()))
+      return this.http.get(ApiRouteConstants.Task.Delete.replace(":id", id.toString()))
           .catch(this.handleError);
     }
 
-    public GetList(): Observable<Array<Task>> {
-    return this.http.get(ApiRouteConstants.Issue.All)
+    public GetList(): Observable<Array<TaskDescription>> {
+    return this.http.get(ApiRouteConstants.Task.All)
         .catch(this.handleError);
     }
 
-    public Update(issue: Task) {
+    public Update(issue: TaskDescription) {
         let params = new HttpParams();
-        return this.http.post(ApiRouteConstants.Issue.Update, issue, {params: params })
+        return this.http.post(ApiRouteConstants.Task.Update, issue, {params: params })
         .catch(this.handleError);
     }
 
-    public Create(issueName: Task) {
+    public Create(issueName: TaskDescription) {
         let params = new HttpParams();
-        return this.http.post(ApiRouteConstants.Issue.Create, issueName, {params: params })
+        return this.http.post(ApiRouteConstants.Task.Create, issueName, {params: params })
         .catch(this.handleError);
     }
 

@@ -28,7 +28,7 @@
           </div>
           <div class="list-group">
             <a style="cursor: pointer;" (click)="menuToole('news-dispatcher-page')" class="list-group-item">Управление новостями</a>
-            <a style="cursor: pointer;" (click)="menuToole('tasks-page')" class="list-group-item">Управление задачами</a>
+            <a style="cursor: pointer;" (click)="menuToole('tasks-list')" class="list-group-item">Управление задачами</a>
             <a *hasRole="Roles.Professor" style="cursor: pointer;" (click)="menuToole('journal-page')" class="list-group-item">Расписание занятий</a>
           </div>
         </div>
@@ -41,8 +41,8 @@
             <h3>{{menuName | translate}}</h3>
           </div>
           <div class="panel-body">
-            <task-page *ngSwitchCase="'tasks-page'"></task-page>
             <news-dispatcher-page *ngSwitchCase="'news-dispatcher-page'"></news-dispatcher-page>
+            <task-list *ngSwitchCase="'tasks-list'"></task-list>
             <journal-page *ngSwitchCase="'journal-page'"></journal-page>
           </div>
         </div>

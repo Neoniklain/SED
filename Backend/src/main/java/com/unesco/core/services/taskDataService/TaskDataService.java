@@ -1,14 +1,14 @@
 package com.unesco.core.services.taskDataService;
 
-import com.unesco.core.entities.account.User;
+import com.fasterxml.jackson.databind.util.ArrayIterator;
 import com.unesco.core.entities.workflow.Task;
 import com.unesco.core.entities.workflow.TaskDescription;
 import com.unesco.core.models.TaskDescriptionModel;
 import com.unesco.core.models.TaskModel;
 import com.unesco.core.models.account.UserModel;
 import com.unesco.core.repositories.account.UserRepository;
-import com.unesco.core.repositories.issue.TaskDescriptionRepository;
-import com.unesco.core.repositories.issue.TaskRepository;
+import com.unesco.core.repositories.task.TaskDescriptionRepository;
+import com.unesco.core.repositories.task.TaskRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,7 +18,7 @@ import java.util.List;
 import java.util.Set;
 
 @Service
-public class TaskDescriptionDataService implements ITaskDescriptionDataService
+public class TaskDataService implements ITaskDataService
 {
    //Закончил на реализации интерфейса. Не проверял. Короче всё доделать.
    @Autowired
@@ -28,19 +28,27 @@ public class TaskDescriptionDataService implements ITaskDescriptionDataService
    @Autowired
    TaskRepository _TaskRepository;
 
+   TaskStatusList _Statuses;
+
    @Override
    public List<TaskDescriptionModel> getAllTaskDescription() {
       return EntityToModel(_TaskDescriptionRepository.findAll());
    }
 
    @Override
-   public List<TaskDescriptionModel> getTaskDescriptionBySubTasks(long id) {
-      return EntityToModel(_TaskDescriptionRepository.findBySubTasks(_TaskRepository.findById(id)));
+   public TaskDescriptionModel getTaskDescriptionBySubTasks(long id) {
+      return new TaskDescriptionModel(_TaskDescriptionRepository.findBySubTasks(_TaskRepository.findById(id)));
    }
 
    @Override
    public List<TaskDescriptionModel> getTaskDescriptionByCreator(long id) {
       return EntityToModel(_TaskDescriptionRepository.findByCreator(id));
+   }
+
+   @Override
+   public List<TaskModel> getSubTasksForTaskDescription(long id) {
+      TaskDescriptionModel temp = new TaskDescriptionModel(_TaskDescriptionRepository.findById(id));
+      return temp.getSubTasks();
    }
 
    @Override
@@ -50,16 +58,29 @@ public class TaskDescriptionDataService implements ITaskDescriptionDataService
       res.setName(td.getName());
       res.setDescription(td.getDescription());
       Set<Task> col = new HashSet<>();
-      for (TaskModel task: td.getSubTasks()) {
-         col.add(_TaskRepository.findById(task.getId()));
+      List<Task> subTasks = new ArrayList<>();
+      for (UserModel user: td.getUsers()) {
+          Task temp = new Task();
+          temp.setResponse("");
+          temp.setStatus(_Statuses.Processed.toString());
+          temp.setTaskDescription(res);
+          temp.setExecutor(_UserRepository.findById(user.getId()));
+          subTasks.add(temp);
+          col.add(temp);
+         //col.add(_TaskRepository.findById(task.getId()));
       }
       res.setSubTasks((Set<Task>)col);
 
       if(!res.getSubTasks().isEmpty())
-         //_TaskDescriptionRepository.save(res);
+      {
+         _TaskDescriptionRepository.save(res);
+         _TaskRepository.save(subTasks);
          System.out.println("Задача добавлена.");
+      }
       else
+      {
          System.out.println("Невозможно создать задачу. Не выбраны пользователи.");
+      }
    }
 
    @Override
@@ -78,7 +99,11 @@ public class TaskDescriptionDataService implements ITaskDescriptionDataService
 
    @Override
    public void deleteTaskDescription(long id) {
-      _TaskDescriptionRepository.delete(id);
+       TaskDescription temp = _TaskDescriptionRepository.findById(id);
+       for (Task item : temp.getSubTasks()) {
+           _TaskRepository.delete(item.getId());
+       }
+       _TaskDescriptionRepository.delete(temp.getId());
    }
 
    @Override
