@@ -14,6 +14,7 @@ public class TaskDescriptionModel {
     private String name;
     private UserModel creator;
     private List<TaskModel> subTasks;
+    private List<UserModel> users;
     private String description;
 
     public TaskDescriptionModel()
@@ -23,6 +24,7 @@ public class TaskDescriptionModel {
         this.description = "";
         this.creator = new UserModel();
         this.subTasks = new ArrayList<>();
+        this.users = new ArrayList<>();
     }
 
     public TaskDescriptionModel(TaskDescription taskDesc)
@@ -31,9 +33,11 @@ public class TaskDescriptionModel {
         this.name = taskDesc.getName();
         this.description = taskDesc.getDescription();
         this.creator = new UserModel(taskDesc.getCreator());
+        this.users = new ArrayList<>();
         this.subTasks = new ArrayList<>();
         for (Task task:taskDesc.getSubTasks()) {
             this.subTasks.add(new TaskModel(task));
+            this.users.add(new UserModel(task.getExecutor()));
         }
     }
 
@@ -75,5 +79,13 @@ public class TaskDescriptionModel {
 
     public void setSubTasks(List<TaskModel> subTasks) {
         this.subTasks = subTasks;
+    }
+
+    public List<UserModel> getUsers() {
+        return users;
+    }
+
+    public void setUsers(List<UserModel> users) {
+        this.users = users;
     }
 }

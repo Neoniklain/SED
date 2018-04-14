@@ -1,14 +1,31 @@
 import {User} from "../account/user.model";
 
-export class Task {
+export class TaskDescription {
   public id: number;
   public name: string;
   public creator: User;
-  public collaborators: User[];
+  public subTasks: Task[];
+  public users: User[];
+  public description;
   constructor()
   {
     this.name = "";
     this.creator = new User();
-    this.collaborators = [];
+    this.users = [];
+    this.description = "";
+    this.subTasks = [];
   }
+}
+
+export class Task {
+    public id: number;
+    public executor: User;
+    public status: string;
+    public response: string;
+    constructor()
+    {
+        this.executor = new User();
+        this.status = "";
+        this.response = "";
+    }
 }

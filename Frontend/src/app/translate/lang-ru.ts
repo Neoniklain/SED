@@ -19,5 +19,11 @@ export const LANG_RU_TRANS = {
     "ADMIN": "Администратор",
     "STUDENT": "Студент",
     "PROFFESSOR": "Преподаватель",
-    "ENGINEER": "Инженер"
+    "ENGINEER": "Инженер",
+    "Processed": "В процессе",
+    "Denied": "Отказано",
+    "Completed": "Завершено",
+    "Checked": "На проверке",
+    "Viewed": "Просмотрено",
+    "SentToRevision": "Отправлено на доработку"
 };
