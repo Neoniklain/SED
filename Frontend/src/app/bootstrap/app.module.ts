@@ -29,7 +29,7 @@ import {EditorSingleNewsComponent} from "../components/news/editor-single-news/e
 import {EditorListNewsComponent} from "../components/news/editor-list-news/editor-list-news.component";
 import {ListNewsComponent} from "../components/news/list-news/list-news.component";
 import {NotFoundComponent} from "../components/notfound/notfound.component";
-import {TaskDescListComponent} from "../components/task/taskDescList.component";
+import {TaskDescListComponent} from "../components/task/taskList/taskDescList.component";
 // services
 import {NewsService} from "../services/news.service";
 import {TaskService} from "../services/task.service";
@@ -53,6 +53,7 @@ import {ParserXmlComponent} from "../components/adminPanel/parserXml/parserXml.c
 import {JournalComponent} from "../components/journal/journal.component";
 import {JournalService} from "../services/journal.service";
 import {DictionaryTableAddComponent} from "../components/adminPanel/dictionaryTable/added/dictionaryTableAdd.component";
+import {NewTaskDescComponent} from "../components/task/newTask/newTaskDesc.component";
 
 @NgModule({
    imports: [
@@ -77,6 +78,7 @@ import {DictionaryTableAddComponent} from "../components/adminPanel/dictionaryTa
       AccountComponent,
       NewsDispatcherComponent,
       TaskDescListComponent,
+       NewTaskDescComponent,
       LogInComponent,
       RegisterComponent,
       SingleNewsComponent,

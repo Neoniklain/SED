@@ -3,7 +3,7 @@ import {NewsDispatcherComponent} from "./news-dispatcher/news-dispatcher.compone
 import {Router} from "@angular/router";
 import {User} from "../../../models/account/user.model";
 import {AuthenticationService} from "../../../services/authService";
-import {TaskDescListComponent} from "../../task/taskDescList.component";
+import {TaskDescListComponent} from "../../task/taskList/taskDescList.component";
 
 @Component({
   selector: 'account-page',
