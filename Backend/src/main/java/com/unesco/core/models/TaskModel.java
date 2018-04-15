@@ -25,15 +25,6 @@ public class TaskModel {
         this.taskDescriptionId = 0;
     }
 
-    public TaskModel(Task task)
-    {
-        this.id = task.getId();
-        this.status = task.getStatus();
-        this.response = task.getResponse();
-        this.taskDescriptionId = task.getTaskDescription().getId();
-        this.executor = new UserModel(task.getExecutor());
-    }
-
     public long getId() {
         return id;
     }

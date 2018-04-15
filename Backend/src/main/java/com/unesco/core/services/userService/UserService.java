@@ -122,18 +122,20 @@ public class UserService implements IUserService {
         return (int) result.getId();
     }
 
-    public List<UserModel> getUser(String username)
+    public List<UserModel> getUserByFio(String fio)
     {
-        Iterable<User> allUsers = userRepository.findAll();
-        List<User> res = new ArrayList<User>();
+        List<User> allUsers = userRepository.findAllByUserFIO(fio);
         List<UserModel> result = new ArrayList<UserModel>();
         for (User item : allUsers) {
-            if(item.getUsername().toLowerCase().contains(username))
-            {
-                result.add((UserModel) mapperService.toModel(item));
-            }
+            result.add((UserModel) mapperService.toModel(item));
         }
         return result;
+    }
+
+    public UserModel getUserByUsername(String username)
+    {
+        User user = userRepository.findByUsername(username);
+        return (UserModel) mapperService.toModel(user);
     }
 
 }

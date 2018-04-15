@@ -3,6 +3,7 @@ package com.unesco.core.entities.workflow;
 import com.unesco.core.entities.account.User;
 
 import javax.persistence.*;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -23,7 +24,7 @@ public class TaskDescription {
         EAGER = Загрузит сразу, при создании объекта этого класса
     */
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "taskDescription")
-    private Set<Task> subTasks;
+    private List<Task> subTasks;
 
     private String description;
 
@@ -51,11 +52,11 @@ public class TaskDescription {
         this.creator = creator;
     }
 
-    public Set<Task> getSubTasks() {
+    public List<Task> getSubTasks() {
         return subTasks;
     }
 
-    public void setSubTasks(Set<Task> subTasks) {
+    public void setSubTasks(List<Task> subTasks) {
         this.subTasks = subTasks;
     }
 

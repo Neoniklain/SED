@@ -9,6 +9,7 @@ import com.unesco.core.models.account.UserModel;
 import com.unesco.core.repositories.account.UserRepository;
 import com.unesco.core.repositories.task.TaskDescriptionRepository;
 import com.unesco.core.repositories.task.TaskRepository;
+import com.unesco.core.services.mapperService.MapperService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -27,6 +28,8 @@ public class TaskDataService implements ITaskDataService
    UserRepository _UserRepository;
    @Autowired
    TaskRepository _TaskRepository;
+   @Autowired
+   MapperService _MapperService;
 
    TaskStatusList _Statuses;
 
@@ -37,7 +40,7 @@ public class TaskDataService implements ITaskDataService
 
    @Override
    public TaskDescriptionModel getTaskDescriptionBySubTasks(long id) {
-      return new TaskDescriptionModel(_TaskDescriptionRepository.findBySubTasks(_TaskRepository.findById(id)));
+      return (TaskDescriptionModel) _MapperService.toModel(_TaskDescriptionRepository.findBySubTasks(_TaskRepository.findById(id)));
    }
 
    @Override
@@ -47,7 +50,7 @@ public class TaskDataService implements ITaskDataService
 
    @Override
    public List<TaskModel> getSubTasksForTaskDescription(long id) {
-      TaskDescriptionModel temp = new TaskDescriptionModel(_TaskDescriptionRepository.findById(id));
+      TaskDescriptionModel temp = (TaskDescriptionModel) _MapperService.toModel(_TaskDescriptionRepository.findById(id));
       return temp.getSubTasks();
    }
 
@@ -69,7 +72,7 @@ public class TaskDataService implements ITaskDataService
           col.add(temp);
          //col.add(_TaskRepository.findById(task.getId()));
       }
-      res.setSubTasks((Set<Task>)col);
+      res.setSubTasks((List<Task>)col);
 
       if(!res.getSubTasks().isEmpty())
       {
@@ -88,7 +91,7 @@ public class TaskDataService implements ITaskDataService
       TaskDescription res = _TaskDescriptionRepository.findById(td.getId());
       res.setName(td.getName());
       res.setDescription(td.getDescription());
-      Set<Task> col = new HashSet<>();
+      List<Task> col = new ArrayList<>();
       for (TaskModel task: td.getSubTasks()) {
          col.add(_TaskRepository.findById(task.getId()));
       }
@@ -108,14 +111,14 @@ public class TaskDataService implements ITaskDataService
 
    @Override
    public TaskDescriptionModel getTaskDescriptionById(long id) {
-      return new TaskDescriptionModel(_TaskDescriptionRepository.findById(id));
+      return (TaskDescriptionModel) _MapperService.toModel(_TaskDescriptionRepository.findById(id));
    }
 
    @Override
    public List<TaskDescriptionModel> EntityToModel(List<TaskDescription> tds) {
       List<TaskDescriptionModel> res = new ArrayList<>();
       for (TaskDescription task: tds) {
-         res.add(new TaskDescriptionModel(task));
+         res.add((TaskDescriptionModel) _MapperService.toModel(task));
       }
       return res;
    }
@@ -124,7 +127,7 @@ public class TaskDataService implements ITaskDataService
    public List<TaskDescriptionModel> EntityToModel(Iterable<TaskDescription> tds) {
       List<TaskDescriptionModel> res = new ArrayList<>();
       for (TaskDescription task: tds) {
-         res.add(new TaskDescriptionModel(task));
+         res.add((TaskDescriptionModel) _MapperService.toModel(task));
       }
       return res;
    }

@@ -27,20 +27,6 @@ public class TaskDescriptionModel {
         this.users = new ArrayList<>();
     }
 
-    public TaskDescriptionModel(TaskDescription taskDesc)
-    {
-        this.id = taskDesc.getId();
-        this.name = taskDesc.getName();
-        this.description = taskDesc.getDescription();
-        this.creator = new UserModel(taskDesc.getCreator());
-        this.users = new ArrayList<>();
-        this.subTasks = new ArrayList<>();
-        for (Task task:taskDesc.getSubTasks()) {
-            this.subTasks.add(new TaskModel(task));
-            this.users.add(new UserModel(task.getExecutor()));
-        }
-    }
-
     public long getId() {
         return id;
     }

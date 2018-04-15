@@ -57,7 +57,6 @@ import {ParserXmlComponent} from "../components/adminPanel/parserXml/parserXml.c
 import {JournalComponent} from "../components/journal/journal.component";
 import {JournalService} from "../services/journal.service";
 import {DictionaryTableAddComponent} from "../components/adminPanel/dictionaryTable/added/dictionaryTableAdd.component";
-import {NewTaskDescComponent} from "../components/task/newTask/newTaskDesc.component";
 import {LoaderComponent} from "../components/shared/loader";
 import {UtilsService} from "../services/utils.service";
 import {WeekScheduleComponent} from "../components/schedule/weekSchedule/weekSchedule.component";
@@ -88,7 +87,7 @@ import {PairDetailsComponent} from "../components/schedule/pairDetails/pairDeata
       AccountComponent,
       NewsDispatcherComponent,
       TaskDescListComponent,
-       NewTaskDescComponent,
+      NewTaskDescComponent,
       LogInComponent,
       RegisterComponent,
       SingleNewsComponent,

@@ -13,7 +13,8 @@ public interface IUserService {
     List<ProfessorModel> getProfessors();
     ProfessorModel getProfessor(int id);
     int AddUser(UserCreateModel user);
-    List<UserModel> getUser(String username);
+    List<UserModel> getUserByFio(String username);
+    UserModel getUserByUsername(String username);
     StudentModel getStudent(int id);
 
     void setUserGroup(int groupId, int userId);

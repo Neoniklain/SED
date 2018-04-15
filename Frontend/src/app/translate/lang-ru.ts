@@ -25,7 +25,7 @@ export const LANG_RU_TRANS = {
     "Completed": "Завершено",
     "Checked": "На проверке",
     "Viewed": "Просмотрено",
-    "SentToRevision": "Отправлено на доработку"
+    "SentToRevision": "Отправлено на доработку",
     "department": "Кафедра",
     "institute": "Институт",
     "group": "Группа",
