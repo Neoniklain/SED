@@ -2,6 +2,7 @@ import {Injectable} from '@angular/core';
 import {HttpClient, HttpErrorResponse, HttpParams} from '@angular/common/http';
 import {Observable} from 'rxjs/Observable';
 import {ApiRouteConstants, RouteConstants} from "../bootstrap/app.route.constants";
+import {Professor} from "../models/professor";
 
  
 @Injectable()
@@ -28,6 +29,11 @@ export class AccountService {
             .replace(":userId", userId.toString())
             .replace(":groupId", groupId.toString()),
             null, params ).catch(this.handleError);
+    }
+
+    public GetProfessors(): Observable<Array<Professor>> {
+        return this.http.get(ApiRouteConstants.Account.GetProfessors)
+            .catch(this.handleError);
     }
 
     private handleError(error: HttpErrorResponse | any) {

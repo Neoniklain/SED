@@ -1,6 +1,6 @@
-export class Room{
-    public id:number;
-    public room:string;
+export class Room {
+    public id: number;
+    public room: string;
 
 
     constructor() {

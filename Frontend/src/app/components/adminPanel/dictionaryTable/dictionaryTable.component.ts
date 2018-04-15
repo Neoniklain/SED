@@ -58,6 +58,9 @@ export class DictionaryTableComponent implements OnInit, OnChanges {
            case Dictionary.groups.toString():
                this.dictionaryService.GetGroups(event).subscribe(result => { this.data = result; });
                break;
+           case Dictionary.rooms.toString():
+               this.dictionaryService.GetRooms(event).subscribe(result => { this.data = result; });
+               break;
        }
     }
     // Редактирование модели

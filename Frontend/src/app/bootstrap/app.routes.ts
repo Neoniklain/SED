@@ -68,49 +68,6 @@ export const routes: Routes = [
       canActivate: [AuthGuard],
       data: {expectedRoles: [Roles.Administrator], title: "Админ-панель"}
    },
-
-   {
-      path: RouteConstants.Professor.All,
-      component: ListProfessorsComponent,
-      data: { title: "Расписание" }
-   },
-
-   {
-      path: RouteConstants.Professor.GetPairs,
-      component: ListPairsProfessorComponent,
-      data: { title: "Расписание преподавателя" }
-   },
-
-   {
-      path: RouteConstants.Group.GetPairs,
-      component: ListPairsGroupComponent,
-      data: { title: "Расписание группы" }
-   },
-
-   {
-      path: RouteConstants.Department.GetPairs,
-      component: ListPairsDepartmentComponent,
-      data: { title: "Расписание кафедры" }
-   },
-
-   {
-      path: RouteConstants.Pair.Create,
-      component: EditorSinglePairComponent,
-      data: { title: "Создание пары" }
-   },
-
-   {
-      path: RouteConstants.Pair.Edit,
-      component: EditorSinglePairComponent,
-      data: { title: "Редактирование пары" }
-   },
-
-   {
-      path: RouteConstants.Pair.EditList,
-      component: EditorListPairsComponent,
-      data: { title: "Список пар" }
-   }
-   ,
    {
       path: RouteConstants.Journal.All,
       component: JournalComponent,

@@ -4,41 +4,37 @@ import com.unesco.core.entities.schedule.Pair;
 import com.unesco.core.models.additional.EntityModel;
 
 public class PairModel {
-    private int pairnumber;
-    private String weektype;
+
+    private int id;
+    private int pairNumber;
     private String dayofweek;
-    private String professor;
-    private String room;
-    private String discipline;
+    private String weektype;
+    private DisciplineModel discipline;
+    private RoomModel room;
+    private ProfessorModel professor;
     private GroupModel group;
-    private String department;
 
     public PairModel() {
-        this.pairnumber = 0;
-        this.weektype = "";
-        this.dayofweek = "";
-        this.professor = "";
-        this.room = "";
-        this.discipline = "";
+        this.discipline = new DisciplineModel();
+        this.room = new RoomModel();
+        this.professor = new ProfessorModel();
         this.group = new GroupModel();
-        this.department = "";
     }
 
-
-    public int getPairnumber() {
-        return pairnumber;
+    public long getId() {
+        return id;
     }
 
-    public void setPairnumber(int pairnumber) {
-        this.pairnumber = pairnumber;
+    public void setId(int id) {
+        this.id = id;
     }
 
-    public String getWeektype() {
-        return weektype;
+    public int getPairNumber() {
+        return pairNumber;
     }
 
-    public void setWeektype(String weektype) {
-        this.weektype = weektype;
+    public void setPairNumber(int pairNumber) {
+        this.pairNumber = pairNumber;
     }
 
     public String getDayofweek() {
@@ -49,28 +45,36 @@ public class PairModel {
         this.dayofweek = dayofweek;
     }
 
-    public String getProfessor() {
-        return professor;
+    public String getWeektype() {
+        return weektype;
     }
 
-    public void setProfessor(String professor) {
-        this.professor = professor;
+    public void setWeektype(String weektype) {
+        this.weektype = weektype;
     }
 
-    public String getRoom() {
-        return room;
-    }
-
-    public void setRoom(String room) {
-        this.room = room;
-    }
-
-    public String getDiscipline() {
+    public DisciplineModel getDiscipline() {
         return discipline;
     }
 
-    public void setDiscipline(String discipline) {
+    public void setDiscipline(DisciplineModel discipline) {
         this.discipline = discipline;
+    }
+
+    public RoomModel getRoom() {
+        return room;
+    }
+
+    public void setRoom(RoomModel room) {
+        this.room = room;
+    }
+
+    public ProfessorModel getProfessor() {
+        return professor;
+    }
+
+    public void setProfessor(ProfessorModel professor) {
+        this.professor = professor;
     }
 
     public GroupModel getGroup() {
@@ -81,11 +85,4 @@ public class PairModel {
         this.group = group;
     }
 
-    public String getDepartment() {
-        return department;
-    }
-
-    public void setDepartment(String department) {
-        this.department = department;
-    }
 }

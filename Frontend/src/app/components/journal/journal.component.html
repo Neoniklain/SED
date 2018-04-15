@@ -1,9 +1,17 @@
-<schedule-week *ngIf="!journal"
+<div *ngIf="!journal && !showLoader" class="header-panel-body">
+    <h3>Для заполнения журнала выберите занятие.</h3>
+</div>
+
+<schedule-week *ngIf="!journal && !showLoader"
     [pairs]="pairs"
     (clickPair)="onClick($event)">
 </schedule-week>
 
-<div  *ngIf="journal">
+<div *ngIf="journal && !showLoader" class="header-panel-body">
+    <h3>Заполнение журнала для группы {{journal.students[0].group.name}}</h3>
+</div>
+
+<div *ngIf="journal  && !showLoader">
     <button (click)="back()" class="btn btn-info">Назад</button>
     <table>
         <thead>
@@ -22,3 +30,7 @@
         </tbody>
     </table>
 </div>
+
+
+
+<data-loader [show]="!journal && showLoader"></data-loader>

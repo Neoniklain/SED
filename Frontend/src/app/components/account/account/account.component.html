@@ -9,7 +9,9 @@
             </div>
             <div class="user-desc">
               <p class="user-desc-name"> {{user.userFIO}}</p>
-              <p class="user-desc-role" *ngFor="let role of user.roles">{{role.roleNameRus}} </p>
+              <p class="user-desc-role">
+                <span *ngFor="let role of user.roles">{{role.roleName | translate}} </span>
+              </p>
             </div>
           </div>
         </div>

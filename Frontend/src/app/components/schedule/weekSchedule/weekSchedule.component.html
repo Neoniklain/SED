@@ -1,39 +1,41 @@
-<table *ngIf="pairs.length > 0" id="temp" class="table table-striped table-bordered">
+<table class="table table-bordered" *ngIf="pairs.length > 0" id="temp">
+  <thead class="thead-black">
   <tr>
     <td></td>
     <td *ngFor="let day of days">
       {{day}}
     </td>
   </tr>
-  <tr *ngFor="let lessonTime of lessonsTime">
-    <td valign="middle" l class="lesson-time" width="9%">
-      <span>{{lessonTime.Start}} - {{lessonTime.End}}</span>
+  </thead>
+  <tr class="lesson-row" *ngFor="let lessonTime of lessonsTime">
+    <td valign="middle" class="lesson-time" width="9%">
+      <div>{{lessonTime.Start}} - {{lessonTime.End}}</div>
     </td>
     <td width="13%" *ngFor="let day of days">
       <span *ngFor="let pair of pairs">
-        <span *ngIf="pair.dayofweek === day && pair.pairnumber === lessonTime.number" height="100%">
-          <span (click)="onClick(pair)" *ngIf="pair.weektype =='Все'">
-            <div style="padding-bottom: 7px; font-size: 14px;" class="text-center">{{pair.discipline}}</div>
+        <span *ngIf="pair.dayofweek === day && pair.pairNumber === lessonTime.number" height="100%">
+          <span class="pair"  (click)="onClick($event, pair)" (mousemove)="onMouseMove($event)" (mouseenter)="onMouseEnter($event, pair)" (mouseleave)="onMouseLeave()" *ngIf="pair.weektype =='Все'">
+            <div style="padding-bottom: 7px; font-size: 14px;" class="text-center">{{pair.discipline.name}}</div>
             <div style="float: left; font-size: 12px;" class="text-left">{{pair.group.name}}</div>
-            <div style="font-size: 12px;" class="text-right">{{pair.room}} каб.</div>
+            <div style="font-size: 12px;" class="text-right">{{pair.room.room}} каб.</div>
           </span>
           <table *ngIf="pair.weektype !='Все'" height="100%">
             <tr>
-              <td (click)="onClick(pair)" *ngIf="pair.weektype == 'Чет'" bgcolor="#ffbdd3" width="50%" class="inner_table_click" id="Четное">
+              <td (click)="onClick($event, pair)" (mousemove)="onMouseMove($event)" (mouseenter)="onMouseEnter($event, pair)" (mouseleave)="onMouseLeave()" *ngIf="pair.weektype == 'Чет'" width="50%" class="pair even inner_table_click">
                 <div style="padding-bottom: 7px; font-size: 14px;" class="text-center">
-                  <div class="text-left" style="font-size: 10px;">Чет. </div>
-                  {{pair.discipline}}
+                  <div class="text-left" style="font-size: 10px;">{{pair.weektype}}</div>
+                  {{pair.discipline.name}}
                 </div>
                 <div style="float: left; font-size: 12px;" class="text-left">{{pair.group.name}}</div>
-                <div style="font-size: 12px;" class="text-right">{{pair.room}} каб.</div>
+                <div style="font-size: 12px;" class="text-right">{{pair.room.room}} каб.</div>
               </td>
-              <td (click)="onClick(pair)" *ngIf="pair.weektype == 'Нечет'" bgcolor="#bde0ff" width="50%" class="inner_table_click" id="Нечетное">
+              <td (click)="onClick($event, pair)" (mousemove)="onMouseMove($event)" (mouseenter)="onMouseEnter($event, pair)" (mouseleave)="onMouseLeave()" *ngIf="pair.weektype == 'Нечет'" width="50%" class="pair odd inner_table_click">
                 <div style="padding-bottom: 7px; font-size: 14px;" class="text-center">
-                  <div class="text-left" style="font-size: 10px;">Нечет. </div>
-                  {{pair.discipline}}
+                  <div class="text-left" style="font-size: 10px;">{{pair.weektype}}</div>
+                  {{pair.discipline.name}}
                 </div>
                 <div style="float: left; font-size: 12px;" class="text-left">{{pair.group.name}}</div>
-                <div style="font-size: 12px;" class="text-right">{{pair.room}} каб.</div>
+                <div style="font-size: 12px;" class="text-right">{{pair.room.room}} каб.</div>
               </td>
             </tr>
           </table>
@@ -42,3 +44,16 @@
     </td>
   </tr>
 </table>
+
+<div *ngIf="!pairs || pairs.length == 0" class="pairs-not-found">
+  <h1>Расписание не заполнено.</h1>
+</div>
+
+<pair-details
+        (updatePair)="updatePairs()"
+        (close)="closeDetails()"
+        [editable]="editable"
+        [pointX]="X"
+        [pointY]="Y"
+        [editablePair]="currentPair">
+</pair-details>

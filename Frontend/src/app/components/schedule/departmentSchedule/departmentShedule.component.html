@@ -1,0 +1,29 @@
+<table *ngIf="schedule" class="table table-bordered">
+  <thead class="thead-black">
+  <tr>
+    <td style="vertical-align: middle;" rowspan="2">Ф.И.О.</td>
+    <td colspan="6" *ngFor="let day of days">
+      {{day}}
+    </td>
+  </tr>
+  <tr>
+    <td *ngFor="let number of DayPairNumber">{{number.pairNumber}}</td>
+  </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let s of schedule">
+      <td>{{s.professor.userFIO}}</td>
+      <td style="vertical-align: middle;" class="pair-td" *ngFor="let number of DayPairNumber">
+        <span *ngFor="let pair of s.pairs">
+          <div class="pair" (clicl)="onClick(pair)" (mousemove)="onMouseMove($event)" (mouseenter)="onMouseEnter($event, pair)" (mouseleave)="onMouseLeave()"
+                *ngIf="pair.pairNumber == number.pairNumber && pair.dayofweek == number.dayofweek">
+              <span><i class="fa fa-check" aria-hidden="true"></i></span>
+          </div>
+        </span>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<pair-details [pointX]="X" [pointY]="Y" [editablePair]="currentPair"></pair-details>
+

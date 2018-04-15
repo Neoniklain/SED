@@ -4,4 +4,5 @@ export enum Dictionary {
    "institutes" = 3,
    "departments" = 4,
    "groups" = 5,
+   "rooms" = 6
 }

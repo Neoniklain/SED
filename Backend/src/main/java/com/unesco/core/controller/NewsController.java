@@ -53,13 +53,13 @@ public class NewsController {
     }
 
     @RequestMapping(value = "/delete/{id}")
-    public String Delete(@PathVariable("id") long id) {
+    public JSONResponseStatus Delete(@PathVariable("id") long id) {
         _NewsRepository.delete(id);
-        return JSONResponseStatus.OK;
+        return JSONResponseStatus.OK();
     }
 
     @RequestMapping(value = "/save")
-    public String save(@RequestBody News news) {
+    public JSONResponseStatus save(@RequestBody News news) {
         if(_NewsRepository.findById(news.getId())!=null) {
 
         }else{
@@ -69,6 +69,6 @@ public class NewsController {
             news.setAuthor(_UserRepository.findByUsername(user.getUsername()));
         }
         _NewsRepository.save(news);
-        return JSONResponseStatus.OK;
+        return JSONResponseStatus.OK();
     }
 }

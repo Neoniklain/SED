@@ -1,23 +1,26 @@
 import {Group} from "../group";
+import {Discipline} from "../discipline";
+import {Room} from "../room.model";
+import {Professor} from "../professor";
 
 export class Pair {
-    public pairnumber: number;
-    public weektype: String;
+    public id: number;
+    public pairNumber: number;
     public dayofweek: String;
-    public professor: String;
-    public room: String;
-    public discipline: String;
+    public weektype: String;
+    public discipline: Discipline;
+    public room: Room;
+    public professor: Professor;
     public group: Group;
-    public department: String;
 
     constructor() {
-        this.pairnumber = 0;
+        this.id = 0;
+        this.pairNumber = 0;
         this.weektype = "";
         this.dayofweek = "";
-        this.professor = "";
-        this.room = "";
-        this.discipline = "";
+        this.professor = new Professor();
+        this.room = new Room();
+        this.discipline = new Discipline();
         this.group = new Group();
-        this.department = "";
     }
 }

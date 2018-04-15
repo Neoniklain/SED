@@ -46,14 +46,14 @@ public class IssueController {
     }
 
     @RequestMapping(value = "/create")
-    public String Create(@RequestBody Issue newIssue) {
+    public JSONResponseStatus Create(@RequestBody Issue newIssue) {
         Issue issue = new Issue();
         issue.setName(newIssue.getName());
         User creator = _UserRepository.findByUsername(_CustomUserDetailsService.getUserDetails().getUsername());
         issue.setCreator(creator);
         issue.setCollaborators(newIssue.getCollaborators());
         _IssuesRepository.save(issue);
-        return JSONResponseStatus.OK;
+        return JSONResponseStatus.OK();
     }
 
     @RequestMapping(value = "/get/{id}")
@@ -63,19 +63,19 @@ public class IssueController {
     }
 
     @RequestMapping(value = "/update")
-    public String Update(@RequestBody Issue newIssue) {
+    public JSONResponseStatus Update(@RequestBody Issue newIssue) {
         Issue issue = _IssuesRepository.findById(newIssue.getId());
         issue.setName(newIssue.getName());
         User creator = _UserRepository.findByUsername(_CustomUserDetailsService.getUserDetails().getUsername());
         issue.setCreator(creator);
         issue.setCollaborators(newIssue.getCollaborators());
         _IssuesRepository.save(issue);
-        return JSONResponseStatus.OK;
+        return JSONResponseStatus.OK();
     }
 
     @RequestMapping(value = "/delete/{id}")
-    public String Delete(@PathVariable("id") long id) {
+    public JSONResponseStatus Delete(@PathVariable("id") long id) {
         _IssuesRepository.delete(id);
-        return JSONResponseStatus.OK;
+        return JSONResponseStatus.OK();
     }
 }

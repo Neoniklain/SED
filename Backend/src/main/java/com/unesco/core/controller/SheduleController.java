@@ -1,17 +1,18 @@
 package com.unesco.core.controller;
 
 import com.unesco.core.models.*;
+import com.unesco.core.models.additional.JSONResponseStatus;
 import com.unesco.core.services.dictionaryDataService.IDitionaryDataService;
 import com.unesco.core.services.sheduleService.ISheduleService;
 import com.unesco.core.services.userService.IUserService;
+import org.apache.catalina.connector.Response;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Map;
 
+@CrossOrigin
 @RestController
 @RequestMapping("/api/demo")
 public class SheduleController {
@@ -23,16 +24,28 @@ public class SheduleController {
     @Autowired
     private IUserService userService;
 
+    @RequestMapping("/department/{id}/pairs")
+    public List<DepartmentSheduleModel> getDepartmentPairs(@PathVariable("id") int id) {
+        DepartmentModel department = ditionaryDataService.getDepartment(id);
+        return sheduleService.getPairs(department);
+    }
+
     @RequestMapping("/department/{id}/pairs/even")
-    public Map<ProfessorModel, List<PairModel>> getOddDepartmentPairs(@PathVariable("id") int id) {
+    public List<DepartmentSheduleModel> getOddDepartmentPairs(@PathVariable("id") int id) {
         DepartmentModel department = ditionaryDataService.getDepartment(id);
         return sheduleService.getEvenPairs(department);
     }
 
     @RequestMapping("/department/{id}/pairs/odd")
-    public Map<ProfessorModel, List<PairModel>> getEvenDepartmentPairs(@PathVariable("id") int id) {
+    public List<DepartmentSheduleModel> getEvenDepartmentPairs(@PathVariable("id") int id) {
         DepartmentModel department = ditionaryDataService.getDepartment(id);
         return sheduleService.getOddPairs(department);
+    }
+
+    @RequestMapping("/group/{id}/pairs")
+    public List<PairModel> getGroupPairs(@PathVariable("id") int id) {
+        GroupModel group = ditionaryDataService.getGroup(id);
+        return sheduleService.getPairs(group);
     }
 
     @RequestMapping("/group/{id}/pairs/even")
@@ -52,9 +65,14 @@ public class SheduleController {
         return ditionaryDataService.getGroups();
     }
 
-    @RequestMapping("/pair/{id}")
+    @RequestMapping(method = RequestMethod.GET, value = "/pair/{id}")
     public PairModel getPair(@PathVariable("id") int id) {
         return sheduleService.getPair(id);
+    }
+
+    @RequestMapping(method = RequestMethod.DELETE, value = "/pair/{id}")
+    public JSONResponseStatus deletePair(@PathVariable("id") int id) {
+        return sheduleService.deletePair(id);
     }
 
     @RequestMapping("/professor/{id}/pairs")
@@ -88,5 +106,10 @@ public class SheduleController {
     @RequestMapping("/student/{id}")
     public StudentModel getStudent(@PathVariable("id") int id) {
         return userService.getStudent(id);
+    }
+
+    @RequestMapping("/pair/save")
+    public JSONResponseStatus savePair(@RequestBody PairModel pairModel) {
+        return sheduleService.savePair(pairModel);
     }
 }

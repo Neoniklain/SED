@@ -12,17 +12,11 @@ public class Pair implements LongId {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "pairSequenceGen")
     private long id;
 
-    @Column(name = "pairnumber")
     private int pairNumber;
 
-    //овердохера связей
-    @ManyToOne
-    @JoinColumn(name = "dayofweek_id", referencedColumnName = "id")
-    private DayOfWeek dayofweek;
+    private String dayofweek;
 
-    @ManyToOne
-    @JoinColumn(name = "weektype_id", referencedColumnName = "id")
-    private WeekType weektype;
+    private String weektype;
 
     @ManyToOne
     @JoinColumn(name = "discipline_id", referencedColumnName = "id")
@@ -39,17 +33,6 @@ public class Pair implements LongId {
     @ManyToOne
     @JoinColumn(name = "group_id", referencedColumnName = "id")
     private Group group;
-
-    public Pair(int pairNumber, DayOfWeek dayofweek,
-                WeekType weektype, Discipline discipline, Room room, Professor professor, Group group) {
-        this.pairNumber = pairNumber;
-        this.dayofweek = dayofweek;
-        this.weektype = weektype;
-        this.discipline = discipline;
-        this.room = room;
-        this.professor = professor;
-        this.group = group;
-    }
 
     public Pair() {
     }
@@ -70,19 +53,19 @@ public class Pair implements LongId {
         this.pairNumber = pairNumber;
     }
 
-    public DayOfWeek getDayofweek() {
+    public String getDayofweek() {
         return dayofweek;
     }
 
-    public void setDayofweek(DayOfWeek dayofweek) {
+    public void setDayofweek(String dayofweek) {
         this.dayofweek = dayofweek;
     }
 
-    public WeekType getWeektype() {
+    public String getWeektype() {
         return weektype;
     }
 
-    public void setWeektype(WeekType weektype) {
+    public void setWeektype(String weektype) {
         this.weektype = weektype;
     }
 

@@ -15,6 +15,8 @@ public class DisciplineModel {
    /** Поле раздел знаний */
    private FieldOfKnowledgeModel fieldOfKnowledge;
 
+
+
    public int getId() {
       return id;
    }
@@ -39,6 +41,7 @@ public class DisciplineModel {
    public DisciplineModel()
    {
       this.name = "";
+      this.fieldOfKnowledge = new FieldOfKnowledgeModel();
    }
    public DisciplineModel(String name)
    {

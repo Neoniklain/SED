@@ -1,0 +1,103 @@
+.user-info .user-img img{
+  border-radius: 50%;
+  border: 1px solid #3B3939;
+  width: 4em;
+}
+.user-img
+{
+  float: left;
+}
+
+.user-desc
+{
+  padding-left: 5em;
+}
+
+.lesson-time div {
+  font-size: 11px;
+  padding: 4px;
+}
+
+.user-desc p
+{
+  font-family: Franklin-Gothic-Bold !important;
+  font-size: 16px;
+  margin: 0;
+}
+
+.user-desc .user-desc-name
+{
+  font-size: 21px;
+  font-weight: bold;
+}
+
+.user-desc .user-desc-role
+{
+  color: #8B8B8B;
+}
+
+.container-block{
+  margin-top: 2em;
+}
+
+.displayNo {
+  display: none;
+}
+
+input {
+  border: none;
+  outline: none;
+}
+.lesson-row {
+  min-height: 6em;
+}
+
+.odd {
+  background: #0007ff1f;
+}
+
+.even {
+  background: #ff00002b;
+}
+
+.pair {
+  cursor: pointer;
+  font-size: 10px;
+  font-variant: all-small-caps;
+  padding: 0 5px;
+}
+
+.pair-td {
+  padding: 0;
+}
+
+input:hover,input:focus {
+  border: none;
+  outline: none;
+}
+
+table {
+  width: 100%;
+}
+
+td {
+  text-align: center;
+}
+
+.thead-black
+{
+  background: black;
+  color: white;
+}
+
+td input {
+  width: 2em;
+  text-align: center;
+}
+
+.lesson-time {
+  padding: 0;
+  margin: 0;
+  vertical-align: middle;
+  background: #e2e2e2;
+}

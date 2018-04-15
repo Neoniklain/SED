@@ -3,7 +3,10 @@ package com.unesco.core.services.mapperService;
 import com.unesco.core.entities.*;
 import com.unesco.core.entities.account.Role;
 import com.unesco.core.entities.account.User;
+import com.unesco.core.entities.schedule.DayOfWeek;
 import com.unesco.core.entities.schedule.Pair;
+import com.unesco.core.entities.schedule.Room;
+import com.unesco.core.entities.schedule.WeekType;
 import com.unesco.core.models.*;
 import com.unesco.core.models.account.RoleModel;
 import com.unesco.core.models.account.UserCreateModel;
@@ -25,6 +28,10 @@ public class MapperService implements IMapperService {
 
         if (model instanceof StudentModel)
             return StudentToEntity((StudentModel) model);
+
+
+        if (model instanceof PairModel)
+            return PairToEntity((PairModel) model);
 
         if (model instanceof RoleModel)
             return RoleToEntity((RoleModel) model);
@@ -49,6 +56,9 @@ public class MapperService implements IMapperService {
 
         if (model instanceof FieldOfKnowledgeModel)
             return FieldOfKnowledgeToEntity((FieldOfKnowledgeModel) model);
+
+        if (model instanceof RoomModel)
+            return RoomToEntity((RoomModel) model);
 
         return new Exception("Not found "+model.getClass().toString() + " model class");
     }
@@ -87,6 +97,9 @@ public class MapperService implements IMapperService {
 
         if (entity instanceof FieldOfKnowledge)
             return FieldOfKnowledgeToModel((FieldOfKnowledge) entity );
+
+        if (entity instanceof Room)
+            return RoomToModel((Room) entity);
 
         return new Exception("Not found "+entity.getClass().toString() + " entity class");
     }
@@ -162,19 +175,47 @@ public class MapperService implements IMapperService {
         return Entity;
     }
 
+    public RoomModel RoomToModel(Room Entity)
+    {
+        RoomModel Model = new RoomModel();
+        Model.setId(Entity.getId());
+        Model.setRoom(Entity.getRoom());
+        return Model;
+    }
+    public Room RoomToEntity(RoomModel Model)
+    {
+        Room Entity = new Room();
+        Entity.setId(Model.getId());
+        Entity.setRoom(Model.getRoom());
+        return Entity;
+    }
 
     public PairModel PairToModel(Pair Entity)
     {
         PairModel Model = new PairModel();
-        Model.setPairnumber(Entity.getPairNumber());
-        Model.setWeektype(Entity.getWeektype().getType());
-        Model.setDayofweek(Entity.getDayofweek().getDayofweek());
-        Model.setProfessor(Entity.getProfessor().getUser().getUserFIO());
-        Model.setRoom(Entity.getRoom().getRoom());
-        Model.setDiscipline(Entity.getDiscipline().getName());
+        Model.setId((int) Entity.getId());
+        Model.setPairNumber(Entity.getPairNumber());
+        Model.setWeektype(Entity.getWeektype());
+        Model.setDayofweek(Entity.getDayofweek());
+        Model.setProfessor(ProfessorToModel(Entity.getProfessor()));
+        Model.setRoom(RoomToModel(Entity.getRoom()));
+        Model.setDiscipline(DisciplineToModel(Entity.getDiscipline()));
         Model.setGroup(GroupToModel(Entity.getGroup()));
-        Model.setDepartment("");
         return Model;
+    }
+
+    public Pair PairToEntity(PairModel Model)
+    {
+        Pair Entity = new Pair();
+        Entity.setId((int) Model.getId());
+        Entity.setPairNumber(Model.getPairNumber());
+        Entity.setWeektype(Model.getWeektype());
+        Entity.setDayofweek(Model.getDayofweek());
+        Entity.setProfessor(ProfessorToEntity(Model.getProfessor()));
+        Entity.setRoom(RoomToEntity(Model.getRoom()));
+        Entity.setDiscipline(DisciplineToEntity(Model.getDiscipline()));
+        Entity.setGroup(GroupToEntity(Model.getGroup()));
+        return Entity;
     }
 
     public User UserCreateToEntity(UserCreateModel Model)

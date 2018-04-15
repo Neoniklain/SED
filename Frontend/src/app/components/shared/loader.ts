@@ -1,6 +1,4 @@
-﻿import {Component, OnInit, OnChanges} from "@angular/core";
-import {Router} from "@angular/router";
-import {DictionaryService} from "../../services/dictionary.service";
+﻿import {Component, OnInit, OnChanges, Input} from "@angular/core";
 
 @Component({
    selector: 'data-loader',
@@ -9,6 +7,8 @@ import {DictionaryService} from "../../services/dictionary.service";
 })
 
 export class LoaderComponent implements OnInit {
+
+   @Input() show = false;
 
    constructor() {}
 

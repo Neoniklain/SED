@@ -1,5 +1,6 @@
 package com.unesco.core.repositories.account;
 
+import com.unesco.core.entities.Discipline;
 import com.unesco.core.entities.account.Role;
 import com.unesco.core.entities.account.User;
 import com.unesco.core.repositories.utils.CrudPagableRepository;
@@ -23,4 +24,7 @@ public interface UserRepository extends CrudRepository<User, Long>, CrudPagableR
     @Query("SELECT u FROM User u WHERE " +
             "(SELECT r FROM Role r where r.role = :rolename ) member of u.roles ")
     List<User> findByRole(@Param("rolename") String rolename);
+
+    @Query("SELECT u FROM User u where lower(u.userFIO) LIKE CONCAT('%',lower(:filter),'%')")
+    List<User> findWithFilter(Pageable pageable, @Param("filter")  String filter);
 }

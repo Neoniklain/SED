@@ -1,0 +1,102 @@
+<div class="main-header col-md-12">
+    <div class="panel panel-default panel-inverse">
+        <div class="panel-heading">
+            <h3>Просмотр расписания</h3>
+        </div>
+        <div class="panel-body">
+
+            <ul class="nav nav-tabs nav-justified">
+                <li class="nav-item active">
+                    <a (click)="changeToogle('professor')" class="nav-link active" data-toggle="tab" role="tab"><h4>Преподаватель</h4></a>
+                </li>
+                <li class="nav-item">
+                    <a (click)="changeToogle('group')" class="nav-link" data-toggle="tab" role="tab"><h4>Группа</h4></a>
+                </li>
+                <li class="nav-item">
+                    <a (click)="changeToogle('department')" class="nav-link" data-toggle="tab" role="tab"><h4>Кафедра</h4></a>
+                </li>
+            </ul>
+
+            <div [ngSwitch]="menuToggle" class="tab-panel">
+
+                <div *ngSwitchCase="'professor'">
+                    <div class="row">
+                        <div class="col-md-3 text-left">
+                            <div class="dropdown">
+                                <button class="btn btn-dark dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><h4>Выберете преподавателя <i class="fa fa-caret-down" aria-hidden="true"></i></h4></button>
+                                <div class="dropdown-menu dropdown-elegant">
+                                    <li *ngFor="let item of profs">
+                                        <a class="dropdown-item" (click)="getProfessorPair(item)">
+                                            {{item.userFIO}}
+                                        </a>
+                                    </li>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 text-center">
+                           <h3 *ngIf="currentProfessor">{{currentProfessor.userFIO}}</h3>
+                        </div>
+                        <div class="col-md-3">
+                        </div>
+                    </div>
+                    <schedule-week *ngIf="pairList" (updatePair)="update()" [editable]="true" [pairs]="pairList"></schedule-week>
+                    <div *ngIf="!pairList" class="select-item">
+                        <data-loader [show]="showLoader"></data-loader>
+                        <h1 *ngIf="!showLoader">Укажите преподавателя для просмотра расписания</h1>
+                    </div>
+                 </div>
+
+                <div *ngSwitchCase="'group'">
+                    <div class="row">
+                        <div class="col-md-3 text-left">
+                            <div class="dropdown">
+                                <button class="btn btn-dark dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><h4>Выберете группу <i class="fa fa-caret-down" aria-hidden="true"></i></h4></button>
+                                <div class="dropdown-menu dropdown-elegant">
+                                    <li *ngFor="let item of groups">
+                                        <a class="dropdown-item" (click)="getGroupPair(item)">{{item.name}}</a>
+                                    </li>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 text-center">
+                            <h3 *ngIf="currentGroup">{{currentGroup.name}}</h3>
+                        </div>
+                        <div class="col-md-3">
+                        </div>
+                    </div>
+                    <schedule-week *ngIf="pairList" (updatePair)="update()" [editable]="true" [pairs]="pairList"></schedule-week>
+                    <div *ngIf="!pairList" class="select-item">
+                        <data-loader [show]="showLoader"></data-loader>
+                        <h1 *ngIf="!showLoader">Укажите группу для просмотра расписания</h1>
+                    </div>
+                </div>
+
+                <div *ngSwitchCase="'department'">
+                    <div class="row">
+                        <div class="col-md-3 text-left">
+                            <div class="dropdown">
+                                <button class="btn btn-dark dropdown-toggle" type="button" id="dropdownMenu3" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><h4>Выберете кафедру <i class="fa fa-caret-down" aria-hidden="true"></i></h4></button>
+                                <div class="dropdown-menu dropdown-elegant">
+                                    <li *ngFor="let item of department">
+                                        <a class="dropdown-item" (click)="getDepartmentPair(item)">{{item.name}}</a>
+                                    </li>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 text-center">
+                            <h3 *ngIf="currentDepartment">{{currentDepartment.name}}</h3>
+                        </div>
+                        <div class="col-md-3">
+                        </div>
+                    </div>
+                    <schedule-department *ngIf="departmentSchedule" [showDetailOnHover]="true" [schedule]="departmentSchedule"></schedule-department>
+                    <div *ngIf="!departmentSchedule" class="select-item">
+                        <data-loader [show]="showLoader"></data-loader>
+                        <h1 *ngIf="!showLoader">Укажите кафедру для просмотра расписания</h1>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>

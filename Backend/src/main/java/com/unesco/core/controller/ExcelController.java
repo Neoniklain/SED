@@ -35,7 +35,7 @@ public class ExcelController {
     private LessonTypeRepository _LessonTypeRepository;
 
     @RequestMapping(value = "/ParseStudyPlan")
-    public String ParseStudyPlan(@RequestParam("file") MultipartFile file) throws IOException {
+    public JSONResponseStatus ParseStudyPlan(@RequestParam("file") MultipartFile file) throws IOException {
         HSSFWorkbook myExcelBook = new HSSFWorkbook(file.getInputStream());
         HSSFSheet myExcelSheet = myExcelBook.getSheet("План");
         Iterator<Row> rowIterator = myExcelSheet.iterator();
@@ -291,6 +291,6 @@ public class ExcelController {
         }
         System.out.println("Parsing is finished!");
         myExcelBook.close();
-        return JSONResponseStatus.OK;
+        return JSONResponseStatus.OK();
     }
 }

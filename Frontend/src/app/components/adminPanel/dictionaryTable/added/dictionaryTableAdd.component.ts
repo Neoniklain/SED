@@ -15,6 +15,7 @@ import {Department} from "../../../../models/department";
 import {ToastrService} from "ngx-toastr";
 import {UtilsService} from "../../../../services/utils.service";
 import {Professor} from "../../../../models/professor";
+import {Room} from "../../../../models/room.model";
 
 @Component({
 selector: 'dictionary-table-add',
@@ -127,6 +128,21 @@ export class DictionaryTableAddComponent implements OnInit, OnChanges {
                       this.showMessage('error', 'Ошибка выполнения.');
                   });
               break;
+          case Dictionary.rooms.toString():
+              this.dictionaryService.DeleteRoom(this.deleteModel.id).subscribe(
+                  result => {
+                      this.model = new Department();
+                      this.deleteModel = null;
+                      if (result.status === 'ok') {
+                          this.showMessage('success', 'Аудитории обновлены.');
+                          this.loadData.emit();
+                      }
+                      if (result.status === 'error') this.showMessage('error', 'Ошибка выполнения.');
+                  }, error => {
+                      this.deleteModel = null;
+                      this.showMessage('error', 'Ошибка выполнения.');
+                  });
+              break;
       }
     }
     Cancel() {
@@ -142,6 +158,7 @@ export class DictionaryTableAddComponent implements OnInit, OnChanges {
                         if (result.status === 'ok') {
                             this.showMessage('success', 'Дисциплины обновлены.');
                             this.loadData.emit();
+                            this.canelEditable.emit();
                         }
                         if (result.status === 'error') this.showMessage('error', 'Ошибка выполнения.');
                     }, error => {
@@ -155,6 +172,7 @@ export class DictionaryTableAddComponent implements OnInit, OnChanges {
                         if (result.status === 'ok') {
                             this.showMessage('success', 'Группы обновлены.');
                             this.loadData.emit();
+                            this.canelEditable.emit();
                         }
                         if (result.status === 'error') this.showMessage('error', 'Ошибка выполнения.');
                     }, error => {
@@ -168,6 +186,7 @@ export class DictionaryTableAddComponent implements OnInit, OnChanges {
                         if (result.status === 'ok') {
                             this.showMessage('success', 'Институты обновлены.');
                             this.loadData.emit();
+                            this.canelEditable.emit();
                         }
                         if (result.status === 'error') this.showMessage('error', 'Ошибка выполнения.');
                     }, error => {
@@ -181,6 +200,21 @@ export class DictionaryTableAddComponent implements OnInit, OnChanges {
                         if (result.status === 'ok') {
                             this.showMessage('success', 'Кафедры обновлены.');
                             this.loadData.emit();
+                            this.canelEditable.emit();
+                        }
+                        if (result.status === 'error') this.showMessage('error', 'Ошибка выполнения.');
+                    }, error => {
+                        this.showMessage('error', 'Ошибка выполнения.');
+                    });
+                break;
+            case Dictionary.rooms.toString():
+                this.dictionaryService.AddOrUpdateRoom(this.model).subscribe(
+                    result => {
+                        this.model = new Room();
+                        if (result.status === 'ok') {
+                            this.showMessage('success', 'Аудитории обновлены.');
+                            this.loadData.emit();
+                            this.canelEditable.emit();
                         }
                         if (result.status === 'error') this.showMessage('error', 'Ошибка выполнения.');
                     }, error => {
@@ -204,6 +238,7 @@ export class DictionaryTableAddComponent implements OnInit, OnChanges {
             break;
       }
     }
+
     showMessage(type, text) {
         if (type === 'success')
             this.toastr.success(text, "Успешно");

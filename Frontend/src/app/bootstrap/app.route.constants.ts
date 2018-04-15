@@ -21,21 +21,21 @@ export const RouteConstants = {
    },
    Professor: {
       All: "professors",
-      GetPairs:"professor/:id/pairs"
+      GetPairs: "professor/:id/pairs"
    },
-   Group:{
+   Group: {
       All: "groups",
       GetPairs: "group/:id/pairs"
    },
-   Department:{
-      All:"departments",
-      GetPairs:"department/pairs"
+   Department: {
+      All: "departments",
+      GetPairs: "department/pairs"
    },
-   Pair:{
-      All:"pairs",
-      Create:"pair/create",
-      Edit:"pair/:id/edit",
-      EditList:"professor/:id/pairs/editList"
+   Pair: {
+      All: "pairs",
+      Create: "pair/create",
+      Edit: "pair/:id/edit",
+      EditList: "professor/:id/pairs/editList"
    },
    Journal: {
       All: "journal"
@@ -46,6 +46,7 @@ export const RouteConstants = {
 export const ApiRouteConstants = {
    Account: {
       FindUsersByName: "account/FindUsersByName/:req",
+      GetProfessors: "account/professors",
       SetProfessorDepartment: "account/professor/:userId/setDepartment/:departmentId",
       SetStudentGroup: "account/student/:userId/setGroup/:groupId"
    },
@@ -55,15 +56,26 @@ export const ApiRouteConstants = {
       Role: "account/role",
       User: "account/user"
    },
-   Shedule: {
-       getPair: "demo/pair/{id}",
-       getProfessorPairs: "demo/professor/:id/pairs",
-       getEvenProfessorPairs: "demo/professor/:id/pairs/even",
-       getOddProfessorPairs: "demo/professor/:id/pairs/odd",
-       getEvenGroupPairs: "demo/group/:id/pairs/even",
-       getOddGroupPairs: "demo/group/:id/pairs/odd",
-       getEvenDepartmentPairs: "demo/department/:id/pairs/even",
-       getOddDepartmentPairs: "demo/department/:id/pairs/odd",
+    Pair: {
+        All: "pairs",
+        Save: "demo/pair/save",
+        Delete: "demo/pair/:id",
+        Get: "demo/pair/{id}",
+        Proffesor: {
+            Get: "demo/professor/:id/pairs",
+            Odd: "/professor/{id}/pairs/odd",
+            Even: "/professor/{id}/pairs/even",
+        },
+        Department: {
+            Get: "demo/department/:id/pairs",
+            Even: "demo/department/:id/pairs/even",
+            Odd: "demo/department/:id/pairs/odd",
+        },
+        Group: {
+            Get: "demo/group/:id/pairs",
+            Even: "demo/group/:id/pairs/even",
+            Odd: "demo/group/:id/pairs/odd",
+        },
    },
    News: {
       All: "news/all",
@@ -88,43 +100,20 @@ export const ApiRouteConstants = {
        },
    Dictonary: {
       Page: {
-         Disciplines: "admin/page/disciplines",
-         Users: "admin/page/users",
-         Institutes: "admin/page/institutes",
-         Departments: "admin/page/departments",
-         Groups: "admin/page/groups",
-         Roles: "admin/page/roles",
-         FieldOfKnowlage: "admin/page/fieldOfKnowledge"
+         Disciplines: "dictionary/discipline",
+         Users: "dictionary/user",
+         Institutes: "dictionary/institute",
+         Departments: "dictionary/department",
+         Groups: "dictionary/group",
+         Roles: "dictionary/role",
+         Rooms: "dictionary/room",
+         FieldOfKnowlage: "dictionary/fieldOfKnowledge",
+         DayOfWeeks: "dictionary/dayOfWeek",
+         Professors: "dictionary/professor",
+         WeekTypes: "dictionary/weekType"
       }
    },
-   Professor: {
-      All: "professors",
-      GetChetPairs:"professor/:id/pairs/even",
-      GetNechetPairs:"professor/:id/pairs/odd"
-   },
-   Group: {
-      All: "groups",
-      GetChetPairs:"group/:id/pairs/even",
-      GetNechetPairs:"group/:id/pairs/odd"
-   },
-   Department:{
-      GetChetPairs:"department/even",
-      GetNechetPairs:"department/odd"
-   },
-
-   Pair:{
-      All:"pairs",
-      Save:"pairs/save",
-      Get: "pair/get/:id",
-      Delete: "pair/delete/:id"
-   },
-   Discipline:{
-      All:"disciplines"
-   },
-   Room:{
-      All:"rooms"
-   },
-   Plugin:{
-      All:"plugins"
+   Plugin: {
+      All: "plugins"
    }
 }

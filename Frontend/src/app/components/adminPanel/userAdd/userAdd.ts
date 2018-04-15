@@ -14,7 +14,7 @@ import {AccountService} from "../../../services/accountService";
 @Component({
     selector: 'user-add',
     templateUrl: "./userAdd.html",
-    styleUrls: ["./userAdd.css"],
+    styleUrls: ["./userAdd.css"]
 })
 
 export class UserAddComponent implements OnInit {
@@ -80,6 +80,8 @@ export class UserAddComponent implements OnInit {
         }
         if (newRoles.length > 0)
             this.findRoles = newRoles;
+        else
+            this.findRoles = [];
     }
 
     setRole() {

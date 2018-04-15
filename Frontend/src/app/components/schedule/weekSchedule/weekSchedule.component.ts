@@ -1,10 +1,4 @@
 import {Component, EventEmitter, Injectable, Input, OnInit, Output} from '@angular/core';
-import {Router} from "@angular/router";
-import {User} from "../../../models/account/user.model";
-import {AuthenticationService} from "../../../services/authService";
-import {JournalService} from "../../../services/journal.service";
-import {Journal} from "../../../models/journal/journal.model";
-import {SheduleService} from "../../../services/shedule.service";
 import {Pair} from "../../../models/shedule/pair";
 
 @Component({
@@ -15,10 +9,12 @@ import {Pair} from "../../../models/shedule/pair";
 @Injectable()
 export class WeekScheduleComponent implements OnInit {
 
-    @Output() clickPair = new EventEmitter<any>();
-    @Input()
-    public pairs: Array<Pair>;
-    public days = ["Понедельник", "Вторник", "Среда", "Четверг", "Пятница", "Суббота", "Воскресенье"];
+    @Output() clickPair = new EventEmitter<Pair>();
+    @Output() updatePair = new EventEmitter<any>();
+    @Input() pairs: Array<Pair>;
+    @Input() showDetailOnHover: boolean = false;
+    @Input() editable: boolean = false;
+    public days = ["Понедельник", "Вторник", "Среда", "Четверг", "Пятница", "Суббота"];
     public lessonsTime = [
         {number: 1, Start: "8:30", End: "10:05"},
         {number: 2, Start: "10:15", End: "11:50"},
@@ -28,15 +24,53 @@ export class WeekScheduleComponent implements OnInit {
         {number: 6, Start: "17:45", End: "19:20"}
     ]
 
-    constructor(private authenticationService: AuthenticationService,
-                private journalService: JournalService,
-                private sheduleService: SheduleService,
-                private router: Router) { }
+    public currentPair: Pair;
+    public X: number;
+    public Y: number;
 
-    ngOnInit(): void {}
+    constructor() { }
 
-    onClick(pair) {
+    ngOnInit(): void { }
+
+    updatePairs() {
+        this.updatePair.emit();
+    }
+
+    onClick(event, pair) {
         this.clickPair.emit(pair);
+        if (this.editable) {
+            this.X = event.layerX;
+            this.Y = event.layerY;
+            this.currentPair = pair;
+        }
+    }
+
+    closeDetails() {
+        if (this.editable) {
+            this.currentPair = null;
+        }
+    }
+
+    onMouseLeave() {
+        if (!this.editable && this.showDetailOnHover) {
+            this.currentPair = null;
+        }
+    }
+
+    onMouseMove(event: MouseEvent) {
+        if (!this.editable && this.showDetailOnHover) {
+            this.X = event.layerX;
+            this.Y = event.layerY;
+        }
+    }
+
+    onMouseEnter(event: MouseEvent, pair) {
+        if (!this.editable && this.showDetailOnHover) {
+            this.X = event.layerX;
+            this.Y = event.layerY;
+            if (this.showDetailOnHover == true)
+                this.currentPair = pair;
+        }
     }
 
 }

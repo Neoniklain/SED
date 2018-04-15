@@ -20,5 +20,11 @@ export const LANG_RU_TRANS = {
     "institute": "Институт",
     "group": "Группа",
     "userFIO": "ФИО пользователя",
-    "password": "Пароль"
+    "password": "Пароль",
+    "rooms": "Аудитории",
+    "room": "Аудитория",
+    "professor ": "Преподаватель",
+    "admin ": "Администратор",
+    "student ": "Судент",
+
 };

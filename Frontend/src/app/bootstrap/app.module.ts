@@ -31,25 +31,12 @@ import {EditorListNewsComponent} from "../components/news/editor-list-news/edito
 import {ListNewsComponent} from "../components/news/list-news/list-news.component";
 import {NotFoundComponent} from "../components/notfound/notfound.component";
 import {UserAddComponent} from "../components/adminPanel/userAdd/userAdd";
-import {ListProfessorsComponent} from "../components/professor/list-professors.component";
-import {SinglePairProfessorComponent} from "../components/pairs/list-pairs-professor/single-pair-professor.component";
-import {ListPairsProfessorComponent} from "../components/pairs/list-pairs-professor/list-pairs-professor.component";
-import {ListPairsGroupComponent} from "../components/pairs/list-pairs-group/list-pairs-group.component";
-import {SinglePairGroupComponent} from "../components/pairs/list-pairs-group/single-pair-group.component";
-import {ListPairsDepartmentComponent} from "../components/pairs/list-pairs-department/list-pairs-department.component";
-import {SinglePairDepartmentComponent} from "../components/pairs/list-pairs-department/single-pair-department.component";
-import {EditorSinglePairComponent} from "../components/pairs/editor-single-pair/editor-single-pair.component";
-import {EditorListPairsComponent} from "../components/pairs/editor-list-pairs/editor-list-pairs.component";
+import {PairCreateComponent} from "../components/schedule/pairCreate/create-pair.component";
 // services
 import {NewsService} from "../services/news.service";
 import {IssueService} from "../services/issues.service";
 import {AuthenticationService} from "../services/authService";
-import {ProfessorService} from "../services/professor.service";
-import {GroupService} from "../services/group.service";
 import {PairService} from "../services/pair.service";
-import {DepartmentService} from "../services/department.service";
-import {DisciplineService} from "../services/discipline.service";
-import {RoomService} from "../services/room.service";
 import {PluginService} from "../services/plugin.service";
 // guards
 import {AuthGuard} from "../guards/auth.guard";
@@ -72,8 +59,10 @@ import {JournalService} from "../services/journal.service";
 import {DictionaryTableAddComponent} from "../components/adminPanel/dictionaryTable/added/dictionaryTableAdd.component";
 import {LoaderComponent} from "../components/shared/loader";
 import {UtilsService} from "../services/utils.service";
-import {SheduleService} from "../services/shedule.service";
 import {WeekScheduleComponent} from "../components/schedule/weekSchedule/weekSchedule.component";
+import {ShowScheduleComponent} from "../components/adminPanel/showSchedule/show-schedule.component";
+import {DepartmentScheduleComponent} from "../components/schedule/departmentSchedule/departmentShedule.component";
+import {PairDetailsComponent} from "../components/schedule/pairDetails/pairDeatails.component";
 
 @NgModule({
    imports: [
@@ -117,17 +106,11 @@ import {WeekScheduleComponent} from "../components/schedule/weekSchedule/weekSch
       DictionaryTableAddComponent,
       LoaderComponent,
       JournalComponent,
-      HasRoleDirective
+      DepartmentScheduleComponent,
       HasRoleDirective,
-      ListProfessorsComponent,
-      SinglePairProfessorComponent,
-      ListPairsProfessorComponent,
-      ListPairsGroupComponent,
-      SinglePairGroupComponent,
-      ListPairsDepartmentComponent,
-      SinglePairDepartmentComponent,
-      EditorListPairsComponent,
-      EditorSinglePairComponent
+      ShowScheduleComponent,
+      PairCreateComponent,
+      PairDetailsComponent
    ],
    providers: [
       {provide: RequestOptions, useClass: GlobalHttpOptions},
@@ -142,16 +125,10 @@ import {WeekScheduleComponent} from "../components/schedule/weekSchedule/weekSch
       UtilsService,
       DictionaryService,
       ConfirmationService,
-      SheduleService,
       JournalService,
       AuthGuard,
       Globals,
-      ProfessorService,
-      GroupService,
       PairService,
-      DepartmentService,
-      DisciplineService,
-      RoomService,
       PluginService
    ],
    entryComponents: [],

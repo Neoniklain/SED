@@ -1,11 +1,11 @@
-import {Router} from "@angular/router";
-import {HttpClient, HttpParams, HttpErrorResponse} from "@angular/common/http";
-import {Injectable} from "@angular/core";
-import {Pair} from "../models/pair.model";
-import {ApiRouteConstants} from "../bootstrap/app.route.constants";
-import {Observable} from "rxjs";
-
-
+import { Injectable } from "@angular/core";
+import { HttpClient, HttpResponse, HttpErrorResponse, HttpParams } from "@angular/common/http";
+import { Observable } from "rxjs/Observable";
+import { Router } from "@angular/router";
+import { ApiRouteConstants } from "../bootstrap/app.route.constants";
+import 'rxjs/add/operator/catch';
+import {Pair} from "../models/shedule/pair";
+import {DepartmentShedule} from "../models/shedule/departmentShedule";
 
 @Injectable()
 export class PairService {
@@ -28,9 +28,48 @@ export class PairService {
     }
 
     public Delete(id: number) {
-        let params = new HttpParams();
-        return this.http.post(ApiRouteConstants.Pair.Delete.replace(":id", id.toString()), null, {params: params}).catch(this.handleError);
+        return this.http.delete(ApiRouteConstants.Pair.Delete.replace(":id", id.toString())).catch(this.handleError);
     }
+
+    GetPeofessorPair(professorId: number): Observable<Array<Pair>> {
+        return this.http.get(ApiRouteConstants.Pair.Proffesor.Get.replace(":id", professorId.toString()))
+            .catch(this.handleError);
+    }
+    GetPeofessorPairOdd(professorId: number): Observable<Array<Pair>> {
+        return this.http.get(ApiRouteConstants.Pair.Proffesor.Odd.replace(":id", professorId.toString()))
+            .catch(this.handleError);
+    }
+    GetPeofessorPairEven(professorId: number): Observable<Array<Pair>> {
+        return this.http.get(ApiRouteConstants.Pair.Proffesor.Even.replace(":id", professorId.toString()))
+            .catch(this.handleError);
+    }
+
+    GetDepartmentPair(departmentId: number): Observable<Array<DepartmentShedule>> {
+        return this.http.get(ApiRouteConstants.Pair.Department.Get.replace(":id", departmentId.toString()))
+            .catch(this.handleError);
+    }
+    GetDepartmentPairOdd(departmentId: number): Observable<Array<Pair>> {
+        return this.http.get(ApiRouteConstants.Pair.Department.Odd.replace(":id", departmentId.toString()))
+            .catch(this.handleError);
+    }
+    GetDepartmentPairEven(departmentId: number): Observable<Array<Pair>> {
+        return this.http.get(ApiRouteConstants.Pair.Department.Even.replace(":id", departmentId.toString()))
+            .catch(this.handleError);
+    }
+
+    GetGroupPair(groupId: number): Observable<Array<Pair>> {
+        return this.http.get(ApiRouteConstants.Pair.Group.Get.replace(":id", groupId.toString()))
+            .catch(this.handleError);
+    }
+    GetGroupPairOdd(groupId: number): Observable<Array<Pair>> {
+        return this.http.get(ApiRouteConstants.Pair.Group.Odd.replace(":id", groupId.toString()))
+            .catch(this.handleError);
+    }
+    GetGroupPairEven(groupId: number): Observable<Array<Pair>> {
+        return this.http.get(ApiRouteConstants.Pair.Group.Even.replace(":id", groupId.toString()))
+            .catch(this.handleError);
+    }
+
 
     private handleError(error: HttpErrorResponse | any) {
         let errMsg: string;

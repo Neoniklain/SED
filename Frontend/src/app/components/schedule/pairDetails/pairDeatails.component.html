@@ -1,0 +1,90 @@
+<div *ngIf="pair && !editable" class="pair-details" [ngStyle]="getStyle()">
+    <div style="display: block"><b>Группа: </b>{{pair.group.name}}</div>
+    <div style="display: block"><b>Дисциплина: </b>{{pair.discipline.name}}</div>
+    <div style="display: block"><b>Тип: </b>{{pair.weektype}}</div>
+    <div style="display: block"><b>Преподаватель: </b>{{pair.professor.userFIO}}</div>
+    <div style="display: block"><b>Кабинет: </b>{{pair.room.room}}</div>
+</div>
+
+<div *ngIf="pair && editable" class="pair-details" [ngStyle]="getStyle()">
+    <span class="close-button" (click)="closeDetails()">X</span>
+    <div class="form-group row">
+        <label for="group" class="col-sm-5 col-form-label">Группа</label>
+        <div class="col-sm-7">
+            <p-autoComplete [inputStyleClass]="form-control" id="group" [(ngModel)]="pair.group"
+                            (onSelect)="selectGroup($event)" (ngModelChange)="checkOneEmpty()"
+                            [suggestions]="findGroups" (completeMethod)="searchGroups($event)"
+                            [multiple]="false" field="name" [emptyMessage]="'Не найдено.'"
+                            [forceSelection]="true"></p-autoComplete>
+        </div>
+    </div>
+
+    <div class="form-group row">
+        <label for="discipline" class="col-sm-5 col-form-label">Дисциплина</label>
+        <div class="col-sm-7">
+            <p-autoComplete [inputStyleClass]="form-control" id="discipline" [(ngModel)]="pair.discipline"
+                            (onSelect)="selectDiscipline($event)" (ngModelChange)="checkOneEmpty()"
+                            [suggestions]="findDisciplines" (completeMethod)="searchDisciplines($event)"
+                            [multiple]="false" field="name" [emptyMessage]="'Не найдено.'"
+                            [forceSelection]="true" ></p-autoComplete>
+        </div>
+    </div>
+
+    <div class="form-group row">
+        <label for="weekType" class="col-sm-5 col-form-label">Период занятия</label>
+        <div class="col-sm-7">
+            <p-autoComplete [inputStyleClass]="form-control" id="weekType" [(ngModel)]="pair.weektype"
+                            [suggestions]="findWeektypes" (completeMethod)="searchWeektypes($event)"
+                            [multiple]="false" [emptyMessage]="'Не найдено.'"
+                            [forceSelection]="true"></p-autoComplete>
+        </div>
+    </div>
+
+    <div class="form-group row">
+        <label for="professor" class="col-sm-5 col-form-label">Преподаватель</label>
+        <div class="col-sm-7">
+            <p-autoComplete [inputStyleClass]="form-control" id="professor" [(ngModel)]="pair.professor"
+                            (onSelect)="selectProfessor($event)" (ngModelChange)="checkOneEmpty()"
+                            [suggestions]="findProfessors" (completeMethod)="searchProfessors($event)"
+                            [multiple]="false" field="userFIO" [emptyMessage]="'Не найдено.'"
+                            [forceSelection]="true"></p-autoComplete>
+        </div>
+    </div>
+
+    <div class="form-group row">
+        <label for="room" class="col-sm-5 col-form-label">Кабинет</label>
+        <div class="col-sm-7">
+            <p-autoComplete [inputStyleClass]="form-control" id="room" [(ngModel)]="pair.room"
+                            (onSelect)="selectRoom($event)" (ngModelChange)="checkOneEmpty()"
+                            [suggestions]="findRooms" (completeMethod)="searchRooms($event)"
+                            [multiple]="false" field="room" [emptyMessage]="'Не найдено.'"
+                            [forceSelection]="true"></p-autoComplete>
+        </div>
+    </div>
+
+    <div class="form-group row">
+        <div class="col-sm-6 text-left">
+            <button (click)="showDeleteDialog = true;" class="btn btn-danger btn-sm">Удалить</button>
+        </div>
+        <div class="col-sm-6 text-right">
+            <button (click)="updatePairs()" class="btn btn-success btn-sm">Обновить</button>
+        </div>
+    </div>
+
+</div>
+
+<p-dialog *ngIf="pair" header="Удаление занятия" [(visible)]="showDeleteDialog" modal="modal" [responsive]="true" [width]="350" [minWidth]="200">
+    <span>Вы действительно хотите удалить занятие? :
+        <div style="display: block"><b>Преподаватель: </b>{{pair.professor.userFIO}}</div>
+        <div style="display: block"><b>День недели: </b>{{pair.dayofweek}}</div>
+        <div style="display: block"><b>Номер занятия: </b>{{pair.pairNumber}}</div>
+        <div style="display: block"><b>Пероидичность: </b>{{pair.weektype}}</div>
+        <div style="display: block"><b>Группа: </b>{{pair.group.name}}</div>
+        <div style="display: block"><b>Дисциплина: </b>{{pair.discipline.name}}</div>
+        <div style="display: block"><b>Кабинет: </b>{{pair.room.room}}</div>
+    </span>
+    <p-footer>
+        <button type="button" pButton icon="fa-check" (click)="deletePair()" label="Да"></button>
+        <button type="button" pButton icon="fa-close" (click)="showDeleteDialog=false" label="Нет"></button>
+    </p-footer>
+</p-dialog>

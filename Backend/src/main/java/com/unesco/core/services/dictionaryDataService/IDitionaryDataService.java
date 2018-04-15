@@ -11,6 +11,7 @@ import com.unesco.core.models.additional.PageResult;
 import com.unesco.core.models.enums.RoleType;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -24,6 +25,10 @@ public interface IDitionaryDataService {
    RoleModel getRole(int id);
    RoleModel getRole(RoleType roleType);
    FieldOfKnowledgeModel getFieldOfKnowledges(int id);
+   RoomModel getRooms(int id);
+   PageResult<String> getWeekTypePage(FilterQuery filter);
+   PageResult<String> getDayOfWeekPage(FilterQuery filter);
+   PageResult<ProfessorModel> getProfessorPage(FilterQuery filter);
 
    List<InstituteModel> getInstitutes();
    List<DepartmentModel> getDepartments();
@@ -32,6 +37,7 @@ public interface IDitionaryDataService {
    List<UserModel> getUsers();
    List<RoleModel> getRoles();
    List<FieldOfKnowledgeModel> getFieldOfKnowledges();
+   List<RoomModel> getRooms();
 
    PageResult<InstituteModel> getInstitutePage(FilterQuery filter);
    PageResult<DepartmentModel> getDepartmentPage(FilterQuery filter);
@@ -40,18 +46,21 @@ public interface IDitionaryDataService {
    PageResult<UserModel> getUserPage(FilterQuery filter);
    PageResult<RoleModel> getRolePage(FilterQuery filter);
    PageResult<FieldOfKnowledgeModel> getFieldOfKnowledgePage(FilterQuery filter);
+   PageResult<RoomModel> getRoomPage(FilterQuery filter);
 
-   String AddOrUpdateDiscipline(DisciplineModel discipline);
-   String AddOrUpdateInstitute(InstituteModel institute);
-   String AddOrUpdateDepartment(DepartmentModel department);
-   String AddOrUpdateGroup(GroupModel group);
-   String AddOrUpdateRole(RoleModel role);
-   String AddOrUpdateFieldOfKnowledge(FieldOfKnowledgeModel fieldOfKnowledge);
+   JSONResponseStatus AddOrUpdateDiscipline(DisciplineModel discipline);
+   JSONResponseStatus AddOrUpdateInstitute(InstituteModel institute);
+   JSONResponseStatus AddOrUpdateDepartment(DepartmentModel department);
+   JSONResponseStatus AddOrUpdateGroup(GroupModel group);
+   JSONResponseStatus AddOrUpdateRole(RoleModel role);
+   JSONResponseStatus AddOrUpdateFieldOfKnowledge(FieldOfKnowledgeModel fieldOfKnowledge);
+   JSONResponseStatus AddOrUpdateRoom(RoomModel room);
 
-   String DeleteDiscipline(int id);
-   String DeleteInstitute(int id);
-   String DeleteDepartment(int id);
-   String DeleteGroup(int id);
-   String DeleteRole(int id);
-   String DeleteFieldOfKnowledge(int id);
+   JSONResponseStatus DeleteDiscipline(int id);
+   JSONResponseStatus DeleteInstitute(int id);
+   JSONResponseStatus DeleteDepartment(int id);
+   JSONResponseStatus DeleteGroup(int id);
+   JSONResponseStatus DeleteRole(int id);
+   JSONResponseStatus DeleteFieldOfKnowledge(int id);
+   JSONResponseStatus DeleteRoom(int id);
 }

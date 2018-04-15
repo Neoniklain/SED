@@ -1,5 +1,6 @@
 package com.unesco.core.controller;
 
+import com.unesco.core.models.ProfessorModel;
 import com.unesco.core.models.account.UserCreateModel;
 import com.unesco.core.models.additional.JSONResponseStatus;
 import com.unesco.core.models.account.RoleModel;
@@ -55,23 +56,29 @@ public class AccountController {
         return user;
     }
 
+    @GetMapping("/professors")
+    public List<ProfessorModel> GetProfessors() {
+        List<ProfessorModel> professor = userService.getProfessors();
+        return professor;
+    }
+
     @RequestMapping(value = "/professor/{userId}/setDepartment/{departmentId}")
-    public String setProfessorDepartment(@PathVariable("userId") int userId, @PathVariable("departmentId") int departmentId) {
+    public JSONResponseStatus setProfessorDepartment(@PathVariable("userId") int userId, @PathVariable("departmentId") int departmentId) {
         try {
             userService.setProfessorDepartment(userId, departmentId);
-            return JSONResponseStatus.OK;
+            return JSONResponseStatus.OK();
         } catch (Exception e) {
-            return JSONResponseStatus.ERROR;
+            return JSONResponseStatus.ERROR();
         }
     }
 
     @RequestMapping(value = "/student/{userId}/setGroup/{groupId}")
-    public String setStudentGroup(@PathVariable("userId") int userId, @PathVariable("groupId") int groupId) {
+    public JSONResponseStatus setStudentGroup(@PathVariable("userId") int userId, @PathVariable("groupId") int groupId) {
         try {
             userService.setUserGroup(userId, groupId);
-            return JSONResponseStatus.OK;
+            return JSONResponseStatus.OK();
         } catch (Exception e) {
-            return JSONResponseStatus.ERROR;
+            return JSONResponseStatus.ERROR();
         }
     }
 }

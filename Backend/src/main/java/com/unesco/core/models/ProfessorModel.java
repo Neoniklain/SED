@@ -14,6 +14,7 @@ public class ProfessorModel extends UserModel {
     public DepartmentModel department;
 
     public ProfessorModel() {
+        department = new DepartmentModel();
     }
 
     public DepartmentModel getDepartment() {

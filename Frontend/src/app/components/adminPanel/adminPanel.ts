@@ -10,6 +10,7 @@ import {Institute} from "../../models/institute";
 import {Department} from "../../models/department";
 import {Group} from "../../models/group";
 import {isUndefined} from "util";
+import {Room} from "../../models/room.model";
 
 @Component({
    selector: 'admin-panel-page',
@@ -55,6 +56,9 @@ export class AdminPanelComponent implements OnInit {
          case Dictionary.groups.toString():
              this.currentModel = new Group();
             break;
+          case Dictionary.rooms.toString():
+              this.currentModel = new Room();
+              break;
       }
    }
 

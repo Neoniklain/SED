@@ -3,10 +3,8 @@ package com.unesco.core.services.sheduleService;
 import com.unesco.core.entities.Group;
 import com.unesco.core.entities.Professor;
 import com.unesco.core.entities.schedule.Pair;
-import com.unesco.core.models.DepartmentModel;
-import com.unesco.core.models.GroupModel;
-import com.unesco.core.models.PairModel;
-import com.unesco.core.models.ProfessorModel;
+import com.unesco.core.models.*;
+import com.unesco.core.models.additional.JSONResponseStatus;
 import com.unesco.core.repositories.PairRepository;
 import com.unesco.core.repositories.account.ProfessorRepository;
 import com.unesco.core.services.mapperService.IMapperService;
@@ -48,7 +46,7 @@ public class SheduleService implements ISheduleService{
         Iterable<Pair> pairs = pairRepository.findPairsByProfessor(professorEntity);
         List<PairModel> result = new ArrayList<PairModel>();
         for (Pair p : pairs) {
-            if (p.getWeektype().getType().equals("Нечет"))
+            if (p.getWeektype().equals("Нечет"))
                 result.add((PairModel) mapperService.toModel(p));
         }
         return result;
@@ -59,18 +57,27 @@ public class SheduleService implements ISheduleService{
         Iterable<Pair> pairs = pairRepository.findPairsByProfessor(professorEntity);
         List<PairModel> result = new ArrayList<PairModel>();
         for (Pair p : pairs) {
-            if (p.getWeektype().getType().equals("Чет"))
+            if (p.getWeektype().equals("Чет"))
                 result.add((PairModel) mapperService.toModel(p));
         }
         return result;
     }
 
+    public List<PairModel> getPairs(GroupModel group)
+    {
+        Iterable<Pair> pairs = pairRepository.findPairsByGroup((Group) mapperService.toEntity(group));
+        List<PairModel> result = new ArrayList<PairModel>();
+        for (Pair p : pairs) {
+            result.add((PairModel) mapperService.toModel(p));
+        }
+        return result;
+    }
     public List<PairModel> getOddPairs(GroupModel group)
     {
         Iterable<Pair> pairs = pairRepository.findPairsByGroup((Group) mapperService.toEntity(group));
         List<PairModel> result = new ArrayList<PairModel>();
         for (Pair p : pairs) {
-            if (p.getWeektype().getType().equals("Чет")) {
+            if (p.getWeektype().equals("Чет")) {
                 result.add((PairModel) mapperService.toModel(p));
             }
         }
@@ -81,43 +88,108 @@ public class SheduleService implements ISheduleService{
         Iterable<Pair> pairs = pairRepository.findPairsByGroup((Group) mapperService.toEntity(group));
         List<PairModel> result = new ArrayList<PairModel>();
         for (Pair p : pairs) {
-            if (p.getWeektype().getType().equals("Нечет")) {
+            if (p.getWeektype().equals("Нечет")) {
                 result.add((PairModel) mapperService.toModel(p));
             }
         }
         return result;
     }
 
-    public Map<ProfessorModel, List<PairModel>> getOddPairs(DepartmentModel department)
+    public List<DepartmentSheduleModel> getPairs(DepartmentModel department)
     {
         List<ProfessorModel> professors = userService.getProfessors();
 
-        Map<ProfessorModel, List<PairModel>> pairsMap = new HashMap<>();
+        List<DepartmentSheduleModel> result = new ArrayList<DepartmentSheduleModel>();
 
         for(ProfessorModel proffesor : professors) {
-            List<PairModel> pairsList = getEvenPairs(proffesor);
-            pairsMap.put(proffesor, pairsList);
+            DepartmentSheduleModel shedule = new DepartmentSheduleModel();
+            List<PairModel> pairsList = getPairs(proffesor);
+            shedule.setProfessor(proffesor);
+            shedule.setPairs(pairsList);
+            result.add(shedule);
         }
 
-        return pairsMap;
+        return result;
     }
-    public Map<ProfessorModel, List<PairModel>> getEvenPairs(DepartmentModel department)
+
+    public List<DepartmentSheduleModel> getOddPairs(DepartmentModel department)
     {
         List<ProfessorModel> professors = userService.getProfessors();
 
-        Map<ProfessorModel, List<PairModel>> pairsMap = new HashMap<>();
+        List<DepartmentSheduleModel> result = new ArrayList<DepartmentSheduleModel>();
 
         for(ProfessorModel proffesor : professors) {
-            List<PairModel> pairsList = getOddPairs(proffesor);
-            pairsMap.put(proffesor, pairsList);
+            DepartmentSheduleModel shedule = new DepartmentSheduleModel();
+            List<PairModel> pairsList = getEvenPairs(proffesor);
+            shedule.setProfessor(proffesor);
+            shedule.setPairs(pairsList);
+            result.add(shedule);
         }
 
-        return pairsMap;
+        return result;
+    }
+
+    public List<DepartmentSheduleModel> getEvenPairs(DepartmentModel department)
+    {
+        List<ProfessorModel> professors = userService.getProfessors();
+
+        List<DepartmentSheduleModel> result = new ArrayList<DepartmentSheduleModel>();
+
+        for(ProfessorModel proffesor : professors) {
+            DepartmentSheduleModel shedule = new DepartmentSheduleModel();
+            List<PairModel> pairsList = getOddPairs(proffesor);
+            shedule.setProfessor(proffesor);
+            shedule.setPairs(pairsList);
+            result.add(shedule);
+        }
+
+        return result;
     }
 
     public PairModel getPair(int id)
     {
         Pair pair = pairRepository.findOne((long) id);
         return (PairModel) mapperService.toModel(pair);
+    }
+
+    public JSONResponseStatus deletePair(int id)
+    {
+        try { pairRepository.delete((long)id); }
+        catch (Exception e){ return JSONResponseStatus.ERROR(); }
+        return JSONResponseStatus.OK();
+    }
+
+    public JSONResponseStatus savePair(PairModel pairModel)
+    {
+        Pair entity = (Pair) mapperService.toEntity(pairModel);
+        entity.setProfessor(professorRepository.findOne(entity.getProfessor().getUser().getId()));
+
+        List<Pair> check = new ArrayList<>();
+        // Проверка занятий на переcечение для проподавателя
+        check = pairRepository.findPairsByDayofweekAndPairNumberAndWeektypeAndProfessor
+                (entity.getDayofweek(), entity.getPairNumber(), entity.getWeektype(), entity.getProfessor());
+        if (!check.isEmpty())
+            return JSONResponseStatus.ERROR("Для преподавателя "+check.get(0).getProfessor().getUser().getUserFIO()
+                    +" уже назначено занятие в это время у группы "+check.get(0).getGroup().getName());
+        // Проверка занятий на переcечение для аудиотрии
+        check = pairRepository.findPairsByDayofweekAndPairNumberAndWeektypeAndRoom
+                (entity.getDayofweek(), entity.getPairNumber(), entity.getWeektype(), entity.getRoom());
+        if (!check.isEmpty())
+            return JSONResponseStatus.ERROR("В аудитории "+check.get(0).getRoom().getRoom()
+                    +" уже назначено занятие в это время у преподавателя "+check.get(0).getProfessor().getUser().getUserFIO());
+        // Проверка занятий на переcечение для группы
+        check = pairRepository.findPairsByDayofweekAndPairNumberAndWeektypeAndRoom
+                (entity.getDayofweek(), entity.getPairNumber(), entity.getWeektype(), entity.getRoom());
+        if (!check.isEmpty())
+            return JSONResponseStatus.ERROR("У группы "+check.get(0).getGroup().getName()
+                    +" уже назначено занятие в это время у преподавателя "+check.get(0).getProfessor().getUser().getUserFIO());
+
+        try {
+            pairRepository.save(entity);
+        }
+        catch (Exception e){
+            return JSONResponseStatus.ERROR();
+        }
+        return JSONResponseStatus.OK();
     }
 }
