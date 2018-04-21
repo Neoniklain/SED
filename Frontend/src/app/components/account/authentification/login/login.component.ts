@@ -5,7 +5,6 @@ import {MessageService} from "primeng/components/common/messageservice";
 import {AuthenticationService} from "../../../../services/authService";
 import {NgForm} from "@angular/forms";
 import {Globals} from "../../../../globals";
-/*import {HeaderComponent} from "../../../header/header";*/
 
 @Component({
    selector: 'login-page',
@@ -23,8 +22,7 @@ export class LogInComponent {
    constructor(private authenticationService: AuthenticationService,
                private router: Router,
                private messageService: MessageService,
-               private globals: Globals,
-               /**private headerComponent: HeaderComponent*/) {
+               private globals: Globals) {
       this.user = new LogInUser();
       this.auth_user = new User();
       this.tryed = false;
@@ -43,7 +41,6 @@ export class LogInComponent {
                 this.authenticationService.getRole().subscribe(
                     result => {
                        this.globals.role = result;
-                       // this.headerComponent.setUser(this.user.username);
                     }
                 );
              }

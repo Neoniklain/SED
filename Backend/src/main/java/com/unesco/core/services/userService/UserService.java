@@ -124,10 +124,13 @@ public class UserService implements IUserService {
 
     public List<UserModel> getUserByFio(String fio)
     {
-        List<User> allUsers = userRepository.findAllByUserFIO(fio);
+        Iterable<User> allUsers = userRepository.findAll();
         List<UserModel> result = new ArrayList<UserModel>();
         for (User item : allUsers) {
-            result.add((UserModel) mapperService.toModel(item));
+            if(item.getUserFIO().toLowerCase().contains(fio.toLowerCase()))
+            {
+                result.add((UserModel) mapperService.toModel(item));
+            }
         }
         return result;
     }

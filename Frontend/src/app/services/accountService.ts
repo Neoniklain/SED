@@ -11,7 +11,7 @@ export class AccountService {
     constructor(private http: HttpClient) { }
 
     public FindUsersByFIO(req: string) {
-        return this.http.get(ApiRouteConstants.Account.FindUsersByFIO.replace(":req", req), {responseType: "text"})
+        return this.http.get(ApiRouteConstants.Account.FindUsersByFIO.replace(":req", req))
             .catch(this.handleError);
     }
 

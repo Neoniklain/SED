@@ -72,7 +72,7 @@ public class TaskDataService implements ITaskDataService
           col.add(temp);
          //col.add(_TaskRepository.findById(task.getId()));
       }
-      res.setSubTasks((List<Task>)col);
+      res.setSubTasks((List<Task>)subTasks);
 
       if(!res.getSubTasks().isEmpty())
       {
@@ -96,8 +96,8 @@ public class TaskDataService implements ITaskDataService
          col.add(_TaskRepository.findById(task.getId()));
       }
       res.setSubTasks(col);
-      //_TaskDescriptionRepository.save(res);
-      System.out.println("Задача обновлена!.");
+      _TaskDescriptionRepository.save(res);
+      System.out.println("Задача обновлена!");
    }
 
    @Override
@@ -107,6 +107,14 @@ public class TaskDataService implements ITaskDataService
            _TaskRepository.delete(item.getId());
        }
        _TaskDescriptionRepository.delete(temp.getId());
+   }
+
+   @Override
+   public void answerTask(TaskModel item) {
+      Task res = _TaskRepository.findById(item.getId());
+      res.setStatus(_Statuses.SentToRevision.toString());
+      res.setResponse(item.getResponse());
+      _TaskRepository.save(res);
    }
 
    @Override

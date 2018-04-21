@@ -48,15 +48,16 @@ export class HeaderComponent implements OnInit {
    }
 
    // Пытался извне изменить юзера. Не получилось. Отложил на потом.
-   /*public setUser(login: string) {
-       this.accountService.FindUserByLogin(login).subscribe(
-           res => {
-               this.user.userFIO = res.userFIO;
-               this.user.username = res.username;
-               this.user.email = res.email;
-               this.user.roles = res.roles;
+   public setUser() {
+       this.user = new User();
+       this.authService.getUser()
+           .subscribe((res: any) => {
+               this.user = res;
+           }, (error: any) => {
+               if (error.statusText === "Forbidden")
+                   this.router.navigate(['/404']);
            });
-   }*/
+   }
 
    logout() {
       localStorage.removeItem("token");

@@ -63,6 +63,8 @@ import {WeekScheduleComponent} from "../components/schedule/weekSchedule/weekSch
 import {ShowScheduleComponent} from "../components/adminPanel/showSchedule/show-schedule.component";
 import {DepartmentScheduleComponent} from "../components/schedule/departmentSchedule/departmentShedule.component";
 import {PairDetailsComponent} from "../components/schedule/pairDetails/pairDeatails.component";
+import {NewTaskDescComponent} from "../components/task/newTask/newTaskDesc.component";
+import {WorkTaskComponent} from "../components/task/workTask/workTask.component";
 
 @NgModule({
    imports: [
@@ -88,6 +90,7 @@ import {PairDetailsComponent} from "../components/schedule/pairDetails/pairDeata
       NewsDispatcherComponent,
       TaskDescListComponent,
       NewTaskDescComponent,
+      WorkTaskComponent,
       LogInComponent,
       RegisterComponent,
       SingleNewsComponent,

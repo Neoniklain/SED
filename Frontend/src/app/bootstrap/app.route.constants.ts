@@ -45,7 +45,8 @@ export const RouteConstants = {
 
 export const ApiRouteConstants = {
    Account: {
-       FindUsersByFIO: "account/FindUsersByFIO/:req",
+      FindUsersByFIO: "account/FindUsersByFIO/:req",
+      FindUserByUsername: "account/FindUserByUsername/:req",
       GetProfessors: "account/professors",
       SetProfessorDepartment: "account/professor/:userId/setDepartment/:departmentId",
       SetStudentGroup: "account/student/:userId/setGroup/:groupId"
@@ -89,7 +90,8 @@ export const ApiRouteConstants = {
       Create: "task/create",
       Update: "task/update",
       Get: "task/get/:id",
-      Delete: "task/delete/:id"
+      Delete: "task/delete/:id",
+      AnswerTask: "task/answer"
    },
    Journal: {
       All: "jurnal/professor/:professorId/group/:groupId"

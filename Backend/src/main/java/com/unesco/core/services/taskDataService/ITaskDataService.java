@@ -45,6 +45,11 @@ public interface ITaskDataService {
     */
    void deleteTaskDescription(long id);
    /**
+    * Сохраняет ответ на задачу от пользователя.
+    * @param item модель ответа на задачи
+    */
+   void answerTask(TaskModel item);
+   /**
     * Возвращает модель описания задачи для указанного id.
     * @param id id существующей задачи
     */

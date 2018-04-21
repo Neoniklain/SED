@@ -56,6 +56,12 @@ public class TaskController {
         return JSONResponseStatus.OK();
     }
 
+    @RequestMapping(value = "/answer")
+    public JSONResponseStatus Answer(@RequestBody TaskModel item) {
+        this._TaskDataService.answerTask(item);
+        return JSONResponseStatus.OK();
+    }
+
     @RequestMapping(value = "/get/{id}")
     public TaskDescriptionModel Get(@PathVariable("id") long id) {
         return _TaskDataService.getTaskDescriptionById(id);

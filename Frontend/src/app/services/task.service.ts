@@ -26,16 +26,22 @@ export class  TaskService {
         .catch(this.handleError);
     }
 
-    public Update(issue: TaskDescription) {
+    public Update(item: TaskDescription) {
         let params = new HttpParams();
-        return this.http.post(ApiRouteConstants.Task.Update, issue, {params: params })
+        return this.http.post(ApiRouteConstants.Task.Update, item, {params: params })
         .catch(this.handleError);
     }
 
-    public Create(issueName: TaskDescription) {
+    public Create(item: TaskDescription) {
         let params = new HttpParams();
-        return this.http.post(ApiRouteConstants.Task.Create, issueName, {params: params })
+        return this.http.post(ApiRouteConstants.Task.Create, item, {params: params })
         .catch(this.handleError);
+    }
+
+    public AnswerTask(item: Task) {
+        let params = new HttpParams();
+        return this.http.post(ApiRouteConstants.Task.AnswerTask, Task, {params: params })
+            .catch(this.handleError);
     }
 
     private handleError(error: HttpErrorResponse | any) {
