@@ -10,6 +10,11 @@
  * Sidebar (add to your bootstrap)
  */
 
+.news-empty-content {
+    text-align: center;
+    font-size: 26px;
+    padding-top: 2em;
+}
 .sidebar-form {
     padding: 7px 15px 13px 15px;
 }

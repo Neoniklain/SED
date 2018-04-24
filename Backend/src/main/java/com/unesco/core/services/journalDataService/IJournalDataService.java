@@ -9,5 +9,5 @@ import java.util.List;
 
 @Service
 public interface IJournalDataService {
-   Journal getJournal(int proffesorId, int groupId);
+   Journal getJournal(int proffesorId, int groupId, int disciplineId);
 }

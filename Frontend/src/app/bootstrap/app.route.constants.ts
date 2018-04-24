@@ -92,7 +92,7 @@ export const ApiRouteConstants = {
       Delete: "issue/delete/:id"
    },
    Journal: {
-      All: "jurnal/professor/:professorId/group/:groupId"
+      All: "jurnal/professor/:professorId/group/:groupId/discipline/:disciplineId"
    },
    Excel:
        {

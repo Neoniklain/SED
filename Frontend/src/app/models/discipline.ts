@@ -2,11 +2,11 @@
 import {FieldOfKnowledge} from "./fieldOfKnowledge";
 
 export class Discipline {
-    private id: number;
+    id: number;
     /** Поле название */
-    private name: string;
+    name: string;
     /** Поле раздел знаний */
-    private fieldOfKnowledge: FieldOfKnowledge;
+    fieldOfKnowledge: FieldOfKnowledge;
 
     constructor() {
         this.id = 0;

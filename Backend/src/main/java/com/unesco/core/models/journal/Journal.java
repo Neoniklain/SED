@@ -8,10 +8,10 @@ import java.util.List;
 public class Journal
 {
    private List<StudentModel> students;
-   private List<Integer> dates;
+   private List<String> dates;
    private List<JournalCell> journalCell;
 
-   public Journal(List<StudentModel> Students, List<Integer> Dates)
+   public Journal(List<StudentModel> Students, List<String> Dates)
    {
       students = Students;
       dates = Dates;
@@ -19,7 +19,7 @@ public class Journal
 
       for (StudentModel student : students)
       {
-         for (int date : dates)
+         for (String date : dates)
          {
             journalCell.add(new JournalCell(student, date));
          }
@@ -33,10 +33,10 @@ public class Journal
       this.students = students;
    }
 
-   public List<Integer> getDates() {
+   public List<String> getDates() {
       return dates;
    }
-   public void setDates(List<Integer> dates) {
+   public void setDates(List<String> dates) {
       this.dates = dates;
    }
 

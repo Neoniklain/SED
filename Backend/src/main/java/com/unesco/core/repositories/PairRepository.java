@@ -1,5 +1,6 @@
 package com.unesco.core.repositories;
 
+import com.unesco.core.entities.Discipline;
 import com.unesco.core.entities.Group;
 import com.unesco.core.entities.plan.Semester;
 import com.unesco.core.entities.schedule.Pair;
@@ -22,5 +23,9 @@ public interface PairRepository extends CrudRepository<Pair, Long>, CrudPagableR
     List<Pair> findPairsByDayofweekAndPairNumberAndWeektypeAndRoom
             (String dayOfWeek, int pairNumber, String weekType, Room room);
     List<Pair> findPairsByDayofweekAndPairNumberAndWeektypeAndGroup
-            (String dayOfWeek, int pairNumber, String weekType, Group professor);
+            (String dayOfWeek, int pairNumber, String weekType, Group group);
+
+
+    Pair findPairsByGroupAndProfessorAndDiscipline
+            (Group group, Professor professor, Discipline discipline);
 }

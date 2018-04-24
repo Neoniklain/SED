@@ -25,6 +25,7 @@ public interface ISheduleService {
     List<DepartmentSheduleModel> getEvenPairs(DepartmentModel department);
 
     PairModel getPair(int id);
+    PairModel getPair(int proffesorId, int groupId, int disciplineId);
     JSONResponseStatus deletePair(int id);
     JSONResponseStatus savePair(PairModel pairModel);
 

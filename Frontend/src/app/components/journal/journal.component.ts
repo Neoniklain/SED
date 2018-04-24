@@ -48,7 +48,7 @@ export class JournalComponent implements OnInit {
 
     onClick(pair: Pair) {
         this.showLoader = true;
-        this.journalService.GetJournal(this.user.id, pair.group.id).subscribe(
+        this.journalService.GetJournal(this.user.id, pair.group.id, pair.discipline.id).subscribe(
             result => {
                 this.journal = result;
                 this.showLoader = false;

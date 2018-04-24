@@ -1,5 +1,6 @@
 package com.unesco.core.controller;
 
+import com.unesco.core.entities.plan.Competence;
 import com.unesco.core.entities.plan.LessonType;
 import com.unesco.core.entities.plan.Plan;
 import com.unesco.core.entities.plan.Semester;
@@ -49,7 +50,9 @@ public class ExcelController {
                     if (row.getCell(101).getStringCellValue().length() > 0) {
                         String name = row.getCell(101).getStringCellValue();
                         if (_DepartmentRepository.findByName(name) == null) {
-                            //_DepartmentRepository.save(new Department(name));
+                            Department d = new Department();
+                            d.setName(name);
+                            _DepartmentRepository.save(d);
                             System.out.println("Кафедра добавлена: " + name);
                         }
                     }
@@ -69,7 +72,7 @@ public class ExcelController {
                                 for (String code : numbers) {
                                     String res = liters + "-" + code;
                                     if (_CompetenceRepository.findByCode(res) == null) {
-                                        //_CompetenceRepository.save(new Competence(res));
+                                        _CompetenceRepository.save(new Competence(res));
                                         System.out.println("Компетенция добавлена: " + res);
                                     }
                                 }
@@ -84,7 +87,7 @@ public class ExcelController {
                     if(row.getCell(3).getCellStyle().getFillForegroundColor() == 42) {
                         String name = row.getCell(3).getStringCellValue();
                         if(_DisciplineRepository.findDisciplineByName(name) == null) {
-                            //_DisciplineRepository.save(new Discipline(name, new Date()));
+                            _DisciplineRepository.save(new Discipline(name));
                             System.out.println("Дисциплина добавлена: " + name);
                         }
                         Discipline discipline = _DisciplineRepository.findDisciplineByName(name);

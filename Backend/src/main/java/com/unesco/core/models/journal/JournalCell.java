@@ -4,7 +4,7 @@ import com.unesco.core.models.StudentModel;
 
 public class JournalCell {
    private StudentModel student;
-   private int date;
+   private String date;
    int mark;
 
    public StudentModel getStudent() {
@@ -14,10 +14,10 @@ public class JournalCell {
       this.student = student;
    }
 
-   public int getDate() {
+   public String getDate() {
       return date;
    }
-   public void setDate(int date) {
+   public void setDate(String date) {
       this.date = date;
    }
 
@@ -28,13 +28,13 @@ public class JournalCell {
       this.mark = mark;
    }
 
-   JournalCell(StudentModel _student, int _date, int _mark) {
+   JournalCell(StudentModel _student, String _date, int _mark) {
       student = _student;
       date = _date;
       mark = _mark;
    }
 
-   JournalCell(StudentModel _student, int _date) {
+   JournalCell(StudentModel _student, String _date) {
       student = _student;
       date = _date;
       mark = 0;

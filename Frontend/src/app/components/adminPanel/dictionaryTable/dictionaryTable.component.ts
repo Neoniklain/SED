@@ -16,7 +16,6 @@ export class DictionaryTableComponent implements OnInit, OnChanges {
 
     @Input() model: any;
     @Input() type;
-    @Output() loadData = new EventEmitter();
 
     public columnsName: string[];
     public editableModel;
@@ -24,6 +23,7 @@ export class DictionaryTableComponent implements OnInit, OnChanges {
     public editMode: boolean = false;
     public Dictionary;
     public data: PageResult;
+    public event: LazyLoadEvent;
 
     constructor(private router: Router,
                private dictionaryService: DictionaryService) { }
@@ -40,7 +40,7 @@ export class DictionaryTableComponent implements OnInit, OnChanges {
     }
 
     // Получить данные
-    getData() {
+    getData(event?) {
       this.columnsName = Object.keys(this.model);
        switch (this.type.toString()) {
            case Dictionary.users.toString():
@@ -74,9 +74,9 @@ export class DictionaryTableComponent implements OnInit, OnChanges {
     }
     // Завершение редактировния модели
     canelEditableModel() {
-      this.editableModel = null;
-      this.editMode = false;
-        this.loadData.emit();
+        this.editableModel = null;
+        this.editMode = false;
+        this.getData(this.event);
     }
 
     isArray(obj: any ) {
@@ -92,9 +92,10 @@ export class DictionaryTableComponent implements OnInit, OnChanges {
       isDate(obj);
     }
     loadLazy(event: LazyLoadEvent) {
-      this.loadData.emit(event);
+        this.event = event;
+        this.getData(event);
     }
     onLoadData() {
-      this.getData();
+      this.getData(this.event);
 }
 }

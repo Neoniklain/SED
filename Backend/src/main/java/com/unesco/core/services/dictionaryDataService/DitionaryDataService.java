@@ -115,7 +115,7 @@ public class DitionaryDataService implements IDitionaryDataService {
       for (Institute e: entitys) {
          list.add((InstituteModel) mapperService.toModel(e));
       }
-      PageResult<InstituteModel> result = new PageResult<InstituteModel>(list, list.size());
+      PageResult<InstituteModel> result = new PageResult<InstituteModel>(list, (int) instituteRepository.count());
       return result;
    }
    public PageResult<DepartmentModel> getDepartmentPage(FilterQuery filter) {
@@ -126,7 +126,7 @@ public class DitionaryDataService implements IDitionaryDataService {
       for (Department e: entitys) {
          list.add((DepartmentModel) mapperService.toModel(e));
       }
-      PageResult<DepartmentModel> result = new PageResult<DepartmentModel>(list, list.size());
+      PageResult<DepartmentModel> result = new PageResult<DepartmentModel>(list, (int) departmentRepository.count());
       return result;
    }
    public PageResult<GroupModel> getGroupPage(FilterQuery filter) {
@@ -137,7 +137,7 @@ public class DitionaryDataService implements IDitionaryDataService {
       for (Group e: entitys) {
          list.add((GroupModel) mapperService.toModel(e));
       }
-      PageResult<GroupModel> result = new PageResult<GroupModel>(list, list.size());
+      PageResult<GroupModel> result = new PageResult<GroupModel>(list, (int) groupRepository.count());
       return result;
    }
    public PageResult<DisciplineModel> getDisciplinePage(FilterQuery filter) {
@@ -148,7 +148,7 @@ public class DitionaryDataService implements IDitionaryDataService {
       for (Discipline e: entitys) {
          list.add((DisciplineModel) mapperService.toModel(e));
       }
-      PageResult<DisciplineModel> result = new PageResult<DisciplineModel>(list, list.size());
+      PageResult<DisciplineModel> result = new PageResult<DisciplineModel>(list, (int) disciplineRepository.count());
       return result;
    }
    public PageResult<UserModel> getUserPage(FilterQuery filter) {
@@ -159,7 +159,7 @@ public class DitionaryDataService implements IDitionaryDataService {
       for (User e: entitys) {
          list.add((UserModel) mapperService.toModel(e));
       }
-      PageResult<UserModel> result = new PageResult<UserModel>(list, list.size());
+      PageResult<UserModel> result = new PageResult<UserModel>(list, (int) userRepository.count());
       return result;
    }
    public PageResult<RoleModel> getRolePage(FilterQuery filter) {
@@ -170,7 +170,7 @@ public class DitionaryDataService implements IDitionaryDataService {
       for (Role e: entitys) {
          list.add((RoleModel) mapperService.toModel(e));
       }
-      PageResult<RoleModel> result = new PageResult<RoleModel>(list, list.size());
+      PageResult<RoleModel> result = new PageResult<RoleModel>(list, (int) roleRepository.count());
       return result;
    }
    public PageResult<FieldOfKnowledgeModel> getFieldOfKnowledgePage(FilterQuery filter) {
@@ -181,7 +181,7 @@ public class DitionaryDataService implements IDitionaryDataService {
       for (FieldOfKnowledge e: entitys) {
          list.add((FieldOfKnowledgeModel) mapperService.toModel(e));
       }
-      PageResult<FieldOfKnowledgeModel> result = new PageResult<FieldOfKnowledgeModel>(list, list.size());
+      PageResult<FieldOfKnowledgeModel> result = new PageResult<FieldOfKnowledgeModel>(list, (int) fieldOfKnowledgeRepository.count());
       return result;
    }
    public PageResult<RoomModel> getRoomPage(FilterQuery filter) {
@@ -192,7 +192,7 @@ public class DitionaryDataService implements IDitionaryDataService {
       for (Room e: entitys) {
          list.add((RoomModel) mapperService.toModel(e));
       }
-      PageResult<RoomModel> result = new PageResult<RoomModel>(list, list.size());
+      PageResult<RoomModel> result = new PageResult<RoomModel>(list, (int) roomRepository.count());
       return result;
    }
    public PageResult<ProfessorModel> getProfessorPage(FilterQuery filter) {
@@ -203,7 +203,7 @@ public class DitionaryDataService implements IDitionaryDataService {
       for (Professor e: entitys) {
          list.add((ProfessorModel) mapperService.toModel(e));
       }
-      PageResult<ProfessorModel> result = new PageResult<ProfessorModel>(list, list.size());
+      PageResult<ProfessorModel> result = new PageResult<ProfessorModel>(list, (int) professorRepository.count());
       return result;
    }
    public PageResult<String> getWeekTypePage(FilterQuery filter) {

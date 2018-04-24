@@ -23,9 +23,11 @@ public class JournalController {
                                          (IJournalDataService и JournalDataService)*/
     private IJournalDataService journalDataService;
 
-    @GetMapping("/professor/{professorId}/group/{groupId}")
-    public Journal GetJournal(@PathVariable("professorId") int professorId, @PathVariable("groupId") int groupId) {
-        Journal journal = journalDataService.getJournal(professorId, groupId);
+    @GetMapping("/professor/{professorId}/group/{groupId}/discipline/{disciplineId}")
+    public Journal GetJournal(@PathVariable("professorId") int professorId,
+                              @PathVariable("groupId") int groupId,
+                              @PathVariable("disciplineId") int disciplineId) {
+        Journal journal = journalDataService.getJournal(professorId, groupId, disciplineId);
         return journal;
     }
 }

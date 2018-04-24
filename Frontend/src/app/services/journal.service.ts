@@ -20,10 +20,11 @@ export class JournalService {
           .catch(this.handleError);
    }
 
-    public GetJournal(professorId, groupId): Observable<Journal> {
+    public GetJournal(professorId, groupId, disciplineId): Observable<Journal> {
         return this.http.get(ApiRouteConstants.Journal.All
             .replace(":professorId", professorId)
-            .replace(":groupId", groupId))
+            .replace(":groupId", groupId)
+            .replace(":disciplineId", disciplineId))
             .catch(this.handleError);
     }
 

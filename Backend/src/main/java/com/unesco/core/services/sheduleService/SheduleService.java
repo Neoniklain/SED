@@ -1,5 +1,6 @@
 package com.unesco.core.services.sheduleService;
 
+import com.unesco.core.entities.Discipline;
 import com.unesco.core.entities.Group;
 import com.unesco.core.entities.Professor;
 import com.unesco.core.entities.schedule.Pair;
@@ -7,6 +8,7 @@ import com.unesco.core.models.*;
 import com.unesco.core.models.additional.JSONResponseStatus;
 import com.unesco.core.repositories.PairRepository;
 import com.unesco.core.repositories.account.ProfessorRepository;
+import com.unesco.core.services.dictionaryDataService.DitionaryDataService;
 import com.unesco.core.services.mapperService.IMapperService;
 import com.unesco.core.services.userService.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,6 +31,8 @@ public class SheduleService implements ISheduleService{
     private IUserService userService;
     @Autowired
     private ProfessorRepository professorRepository;
+    @Autowired
+    private DitionaryDataService ditionaryDataService;
 
     public List<PairModel> getPairs(ProfessorModel professor)
     {
@@ -150,6 +154,19 @@ public class SheduleService implements ISheduleService{
     {
         Pair pair = pairRepository.findOne((long) id);
         return (PairModel) mapperService.toModel(pair);
+    }
+
+    public PairModel getPair(int proffesorId, int groupId, int disciplineId)
+    {
+        Professor professor = professorRepository.findOne((long) proffesorId);
+        GroupModel group = ditionaryDataService.getGroup(groupId);
+        DisciplineModel discipline = ditionaryDataService.getDiscipline(disciplineId);
+        Pair pair = pairRepository.findPairsByGroupAndProfessorAndDiscipline(
+                (Group) mapperService.toEntity(group),
+                professor,
+                (Discipline) mapperService.toEntity(discipline));
+        PairModel result = (PairModel) mapperService.toModel(pair);
+        return result;
     }
 
     public JSONResponseStatus deletePair(int id)
