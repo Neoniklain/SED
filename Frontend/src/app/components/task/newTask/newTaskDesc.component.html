@@ -1,0 +1,49 @@
+<p-dialog header="{{_title}}" [(visible)]="_show" modal="modal" [width]="600"
+          [responsive]="true" [resizable]="true" [draggable]="true">
+    <div style="height: 260px;">
+        <p>Введите название задачи:</p>
+        <input type="text" class="form-control" id="headerCreate" name="header" placeholder="Название задчи"
+                                [(ngModel)]="localTD.name"/>
+        <p style="margin: 10px 0;">Введите ФИО пользователя:</p>
+        <p-autoComplete [(ngModel)]="localTD.users" [suggestions]="_foundedUsers" (completeMethod)="searchUser($event)" styleClass="wid100"
+                        inputStyleClass="wid100"
+                        [minLength]="3" placeholder="Введите ФИО" field="userFIO" [multiple]="true">
+        </p-autoComplete>
+        <p style="margin: 10px 0;">Введите описание задачи:</p>
+        <textarea [(ngModel)]="localTD.description" rows="3" cols="50" pInputTextarea autoResize="autoResize" style="width: 100%;"></textarea>
+        <div *ngIf="!_isCreate">
+            <table class="table table-news">
+                <thead class="thead-inverse">
+                <tr>
+                    <th class="text-center">ID</th>
+                    <th class="text-center">Исполнитель</th>
+                    <th class="text-center">Статус</th>
+                    <th class="text-center">Ответ</th>
+                    <th class="text-center"></th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr *ngFor="let item of localTD.subTasks">
+                    <td class="text-center" id="id">{{item.id}}</td>
+                    <td class="text-center" id="name">{{item.executor.userFIO}}</td>
+                    <td class="text-center" id="creator">{{item.status | translate}}</td>
+                    <td class="text-center" id="status">{{item.response}}</td>
+                    <td class="text-center" id="buttons">
+                        <div *ngIf="item.status === statuses.SentToReview">
+                            <button (click)="ChangeStatus(item, statuses.Completed)" class="btn btn-success" title="Подтвердить">
+                                <i class="fa fa-check" aria-hidden="true"></i>
+                            </button>
+                            <button (click)="ChangeStatus(item, statuses.SentToRevision)" class="btn btn-warning" title="Отправить на доработку">
+                                <i class="fa fa-ban" aria-hidden="true"></i>
+                            </button>
+                        </div>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <p-footer>
+        <button type="button" pButton icon="fa-check" (click)="CreateTask()" label="Ок"></button>
+    </p-footer>
+</p-dialog>
