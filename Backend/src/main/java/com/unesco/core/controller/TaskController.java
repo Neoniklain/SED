@@ -58,7 +58,7 @@ public class TaskController {
 
     @RequestMapping(value = "/answer")
     public JSONResponseStatus Answer(@RequestBody TaskModel item) {
-        this._TaskDataService.answerTask(item);
+        _TaskDataService.answerTask(item);
         return JSONResponseStatus.OK();
     }
 

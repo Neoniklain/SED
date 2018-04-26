@@ -65,7 +65,7 @@ public class TaskDataService implements ITaskDataService
       for (UserModel user: td.getUsers()) {
           Task temp = new Task();
           temp.setResponse("");
-          temp.setStatus(_Statuses.Processed.toString());
+          temp.setStatus(_Statuses.Processed);
           temp.setTaskDescription(res);
           temp.setExecutor(_UserRepository.findById(user.getId()));
           subTasks.add(temp);
@@ -112,7 +112,8 @@ public class TaskDataService implements ITaskDataService
    @Override
    public void answerTask(TaskModel item) {
       Task res = _TaskRepository.findById(item.getId());
-      res.setStatus(_Statuses.SentToRevision.toString());
+      //res.setStatus(_Statuses.SentToRevision.toString());
+      res.setStatus(item.getStatus());
       res.setResponse(item.getResponse());
       _TaskRepository.save(res);
    }

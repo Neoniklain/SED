@@ -40,7 +40,7 @@ export class  TaskService {
 
     public AnswerTask(item: Task) {
         let params = new HttpParams();
-        return this.http.post(ApiRouteConstants.Task.AnswerTask, Task, {params: params })
+        return this.http.post(ApiRouteConstants.Task.AnswerTask, item, {params: params })
             .catch(this.handleError);
     }
 

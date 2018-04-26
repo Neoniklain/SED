@@ -24,8 +24,26 @@ export class Task {
     public status: string;
     public response: string;
     constructor() {
-        this.executor = new User();
         this.status = "";
         this.response = "";
+    }
+}
+
+export class TaskStatusList {
+    public Processed: string = "Processed";
+    public Denied: string = "Denied";
+    public Completed: string = "Completed";
+    public Checked: string = "Checked";
+    public Viewed: string = "Viewed";
+    public SentToRevision: string = "SentToRevision"
+    public SentToReview: string = "SentToReview";
+    constructor() {
+        this.Processed = "Processed";
+        this.Denied = "Denied";
+        this.Completed = "Completed";
+        this.Checked = "Checked";
+        this.Viewed = "Viewed";
+        this.SentToRevision = "SentToRevision";
+        this.SentToReview = "SentToReview";
     }
 }
