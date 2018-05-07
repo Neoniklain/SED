@@ -1,9 +1,9 @@
 import {Component, ContentChild, ElementRef, Injectable, NgModule, OnInit, ViewChild} from '@angular/core';
-import {DocumentComponent} from "./documents/document.component";
 import {NewsDispatcherComponent} from "./news-dispatcher/news-dispatcher.component";
 import {Router} from "@angular/router";
 import {User} from "../../../models/account/user.model";
 import {AuthenticationService} from "../../../services/authService";
+import {TaskDescListComponent} from "../../task/taskList/taskDescList.component";
 import {Roles} from "../../../models/account/role.model";
 
 @Component({
@@ -18,10 +18,11 @@ export class AccountComponent implements OnInit {
   public menuName: string;
   public Roles;
 
-  @ViewChild(DocumentComponent) documentComponent: DocumentComponent;
   @ViewChild(NewsDispatcherComponent) newsDispatcherComponent: NewsDispatcherComponent;
+  @ViewChild(TaskDescListComponent) taskDescListComponent: TaskDescListComponent;
 
-  constructor(private authenticationService: AuthenticationService,
+
+    constructor(private authenticationService: AuthenticationService,
               private router: Router) {
     this.user = new User();
     this.authenticationService.getUser().subscribe(

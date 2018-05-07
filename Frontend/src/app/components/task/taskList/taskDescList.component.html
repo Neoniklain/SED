@@ -1,0 +1,47 @@
+<div class="header-panel-body">
+   <h3>Действия</h3>
+</div>
+<div class="news-action-buttons">
+   <div class="btn-group" role="group" aria-label="Basic example">
+      <button (click)="showDialogNewTaskDescription()" type="button" class="btn btn-success">Добавить задачу</button>
+   </div>
+</div>
+<div *ngIf="taskDescList.length > 0">
+   <div class="header-panel-body">
+      <h3>Список задач</h3>
+   </div>
+   <div>
+      <table class="table table-news">
+         <thead class="thead-inverse">
+         <tr>
+            <th class="text-center">ID</th>
+            <th class="text-center">Название</th>
+            <th class="text-center">Создатель задачи</th>
+            <th class="text-center">Статус</th>
+            <th class="text-center"></th>
+         </tr>
+         </thead>
+         <tbody>
+         <tr *ngFor="let item of taskDescList">
+            <td class="text-center" id="id">{{item.id}}</td>
+            <td (dblclick)="showDialogTaskWork(item)" class="text-center" id="name">{{item.name}}</td>
+            <td (dblclick)="showDialogTaskWork(item)" class="text-center" id="creator">{{item.creator.userFIO}}</td>
+            <td (dblclick)="showDialogTaskWork(item)" class="text-center" id="status">{{item.globalStatus | translate}}</td>
+            <td class="text-center" id="buttons">
+                  <button *ngIf="user.id == item.creator.id" (click)="showDialogEditTaskDescription(item)" class="btn btn-warning">
+                     <i class="fa fa-pencil" aria-hidden="true"></i>
+                  </button>
+                  <button *ngIf="(isMyTask(item))" (click)="showDialogTaskWork(item)" class="btn btn-success">
+                     <i class="fa fa-check" aria-hidden="true"></i>
+                  </button>
+                  <button *ngIf="user.id == item.creator.id" (click)="deleteTaskDescription(item.id)" class="btn btn-danger">
+                     <i class="fa fa-times" aria-hidden="true"></i>
+                  </button>
+            </td>
+         </tr>
+         </tbody>
+      </table>
+   </div>
+</div>
+<work-task></work-task>
+<new-task-desc (onCloseModalNew)="onCloseModalNew($event)"></new-task-desc>

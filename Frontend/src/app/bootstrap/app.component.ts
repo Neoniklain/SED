@@ -30,7 +30,7 @@ export class AppComponent implements OnInit {
             .addTranslation("ru", LANG_RU_TRANS);
         this.translation.init();
 
-        if(window.loading_screen) {
+        if (window.loading_screen) {
             window.loading_screen.finish();
         }
     }

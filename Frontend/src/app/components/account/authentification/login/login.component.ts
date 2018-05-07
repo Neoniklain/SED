@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import {Component, ViewChild} from '@angular/core';
 import {Router} from '@angular/router';
 import {LogInUser, User} from "../../../../models/account/user.model";
 import {MessageService} from "primeng/components/common/messageservice";
@@ -9,7 +9,8 @@ import {Globals} from "../../../../globals";
 @Component({
    selector: 'login-page',
    templateUrl: './login.component.html',
-   styleUrls: ['./login.component.css']
+   styleUrls: ['./login.component.css']/*,
+    providers: [HeaderComponent]*/
 })
 
 export class LogInComponent {

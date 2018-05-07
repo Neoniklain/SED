@@ -5,6 +5,8 @@ import com.unesco.core.entities.account.Role;
 import com.unesco.core.entities.account.User;
 import com.unesco.core.entities.schedule.Pair;
 import com.unesco.core.entities.schedule.Room;
+import com.unesco.core.entities.workflow.Task;
+import com.unesco.core.entities.workflow.TaskDescription;
 import com.unesco.core.models.*;
 import com.unesco.core.models.account.RoleModel;
 import com.unesco.core.models.account.UserCreateModel;
@@ -58,6 +60,13 @@ public class MapperService implements IMapperService {
         if (model instanceof RoomModel)
             return RoomToEntity((RoomModel) model);
 
+        if (model instanceof TaskModel)
+            return TaskToEntity((TaskModel) model);
+
+
+        if (model instanceof TaskDescription)
+            return TaskDescriptionToEntity((TaskDescriptionModel) model);
+
         return new Exception("Not found "+model.getClass().toString() + " model class");
     }
 
@@ -99,9 +108,68 @@ public class MapperService implements IMapperService {
         if (entity instanceof Room)
             return RoomToModel((Room) entity);
 
+        if (entity instanceof Task)
+            return TaskToModel((Task) entity);
+
+        if (entity instanceof TaskDescription)
+            return TaskDescriptionToModel((TaskDescription) entity);
+
         return new Exception("Not found "+entity.getClass().toString() + " entity class");
     }
 
+
+    public TaskDescriptionModel TaskDescriptionToModel(TaskDescription Entity)
+    {
+        TaskDescriptionModel Model = new TaskDescriptionModel();
+        Model.setId(Entity.getId());
+        Model.setCreator(UserToModel(Entity.getCreator()));
+        Model.setUsers(new ArrayList<>());
+        Model.setDescription(Entity.getDescription());
+        Model.setName(Entity.getName());
+        List<TaskModel> tasks = new ArrayList<>();
+        for (Task t: Entity.getSubTasks()) {
+            tasks.add(TaskToModel(t));
+        }
+        Model.setSubTasks(tasks);
+        return Model;
+    }
+    public TaskDescription TaskDescriptionToEntity(TaskDescriptionModel Model)
+    {
+        TaskDescription Entity = new TaskDescription();
+        Entity.setId(Model.getId());
+        Entity.setCreator(UserToEntity(Model.getCreator()));
+        Entity.setDescription(Model.getDescription());
+        Entity.setName(Model.getName());
+        List<Task> tasks = new ArrayList<>();
+        for (TaskModel t: Model.getSubTasks()) {
+            tasks.add(TaskToEntity(t));
+        }
+        Entity.setSubTasks(tasks);
+        return Entity;
+    }
+
+    public TaskModel TaskToModel(Task Entity)
+    {
+        TaskModel Model = new TaskModel();
+        Model.setId(Entity.getId());
+        Model.setExecutor((UserModel) UserToModel(Entity.getExecutor()));
+        Model.setResponse(Entity.getResponse());
+        Model.setStatus(Entity.getStatus());
+        Model.setTaskDescriptionId(Entity.getTaskDescription().getId());
+        return Model;
+    }
+    public Task TaskToEntity(TaskModel Model)
+    {
+        Task Entity = new Task();
+        Entity.setId(Model.getId());
+        Entity.setExecutor((User) UserToEntity(Model.getExecutor()));
+        Entity.setResponse(Model.getResponse());
+        Entity.setStatus(Model.getStatus());
+        TaskDescription taskDescription = new TaskDescription();
+        taskDescription.setId(Model.getTaskDescriptionId());
+        Entity.setTaskDescription(taskDescription);
+        return Entity;
+    }
 
     public ProfessorModel ProfessorToModel(Professor Entity)
     {

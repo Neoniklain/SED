@@ -73,4 +73,5 @@ public class CustomUserDetails implements UserDetails {
     public String getPassword() {
         return this.password;
     }
+
 }

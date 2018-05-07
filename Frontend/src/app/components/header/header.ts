@@ -8,6 +8,7 @@ import {HasRoleDirective} from '../../guards/hasRole.dirictive';
 import {Globals} from "../../globals";
 import {RouteConstants} from "../../bootstrap/app.route.constants";
 import {User} from "../../models/account/user.model";
+import {AccountService} from "../../services/accountService";
 
 @Component({
    selector: 'header-component',
@@ -18,14 +19,14 @@ import {User} from "../../models/account/user.model";
 export class HeaderComponent implements OnInit {
 
    public RouteConstants;
-   accountService: any;
    public Roles;
    public user: User;
    public msgs: Message[] = [];
 
    constructor(private router: Router,
                private globals: Globals,
-               private authService: AuthenticationService) { }
+               private authService: AuthenticationService,
+               /*private accountService: AccountService*/) { }
 
    ngOnInit() {
       this.RouteConstants = RouteConstants;
@@ -46,8 +47,21 @@ export class HeaderComponent implements OnInit {
            });
    }
 
+   // Пытался извне изменить юзера. Не получилось. Отложил на потом.
+   public setUser() {
+       this.user = new User();
+       this.authService.getUser()
+           .subscribe((res: any) => {
+               this.user = res;
+           }, (error: any) => {
+               if (error.statusText === "Forbidden")
+                   this.router.navigate(['/404']);
+           });
+   }
+
    logout() {
       localStorage.removeItem("token");
+      this.user = new User();
       this.globals.role = [];
       this.router.navigate(['/news']);
    }
