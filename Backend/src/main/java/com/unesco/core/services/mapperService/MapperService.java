@@ -29,7 +29,6 @@ public class MapperService implements IMapperService {
         if (model instanceof StudentModel)
             return StudentToEntity((StudentModel) model);
 
-
         if (model instanceof PairModel)
             return PairToEntity((PairModel) model);
 

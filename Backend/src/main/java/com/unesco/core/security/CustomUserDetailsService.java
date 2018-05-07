@@ -19,7 +19,6 @@ public class CustomUserDetailsService implements UserDetailsService{
     public CustomUserDetails getUserDetails() {
         String username = SecurityContextHolder.getContext().getAuthentication().getName();
         User user=userRepository.findByUsername(username);
-
         if(user == null){
             throw new UsernameNotFoundException("No user present with username: "+username);
         }else{

@@ -1,22 +1,18 @@
 package com.unesco.core.controller;
 
 
-import com.unesco.core.entities.workflow.TaskDescription;
 import com.unesco.core.models.TaskDescriptionModel;
 import com.unesco.core.models.TaskModel;
-import com.unesco.core.models.account.RoleModel;
 import com.unesco.core.models.account.UserModel;
 import com.unesco.core.models.additional.JSONResponseStatus;
 import com.unesco.core.security.CustomUserDetailsService;
 import com.unesco.core.services.taskDataService.ITaskDataService;
-import com.unesco.core.services.taskDataService.TaskDataService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @CrossOrigin
 @RestController
@@ -24,7 +20,6 @@ import java.util.stream.Collectors;
 public class TaskController {
 
 
-    @Qualifier("taskDataService")
     @Autowired
     private ITaskDataService _TaskDataService;
     @Autowired
