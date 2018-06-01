@@ -31,12 +31,12 @@
     </div>
 
     <div class="form-group row">
-        <label for="weekType" class="col-sm-5 col-form-label">Период занятия</label>
+        <label class="col-sm-5 col-form-label">Период занятия</label>
         <div class="col-sm-7">
-            <p-autoComplete [inputStyleClass]="form-control" id="weekType" [(ngModel)]="pair.weektype"
-                            [suggestions]="findWeektypes" (completeMethod)="searchWeektypes($event)"
-                            [multiple]="false" [emptyMessage]="'Не найдено.'"
-                            [forceSelection]="true"></p-autoComplete>
+            <span *ngFor="let week of WeekTypes | enumStringKeys"><input type="radio"
+                   class="form-check-input" (click)="selectWeekType(week)"
+                   name="WeekType" [value]="week"
+                   [(ngModel)]="pair.weektype">{{week}} </span>
         </div>
     </div>
 
@@ -63,11 +63,12 @@
     </div>
 
     <div class="form-group row">
-        <div class="col-sm-6 text-left">
+        <div *ngIf="editablePair.id != 0" class="col-sm-6 text-left">
             <button (click)="showDeleteDialog = true;" class="btn btn-danger btn-sm">Удалить</button>
         </div>
-        <div class="col-sm-6 text-right">
-            <button (click)="updatePairs()" class="btn btn-success btn-sm">Обновить</button>
+        <div [ngClass]="{'col-sm-6': editablePair.id != 0, 'col-sm-12': editablePair.id == 0, 'text-right': true}" >
+            <button *ngIf="editablePair.id != 0" (click)="updatePairs()" class="btn btn-success btn-sm">Обновить</button>
+            <button *ngIf="editablePair.id == 0" (click)="updatePairs()" class="btn btn-success btn-sm">Создать</button>
         </div>
     </div>
 

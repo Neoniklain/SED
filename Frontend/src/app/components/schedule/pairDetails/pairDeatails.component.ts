@@ -1,14 +1,17 @@
 import {Component, EventEmitter, Input, OnChanges, OnInit, Output} from "@angular/core";
 import {Pair} from "../../../models/shedule/pair";
-import {Group} from "../../../models/group";
+import {Group} from "../../../models/shedule/group";
 import {DictionaryService} from "../../../services/dictionary.service";
-import {Discipline} from "../../../models/discipline";
-import {Professor} from "../../../models/professor";
+import {Discipline} from "../../../models/shedule/discipline";
+import {Professor} from "../../../models/account/professor";
 import {AccountService} from "../../../services/accountService";
-import {Room} from "../../../models/room.model";
+import {Room} from "../../../models/shedule/room.model";
 import {PairService} from "../../../services/pair.service";
 import {ToastrService} from "ngx-toastr";
 import {isUndefined} from "util";
+import {WeekType} from "../../../models/shedule/weekType.model";
+import {StatusType} from "../../../models/statusType.model";
+import {NotificationService} from "../../../services/notification.service";
 
 @Component({
     selector: 'pair-details',
@@ -17,7 +20,7 @@ import {isUndefined} from "util";
 })
 
 export class PairDetailsComponent implements OnInit, OnChanges {
-    @Input() editablePair: Pair = null;
+    @Input() editablePair: Pair;
     @Input() pointX: number;
     @Input() pointY: number;
     @Input() editable: boolean = false;
@@ -26,7 +29,7 @@ export class PairDetailsComponent implements OnInit, OnChanges {
 
     public findGroups: Array<Group>;
     public findDisciplines: Array<Discipline>;
-    public findWeektypes: Array<String>;
+    public WeekTypes;
     public findProfessors: Array<Professor>;
     public findRooms: Array<Room>;
     public pair: Pair;
@@ -34,11 +37,13 @@ export class PairDetailsComponent implements OnInit, OnChanges {
 
     constructor(private dictionaryService: DictionaryService,
                 private accountService: AccountService,
-                private toastr: ToastrService,
+                private notification: NotificationService,
                 private pairService: PairService,
     ) { }
 
-    ngOnInit() { }
+    ngOnInit() {
+        this.WeekTypes = WeekType;
+    }
 
     ngOnChanges() {
         if (!isUndefined(this.editablePair)) this.pair = JSON.parse(JSON.stringify(this.editablePair));
@@ -63,15 +68,11 @@ export class PairDetailsComponent implements OnInit, OnChanges {
     updatePairs() {
         this.pairService.Save(this.pair).subscribe(
             result => {
-                if (result.status === "ok") {
+                if (result.status === StatusType.OK.toString()) {
                     this.updatePair.emit();
                     this.closeDetails();
-                    this.toastr.success("Занятие успешно обновлено", "Успешно!");
-                } else {
-                    this.toastr.error("Занятие не обновлено", "Ошибка.");
                 }
-            }, error => {
-                this.toastr.error("Занятие не обновлено", "Ошибка.");
+                this.notification.FromStatus(result);
             }
         );
     }
@@ -79,15 +80,11 @@ export class PairDetailsComponent implements OnInit, OnChanges {
     deletePair() {
         this.pairService.Delete(this.pair.id).subscribe(
             result => {
-                if (result.status === "ok") {
+                if (result.status === StatusType.OK.toString()) {
                     this.updatePair.emit();
                     this.closeDetails();
-                    this.toastr.success("Занятие успешно удалено", "Успешно!");
-                } else {
-                    this.toastr.error("Занятие не удалено", "Ошибка.");
                 }
-            }, error => {
-                this.toastr.error("Занятие не удалено", "Ошибка.");
+                this.notification.FromStatus(result);
             }
         );
     }
@@ -107,6 +104,20 @@ export class PairDetailsComponent implements OnInit, OnChanges {
     }
     public selectRoom(room: Room) {
         this.pair.room = room;
+    }
+    public selectWeekType(week: string) {
+        if (this.editablePair.id !== 0 && this.editablePair.weektype !==  week) {
+            if (this.editablePair.weektype === WeekType.Все.toString()
+            || week === WeekType.Все.toString()) {
+                this.pair.id = this.editablePair.id;
+            } else {
+                this.pair.id = 0;
+            }
+        }
+        if (this.editablePair.id !== 0 && this.editablePair.weektype ===  week) {
+            this.pair.id = this.editablePair.id;
+        }
+        this.pair.weektype = week;
     }
 
     public checkOneEmpty() {
@@ -154,21 +165,7 @@ export class PairDetailsComponent implements OnInit, OnChanges {
             }, error => console.error(error)
         );
     }
-    public searchWeektypes(event: any) {
-        let filter = {
-            globalFilter: event.query.substring(0, 60)
-        };
-        let temp: Array<String> = new Array();
-        this.dictionaryService.GetWeekTypes(filter).subscribe(
-            result => {
-                temp = result.content;
-                if (temp.length > 0)
-                    this.findWeektypes = temp;
-                else
-                    this.findWeektypes = [];
-            }, error => console.error(error)
-        );
-    }
+
     public searchProfessors(event: any) {
         let filter = {
             globalFilter: event.query.substring(0, 60)

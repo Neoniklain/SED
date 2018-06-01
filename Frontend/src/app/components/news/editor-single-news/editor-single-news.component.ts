@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import {ActivatedRoute} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 import {isUndefined} from "util";
 import {Location} from '@angular/common';
 import {MessageService} from "primeng/components/common/messageservice";
@@ -7,6 +7,9 @@ import {Message} from "primeng/components/common/message";
 import {News} from "../../../models/news/news.model";
 import {NewsService} from "../../../services/news.service";
 import {AuthenticationService} from "../../../services/authService";
+import {RouteConstants} from "../../../bootstrap/app.route.constants";
+import {NotificationService} from "../../../services/notification.service";
+import {StatusType} from "../../../models/statusType.model";
 
 @Component({
   selector: 'editor-single-news-page',
@@ -25,14 +28,12 @@ export class EditorSingleNewsComponent  {
     private _location: Location,
     private activateRoute: ActivatedRoute,
     private newsService: NewsService,
+    private router: Router,
     private authenticationService: AuthenticationService,
-    private messageService: MessageService) {
+    private notification: NotificationService) {
       this.newNews = new News();
-      this.authenticationService.getUser().subscribe((res: any) => {
-              this.newNews.author = res;
-          },
-          (error: any) => {
-              console.error('Error: ' + error);
+      this.authenticationService.getUser().subscribe((res) => {
+              this.newNews.author = res.data;
           });
       this.id = activateRoute.snapshot.params['id'];
       if (!isUndefined(this.id)) {
@@ -42,21 +43,19 @@ export class EditorSingleNewsComponent  {
 
   public GetNews(id: number) {
     this.newsService.Get(id)
-      .subscribe((res: any) => {
-          this.newNews = res;
-        },
-        (error: any) => {
-          console.error('Error: ' + error);
+      .subscribe((res) => {
+          this.newNews = res.data;
         });
   }
 
   public SaveNews() {
     this.newsService.Save(this.newNews).subscribe(
-          res => {
-          this.messageService.add({severity: 'success', summary: 'Успешно.', detail: 'Новость успешно создана.'});
-          setTimeout(() => { this._location.back(); }, 1500);
-        },
-        error => console.error(error),
+        result => {
+            if (result.status === StatusType.OK.toString()) {
+                setTimeout(() => { this.router.navigate([RouteConstants.News.EditList]); }, 1500);
+            }
+            this.notification.FromStatus(result);
+        }
       );
   }
 
@@ -77,7 +76,6 @@ export class EditorSingleNewsComponent  {
   }
 
   public GetBack() {
-    console.log("Отмена!");
-    this._location.back();
+      setTimeout(() => { this.router.navigate([RouteConstants.News.EditList]); }, 1500);
   }
 }

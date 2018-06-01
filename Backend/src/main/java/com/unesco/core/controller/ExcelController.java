@@ -1,21 +1,24 @@
 package com.unesco.core.controller;
 
-import com.unesco.core.entities.plan.Competence;
 import com.unesco.core.entities.plan.LessonType;
 import com.unesco.core.entities.plan.Plan;
 import com.unesco.core.entities.plan.Semester;
-import com.unesco.core.models.additional.JSONResponseStatus;
-import com.unesco.core.entities.*;
+import com.unesco.core.entities.schedule.Department;
+import com.unesco.core.entities.schedule.Discipline;
+import com.unesco.core.models.additional.ResponseStatus;
 import com.unesco.core.repositories.plan.*;
+import com.unesco.core.utils.StatusTypes;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.Row;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
-import java.util.Date;
 import java.util.Iterator;
 
 @CrossOrigin
@@ -36,7 +39,7 @@ public class ExcelController {
     private LessonTypeRepository _LessonTypeRepository;
 
     @RequestMapping(value = "/ParseStudyPlan")
-    public JSONResponseStatus ParseStudyPlan(@RequestParam("file") MultipartFile file) throws IOException {
+    public ResponseStatus ParseStudyPlan(@RequestParam("file") MultipartFile file) throws IOException {
         HSSFWorkbook myExcelBook = new HSSFWorkbook(file.getInputStream());
         HSSFSheet myExcelSheet = myExcelBook.getSheet("План");
         Iterator<Row> rowIterator = myExcelSheet.iterator();
@@ -72,7 +75,6 @@ public class ExcelController {
                                 for (String code : numbers) {
                                     String res = liters + "-" + code;
                                     if (_CompetenceRepository.findByCode(res) == null) {
-                                        _CompetenceRepository.save(new Competence(res));
                                         System.out.println("Компетенция добавлена: " + res);
                                     }
                                 }
@@ -92,7 +94,7 @@ public class ExcelController {
                         }
                         Discipline discipline = _DisciplineRepository.findDisciplineByName(name);
 
-                        // ↓ Получение значений для таблицы Plan
+                        // ↓ Получение значений для таблицы PlanModel
                         Plan plan = new Plan();
                         plan.setDiscipline(discipline);
                         if(discipline == null){
@@ -137,7 +139,7 @@ public class ExcelController {
                         }
                         //plan = _PlanRepository.findByDiscipline(plan.getDiscipline());
 
-                        // ↓ Получение значений для таблицы Semester
+                        // ↓ Получение значений для таблицы SemesterModel
                         Integer offset = 0;
                         for (Integer semestr = 0; semestr < 8; semestr++) {
                             Semester sem = new Semester();
@@ -294,6 +296,6 @@ public class ExcelController {
         }
         System.out.println("Parsing is finished!");
         myExcelBook.close();
-        return JSONResponseStatus.OK();
+        return new ResponseStatus(StatusTypes.OK);
     }
 }

@@ -1,4 +1,4 @@
-import {Professor} from "../professor";
+import {Professor} from "../account/professor";
 import {Pair} from "./pair";
 
 export class DepartmentShedule {

@@ -5,12 +5,12 @@ import {PageResult} from "../../models/admin/PageResult.model.list";
 import {DictionaryService} from "../../services/dictionary.service";
 import {Dictionary} from "../../models/admin/dictionary.model";
 import {User, UserCreate} from "../../models/account/user.model";
-import {Discipline} from "../../models/discipline";
-import {Institute} from "../../models/institute";
-import {Department} from "../../models/department";
-import {Group} from "../../models/group";
+import {Discipline} from "../../models/shedule/discipline";
+import {Institute} from "../../models/shedule/institute";
+import {Department} from "../../models/shedule/department";
+import {Group} from "../../models/shedule/group";
 import {isUndefined} from "util";
-import {Room} from "../../models/room.model";
+import {Room} from "../../models/shedule/room.model";
 
 @Component({
    selector: 'admin-panel-page',

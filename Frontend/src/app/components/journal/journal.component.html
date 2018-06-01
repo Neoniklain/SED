@@ -1,36 +1,69 @@
-<div *ngIf="!journal && !showLoader" class="header-panel-body">
-    <h3>Для заполнения журнала выберите занятие.</h3>
-</div>
-
-<schedule-week *ngIf="!journal && !showLoader"
-    [pairs]="pairs"
-    (clickPair)="onClick($event)">
-</schedule-week>
-
-<div *ngIf="journal && !showLoader" class="header-panel-body">
-    <h3>Заполнение журнала для группы {{journal.students[0].group.name}}</h3>
-</div>
-
-<div *ngIf="journal  && !showLoader">
-    <button (click)="back()" class="btn btn-info">Назад</button>
+<div class="col-sm-12 text-right journal">
     <table>
+        <colgroup>
+            <col span="1" style="width: 25%;">
+        </colgroup>
         <thead>
         <tr>
             <td></td>
-            <td *ngFor="let date of journal.dates">{{date}}</td>
+            <ng-container *ngFor="let month of monthHeader">
+                <ng-container *ngIf="inMonthPeriodDate(month.date)">
+                    <td
+                        [attr.colspan]="month.dateLen"
+                        [ngClass]="{today: isCurrentMonth(month.date)}">
+                        <div class="col-sm-3 text-left">
+                            <span class="nav-button" (click)="backMonth()"><i class="fa fa-angle-left" aria-hidden="true"></i></span>
+                        </div>
+                        <div class="col-sm-6 text-center">
+                            {{month.date | date: 'MMMM'}}
+                        </div>
+                        <div class="col-sm-3 text-right">
+                            <span class="nav-button" (click)="nextMonth()"><i class="fa fa-angle-right" aria-hidden="true"></i></span>
+                        </div>
+                    </td>
+                </ng-container>
+            </ng-container>
+        </tr>
+        <tr>
+            <td></td>
+            <ng-container *ngFor="let head of header">
+                <ng-container *ngIf="inMonthPeriodDate(head.date)">
+                <td [attr.colspan]="head.types.length"
+                    [ngClass]="{today: isCurrentDate(head.date)}">
+                    {{head.date.getDate() }}
+                </td>
+                </ng-container>
+            </ng-container>
+        </tr>
+        <tr>
+            <td><b>ФИО.</b></td>
+            <ng-container *ngFor="let head of header">
+                <ng-container *ngFor="let type of head.types">
+                    <ng-container *ngIf="inMonthPeriodDate(head.date)">
+                        <td style="font-size: 9px" [title]="type.type.name"
+                            [ngClass]="{today: isPairNow(type.pair)}">
+                            <i class="fa fa-circle" aria-hidden="true"></i>
+                        </td>
+                    </ng-container>
+                </ng-container>
+            </ng-container>
         </tr>
         </thead>
         <tbody>
             <tr *ngFor="let student of journal.students">
                 <td>{{student.userFIO}}</td>
-                <td *ngFor="let cell of journal.journalCell" [ngClass]="{displayNo: cell.student.userFIO!=student.userFIO}">
-                    <input (click)="clearField(cell)" (blur)="cancelField(cell)" [(ngModel)]="cell.mark" type="text">
-                </td>
+                <ng-container *ngFor="let cell of journal.journalCell">
+                    <ng-container *ngIf="inMonthPeriodDate(cell.date)">
+                        <td [ngClass]="{displayNo: cell.student.userFIO!=student.userFIO, todayCell: isPairNow(cell.pair)}">
+                            <input (click)="clearField(cell)" (blur)="cancelField(cell)" [(ngModel)]="cell.value" type="text">
+                        </td>
+                    </ng-container>
+                </ng-container>
             </tr>
         </tbody>
     </table>
 </div>
 
-
-
-<data-loader [show]="!journal && showLoader"></data-loader>
+<div class="col-sm-12 text-right">
+    <button (click)="save()" class="btn btn-info btn-success">Сохранить</button>
+</div>

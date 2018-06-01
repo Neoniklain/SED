@@ -6,6 +6,8 @@ import {ApiRouteConstants, RouteConstants} from "../bootstrap/app.route.constant
 import {ErrorResponse} from "../models/additional/errorResponse";
 import {LogInUser, User} from "../models/account/user.model";
 import {Role} from "../models/account/role.model";
+import {ResponseStatus} from "../models/additional/responseStatus";
+import {HandelErrorService} from "./handelError.service";
 
 export const TOKEN_NAME: string = 'token';
  
@@ -14,27 +16,30 @@ export class AuthenticationService {
 
     public isAuthenticated: boolean = false;
 
-    constructor(private http: HttpClient, private router: Router) { }
+    constructor(private http: HttpClient,
+                private router: Router,
+                private handleError: HandelErrorService) {
+    }
 
     login(user: LogInUser): Observable<any | ErrorResponse> {
         return this.http.post(ApiRouteConstants.Authentication.Login,
             { username: user.username, password: user.password });
     }
 
-    register(user): Observable<any> {
+    register(user): Observable<ResponseStatus> {
         let params = new HttpParams();
         return this.http.post(ApiRouteConstants.Authentication.Registration, user, {params: params })
-            .catch(this.handleError);
+            .catch(this.handleError.handle);
     }
 
-    getRole(): Observable<Role[]> {
+    getRole(): Observable<ResponseStatus> {
         return this.http.get(ApiRouteConstants.Authentication.Role)
-            .catch(this.handleError);
+            .catch(this.handleError.handle);
     }
 
-    getUser(): Observable<User> {
+    getUser(): Observable<ResponseStatus> {
         return this.http.get(ApiRouteConstants.Authentication.User)
-            .catch(this.handleError);
+            .catch(this.handleError.handle);
     }
 
     logout() {
@@ -71,18 +76,5 @@ export class AuthenticationService {
 
     private _clearRedirect() {
         localStorage.removeItem('authRedirect');
-    }
-
-    private handleError(error: HttpErrorResponse | any) {
-        let errMsg: string;
-        if (error instanceof HttpErrorResponse) {
-            const body = error.error || "";
-            const err = body.error || JSON.stringify(body);
-            errMsg = `${error.status} - ${error.statusText || ""} ${err}`;
-        } else {
-            errMsg = error.message ? error.message : error.toString();
-        }
-        console.error(errMsg);
-        return Observable.throw(errMsg);
     }
 }

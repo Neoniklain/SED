@@ -59,24 +59,12 @@ export const ApiRouteConstants = {
    },
     Pair: {
         All: "pairs",
-        Save: "demo/pair/save",
-        Delete: "demo/pair/:id",
-        Get: "demo/pair/{id}",
-        Proffesor: {
-            Get: "demo/professor/:id/pairs",
-            Odd: "/professor/{id}/pairs/odd",
-            Even: "/professor/{id}/pairs/even",
-        },
-        Department: {
-            Get: "demo/department/:id/pairs",
-            Even: "demo/department/:id/pairs/even",
-            Odd: "demo/department/:id/pairs/odd",
-        },
-        Group: {
-            Get: "demo/group/:id/pairs",
-            Even: "demo/group/:id/pairs/even",
-            Odd: "demo/group/:id/pairs/odd",
-        },
+        Save: "shedule/pair/save",
+        Delete: "shedule/pair/:id",
+        Get: "shedule/pair/{id}",
+        Proffesor: "shedule/professor/:id/pairs",
+        Department: "shedule/department/:id/pairs",
+        Group: "shedule/group/:id/pairs",
    },
    News: {
       All: "news/all",
@@ -94,7 +82,8 @@ export const ApiRouteConstants = {
       AnswerTask: "task/answer"
    },
    Journal: {
-      All: "jurnal/professor/:professorId/group/:groupId/discipline/:disciplineId"
+      All: "journal/professor/:professorId/group/:groupId/discipline/:disciplineId",
+      Save: "journal/save"
    },
    Excel:
        {
@@ -110,9 +99,7 @@ export const ApiRouteConstants = {
          Roles: "dictionary/role",
          Rooms: "dictionary/room",
          FieldOfKnowlage: "dictionary/fieldOfKnowledge",
-         DayOfWeeks: "dictionary/dayOfWeek",
          Professors: "dictionary/professor",
-         WeekTypes: "dictionary/weekType"
       }
    },
    Plugin: {

@@ -1,4 +1,4 @@
-<table class="table table-bordered" *ngIf="pairs.length > 0" id="temp">
+<table class="table table-bordered" *ngIf="pairs.length > 0 || editable" id="temp">
   <thead class="thead-black">
   <tr>
     <td></td>
@@ -9,43 +9,44 @@
   </thead>
   <tr class="lesson-row" *ngFor="let lessonTime of lessonsTime">
     <td valign="middle" class="lesson-time" width="9%">
-      <div>{{lessonTime.Start}} - {{lessonTime.End}}</div>
+      <div>{{lessonTime.getTime().start | date: 'H:mm'}} - {{lessonTime.getTime().end | date: 'H:mm'}}</div>
     </td>
-    <td width="13%" *ngFor="let day of days">
+    <td width="13%" *ngFor="let day of days" (click)="onClick($event, day, lessonTime.num)">
       <span *ngFor="let pair of pairs">
-        <span *ngIf="pair.dayofweek === day && pair.pairNumber === lessonTime.number" height="100%">
-          <span class="pair"  (click)="onClick($event, pair)" (mousemove)="onMouseMove($event)" (mouseenter)="onMouseEnter($event, pair)" (mouseleave)="onMouseLeave()" *ngIf="pair.weektype =='Все'">
+        <span *ngIf="pair.dayofweek === day && pair.pairNumber === lessonTime.num" height="100%">
+          <span class="pair" *ngIf="pair.weektype =='Все'"
+                (click)="onClick($event, day, lessonTime, pair.weektype); $event.stopPropagation();"
+                (mousemove)="onMouseMove($event)"
+                (mouseenter)="onMouseEnter($event, day, lessonTime, weektype)" (mouseleave)="onMouseLeave()">
             <div style="padding-bottom: 7px; font-size: 14px;" class="text-center">{{pair.discipline.name}}</div>
             <div style="float: left; font-size: 12px;" class="text-left">{{pair.group.name}}</div>
             <div style="font-size: 12px;" class="text-right">{{pair.room.room}} каб.</div>
           </span>
-          <table *ngIf="pair.weektype !='Все'" height="100%">
-            <tr>
-              <td (click)="onClick($event, pair)" (mousemove)="onMouseMove($event)" (mouseenter)="onMouseEnter($event, pair)" (mouseleave)="onMouseLeave()" *ngIf="pair.weektype == 'Чет'" width="50%" class="pair even inner_table_click">
-                <div style="padding-bottom: 7px; font-size: 14px;" class="text-center">
-                  <div class="text-left" style="font-size: 10px;">{{pair.weektype}}</div>
-                  {{pair.discipline.name}}
-                </div>
-                <div style="float: left; font-size: 12px;" class="text-left">{{pair.group.name}}</div>
-                <div style="font-size: 12px;" class="text-right">{{pair.room.room}} каб.</div>
-              </td>
-              <td (click)="onClick($event, pair)" (mousemove)="onMouseMove($event)" (mouseenter)="onMouseEnter($event, pair)" (mouseleave)="onMouseLeave()" *ngIf="pair.weektype == 'Нечет'" width="50%" class="pair odd inner_table_click">
-                <div style="padding-bottom: 7px; font-size: 14px;" class="text-center">
-                  <div class="text-left" style="font-size: 10px;">{{pair.weektype}}</div>
-                  {{pair.discipline.name}}
-                </div>
-                <div style="float: left; font-size: 12px;" class="text-left">{{pair.group.name}}</div>
-                <div style="font-size: 12px;" class="text-right">{{pair.room.room}} каб.</div>
-              </td>
-            </tr>
-          </table>
+          <span class="pair even" *ngIf="pair.weektype =='Чет'"
+                (click)="onClick($event, day, lessonTime, pair.weektype); $event.stopPropagation();"
+                (mousemove)="onMouseMove($event)"
+                (mouseenter)="onMouseEnter($event, day, lessonTime, weektype)" (mouseleave)="onMouseLeave()">
+            <div class="text-left" style="font-size: 10px;">{{pair.weektype}}</div>
+            <div style="padding-bottom: 7px; font-size: 14px;" class="text-center">{{pair.discipline.name}}</div>
+            <div style="float: left; font-size: 12px;" class="text-left">{{pair.group.name}}</div>
+            <div style="font-size: 12px;" class="text-right">{{pair.room.room}} каб.</div>
+          </span>
+          <span class="pair odd" *ngIf="pair.weektype =='Нечет'"
+                (click)="onClick($event, day, lessonTime, pair.weektype); $event.stopPropagation();"
+                (mousemove)="onMouseMove($event)"
+                (mouseenter)="onMouseEnter($event, day, lessonTime, weektype)" (mouseleave)="onMouseLeave()">
+            <div class="text-left" style="font-size: 10px;">{{pair.weektype}}</div>
+            <div style="padding-bottom: 7px; font-size: 14px;" class="text-center">{{pair.discipline.name}}</div>
+            <div style="float: left; font-size: 12px;" class="text-left">{{pair.group.name}}</div>
+            <div style="font-size: 12px;" class="text-right">{{pair.room.room}} каб.</div>
+          </span>
         </span>
       </span>
     </td>
   </tr>
 </table>
 
-<div *ngIf="!pairs || pairs.length == 0" class="pairs-not-found">
+<div *ngIf="(!pairs || pairs.length == 0) && !editable" class="pairs-not-found">
   <h1>Расписание не заполнено.</h1>
 </div>
 

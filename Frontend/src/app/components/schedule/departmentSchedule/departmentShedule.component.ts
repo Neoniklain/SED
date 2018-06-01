@@ -31,7 +31,6 @@ export class DepartmentScheduleComponent implements OnInit {
                 this.DayPairNumber.push({dayofweek: dayofweek, pairNumber: pairNumber});
             }
         }
-        console.log(this.DayPairNumber);
     }
 
     onClick(pair) {

@@ -1,5 +1,5 @@
 ﻿import {CommonModule} from "@angular/common";
-import {NgModule} from "@angular/core";
+import {LOCALE_ID, NgModule} from "@angular/core";
 import {UrlSerializer} from "@angular/router";
 import {BrowserModule} from "@angular/platform-browser";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
@@ -22,7 +22,6 @@ import {ServiceHttpInterceptor} from "../http/serviceHttpInterceptor";
 import {AppComponent} from "./app.component";
 import {AccountComponent} from "../components/account/account/account.component";
 import {NewsDispatcherComponent} from "../components/account/account/news-dispatcher/news-dispatcher.component";
-import {RegisterComponent} from "../components/account/authentification/register/register.component";
 import {LogInComponent} from "../components/account/authentification/login/login.component";
 import {SingleNewsComponent} from "../components/news/single-news/single-news.component";
 import {EditorSingleNewsComponent} from "../components/news/editor-single-news/editor-single-news.component";
@@ -65,6 +64,12 @@ import {DepartmentScheduleComponent} from "../components/schedule/departmentSche
 import {PairDetailsComponent} from "../components/schedule/pairDetails/pairDeatails.component";
 import {NewTaskDescComponent} from "../components/task/newTask/newTaskDesc.component";
 import {WorkTaskComponent} from "../components/task/workTask/workTask.component";
+import {EnumStringKeysPipe} from "../pipes/enum.string.keys";
+import {NotificationService} from "../services/notification.service";
+import {HandelErrorService} from "../services/handelError.service";
+import {JournalPageComponent} from "../components/account/account/journal-page/journal-page.component";
+import {LessonConfiguratorPageComponent} from "../components/account/account/lesson-configurator-page/lesson-configurator-page.component";
+import {LessonСonfiguratorComponent} from "../components/journal/lesson-configurator/lesson-configurator.component";
 
 @NgModule({
    imports: [
@@ -92,7 +97,8 @@ import {WorkTaskComponent} from "../components/task/workTask/workTask.component"
       NewTaskDescComponent,
       WorkTaskComponent,
       LogInComponent,
-      RegisterComponent,
+      JournalPageComponent,
+      LessonConfiguratorPageComponent,
       SingleNewsComponent,
       ListNewsComponent,
       UserAddComponent,
@@ -103,6 +109,7 @@ import {WorkTaskComponent} from "../components/task/workTask/workTask.component"
       NotFoundComponent,
       AccessDeniedComponent,
       EnumKeysPipe,
+      EnumStringKeysPipe,
       FileSelectDirective,
       DictionaryTableComponent,
       ParserXmlComponent,
@@ -110,6 +117,7 @@ import {WorkTaskComponent} from "../components/task/workTask/workTask.component"
       DictionaryTableAddComponent,
       LoaderComponent,
       JournalComponent,
+      LessonСonfiguratorComponent,
       DepartmentScheduleComponent,
       HasRoleDirective,
       ShowScheduleComponent,
@@ -120,8 +128,11 @@ import {WorkTaskComponent} from "../components/task/workTask/workTask.component"
       {provide: RequestOptions, useClass: GlobalHttpOptions},
       {provide: UrlSerializer, useClass: LowerCaseUrlSerializer},
       {provide: HTTP_INTERCEPTORS, useClass: ServiceHttpInterceptor, multi: true},
+      { provide: LOCALE_ID, useValue: 'ru-RU' },
       TranslationService,
       AuthenticationService,
+      NotificationService,
+      HandelErrorService,
       TaskService,
       NewsService,
       MessageService,

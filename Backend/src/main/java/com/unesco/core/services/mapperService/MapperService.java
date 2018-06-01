@@ -1,18 +1,35 @@
 package com.unesco.core.services.mapperService;
 
-import com.unesco.core.entities.*;
+import com.unesco.core.entities.account.Professor;
 import com.unesco.core.entities.account.Role;
+import com.unesco.core.entities.account.Student;
 import com.unesco.core.entities.account.User;
-import com.unesco.core.entities.schedule.Pair;
-import com.unesco.core.entities.schedule.Room;
+import com.unesco.core.entities.journal.PairEvent;
+import com.unesco.core.entities.journal.Point;
+import com.unesco.core.entities.journal.PointType;
+import com.unesco.core.entities.news.News;
+import com.unesco.core.entities.schedule.*;
 import com.unesco.core.entities.workflow.Task;
 import com.unesco.core.entities.workflow.TaskDescription;
-import com.unesco.core.models.*;
+import com.unesco.core.models.TaskDescriptionModel;
+import com.unesco.core.models.TaskModel;
+import com.unesco.core.models.account.ProfessorModel;
 import com.unesco.core.models.account.RoleModel;
-import com.unesco.core.models.account.UserCreateModel;
+import com.unesco.core.models.account.StudentModel;
 import com.unesco.core.models.account.UserModel;
+import com.unesco.core.models.journal.PairEventModel;
+import com.unesco.core.models.journal.PointModel;
+import com.unesco.core.models.journal.PointTypeModel;
+import com.unesco.core.models.news.NewsModel;
+import com.unesco.core.models.plan.DepartmentModel;
+import com.unesco.core.models.shedule.*;
+import com.unesco.core.repositories.LessonRepository;
+import com.unesco.core.repositories.account.ProfessorRepository;
+import com.unesco.core.repositories.account.StudentRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -21,7 +38,31 @@ import java.util.Set;
 @Service
 public class MapperService implements IMapperService {
 
+    @Autowired
+    private ProfessorRepository professorRepository;
+
+    @Autowired
+    private StudentRepository studentRepository;
+
+    @Autowired
+    private LessonRepository lessonRepository;
+
     public <T> Object toEntity(T model) {
+
+        if (model == null)
+            return null;
+
+        if (model instanceof PairEventModel)
+            return LessonEventToEntity((PairEventModel) model);
+
+        if (model instanceof PointModel)
+            return PointToEntity((PointModel) model);
+
+        if (model instanceof PointTypeModel)
+            return PointTypeToEntity((PointTypeModel) model);
+
+        if (model instanceof LessonModel)
+            return LessonToEntity((LessonModel) model);
 
         if (model instanceof ProfessorModel)
             return ProfessorToEntity((ProfessorModel) model);
@@ -37,9 +78,6 @@ public class MapperService implements IMapperService {
 
         if (model instanceof UserModel)
             return UserToEntity((UserModel) model);
-
-        if (model instanceof UserCreateModel)
-            return UserCreateToEntity((UserCreateModel) model);
 
         if (model instanceof InstituteModel)
             return InstituteToEntity((InstituteModel) model);
@@ -62,6 +100,8 @@ public class MapperService implements IMapperService {
         if (model instanceof TaskModel)
             return TaskToEntity((TaskModel) model);
 
+        if (model instanceof NewsModel)
+            return NewsToEntity((NewsModel) model);
 
         if (model instanceof TaskDescription)
             return TaskDescriptionToEntity((TaskDescriptionModel) model);
@@ -73,6 +113,18 @@ public class MapperService implements IMapperService {
 
         if (entity == null)
             return null;
+
+        if (entity instanceof PairEvent)
+            return LessonEventToModel((PairEvent) entity);
+
+        if (entity instanceof Point)
+            return PointToModel((Point) entity);
+
+        if (entity instanceof PointType)
+            return PointTypeToModel((PointType) entity);
+
+        if (entity instanceof Lesson)
+            return LessonToModel((Lesson) entity);
 
         if (entity instanceof Professor)
             return ProfessorToModel((Professor) entity);
@@ -110,12 +162,74 @@ public class MapperService implements IMapperService {
         if (entity instanceof Task)
             return TaskToModel((Task) entity);
 
+        if (entity instanceof News)
+            return NewsToModel((News) entity);
+
         if (entity instanceof TaskDescription)
             return TaskDescriptionToModel((TaskDescription) entity);
+
 
         return new Exception("Not found "+entity.getClass().toString() + " entity class");
     }
 
+    public PointModel PointToModel(Point Entity)
+    {
+        PointModel Model = new PointModel();
+        Model.setId(Entity.getId());
+        Model.setStudent(StudentToModel(Entity.getStudent()));
+        Model.setValue(Entity.getValue());
+        Model.setPair(PairToModel(Entity.getPair()));
+        Model.setType(PointTypeToModel(Entity.getType()));
+        Model.setDate(Entity.getDate());
+        return Model;
+    }
+    public Point PointToEntity(PointModel Model)
+    {
+        Point Entity = new Point();
+        Entity.setId(Model.getId());
+        Entity.setStudent(StudentToEntity(Model.getStudent()));
+        Entity.setValue(Model.getValue());
+        Entity.setPair(PairToEntity(Model.getPair()));
+        Entity.setType(PointTypeToEntity(Model.getType()));
+        Entity.setDate(Model.getDate());
+        return Entity;
+    }
+
+    public PairEventModel LessonEventToModel(PairEvent Entity)
+    {
+        PairEventModel Model = new PairEventModel();
+        Model.setId(Entity.getId());
+        Model.setDate(Entity.getDate());
+        Model.setEveryDay(Entity.isEveryDay());
+        Model.setPair(PairToModel(Entity.getPair()));
+        Model.setType(PointTypeToModel(Entity.getType()));
+        return Model;
+    }
+    public PairEvent LessonEventToEntity(PairEventModel Model)
+    {
+        PairEvent Entity = new PairEvent();
+        Entity.setId(Model.getId());
+        Entity.setDate(Model.getDate());
+        Entity.setEveryDay(Model.isEveryDay());
+        Entity.setPair(PairToEntity(Model.getPair()));
+        Entity.setType(PointTypeToEntity(Model.getType()));
+        return Entity;
+    }
+
+    public PointTypeModel PointTypeToModel(PointType Entity)
+    {
+        PointTypeModel Model = new PointTypeModel();
+        Model.setId(Entity.getId());
+        Model.setName(Entity.getName());
+        return Model;
+    }
+    public PointType PointTypeToEntity(PointTypeModel Model)
+    {
+        PointType Entity = new PointType();
+        Entity.setId(Model.getId());
+        Entity.setName(Model.getName());
+        return Entity;
+    }
 
     public TaskDescriptionModel TaskDescriptionToModel(TaskDescription Entity)
     {
@@ -151,7 +265,7 @@ public class MapperService implements IMapperService {
     {
         TaskModel Model = new TaskModel();
         Model.setId(Entity.getId());
-        Model.setExecutor((UserModel) UserToModel(Entity.getExecutor()));
+        Model.setExecutor(UserToModel(Entity.getExecutor()));
         Model.setResponse(Entity.getResponse());
         Model.setStatus(Entity.getStatus());
         Model.setTaskDescriptionId(Entity.getTaskDescription().getId());
@@ -161,12 +275,39 @@ public class MapperService implements IMapperService {
     {
         Task Entity = new Task();
         Entity.setId(Model.getId());
-        Entity.setExecutor((User) UserToEntity(Model.getExecutor()));
+        Entity.setExecutor(UserToEntity(Model.getExecutor()));
         Entity.setResponse(Model.getResponse());
         Entity.setStatus(Model.getStatus());
         TaskDescription taskDescription = new TaskDescription();
         taskDescription.setId(Model.getTaskDescriptionId());
         Entity.setTaskDescription(taskDescription);
+        return Entity;
+    }
+
+    public NewsModel NewsToModel(News Entity)
+    {
+        NewsModel Model = new NewsModel();
+        Model.setId(Entity.getId());
+        Model.setAuthor(UserToModel(Entity.getAuthor()));
+        Model.setDate(Entity.getDate());
+        Model.setContent(Entity.getContent());
+        Model.setHeader(Entity.getHeader());
+        Model.setId(Entity.getId());
+        Model.setImage(new String(Entity.getImage(), StandardCharsets.UTF_8));
+        Model.setTags(Entity.getTags());
+        return Model;
+    }
+    public News NewsToEntity(NewsModel Model)
+    {
+        News Entity = new News();
+        Entity.setId(Model.getId());
+        Entity.setAuthor(UserToEntity(Model.getAuthor()));
+        Entity.setDate(Model.getDate());
+        Entity.setContent(Model.getContent());
+        Entity.setHeader(Model.getHeader());
+        Entity.setId(Model.getId());
+        Entity.setImage(Model.getImage().getBytes());
+        Entity.setTags(Model.getTags());
         return Entity;
     }
 
@@ -190,7 +331,15 @@ public class MapperService implements IMapperService {
     {
         Professor Entity = new Professor();
         User user = new User();
-        user.setId(Model.getId());
+        if (Model.getId()!=0) {
+            Professor findEntity = professorRepository.findByUserId(Model.getId());
+            if (findEntity != null) {
+                Entity = findEntity;
+                user = Entity.getUser();
+            } else {
+                Entity.setId(0);
+            }
+        }
         user.setEmail(Model.getEmail());
         user.setUsername(Model.getUsername());
         user.setUserFIO(Model.getUserFIO());
@@ -225,7 +374,15 @@ public class MapperService implements IMapperService {
     {
         Student Entity = new Student();
         User user = new User();
-        user.setId(Model.getId());
+        if (Model.getId()!=0) {
+            Student findEntity = studentRepository.findByUserId(Model.getId());
+            if (findEntity != null) {
+                Entity = findEntity;
+                user = Entity.getUser();
+            } else {
+                Entity.setId(0);
+            }
+        }
         user.setEmail(Model.getEmail());
         user.setUsername(Model.getUsername());
         user.setUserFIO(Model.getUserFIO());
@@ -255,6 +412,25 @@ public class MapperService implements IMapperService {
         return Entity;
     }
 
+    public LessonModel LessonToModel(Lesson Entity)
+    {
+        LessonModel Model = new LessonModel();
+        Model.setId((int) Entity.getId());
+        Model.setDiscipline(DisciplineToModel(Entity.getDiscipline()));
+        Model.setGroup(GroupToModel(Entity.getGroup()));
+        Model.setProfessor(ProfessorToModel(Entity.getProfessor()));
+        return Model;
+    }
+    public Lesson LessonToEntity(LessonModel Model)
+    {
+        Lesson Entity = new Lesson();
+        Entity.setId(Model.getId());
+        Entity.setDiscipline(DisciplineToEntity(Model.getDiscipline()));
+        Entity.setGroup(GroupToEntity(Model.getGroup()));
+        Entity.setProfessor(ProfessorToEntity(Model.getProfessor()));
+        return Entity;
+    }
+
     public PairModel PairToModel(Pair Entity)
     {
         PairModel Model = new PairModel();
@@ -262,13 +438,12 @@ public class MapperService implements IMapperService {
         Model.setPairNumber(Entity.getPairNumber());
         Model.setWeektype(Entity.getWeektype());
         Model.setDayofweek(Entity.getDayofweek());
-        Model.setProfessor(ProfessorToModel(Entity.getProfessor()));
+        Model.setDiscipline(DisciplineToModel(Entity.getLesson().getDiscipline()));
+        Model.setGroup(GroupToModel(Entity.getLesson().getGroup()));
+        Model.setProfessor(ProfessorToModel(Entity.getLesson().getProfessor()));
         Model.setRoom(RoomToModel(Entity.getRoom()));
-        Model.setDiscipline(DisciplineToModel(Entity.getDiscipline()));
-        Model.setGroup(GroupToModel(Entity.getGroup()));
         return Model;
     }
-
     public Pair PairToEntity(PairModel Model)
     {
         Pair Entity = new Pair();
@@ -276,14 +451,21 @@ public class MapperService implements IMapperService {
         Entity.setPairNumber(Model.getPairNumber());
         Entity.setWeektype(Model.getWeektype());
         Entity.setDayofweek(Model.getDayofweek());
-        Entity.setProfessor(ProfessorToEntity(Model.getProfessor()));
+
+        Lesson l = lessonRepository.findByDisciplineIdAndGroupIdAndProfessorId(Model.getDiscipline().getId(),
+                Model.getGroup().getId(), Model.getProfessor().getId());
+        if(l==null) {
+            l = new Lesson();
+            l.setDiscipline(DisciplineToEntity(Model.getDiscipline()));
+            l.setProfessor(ProfessorToEntity(Model.getProfessor()));
+            l.setGroup(GroupToEntity(Model.getGroup()));
+        }
+        Entity.setLesson(l);
         Entity.setRoom(RoomToEntity(Model.getRoom()));
-        Entity.setDiscipline(DisciplineToEntity(Model.getDiscipline()));
-        Entity.setGroup(GroupToEntity(Model.getGroup()));
         return Entity;
     }
 
-    public User UserCreateToEntity(UserCreateModel Model)
+    public User UserToEntity(UserModel Model)
     {
         User Entity = new User();
 
@@ -310,6 +492,7 @@ public class MapperService implements IMapperService {
         Model.setUsername(Entity.getUsername());
         Model.setEmail(Entity.getEmail());
         Model.setUserFIO(Entity.getUserFIO());
+        Model.setPassword(Entity.getPassword());
 
         List<RoleModel> roles = new ArrayList<>();
         for (Role role: Entity.getRoles()) {
@@ -318,24 +501,6 @@ public class MapperService implements IMapperService {
         }
         Model.setRoles(roles);
         return Model;
-    }
-    public User UserToEntity(UserModel Model)
-    {
-        User Entity = new User();
-
-        Entity.setId(Model.getId());
-        Entity.setUsername(Model.getUsername());
-        Entity.setEmail(Model.getEmail());
-        Entity.setUserFIO(Model.getUserFIO());
-
-        Set<Role> roles = new HashSet<Role>();
-        for (RoleModel role: Model.getRoles()) {
-            Role roleEntity = (Role) toEntity(role);
-            roles.add(roleEntity);
-        }
-        Entity.setRoles(roles);
-
-        return Entity;
     }
 
     public RoleModel RoleToModel(Role Entity)

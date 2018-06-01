@@ -2,8 +2,17 @@ package com.unesco.core.utils;
 
 import com.unesco.core.entities.account.Role;
 import com.unesco.core.entities.account.User;
+import com.unesco.core.entities.journal.PointType;
+import com.unesco.core.entities.schedule.Department;
+import com.unesco.core.entities.schedule.FieldOfKnowledge;
+import com.unesco.core.entities.schedule.Institute;
 import com.unesco.core.repositories.account.RoleRepository;
 import com.unesco.core.repositories.account.UserRepository;
+import com.unesco.core.repositories.journal.LessonEventRepository;
+import com.unesco.core.repositories.journal.PointTypeRepository;
+import com.unesco.core.repositories.plan.DepartmentRepository;
+import com.unesco.core.repositories.plan.FieldOfKnowledgeRepository;
+import com.unesco.core.repositories.plan.InstituteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
@@ -19,6 +28,16 @@ public class DBInitializer implements ApplicationRunner {
     private UserRepository _UserRepository;
     @Autowired
     private RoleRepository _RoleRepository;
+    @Autowired
+    private FieldOfKnowledgeRepository _FieldOfKnowledgeRepository;
+    @Autowired
+    private InstituteRepository _InstituteRepository;
+    @Autowired
+    private DepartmentRepository _DepartmentRepository;
+    @Autowired
+    private PointTypeRepository _PointTypeRepository;
+    @Autowired
+    private LessonEventRepository _LessonEventRepository;
 
     public void run(ApplicationArguments args) {
         // Инициализация ролей
@@ -30,6 +49,8 @@ public class DBInitializer implements ApplicationRunner {
             _RoleRepository.save(new Role("PROFESSOR"));
         if(_RoleRepository.findByRole("ENGINEER") == null)
             _RoleRepository.save(new Role("ENGINEER"));
+        if(_RoleRepository.findByRole("GUEST") == null)
+            _RoleRepository.save(new Role("GUEST"));
         // Инициализация Тестового пользователя.
         if(_UserRepository.findByUsername("admin") == null)
         {
@@ -40,5 +61,61 @@ public class DBInitializer implements ApplicationRunner {
             testUser.setRoles(role);
             _UserRepository.save(testUser);
         }
+        // Инициализация Типов отметок
+        if(_PointTypeRepository.findByName("Посещение") == null)
+        {
+            PointType p = new PointType();
+            p.setName("Посещение");
+            _PointTypeRepository.save(p);
+        }
+        // Инициализация раздела знаний
+        if(_FieldOfKnowledgeRepository.findByName("Тестовый") == null)
+        {
+            FieldOfKnowledge t = new FieldOfKnowledge();
+            t.setName("Тестовый");
+            _FieldOfKnowledgeRepository.save(t);
+        }
+        Institute t = new Institute();
+        // Инициализация Institute
+        if(_InstituteRepository.findByName("Институт Фундаментальных наук") == null)
+        {
+            t = new Institute();
+            t.setName("Институт Фундаментальных наук");
+            _InstituteRepository.save(t);
+        }
+        Department d;
+        // Инициализация Institute
+        if(_DepartmentRepository.findByName("Юнеско") == null)
+        {
+            d = new Department();
+            d.setName("Юнеско");
+            d.setInstitute(t);
+            _DepartmentRepository.save(d);
+        }
+        // Инициализация PointType
+        PointType p = new PointType();
+        if(_PointTypeRepository.findByName("Посещение") == null)
+        {
+            p.setName("Посещение");
+            _PointTypeRepository.save(p);
+        }
+
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

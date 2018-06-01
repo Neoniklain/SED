@@ -33,7 +33,7 @@ export class TaskDescListComponent {
        this.statuses = new TaskStatusList();
        this.authService.getUser().subscribe(
            res => {
-               this.user = res;
+               this.user = res.data;
            },
            error => {
                if (error.statusText === "Forbidden")
@@ -53,7 +53,7 @@ export class TaskDescListComponent {
    }
 
    public getTaskDescList() {
-      this.taskService.GetList().subscribe((res: any) => {
+      this.taskService.GetList().subscribe((res) => {
               this.taskDescList = res;
               this.checkStatusTaskDescription(this.taskDescList);
           },
@@ -71,7 +71,7 @@ export class TaskDescListComponent {
     }
 
     public deleteTaskDescription(id: number) {
-        this.taskService.Delete(id).subscribe((res: any) => {
+        this.taskService.Delete(id).subscribe((res) => {
                 this.getTaskDescList();
             },
             (error: any) => {

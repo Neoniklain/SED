@@ -1,7 +1,7 @@
-import {Group} from "../group";
-import {Discipline} from "../discipline";
-import {Room} from "../room.model";
-import {Professor} from "../professor";
+import {Group} from "./group";
+import {Discipline} from "./discipline";
+import {Room} from "./room.model";
+import {Professor} from "../account/professor";
 
 export class Pair {
     public id: number;

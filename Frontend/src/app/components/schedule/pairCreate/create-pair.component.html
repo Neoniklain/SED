@@ -51,7 +51,7 @@
                     <div class="input-group input-group-md">
                         <span class="input-group-addon">День недели: </span>
                     <select class="form-control" [(ngModel)]="newPair.dayofweek" name="dayofweek" id="dayslist">
-                        <option *ngFor="let dayofweek of dayofweeks" [ngValue]="dayofweek">{{dayofweek}}</option>
+                        <option *ngFor="let day of dayofweek | enumStringKeys" [ngValue]="day">{{day}}</option>
                     </select>
                     </div>
                 </div>
@@ -75,7 +75,7 @@
                     <div class="input-group input-group-md">
                         <span class="input-group-addon">Тип: </span>
                         <select class="form-control"  [(ngModel)]="newPair.weektype" id="weektype" name="weektypelist">
-                            <option *ngFor="let week of weektypes" id="week" name="weektype" [ngValue]="week">{{week}}</option>
+                            <option *ngFor="let week of weektype | enumStringKeys" id="week" name="weektype" [ngValue]="week">{{week}}</option>
                         </select>
                     </div>
                 </div>

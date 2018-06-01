@@ -35,14 +35,18 @@ export class LogInComponent {
       }
       this.authenticationService.login(this.user).subscribe(
           res => {
-             if (res.token) {
+             if (res) {
                 this.authenticationService.setToken(res.token);
                 this.authenticationService.handleAuth();
                 this.authenticationService.getRole().subscribe(
                     result => {
-                       this.globals.role = result;
+                       this.globals.role = result.data;
                     }
                 );
+                 this.authenticationService.getUser().subscribe(
+                     res => {
+                         this.globals.user = res.data;
+                     });
              }
           },
           err => {

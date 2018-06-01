@@ -1,38 +1,7 @@
-.user-info .user-img img{
-  border-radius: 50%;
-  border: 1px solid #3B3939;
-  width: 4em;
-}
-.user-img
-{
-  float: left;
-}
 
-.user-desc
-{
-  padding-left: 5em;
-}
-
-.user-desc p
-{
-  font-family: Franklin-Gothic-Bold !important;
-  font-size: 16px;
-  margin: 0;
-}
-
-.user-desc .user-desc-name
-{
-  font-size: 21px;
-  font-weight: bold;
-}
-
-.user-desc .user-desc-role
-{
-  color: #8B8B8B;
-}
-
-.container-block{
-  margin-top: 2em;
+.journal {
+  padding-top: 1em;
+  padding-bottom: 1em;
 }
 
 .displayNo {
@@ -55,20 +24,19 @@ table {
 }
 
 td {
-  padding: 0;
-  padding-top: 2px;
-  padding-bottom: 2px;
-  border: 1px solid #3d3d3d;
+  padding: 6px 0;
   text-align: center;
+  border: 1px solid #7e7e7e;
+  vertical-align: middle !important;
 }
 thead
 {
-  background: #0000002b;
-  color: black;
+  background: black;
+  color: white;
 }
 
 td input {
-  width: 2em;
+  width: 15px;
   text-align: center;
 }
 
@@ -102,10 +70,24 @@ td input {
   position: relative;
   margin: 0;
 }
-.news-action-buttons
-{
-  text-align: center;
+
+.today {
+  background: #006b6b;
 }
 
+.todayCell {
+  background: rgba(0, 162, 162, 0.16);
+}
 
+.nav-button {
+  border: 2px solid white;
+  padding: 0 10px;
+  cursor: pointer;
+}
+
+.nav-button:hover {
+  border: 2px solid #006b6b78;
+  background: #ffffff;
+  color: #003535;
+}
 

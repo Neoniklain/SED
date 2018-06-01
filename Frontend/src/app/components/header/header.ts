@@ -9,6 +9,7 @@ import {Globals} from "../../globals";
 import {RouteConstants} from "../../bootstrap/app.route.constants";
 import {User} from "../../models/account/user.model";
 import {AccountService} from "../../services/accountService";
+import {StatusType} from "../../models/statusType.model";
 
 @Component({
    selector: 'header-component',
@@ -33,30 +34,23 @@ export class HeaderComponent implements OnInit {
       this.Roles = Roles;
       this.authService.getRole().subscribe(
           result => {
-             this.globals.role = result;
+             this.globals.role = result.data;
           }
       );
       this.user = new User();
       this.authService.getUser().subscribe(
            res => {
-               this.user = res;
-           },
-           error => {
-               if (error.statusText === "Forbidden")
-                   this.router.navigate(['/404']);
+               if (res.status === StatusType.OK.toString()) {
+                   this.user = res.data;
+                   this.globals.user = res.data;
+               } else {
+                   this.user = null;
+                   this.globals.user = null;
+               }
            });
-   }
-
-   // Пытался извне изменить юзера. Не получилось. Отложил на потом.
-   public setUser() {
-       this.user = new User();
-       this.authService.getUser()
-           .subscribe((res: any) => {
-               this.user = res;
-           }, (error: any) => {
-               if (error.statusText === "Forbidden")
-                   this.router.navigate(['/404']);
-           });
+       this.globals.getUser.subscribe( result => {
+           this.user = result;
+       });
    }
 
    logout() {

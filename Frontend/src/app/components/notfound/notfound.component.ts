@@ -9,12 +9,8 @@ import {Component, Injectable, OnInit} from '@angular/core';
 @Injectable()
 export class NotFoundComponent implements OnInit {
 
-  constructor()
-  {
-  }
+  constructor() { }
 
-  ngOnInit(): void {
-  }
-
+  ngOnInit(): void { }
 
 }

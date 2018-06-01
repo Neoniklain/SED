@@ -4,13 +4,17 @@ import {MessageService} from "primeng/components/common/messageservice";
 import {PairService} from "../../../services/pair.service";
 import {ActivatedRoute} from "@angular/router";
 import {isUndefined} from "util";
-import {Professor} from "../../../models/professor";
-import {Discipline} from "../../../models/discipline";
-import {Room} from "../../../models/room.model";
-import {Group} from "../../../models/group";
+import {Professor} from "../../../models/account/professor";
+import {Discipline} from "../../../models/shedule/discipline";
+import {Room} from "../../../models/shedule/room.model";
+import {Group} from "../../../models/shedule/group";
 import {DictionaryService} from "../../../services/dictionary.service";
 import {AccountService} from "../../../services/accountService";
 import {PageResult} from "../../../models/admin/PageResult.model.list";
+import {WeekType} from "../../../models/shedule/weekType.model";
+import {DayOfWeek} from "../../../models/shedule/dayOfWeek.model";
+import {StatusType} from "../../../models/statusType.model";
+import {NotificationService} from "../../../services/notification.service";
 
 @Component({
     selector: 'pair-create',
@@ -25,14 +29,16 @@ export class PairCreateComponent {
     public disciplines: Discipline[];
     public rooms: Room[];
     public groups: Group[];
-    public weektypes: string[];
-    public dayofweeks: string[];
+    public weektype;
+    public dayofweek;
 
     constructor(private pairService: PairService,
                 private accountService: AccountService,
                 private dictionaryService: DictionaryService,
                 private activateRoute: ActivatedRoute,
-                private messageService: MessageService) {
+                private notification: NotificationService) {
+        this.weektype = WeekType;
+        this.dayofweek = DayOfWeek;
 
         this.newPair = new Pair();
         this.profs = [];
@@ -43,18 +49,6 @@ export class PairCreateComponent {
         this.GetRooms();
         this.groups = [];
         this.GetGroups();
-        this.dictionaryService.GetWeekTypes().subscribe(
-            result => {
-                console.log("result", result);
-                this.weektypes = result.content;
-            }
-        );
-        this.dictionaryService.GetDayOfWeeks().subscribe(
-            result => {
-                console.log("result", result);
-                this.dayofweeks = result.content;
-            }
-        );
         this.id = activateRoute.snapshot.params['id'];
         if (!isUndefined(this.id)) {
             this.GetPair(this.id);
@@ -62,65 +56,47 @@ export class PairCreateComponent {
 
     }
 
-
     public GetPair(id: number) {
         this.pairService.Get(id)
-            .subscribe((res: any) => {
-                    this.newPair = res;
-                    console.log("Пара получена");
-                },
-                (error: any) => {
-                    console.error('Error: ' + error);
+            .subscribe((res) => {
+                    this.newPair = res.data;
                 });
     }
 
     public GetProfs() {
         this.accountService.GetProfessors()
-            .subscribe((res: any) => {
-                    this.profs = res;
-                },
-                error => console.error(error));
+            .subscribe((res) => {
+                    console.log("res", res);
+                    this.profs = res.data;
+                });
     }
 
     public GetDisciplines() {
         this.dictionaryService.GetDisciplines()
             .subscribe((res: PageResult) => {
                     this.disciplines = res.content;
-                },
-                error => console.error(error));
+                });
     }
 
     public GetRooms() {
         this.dictionaryService.GetRooms()
             .subscribe((res: PageResult) => {
                     this.rooms = res.content;
-                },
-                error => console.error(error));
+                });
     }
 
     public GetGroups() {
         this.dictionaryService.GetGroups()
             .subscribe((res: PageResult) => {
                     this.groups = res.content;
-                },
-                error => console.error(error));
+                });
     }
 
 
     public SavePair() {
         this.pairService.Save(this.newPair).subscribe(
             res => {
-                if (res.status == "ok")
-                    this.messageService.add({severity: 'success', summary: 'Успешно.', detail: 'Пара успешно создана.'});
-                else {
-                    let errorMessage = 'Пара не была создана.';
-                    if (res.message !== "")
-                        errorMessage = res.message;
-                    this.messageService.add({severity: 'error', summary: 'Ошибка.', detail: errorMessage});
-                }
-            },
-            error => {
-                this.messageService.add({severity: 'error', summary: 'Ошибка.', detail: 'Пара не была создана.'});
+                this.notification.FromStatus(res);
             }
         );
     }

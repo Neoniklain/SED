@@ -5,6 +5,8 @@ import { News } from "../../../models/news/news.model";
 import { NewsService } from "../../../services/news.service";
 import {RouteConstants} from "../../../bootstrap/app.route.constants";
 import {Router} from "@angular/router";
+import {NotificationService} from "../../../services/notification.service";
+import {StatusType} from "../../../models/statusType.model";
 
 @Component({
   selector: 'editor-list-news-page',
@@ -20,7 +22,7 @@ export class EditorListNewsComponent  {
   constructor(
     private router: Router,
     private newsService: NewsService,
-    private messageService: MessageService,
+    private notification: NotificationService,
     private confirmationService: ConfirmationService) {
     this._listOfNews = [];
     this.GetNews();
@@ -28,16 +30,13 @@ export class EditorListNewsComponent  {
 
   public GetNews() {
     this.newsService.GetAll().subscribe(
-    (res: any) => {
-      this._listOfNews = res;
+    (res) => {
+      this._listOfNews = res.data;
       // обрезаем большие строки
       for (let item of this._listOfNews) {
         if (item.content.length > 200)
           item.content = item.content.slice(0, 300) + "...";
       }
-    },
-    (error: any) => {
-      console.error('Error: ' + error);
     }
     );
   }
@@ -49,15 +48,16 @@ export class EditorListNewsComponent  {
       icon: 'fa fa-trash',
       accept: () => {
         this.newsService.Delete(id).subscribe(
-          (res: any) => {
-            for (let item of this._listOfNews) {
-              if (item.id == id) {
-                this.messageService.add({severity: 'success', summary: 'Успешно.', detail: 'Новость успешно удалена.'});
-                this._listOfNews.splice(this._listOfNews.indexOf(item), 1);
-              }
+          (result) => {
+            if (result.status === StatusType.OK.toString()) {
+                for (let item of this._listOfNews) {
+                    if (item.id == id) {
+                        this._listOfNews.splice(this._listOfNews.indexOf(item), 1);
+                    }
+                }
             }
-          },
-          (error: any) => { console.error('Error: ' + error); });
+            this.notification.FromStatus(result);
+          });
       }
     });
 

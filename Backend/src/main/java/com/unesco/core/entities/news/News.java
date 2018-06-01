@@ -1,6 +1,6 @@
 package com.unesco.core.entities.news;
 
-import com.unesco.core.entities.LongId;
+
 import com.unesco.core.entities.account.User;
 
 import javax.persistence.*;
@@ -8,7 +8,7 @@ import java.util.Date;
 
 @Entity
 @Table(name="un_news")
-public class News implements LongId {
+public class News {
     @Id
     @SequenceGenerator(name = "newsSequenceGen", sequenceName = "newsSequenceGen", allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "newsSequenceGen")
@@ -18,7 +18,8 @@ public class News implements LongId {
     private User author;
     private String content;
     private String tags;
-    private String image;
+    @Lob
+    private byte[] image;
     private Date date;
 
     public long getId() {
@@ -56,10 +57,10 @@ public class News implements LongId {
         this.tags = tags;
     }
 
-    public String getImage() {
+    public byte[] getImage() {
         return image;
     }
-    public void setImage(String image) {
+    public void setImage(byte[] image) {
         this.image = image;
     }
 
@@ -71,7 +72,7 @@ public class News implements LongId {
     }
 
     public News(){}
-    public News(String header,String content,Date date,String tags,User author)
+    public News(String header, String content, Date date, String tags, User author)
     {
         this.header = header;
         this.content = content;

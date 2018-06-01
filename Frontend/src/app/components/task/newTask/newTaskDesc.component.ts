@@ -46,7 +46,7 @@ export class NewTaskDescComponent {
 
     public CreateTask() {
         if (this._isCreate) {
-            this.taskService.Create(this.localTD).subscribe((res: any) => {
+            this.taskService.Create(this.localTD).subscribe((res) => {
                     this._show = false;
                     console.log('Создано');
                 },
@@ -55,7 +55,7 @@ export class NewTaskDescComponent {
                 });
         }
         else {
-            this.taskService.Update(this.localTD).subscribe((res: any) => {
+            this.taskService.Update(this.localTD).subscribe((res) => {
                     this._show = false;
                     console.log('Отредактировано');
                 },
@@ -68,7 +68,7 @@ export class NewTaskDescComponent {
     public ChangeStatus(item: Task, status: string) {
         item.status = status;
         this.taskService.AnswerTask(item)
-            .subscribe((res: any) => {
+            .subscribe((res) => {
                 console.log("Success");
             }, (error: any) => {
                 console.log(error);
@@ -78,8 +78,8 @@ export class NewTaskDescComponent {
     public searchUser(event: any) {
         let query = event.query.substring(0, 60);
         this.accountService.FindUsersByFIO(query)
-            .subscribe((res: any) => {
-                    this._foundedUsers = res;
+            .subscribe((res) => {
+                    this._foundedUsers = res.data;
                     console.log(this._foundedUsers);
                 },
                 (error: any) => {

@@ -1,5 +1,8 @@
 import {Component, EventEmitter, Injectable, Input, OnInit, Output} from '@angular/core';
 import {Pair} from "../../../models/shedule/pair";
+import {DayOfWeek} from "../../../models/shedule/dayOfWeek.model";
+import {WeekType} from "../../../models/shedule/weekType.model";
+import {PairNumber, PairTime} from "../../../models/shedule/pairNumber.model";
 
 @Component({
     selector: 'schedule-week',
@@ -12,17 +15,12 @@ export class WeekScheduleComponent implements OnInit {
     @Output() clickPair = new EventEmitter<Pair>();
     @Output() updatePair = new EventEmitter<any>();
     @Input() pairs: Array<Pair>;
+    @Input() templatePair: Pair;
     @Input() showDetailOnHover: boolean = false;
     @Input() editable: boolean = false;
-    public days = ["Понедельник", "Вторник", "Среда", "Четверг", "Пятница", "Суббота"];
-    public lessonsTime = [
-        {number: 1, Start: "8:30", End: "10:05"},
-        {number: 2, Start: "10:15", End: "11:50"},
-        {number: 3, Start: "12:15", End: "13:50"},
-        {number: 4, Start: "14:00", End: "15:35"},
-        {number: 5, Start: "16:00", End: "17:35"},
-        {number: 6, Start: "17:45", End: "19:20"}
-    ]
+
+    public days = Object.keys(DayOfWeek);
+    public lessonsTime = Array<PairNumber>();
 
     public currentPair: Pair;
     public X: number;
@@ -30,13 +28,30 @@ export class WeekScheduleComponent implements OnInit {
 
     constructor() { }
 
-    ngOnInit(): void { }
+    ngOnInit(): void {
+        this.lessonsTime.push(new PairNumber(1));
+        this.lessonsTime.push(new PairNumber(2));
+        this.lessonsTime.push(new PairNumber(3));
+        this.lessonsTime.push(new PairNumber(4));
+        this.lessonsTime.push(new PairNumber(5));
+        this.lessonsTime.push(new PairNumber(6));
+        if (!this.templatePair) this.templatePair = new Pair();
+    }
 
     updatePairs() {
         this.updatePair.emit();
     }
 
-    onClick(event, pair) {
+    onClick(event, day, lessonTime: PairNumber, weektype?) {
+        let pair = this.templatePair;
+        pair.dayofweek = day;
+        pair.pairNumber = lessonTime.num;
+        pair.weektype = weektype;
+        for (let p of this.pairs) {
+            if (p.dayofweek === day && p.pairNumber === lessonTime.num
+                && (p.weektype === weektype || !weektype))
+                pair = p;
+        }
         this.clickPair.emit(pair);
         if (this.editable) {
             this.X = event.layerX;
@@ -64,7 +79,16 @@ export class WeekScheduleComponent implements OnInit {
         }
     }
 
-    onMouseEnter(event: MouseEvent, pair) {
+    onMouseEnter(event: MouseEvent, day, lessonTime: PairNumber, weektype?) {
+        let pair = this.templatePair;
+        pair.dayofweek = day;
+        pair.pairNumber = lessonTime.num;
+        pair.weektype = weektype;
+        for (let p of this.pairs) {
+            if (p.dayofweek === day && p.pairNumber === lessonTime.num
+                && (p.weektype === weektype || !weektype))
+                pair = p;
+        }
         if (!this.editable && this.showDetailOnHover) {
             this.X = event.layerX;
             this.Y = event.layerY;

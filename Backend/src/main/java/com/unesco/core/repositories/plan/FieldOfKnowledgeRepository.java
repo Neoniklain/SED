@@ -1,7 +1,6 @@
 package com.unesco.core.repositories.plan;
 
-import com.unesco.core.entities.Discipline;
-import com.unesco.core.entities.FieldOfKnowledge;
+import com.unesco.core.entities.schedule.FieldOfKnowledge;
 import com.unesco.core.repositories.utils.CrudPagableRepository;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.Query;

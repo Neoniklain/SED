@@ -1,9 +1,6 @@
 package com.unesco.core.repositories.account;
 
-import com.unesco.core.entities.Discipline;
-import com.unesco.core.entities.account.Role;
 import com.unesco.core.entities.account.User;
-import com.unesco.core.models.account.UserModel;
 import com.unesco.core.repositories.utils.CrudPagableRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -29,5 +26,6 @@ public interface UserRepository extends CrudRepository<User, Long>, CrudPagableR
 
     @Query("SELECT u FROM User u where lower(u.userFIO) LIKE CONCAT('%',lower(:filter),'%')")
     List<User> findWithFilter(Pageable pageable, @Param("filter")  String filter);
+
     User findById(long id);
 }

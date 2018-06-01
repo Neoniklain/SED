@@ -1,115 +1,122 @@
 package com.unesco.core.controller;
 
-import com.unesco.core.models.*;
-import com.unesco.core.models.additional.JSONResponseStatus;
-import com.unesco.core.services.dictionaryDataService.IDitionaryDataService;
-import com.unesco.core.services.sheduleService.ISheduleService;
-import com.unesco.core.services.userService.IUserService;
-import org.apache.catalina.connector.Response;
+import com.unesco.core.managers.schedule.pairManager.interfaces.pair.IPairManager;
+import com.unesco.core.managers.schedule.sheduleDepartmentManager.sheduleDepartment.ISheduleDepartmentManager;
+import com.unesco.core.managers.schedule.sheduleManager.interfaces.shedule.ISheduleManager;
+import com.unesco.core.models.additional.ResponseStatus;
+import com.unesco.core.models.shedule.PairModel;
+import com.unesco.core.services.account.professorService.IProfessorDataService;
+import com.unesco.core.services.account.studentService.IStudentDataService;
+import com.unesco.core.services.schedule.departmentService.IDepartmentDataService;
+import com.unesco.core.services.schedule.groupService.IGroupDataService;
+import com.unesco.core.services.schedule.pairService.IPairDataService;
+import com.unesco.core.utils.StatusTypes;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-import java.util.Map;
-
 @CrossOrigin
 @RestController
-@RequestMapping("/api/demo")
+@RequestMapping("/api/shedule")
 public class SheduleController {
 
     @Autowired
-    private IDitionaryDataService ditionaryDataService;
+    private ISheduleManager sheduleManager;
     @Autowired
-    private ISheduleService sheduleService;
+    private IPairManager pairManager;
     @Autowired
-    private IUserService userService;
+    private ISheduleDepartmentManager sheduleDepartmentManager;
+
+    @Autowired
+    private IDepartmentDataService departmentDataService;
+
+
+    @Autowired
+    private IProfessorDataService professorDataService;
+    @Autowired
+    private IStudentDataService studentDataService;
+    @Autowired
+    private IGroupDataService groupDataService;
+    @Autowired
+    private IPairDataService pairDataService;
 
     @RequestMapping("/department/{id}/pairs")
-    public List<DepartmentSheduleModel> getDepartmentPairs(@PathVariable("id") int id) {
-        DepartmentModel department = ditionaryDataService.getDepartment(id);
-        return sheduleService.getPairs(department);
-    }
+    public ResponseStatus getDepartmentPairs(@PathVariable("id") long departmentId) {
 
-    @RequestMapping("/department/{id}/pairs/even")
-    public List<DepartmentSheduleModel> getOddDepartmentPairs(@PathVariable("id") int id) {
-        DepartmentModel department = ditionaryDataService.getDepartment(id);
-        return sheduleService.getEvenPairs(department);
-    }
+        sheduleDepartmentManager.Init(pairDataService.GetAllByDepartament(departmentId),
+                professorDataService.GetAllByDepartament(departmentId),
+                departmentDataService.Get(departmentId));
 
-    @RequestMapping("/department/{id}/pairs/odd")
-    public List<DepartmentSheduleModel> getEvenDepartmentPairs(@PathVariable("id") int id) {
-        DepartmentModel department = ditionaryDataService.getDepartment(id);
-        return sheduleService.getOddPairs(department);
+        return new ResponseStatus(StatusTypes.OK, sheduleDepartmentManager.Get());
     }
 
     @RequestMapping("/group/{id}/pairs")
-    public List<PairModel> getGroupPairs(@PathVariable("id") int id) {
-        GroupModel group = ditionaryDataService.getGroup(id);
-        return sheduleService.getPairs(group);
-    }
+    public ResponseStatus getGroupPairs(@PathVariable("id") long groupId) {
 
-    @RequestMapping("/group/{id}/pairs/even")
-    public List<PairModel> getEvenGroupPairs(@PathVariable("id") int id) {
-        GroupModel group = ditionaryDataService.getGroup(id);
-        return sheduleService.getEvenPairs(group);
-    }
+        sheduleManager.Init(pairDataService.GetAllByGroup(groupId),
+                groupDataService.Get(groupId));
 
-    @RequestMapping("/group/{id}/pairs/odd")
-    public List<PairModel> getOddGroupPairs(@PathVariable("id") int id) {
-        GroupModel group = ditionaryDataService.getGroup(id);
-        return sheduleService.getOddPairs(group);
-    }
-
-    @RequestMapping("/groups")
-    public List<GroupModel> getGroups() {
-        return ditionaryDataService.getGroups();
+        return new ResponseStatus(StatusTypes.OK, sheduleManager.Get());
     }
 
     @RequestMapping(method = RequestMethod.GET, value = "/pair/{id}")
-    public PairModel getPair(@PathVariable("id") int id) {
-        return sheduleService.getPair(id);
+    public ResponseStatus getPair(@PathVariable("id") long pairId) {
+        return new ResponseStatus(StatusTypes.OK, pairDataService.Get(pairId));
     }
 
     @RequestMapping(method = RequestMethod.DELETE, value = "/pair/{id}")
-    public JSONResponseStatus deletePair(@PathVariable("id") int id) {
-        return sheduleService.deletePair(id);
+    public ResponseStatus deletePair(@PathVariable("id") long pairId) {
+        ResponseStatus res = new ResponseStatus(StatusTypes.OK);
+        try {
+            pairDataService.Delete(pairId);
+            res.addMessage("Занятие удалено.");
+            return res;
+        }
+        catch (Exception e) {
+            return new ResponseStatus(StatusTypes.ERROR, e.getMessage());
+        }
     }
 
     @RequestMapping("/professor/{id}/pairs")
-    public List<PairModel> getProfessorPairs(@PathVariable("id") int id) {
-        ProfessorModel professor = userService.getProfessor(id);
-        return sheduleService.getPairs(professor);
-    }
-
-    @RequestMapping("/professor/{id}/pairs/even")
-    public List<PairModel> getEvenProfessorPairs(@PathVariable("id") int id) {
-        ProfessorModel professor = userService.getProfessor(id);
-        return sheduleService.getEvenPairs(professor);
-    }
-
-    @RequestMapping("/professor/{id}/pairs/odd")
-    public List<PairModel> getOddProfessorPairs(@PathVariable("id") int id) {
-        ProfessorModel professor = userService.getProfessor(id);
-        return sheduleService.getOddPairs(professor);
+    public ResponseStatus getProfessorPairs(@PathVariable("id") long professorId) {
+        professorDataService.Get(professorId);
+        return new ResponseStatus(StatusTypes.OK, pairDataService.GetAllByProfessor(professorId));
     }
 
     @RequestMapping("/professors")
-    public List<ProfessorModel> getProfessors() {
-        return userService.getProfessors();
+    public ResponseStatus getProfessors() {
+        return new ResponseStatus(StatusTypes.OK, professorDataService.GetAll());
     }
 
     @RequestMapping("/professor/{id}")
-    public ProfessorModel getProfessor(@PathVariable("id") int id) {
-        return userService.getProfessor(id);
+    public ResponseStatus getProfessor(@PathVariable("id") long professorId) {
+        return new ResponseStatus(StatusTypes.OK, professorDataService.Get(professorId));
     }
 
     @RequestMapping("/student/{id}")
-    public StudentModel getStudent(@PathVariable("id") int id) {
-        return userService.getStudent(id);
+    public ResponseStatus getStudent(@PathVariable("id") long studentId) {
+        return new ResponseStatus(StatusTypes.OK, studentDataService.Get(studentId));
     }
 
     @RequestMapping("/pair/save")
-    public JSONResponseStatus savePair(@RequestBody PairModel pairModel) {
-        return sheduleService.savePair(pairModel);
+    public ResponseStatus savePair(@RequestBody PairModel pairModel) {
+        pairManager.Init(pairModel);
+        ResponseStatus result = pairManager.CheckIntersection(pairDataService.GetAll());
+        if(result.getStatus() == StatusTypes.OK) {
+            try {
+                pairDataService.Save(pairManager.Get());
+                result.addMessage("Занятие сохранено.");
+                return result;
+            }
+            catch (Exception e) {
+                result.setStatus(StatusTypes.ERROR);
+                result.addErrors("При создании занятия произошла ошибка");
+                result.addErrors(e.getMessage());
+                return result;
+            }
+        }
+        else {
+            return result;
+        }
     }
+
 }

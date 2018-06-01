@@ -1,2 +1,2 @@
 cd Frontend
-gulp build:prod
+gulp build:dev

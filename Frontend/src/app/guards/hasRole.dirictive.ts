@@ -3,6 +3,7 @@ import {AuthenticationService} from "../services/authService";
 import {Role, Roles} from "../models/account/role.model";
 import {Globals} from "../globals";
 import {Subscription} from "rxjs/Subscription";
+import {isUndefined} from "util";
 
 @Directive({
    selector: '[hasRole]'
@@ -30,32 +31,34 @@ export class HasRoleDirective implements OnInit, OnChanges {
    }
 
    checkRoles() {
-      // Требуется чтобы был анонимный и нет набора ролей (userRole) - доступ есть
-      if (this.hasRole.indexOf(Roles.Anonim) !== -1 && this.userRole.length === 0) {
-         this.viewContainerRef.clear();
-         this.viewContainerRef.createEmbeddedView(this.template);
-         return;
-      }
-      // Набор ролей (userRole) не пуст и требуется чтобы был авторизован - доступ есть
-      if (this.hasRole.indexOf(Roles.Authorized) !== -1 && this.userRole.length > 0) {
-         this.viewContainerRef.clear();
-         this.viewContainerRef.createEmbeddedView(this.template);
-         return;
-      }
-      // Набор ролей (userRole) пуст - доступа нет
-      if (this.userRole.length === 0) {
-         this.viewContainerRef.clear();
-         return;
-      }
-      // Требуется определенная роль
-      let acces = false;
-      for (let r of this.userRole) {
-         if (this.hasRole.indexOf(r.roleName) !== -1) acces = true;
-      }
-      if (acces) {
-         this.viewContainerRef.createEmbeddedView(this.template);
-      } else {
-         this.viewContainerRef.clear();
+      if (!isUndefined(this.hasRole)) {
+         // Требуется чтобы был анонимный и нет набора ролей (userRole) - доступ есть
+         if (this.hasRole.indexOf(Roles.Anonim) !== -1 && this.userRole.length === 0) {
+            this.viewContainerRef.clear();
+            this.viewContainerRef.createEmbeddedView(this.template);
+            return;
+         }
+         // Набор ролей (userRole) не пуст и требуется чтобы был авторизован - доступ есть
+         if (this.hasRole.indexOf(Roles.Authorized) !== -1 && this.userRole.length > 0) {
+            this.viewContainerRef.clear();
+            this.viewContainerRef.createEmbeddedView(this.template);
+            return;
+         }
+         // Набор ролей (userRole) пуст - доступа нет
+         if (this.userRole.length === 0) {
+            this.viewContainerRef.clear();
+            return;
+         }
+         // Требуется определенная роль
+         let acces = false;
+         for (let r of this.userRole) {
+            if (this.hasRole.indexOf(r.roleName) !== -1) acces = true;
+         }
+         if (acces) {
+            this.viewContainerRef.createEmbeddedView(this.template);
+         } else {
+            this.viewContainerRef.clear();
+         }
       }
    }
 }

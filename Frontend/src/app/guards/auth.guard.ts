@@ -18,7 +18,7 @@ export class AuthGuard implements CanActivate {
       if (expectedRoles) {
           return this.authService.getRole().map(
               result => {
-                 let roles: Role[] = result;
+                 let roles: Role[] = result.data;
                  for (let expectedRole of expectedRoles) {
                     for (let role of roles) {
                        if (role.roleName === expectedRole)
@@ -34,7 +34,8 @@ export class AuthGuard implements CanActivate {
               }
           );
       } else {
-         return true;
+          this.authService.redirectToAccessDenied(state.url);
+          return false;
       }
    }
 

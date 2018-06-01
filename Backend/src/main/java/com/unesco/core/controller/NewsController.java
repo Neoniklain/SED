@@ -1,19 +1,18 @@
 package com.unesco.core.controller;
 
-import com.unesco.core.models.additional.JSONResponseStatus;
-import com.unesco.core.entities.news.News;
-import com.unesco.core.repositories.news.NewsRepository;
-import com.unesco.core.repositories.account.UserRepository;
+import com.unesco.core.managers.news.newsManager.interfaces.news.INewsManager;
+import com.unesco.core.managers.news.newsManager.interfaces.newsList.INewsListManager;
+import com.unesco.core.models.additional.ResponseStatus;
+import com.unesco.core.models.news.NewsModel;
 import com.unesco.core.security.CustomUserDetailsService;
+import com.unesco.core.services.account.userService.IUserDataService;
+import com.unesco.core.services.news.newsService.INewsDataService;
+import com.unesco.core.utils.StatusTypes;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Collections;
 import java.util.Date;
-import java.util.List;
-import java.util.stream.Collectors;
-import java.util.stream.StreamSupport;
 
 /**
  * Created by lukasz on 27.08.2017.
@@ -25,50 +24,58 @@ import java.util.stream.StreamSupport;
 public class NewsController {
 
     @Autowired
-    private UserRepository _UserRepository;
+    private INewsDataService newsDataService;
     @Autowired
-    private NewsRepository _NewsRepository;
+    private IUserDataService userDataService;
+    @Autowired
+    private INewsManager newsManager;
+    @Autowired
+    private INewsListManager newsListManager;
+
     @Autowired
     private CustomUserDetailsService _CustomUserDetailsService;
 
     @GetMapping("/all")
-    public List<News> GetAllNews() {
-        Iterable<News> news = _NewsRepository.findAll();
-        List<News> array = StreamSupport.stream(news.spliterator(), false).collect(Collectors.toList());
-        Collections.reverse(array);
-        return array;
+    public ResponseStatus GetAllNews() {
+        newsListManager.Init(newsDataService.GetAll());
+        return new ResponseStatus(StatusTypes.OK, newsListManager.GetAll());
     }
 
     @GetMapping("/last")
-    public News GetLast() {
-        UserDetails user = _CustomUserDetailsService.getUserDetails();
-        News news = _NewsRepository.findTop1ByOrderByDateDesc();
-        return news == null ? new News(): news;
+    public ResponseStatus GetLast() {
+        newsListManager.Init(newsDataService.GetAll());
+        return new ResponseStatus(StatusTypes.OK, newsListManager.GetLast());
     }
 
     @RequestMapping(value = "/get/{id}")
-    public News Get(@PathVariable("id") long id) {
-        News news = _NewsRepository.findById(id);
-        return news;
+    public ResponseStatus Get(@PathVariable("id") long id) {
+        newsManager.Init(newsDataService.Get(id));
+        return new ResponseStatus(StatusTypes.OK, newsManager.Get());
     }
 
     @RequestMapping(value = "/delete/{id}")
-    public JSONResponseStatus Delete(@PathVariable("id") long id) {
-        _NewsRepository.delete(id);
-        return JSONResponseStatus.OK();
+    public ResponseStatus Delete(@PathVariable("id") long id) {
+        try {
+            newsDataService.Delete(id);
+            return new ResponseStatus(StatusTypes.OK);
+        }
+        catch (Exception e) {
+            return new ResponseStatus(StatusTypes.ERROR, e.getMessage());
+        }
     }
 
     @RequestMapping(value = "/save")
-    public JSONResponseStatus save(@RequestBody News news) {
-        if(_NewsRepository.findById(news.getId())!=null) {
-
-        }else{
+    public ResponseStatus save(@RequestBody NewsModel news) {
+        try {
             Date day = new Date();
             news.setDate(day);
             UserDetails user = _CustomUserDetailsService.getUserDetails();
-            news.setAuthor(_UserRepository.findByUsername(user.getUsername()));
+            news.setAuthor(userDataService.GetByUsername(user.getUsername()));
+            newsDataService.Save(news);
+            return new ResponseStatus(StatusTypes.OK);
         }
-        _NewsRepository.save(news);
-        return JSONResponseStatus.OK();
+        catch (Exception e) {
+            return new ResponseStatus(StatusTypes.ERROR, e.getMessage());
+        }
     }
 }

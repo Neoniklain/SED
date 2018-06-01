@@ -1,7 +1,22 @@
 package com.unesco.core.models.enums;
 
-import com.unesco.core.models.InstituteModel;
-
 public enum RoleType {
-   ADMIN, STUDENT, PROFESSOR, ENGINEER, USER
+
+   ADMIN("ADMIN"),
+   STUDENT("STUDENT"),
+   PROFESSOR("PROFESSOR"),
+   ENGINEER("ENGINEER"),
+   USER("USER"),
+   GUEST("GUEST");
+
+   private final String text;
+
+   RoleType(final String text) {
+      this.text = text;
+   }
+
+   @Override
+   public String toString() {
+      return text;
+   }
 }

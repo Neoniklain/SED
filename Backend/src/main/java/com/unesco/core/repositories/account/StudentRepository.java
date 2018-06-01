@@ -1,7 +1,8 @@
 package com.unesco.core.repositories.account;
 
-import com.unesco.core.entities.Student;
+import com.unesco.core.entities.account.Student;
 import com.unesco.core.repositories.utils.CrudPagableRepository;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
@@ -12,9 +13,11 @@ public interface StudentRepository extends CrudRepository<Student, Long>, CrudPa
     @Override
     List<Student> findAll();
 
-    @Override
-    @Query("SELECT s FROM Student s where s.user.id = :id")
-    Student findOne(@Param("id") Long id);
+    @Query("SELECT s FROM Student s where lower(s.user.userFIO) LIKE CONCAT('%',lower(:filter),'%')")
+    List<Student> findWithFilter(Pageable pageable, @Param("filter")  String filter);
+
+
+    Student findByUserId(long id);
 
     List<Student> findAllByGroupId(long id);
 }

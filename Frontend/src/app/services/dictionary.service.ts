@@ -6,133 +6,126 @@ import { ApiRouteConstants } from "../bootstrap/app.route.constants";
 import { News } from "../models/news/news.model";
 import 'rxjs/add/operator/catch';
 import {User} from "../models/account/user.model";
-import {Discipline} from "../models/discipline";
+import {Discipline} from "../models/shedule/discipline";
 import {LazyLoadEvent} from "primeng/api";
 import {PageResult} from "../models/admin/PageResult.model.list";
 import {ResponseStatus} from "../models/additional/responseStatus";
-import {Group} from "../models/group";
-import {Department} from "../models/department";
-import {Institute} from "../models/institute";
-import {Room} from "../models/room.model";
+import {Group} from "../models/shedule/group";
+import {Department} from "../models/shedule/department";
+import {Institute} from "../models/shedule/institute";
+import {Room} from "../models/shedule/room.model";
+import {HandelErrorService} from "./handelError.service";
 
 @Injectable()
 export class DictionaryService {
 
     constructor(
         private http: HttpClient,
-        private router: Router
-    ) { }
+        private router: Router,
+        private handleError: HandelErrorService
+    ) {
+    }
 
     public GetUsers(filterQuery?: LazyLoadEvent): Observable<PageResult> {
        let params = new HttpParams();
         return this.http.post(ApiRouteConstants.Dictonary.Page.Users, this.initFilter(filterQuery), {params: params })
-            .catch(this.handleError);
+            .catch(this.handleError.handle);
     }
     public GetDisciplines(filterQuery?: LazyLoadEvent): Observable<PageResult> {
       let params = new HttpParams();
       console.log("filterQuery", filterQuery);
       return this.http.post(ApiRouteConstants.Dictonary.Page.Disciplines, this.initFilter(filterQuery), { params: params })
-          .catch(this.handleError);
+          .catch(this.handleError.handle);
     }
     public GetInstitutes(filterQuery?: LazyLoadEvent): Observable<PageResult> {
       let params = new HttpParams();
       return this.http.post(ApiRouteConstants.Dictonary.Page.Institutes, this.initFilter(filterQuery), {params: params })
-          .catch(this.handleError);
+          .catch(this.handleError.handle);
     }
     public GetDepartments(filterQuery?: LazyLoadEvent): Observable<PageResult> {
       let params = new HttpParams();
       return this.http.post(ApiRouteConstants.Dictonary.Page.Departments, this.initFilter(filterQuery), {params: params })
-          .catch(this.handleError);
+          .catch(this.handleError.handle);
     }
     public GetGroups(filterQuery?: LazyLoadEvent): Observable<PageResult> {
       let params = new HttpParams();
       return this.http.post(ApiRouteConstants.Dictonary.Page.Groups, this.initFilter(filterQuery), {params: params })
-          .catch(this.handleError);
+          .catch(this.handleError.handle);
     }
     public GetRoles(filterQuery?: LazyLoadEvent): Observable<PageResult> {
       let params = new HttpParams();
       return this.http.post(ApiRouteConstants.Dictonary.Page.Roles, this.initFilter(filterQuery), {params: params })
-          .catch(this.handleError);
+          .catch(this.handleError.handle);
     }
     public GetProfessors(filterQuery?: LazyLoadEvent): Observable<PageResult> {
       let params = new HttpParams();
       return this.http.post(ApiRouteConstants.Dictonary.Page.Professors, this.initFilter(filterQuery), {params: params })
-          .catch(this.handleError);
+          .catch(this.handleError.handle);
     }
     public GetFieldOfKnowladge(filterQuery?: LazyLoadEvent): Observable<PageResult> {
       let params = new HttpParams();
       return this.http.post(ApiRouteConstants.Dictonary.Page.FieldOfKnowlage, this.initFilter(filterQuery), {params: params })
-          .catch(this.handleError);
+          .catch(this.handleError.handle);
     }
     public GetRooms(filterQuery?: LazyLoadEvent): Observable<PageResult> {
         let params = new HttpParams();
         return this.http.post(ApiRouteConstants.Dictonary.Page.Rooms, this.initFilter(filterQuery), {params: params })
-            .catch(this.handleError);
-    }
-    public GetWeekTypes(filterQuery?: LazyLoadEvent): Observable<PageResult> {
-        let params = new HttpParams();
-        return this.http.post(ApiRouteConstants.Dictonary.Page.WeekTypes, this.initFilter(filterQuery), { params: params })
-            .catch(this.handleError);
-    }
-    public GetDayOfWeeks(filterQuery?: LazyLoadEvent): Observable<PageResult> {
-        let params = new HttpParams();
-        return this.http.post(ApiRouteConstants.Dictonary.Page.DayOfWeeks, this.initFilter(filterQuery), { params: params })
-            .catch(this.handleError);
+            .catch(this.handleError.handle);
     }
 
     public AddOrUpdateDiscipline(discipline: Discipline): Observable<ResponseStatus> {
       let params = new HttpParams();
       return this.http.put(ApiRouteConstants.Dictonary.Page.Disciplines, discipline, {params: params })
-          .catch(this.handleError);
+          .catch(this.handleError.handle);
     }
     public AddOrUpdateInstitute(institute: Institute): Observable<ResponseStatus> {
         let params = new HttpParams();
         return this.http.put(ApiRouteConstants.Dictonary.Page.Institutes, institute, {params: params })
-            .catch(this.handleError);
+            .catch(this.handleError.handle);
     }
     public AddOrUpdateDepartment(department: Department): Observable<ResponseStatus> {
         let params = new HttpParams();
         return this.http.put(ApiRouteConstants.Dictonary.Page.Departments, department, {params: params })
-            .catch(this.handleError);
+            .catch(this.handleError.handle);
     }
     public AddOrUpdateGroups(groups: Group): Observable<ResponseStatus> {
         let params = new HttpParams();
         return this.http.put(ApiRouteConstants.Dictonary.Page.Groups, groups, {params: params })
-            .catch(this.handleError);
+            .catch(this.handleError.handle);
     }
     public AddOrUpdateRoom(room: Room): Observable<ResponseStatus> {
         let params = new HttpParams();
         return this.http.put(ApiRouteConstants.Dictonary.Page.Rooms, room, {params: params })
-            .catch(this.handleError);
+            .catch(this.handleError.handle);
     }
 
     public DeleteDiscipline(id: number): Observable<ResponseStatus> {
       return this.http.delete(ApiRouteConstants.Dictonary.Page.Disciplines + "/" + id)
-          .catch(this.handleError);
+          .catch(this.handleError.handle);
     }
     public DeleteInstitute(id: number): Observable<ResponseStatus> {
         return this.http.delete(ApiRouteConstants.Dictonary.Page.Institutes + "/" + id)
-            .catch(this.handleError);
+            .catch(this.handleError.handle);
     }
     public DeleteDepartment(id: number): Observable<ResponseStatus> {
         return this.http.delete(ApiRouteConstants.Dictonary.Page.Departments + "/" + id)
-            .catch(this.handleError);
+            .catch(this.handleError.handle);
     }
     public DeleteGroup(id: number): Observable<ResponseStatus> {
         return this.http.delete(ApiRouteConstants.Dictonary.Page.Groups + "/" + id)
-            .catch(this.handleError);
+            .catch(this.handleError.handle);
     }
     public DeleteRole(id: number): Observable<ResponseStatus> {
         return this.http.delete(ApiRouteConstants.Dictonary.Page.Roles + "/" + id)
-            .catch(this.handleError);
+            .catch(this.handleError.handle);
     }
     public DeleteRoom(id: number): Observable<ResponseStatus> {
         return this.http.delete(ApiRouteConstants.Dictonary.Page.Rooms + "/" + id)
-            .catch(this.handleError);
+            .catch(this.handleError.handle);
     }
     public DeleteFieldOfKnowladge(id: number): Observable<ResponseStatus> {
         return this.http.delete(ApiRouteConstants.Dictonary.Page.FieldOfKnowlage + "/" + id)
-            .catch(this.handleError);
+            .catch(this.handleError.handle);
     }
 
     private initFilter(filterQuery?: LazyLoadEvent) {
@@ -142,18 +135,5 @@ export class DictionaryService {
          globalFilter: filterQuery ? filterQuery.globalFilter : ""
       };
       return filter;
-    }
-
-    private handleError(error: HttpErrorResponse | any) {
-        let errMsg: string;
-        if (error instanceof HttpErrorResponse) {
-            const body = error.error || "";
-            const err = body.error || JSON.stringify(body);
-            errMsg = `${error.status} - ${error.statusText || ""} ${err}`;
-        } else {
-            errMsg = error.message ? error.message : error.toString();
-        }
-        console.error(errMsg);
-        return Observable.throw(errMsg);
     }
 }

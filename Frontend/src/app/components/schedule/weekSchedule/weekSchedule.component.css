@@ -52,6 +52,10 @@ input {
   min-height: 6em;
 }
 
+.lesson-row td {
+  padding: 0px;
+}
+
 .odd {
   background: #0007ff1f;
 }
@@ -61,7 +65,9 @@ input {
 }
 
 .pair {
+  padding: 5px;
   cursor: pointer;
+  display: inline-block;
 }
 
 input:hover,input:focus {

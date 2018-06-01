@@ -6,7 +6,6 @@ import {AuthGuard} from "../guards/auth.guard";
 import {ListNewsComponent} from "../components/news/list-news/list-news.component";
 import {AccountComponent} from "../components/account/account/account.component";
 import {LogInComponent} from "../components/account/authentification/login/login.component";
-import {RegisterComponent} from "../components/account/authentification/register/register.component";
 import {EditorListNewsComponent} from "../components/news/editor-list-news/editor-list-news.component";
 import {EditorSingleNewsComponent} from "../components/news/editor-single-news/editor-single-news.component";
 import {AccessDeniedComponent} from "../components/account/accessDenied/accessDenied.component";
@@ -47,15 +46,10 @@ export const routes: Routes = [
       data: {title: "Вход"}
    },
    {
-      path: RouteConstants.Account.Register,
-      component: RegisterComponent,
-      data: {title: "Регистрация"}
-   },
-   {
       path: RouteConstants.Account.Lk,
       component: AccountComponent,
       canActivate: [AuthGuard],
-      data: {title: "Личный кабинет"}
+      data: {expectedRoles: [Roles.Professor, Roles.Administrator], title: "Личный кабинет"}
    },
    {
       path: RouteConstants.Account.AccessDenied,
@@ -67,11 +61,6 @@ export const routes: Routes = [
       component: AdminPanelComponent,
       canActivate: [AuthGuard],
       data: {expectedRoles: [Roles.Administrator], title: "Админ-панель"}
-   },
-   {
-      path: RouteConstants.Journal.All,
-      component: JournalComponent,
-      data: { title: "Журнал"}
    }
 ];
 

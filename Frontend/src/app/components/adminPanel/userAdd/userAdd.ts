@@ -5,11 +5,14 @@ import {ToastrService} from "ngx-toastr";
 import {Role} from "../../../models/account/role.model";
 import {DictionaryService} from "../../../services/dictionary.service";
 import {UtilsService} from "../../../services/utils.service";
-import {Group} from "../../../models/group";
-import {Department} from "../../../models/department";
+import {Group} from "../../../models/shedule/group";
+import {Department} from "../../../models/shedule/department";
 import {Roles} from "../../../models/account/role.model";
-import {Professor} from "../../../models/professor";
+import {Professor} from "../../../models/account/professor";
 import {AccountService} from "../../../services/accountService";
+import {ResponseStatus} from "../../../models/additional/responseStatus";
+import {StatusType} from "../../../models/statusType.model";
+import {NotificationService} from "../../../services/notification.service";
 
 @Component({
     selector: 'user-add',
@@ -29,7 +32,7 @@ export class UserAddComponent implements OnInit {
     public groups: Array<Group> = new Array<Group>();
     public Roles;
 
-    constructor(private toastr: ToastrService,
+    constructor(private notification: NotificationService,
                 private dictionaryService: DictionaryService,
                 private accountService: AccountService,
                 private utilsService: UtilsService,
@@ -42,30 +45,23 @@ export class UserAddComponent implements OnInit {
     }
 
     AddOrUpdate() {
-        this.authenticationService.register(this.model).subscribe(
-            result => {
-                if (result !== 'error') {
+        this.authenticationService.register(this.model).subscribe( result => {
+                if (result.status === StatusType.OK.toString()) {
                     if (this.isRole(Roles.Professor)) {
-                        this.accountService.setProfessorDepartment(result, this.currentDepartment.id)
-                            .subscribe(
-                                result => {
-                                }, error => console.log(error)
-                            );
+                        this.accountService.setProfessorDepartment(result.data.id, this.currentDepartment.id)
+                            .subscribe( resultP => {
+                                    this.notification.FromStatus(resultP);
+                        });
                     }
                     if (this.isRole(Roles.Student)) {
-                        this.accountService.setStudentGroup(result, this.currentGroup.id)
-                            .subscribe(
-                                result => {
-                                }, error => console.log(error)
-                            );
+                        this.accountService.setStudentGroup(result.data.id, this.currentGroup.id)
+                            .subscribe( resultS => {
+                                    this.notification.FromStatus(resultS);
+                        });
                     }
-                    this.toastr.success('Пользователи обновлены.', "Успешно");
                     this.model = new UserCreate();
                 }
-                if (result === 'error')
-                    this.toastr.error('Ошибка выполнения', 'Ошибка');
-            }, error => {
-                this.toastr.error('Ошибка выполнения', 'Ошибка');
+                this.notification.FromStatus(result);
             });
     }
 

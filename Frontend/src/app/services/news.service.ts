@@ -5,55 +5,47 @@ import { Router } from "@angular/router";
 import { ApiRouteConstants } from "../bootstrap/app.route.constants";
 import { News } from "../models/news/news.model";
 import 'rxjs/add/operator/catch';
+import {HandelErrorService} from "./handelError.service";
+import {ResponseStatus} from "../models/additional/responseStatus";
 
 @Injectable()
 export class NewsService {
 
+
     constructor(
         private http: HttpClient,
-        private router: Router
-    ) { }
-
-    public GetAll(): Observable<Array<News>> {
-        return this.http.get(ApiRouteConstants.News.All)
-            .catch(this.handleError);
+        private router: Router,
+        private handleError: HandelErrorService
+    ) {
     }
 
-    public Get(id: number) {
+    public GetAll(): Observable<ResponseStatus> {
+        return this.http.get(ApiRouteConstants.News.All)
+            .catch(this.handleError.handle);
+    }
+
+    public Get(id: number): Observable<ResponseStatus> {
         let params: HttpParams = new HttpParams();
         return this.http.get(ApiRouteConstants.News.Get.replace(":id", id.toString()))
-            .catch(this.handleError);
+            .catch(this.handleError.handle);
     }
 
-    public Delete(id: number) {
+    public Delete(id: number): Observable<ResponseStatus> {
         let params = new HttpParams();
         return this.http.post(ApiRouteConstants.News.Delete.replace(":id", id.toString()), null, {
             responseType: "text",
             params: params
-        }).catch(this.handleError);
+        }).catch(this.handleError.handle);
     }
 
-    public GetLast() {
+    public GetLast(): Observable<ResponseStatus> {
         return this.http.get(ApiRouteConstants.News.Last)
-            .catch(this.handleError);
+            .catch(this.handleError.handle);
     }
 
-    public Save(news: News) {
+    public Save(news: News): Observable<ResponseStatus> {
         let params = new HttpParams();
         return this.http.post(ApiRouteConstants.News.Save, news, {params: params })
-            .catch(this.handleError);
-    }
-
-    private handleError(error: HttpErrorResponse | any) {
-        let errMsg: string;
-        if (error instanceof HttpErrorResponse) {
-            const body = error.error || "";
-            const err = body.error || JSON.stringify(body);
-            errMsg = `${error.status} - ${error.statusText || ""} ${err}`;
-        } else {
-            errMsg = error.message ? error.message : error.toString();
-        }
-        console.error(errMsg);
-        return Observable.throw(errMsg);
+            .catch(this.handleError.handle);
     }
 }

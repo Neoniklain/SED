@@ -1,12 +1,10 @@
 package com.unesco.core.entities.schedule;
 
-import com.unesco.core.entities.LongId;
-
 import javax.persistence.*;
 
 @Entity
 @Table(name = "un_room")
-public class Room implements LongId {
+public class Room {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;

@@ -5,13 +5,13 @@ import com.unesco.core.models.additional.EntityModel;
 
 public class RoleModel {
 
-    public int id;
+    public long id;
     public String roleName;
 
-    public int getId() {
+    public long getId() {
         return id;
     }
-    public void setId(int id) {
+    public void setId(long id) {
         this.id = id;
     }
 

@@ -1,15 +1,14 @@
 package com.unesco.core.entities.plan;
 
-import com.unesco.core.entities.Department;
-import com.unesco.core.entities.Discipline;
-import com.unesco.core.entities.LongId;
+import com.unesco.core.entities.schedule.Department;
+import com.unesco.core.entities.schedule.Discipline;
 
 import javax.persistence.*;
 import java.util.Set;
 
 @Entity
 @Table(name="un_plan")
-public class Plan implements LongId {
+public class Plan {
 
    @Id
    @SequenceGenerator(name = "planSequenceGen", sequenceName = "planSequenceGen", allocationSize = 1)

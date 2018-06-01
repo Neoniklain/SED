@@ -1,43 +1,40 @@
 import { Injectable } from "@angular/core";
-import { HttpClient, HttpResponse, HttpErrorResponse, HttpParams } from "@angular/common/http";
+import {HttpClient, HttpErrorResponse, HttpParams} from "@angular/common/http";
 import { Observable } from "rxjs/Observable";
 import { Router } from "@angular/router";
 import { ApiRouteConstants } from "../bootstrap/app.route.constants";
 import { News } from "../models/news/news.model";
 import 'rxjs/add/operator/catch';
 import {Journal} from "../models/journal/journal.model";
+import {HandelErrorService} from "./handelError.service";
+import {ResponseStatus} from "../models/additional/responseStatus";
 
 @Injectable()
 export class JournalService {
 
    constructor(
        private http: HttpClient,
-       private router: Router
-   ) { }
-
-   public GetAll(): Observable<Journal> {
-      return this.http.get(ApiRouteConstants.Journal.All)
-          .catch(this.handleError);
+       private router: Router,
+       private handleError: HandelErrorService
+   ) {
    }
 
-    public GetJournal(professorId, groupId, disciplineId): Observable<Journal> {
+   public GetAll(): Observable<ResponseStatus> {
+      return this.http.get(ApiRouteConstants.Journal.All)
+          .catch(this.handleError.handle);
+   }
+
+    public GetJournal(professorId, groupId, disciplineId): Observable<ResponseStatus> {
         return this.http.get(ApiRouteConstants.Journal.All
             .replace(":professorId", professorId)
             .replace(":groupId", groupId)
             .replace(":disciplineId", disciplineId))
-            .catch(this.handleError);
+            .catch(this.handleError.handle);
     }
 
-   private handleError(error: HttpErrorResponse | any) {
-      let errMsg: string;
-      if (error instanceof HttpErrorResponse) {
-         const body = error.error || "";
-         const err = body.error || JSON.stringify(body);
-         errMsg = `${error.status} - ${error.statusText || ""} ${err}`;
-      } else {
-         errMsg = error.message ? error.message : error.toString();
-      }
-      console.error(errMsg);
-      return Observable.throw(errMsg);
-   }
+    public Save(journal): Observable<ResponseStatus> {
+        let params = new HttpParams();
+        return this.http.post(ApiRouteConstants.Journal.Save, journal, {params: params })
+            .catch(this.handleError.handle);
+    }
 }

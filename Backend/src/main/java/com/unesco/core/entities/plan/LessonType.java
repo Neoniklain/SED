@@ -1,13 +1,11 @@
 package com.unesco.core.entities.plan;
 
-import com.unesco.core.entities.LongId;
-import com.unesco.core.entities.plan.Semester;
 
 import javax.persistence.*;
 
 @Entity
 @Table(name="un_lessonType")
-public class LessonType implements LongId {
+public class LessonType {
    @Id
    @SequenceGenerator(name = "lessonTypeSequenceGen", sequenceName = "lessonTypeSequenceGen", allocationSize = 1)
    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "lessonTypeSequenceGen")

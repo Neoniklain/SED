@@ -41,8 +41,8 @@ export class WorkTaskComponent {
     public searchUser(event: any) {
         let query = event.query.substring(0, 60);
         this.accountService.FindUsersByFIO(query)
-            .subscribe((res: any) => {
-                    this._foundedUsers = res;
+            .subscribe((res) => {
+                    this._foundedUsers = res.data;
                     console.log(this._foundedUsers);
                 },
                 (error: any) => {
@@ -53,7 +53,7 @@ export class WorkTaskComponent {
     public AnswerTask() {
         this._task.status = this.statuses.SentToReview;
         this.taskService.AnswerTask(this._task)
-            .subscribe((res: any) => {
+            .subscribe((res) => {
                 console.log("Success");
                 this._show = false;
             }, (error: any) => {

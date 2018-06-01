@@ -11,17 +11,15 @@ export class ListNewsComponent  {
 
 public _listOfNews: News[];
 
-  constructor(private newsService: NewsService)
-  {
+  constructor(private newsService: NewsService) {
     this._listOfNews = [];
     this.GetNews();
   }
 
   public GetNews() {
     this.newsService.GetAll()
-      .subscribe((res: any) => {
-          this._listOfNews = res;
-        },
-        error => console.error(error));
+      .subscribe((res) => {
+          this._listOfNews = res.data;
+        });
   }
 }

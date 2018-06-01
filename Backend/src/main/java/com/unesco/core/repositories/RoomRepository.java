@@ -1,6 +1,5 @@
 package com.unesco.core.repositories;
 
-import com.unesco.core.entities.Discipline;
 import com.unesco.core.entities.schedule.Room;
 import com.unesco.core.repositories.utils.CrudPagableRepository;
 import org.springframework.data.domain.Pageable;

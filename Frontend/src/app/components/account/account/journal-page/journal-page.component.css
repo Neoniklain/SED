@@ -1,0 +1,69 @@
+
+.journal {
+  padding-top: 1em;
+  padding-bottom: 1em;
+}
+
+.displayNo {
+  display: none;
+}
+
+input {
+  border: none;
+  outline: none;
+}
+
+input:hover,input:focus {
+  border: none;
+  outline: none;
+}
+
+table {
+  width: 100%;
+  border: 2px solid white;
+}
+
+td {
+  padding: 6px 0;
+  text-align: center;
+  border: 1px solid #7e7e7e;
+  vertical-align: middle !important;
+}
+
+thead
+{
+  background: black;
+  color: white;
+}
+
+td input {
+  width: 2em;
+  text-align: center;
+}
+
+.header-panel-body {
+  width: 100%;
+  height: 25px;
+  margin: 14px 0;
+  margin-bottom: 2em ;
+  text-align: center;
+  font-size: 17px;
+  position: relative;
+}
+
+.header-panel-body h3 {
+  background-color: white;
+  width: auto;
+  display: inline-block;
+  z-index: 3;
+  color: lightslategrey;
+  padding: 0 1em 0 1em;
+  position: relative;
+  margin: 0;
+}
+
+.back-button {
+  float: left;
+}
+
+

@@ -34,8 +34,8 @@ export const LANG_RU_TRANS = {
     "password": "Пароль",
     "rooms": "Аудитории",
     "room": "Аудитория",
-    "professor ": "Преподаватель",
+    "professor": "Преподаватель",
+    "PROFESSOR": "Преподаватель",
     "admin ": "Администратор",
     "student ": "Судент",
-
 };

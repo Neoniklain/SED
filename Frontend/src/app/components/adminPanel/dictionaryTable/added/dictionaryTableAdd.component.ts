@@ -4,18 +4,20 @@ import {isUndefined} from "util";
 import {Dictionary} from "../../../../models/admin/dictionary.model";
 import {DictionaryService} from "../../../../services/dictionary.service";
 import {Role} from "../../../../models/account/role.model";
-import {Discipline} from "../../../../models/discipline";
+import {Discipline} from "../../../../models/shedule/discipline";
 import {UserCreate} from "../../../../models/account/user.model";
 import {AuthenticationService} from "../../../../services/authService";
 import {MessageService} from "primeng/components/common/messageservice";
-import {Group} from "../../../../models/group";
-import {FieldOfKnowledge} from "../../../../models/fieldOfKnowledge";
-import {Institute} from "../../../../models/institute";
-import {Department} from "../../../../models/department";
+import {Group} from "../../../../models/shedule/group";
+import {FieldOfKnowledge} from "../../../../models/shedule/fieldOfKnowledge";
+import {Institute} from "../../../../models/shedule/institute";
+import {Department} from "../../../../models/shedule/department";
 import {ToastrService} from "ngx-toastr";
 import {UtilsService} from "../../../../services/utils.service";
-import {Professor} from "../../../../models/professor";
-import {Room} from "../../../../models/room.model";
+import {Professor} from "../../../../models/account/professor";
+import {Room} from "../../../../models/shedule/room.model";
+import {StatusType} from "../../../../models/statusType.model";
+import {NotificationService} from "../../../../services/notification.service";
 
 @Component({
 selector: 'dictionary-table-add',
@@ -39,7 +41,8 @@ export class DictionaryTableAddComponent implements OnInit, OnChanges {
     public Dictionary;
     public columnsName: string[];
 
-    constructor(private router: Router,
+    constructor(private notification: NotificationService,
+                private router: Router,
                 private dictionaryService: DictionaryService,
                 private authenticationService: AuthenticationService,
                 private toastr: ToastrService) { }
@@ -73,14 +76,10 @@ export class DictionaryTableAddComponent implements OnInit, OnChanges {
                 result => {
                     this.model = new Discipline();
                     this.deleteModel = null;
-                    if (result.status === 'ok') {
-                        this.showMessage('success', 'Дисциплины обновлены.');
+                    if (result.status === StatusType.OK.toString()) {
                         this.loadData.emit();
                     }
-                    if (result.status === 'error') this.showMessage('error', 'Ошибка выполнения.');
-                }, error => {
-                   this.deleteModel = null;
-                    this.showMessage('error', 'Ошибка выполнения.');
+                    this.notification.FromStatus(result);
                 });
             break;
           case Dictionary.groups.toString():
@@ -88,14 +87,10 @@ export class DictionaryTableAddComponent implements OnInit, OnChanges {
                   result => {
                       this.model = new Group();
                       this.deleteModel = null;
-                      if (result.status === 'ok') {
-                          this.showMessage('success', 'Группы обновлены.');
+                      if (result.status === StatusType.OK.toString()) {
                           this.loadData.emit();
                       }
-                      if (result.status === 'error') this.showMessage('error', 'Ошибка выполнения.');
-                  }, error => {
-                      this.deleteModel = null;
-                      this.showMessage('error', 'Ошибка выполнения.');
+                      this.notification.FromStatus(result);
                   });
               break;
           case Dictionary.institutes.toString():
@@ -103,14 +98,10 @@ export class DictionaryTableAddComponent implements OnInit, OnChanges {
                   result => {
                       this.model = new Institute();
                       this.deleteModel = null;
-                      if (result.status === 'ok') {
-                          this.showMessage('success', 'Институты обновлены.');
+                      if (result.status === StatusType.OK.toString()) {
                           this.loadData.emit();
                       }
-                      if (result.status === 'error') this.showMessage('error', 'Ошибка выполнения.');
-                  }, error => {
-                      this.deleteModel = null;
-                      this.showMessage('error', 'Ошибка выполнения.');
+                      this.notification.FromStatus(result);
                   });
               break;
           case Dictionary.departments.toString():
@@ -118,14 +109,10 @@ export class DictionaryTableAddComponent implements OnInit, OnChanges {
                   result => {
                       this.model = new Department();
                       this.deleteModel = null;
-                      if (result.status === 'ok') {
-                          this.showMessage('success', 'Кафедры обновлены.');
+                      if (result.status === StatusType.OK.toString()) {
                           this.loadData.emit();
                       }
-                      if (result.status === 'error') this.showMessage('error', 'Ошибка выполнения.');
-                  }, error => {
-                      this.deleteModel = null;
-                      this.showMessage('error', 'Ошибка выполнения.');
+                      this.notification.FromStatus(result);
                   });
               break;
           case Dictionary.rooms.toString():
@@ -133,14 +120,10 @@ export class DictionaryTableAddComponent implements OnInit, OnChanges {
                   result => {
                       this.model = new Department();
                       this.deleteModel = null;
-                      if (result.status === 'ok') {
-                          this.showMessage('success', 'Аудитории обновлены.');
+                      if (result.status === StatusType.OK.toString()) {
                           this.loadData.emit();
                       }
-                      if (result.status === 'error') this.showMessage('error', 'Ошибка выполнения.');
-                  }, error => {
-                      this.deleteModel = null;
-                      this.showMessage('error', 'Ошибка выполнения.');
+                      this.notification.FromStatus(result);
                   });
               break;
       }
@@ -152,73 +135,59 @@ export class DictionaryTableAddComponent implements OnInit, OnChanges {
     AddOrUpdate() {
         switch (this.type.toString()) {
             case Dictionary.disciplines.toString():
+                console.log("dis", this.model);
                 this.dictionaryService.AddOrUpdateDiscipline(this.model).subscribe(
                     result => {
                         this.model = new Discipline();
-                        if (result.status === 'ok') {
-                            this.showMessage('success', 'Дисциплины обновлены.');
+                        if (result.status === StatusType.OK.toString()) {
                             this.loadData.emit();
                             this.canelEditable.emit();
                         }
-                        if (result.status === 'error') this.showMessage('error', 'Ошибка выполнения.');
-                    }, error => {
-                        this.showMessage('error', 'Ошибка выполнения.');
+                        this.notification.FromStatus(result);
                     });
                 break;
             case Dictionary.groups.toString():
                 this.dictionaryService.AddOrUpdateGroups(this.model).subscribe(
                     result => {
                         this.model = new Group();
-                        if (result.status === 'ok') {
-                            this.showMessage('success', 'Группы обновлены.');
+                        if (result.status === StatusType.OK.toString()) {
                             this.loadData.emit();
                             this.canelEditable.emit();
                         }
-                        if (result.status === 'error') this.showMessage('error', 'Ошибка выполнения.');
-                    }, error => {
-                        this.showMessage('error', 'Ошибка выполнения.');
+                        this.notification.FromStatus(result);
                     });
                 break;
             case Dictionary.institutes.toString():
                 this.dictionaryService.AddOrUpdateInstitute(this.model).subscribe(
                     result => {
                         this.model = new Institute();
-                        if (result.status === 'ok') {
-                            this.showMessage('success', 'Институты обновлены.');
+                        if (result.status === StatusType.OK.toString()) {
                             this.loadData.emit();
                             this.canelEditable.emit();
                         }
-                        if (result.status === 'error') this.showMessage('error', 'Ошибка выполнения.');
-                    }, error => {
-                        this.showMessage('error', 'Ошибка выполнения.');
+                        this.notification.FromStatus(result);
                     });
                 break;
             case Dictionary.departments.toString():
                 this.dictionaryService.AddOrUpdateDepartment(this.model).subscribe(
                     result => {
                         this.model = new Department();
-                        if (result.status === 'ok') {
-                            this.showMessage('success', 'Кафедры обновлены.');
+                        if (result.status === StatusType.OK.toString()) {
                             this.loadData.emit();
                             this.canelEditable.emit();
                         }
-                        if (result.status === 'error') this.showMessage('error', 'Ошибка выполнения.');
-                    }, error => {
-                        this.showMessage('error', 'Ошибка выполнения.');
+                        this.notification.FromStatus(result);
                     });
                 break;
             case Dictionary.rooms.toString():
                 this.dictionaryService.AddOrUpdateRoom(this.model).subscribe(
                     result => {
                         this.model = new Room();
-                        if (result.status === 'ok') {
-                            this.showMessage('success', 'Аудитории обновлены.');
+                        if (result.status === StatusType.OK.toString()) {
                             this.loadData.emit();
                             this.canelEditable.emit();
                         }
-                        if (result.status === 'error') this.showMessage('error', 'Ошибка выполнения.');
-                    }, error => {
-                        this.showMessage('error', 'Ошибка выполнения.');
+                        this.notification.FromStatus(result);
                     });
                 break;
         }

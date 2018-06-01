@@ -1,0 +1,23 @@
+<div *ngIf="!this.selectPair && !showLoader" class="header-panel-body">
+    <h3>Для настройки выберите занятие.</h3>
+</div>
+
+<schedule-week *ngIf="!this.selectPair && !showLoader"
+    [pairs]="pairs"
+    (clickPair)="onClick($event)">
+</schedule-week>
+
+<div *ngIf="this.selectPair && !showLoader" class="header-panel-body">
+    <div class="row">
+        <div class="col-sm-2 back-button">
+            <button (click)="back()" class="btn btn-info btn-sm">К расписанию</button>
+        </div>
+        <div class="col-sm-10">
+            <h3>Настройка занятия.</h3>
+        </div>
+    </div>
+</div>
+
+<lesson-configurator *ngIf="this.selectPair && !showLoader"
+               [pair]="this.selectPair">
+</lesson-configurator>

@@ -1,0 +1,9 @@
+export class FieldOfKnowledge {
+    private id: number;
+    private name: string;
+
+    constructor() {
+        this.id = 0;
+        this.name = "";
+    }
+}

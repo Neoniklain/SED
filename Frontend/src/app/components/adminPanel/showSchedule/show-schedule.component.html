@@ -39,7 +39,11 @@
                         <div class="col-md-3">
                         </div>
                     </div>
-                    <schedule-week *ngIf="pairList" (updatePair)="update()" [editable]="true" [pairs]="pairList"></schedule-week>
+                    <schedule-week *ngIf="pairList"
+                                   (updatePair)="update()"
+                                   [editable]="true"
+                                   [templatePair]="templatePair"
+                                   [pairs]="pairList"></schedule-week>
                     <div *ngIf="!pairList" class="select-item">
                         <data-loader [show]="showLoader"></data-loader>
                         <h1 *ngIf="!showLoader">Укажите преподавателя для просмотра расписания</h1>
@@ -64,7 +68,11 @@
                         <div class="col-md-3">
                         </div>
                     </div>
-                    <schedule-week *ngIf="pairList" (updatePair)="update()" [editable]="true" [pairs]="pairList"></schedule-week>
+                    <schedule-week *ngIf="pairList"
+                                   (updatePair)="update()"
+                                   [editable]="true"
+                                   [templatePair]="templatePair"
+                                   [pairs]="pairList"></schedule-week>
                     <div *ngIf="!pairList" class="select-item">
                         <data-loader [show]="showLoader"></data-loader>
                         <h1 *ngIf="!showLoader">Укажите группу для просмотра расписания</h1>
@@ -89,7 +97,9 @@
                         <div class="col-md-3">
                         </div>
                     </div>
-                    <schedule-department *ngIf="departmentSchedule" [showDetailOnHover]="true" [schedule]="departmentSchedule"></schedule-department>
+                    <schedule-department *ngIf="departmentSchedule"
+                                         [showDetailOnHover]="true"
+                                         [schedule]="departmentSchedule"></schedule-department>
                     <div *ngIf="!departmentSchedule" class="select-item">
                         <data-loader [show]="showLoader"></data-loader>
                         <h1 *ngIf="!showLoader">Укажите кафедру для просмотра расписания</h1>

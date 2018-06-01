@@ -27,12 +27,8 @@ export class AccountComponent implements OnInit {
     this.user = new User();
     this.authenticationService.getUser().subscribe(
         res => {
-          this.user = res;
-        },
-      error => {
-        if (error.statusText === "Forbidden")
-          this.router.navigate(['/404']);
-      });
+          this.user = res.data;
+        });
   }
 
   ngOnInit(): void {

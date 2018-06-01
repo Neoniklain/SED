@@ -4,11 +4,11 @@ package com.unesco.core.controller;
 import com.unesco.core.models.TaskDescriptionModel;
 import com.unesco.core.models.TaskModel;
 import com.unesco.core.models.account.UserModel;
-import com.unesco.core.models.additional.JSONResponseStatus;
+import com.unesco.core.models.additional.ResponseStatus;
 import com.unesco.core.security.CustomUserDetailsService;
-import com.unesco.core.services.taskDataService.ITaskDataService;
+import com.unesco.core.services.taskService.ITaskDataService;
+import com.unesco.core.utils.StatusTypes;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -45,16 +45,16 @@ public class TaskController {
     }
 
     @RequestMapping(value = "/create")
-    public JSONResponseStatus Create(@RequestBody TaskDescriptionModel newTask) {
+    public ResponseStatus Create(@RequestBody TaskDescriptionModel newTask) {
         newTask.setCreator(new UserModel(_CustomUserDetailsService.getUserDetails()));
         _TaskDataService.createNewTaskDescription(newTask);
-        return JSONResponseStatus.OK();
+        return new ResponseStatus(StatusTypes.OK);
     }
 
     @RequestMapping(value = "/answer")
-    public JSONResponseStatus Answer(@RequestBody TaskModel item) {
+    public ResponseStatus Answer(@RequestBody TaskModel item) {
         _TaskDataService.answerTask(item);
-        return JSONResponseStatus.OK();
+        return new ResponseStatus(StatusTypes.OK);
     }
 
     @RequestMapping(value = "/get/{id}")
@@ -69,8 +69,8 @@ public class TaskController {
     }
 
     @RequestMapping(value = "/delete/{id}")
-    public JSONResponseStatus Delete(@PathVariable("id") long id) {
+    public ResponseStatus Delete(@PathVariable("id") long id) {
         _TaskDataService.deleteTaskDescription(id);
-        return JSONResponseStatus.OK();
+        return new ResponseStatus(StatusTypes.OK);
     }
 }

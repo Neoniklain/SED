@@ -14,15 +14,12 @@ export class NewsDispatcherComponent {
   public show: boolean = false;
   public RouteConstants = RouteConstants;
   public _lastNews: News;
-  constructor(private newsService: NewsService)
-  {
+
+  constructor(private newsService: NewsService) {
     this._lastNews = new News();
     this.newsService.GetLast()
-      .subscribe((res: any) => {
-          this._lastNews = res;
-        },
-        (error: any) => {
-          console.error('Error222: ' + error);
+      .subscribe((res) => {
+          this._lastNews = res.data;
         });
   }
 

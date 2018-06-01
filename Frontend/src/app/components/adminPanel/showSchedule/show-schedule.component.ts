@@ -1,15 +1,17 @@
 import {Component, OnInit} from "@angular/core";
-import {Professor} from "../../../models/professor";
+import {Professor} from "../../../models/account/professor";
 import {RouteConstants} from "../../../bootstrap/app.route.constants";
-import {Group} from "../../../models/group";
+import {Group} from "../../../models/shedule/group";
 import {Router} from "@angular/router";
 import {DictionaryService} from "../../../services/dictionary.service";
 import {AccountService} from "../../../services/accountService";
 import {PageResult} from "../../../models/admin/PageResult.model.list";
 import {PairService} from "../../../services/pair.service";
 import {Pair} from "../../../models/shedule/pair";
-import {Department} from "../../../models/department";
+import {Department} from "../../../models/shedule/department";
 import {DepartmentShedule} from "../../../models/shedule/departmentShedule";
+import {ResponseStatus} from "../../../models/additional/responseStatus";
+import {NotificationService} from "../../../services/notification.service";
 
 @Component({
     selector: 'list-professors-page',
@@ -25,6 +27,7 @@ export class ShowScheduleComponent implements OnInit {
     public RouteConstants = RouteConstants;
     public menuToggle: string = "professor";
     public pairList: Array<Pair> = null;
+    public templatePair: Pair;
     public departmentSchedule: Array<DepartmentShedule>;
 
     public currentProfessor: Professor;
@@ -33,10 +36,12 @@ export class ShowScheduleComponent implements OnInit {
 
     public showLoader: boolean = false;
 
-    constructor(private router: Router,
+    constructor(private notification: NotificationService,
+                private router: Router,
                 private pairService: PairService,
                 private dictionaryService: DictionaryService,
-                private accountService: AccountService) {
+                private accountService: AccountService,
+                ) {
     }
 
     ngOnInit() {
@@ -58,24 +63,21 @@ export class ShowScheduleComponent implements OnInit {
 
     public GetProfs() {
         this.accountService.GetProfessors()
-            .subscribe((res: Array<Professor>) => {
-                    this.profs = res;
-                },
-                error => console.error(error));
+            .subscribe((res: ResponseStatus) => {
+                    this.profs = res.data;
+                });
     }
     public GetGroups() {
         this.dictionaryService.GetGroups()
             .subscribe((res: PageResult) => {
                     this.groups = res.content;
-                },
-                error => console.error(error));
+                });
     }
     public GetDepartments() {
         this.dictionaryService.GetDepartments()
             .subscribe((res: PageResult) => {
                     this.department = res.content;
-                },
-                error => console.error(error));
+                });
     }
 
     public getProfessorPair(professor: Professor) {
@@ -83,8 +85,10 @@ export class ShowScheduleComponent implements OnInit {
         this.pairList = null;
         this.showLoader = true;
         this.pairService.GetPeofessorPair(professor.id).subscribe(
-            pairs =>  {
-                this.pairList = pairs;
+            result =>  {
+                this.templatePair = new Pair();
+                this.templatePair.professor = this.currentProfessor;
+                this.pairList = result.data;
                 this.showLoader = false;
             }
         );
@@ -94,19 +98,24 @@ export class ShowScheduleComponent implements OnInit {
         this.pairList = null;
         this.showLoader = true;
         this.pairService.GetGroupPair(group.id).subscribe(
-            pairs =>  {
-                this.pairList = pairs;
+            result =>  {
+                console.log(result.data);
+                this.templatePair = new Pair();
+                this.templatePair.group = this.currentGroup;
+                this.pairList = result.data.pairs;
                 this.showLoader = false;
             }
         );
     }
+
     public getDepartmentPair(department: Department) {
         this.currentDepartment = department;
         this.departmentSchedule = null;
         this.showLoader = true;
         this.pairService.GetDepartmentPair(department.id).subscribe(
-            pairs =>  {
-                this.departmentSchedule = pairs;
+            result =>  {
+                this.departmentSchedule = result.data.lines;
+                this.update();
                 this.showLoader = false;
             }
         );
