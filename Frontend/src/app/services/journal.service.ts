@@ -32,6 +32,14 @@ export class JournalService {
             .catch(this.handleError.handle);
     }
 
+    public GetEvents(professorId, groupId, disciplineId): Observable<ResponseStatus> {
+        return this.http.get(ApiRouteConstants.Journal.Events
+            .replace(":professorId", professorId)
+            .replace(":groupId", groupId)
+            .replace(":disciplineId", disciplineId))
+            .catch(this.handleError.handle);
+    }
+
     public Save(journal): Observable<ResponseStatus> {
         let params = new HttpParams();
         return this.http.post(ApiRouteConstants.Journal.Save, journal, {params: params })

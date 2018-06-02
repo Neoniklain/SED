@@ -4,7 +4,7 @@ import com.unesco.core.entities.account.Professor;
 import com.unesco.core.entities.account.Role;
 import com.unesco.core.entities.account.Student;
 import com.unesco.core.entities.account.User;
-import com.unesco.core.entities.journal.PairEvent;
+import com.unesco.core.entities.journal.LessonEvent;
 import com.unesco.core.entities.journal.Point;
 import com.unesco.core.entities.journal.PointType;
 import com.unesco.core.entities.news.News;
@@ -17,7 +17,7 @@ import com.unesco.core.models.account.ProfessorModel;
 import com.unesco.core.models.account.RoleModel;
 import com.unesco.core.models.account.StudentModel;
 import com.unesco.core.models.account.UserModel;
-import com.unesco.core.models.journal.PairEventModel;
+import com.unesco.core.models.journal.LessonEventModel;
 import com.unesco.core.models.journal.PointModel;
 import com.unesco.core.models.journal.PointTypeModel;
 import com.unesco.core.models.news.NewsModel;
@@ -52,8 +52,8 @@ public class MapperService implements IMapperService {
         if (model == null)
             return null;
 
-        if (model instanceof PairEventModel)
-            return LessonEventToEntity((PairEventModel) model);
+        if (model instanceof LessonEventModel)
+            return LessonEventToEntity((LessonEventModel) model);
 
         if (model instanceof PointModel)
             return PointToEntity((PointModel) model);
@@ -114,8 +114,8 @@ public class MapperService implements IMapperService {
         if (entity == null)
             return null;
 
-        if (entity instanceof PairEvent)
-            return LessonEventToModel((PairEvent) entity);
+        if (entity instanceof LessonEvent)
+            return LessonEventToModel((LessonEvent) entity);
 
         if (entity instanceof Point)
             return PointToModel((Point) entity);
@@ -195,23 +195,23 @@ public class MapperService implements IMapperService {
         return Entity;
     }
 
-    public PairEventModel LessonEventToModel(PairEvent Entity)
+    public LessonEventModel LessonEventToModel(LessonEvent Entity)
     {
-        PairEventModel Model = new PairEventModel();
+        LessonEventModel Model = new LessonEventModel();
         Model.setId(Entity.getId());
         Model.setDate(Entity.getDate());
         Model.setEveryDay(Entity.isEveryDay());
-        Model.setPair(PairToModel(Entity.getPair()));
+        Model.setLesson(LessonToModel(Entity.getLesson()));
         Model.setType(PointTypeToModel(Entity.getType()));
         return Model;
     }
-    public PairEvent LessonEventToEntity(PairEventModel Model)
+    public LessonEvent LessonEventToEntity(LessonEventModel Model)
     {
-        PairEvent Entity = new PairEvent();
+        LessonEvent Entity = new LessonEvent();
         Entity.setId(Model.getId());
         Entity.setDate(Model.getDate());
         Entity.setEveryDay(Model.isEveryDay());
-        Entity.setPair(PairToEntity(Model.getPair()));
+        Entity.setLesson(LessonToEntity(Model.getLesson()));
         Entity.setType(PointTypeToEntity(Model.getType()));
         return Entity;
     }

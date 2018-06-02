@@ -1,10 +1,10 @@
 package com.unesco.core.models.journal;
 
-import com.unesco.core.models.shedule.PairModel;
+import com.unesco.core.models.shedule.LessonModel;
 
 import java.util.Date;
 
-public class PairEventModel implements Cloneable {
+public class LessonEventModel implements Cloneable {
     private long id;
 
     private Date date;
@@ -13,7 +13,7 @@ public class PairEventModel implements Cloneable {
 
     private PointTypeModel type;
 
-    private PairModel pair;
+    private LessonModel lesson;
 
     public long getId() {
         return id;
@@ -43,22 +43,22 @@ public class PairEventModel implements Cloneable {
         this.type = type;
     }
 
-    public PairModel getPair() {
-        return pair;
+    public LessonModel getLesson() {
+        return lesson;
     }
-    public void setPair(PairModel pair) {
-        this.pair = pair;
+    public void setLesson(LessonModel lesson) {
+        this.lesson = lesson;
     }
 
     @Override
-    public PairEventModel clone() {
+    public LessonEventModel clone() {
         Object cloned = null;
         try {
             cloned = super.clone();
         } catch (CloneNotSupportedException exc) {
             // В данном примере недостижимо.
         }
-        return (PairEventModel)cloned;
+        return (LessonEventModel)cloned;
     }
 
 }

@@ -83,7 +83,8 @@ export const ApiRouteConstants = {
    },
    Journal: {
       All: "journal/professor/:professorId/group/:groupId/discipline/:disciplineId",
-      Save: "journal/save"
+      Save: "journal/save",
+      Events: "journal/event/professor/:professorId/group/:groupId/discipline/:disciplineId",
    },
    Excel:
        {
@@ -100,6 +101,7 @@ export const ApiRouteConstants = {
          Rooms: "dictionary/room",
          FieldOfKnowlage: "dictionary/fieldOfKnowledge",
          Professors: "dictionary/professor",
+         PointType: "dictionary/pointType",
       }
    },
    Plugin: {

@@ -1,6 +1,6 @@
 package com.unesco.core.entities.journal;
 
-import com.unesco.core.entities.schedule.Pair;
+import com.unesco.core.entities.schedule.Lesson;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -8,7 +8,7 @@ import java.util.Date;
 
 @Entity
 @Table(name="un_lesson_event")
-public class PairEvent {
+public class LessonEvent {
     @Id
     @SequenceGenerator(name = "lessonEventSequenceGen", sequenceName = "lessonEventSequenceGen", allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "lessonEventSequenceGen")
@@ -23,8 +23,8 @@ public class PairEvent {
     private PointType type;
 
     @ManyToOne
-    @JoinColumn(name = "pair_id", referencedColumnName = "id")
-    private Pair pair;
+    @JoinColumn(name = "lesson_id", referencedColumnName = "id")
+    private Lesson lesson;
 
     public long getId() {
         return id;
@@ -54,12 +54,11 @@ public class PairEvent {
         this.type = type;
     }
 
-    public Pair getPair() {
-        return pair;
+    public Lesson getLesson() {
+        return lesson;
     }
-    public void setPair(Pair pair) {
-        this.pair = pair;
+    public void setLesson(Lesson lesson) {
+        this.lesson = lesson;
     }
-
 
 }

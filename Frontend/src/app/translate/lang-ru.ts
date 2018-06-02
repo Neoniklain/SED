@@ -38,4 +38,5 @@ export const LANG_RU_TRANS = {
     "PROFESSOR": "Преподаватель",
     "admin ": "Администратор",
     "student ": "Судент",
+    "lesson-configurator": "Настройка занятия"
 };

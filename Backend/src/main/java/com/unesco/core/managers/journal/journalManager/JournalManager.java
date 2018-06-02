@@ -4,7 +4,7 @@ import com.unesco.core.managers.journal.journalManager.interfaces.journal.IJourn
 import com.unesco.core.managers.journal.lessonEvent.interfaces.lessonEventList.IPairEventListManager;
 import com.unesco.core.models.account.StudentModel;
 import com.unesco.core.models.journal.JournalModel;
-import com.unesco.core.models.journal.PairEventModel;
+import com.unesco.core.models.journal.LessonEventModel;
 import com.unesco.core.models.journal.PointModel;
 import com.unesco.core.models.journal.PointTypeModel;
 import com.unesco.core.models.shedule.PairModel;
@@ -37,11 +37,11 @@ public class JournalManager implements IJournalManager {
         this.journal = journal;
     }
 
-    public void InitEmptyCells(List<PairEventModel> lessonEvents)
+    public void InitEmptyCells(List<LessonEventModel> lessonEvents)
     {
         pairEventListManager.Init(lessonEvents);
         pairEventListManager.ApplayFilter(this.journal.getLesson());
-        List<PairEventModel> LessonEvents = pairEventListManager.GetAll();
+        List<LessonEventModel> LessonEvents = pairEventListManager.GetAll();
 
         List<PointModel> points = new ArrayList<>();
 
@@ -77,30 +77,23 @@ public class JournalManager implements IJournalManager {
                         points.add(point);
                     }
 
-                    List<PairEventModel> currentLessons = LessonEvents.stream().filter(o ->
-                            getZeroTimeDate(o.getDate()).compareTo(getZeroTimeDate(date)) == 0
-                                    || o.isEveryDay()).collect(Collectors.toList());
-
-                    for (PairEventModel currentLesson : currentLessons) {
-
-                        if (find.size() == 0 || find.stream().
-                                filter(o -> o.getPair().getId() == pair.getId() &&
-                                        o.getType().getId() == currentLesson.getType().getId())
-                                .collect(Collectors.toList()).size() == 0) {
-                            PointModel pointLessonEvent = new PointModel();
-                            pointLessonEvent.setValue(0);
-                            pointLessonEvent.setId(0);
-                            pointLessonEvent.setStudent(student);
-                            pointLessonEvent.setType(currentLesson.getType());
-                            pointLessonEvent.setDate(getZeroTimeDate(date));
-                            pointLessonEvent.setPair(pair);
-                            points.add(pointLessonEvent);
-                        }
-                    }
-
                 }
             }
         }
+
+        for (StudentModel student : journal.getStudents()) {
+            for (LessonEventModel currentLessonEvent : LessonEvents) {
+                PointModel pointLessonEvent = new PointModel();
+                pointLessonEvent.setValue(0);
+                pointLessonEvent.setId(0);
+                pointLessonEvent.setStudent(student);
+                pointLessonEvent.setType(currentLessonEvent.getType());
+                pointLessonEvent.setDate(getZeroTimeDate(currentLessonEvent.getDate()));
+                pointLessonEvent.setPair(journal.getPairs().get(0));
+                points.add(pointLessonEvent);
+            }
+        }
+
 
         points.addAll(this.journal.getJournalCell());
         this.journal.setJournalCell(points);

@@ -1,7 +1,7 @@
 package com.unesco.core.managers.journal.lessonEvent;
 
 import com.unesco.core.managers.journal.lessonEvent.interfaces.lessonEvent.IPairEventManager;
-import com.unesco.core.models.journal.PairEventModel;
+import com.unesco.core.models.journal.LessonEventModel;
 import com.unesco.core.services.journal.lessonEvent.ILessonEventDataService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
@@ -15,17 +15,17 @@ public class PairEventManager implements IPairEventManager {
     @Autowired
     public ILessonEventDataService dataService;
 
-    public PairEventModel lessonEvent;
+    public LessonEventModel lessonEvent;
 
     public PairEventManager() {
-        lessonEvent = new PairEventModel();
+        lessonEvent = new LessonEventModel();
     }
 
-    public void Init(PairEventModel Professor) {
+    public void Init(LessonEventModel Professor) {
         lessonEvent = Professor;
     }
 
-    public PairEventModel Get() {
+    public LessonEventModel Get() {
         return lessonEvent;
     }
 

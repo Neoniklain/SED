@@ -73,6 +73,12 @@ export class DictionaryService {
             .catch(this.handleError.handle);
     }
 
+    public GetPointTypes(filterQuery?: LazyLoadEvent): Observable<PageResult> {
+        let params = new HttpParams();
+        return this.http.post(ApiRouteConstants.Dictonary.Page.PointType, this.initFilter(filterQuery), {params: params })
+            .catch(this.handleError.handle);
+    }
+
     public AddOrUpdateDiscipline(discipline: Discipline): Observable<ResponseStatus> {
       let params = new HttpParams();
       return this.http.put(ApiRouteConstants.Dictonary.Page.Disciplines, discipline, {params: params })

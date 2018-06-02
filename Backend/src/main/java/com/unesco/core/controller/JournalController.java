@@ -3,11 +3,14 @@ package com.unesco.core.controller;
 import com.unesco.core.managers.journal.journalManager.interfaces.journal.IJournalManager;
 import com.unesco.core.models.additional.ResponseStatus;
 import com.unesco.core.models.journal.JournalModel;
+import com.unesco.core.models.journal.LessonEventModel;
 import com.unesco.core.services.journal.journal.IJournalDataService;
 import com.unesco.core.services.journal.lessonEvent.ILessonEventDataService;
 import com.unesco.core.utils.StatusTypes;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 /**
  * Created by lukasz on 27.08.2017.
@@ -56,5 +59,15 @@ public class JournalController {
             result.addErrors(e.getMessage());
             return result;
         }
+    }
+
+    @RequestMapping("/event/professor/{professorId}/group/{groupId}/discipline/{disciplineId}")
+    public ResponseStatus GetEvents(@PathVariable("professorId") long professorId,
+                                    @PathVariable("groupId") long groupId,
+                                    @PathVariable("disciplineId") long disciplineId) {
+
+        List<LessonEventModel> pairEventModels = lessonEventDataService.GetByLesson(professorId, groupId, disciplineId);
+
+        return new ResponseStatus(StatusTypes.OK, pairEventModels);
     }
 }

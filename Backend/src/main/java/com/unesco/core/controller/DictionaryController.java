@@ -24,11 +24,13 @@ import com.unesco.core.models.account.UserModel;
 import com.unesco.core.models.additional.FilterQuery;
 import com.unesco.core.models.additional.PageResult;
 import com.unesco.core.models.additional.ResponseStatus;
+import com.unesco.core.models.journal.PointTypeModel;
 import com.unesco.core.models.plan.DepartmentModel;
 import com.unesco.core.models.shedule.*;
 import com.unesco.core.services.account.professorService.IProfessorDataService;
 import com.unesco.core.services.account.roleService.IRoleDataService;
 import com.unesco.core.services.account.userService.IUserDataService;
+import com.unesco.core.services.journal.pointType.IPointTypeDataService;
 import com.unesco.core.services.schedule.departmentService.IDepartmentDataService;
 import com.unesco.core.services.schedule.disciplineService.IDisciplineDataService;
 import com.unesco.core.services.schedule.fieldOfKnowledgeService.IFieldOfKnowledgeDataService;
@@ -38,6 +40,8 @@ import com.unesco.core.services.schedule.roomService.IRoomDataService;
 import com.unesco.core.utils.StatusTypes;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @CrossOrigin
 @RestController
@@ -62,6 +66,8 @@ public class DictionaryController {
    private IRoomDataService roomDataService;
    @Autowired
    private IProfessorDataService professorDataService;
+   @Autowired
+   private IPointTypeDataService pointTypeDataService;
 
    @Autowired
    private IDisciplineManager disciplineManager;
@@ -107,6 +113,9 @@ public class DictionaryController {
    private IProfessorManager professorManager;
    @Autowired
    private IProfessorListManager professorListManager;
+
+   @Autowired
+   private IProfessorManager pointTypeManager;
 
    @RequestMapping(method = RequestMethod.POST, value = "professor")
    public PageResult<ProfessorModel> GetProfessorList(@RequestBody FilterQuery filter) {
@@ -397,6 +406,45 @@ public class DictionaryController {
       response.setStatus(StatusTypes.OK);
       try {
          disciplineDataService.Delete(id);
+         response.addMessage("Дисциплна удалена.");
+         return response;
+      }
+      catch (Exception e) {
+         response.setStatus(StatusTypes.ERROR);
+         response.addMessage("Ошибка при удалении дисциплины.");
+         response.addMessage(e.getMessage());
+         return response;
+      }
+   }
+
+   @RequestMapping(method = RequestMethod.POST, value = "pointType")
+   public PageResult<PointTypeModel> GetPointTypeList(@RequestBody FilterQuery filter) {
+      List<PointTypeModel> pointTypeModels = pointTypeDataService.GetAll();
+      PageResult<PointTypeModel> result = new PageResult(pointTypeModels, pointTypeModels.size());
+      return result;
+   }
+   @RequestMapping(method = RequestMethod.PUT, value = "pointType")
+   public ResponseStatus AddPointType(@RequestBody PointTypeModel pointType) {
+      ResponseStatus response = new ResponseStatus();
+      response.setStatus(StatusTypes.OK);
+      try {
+         pointTypeDataService.Save(pointType);
+         response.addMessage("Дисциплна сохранена.");
+         return response;
+      }
+      catch (Exception e) {
+         response.setStatus(StatusTypes.ERROR);
+         response.addMessage("Ошибка при сохранении дисциплны.");
+         response.addMessage(e.getMessage());
+         return response;
+      }
+   }
+   @RequestMapping(method = RequestMethod.DELETE, value = "pointType/{id}")
+   public ResponseStatus DeletePointType(@PathVariable("id") long id) {
+      ResponseStatus response = new ResponseStatus();
+      response.setStatus(StatusTypes.OK);
+      try {
+         pointTypeDataService.Delete(id);
          response.addMessage("Дисциплна удалена.");
          return response;
       }

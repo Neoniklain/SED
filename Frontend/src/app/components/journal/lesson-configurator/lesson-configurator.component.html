@@ -1,1 +1,95 @@
-lesson
+<div class="col-sm-4">
+
+    <div class="col-sm-12">
+        <div class="header-lesson text-center">
+            <h3>Редактируемое занятие</h3>
+        </div>
+
+        <pair-details
+                (updatePair)="updatePairs()"
+                (close)="closeDetails()"
+                [editable]="false"
+                [editablePair]="pair">
+        </pair-details>
+
+    </div>
+
+    <div class="col-sm-12">
+        <div class="header-lesson text-center">
+            <h3>Список событий</h3>
+        </div>
+        <div class="event-list">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <td>Тип</td>
+                        <td>Дата</td>
+                    </tr>
+                </thead>
+                <tbody>
+                <ng-container *ngFor="let event of events">
+                    <tr>
+                        <td>{{event.type.name}}</td>
+                        <td>{{event.date | date: 'dd.MM'}}</td>
+                    </tr>
+                </ng-container>
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+</div>
+
+<div class="col-sm-8">
+    <div class="edit-event">
+
+        <div class="col-sm-12 event-field">
+            <label for="event" class="col-sm-3 col-form-label">Тип события</label>
+            <div class="col-sm-9" id="event">
+                <select #institute="ngModel" required [(ngModel)]="model.type.id" class="form-control">
+                    <option disabled value="0">Тип события</option>
+                    <option *ngFor="let eventType of eventTypes" value="{{eventType.id}}">{{eventType.name}}</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="col-sm-12 event-field">
+            <label for="date" class="col-sm-3 col-form-label">Дата</label>
+            <div class="col-sm-9" id="date">
+                <p-calendar [style]="{'width':'100%'}"
+                            dateFormat="dd.mm.yy"
+                            [inputStyleClass]="'form-control'"
+                            readonlyInput="true"
+                            [(ngModel)]="model.date"
+                            [locale]="ru"></p-calendar>
+            </div>
+        </div>
+
+        <div class="col-sm-12 event-field">
+            <label for="coment" class="col-sm-3 col-form-label">Коментарий</label>
+            <div class="col-sm-9" id="coment">
+                <input [(ngModel)]="model.comment" class="form-control">
+            </div>
+        </div>
+
+        <button (click)="test()">Сохранить</button>
+
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
