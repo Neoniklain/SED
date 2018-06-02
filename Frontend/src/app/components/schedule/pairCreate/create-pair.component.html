@@ -12,15 +12,15 @@
                 <div class="col-xs-6">
                     <div class="input-group input-group-md">
                         <span class="input-group-addon">Преподаватель: </span>
-                        <select class="form-control"  [(ngModel)]="newPair.professor" name="professor"  id="proflist">
-                            <option *ngFor="let prof of profs" id="fio" name="fio" [ngValue]="prof">{{prof.userFIO}}</option>
+                        <select class="form-control"  [(ngModel)]="newPair.lesson.professor" name="professor"  id="proflist">
+                            <option *ngFor="let prof of profs" id="fio" name="fio" [ngValue]="prof">{{prof.user.userFIO}}</option>
                         </select>
                     </div>
                 </div>
                 <div class="col-xs-6">
                     <div class="input-group input-group-md">
                         <span class="input-group-addon">Дисциплина: </span>
-                        <select class="form-control"  [(ngModel)]="newPair.discipline" id="disciplines" name="disciplist">
+                        <select class="form-control"  [(ngModel)]="newPair.lesson.discipline" id="disciplines" name="disciplist">
                             <option *ngFor="let discip of disciplines" id="discipline" name="discipline" [ngValue]="discip">{{discip.name}}</option>
                         </select>
                     </div>
@@ -39,7 +39,7 @@
                 <div class="col-xs-6">
                     <div class="input-group input-group-md">
                         <span class="input-group-addon">Группа: </span>
-                        <select class="form-control"  [(ngModel)]="newPair.group" id="group" name="grouplist">
+                        <select class="form-control"  [(ngModel)]="newPair.lesson.group" id="group" name="grouplist">
                             <option *ngFor="let group of groups" id="groupname" name="name" [ngValue]="group">{{group.name}}</option>
                         </select>
                     </div>

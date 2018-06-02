@@ -27,14 +27,14 @@
                                 <div class="dropdown-menu dropdown-elegant">
                                     <li *ngFor="let item of profs">
                                         <a class="dropdown-item" (click)="getProfessorPair(item)">
-                                            {{item.userFIO}}
+                                            {{item.user.userFIO}}
                                         </a>
                                     </li>
                                 </div>
                             </div>
                         </div>
                         <div class="col-md-6 text-center">
-                           <h3 *ngIf="currentProfessor">{{currentProfessor.userFIO}}</h3>
+                           <h3 *ngIf="currentProfessor">{{currentProfessor.user.userFIO}}</h3>
                         </div>
                         <div class="col-md-3">
                         </div>

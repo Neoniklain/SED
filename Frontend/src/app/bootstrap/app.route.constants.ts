@@ -49,7 +49,9 @@ export const ApiRouteConstants = {
       FindUserByUsername: "account/FindUserByUsername/:req",
       GetProfessors: "account/professors",
       SetProfessorDepartment: "account/professor/:userId/setDepartment/:departmentId",
-      SetStudentGroup: "account/student/:userId/setGroup/:groupId"
+      SetStudentGroup: "account/student/:userId/setGroup/:groupId",
+      GetProfessorByUser: "account/professorByUser/:userId",
+      GetStudentByUser: "/studentByUser/:userId"
    },
    Authentication: {
       Login: "account/login",
@@ -84,7 +86,7 @@ export const ApiRouteConstants = {
    Journal: {
       All: "journal/professor/:professorId/group/:groupId/discipline/:disciplineId",
       Save: "journal/save",
-      Events: "journal/event/professor/:professorId/group/:groupId/discipline/:disciplineId",
+      Events: "journal/event/lesson/:lessonId",
    },
    Excel:
        {

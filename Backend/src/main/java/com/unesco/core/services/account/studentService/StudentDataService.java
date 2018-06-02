@@ -1,6 +1,5 @@
 package com.unesco.core.services.account.studentService;
 
-import com.unesco.core.entities.account.Professor;
 import com.unesco.core.entities.account.Student;
 import com.unesco.core.entities.account.User;
 import com.unesco.core.models.account.StudentModel;
@@ -48,15 +47,14 @@ public class StudentDataService implements IStudentDataService {
 
     public StudentModel Get(long id)
     {
-        Student entity = studentRepository.findByUserId(id);
+        Student entity = studentRepository.findOne(id);
         StudentModel model = (StudentModel) mapperService.toModel(entity);
         return model;
     }
 
     public void Delete(long id)
     {
-        Student student = studentRepository.findByUserId(id);
-        studentRepository.delete(student.getId());
+        studentRepository.delete(id);
     }
 
     public List<StudentModel> GetByGroup(long groupId) {
@@ -76,5 +74,11 @@ public class StudentDataService implements IStudentDataService {
         Student model = studentRepository.save(entity);
         student = (StudentModel) mapperService.toModel(model);
         return student;
+    }
+
+    public StudentModel GetByUser(long userId) {
+        Student entity = studentRepository.findByUserId(userId);
+        StudentModel model = (StudentModel) mapperService.toModel(entity);
+        return model;
     }
 }

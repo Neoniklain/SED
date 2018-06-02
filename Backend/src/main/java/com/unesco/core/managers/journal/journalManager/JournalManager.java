@@ -47,13 +47,27 @@ public class JournalManager implements IJournalManager {
 
         ArrayList<Object> objects = new ArrayList<>();
 
+        journal.setDates(journal.getDates().stream().sorted().collect(Collectors.toList()));
+
+        int weekNumber = 0;
+        Date lastDate = journal.getDates().get(0);
         for (Date date : journal.getDates()) {
+
+            // Для определения четности
+            Calendar last = Calendar.getInstance();
+            Calendar cur = Calendar.getInstance();
+            last.setTime(lastDate);
+            cur.setTime(date);
+            if(last.get(Calendar.DAY_OF_WEEK) >= cur.get(Calendar.DAY_OF_WEEK) ) {
+                weekNumber = weekNumber + 1;
+            }
+
             for (StudentModel student : journal.getStudents()) {
                 for (PairModel pair : journal.getPairs()) {
 
 
                     List<PointModel> find = this.journal.getJournalCell().stream().
-                            filter(o -> o.getStudent().getId() == student.getId()
+                            filter(o -> o.getStudent().getUser().getId() == student.getUser().getId()
                                     && getZeroTimeDate(o.getDate()).compareTo(getZeroTimeDate(date)) == 0
                                     && o.getPair().getId() == pair.getId()
                             )
@@ -65,6 +79,15 @@ public class JournalManager implements IJournalManager {
                     boolean pairEqDay = translateDay(dayOfWeek).equals(pair.getDayofweek());
 
                     if (find.size() == 0 && pairEqDay) {
+                        if(!pair.getWeektype().equals("Все")
+                            && (
+                                (pair.getWeektype().equals("Чет") && weekNumber % 2 != 0)
+                                ||
+                                (pair.getWeektype().equals("Нечет") && weekNumber % 2 == 0)
+                                )
+                        ) {
+                            continue;
+                        }
                         PointModel point = new PointModel();
                         point.setValue(0);
                         point.setId(0);
@@ -79,6 +102,7 @@ public class JournalManager implements IJournalManager {
 
                 }
             }
+            lastDate = date;
         }
 
         for (StudentModel student : journal.getStudents()) {

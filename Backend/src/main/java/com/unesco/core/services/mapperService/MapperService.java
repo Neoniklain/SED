@@ -23,7 +23,6 @@ import com.unesco.core.models.journal.PointTypeModel;
 import com.unesco.core.models.news.NewsModel;
 import com.unesco.core.models.plan.DepartmentModel;
 import com.unesco.core.models.shedule.*;
-import com.unesco.core.repositories.LessonRepository;
 import com.unesco.core.repositories.account.ProfessorRepository;
 import com.unesco.core.repositories.account.StudentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,9 +42,6 @@ public class MapperService implements IMapperService {
 
     @Autowired
     private StudentRepository studentRepository;
-
-    @Autowired
-    private LessonRepository lessonRepository;
 
     public <T> Object toEntity(T model) {
 
@@ -314,42 +310,16 @@ public class MapperService implements IMapperService {
     public ProfessorModel ProfessorToModel(Professor Entity)
     {
         ProfessorModel Model = new ProfessorModel();
-        Model.setId(Entity.getUser().getId());
-        Model.setUsername(Entity.getUser().getUsername());
-        Model.setEmail(Entity.getUser().getEmail());
-        Model.setUserFIO(Entity.getUser().getUserFIO());
+        Model.setId(Entity.getId());
+        Model.setUser(UserToModel(Entity.getUser()));
         Model.setDepartment((DepartmentModel) toModel(Entity.getDepartment()));
-        List<RoleModel> roles = new ArrayList<RoleModel>();
-        for (Role role: Entity.getUser().getRoles()) {
-            RoleModel roleModel = (RoleModel) toModel(role);
-            roles.add(roleModel);
-        }
-        Model.setRoles(roles);
         return Model;
     }
     public Professor ProfessorToEntity(ProfessorModel Model)
     {
         Professor Entity = new Professor();
-        User user = new User();
-        if (Model.getId()!=0) {
-            Professor findEntity = professorRepository.findByUserId(Model.getId());
-            if (findEntity != null) {
-                Entity = findEntity;
-                user = Entity.getUser();
-            } else {
-                Entity.setId(0);
-            }
-        }
-        user.setEmail(Model.getEmail());
-        user.setUsername(Model.getUsername());
-        user.setUserFIO(Model.getUserFIO());
-        Set<Role> roles = new HashSet<Role>();
-        for (RoleModel role: Model.getRoles()) {
-            Role roleEntity = (Role) toEntity(role);
-            roles.add(roleEntity);
-        }
-        user.setRoles(roles);
-        Entity.setUser(user);
+        Entity.setId(Model.getId());
+        Entity.setUser(UserToEntity(Model.getUser()));
         Entity.setDepartment((Department) toEntity(Model.getDepartment()));
         return Entity;
     }
@@ -357,42 +327,16 @@ public class MapperService implements IMapperService {
     public StudentModel StudentToModel(Student Entity)
     {
         StudentModel Model = new StudentModel();
-        Model.setId(Entity.getUser().getId());
-        Model.setUsername(Entity.getUser().getUsername());
-        Model.setEmail(Entity.getUser().getEmail());
-        Model.setUserFIO(Entity.getUser().getUserFIO());
+        Model.setId(Entity.getId());
+        Model.setUser(UserToModel(Entity.getUser()));
         Model.setGroup((GroupModel) toModel(Entity.getGroup()));
-        List<RoleModel> roles = new ArrayList<RoleModel>();
-        for (Role role: Entity.getUser().getRoles()) {
-            RoleModel roleModel = (RoleModel) toModel(role);
-            roles.add(roleModel);
-        }
-        Model.setRoles(roles);
         return Model;
     }
     public Student StudentToEntity(StudentModel Model)
     {
         Student Entity = new Student();
-        User user = new User();
-        if (Model.getId()!=0) {
-            Student findEntity = studentRepository.findByUserId(Model.getId());
-            if (findEntity != null) {
-                Entity = findEntity;
-                user = Entity.getUser();
-            } else {
-                Entity.setId(0);
-            }
-        }
-        user.setEmail(Model.getEmail());
-        user.setUsername(Model.getUsername());
-        user.setUserFIO(Model.getUserFIO());
-        Set<Role> roles = new HashSet<Role>();
-        for (RoleModel role: Model.getRoles()) {
-            Role roleEntity = (Role) toEntity(role);
-            roles.add(roleEntity);
-        }
-        user.setRoles(roles);
-        Entity.setUser(user);
+        Entity.setId(Model.getId());
+        Entity.setUser(UserToEntity(Model.getUser()));
         Entity.setGroup((Group) toEntity(Model.getGroup()));
         return Entity;
     }
@@ -438,9 +382,7 @@ public class MapperService implements IMapperService {
         Model.setPairNumber(Entity.getPairNumber());
         Model.setWeektype(Entity.getWeektype());
         Model.setDayofweek(Entity.getDayofweek());
-        Model.setDiscipline(DisciplineToModel(Entity.getLesson().getDiscipline()));
-        Model.setGroup(GroupToModel(Entity.getLesson().getGroup()));
-        Model.setProfessor(ProfessorToModel(Entity.getLesson().getProfessor()));
+        Model.setLesson(LessonToModel(Entity.getLesson()));
         Model.setRoom(RoomToModel(Entity.getRoom()));
         return Model;
     }
@@ -451,16 +393,7 @@ public class MapperService implements IMapperService {
         Entity.setPairNumber(Model.getPairNumber());
         Entity.setWeektype(Model.getWeektype());
         Entity.setDayofweek(Model.getDayofweek());
-
-        Lesson l = lessonRepository.findByDisciplineIdAndGroupIdAndProfessorId(Model.getDiscipline().getId(),
-                Model.getGroup().getId(), Model.getProfessor().getId());
-        if(l==null) {
-            l = new Lesson();
-            l.setDiscipline(DisciplineToEntity(Model.getDiscipline()));
-            l.setProfessor(ProfessorToEntity(Model.getProfessor()));
-            l.setGroup(GroupToEntity(Model.getGroup()));
-        }
-        Entity.setLesson(l);
+        Entity.setLesson(LessonToEntity(Model.getLesson()));
         Entity.setRoom(RoomToEntity(Model.getRoom()));
         return Entity;
     }

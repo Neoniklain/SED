@@ -3,11 +3,12 @@ package com.unesco.core.services.schedule.pairService;
 import com.unesco.core.entities.schedule.Lesson;
 import com.unesco.core.entities.schedule.Pair;
 import com.unesco.core.models.additional.FilterQuery;
+import com.unesco.core.models.shedule.LessonModel;
 import com.unesco.core.models.shedule.PairModel;
-import com.unesco.core.repositories.LessonRepository;
 import com.unesco.core.repositories.PairRepository;
 import com.unesco.core.repositories.account.ProfessorRepository;
 import com.unesco.core.services.mapperService.IMapperService;
+import com.unesco.core.services.schedule.lessonService.ILessonDataService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
@@ -25,7 +26,7 @@ public class PairDataService implements IPairDataService {
     @Autowired
     private PairRepository pairRepository;
     @Autowired
-    private LessonRepository lessonRepository;
+    private ILessonDataService lessonDataService;
     @Autowired
     private ProfessorRepository professorRepository;
 
@@ -54,7 +55,7 @@ public class PairDataService implements IPairDataService {
     public List<PairModel> GetAllByProfessor(long professorId)
     {
         List<PairModel> modelList = new ArrayList<>();
-        Iterable<Pair> entityList = pairRepository.findPairsByProfessorId(professorRepository.findByUserId(professorId).getId());
+        Iterable<Pair> entityList = pairRepository.findPairsByProfessorId(professorId);
         for (Pair item: entityList) {
             PairModel model = (PairModel) mapperService.toModel(item);
             modelList.add(model);
@@ -111,16 +112,16 @@ public class PairDataService implements IPairDataService {
     {
         Pair entity = (Pair) mapperService.toEntity(pair);
 
-        Lesson findLesson = lessonRepository.findByDisciplineIdAndGroupIdAndProfessorId(
+        LessonModel findLesson = lessonDataService.GetDisciplineIdAndGroupIdAndProfessorId(
                 entity.getLesson().getDiscipline().getId(),
                 entity.getLesson().getGroup().getId(),
                 entity.getLesson().getProfessor().getId());
 
         if(findLesson==null) {
-            findLesson = (Lesson) mapperService.toEntity(
-                    lessonRepository.save(entity.getLesson()));
+            findLesson = lessonDataService.Save(pair.getLesson());
         }
-        entity.setLesson(findLesson);
+
+        entity.setLesson((Lesson) mapperService.toEntity(findLesson));
 
         Pair model = pairRepository.save(entity);
         pair = (PairModel) mapperService.toModel(model);

@@ -4,7 +4,7 @@ import com.unesco.core.entities.schedule.Lesson;
 import com.unesco.core.models.additional.FilterQuery;
 import com.unesco.core.models.shedule.LessonModel;
 import com.unesco.core.repositories.LessonRepository;
-import com.unesco.core.repositories.account.ProfessorRepository;
+import com.unesco.core.services.account.professorService.IProfessorDataService;
 import com.unesco.core.services.mapperService.IMapperService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
@@ -21,7 +21,7 @@ public class LessonDataService implements ILessonDataService {
     @Autowired
     private LessonRepository lessonRepository;
     @Autowired
-    private ProfessorRepository professorRepository;
+    private IProfessorDataService professorDataService;
 
     public List<LessonModel> GetPage(FilterQuery filter) {
         int rows = filter.getRows()>0? filter.getRows() : (int) lessonRepository.count();
@@ -54,8 +54,7 @@ public class LessonDataService implements ILessonDataService {
 
     public LessonModel GetDisciplineIdAndGroupIdAndProfessorId(long disciplineId, long groupId, long professorId)
     {
-        Lesson entity = lessonRepository.findByDisciplineIdAndGroupIdAndProfessorId(disciplineId, groupId,
-                professorRepository.findByUserId(professorId).getId());
+        Lesson entity = lessonRepository.findByDisciplineIdAndGroupIdAndProfessorId(disciplineId, groupId, professorId);
         LessonModel model = (LessonModel) mapperService.toModel(entity);
         return model;
     }

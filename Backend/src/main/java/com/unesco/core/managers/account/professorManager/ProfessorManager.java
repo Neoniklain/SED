@@ -37,12 +37,8 @@ public class ProfessorManager implements IProfessorManager {
 
     public void Create(UserModel user) {
 
-        professor.setId(user.getId());
-        professor.setRoles(user.getRoles());
-        professor.setUserFIO(user.getUserFIO());
-        professor.setUsername(user.getUsername());
-        professor.setPassword(user.getPassword());
-        professor.setEmail(user.getEmail());
+        professor.setId(0);
+        professor.setUser(user);
         professor.setDepartment(null);
     }
 

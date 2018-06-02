@@ -8,5 +8,6 @@ import java.util.List;
 
 public interface IStudentDataService extends IDataService<StudentModel> {
     List<StudentModel> GetPage(FilterQuery filter);
+    StudentModel GetByUser(long userId);
     List<StudentModel> GetByGroup(long groupId);
 }

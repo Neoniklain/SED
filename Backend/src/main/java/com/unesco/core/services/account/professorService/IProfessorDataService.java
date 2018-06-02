@@ -8,5 +8,7 @@ import java.util.List;
 
 public interface IProfessorDataService extends IDataService<ProfessorModel> {
     List<ProfessorModel> GetPage(FilterQuery filter);
+    ProfessorModel GetByUser(long userId);
+
     List<ProfessorModel> GetAllByDepartament(long departmentId);
 }

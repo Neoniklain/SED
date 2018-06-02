@@ -36,7 +36,7 @@ public class PairListManager implements IPairListManager {
     {
         List<PairModel> result = new ArrayList<PairModel>();
         for (PairModel p : pairList) {
-            if(p.getGroup().getId() == group.getId())
+            if(p.getLesson().getGroup().getId() == group.getId())
                 result.add(p);
         }
         return result;
@@ -46,7 +46,7 @@ public class PairListManager implements IPairListManager {
     {
         List<PairModel> result = new ArrayList<>();
         for (PairModel p:pairList) {
-            if(p.getProfessor().getId() == professor.getId())
+            if(p.getLesson().getProfessor().getId() == professor.getId())
                 result.add(p);
 
         }
@@ -57,7 +57,7 @@ public class PairListManager implements IPairListManager {
     {
         List<PairModel> result = new ArrayList<>();
         for (PairModel p:pairList) {
-            if(p.getGroup().getId() == group.getId())
+            if(p.getLesson().getGroup().getId() == group.getId())
                 result.add(p);
 
         }
@@ -68,7 +68,7 @@ public class PairListManager implements IPairListManager {
     {
         List<PairModel> result = new ArrayList<>();
         for (PairModel p:pairList) {
-            if(p.getDiscipline().getId() == discipline.getId())
+            if(p.getLesson().getDiscipline().getId() == discipline.getId())
                 result.add(p);
 
         }
@@ -79,7 +79,7 @@ public class PairListManager implements IPairListManager {
     {
         List<PairModel> result = new ArrayList<>();
         for (PairModel p:pairList) {
-            if(p.getProfessor().getDepartment().getId() == department.getId())
+            if(p.getLesson().getProfessor().getDepartment().getId() == department.getId())
                 result.add(p);
 
         }

@@ -35,7 +35,7 @@ public class SheduleDepartmentManager implements ISheduleDepartmentManager {
         List<SheduleProfessorLineModel> line = new ArrayList<>();
 
         for (ProfessorModel p: professorList) {
-            List<PairModel> collect = pairList.stream().filter(o -> o.getProfessor().getId() == p.getId()).collect(Collectors.toList());
+            List<PairModel> collect = pairList.stream().filter(o -> o.getLesson().getProfessor().getId() == p.getId()).collect(Collectors.toList());
             SheduleProfessorLineModel sheduleLineModel = new SheduleProfessorLineModel();
             sheduleLineModel.setPairs(collect);
             sheduleLineModel.setProfessor(p);

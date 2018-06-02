@@ -7,6 +7,8 @@ import {AuthenticationService} from "../../../../services/authService";
 import {JournalService} from "../../../../services/journal.service";
 import {PairService} from "../../../../services/pair.service";
 import {NotificationService} from "../../../../services/notification.service";
+import {AccountService} from "../../../../services/accountService";
+import {Professor} from "../../../../models/account/professor";
 
 @Component({
     selector: 'journal-page',
@@ -17,22 +19,29 @@ import {NotificationService} from "../../../../services/notification.service";
 export class JournalPageComponent implements OnInit {
 
     public user: User;
+    public professor: Professor;
     public journal: Journal;
     public pairs: Array<Pair> = new Array<Pair>();
     public showLoader: boolean = false;
 
     constructor(private authenticationService: AuthenticationService,
                 private journalService: JournalService,
+                private accountService: AccountService,
                 private pairService: PairService) {
         this.user = new User();
         this.authenticationService.getUser().subscribe(
             res => {
                 this.user = res.data;
                 this.showLoader = true;
-                this.pairService.GetPeofessorPair(this.user.id).subscribe(
-                    result => {
-                        this.showLoader = false;
-                        this.pairs = result.data;
+                this.accountService.GetProfessorByUser(this.user.id).subscribe(
+                    resultProf => {
+                        this.professor = resultProf.data;
+                            this.pairService.GetPeofessorPair(this.professor.id).subscribe(
+                            result => {
+                                this.showLoader = false;
+                                this.pairs = result.data;
+                            }
+                        );
                     }
                 );
             });
@@ -41,13 +50,16 @@ export class JournalPageComponent implements OnInit {
     ngOnInit(): void { }
 
     onClick(pair: Pair) {
-        this.showLoader = true;
-        this.journalService.GetJournal(this.user.id, pair.group.id, pair.discipline.id).subscribe(
-            result => {
-                this.journal = result.data;
-                this.showLoader = false;
-            }, error => console.log(error)
-        );
+        console.log("pair", pair);
+        if (pair.id !== 0) {
+            this.showLoader = true;
+            this.journalService.GetJournal(this.professor.id, pair.lesson.group.id, pair.lesson.discipline.id).subscribe(
+                result => {
+                    this.journal = result.data;
+                    this.showLoader = false;
+                }, error => console.log(error)
+            );
+        }
     }
 
     back() {

@@ -45,4 +45,16 @@ export class AccountService {
         return this.http.get(ApiRouteConstants.Account.GetProfessors)
             .catch(this.handleError.handle);
     }
+
+    public GetProfessorByUser(userId): Observable<ResponseStatus> {
+        return this.http.get(ApiRouteConstants.Account.GetProfessorByUser
+            .replace(":userId", userId.toString()))
+            .catch(this.handleError.handle);
+    }
+
+    public GetStudentByUser(userId): Observable<ResponseStatus> {
+        return this.http.get(ApiRouteConstants.Account.GetStudentByUser
+            .replace(":userId", userId.toString()))
+            .catch(this.handleError.handle);
+    }
 }

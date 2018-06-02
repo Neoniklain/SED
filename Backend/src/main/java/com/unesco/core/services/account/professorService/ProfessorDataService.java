@@ -58,14 +58,14 @@ public class ProfessorDataService implements IProfessorDataService {
 
     public ProfessorModel Get(long id)
     {
-        Professor entity = professorRepository.findByUserId(id);
+        Professor entity = professorRepository.findOne(id);
         ProfessorModel model = (ProfessorModel) mapperService.toModel(entity);
         return model;
     }
 
     public void Delete(long id)
     {
-        Professor entity = professorRepository.findByUserId(id);
+        Professor entity = professorRepository.findOne(id);
         professorRepository.delete(entity.getId());
     }
 
@@ -77,5 +77,11 @@ public class ProfessorDataService implements IProfessorDataService {
         Professor model = professorRepository.save(entity);
         professor = (ProfessorModel) mapperService.toModel(model);
         return professor;
+    }
+
+    public ProfessorModel GetByUser(long userId) {
+        Professor entity = professorRepository.findByUserId(userId);
+        ProfessorModel model = (ProfessorModel) mapperService.toModel(entity);
+        return model;
     }
 }

@@ -94,13 +94,13 @@ export class PairDetailsComponent implements OnInit, OnChanges {
     }
 
     public selectGroup(group: Group) {
-        this.pair.group = group;
+        this.pair.lesson.group = group;
     }
     public selectDiscipline(discipline: Discipline) {
-        this.pair.discipline = discipline;
+        this.pair.lesson.discipline = discipline;
     }
     public selectProfessor(professor: Professor) {
-        this.pair.professor = professor;
+        this.pair.lesson.professor = professor;
     }
     public selectRoom(room: Room) {
         this.pair.room = room;
@@ -121,17 +121,17 @@ export class PairDetailsComponent implements OnInit, OnChanges {
     }
 
     public checkOneEmpty() {
-        if (this.pair.discipline == null) {
-            this.pair.discipline = new Discipline();
+        if (this.pair.lesson.discipline == null) {
+            this.pair.lesson.discipline = new Discipline();
         }
-        if (this.pair.professor == null) {
-            this.pair.professor = new Professor();
+        if (this.pair.lesson.professor == null) {
+            this.pair.lesson.professor = new Professor();
         }
         if (this.pair.room == null) {
             this.pair.room = new Room();
         }
-        if (this.pair.group == null) {
-            this.pair.group = new Group();
+        if (this.pair.lesson.group == null) {
+            this.pair.lesson.group = new Group();
         }
     }
 
@@ -174,6 +174,7 @@ export class PairDetailsComponent implements OnInit, OnChanges {
         this.dictionaryService.GetProfessors(filter).subscribe(
             result => {
                 temp = result.content;
+                console.log("temp", temp);
                 if (temp.length > 0)
                     this.findProfessors = temp;
                 else

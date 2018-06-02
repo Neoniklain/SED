@@ -88,13 +88,13 @@ public class AccountController {
             if (roleListManager.ContainRole(RoleType.PROFESSOR))
             {
                 professorManager.Create(userSaved);
-                professorDataService.Save(professorManager.Get());
+                ProfessorModel professor = professorDataService.Save(professorManager.Get());
             }
 
             if (roleListManager.ContainRole(RoleType.STUDENT))
             {
                 studentManager.Create(userSaved);
-                studentDataService.Save(studentManager.Get());
+                StudentModel student = studentDataService.Save(studentManager.Get());
             }
             res.setData(userSaved);
             res.addMessage("Пользователь добавлен");
@@ -123,9 +123,21 @@ public class AccountController {
         return new ResponseStatus(StatusTypes.OK, professorListManager.GetAll());
     }
 
-    @RequestMapping(value = "/professor/{professorId}/setDepartment/{departmentId}")
-    public ResponseStatus setProfessorDepartment(@PathVariable("professorId") int professorId, @PathVariable("departmentId") int departmentId) {
-        professorManager.Init(professorDataService.Get(professorId));
+    @GetMapping("/professorByUser/{userId}")
+    public ResponseStatus GetProfessorByUser(@PathVariable("userId") int userId) {
+        professorManager.Init(professorDataService.GetByUser(userId));
+        return new ResponseStatus(StatusTypes.OK, professorManager.Get());
+    }
+
+    @GetMapping("/studentByUser/{userId}")
+    public ResponseStatus GetStudentByUser(@PathVariable("userId") int userId) {
+        studentManager.Init(studentDataService.GetByUser(userId));
+        return new ResponseStatus(StatusTypes.OK, studentManager.Get());
+    }
+
+    @RequestMapping(value = "/professor/{userId}/setDepartment/{departmentId}")
+    public ResponseStatus setProfessorDepartment(@PathVariable("userId") int userId, @PathVariable("departmentId") int departmentId) {
+        professorManager.Init(professorDataService.GetByUser(userId));
         departmentManager.Init(departmentDataService.Get(departmentId));
         professorManager.SetDepartment(departmentManager.Get());
         ResponseStatus res = new ResponseStatus();
@@ -152,7 +164,7 @@ public class AccountController {
 
     @RequestMapping(value = "/student/{userId}/setGroup/{groupId}")
     public ResponseStatus setStudentGroup(@PathVariable("userId") int userId, @PathVariable("groupId") int groupId) {
-        studentManager.Init(studentDataService.Get(userId));
+        studentManager.Init(studentDataService.GetByUser(userId));
         groupManager.Init(groupDataService.Get(groupId));
         studentManager.SetGroup(groupManager.Get());
         ResponseStatus res = new ResponseStatus();

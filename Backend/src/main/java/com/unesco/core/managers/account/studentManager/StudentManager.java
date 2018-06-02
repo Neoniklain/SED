@@ -31,11 +31,8 @@ public class StudentManager implements IStudentManager {
     }
 
     public void Create(UserModel user) {
-        student.setId(user.getId());
-        student.setRoles(user.getRoles());
-        student.setUserFIO(user.getUserFIO());
-        student.setUsername(user.getUsername());
-        student.setEmail(user.getEmail());
+        student.setId(0);
+        student.setUser(user);
         student.setGroup(null);
     }
 

@@ -40,12 +40,11 @@ public class LessonEventDataService implements ILessonEventDataService {
         return model;
     }
 
-    public List<LessonEventModel> GetByLesson(long professorId, long groupId, long disciplineId)
+    public List<LessonEventModel> GetByLesson(long lessonId)
     {
 
         List<LessonEventModel> modelList = new ArrayList<>();
-        Professor professor = professorRepository.findByUserId(professorId);
-        Iterable<LessonEvent> entityList = lessonEventRepository.findByLesson(professor.getId(), groupId, disciplineId);
+        Iterable<LessonEvent> entityList = lessonEventRepository.findByLessonId(lessonId);
         for (LessonEvent item: entityList) {
             LessonEventModel model = (LessonEventModel) mapperService.toModel(item);
             modelList.add(model);

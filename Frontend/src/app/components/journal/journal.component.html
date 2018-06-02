@@ -51,10 +51,10 @@
         </thead>
         <tbody>
             <tr *ngFor="let student of journal.students">
-                <td>{{student.userFIO}}</td>
+                <td>{{student.user.userFIO}}</td>
                 <ng-container *ngFor="let cell of journal.journalCell">
                     <ng-container *ngIf="inMonthPeriodDate(cell.date)">
-                        <td [ngClass]="{displayNo: cell.student.userFIO!=student.userFIO, todayCell: isPairNow(cell.pair)}">
+                        <td [ngClass]="{displayNo: cell.student.user.userFIO!=student.user.userFIO, todayCell: isPairNow(cell.pair)}">
                             <input (click)="clearField(cell)" (blur)="cancelField(cell)" [(ngModel)]="cell.value" type="text">
                         </td>
                     </ng-container>

@@ -87,7 +87,7 @@ export class ShowScheduleComponent implements OnInit {
         this.pairService.GetPeofessorPair(professor.id).subscribe(
             result =>  {
                 this.templatePair = new Pair();
-                this.templatePair.professor = this.currentProfessor;
+                this.templatePair.lesson.professor = this.currentProfessor;
                 this.pairList = result.data;
                 this.showLoader = false;
             }
@@ -101,7 +101,7 @@ export class ShowScheduleComponent implements OnInit {
             result =>  {
                 console.log(result.data);
                 this.templatePair = new Pair();
-                this.templatePair.group = this.currentGroup;
+                this.templatePair.lesson.group = this.currentGroup;
                 this.pairList = result.data.pairs;
                 this.showLoader = false;
             }

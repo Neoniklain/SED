@@ -16,7 +16,6 @@ public interface StudentRepository extends CrudRepository<Student, Long>, CrudPa
     @Query("SELECT s FROM Student s where lower(s.user.userFIO) LIKE CONCAT('%',lower(:filter),'%')")
     List<Student> findWithFilter(Pageable pageable, @Param("filter")  String filter);
 
-
     Student findByUserId(long id);
 
     List<Student> findAllByGroupId(long id);

@@ -21,6 +21,7 @@ export class LessonСonfiguratorComponent implements OnInit {
     public eventTypes: Array<PointType> = new  Array<PointType>();
     public model: LessonEvent = new LessonEvent();
     public ru;
+    public disabledDays: Array<number>;
 
     constructor(private authenticationService: AuthenticationService,
                 private pairService: PairService,
@@ -32,23 +33,22 @@ export class LessonСonfiguratorComponent implements OnInit {
     ngOnInit(): void {
         this.ru = {
             firstDayOfWeek: 0,
-            dayNames: ["Воскресенье", "Понедельник", "Вторник", "Среда", "Четверг", "Пятница", "Суббота"],
-            dayNamesShort: ["Вск", "Пн", "Вт", "СР", "Чт", "Пт", "Сб"],
-            dayNamesMin: ["Вск","Пн","Вт","СР","Чт","Пт","Сб"],
-            monthNames: [ "Январь","Февраль","Март","Апрель","Ми ","Июнь","Июль","Август","Сентябрь","Октябрь","Ноябрь","Декабрь" ],
-            monthNamesShort: [ "Янв", "Фев", "Мар", "Апр", "Май", "Июн","Июл", "Авг", "Сен", "Окт", "Ноя", "Дек" ],
+            dayNames: ["Понедельник", "Вторник", "Среда", "Четверг", "Пятница", "Суббота", "Воскресенье"],
+            dayNamesShort: ["Пн", "Вт", "СР", "Чт", "Пт", "Сб", "Вск"],
+            dayNamesMin: ["Пн", "Вт", "СР", "Чт", "Пт", "Сб", "Вск"],
+            monthNames: [ "Январь", "Февраль", "Март", "Апрель", "Ми ", "Июнь", "Июль", "Август", "Сентябрь", "Октябрь", "Ноябрь", "Декабрь" ],
+            monthNamesShort: [ "Янв", "Фев", "Мар", "Апр", "Май", "Июн", "Июл", "Авг", "Сен", "Окт", "Ноя", "Дек" ],
             today: 'Сегодня',
             clear: 'Очистить'
         };
         this.getPointsType();
         this.getEvents();
-        this.model.lesson.professor = this.pair.professor;
-        this.model.lesson.group = this.pair.group;
-        this.model.lesson.discipline = this.pair.discipline;
+        this.model.lesson = this.pair.lesson;
+        this.disabledDays = [1, 2];
     }
 
     getEvents() {
-        this.journalService.GetEvents(this.pair.professor.id, this.pair.group.id, this.pair.discipline.id)
+        this.journalService.GetEvents(this.pair.lesson.id)
             .subscribe( result => {
                 this.events = result.data;
             });

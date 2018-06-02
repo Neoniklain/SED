@@ -46,9 +46,9 @@
         <div class="col-sm-12 event-field">
             <label for="event" class="col-sm-3 col-form-label">Тип события</label>
             <div class="col-sm-9" id="event">
-                <select #institute="ngModel" required [(ngModel)]="model.type.id" class="form-control">
+                <select #institute="ngModel" required [(ngModel)]="model.type" class="form-control">
                     <option disabled value="0">Тип события</option>
-                    <option *ngFor="let eventType of eventTypes" value="{{eventType.id}}">{{eventType.name}}</option>
+                    <option *ngFor="let eventType of eventTypes" [ngValue]="eventType">{{eventType.name}}</option>
                 </select>
             </div>
         </div>
@@ -58,6 +58,7 @@
             <div class="col-sm-9" id="date">
                 <p-calendar [style]="{'width':'100%'}"
                             dateFormat="dd.mm.yy"
+                            [disabledDays]="disabledDays"
                             [inputStyleClass]="'form-control'"
                             readonlyInput="true"
                             [(ngModel)]="model.date"

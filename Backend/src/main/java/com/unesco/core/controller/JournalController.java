@@ -61,12 +61,10 @@ public class JournalController {
         }
     }
 
-    @RequestMapping("/event/professor/{professorId}/group/{groupId}/discipline/{disciplineId}")
-    public ResponseStatus GetEvents(@PathVariable("professorId") long professorId,
-                                    @PathVariable("groupId") long groupId,
-                                    @PathVariable("disciplineId") long disciplineId) {
+    @RequestMapping("/event/lesson/{lessonId}")
+    public ResponseStatus GetEvents(@PathVariable("lessonId") long lessonId) {
 
-        List<LessonEventModel> pairEventModels = lessonEventDataService.GetByLesson(professorId, groupId, disciplineId);
+        List<LessonEventModel> pairEventModels = lessonEventDataService.GetByLesson(lessonId);
 
         return new ResponseStatus(StatusTypes.OK, pairEventModels);
     }

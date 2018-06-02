@@ -6,5 +6,5 @@ import com.unesco.core.services.IDataService;
 import java.util.List;
 
 public interface ILessonEventDataService extends IDataService<LessonEventModel> {
-    List<LessonEventModel> GetByLesson(long professorId, long groupId, long disciplineId);
+    List<LessonEventModel> GetByLesson(long lessonId);
 }

@@ -12,7 +12,7 @@
   </thead>
   <tbody>
     <tr *ngFor="let s of schedule">
-      <td>{{s.professor.userFIO}}</td>
+      <td>{{s.professor.user.userFIO}}</td>
       <td style="vertical-align: middle;" class="pair-td" *ngFor="let number of DayPairNumber">
         <span *ngFor="let pair of s.pairs">
           <div class="pair" (clicl)="onClick(pair)" (mousemove)="onMouseMove($event)" (mouseenter)="onMouseEnter($event, pair)" (mouseleave)="onMouseLeave()"

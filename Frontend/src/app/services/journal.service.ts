@@ -32,11 +32,9 @@ export class JournalService {
             .catch(this.handleError.handle);
     }
 
-    public GetEvents(professorId, groupId, disciplineId): Observable<ResponseStatus> {
+    public GetEvents(lessonId): Observable<ResponseStatus> {
         return this.http.get(ApiRouteConstants.Journal.Events
-            .replace(":professorId", professorId)
-            .replace(":groupId", groupId)
-            .replace(":disciplineId", disciplineId))
+            .replace(":lessonId", lessonId))
             .catch(this.handleError.handle);
     }
 

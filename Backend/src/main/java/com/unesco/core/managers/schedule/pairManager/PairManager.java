@@ -41,16 +41,16 @@ public class PairManager implements IPairManager {
             if(pair.getDayofweek().equals(p.getDayofweek())
                     && pair.getPairNumber() == p.getPairNumber()) {
 
-                boolean profEq = pair.getProfessor().getId() == p.getProfessor().getId();
-                boolean groupEq = pair.getGroup().getId() == p.getGroup().getId();
+                boolean profEq = pair.getLesson().getProfessor().getId() == p.getLesson().getProfessor().getId();
+                boolean groupEq = pair.getLesson().getGroup().getId() == p.getLesson().getGroup().getId();
                 boolean roomEq = pair.getRoom().getId() == p.getRoom().getId();
                 boolean weektypeEq = pair.getWeektype().equals(p.getWeektype());
 
                 if(profEq && groupEq && (weektypeEq || (pair.getWeektype().equals("Все"))
                     || (p.getWeektype().equals("Все"))) )
                 {
-                    messages.add(" В это время у "+p.getProfessor().getUserFIO()
-                            +" и "+p.getGroup().getName()+" уже назначено занятие ");
+                    messages.add(" В это время у "+p.getLesson().getProfessor().getUser().getUserFIO()
+                            +" и "+p.getLesson().getGroup().getName()+" уже назначено занятие ");
                     break;
                 }
 
@@ -58,23 +58,23 @@ public class PairManager implements IPairManager {
                         || (p.getWeektype().equals("Все"))))
                 {
                     messages.add("В аудитории "+p.getRoom().getRoom()
-                            +" уже назначено занятие в это время у преподавателя "+p.getProfessor().getUserFIO());
+                            +" уже назначено занятие в это время у преподавателя "+p.getLesson().getProfessor().getUser().getUserFIO());
                     break;
                 }
 
                 if(profEq && (weektypeEq || (pair.getWeektype().equals("Все"))
                         || (p.getWeektype().equals("Все"))))
                 {
-                    messages.add("Для преподавателя "+p.getProfessor().getUserFIO()
-                            +" уже назначено занятие в это время у группы "+p.getGroup().getName());
+                    messages.add("Для преподавателя "+p.getLesson().getProfessor().getUser().getUserFIO()
+                            +" уже назначено занятие в это время у группы "+p.getLesson().getGroup().getName());
                     break;
                 }
 
                 if(groupEq && (weektypeEq || (pair.getWeektype().equals("Все"))
                         || (p.getWeektype().equals("Все"))))
                 {
-                    messages.add("У группы "+p.getGroup().getName()
-                            +" уже назначено занятие в это время у преподавателя "+p.getProfessor().getUserFIO());
+                    messages.add("У группы "+p.getLesson().getGroup().getName()
+                            +" уже назначено занятие в это время у преподавателя "+p.getLesson().getProfessor().getUser().getUserFIO());
                     break;
                 }
             }

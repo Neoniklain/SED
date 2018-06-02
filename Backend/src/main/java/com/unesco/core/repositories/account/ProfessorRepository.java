@@ -14,8 +14,6 @@ public interface ProfessorRepository extends CrudRepository<Professor, Long>, Cr
     @Override
     List<Professor> findAll();
 
-
-
     List<Professor> findAllByDepartmentId(long id);
 
     Professor findByUserId(long id);

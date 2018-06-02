@@ -16,10 +16,7 @@ import org.springframework.stereotype.Service;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -51,7 +48,7 @@ public class JournalDataService implements IJournalDataService {
         Calendar endDate = Calendar.getInstance();
 
         DateFormat df = new SimpleDateFormat("dd.MM");
-        List<Date> days = new ArrayList<>();
+        Set<Date> days = new HashSet<>();
 
         for (PairModel pair: pairs) {
 
@@ -93,11 +90,11 @@ public class JournalDataService implements IJournalDataService {
             if(!pair.getWeektype().equals("Все"))
             {
                 if(pair.getWeektype().equals("Чет")) {
-                    days.add(starDate.getTime());
+                    days.add(getZeroTimeDate(starDate.getTime()));
                     starDate.add(Calendar.DAY_OF_WEEK, 14); //Прибавляем две недели
                 } else {
                     starDate.add(Calendar.DAY_OF_WEEK, 7); //Прибавляем неделю
-                    days.add(starDate.getTime());
+                    days.add(getZeroTimeDate(starDate.getTime()));
                     starDate.add(Calendar.DAY_OF_WEEK, 14); //Прибавляем две недели
                 }
             }
@@ -105,27 +102,23 @@ public class JournalDataService implements IJournalDataService {
             int amount = pair.getWeektype().equals("Все") ? 7 : 14;
 
             for(int i = 0; starDate.getTime().compareTo(endDate.getTime()) < 0; i++){
-                if(days.stream().filter( o -> getZeroTimeDate(o).compareTo(getZeroTimeDate(starDate.getTime())) == 0)
-                        .collect(Collectors.toList()).size() == 0) {
-                    days.add(getZeroTimeDate(starDate.getTime()));
-                }
+                days.add(getZeroTimeDate(starDate.getTime()));
                 starDate.add(Calendar.DAY_OF_WEEK, amount);
             }
         }
 
         List<PointModel> points = new ArrayList<>();
 
-
         for (StudentModel student : students ) {
             for (PairModel pair : pairs ) {
-                points.addAll(pointDataService.GetByStudentAndPair(student.getId(), pair.getId()));
+                points.addAll(pointDataService.GetByStudentAndPair(student.getUser().getId(), pair.getId()));
             }
         }
 
         JournalModel model = new JournalModel();
         model.setPairs(pairs);
         model.setLesson(lesson);
-        model.setDates(days);
+        model.setDates(days.stream().collect(Collectors.toList()));
         model.setStudents(students);
         model.setJournalCell(points);
 
@@ -149,7 +142,7 @@ public class JournalDataService implements IJournalDataService {
             if(point.getId() == 0) {
 
                 PointModel findPoint = pointDataService.GetByStudentAndDateAndTypeAndPair(
-                        point.getStudent().getId(),
+                        point.getStudent().getUser().getId(),
                         point.getDate(),
                         point.getType().getId(),
                         point.getPair().getId());
