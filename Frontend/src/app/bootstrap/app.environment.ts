@@ -14,7 +14,7 @@ export let appSettings = {
 
 let environment = Enviromnent.Development;
 /// #if ENVIRONMENT == "dev"
-    environment = Enviromnent.Test;
+    environment = Enviromnent.Development;
     appSettings.BaseApiUrl = 'http://localhost:8080/api/';
 /// #endif
 /// #if ENVIRONMENT == "test"
@@ -23,5 +23,5 @@ let environment = Enviromnent.Development;
 /// #endif
 /// #if ENVIRONMENT == "prod"
     environment = Enviromnent.Production;
-    appSettings.BaseApiUrl = 'http://localhost:8080/api/';
+    appSettings.BaseApiUrl = 'http://62.173.145.143:8080/api/';
 /// #endif

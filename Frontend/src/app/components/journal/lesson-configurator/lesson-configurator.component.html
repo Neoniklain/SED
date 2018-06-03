@@ -24,13 +24,22 @@
                     <tr>
                         <td>Тип</td>
                         <td>Дата</td>
+                        <td></td>
                     </tr>
                 </thead>
                 <tbody>
                 <ng-container *ngFor="let event of events">
                     <tr>
-                        <td>{{event.type.name}}</td>
-                        <td>{{event.date | date: 'dd.MM'}}</td>
+                        <td valign="bottom">{{event.type.name}}</td>
+                        <td valign="bottom">{{event.date | date: 'dd.MM'}}</td>
+                        <td>
+                            <button (click)="Edit(event)" class="btn btn-warning btn-sm">
+                                <i class="fa fa-pencil" aria-hidden="true"></i>
+                            </button>
+                            <button (click)="Remove(event.id)" class="btn btn-danger btn-sm">
+                                <i class="fa fa-times" aria-hidden="true"></i>
+                            </button>
+                        </td>
                     </tr>
                 </ng-container>
                 </tbody>
@@ -41,25 +50,29 @@
 </div>
 
 <div class="col-sm-8">
+    <div class="header-lesson text-center">
+        <h3 *ngIf="!editMode">Создание события</h3>
+        <h3 *ngIf="editMode">Редактирование события</h3>
+    </div>
     <div class="edit-event">
-
         <div class="col-sm-12 event-field">
             <label for="event" class="col-sm-3 col-form-label">Тип события</label>
             <div class="col-sm-9" id="event">
-                <select #institute="ngModel" required [(ngModel)]="model.type" class="form-control">
-                    <option disabled value="0">Тип события</option>
-                    <option *ngFor="let eventType of eventTypes" [ngValue]="eventType">{{eventType.name}}</option>
-                </select>
+                <p-dropdown
+                        [options]="eventTypes"
+                        [style]="{'width':'100%'}"
+                        [(ngModel)]="model.type"
+                        optionLabel="name"></p-dropdown>
             </div>
         </div>
 
         <div class="col-sm-12 event-field">
             <label for="date" class="col-sm-3 col-form-label">Дата</label>
             <div class="col-sm-9" id="date">
-                <p-calendar [style]="{'width':'100%'}"
+                <p-calendar [inputStyle]="{'width':'100%'}"
+                            [style]="{'width':'100%'}"
                             dateFormat="dd.mm.yy"
                             [disabledDays]="disabledDays"
-                            [inputStyleClass]="'form-control'"
                             readonlyInput="true"
                             [(ngModel)]="model.date"
                             [locale]="ru"></p-calendar>
@@ -69,11 +82,20 @@
         <div class="col-sm-12 event-field">
             <label for="coment" class="col-sm-3 col-form-label">Коментарий</label>
             <div class="col-sm-9" id="coment">
-                <input [(ngModel)]="model.comment" class="form-control">
+                <input style="width:100%"
+                       placeholder="Коментарий"
+                       type="text"
+                       pInputText
+                       [(ngModel)]="model.comment"/>
             </div>
         </div>
 
-        <button (click)="test()">Сохранить</button>
+
+        <div class="col-sm-12 event-field text-right">
+            <button *ngIf="editMode" class="btn btn-danger" (click)="CancelEdit()">Отмена</button>
+            <button *ngIf="editMode" class="btn btn-success" (click)="Save()">Обновить</button>
+            <button *ngIf="!editMode" class="btn btn-success" (click)="Save()">Сохранить</button>
+        </div>
 
     </div>
 </div>

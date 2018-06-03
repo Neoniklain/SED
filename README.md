@@ -82,6 +82,13 @@ os: win32 x64
 ```
 Скачать GTK для Windows, распаковать содержимое архива в папку C:/GTK.
 
+### Сборка перед загрузкой на сервер
+
+1. Выполнить сборку ангуляра (запустить файл makeang.bat)
+2. новая сборка окажется в папке SED\Frontend\wwwroot.
+3. Удостовериться что все js файлы в папке SED\Frontend\wwwroot\js установлены в кодировке UTF-8 (не "UTF-8 без БОМ").
+4. Скопировать все файлы из SED\Frontend\wwwroot в папку SED\Backend\src\main\resources\public
+5. Сгененрировать .war файл.
 
 #### Ссылки
 1. [Node.js 7.5.0](https://nodejs.org/en/download/releases/)

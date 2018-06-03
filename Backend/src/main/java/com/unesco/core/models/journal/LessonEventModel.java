@@ -9,7 +9,7 @@ public class LessonEventModel implements Cloneable {
 
     private Date date;
 
-    private boolean everyDay;
+    private String comment;
 
     private PointTypeModel type;
 
@@ -29,11 +29,11 @@ public class LessonEventModel implements Cloneable {
         this.date = date;
     }
 
-    public boolean isEveryDay() {
-        return everyDay;
+    public String getComment() {
+        return comment;
     }
-    public void setEveryDay(boolean everyDay) {
-        this.everyDay = everyDay;
+    public void setComment(String comment) {
+        this.comment = comment;
     }
 
     public PointTypeModel getType() {

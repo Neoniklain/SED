@@ -16,7 +16,7 @@ public class LessonEvent {
 
     private Date date;
 
-    private boolean everyDay;
+    private String comment;
 
     @ManyToOne
     @JoinColumn(name = "point_type_id", referencedColumnName = "id")
@@ -40,11 +40,11 @@ public class LessonEvent {
         this.date = date;
     }
 
-    public boolean isEveryDay() {
-        return everyDay;
+    public String getComment() {
+        return comment;
     }
-    public void setEveryDay(boolean everyDay) {
-        this.everyDay = everyDay;
+    public void setComment(String comment) {
+        this.comment = comment;
     }
 
     public PointType getType() {

@@ -44,7 +44,7 @@ import {DialogModule} from "primeng/components/dialog/dialog";
 import {GrowlModule} from "primeng/components/growl/growl";
 import {ConfirmDialogModule} from "primeng/components/confirmdialog/confirmdialog";
 import {MessageService} from "primeng/components/common/messageservice";
-import {CalendarModule, ConfirmationService, DataTableModule} from "primeng/primeng";
+import {CalendarModule, ConfirmationService, DataTableModule, DropdownModule} from "primeng/primeng";
 import {AccountService} from "../services/accountService";
 import {AccessDeniedComponent} from "../components/account/accessDenied/accessDenied.component";
 import {AdminPanelComponent} from "../components/adminPanel/adminPanel";
@@ -70,6 +70,7 @@ import {HandelErrorService} from "../services/handelError.service";
 import {JournalPageComponent} from "../components/account/account/journal-page/journal-page.component";
 import {LessonConfiguratorPageComponent} from "../components/account/account/lesson-configurator-page/lesson-configurator-page.component";
 import {LessonСonfiguratorComponent} from "../components/journal/lesson-configurator/lesson-configurator.component";
+import {InputTextModule} from "primeng/components/inputtext/inputtext";
 
 @NgModule({
    imports: [
@@ -87,6 +88,8 @@ import {LessonСonfiguratorComponent} from "../components/journal/lesson-configu
       GrowlModule,
       DataTableModule,
       CalendarModule,
+      DropdownModule,
+      InputTextModule,
       AutoCompleteModule,
       ConfirmDialogModule
    ],

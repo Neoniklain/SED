@@ -66,6 +66,7 @@ export const ApiRouteConstants = {
         Get: "shedule/pair/{id}",
         Proffesor: "shedule/professor/:id/pairs",
         Department: "shedule/department/:id/pairs",
+        Lesson: "shedule/lesson/:id/pairs",
         Group: "shedule/group/:id/pairs",
    },
    News: {
@@ -87,6 +88,8 @@ export const ApiRouteConstants = {
       All: "journal/professor/:professorId/group/:groupId/discipline/:disciplineId",
       Save: "journal/save",
       Events: "journal/event/lesson/:lessonId",
+      EventSave: "journal/event/save",
+      EventDelete: "journal/event/delete/:id"
    },
    Excel:
        {

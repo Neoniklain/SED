@@ -8,6 +8,7 @@ import 'rxjs/add/operator/catch';
 import {Journal} from "../models/journal/journal.model";
 import {HandelErrorService} from "./handelError.service";
 import {ResponseStatus} from "../models/additional/responseStatus";
+import {LessonEvent} from "../models/journal/lessonEvent.model";
 
 @Injectable()
 export class JournalService {
@@ -41,6 +42,18 @@ export class JournalService {
     public Save(journal): Observable<ResponseStatus> {
         let params = new HttpParams();
         return this.http.post(ApiRouteConstants.Journal.Save, journal, {params: params })
+            .catch(this.handleError.handle);
+    }
+
+    public SaveEvent(event: LessonEvent): Observable<ResponseStatus> {
+        let params = new HttpParams();
+        return this.http.post(ApiRouteConstants.Journal.EventSave, event, {params: params })
+            .catch(this.handleError.handle);
+    }
+
+    public EventDelete(id: number): Observable<ResponseStatus> {
+        return this.http.get(ApiRouteConstants.Journal.EventDelete
+            .replace(":id", id.toString()))
             .catch(this.handleError.handle);
     }
 }

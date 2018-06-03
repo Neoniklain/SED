@@ -99,6 +99,26 @@ public class DBInitializer implements ApplicationRunner {
             p.setName("Посещение");
             _PointTypeRepository.save(p);
         }
+        if(_PointTypeRepository.findByName("Лабораторная") == null)
+        {
+            p.setName("Лабораторная");
+            _PointTypeRepository.save(p);
+        }
+        if(_PointTypeRepository.findByName("Семестровая") == null)
+        {
+            p.setName("Семестровая");
+            _PointTypeRepository.save(p);
+        }
+        if(_PointTypeRepository.findByName("Контрольная работа") == null)
+        {
+            p.setName("Контрольная работа");
+            _PointTypeRepository.save(p);
+        }
+        if(_PointTypeRepository.findByName("Отчет") == null)
+        {
+            p.setName("Отчет");
+            _PointTypeRepository.save(p);
+        }
 
     }
 }

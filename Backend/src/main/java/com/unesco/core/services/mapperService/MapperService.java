@@ -196,7 +196,7 @@ public class MapperService implements IMapperService {
         LessonEventModel Model = new LessonEventModel();
         Model.setId(Entity.getId());
         Model.setDate(Entity.getDate());
-        Model.setEveryDay(Entity.isEveryDay());
+        Model.setComment(Entity.getComment());
         Model.setLesson(LessonToModel(Entity.getLesson()));
         Model.setType(PointTypeToModel(Entity.getType()));
         return Model;
@@ -206,7 +206,7 @@ public class MapperService implements IMapperService {
         LessonEvent Entity = new LessonEvent();
         Entity.setId(Model.getId());
         Entity.setDate(Model.getDate());
-        Entity.setEveryDay(Model.isEveryDay());
+        Entity.setComment(Model.getComment());
         Entity.setLesson(LessonToEntity(Model.getLesson()));
         Entity.setType(PointTypeToEntity(Model.getType()));
         return Entity;

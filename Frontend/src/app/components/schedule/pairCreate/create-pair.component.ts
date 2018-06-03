@@ -11,10 +11,9 @@ import {Group} from "../../../models/shedule/group";
 import {DictionaryService} from "../../../services/dictionary.service";
 import {AccountService} from "../../../services/accountService";
 import {PageResult} from "../../../models/admin/PageResult.model.list";
-import {WeekType} from "../../../models/shedule/weekType.model";
-import {DayOfWeek} from "../../../models/shedule/dayOfWeek.model";
-import {StatusType} from "../../../models/statusType.model";
 import {NotificationService} from "../../../services/notification.service";
+import {DayOfWeek} from "../../../models/shedule/dayOfWeek.enum";
+import {WeekType} from "../../../models/shedule/weekType.enum";
 
 @Component({
     selector: 'pair-create',

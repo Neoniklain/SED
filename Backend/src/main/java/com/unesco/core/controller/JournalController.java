@@ -68,4 +68,40 @@ public class JournalController {
 
         return new ResponseStatus(StatusTypes.OK, pairEventModels);
     }
+
+    @RequestMapping("/event/save")
+    public ResponseStatus SaveEvent(@RequestBody LessonEventModel event) {
+        ResponseStatus result = new ResponseStatus();
+        try {
+            result.setStatus(StatusTypes.OK);
+            lessonEventDataService.Save(event);
+            result.addMessage("Событие сохранено.");
+            return result;
+        }
+        catch (Exception e)
+        {
+            result.setStatus(StatusTypes.ERROR);
+            result.addErrors("При сохранении события произошла ошибка");
+            result.addErrors(e.getMessage());
+            return result;
+        }
+    }
+
+    @RequestMapping("/event/delete/{id}")
+    public ResponseStatus SaveEvent(@PathVariable("id") long id) {
+        ResponseStatus result = new ResponseStatus();
+        try {
+            result.setStatus(StatusTypes.OK);
+            lessonEventDataService.Delete(id);
+            result.addMessage("Событие удалено.");
+            return result;
+        }
+        catch (Exception e)
+        {
+            result.setStatus(StatusTypes.ERROR);
+            result.addErrors("При удалении события произошла ошибка");
+            result.addErrors(e.getMessage());
+            return result;
+        }
+    }
 }

@@ -41,6 +41,26 @@ export class UtilsService {
         return out;
     }
 
+    getDayNumFromName(name: String) {
+        switch (name) {
+            case "Понедельник":
+                return 1;
+            case "Вторник":
+                return 2;
+            case "Среда":
+                return 3;
+            case "Четверг":
+                return 4;
+            case "Пятница":
+                return 5;
+            case "Суббота":
+                return 6;
+            case "Воскресенье":
+                return 0;
+        }
+        return -1;
+    }
+
     private capFirst(str) {
         return str.charAt(0).toUpperCase() + str.slice(1);
     }

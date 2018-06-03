@@ -39,6 +39,12 @@ export class PairService {
             .catch(this.handleError.handle);
     }
 
+    GetLessonPair(lessonId: number): Observable<ResponseStatus> {
+        return this.http.get(ApiRouteConstants.Pair.Lesson.replace(":id", lessonId.toString()))
+            .catch(this.handleError.handle);
+    }
+
+
     GetDepartmentPair(departmentId: number): Observable<ResponseStatus> {
         return this.http.get(ApiRouteConstants.Pair.Department.replace(":id", departmentId.toString()))
             .catch(this.handleError.handle);

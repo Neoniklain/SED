@@ -6,9 +6,9 @@ import com.unesco.core.managers.schedule.sheduleManager.interfaces.shedule.IShed
 import com.unesco.core.models.additional.ResponseStatus;
 import com.unesco.core.models.shedule.PairModel;
 import com.unesco.core.services.account.professorService.IProfessorDataService;
-import com.unesco.core.services.account.studentService.IStudentDataService;
 import com.unesco.core.services.schedule.departmentService.IDepartmentDataService;
 import com.unesco.core.services.schedule.groupService.IGroupDataService;
+import com.unesco.core.services.schedule.lessonService.ILessonDataService;
 import com.unesco.core.services.schedule.pairService.IPairDataService;
 import com.unesco.core.utils.StatusTypes;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,12 +28,12 @@ public class SheduleController {
 
     @Autowired
     private IDepartmentDataService departmentDataService;
+    @Autowired
+    private ILessonDataService lessonDataService;
 
 
     @Autowired
     private IProfessorDataService professorDataService;
-    @Autowired
-    private IStudentDataService studentDataService;
     @Autowired
     private IGroupDataService groupDataService;
     @Autowired
@@ -78,24 +78,14 @@ public class SheduleController {
 
     @RequestMapping("/professor/{id}/pairs")
     public ResponseStatus getProfessorPairs(@PathVariable("id") long professorId) {
-        professorDataService.Get(professorId);
         return new ResponseStatus(StatusTypes.OK, pairDataService.GetAllByProfessor(professorId));
     }
 
-    @RequestMapping("/professors")
-    public ResponseStatus getProfessors() {
-        return new ResponseStatus(StatusTypes.OK, professorDataService.GetAll());
+    @RequestMapping("/lesson/{lessonId}/pairs")
+    public ResponseStatus getLessonPairs(@PathVariable("lessonId") long lessonId) {
+        return new ResponseStatus(StatusTypes.OK, pairDataService.GetAllByLesson(lessonId));
     }
 
-    @RequestMapping("/professor/{id}")
-    public ResponseStatus getProfessor(@PathVariable("id") long professorId) {
-        return new ResponseStatus(StatusTypes.OK, professorDataService.Get(professorId));
-    }
-
-    @RequestMapping("/student/{id}")
-    public ResponseStatus getStudent(@PathVariable("id") long studentId) {
-        return new ResponseStatus(StatusTypes.OK, studentDataService.Get(studentId));
-    }
 
     @RequestMapping("/pair/save")
     public ResponseStatus savePair(@RequestBody PairModel pairModel) {

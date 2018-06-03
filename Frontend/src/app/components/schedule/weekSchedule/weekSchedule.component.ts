@@ -1,8 +1,7 @@
 import {Component, EventEmitter, Injectable, Input, OnInit, Output} from '@angular/core';
 import {Pair} from "../../../models/shedule/pair";
-import {DayOfWeek} from "../../../models/shedule/dayOfWeek.model";
-import {WeekType} from "../../../models/shedule/weekType.model";
 import {PairNumber, PairTime} from "../../../models/shedule/pairNumber.model";
+import {DayOfWeek} from "../../../models/shedule/dayOfWeek.enum";
 
 @Component({
     selector: 'schedule-week',
@@ -42,16 +41,20 @@ export class WeekScheduleComponent implements OnInit {
         this.updatePair.emit();
     }
 
-    onClick(event, day, lessonTime: PairNumber, weektype?) {
+    onClick(event, day, lessonTime, weektype?) {
+        console.log("lessonTime", lessonTime);
+        console.log("weektype", weektype);
         let pair = this.templatePair;
         pair.dayofweek = day;
-        pair.pairNumber = lessonTime.num;
+        pair.pairNumber = lessonTime;
         pair.weektype = weektype;
+        console.log("this.pairs", this.pairs);
         for (let p of this.pairs) {
-            if (p.dayofweek === day && p.pairNumber === lessonTime.num
+            if (p.dayofweek === day && p.pairNumber === lessonTime
                 && (p.weektype === weektype || !weektype))
                 pair = p;
         }
+        console.log("pair", pair);
         this.clickPair.emit(pair);
         if (this.editable) {
             this.X = event.layerX;

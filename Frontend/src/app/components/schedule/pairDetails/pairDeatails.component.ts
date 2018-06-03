@@ -7,11 +7,10 @@ import {Professor} from "../../../models/account/professor";
 import {AccountService} from "../../../services/accountService";
 import {Room} from "../../../models/shedule/room.model";
 import {PairService} from "../../../services/pair.service";
-import {ToastrService} from "ngx-toastr";
 import {isUndefined} from "util";
-import {WeekType} from "../../../models/shedule/weekType.model";
 import {StatusType} from "../../../models/statusType.model";
 import {NotificationService} from "../../../services/notification.service";
+import {WeekType} from "../../../models/shedule/weekType.enum";
 
 @Component({
     selector: 'pair-details',
@@ -48,6 +47,7 @@ export class PairDetailsComponent implements OnInit, OnChanges {
     ngOnChanges() {
         if (!isUndefined(this.editablePair)) this.pair = JSON.parse(JSON.stringify(this.editablePair));
         else this.pair = null;
+        console.log("this.pair", this.pair);
     }
 
     getStyle() {

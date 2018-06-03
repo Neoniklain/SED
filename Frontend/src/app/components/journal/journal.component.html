@@ -12,13 +12,17 @@
                         [attr.colspan]="month.dateLen"
                         [ngClass]="{today: isCurrentMonth(month.date)}">
                         <div class="col-sm-3 text-left">
-                            <span class="nav-button" (click)="backMonth()"><i class="fa fa-angle-left" aria-hidden="true"></i></span>
+                            <span class="nav-button" (click)="backMonth()">
+                                <i class="fa fa-angle-left" aria-hidden="true"></i>
+                            </span>
                         </div>
                         <div class="col-sm-6 text-center">
                             {{month.date | date: 'MMMM'}}
                         </div>
                         <div class="col-sm-3 text-right">
-                            <span class="nav-button" (click)="nextMonth()"><i class="fa fa-angle-right" aria-hidden="true"></i></span>
+                            <span class="nav-button" (click)="nextMonth()">
+                                <i class="fa fa-angle-right" aria-hidden="true"></i>
+                            </span>
                         </div>
                     </td>
                 </ng-container>

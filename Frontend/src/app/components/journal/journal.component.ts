@@ -88,9 +88,9 @@ export class JournalComponent implements OnInit {
                     return 1;
 
                 if (a.type.name !== "Посещение")
-                    return -1;
-                if (a.type.name === "Посещение")
                     return 1;
+                if (a.type.name === "Посещение")
+                    return -1;
 
                 return 0;
             }
