@@ -33,7 +33,6 @@ export class DictionaryService {
     }
     public GetDisciplines(filterQuery?: LazyLoadEvent): Observable<PageResult> {
       let params = new HttpParams();
-      console.log("filterQuery", filterQuery);
       return this.http.post(ApiRouteConstants.Dictonary.Page.Disciplines, this.initFilter(filterQuery), { params: params })
           .catch(this.handleError.handle);
     }

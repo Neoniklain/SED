@@ -43,10 +43,9 @@ export class WorkTaskComponent {
         this.accountService.FindUsersByFIO(query)
             .subscribe((res) => {
                     this._foundedUsers = res.data;
-                    console.log(this._foundedUsers);
                 },
                 (error: any) => {
-                    console.log("Ошибка" + error);
+                    console.error("Ошибка" + error);
                 });
     }
 
@@ -54,10 +53,9 @@ export class WorkTaskComponent {
         this._task.status = this.statuses.SentToReview;
         this.taskService.AnswerTask(this._task)
             .subscribe((res) => {
-                console.log("Success");
                 this._show = false;
             }, (error: any) => {
-                console.log(error);
+                console.error(error);
                 this._show = false;
             });
     }

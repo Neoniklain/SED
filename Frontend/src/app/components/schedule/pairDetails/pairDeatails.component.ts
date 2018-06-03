@@ -47,7 +47,6 @@ export class PairDetailsComponent implements OnInit, OnChanges {
     ngOnChanges() {
         if (!isUndefined(this.editablePair)) this.pair = JSON.parse(JSON.stringify(this.editablePair));
         else this.pair = null;
-        console.log("this.pair", this.pair);
     }
 
     getStyle() {
@@ -174,7 +173,6 @@ export class PairDetailsComponent implements OnInit, OnChanges {
         this.dictionaryService.GetProfessors(filter).subscribe(
             result => {
                 temp = result.content;
-                console.log("temp", temp);
                 if (temp.length > 0)
                     this.findProfessors = temp;
                 else

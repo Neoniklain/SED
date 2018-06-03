@@ -26,7 +26,6 @@ export class AccountService {
 
     public setProfessorDepartment(userId: number, departmentId: number): Observable<ResponseStatus> {
         let params = new HttpParams();
-        console.log("departmentId", departmentId);
         return this.http.post(ApiRouteConstants.Account.SetProfessorDepartment
                 .replace(":userId", userId.toString())
                 .replace(":departmentId", departmentId.toString()),

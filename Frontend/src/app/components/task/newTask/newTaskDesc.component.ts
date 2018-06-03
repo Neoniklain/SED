@@ -48,19 +48,17 @@ export class NewTaskDescComponent {
         if (this._isCreate) {
             this.taskService.Create(this.localTD).subscribe((res) => {
                     this._show = false;
-                    console.log('Создано');
                 },
                 (error: any) => {
-                    console.log("Ошибка" + error);
+                    console.error("Ошибка" + error);
                 });
         }
         else {
             this.taskService.Update(this.localTD).subscribe((res) => {
                     this._show = false;
-                    console.log('Отредактировано');
                 },
                 (error: any) => {
-                    console.log("Ошибка" + error);
+                    console.error("Ошибка" + error);
                 });
         }
     }
@@ -69,9 +67,8 @@ export class NewTaskDescComponent {
         item.status = status;
         this.taskService.AnswerTask(item)
             .subscribe((res) => {
-                console.log("Success");
             }, (error: any) => {
-                console.log(error);
+                console.error(error);
             });
     }
 
@@ -80,10 +77,9 @@ export class NewTaskDescComponent {
         this.accountService.FindUsersByFIO(query)
             .subscribe((res) => {
                     this._foundedUsers = res.data;
-                    console.log(this._foundedUsers);
                 },
                 (error: any) => {
-                    console.log("Ошибка" + error);
+                    console.error("Ошибка" + error);
                 });
     }
 }

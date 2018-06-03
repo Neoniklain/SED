@@ -99,7 +99,6 @@ export class ShowScheduleComponent implements OnInit {
         this.showLoader = true;
         this.pairService.GetGroupPair(group.id).subscribe(
             result =>  {
-                console.log(result.data);
                 this.templatePair = new Pair();
                 this.templatePair.lesson.group = this.currentGroup;
                 this.pairList = result.data.pairs;

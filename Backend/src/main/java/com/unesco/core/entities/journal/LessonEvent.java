@@ -1,6 +1,7 @@
 package com.unesco.core.entities.journal;
 
 import com.unesco.core.entities.schedule.Lesson;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -14,6 +15,7 @@ public class LessonEvent {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "lessonEventSequenceGen")
     private long id;
 
+    @Column(name = "date", columnDefinition= "TIMESTAMP WITH TIME ZONE")
     private Date date;
 
     private String comment;

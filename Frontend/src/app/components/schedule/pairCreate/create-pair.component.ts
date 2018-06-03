@@ -65,7 +65,6 @@ export class PairCreateComponent {
     public GetProfs() {
         this.accountService.GetProfessors()
             .subscribe((res) => {
-                    console.log("res", res);
                     this.profs = res.data;
                 });
     }

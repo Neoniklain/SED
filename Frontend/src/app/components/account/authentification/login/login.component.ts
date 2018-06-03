@@ -50,7 +50,6 @@ export class LogInComponent {
              }
           },
           err => {
-             console.log(err);
              if (err.status === 401) {
                 this.error = "Не верный логин пароль.";
              }

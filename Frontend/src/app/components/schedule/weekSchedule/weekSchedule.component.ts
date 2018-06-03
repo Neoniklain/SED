@@ -42,19 +42,15 @@ export class WeekScheduleComponent implements OnInit {
     }
 
     onClick(event, day, lessonTime, weektype?) {
-        console.log("lessonTime", lessonTime);
-        console.log("weektype", weektype);
         let pair = this.templatePair;
         pair.dayofweek = day;
         pair.pairNumber = lessonTime;
         pair.weektype = weektype;
-        console.log("this.pairs", this.pairs);
         for (let p of this.pairs) {
             if (p.dayofweek === day && p.pairNumber === lessonTime
                 && (p.weektype === weektype || !weektype))
                 pair = p;
         }
-        console.log("pair", pair);
         this.clickPair.emit(pair);
         if (this.editable) {
             this.X = event.layerX;

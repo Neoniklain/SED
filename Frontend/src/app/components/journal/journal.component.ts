@@ -168,7 +168,7 @@ export class JournalComponent implements OnInit {
         this.journalService.Save(this.journal).subscribe(
             result => {
                 this.notificationService.FromStatus(result);
-            }, error => console.log(error)
+            }, error => console.error(error)
         );
     }
 

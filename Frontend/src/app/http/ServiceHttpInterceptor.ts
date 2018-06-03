@@ -30,7 +30,7 @@ export class ServiceHttpInterceptor implements HttpInterceptor {
               this.router.navigate([RouteConstants.Account.Login]);
           }
           else if (err.status !== 400) {
-            console.log(err);
+            console.error(err);
             this.toastr.error("Не удалось выполнить запрос. Повторите попытку позже.", "Ошибка выполнения");
           }
           return Observable.throw(err);

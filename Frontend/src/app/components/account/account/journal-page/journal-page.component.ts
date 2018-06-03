@@ -50,14 +50,13 @@ export class JournalPageComponent implements OnInit {
     ngOnInit(): void { }
 
     onClick(pair: Pair) {
-        console.log("pair", pair);
         if (pair.id !== 0) {
             this.showLoader = true;
             this.journalService.GetJournal(this.professor.id, pair.lesson.group.id, pair.lesson.discipline.id).subscribe(
                 result => {
                     this.journal = result.data;
                     this.showLoader = false;
-                }, error => console.log(error)
+                }, error => console.error(error)
             );
         }
     }

@@ -135,7 +135,6 @@ export class DictionaryTableAddComponent implements OnInit, OnChanges {
     AddOrUpdate() {
         switch (this.type.toString()) {
             case Dictionary.disciplines.toString():
-                console.log("dis", this.model);
                 this.dictionaryService.AddOrUpdateDiscipline(this.model).subscribe(
                     result => {
                         this.model = new Discipline();

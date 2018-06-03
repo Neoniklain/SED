@@ -93,6 +93,7 @@ export class LessonСonfiguratorComponent implements OnInit {
     }
 
     Save() {
+        console.log("saved model:", this.model);
         this.journalService.SaveEvent(this.model).subscribe(
             result => {
                 if (result.status === StatusType.OK.toString()) {

@@ -58,7 +58,7 @@ export class TaskDescListComponent {
               this.checkStatusTaskDescription(this.taskDescList);
           },
           (error: any) => {
-              console.log("Ошибка" + error);
+              console.error("Ошибка" + error);
           });
    }
 
@@ -75,12 +75,11 @@ export class TaskDescListComponent {
                 this.getTaskDescList();
             },
             (error: any) => {
-                console.log("Ошибка" + error);
+                console.error("Ошибка" + error);
             });
     }
 
     public onCloseModalNew(event: any) {
-       console.log("Диалог закрылся!");
        this.getTaskDescList();
     }
 

@@ -4,8 +4,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.unesco.core</groupId>
-    <artifactId>Backend</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <artifactId>unesco</artifactId>
     <packaging>war</packaging>
 
     <name>springbootjsp</name>
