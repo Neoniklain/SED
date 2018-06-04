@@ -104,3 +104,18 @@ body {
 .footer {
     flex: 0 0 auto;
 }
+
+/*Класс с шириной 100% для PrimeNG компонентов*/
+/* styleClass="wid100" */
+.wid100{
+    width: 100%;
+}
+.wid100 .ui-autocomplete-multiple-container{
+    width: 100%;
+}
+.wid100 .ui-autocomplete-multiple-container .ui-autocomplete-input-token {
+    width: 100%;
+}
+.wid100 .ui-autocomplete-multiple-container .ui-autocomplete-input-token input{
+    width: 100% !important;
+}
