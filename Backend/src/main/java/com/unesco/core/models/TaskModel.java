@@ -13,13 +13,15 @@ public class TaskModel {
     private long id;
     private UserModel executor;
     private long taskDescriptionId;
-    private String status;
+    private String statusName;
+    private int status;
     private String response;
 
     public TaskModel()
     {
         this.id = 0;
-        this.status = "";
+        this.status = 0;
+        this.statusName = "";
         this.response = "";
         this.executor = new UserModel();
         this.taskDescriptionId = 0;
@@ -49,11 +51,11 @@ public class TaskModel {
         this.taskDescriptionId = id;
     }
 
-    public String getStatus() {
+    public int getStatus() {
         return status;
     }
 
-    public void setStatus(String status) {
+    public void setStatus(int status) {
         this.status = status;
     }
 
@@ -63,5 +65,13 @@ public class TaskModel {
 
     public void setResponse(String response) {
         this.response = response;
+    }
+
+    public String getStatusName() {
+        return statusName;
+    }
+
+    public void setStatusName(String statusName) {
+        this.statusName = statusName;
     }
 }

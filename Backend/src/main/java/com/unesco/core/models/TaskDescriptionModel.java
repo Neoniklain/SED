@@ -16,6 +16,8 @@ public class TaskDescriptionModel {
     private List<TaskModel> subTasks;
     private List<UserModel> users;
     private String description;
+    private int status;
+    private String statusName;
 
     public TaskDescriptionModel()
     {
@@ -25,6 +27,8 @@ public class TaskDescriptionModel {
         this.creator = new UserModel();
         this.subTasks = new ArrayList<>();
         this.users = new ArrayList<>();
+        this.status = 0;
+        this.statusName = "";
     }
 
     public long getId() {
@@ -73,5 +77,21 @@ public class TaskDescriptionModel {
 
     public void setUsers(List<UserModel> users) {
         this.users = users;
+    }
+
+    public int getStatus() {
+        return status;
+    }
+
+    public void setStatus(int status) {
+        this.status = status;
+    }
+
+    public String getStatusName() {
+        return statusName;
+    }
+
+    public void setStatusName(String statusName) {
+        this.statusName = statusName;
     }
 }

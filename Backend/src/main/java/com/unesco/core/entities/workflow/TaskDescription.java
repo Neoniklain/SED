@@ -26,6 +26,7 @@ public class TaskDescription {
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "taskDescription")
     private List<Task> subTasks;
 
+    private int status;
     private String description;
 
     public long getId() {
@@ -66,5 +67,13 @@ public class TaskDescription {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public int getStatus() {
+        return status;
+    }
+
+    public void setStatus(int status) {
+        this.status = status;
     }
 }

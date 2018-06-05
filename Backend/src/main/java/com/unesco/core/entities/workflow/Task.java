@@ -20,7 +20,7 @@ public class Task {
     @OneToOne
     @JoinColumn(name = "user_id")
     private User executor;
-    private String status;
+    private int status;
     private String response;
 
     public long getId() {
@@ -39,11 +39,11 @@ public class Task {
         this.taskDescription = taskDescription;
     }
 
-    public String getStatus() {
+    public int getStatus() {
         return status;
     }
 
-    public void setStatus(String status) {
+    public void setStatus(int status) {
         this.status = status;
     }
 

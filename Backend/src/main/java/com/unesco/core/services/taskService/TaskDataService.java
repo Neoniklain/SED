@@ -5,6 +5,7 @@ import com.unesco.core.entities.workflow.TaskDescription;
 import com.unesco.core.models.TaskDescriptionModel;
 import com.unesco.core.models.TaskModel;
 import com.unesco.core.models.account.UserModel;
+import com.unesco.core.models.enums.TaskStatusType;
 import com.unesco.core.repositories.account.UserRepository;
 import com.unesco.core.repositories.task.TaskDescriptionRepository;
 import com.unesco.core.repositories.task.TaskRepository;
@@ -29,8 +30,6 @@ public class TaskDataService implements ITaskDataService
    TaskRepository _TaskRepository;
    @Autowired
    MapperService _MapperService;
-
-   TaskStatusList _Statuses;
 
    @Override
    public List<TaskDescriptionModel> getAllTaskDescription() {
@@ -59,12 +58,13 @@ public class TaskDataService implements ITaskDataService
       res.setCreator(_UserRepository.findById(td.getCreator().getId()));
       res.setName(td.getName());
       res.setDescription(td.getDescription());
+      res.setStatus(TaskStatusType.Processed.ordinal());
       Set<Task> col = new HashSet<>();
       List<Task> subTasks = new ArrayList<>();
       for (UserModel user: td.getUsers()) {
           Task temp = new Task();
           temp.setResponse("");
-          temp.setStatus(_Statuses.Processed);
+          temp.setStatus(TaskStatusType.Processed.ordinal());
           temp.setTaskDescription(res);
           temp.setExecutor(_UserRepository.findById(user.getId()));
           subTasks.add(temp);
@@ -115,6 +115,22 @@ public class TaskDataService implements ITaskDataService
       res.setStatus(item.getStatus());
       res.setResponse(item.getResponse());
       _TaskRepository.save(res);
+      int closedCount = 0;
+      int totalCount = 0;
+      TaskDescription forCheck = res.getTaskDescription();
+      for (Task task: forCheck.getSubTasks()) {
+         totalCount++;
+         if(task.getStatus()==TaskStatusType.Completed.ordinal()){
+            closedCount++;
+         }
+         if(task.getStatus()==TaskStatusType.Denied.ordinal()){
+            closedCount++;
+         }
+      }
+      if(totalCount == closedCount){
+         forCheck.setStatus(TaskStatusType.Completed.ordinal());
+         _TaskDescriptionRepository.save(forCheck);
+      }
    }
 
    @Override

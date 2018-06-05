@@ -1,11 +1,13 @@
-<p-dialog header="{{_title}}" [(visible)]="_show" modal="modal" [width]="450" [minHeight]="450"
+<p-dialog header="{{_title}}" [(visible)]="_show" modal="modal" [width]="450"
           [responsive]="true" [resizable]="true" [draggable]="true">
     <div style="height: 260px;">
         <p>Ответ</p>
         <input type="text" class="form-control" placeholder="Ответ"
-               [(ngModel)]="_task.response"/>
+               [(ngModel)]="_task.response" [disabled]="!_editable"/>
     </div>
     <p-footer>
-        <button type="button" pButton icon="fa-check" (click)="AnswerTask()" label="Ок"></button>
+        <button type="button" [disabled]="!_editable" (click)="AnswerTask()" class="btn btn-success" title="Отправить решение на проверку">
+            <i class="fa fa-check" aria-hidden="true"></i>Ок
+        </button>
     </p-footer>
 </p-dialog>

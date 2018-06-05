@@ -18,7 +18,7 @@
             <th class="text-center">Название</th>
             <th class="text-center">Создатель задачи</th>
             <th class="text-center">Статус</th>
-            <th class="text-center"></th>
+            <th class="text-center">Действия</th>
          </tr>
          </thead>
          <tbody>
@@ -26,17 +26,19 @@
             <td class="text-center" id="id">{{item.id}}</td>
             <td (dblclick)="showDialogTaskWork(item)" class="text-center" id="name">{{item.name}}</td>
             <td (dblclick)="showDialogTaskWork(item)" class="text-center" id="creator">{{item.creator.userFIO}}</td>
-            <td (dblclick)="showDialogTaskWork(item)" class="text-center" id="status">{{item.globalStatus | translate}}</td>
+            <td (dblclick)="showDialogTaskWork(item)" class="text-center" id="status">{{item.statusName | translate}}</td>
             <td class="text-center" id="buttons">
-                  <button *ngIf="user.id == item.creator.id" (click)="showDialogEditTaskDescription(item)" class="btn btn-warning">
+               <span *ngIf="item.status != TaskStatusType.Completed">
+                  <button *ngIf="user.id == item.creator.id" (click)="showDialogEditTaskDescription(item)" class="btn btn-warning" title="Редактировать/Просмотреть задачу">
                      <i class="fa fa-pencil" aria-hidden="true"></i>
                   </button>
-                  <button *ngIf="(isMyTask(item))" (click)="showDialogTaskWork(item)" class="btn btn-success">
+                  <button *ngIf="(isMyTask(item))" (click)="showDialogTaskWork(item)" class="btn btn-success" title="Открыть окно для отправки решения">
                      <i class="fa fa-check" aria-hidden="true"></i>
                   </button>
-                  <button *ngIf="user.id == item.creator.id" (click)="deleteTaskDescription(item.id)" class="btn btn-danger">
+                  <button *ngIf="user.id == item.creator.id" (click)="deleteTaskDescription(item.id)" class="btn btn-danger" title="Удалить задачу">
                      <i class="fa fa-times" aria-hidden="true"></i>
                   </button>
+               </span>
             </td>
          </tr>
          </tbody>

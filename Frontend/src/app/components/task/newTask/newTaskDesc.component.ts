@@ -1,5 +1,5 @@
 import {Component, EventEmitter, Output} from '@angular/core';
-import {TaskDescription, TaskStatusList, Task} from "../../../models/workflow/task.model";
+import {TaskDescription, TaskStatusType, Task} from "../../../models/workflow/task.model";
 import {TaskService} from "../../../services/task.service";
 import {_throw} from "rxjs/observable/throw";
 import {AccountService} from "../../../services/accountService";
@@ -16,7 +16,8 @@ export class NewTaskDescComponent {
     public _show: boolean = false;
     public _isCreate: boolean = true;
     public _title: string = '';
-    public statuses: TaskStatusList;
+    // ↓ Это нужно для работы enum во вью.
+    TaskStatusType = TaskStatusType;
 
     // возвращаем результат
     @Output() onCloseModalNew: EventEmitter<any> = new EventEmitter();
@@ -27,7 +28,6 @@ export class NewTaskDescComponent {
 
     ngOnInit(): void {
         this.localTD = new TaskDescription();
-        this.statuses = new TaskStatusList();
     }
 
     public showDialog(td?: TaskDescription) {
@@ -48,6 +48,7 @@ export class NewTaskDescComponent {
         if (this._isCreate) {
             this.taskService.Create(this.localTD).subscribe((res) => {
                     this._show = false;
+                    this.onCloseModalNew.emit(this.localTD);
                 },
                 (error: any) => {
                     console.error("Ошибка" + error);
@@ -63,10 +64,11 @@ export class NewTaskDescComponent {
         }
     }
 
-    public ChangeStatus(item: Task, status: string) {
+    public ChangeStatus(item: Task, status: number) {
         item.status = status;
         this.taskService.AnswerTask(item)
             .subscribe((res) => {
+                item.statusName = TaskStatusType[status];
             }, (error: any) => {
                 console.error(error);
             });

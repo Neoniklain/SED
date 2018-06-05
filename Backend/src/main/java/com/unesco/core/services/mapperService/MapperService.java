@@ -17,6 +17,7 @@ import com.unesco.core.models.account.ProfessorModel;
 import com.unesco.core.models.account.RoleModel;
 import com.unesco.core.models.account.StudentModel;
 import com.unesco.core.models.account.UserModel;
+import com.unesco.core.models.enums.TaskStatusType;
 import com.unesco.core.models.journal.LessonEventModel;
 import com.unesco.core.models.journal.PointModel;
 import com.unesco.core.models.journal.PointTypeModel;
@@ -235,6 +236,8 @@ public class MapperService implements IMapperService {
         Model.setUsers(new ArrayList<>());
         Model.setDescription(Entity.getDescription());
         Model.setName(Entity.getName());
+        Model.setStatus(Entity.getStatus());
+        Model.setStatusName(TaskStatusType.values()[Entity.getStatus()].name());
         List<TaskModel> tasks = new ArrayList<>();
         for (Task t: Entity.getSubTasks()) {
             tasks.add(TaskToModel(t));
@@ -264,6 +267,7 @@ public class MapperService implements IMapperService {
         Model.setExecutor(UserToModel(Entity.getExecutor()));
         Model.setResponse(Entity.getResponse());
         Model.setStatus(Entity.getStatus());
+        Model.setStatusName(TaskStatusType.values()[Entity.getStatus()].name());
         Model.setTaskDescriptionId(Entity.getTaskDescription().getId());
         return Model;
     }

@@ -1,5 +1,5 @@
 import {Component, ViewChild} from '@angular/core';
-import {TaskDescription, TaskStatusList} from "../../../models/workflow/task.model";
+import {TaskDescription, TaskStatusType} from "../../../models/workflow/task.model";
 import {TaskService} from "../../../services/task.service";
 import {forEach} from "@angular/router/src/utils/collection";
 import {NewTaskDescComponent} from "../newTask/newTaskDesc.component";
@@ -17,7 +17,8 @@ import {WorkTaskComponent} from "../workTask/workTask.component";
 export class TaskDescListComponent {
     public taskDescList: TaskDescription[] = [];
     public user: User;
-    public statuses: TaskStatusList;
+    // ↓ Нужно для работы на view
+    TaskStatusType = TaskStatusType;
 
     @ViewChild(NewTaskDescComponent) newTaskDescDialog: NewTaskDescComponent;
     @ViewChild(WorkTaskComponent) workTaskDialog: WorkTaskComponent;
@@ -30,7 +31,7 @@ export class TaskDescListComponent {
    ngOnInit(): void {
       this.getTaskDescList();
        this.user = new User();
-       this.statuses = new TaskStatusList();
+       //this.statuses = new TaskStatusList();
        this.authService.getUser().subscribe(
            res => {
                this.user = res.data;
@@ -42,13 +43,20 @@ export class TaskDescListComponent {
    }
 
    public isMyTask(item: TaskDescription): boolean {
-       for (let i = 0; i < item.subTasks.length; i++) {
-           if (item.subTasks[i].executor.id === this.user.id) {
-               if ((item.subTasks[i].status !== this.statuses.Completed) &&
-                   (item.subTasks[i].status !== this.statuses.Denied))
-                   return true;
+       let localUser = this.user;
+       var result = item.subTasks.filter(function(v) {
+           return v.executor.id === localUser.id;
+       })[0];
+
+       if(result != null){
+           if ((result.status == TaskStatusType.Processed) ||
+               (result.status == TaskStatusType.SentToRevision) ||
+               (result.status == TaskStatusType.Viewed))
+           {
+               return true;
            }
        }
+
        return false;
    }
 
@@ -79,7 +87,7 @@ export class TaskDescListComponent {
             });
     }
 
-    public onCloseModalNew(event: any) {
+    public onCloseModalNew(TD: TaskDescription) {
        this.getTaskDescList();
     }
 
@@ -88,7 +96,9 @@ export class TaskDescListComponent {
        let myTask = td.subTasks.filter(function(v) {
             return v.executor.id === userId;
         })[0];
-       this.workTaskDialog.showDialog(td, myTask);
+       if(myTask != null){
+           this.workTaskDialog.showDialog(td, myTask);
+       }
     }
 
     public checkStatusTaskDescription(listTD: TaskDescription[]) {
@@ -97,11 +107,11 @@ export class TaskDescListComponent {
           let count = 0;
           for (let ti = 0; ti < tempTD.subTasks.length; ti++) {
              let tempT = tempTD.subTasks[ti];
-             if (tempT.status === "Completed") count++;
-             else if (tempT.status === "Denied") count++;
+             if (tempT.status === TaskStatusType.Completed) count++;
+             else if (tempT.status === TaskStatusType.Denied) count++;
           }
-          tempTD.globalStatus = "Processed";
-          if (count === tempTD.subTasks.length) tempTD.globalStatus = "Completed";
+          tempTD.statusName = TaskStatusType[TaskStatusType.Processed];
+          if (count === tempTD.subTasks.length) tempTD.statusName = TaskStatusType[TaskStatusType.Completed];
        }
     }
 }

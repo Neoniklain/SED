@@ -105,6 +105,63 @@ body {
     flex: 0 0 auto;
 }
 
+.w-25{
+    width:25%;
+}
+.w-50{
+    width: 50%;
+}
+.w-75{
+    width:75%;
+}
+.w-100{
+    width: 100%;
+}
+
+/*Классы для установки ширины для p-autocomplete*/
+/*--------------------------------------------------------------------------*/
+/* styleClass="w-25" */
+.w-25 .ui-autocomplete-multiple-container{
+    width: 100%;
+}
+.w-25 .ui-autocomplete-multiple-container .ui-autocomplete-input-token{
+    width: 100%;
+}
+.w-25 .ui-autocomplete-multiple-container .ui-autocomplete-input-token input{
+    width: 100% !important;
+}
+/* styleClass="w-50" */
+.w-50 .ui-autocomplete-multiple-container{
+    width: 100%;
+}
+.w-50 .ui-autocomplete-multiple-container .ui-autocomplete-input-token{
+    width: 100%;
+}
+.w-50 .ui-autocomplete-multiple-container .ui-autocomplete-input-token input{
+    width: 100% !important;
+}
+/* styleClass="w-75" */
+.w-75 .ui-autocomplete-multiple-container{
+    width: 100%;
+}
+.w-75 .ui-autocomplete-multiple-container .ui-autocomplete-input-token{
+    width: 100%;
+}
+.w-75 .ui-autocomplete-multiple-container .ui-autocomplete-input-token input{
+    width: 100% !important;
+}
+/* styleClass="w-100" */
+.w-100 .ui-autocomplete-multiple-container{
+    width: 100%;
+}
+.w-100 .ui-autocomplete-multiple-container .ui-autocomplete-input-token{
+    width: 100%;
+}
+.w-100 .ui-autocomplete-multiple-container .ui-autocomplete-input-token input{
+    width: 100% !important;
+}
+/*--------------------------------------------------------------------------*/
+
 /*Класс с шириной 100% для PrimeNG компонентов*/
 /* styleClass="wid100" */
 .wid100{
