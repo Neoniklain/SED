@@ -1,5 +1,5 @@
 import {Component, ViewChild} from '@angular/core';
-import {TaskDescription, TaskStatusType} from "../../../models/workflow/task.model";
+import {TaskDescription, TaskStatusType} from "../../../models/task/task.model";
 import {TaskService} from "../../../services/task.service";
 import {forEach} from "@angular/router/src/utils/collection";
 import {NewTaskDescComponent} from "../newTask/newTaskDesc.component";
@@ -20,8 +20,11 @@ export class TaskDescListComponent {
     // ↓ Нужно для работы на view
     TaskStatusType = TaskStatusType;
 
-    @ViewChild(NewTaskDescComponent) newTaskDescDialog: NewTaskDescComponent;
-    @ViewChild(WorkTaskComponent) workTaskDialog: WorkTaskComponent;
+    @ViewChild(NewTaskDescComponent)
+    newTaskDescDialog: NewTaskDescComponent;
+
+    @ViewChild(WorkTaskComponent)
+    workTaskDialog: WorkTaskComponent;
 
    constructor(private taskService: TaskService,
                private authService: AuthenticationService,
@@ -44,7 +47,7 @@ export class TaskDescListComponent {
 
    public isMyTask(item: TaskDescription): boolean {
        let localUser = this.user;
-       var result = item.subTasks.filter(function(v) {
+       var result = item.taskUsers.filter(function(v) {
            return v.executor.id === localUser.id;
        })[0];
 
@@ -93,7 +96,7 @@ export class TaskDescListComponent {
 
     public showDialogTaskWork(td: TaskDescription) {
        let userId = this.user.id;
-       let myTask = td.subTasks.filter(function(v) {
+       let myTask = td.taskUsers.filter(function(v) {
             return v.executor.id === userId;
         })[0];
        if(myTask != null){
@@ -105,13 +108,13 @@ export class TaskDescListComponent {
        for (let tdi = 0; tdi < listTD.length; tdi++) {
           let tempTD = listTD[tdi];
           let count = 0;
-          for (let ti = 0; ti < tempTD.subTasks.length; ti++) {
-             let tempT = tempTD.subTasks[ti];
+          for (let ti = 0; ti < tempTD.taskUsers.length; ti++) {
+             let tempT = tempTD.taskUsers[ti];
              if (tempT.status === TaskStatusType.Completed) count++;
              else if (tempT.status === TaskStatusType.Denied) count++;
           }
           tempTD.statusName = TaskStatusType[TaskStatusType.Processed];
-          if (count === tempTD.subTasks.length) tempTD.statusName = TaskStatusType[TaskStatusType.Completed];
+          if (count === tempTD.taskUsers.length) tempTD.statusName = TaskStatusType[TaskStatusType.Completed];
        }
     }
 }

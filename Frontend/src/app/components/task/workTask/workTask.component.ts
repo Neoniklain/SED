@@ -1,5 +1,5 @@
 import {Component, EventEmitter, Output} from '@angular/core';
-import {TaskDescription, Task, TaskStatusType} from "../../../models/workflow/task.model";
+import {TaskDescription, TaskUser, TaskStatusType} from "../../../models/task/task.model";
 import {TaskService} from "../../../services/task.service";
 import {AccountService} from "../../../services/accountService";
 import {User} from "../../../models/account/user.model";
@@ -10,7 +10,7 @@ import {User} from "../../../models/account/user.model";
 })
 export class WorkTaskComponent {
     public localTD: TaskDescription;
-    public _task: Task;
+    public _task: TaskUser;
     public _foundedUsers: User[];
     public _show: boolean = false;
     public _title: string = '';
@@ -25,20 +25,20 @@ export class WorkTaskComponent {
     }
 
     ngOnInit(): void {
-        this._task = new Task();
+        this._task = new TaskUser();
         this.localTD = new TaskDescription();
         this._editable = false;
         //this.statuses = new TaskStatusList();
     }
 
-    public showDialog(td: TaskDescription, task: Task) {
+    public showDialog(td: TaskDescription, task: TaskUser) {
         if ((task.status == TaskStatusType.Processed) ||
             (task.status == TaskStatusType.SentToRevision) ||
             (task.status == TaskStatusType.Viewed)){
             this._editable = true;
         }
         this.localTD = new TaskDescription();
-        this._task = new Task();
+        this._task = new TaskUser();
         this._title = "Выполнение задачи";
         this.localTD = td;
         this._task = task;

@@ -4,7 +4,7 @@ export class TaskDescription {
   public id: number;
   public name: string;
   public creator: User;
-  public subTasks: Task[];
+  public taskUsers: TaskUser[];
   public users: User[];
   public description: string;
   public status: number;
@@ -16,11 +16,11 @@ export class TaskDescription {
     this.status = 0;
     this.statusName = "";
     this.description = "";
-    this.subTasks = [];
+    this.taskUsers = [];
   }
 }
 
-export class Task {
+export class TaskUser {
     public id: number;
     public executor: User;
     public statusName: string;

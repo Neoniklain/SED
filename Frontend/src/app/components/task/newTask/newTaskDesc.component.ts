@@ -1,5 +1,5 @@
 import {Component, EventEmitter, Output} from '@angular/core';
-import {TaskDescription, TaskStatusType, Task} from "../../../models/workflow/task.model";
+import {TaskDescription, TaskStatusType, TaskUser} from "../../../models/task/task.model";
 import {TaskService} from "../../../services/task.service";
 import {_throw} from "rxjs/observable/throw";
 import {AccountService} from "../../../services/accountService";
@@ -64,7 +64,7 @@ export class NewTaskDescComponent {
         }
     }
 
-    public ChangeStatus(item: Task, status: number) {
+    public ChangeStatus(item: TaskUser, status: number) {
         item.status = status;
         this.taskService.AnswerTask(item)
             .subscribe((res) => {

@@ -1,8 +1,5 @@
 package com.unesco.core.models;
 
-import com.unesco.core.entities.account.User;
-import com.unesco.core.entities.workflow.Task;
-import com.unesco.core.entities.workflow.TaskDescription;
 import com.unesco.core.models.account.UserModel;
 
 import java.util.ArrayList;
@@ -13,7 +10,7 @@ public class TaskDescriptionModel {
     private long id;
     private String name;
     private UserModel creator;
-    private List<TaskModel> subTasks;
+    private List<TaskUserModel> taskUsers;
     private List<UserModel> users;
     private String description;
     private int status;
@@ -25,7 +22,7 @@ public class TaskDescriptionModel {
         this.name = "";
         this.description = "";
         this.creator = new UserModel();
-        this.subTasks = new ArrayList<>();
+        this.taskUsers = new ArrayList<>();
         this.users = new ArrayList<>();
         this.status = 0;
         this.statusName = "";
@@ -63,14 +60,6 @@ public class TaskDescriptionModel {
         this.description = description;
     }
 
-    public List<TaskModel> getSubTasks() {
-        return subTasks;
-    }
-
-    public void setSubTasks(List<TaskModel> subTasks) {
-        this.subTasks = subTasks;
-    }
-
     public List<UserModel> getUsers() {
         return users;
     }
@@ -93,5 +82,13 @@ public class TaskDescriptionModel {
 
     public void setStatusName(String statusName) {
         this.statusName = statusName;
+    }
+
+    public List<TaskUserModel> getTaskUsers() {
+        return taskUsers;
+    }
+
+    public void setTaskUsers(List<TaskUserModel> taskUsers) {
+        this.taskUsers = taskUsers;
     }
 }

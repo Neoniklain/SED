@@ -9,10 +9,10 @@ import com.unesco.core.entities.journal.Point;
 import com.unesco.core.entities.journal.PointType;
 import com.unesco.core.entities.news.News;
 import com.unesco.core.entities.schedule.*;
-import com.unesco.core.entities.workflow.Task;
-import com.unesco.core.entities.workflow.TaskDescription;
+import com.unesco.core.entities.task.TaskUser;
+import com.unesco.core.entities.task.TaskDescription;
 import com.unesco.core.models.TaskDescriptionModel;
-import com.unesco.core.models.TaskModel;
+import com.unesco.core.models.TaskUserModel;
 import com.unesco.core.models.account.ProfessorModel;
 import com.unesco.core.models.account.RoleModel;
 import com.unesco.core.models.account.StudentModel;
@@ -94,13 +94,13 @@ public class MapperService implements IMapperService {
         if (model instanceof RoomModel)
             return RoomToEntity((RoomModel) model);
 
-        if (model instanceof TaskModel)
-            return TaskToEntity((TaskModel) model);
+        if (model instanceof TaskUserModel)
+            return TaskToEntity((TaskUserModel) model);
 
         if (model instanceof NewsModel)
             return NewsToEntity((NewsModel) model);
 
-        if (model instanceof TaskDescription)
+        if (model instanceof TaskDescriptionModel)
             return TaskDescriptionToEntity((TaskDescriptionModel) model);
 
         return new Exception("Not found "+model.getClass().toString() + " model class");
@@ -156,8 +156,8 @@ public class MapperService implements IMapperService {
         if (entity instanceof Room)
             return RoomToModel((Room) entity);
 
-        if (entity instanceof Task)
-            return TaskToModel((Task) entity);
+        if (entity instanceof TaskUser)
+            return TaskToModel((TaskUser) entity);
 
         if (entity instanceof News)
             return NewsToModel((News) entity);
@@ -238,11 +238,11 @@ public class MapperService implements IMapperService {
         Model.setName(Entity.getName());
         Model.setStatus(Entity.getStatus());
         Model.setStatusName(TaskStatusType.values()[Entity.getStatus()].name());
-        List<TaskModel> tasks = new ArrayList<>();
-        for (Task t: Entity.getSubTasks()) {
+        List<TaskUserModel> tasks = new ArrayList<>();
+        /*for (Task t: Entity.getSubTasks()) {
             tasks.add(TaskToModel(t));
-        }
-        Model.setSubTasks(tasks);
+        }*/
+        Model.setTaskUsers(tasks);
         return Model;
     }
     public TaskDescription TaskDescriptionToEntity(TaskDescriptionModel Model)
@@ -252,17 +252,17 @@ public class MapperService implements IMapperService {
         Entity.setCreator(UserToEntity(Model.getCreator()));
         Entity.setDescription(Model.getDescription());
         Entity.setName(Model.getName());
-        List<Task> tasks = new ArrayList<>();
-        for (TaskModel t: Model.getSubTasks()) {
+        List<TaskUser> tasks = new ArrayList<>();
+        for (TaskUserModel t: Model.getTaskUsers()) {
             tasks.add(TaskToEntity(t));
         }
-        Entity.setSubTasks(tasks);
+        Entity.setTaskUsers(tasks);
         return Entity;
     }
 
-    public TaskModel TaskToModel(Task Entity)
+    public TaskUserModel TaskToModel(TaskUser Entity)
     {
-        TaskModel Model = new TaskModel();
+        TaskUserModel Model = new TaskUserModel();
         Model.setId(Entity.getId());
         Model.setExecutor(UserToModel(Entity.getExecutor()));
         Model.setResponse(Entity.getResponse());
@@ -271,9 +271,9 @@ public class MapperService implements IMapperService {
         Model.setTaskDescriptionId(Entity.getTaskDescription().getId());
         return Model;
     }
-    public Task TaskToEntity(TaskModel Model)
+    public TaskUser TaskToEntity(TaskUserModel Model)
     {
-        Task Entity = new Task();
+        TaskUser Entity = new TaskUser();
         Entity.setId(Model.getId());
         Entity.setExecutor(UserToEntity(Model.getExecutor()));
         Entity.setResponse(Model.getResponse());

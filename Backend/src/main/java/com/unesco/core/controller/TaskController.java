@@ -2,11 +2,11 @@ package com.unesco.core.controller;
 
 
 import com.unesco.core.models.TaskDescriptionModel;
-import com.unesco.core.models.TaskModel;
+import com.unesco.core.models.TaskUserModel;
 import com.unesco.core.models.account.UserModel;
 import com.unesco.core.models.additional.ResponseStatus;
 import com.unesco.core.security.CustomUserDetailsService;
-import com.unesco.core.services.taskService.ITaskDataService;
+import com.unesco.core.services.taskService.ITaskService;
 import com.unesco.core.utils.StatusTypes;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -21,7 +21,7 @@ public class TaskController {
 
 
     @Autowired
-    private ITaskDataService _TaskDataService;
+    private ITaskService _TaskDataService;
     @Autowired
     private CustomUserDetailsService _CustomUserDetailsService;
 
@@ -36,7 +36,7 @@ public class TaskController {
         Iterable<TaskDescriptionModel> res = _TaskDataService.getAllTaskDescription();
         for (TaskDescriptionModel TD: res) {
             List<UserModel> temp_users = new ArrayList<>();
-            for (TaskModel T: TD.getSubTasks()) {
+            for (TaskUserModel T: TD.getTaskUsers()) {
                 temp_users.add(T.getExecutor());
             }
             TD.setUsers(temp_users);
@@ -52,8 +52,8 @@ public class TaskController {
     }
 
     @RequestMapping(value = "/answer")
-    public ResponseStatus Answer(@RequestBody TaskModel item) {
-        _TaskDataService.answerTask(item);
+    public ResponseStatus Answer(@RequestBody TaskUserModel item) {
+        _TaskDataService.changeStatusTaskUser(item);
         return new ResponseStatus(StatusTypes.OK);
     }
 

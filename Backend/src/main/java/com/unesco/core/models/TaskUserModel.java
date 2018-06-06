@@ -1,14 +1,8 @@
 package com.unesco.core.models;
 
-import com.unesco.core.entities.account.User;
-import com.unesco.core.entities.workflow.Task;
-import com.unesco.core.entities.workflow.TaskDescription;
 import com.unesco.core.models.account.UserModel;
 
-import java.util.ArrayList;
-import java.util.List;
-
-public class TaskModel {
+public class TaskUserModel {
 
     private long id;
     private UserModel executor;
@@ -17,7 +11,7 @@ public class TaskModel {
     private int status;
     private String response;
 
-    public TaskModel()
+    public TaskUserModel()
     {
         this.id = 0;
         this.status = 0;

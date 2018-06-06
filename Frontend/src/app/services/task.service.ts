@@ -2,7 +2,7 @@ import {Injectable} from "@angular/core";
 import "rxjs/add/operator/map";
 import {Observable} from "rxjs/Observable";
 import {HttpClient, HttpParams} from "@angular/common/http";
-import {Task, TaskDescription} from "../models/workflow/task.model";
+import {TaskUser, TaskDescription} from "../models/task/task.model";
 import {ApiRouteConstants} from "../bootstrap/app.route.constants";
 import {HandelErrorService} from "./handelError.service";
 
@@ -41,7 +41,7 @@ export class  TaskService {
         .catch(this.handleError.handle);
     }
 
-    public AnswerTask(item: Task) {
+    public AnswerTask(item: TaskUser) {
         let params = new HttpParams();
         return this.http.post(ApiRouteConstants.Task.AnswerTask, item, {params: params })
             .catch(this.handleError.handle);

@@ -1,20 +1,19 @@
-package com.unesco.core.entities.workflow;
+package com.unesco.core.entities.task;
 
 import com.unesco.core.entities.account.User;
 
 import javax.persistence.*;
-import java.util.Set;
 
 @Entity
-@Table(name="task")
-public class Task {
+@Table(name="un_task_user")
+public class TaskUser {
     @Id
     @SequenceGenerator(name = "taskSequenceGen", sequenceName = "taskSequenceGen", allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "taskSequenceGen")
     private long id;
 
     @ManyToOne
-    @JoinColumn(name = "task_description", referencedColumnName = "id")
+    @JoinColumn(name = "un_task_description", referencedColumnName = "id")
     private TaskDescription taskDescription;
 
     @OneToOne

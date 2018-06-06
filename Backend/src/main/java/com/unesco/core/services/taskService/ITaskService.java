@@ -1,12 +1,11 @@
 package com.unesco.core.services.taskService;
 
-import com.unesco.core.entities.workflow.TaskDescription;
 import com.unesco.core.models.TaskDescriptionModel;
-import com.unesco.core.models.TaskModel;
+import com.unesco.core.models.TaskUserModel;
 
 import java.util.List;
 
-public interface ITaskDataService {
+public interface ITaskService {
    /**
     * Возвращает список всех описаний задач
     */
@@ -15,7 +14,7 @@ public interface ITaskDataService {
     * Возвращает описание задачи для указанной реализации.
     * @param id id реализации задачи
     */
-   TaskDescriptionModel getTaskDescriptionBySubTasks(long id);
+   TaskDescriptionModel getTaskDescriptionByTaskUser(long id);
    /**
     * Возвращает описания задач для указанного создателя.
     * @param id id автора задачи
@@ -25,7 +24,7 @@ public interface ITaskDataService {
     * Возвращает список реализаций для указанного описания задачи.
     * @param id id описания задачи
     */
-   List<TaskModel> getSubTasksForTaskDescription(long id);
+   List<TaskUserModel> getTaskUsersForTaskDescription(long id);
    /**
     * Создаёт новое описание задачи и её реализации.
     * @param td модель новой задачи
@@ -45,21 +44,11 @@ public interface ITaskDataService {
     * Сохраняет ответ на задачу от пользователя.
     * @param item модель ответа на задачи
     */
-   void answerTask(TaskModel item);
+   void changeStatusTaskUser(TaskUserModel item);
    /**
     * Возвращает модель описания задачи для указанного id.
     * @param id id существующей задачи
     */
    TaskDescriptionModel getTaskDescriptionById(long id);
-   /**
-    * Переводит Entity в Model.
-    * @param tds Список Entity
-    */
-   List<TaskDescriptionModel> EntityToModel(List<TaskDescription> tds);
-   /**
-    * Переводит Entity в Model.
-    * @param tds Список Entity
-    */
-   List<TaskDescriptionModel> EntityToModel(Iterable<TaskDescription> tds);
 
 }

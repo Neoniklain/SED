@@ -1,13 +1,12 @@
-package com.unesco.core.entities.workflow;
+package com.unesco.core.entities.task;
 
 import com.unesco.core.entities.account.User;
 
 import javax.persistence.*;
 import java.util.List;
-import java.util.Set;
 
 @Entity
-@Table(name="task_description")
+@Table(name="un_task_description")
 public class TaskDescription {
     @Id
     @SequenceGenerator(name = "taskDescriptionSequenceGen", sequenceName = "taskDescriptionSequenceGen", allocationSize = 1)
@@ -24,7 +23,7 @@ public class TaskDescription {
         EAGER = Загрузит сразу, при создании объекта этого класса
     */
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "taskDescription")
-    private List<Task> subTasks;
+    private List<TaskUser> taskUsers;
 
     private int status;
     private String description;
@@ -53,14 +52,6 @@ public class TaskDescription {
         this.creator = creator;
     }
 
-    public List<Task> getSubTasks() {
-        return subTasks;
-    }
-
-    public void setSubTasks(List<Task> subTasks) {
-        this.subTasks = subTasks;
-    }
-
     public String getDescription() {
         return description;
     }
@@ -75,5 +66,13 @@ public class TaskDescription {
 
     public void setStatus(int status) {
         this.status = status;
+    }
+
+    public List<TaskUser> getTaskUsers() {
+        return taskUsers;
+    }
+
+    public void setTaskUsers(List<TaskUser> taskUsers) {
+        this.taskUsers = taskUsers;
     }
 }
