@@ -1,8 +1,9 @@
 import {Component, EventEmitter, Output} from '@angular/core';
-import {TaskDescription, TaskUser, TaskStatusType} from "../../../models/task/task.model";
+import {TaskDescription, TaskUser, TaskStatusType, TaskDescriptionFile} from "../../../models/task/task.model";
 import {TaskService} from "../../../services/task.service";
 import {AccountService} from "../../../services/accountService";
 import {User} from "../../../models/account/user.model";
+import {NotificationService} from "../../../services/notification.service";
 
 @Component({
     selector: 'work-task',
@@ -15,19 +16,22 @@ export class WorkTaskComponent {
     public _show: boolean = false;
     public _title: string = '';
     public _editable: boolean = false;
+    public files: TaskDescriptionFile[];
     //public statuses: TaskStatusList;
 
     // возвращаем результат
     //@Output() onCloseModalWork: EventEmitter<any> = new EventEmitter();
 
     constructor(private taskService: TaskService,
-                private accountService: AccountService) {
+                private accountService: AccountService,
+                private notificationService: NotificationService) {
     }
 
     ngOnInit(): void {
         this._task = new TaskUser();
         this.localTD = new TaskDescription();
         this._editable = false;
+        this.files = [];
         //this.statuses = new TaskStatusList();
     }
 
@@ -37,6 +41,16 @@ export class WorkTaskComponent {
             (task.status == TaskStatusType.Viewed)){
             this._editable = true;
         }
+        console.log("Получаем файлы для браузера");
+        this.taskService.getFileList("1")
+            .subscribe((res)=>{
+                console.log(res);
+                this.files = res.data;
+                console.log("Скачиваем файл на комп");
+                this.taskService.downloadFile(this.files[0].id);
+            }, (error)=> {
+                console.error(error);
+            });
         this.localTD = new TaskDescription();
         this._task = new TaskUser();
         this._title = "Выполнение задачи";
@@ -61,6 +75,7 @@ export class WorkTaskComponent {
         this.taskService.AnswerTask(this._task)
             .subscribe((res) => {
                 this._show = false;
+                this.notificationService.FromStatus(res);
                 this._task.statusName = TaskStatusType[TaskStatusType.SentToReview];
             }, (error: any) => {
                 console.error(error);

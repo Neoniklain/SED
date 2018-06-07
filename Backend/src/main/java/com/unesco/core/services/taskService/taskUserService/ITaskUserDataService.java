@@ -18,4 +18,10 @@ public interface ITaskUserDataService extends IDataService<TaskUserModel> {
      * @param tu новые данные реализации
      */
     void UpdateTaskUser(TaskUserModel tu);
+
+    /**
+     * Возвращает список реализаций задач, в которых пользователь является исполнителем.
+     * @param id id пользователя
+     */
+    List<TaskUserModel> getTaskUsersByExecutor(long id);
 }

@@ -20,6 +20,14 @@ export class TaskDescription {
   }
 }
 
+export class TaskDescriptionFile {
+      id:number;
+      taskDescriptionId:number;
+      fileName:string;
+      fileType:string;
+}
+
+
 export class TaskUser {
     public id: number;
     public executor: User;

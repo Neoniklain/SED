@@ -7,6 +7,7 @@ import {User} from "../../../models/account/user.model";
 import {AuthenticationService} from "../../../services/authService";
 import {Router} from "@angular/router";
 import {WorkTaskComponent} from "../workTask/workTask.component";
+import {NotificationService} from "../../../services/notification.service";
 
 @Component({
    selector: 'task-list',
@@ -28,7 +29,8 @@ export class TaskDescListComponent {
 
    constructor(private taskService: TaskService,
                private authService: AuthenticationService,
-               private router: Router) {
+               private router: Router,
+               private notificationService: NotificationService) {
    }
 
    ngOnInit(): void {
@@ -65,7 +67,7 @@ export class TaskDescListComponent {
 
    public getTaskDescList() {
       this.taskService.GetList().subscribe((res) => {
-              this.taskDescList = res;
+              this.taskDescList = res.data;
               this.checkStatusTaskDescription(this.taskDescList);
           },
           (error: any) => {
@@ -84,13 +86,14 @@ export class TaskDescListComponent {
     public deleteTaskDescription(id: number) {
         this.taskService.Delete(id).subscribe((res) => {
                 this.getTaskDescList();
+                this.notificationService.FromStatus(res);
             },
             (error: any) => {
                 console.error("Ошибка" + error);
             });
     }
 
-    public onCloseModalNew(TD: TaskDescription) {
+    public onCreateNew(TD: TaskDescription) {
        this.getTaskDescList();
     }
 

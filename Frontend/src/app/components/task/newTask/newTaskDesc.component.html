@@ -1,9 +1,9 @@
-<p-dialog [(visible)]="_show" modal="modal" [width]="600"
+<p-dialog [(visible)]="_show" modal="modal" [width]="600" [minHeight]="500"
           [responsive]="true" [resizable]="true" [draggable]="true">
     <p-header>
         {{_title}}
     </p-header>
-    <div style="height: 250px;">
+    <div style="height: 400px;">
         <p>Введите название задачи:</p>
         <input type="text" class="form-control" id="headerCreate" name="header" placeholder="Название задчи"
                                 [(ngModel)]="localTD.name"/>
@@ -11,6 +11,40 @@
         <p-autoComplete [(ngModel)]="localTD.users" [suggestions]="_foundedUsers" (completeMethod)="searchUser($event)" styleClass="w-100"
                         [minLength]="3" placeholder="Введите ФИО" field="userFIO" [multiple]="true">
         </p-autoComplete>
+        <p style="margin: 10px 0;">Прикрепление фалов</p>
+        <!--<p-fileUpload name="files[]" [chooseLabel]="'Выбрать файл'" [cancelLabel]="'Очистить'" [showUploadButton]="false"
+                      multiple="multiple" maxFileSize="{{maxFileSize}}"
+                      (onSelect)="onSelectFile($event)" (onRemove)="onRemoveFile($event)" (onClear)="onClearFiles()">
+        </p-fileUpload>-->
+        <input type="file" ng2FileSelect [uploader]="_uploader" />
+        <p>Всего файлов: {{ _uploader?.queue?.length }}</p>
+        <table [hidden]="!_uploader.queue.length" class="table">
+            <thead>
+            <tr>
+                <th>Файл</th>
+                <th *ngIf="_uploader.isHTML5">Размер</th>
+                <th *ngIf="_uploader.isHTML5">Progress</th>
+                <th>Статус</th>
+                <th><i class="fa fa-wrench" aria-hidden="true" title="Действия"></i></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let item of _uploader.queue">
+                <td class="file-name-wrap">{{ item?.file?.name }}</td>
+                <td *ngIf="_uploader.isHTML5" nowrap>{{ item?.file?.size/1024/1024 | number:'.3' }} MB</td>
+                <td *ngIf="_uploader.isHTML5">
+                    <div class="progress" style="margin-bottom: 0;">
+                        <div class="progress-bar" role="progressbar" [ngStyle]="{ 'width': item.progress + '%' }"></div>
+                    </div>
+                </td>
+                <td class="text-center">
+                    <span *ngIf="item.isSuccess"><i class="glyphicon glyphicon-ok"></i></span>
+                    <span *ngIf="item.isCancel"><i class="glyphicon glyphicon-ban-circle"></i></span>
+                    <span *ngIf="item.isError"><i class="glyphicon glyphicon-remove"></i></span>
+                </td>
+            </tr>
+            </tbody>
+        </table>
         <p style="margin: 10px 0;">Введите описание задачи:</p>
         <textarea [(ngModel)]="localTD.description" rows="3" cols="50" pInputTextarea autoResize="autoResize" style="width: 100%;"></textarea>
         <div *ngIf="!_isCreate">

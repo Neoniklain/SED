@@ -7,4 +7,5 @@ import org.springframework.data.repository.CrudRepository;
 public interface TaskRepository extends CrudRepository<TaskUser, Long> {
     TaskUser findById(long id);
     Iterable<TaskUser> findByTaskDescriptionId(long id);
+    Iterable<TaskUser> findByExecutorId(long id);
 }

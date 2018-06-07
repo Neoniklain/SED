@@ -10,6 +10,7 @@ import {ToastrModule} from "ngx-toastr";
 import {Ng2AutoCompleteModule} from "ng2-auto-complete";
 import {AutoCompleteModule} from 'primeng/components/autocomplete/autocomplete';
 import {FileSelectDirective} from 'ng2-file-upload';
+import {FileUploadModule} from 'primeng/components/fileupload/fileupload';
 // custom
 import {routing} from "./app.routes";
 import {LowerCaseUrlSerializer} from "../providers/router";
@@ -91,7 +92,8 @@ import {InputTextModule} from "primeng/components/inputtext/inputtext";
       DropdownModule,
       InputTextModule,
       AutoCompleteModule,
-      ConfirmDialogModule
+      ConfirmDialogModule,
+       FileUploadModule
    ],
    declarations: [
       AppComponent,

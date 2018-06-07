@@ -12,6 +12,7 @@ import com.unesco.core.services.taskService.taskUserService.ITaskUserDataService
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -50,8 +51,9 @@ public class TaskService implements ITaskService
    }
 
    @Override
-   public void createNewTaskDescription(TaskDescriptionModel td){
+   public TaskDescriptionModel createNewTaskDescription(TaskDescriptionModel td){
       TaskDescriptionModel saved = _taskDescriptionDataService.Save(td);
+      List<TaskUserModel> ltu = new ArrayList<>();
       for(UserModel user:td.getUsers()){
          TaskUserModel newTUM = new TaskUserModel();
          newTUM.setResponse("");
@@ -59,9 +61,11 @@ public class TaskService implements ITaskService
          newTUM.setExecutor(user);
          newTUM.setStatusName(TaskStatusType.Processed.name());
          newTUM.setTaskDescriptionId(saved.getId());
-         _taskUserDataService.Save(newTUM);
+         ltu.add(_taskUserDataService.Save(newTUM));
       }
+      saved.setTaskUsers(ltu);
       System.out.println("Задача добавлена.");
+      return saved;
    }
 
    @Override
@@ -105,5 +109,10 @@ public class TaskService implements ITaskService
    @Override
    public TaskDescriptionModel getTaskDescriptionById(long id) {
       return _taskDescriptionDataService.Get(id);
+   }
+
+   @Override
+   public List<TaskUserModel> getTaskUsersByExecutor(long id) {
+      return _taskUserDataService.getTaskUsersByExecutor(id);
    }
 }

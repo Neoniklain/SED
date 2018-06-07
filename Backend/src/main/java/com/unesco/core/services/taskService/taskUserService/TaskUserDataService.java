@@ -2,6 +2,7 @@ package com.unesco.core.services.taskService.taskUserService;
 
 import com.unesco.core.entities.task.TaskUser;
 import com.unesco.core.models.TaskUserModel;
+import com.unesco.core.models.enums.TaskStatusType;
 import com.unesco.core.repositories.task.TaskRepository;
 import com.unesco.core.services.mapperService.IMapperService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -60,5 +61,15 @@ public class TaskUserDataService implements ITaskUserDataService
       up.setStatus(tu.getStatus());
       up.setResponse(tu.getResponse());
       _taskRepository.save(up);
+   }
+
+   @Override
+   public List<TaskUserModel> getTaskUsersByExecutor(long id) {
+      Iterable<TaskUser> tasks = _taskRepository.findByExecutorId(id);
+      List<TaskUserModel> result = new ArrayList<>();
+      for (TaskUser item : tasks) {
+         result.add((TaskUserModel)_mapperService.toModel(item));
+      }
+      return result;
    }
 }

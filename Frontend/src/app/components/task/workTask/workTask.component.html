@@ -1,6 +1,23 @@
 <p-dialog header="{{_title}}" [(visible)]="_show" modal="modal" [width]="450"
           [responsive]="true" [resizable]="true" [draggable]="true">
     <div style="height: 260px;">
+        <div class="row">
+            <div class="col-md-6">
+                <input type="text" class="form-control" id="headerCreate" name="header" placeholder="Название задчи"
+                       [(ngModel)]="localTD.name" [disabled]="true"/>
+            </div>
+            <div class="col-md-6">
+                <input type="text" class="form-control" id="creator" name="header" placeholder="Автор"
+                       [(ngModel)]="localTD.creator.userFIO" [disabled]="true"/>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <textarea [(ngModel)]="localTD.description" rows="3" cols="50" pInputTextarea title="Описание задачи"
+                          autoResize="autoResize" style="width: 100%;" [disabled]="true"></textarea>
+            </div>
+        </div>
+        <hr>
         <p>Ответ</p>
         <input type="text" class="form-control" placeholder="Ответ"
                [(ngModel)]="_task.response" [disabled]="!_editable"/>

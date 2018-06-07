@@ -1,9 +1,12 @@
 import {Component, EventEmitter, Output} from '@angular/core';
 import {TaskDescription, TaskStatusType, TaskUser} from "../../../models/task/task.model";
 import {TaskService} from "../../../services/task.service";
-import {_throw} from "rxjs/observable/throw";
 import {AccountService} from "../../../services/accountService";
 import {User} from "../../../models/account/user.model";
+import {NotificationService} from "../../../services/notification.service";
+import {FileUploader, FileUploaderOptions} from "ng2-file-upload";
+import {AuthenticationService} from "../../../services/authService";
+import {ApiRouteConstants} from "../../../bootstrap/app.route.constants";
 
 @Component({
     selector: 'new-task-desc',
@@ -11,6 +14,11 @@ import {User} from "../../../models/account/user.model";
 })
 
 export class NewTaskDescComponent {
+    public _uploader: FileUploader;
+    public planDate: Date;
+    public _fileOptions: FileUploaderOptions;
+    public myFiles: File[];
+    public maxFileSize:number = 1000*1000*10;
     public localTD: TaskDescription;
     public _foundedUsers: User[];
     public _show: boolean = false;
@@ -20,14 +28,25 @@ export class NewTaskDescComponent {
     TaskStatusType = TaskStatusType;
 
     // возвращаем результат
-    @Output() onCloseModalNew: EventEmitter<any> = new EventEmitter();
+    @Output() onCreateNew: EventEmitter<any> = new EventEmitter();
 
     constructor(private taskService: TaskService,
-                private accountService: AccountService) {
+                private accountService: AccountService,
+                private notificationService: NotificationService,
+                private authService: AuthenticationService) {
     }
 
     ngOnInit(): void {
         this.localTD = new TaskDescription();
+        this.myFiles = [];
+        this._fileOptions = {
+            url:"http://localhost:8080/api/task/addfile/1",
+            maxFileSize: 50 * 1000 * 1000,
+            headers: [
+                { name: 'Authorization', value: this.authService.getToken() }
+            ]
+        };
+        this._uploader = new FileUploader(this._fileOptions);
     }
 
     public showDialog(td?: TaskDescription) {
@@ -46,9 +65,14 @@ export class NewTaskDescComponent {
 
     public CreateTask() {
         if (this._isCreate) {
+            console.log(this._uploader);
             this.taskService.Create(this.localTD).subscribe((res) => {
                     this._show = false;
-                    this.onCloseModalNew.emit(this.localTD);
+                    console.log(res.data);
+                    this._uploader.options.url = "http://localhost:8080/api/task/addfile/1";
+                    this._uploader.queue[0].upload();
+                    this.notificationService.FromStatus(res);
+                    this.onCreateNew.emit(res.data);
                 },
                 (error: any) => {
                     console.error("Ошибка" + error);
@@ -68,6 +92,7 @@ export class NewTaskDescComponent {
         item.status = status;
         this.taskService.AnswerTask(item)
             .subscribe((res) => {
+                this.notificationService.FromStatus(res);
                 item.statusName = TaskStatusType[status];
             }, (error: any) => {
                 console.error(error);
@@ -83,5 +108,25 @@ export class NewTaskDescComponent {
                 (error: any) => {
                     console.error("Ошибка" + error);
                 });
+    }
+
+    public onSelectFile(event){
+        for(let file of event.files){
+            this.myFiles.push(file);
+        }
+    }
+
+    public onRemoveFile(event){
+        let tempMS: File[] = [];
+        for(let item of this.myFiles){
+            if(item.name != event.file.name || item.size != event.file.size){
+                tempMS.push(item);
+            }
+        }
+        this.myFiles = tempMS;
+    }
+
+    public onClearFiles(){
+        this.myFiles = [];
     }
 }

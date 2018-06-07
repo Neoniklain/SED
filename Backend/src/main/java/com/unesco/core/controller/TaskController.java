@@ -1,76 +1,132 @@
 package com.unesco.core.controller;
 
-
+import com.unesco.core.entities.task.TaskDescriptionFile;
+import com.unesco.core.entities.task.TaskUser;
 import com.unesco.core.models.TaskDescriptionModel;
 import com.unesco.core.models.TaskUserModel;
 import com.unesco.core.models.account.UserModel;
 import com.unesco.core.models.additional.ResponseStatus;
+import com.unesco.core.repositories.task.TaskDescriptionFileRepository;
 import com.unesco.core.security.CustomUserDetailsService;
 import com.unesco.core.services.taskService.ITaskService;
 import com.unesco.core.utils.StatusTypes;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
-@CrossOrigin
-@RestController
-@RequestMapping("api/task")
+@Service
 public class TaskController {
-
-
     @Autowired
     private ITaskService _TaskDataService;
     @Autowired
     private CustomUserDetailsService _CustomUserDetailsService;
+    @Autowired
+    private TaskDescriptionFileRepository _fileRep;
 
-    @GetMapping(value = "/list")
-    public Iterable<TaskDescriptionModel> GetList() {
-        /*UserModel user = new UserModel(_CustomUserDetailsService.getUserDetails());
-        Iterable<TaskDescriptionModel> result =  new ArrayList<>();
-        List<String> role = new ArrayList<RoleModel>(user.getRoles())
-                .stream()
-                .map(RoleModel::getRoleName)
-                .collect(Collectors.toList());*/
-        Iterable<TaskDescriptionModel> res = _TaskDataService.getAllTaskDescription();
-        for (TaskDescriptionModel TD: res) {
-            List<UserModel> temp_users = new ArrayList<>();
-            for (TaskUserModel T: TD.getTaskUsers()) {
-                temp_users.add(T.getExecutor());
-            }
-            TD.setUsers(temp_users);
+    public ResponseStatus GetList() {
+        long userId = _CustomUserDetailsService.getUserDetails().getId();
+        List<TaskDescriptionModel> res = _TaskDataService.getTaskDescriptionByCreator(userId);
+        List<TaskUserModel> myTasks = _TaskDataService.getTaskUsersByExecutor(userId);
+        for (TaskUserModel item: myTasks) {
+            res.add(_TaskDataService.getTaskDescriptionById(item.getTaskDescriptionId()));
         }
-        return res;
+        for (TaskDescriptionModel item:res){
+            if(item.getCreator().getId() == userId){
+                List<UserModel> temp_users = new ArrayList<>();
+                List<TaskUserModel> ltu = _TaskDataService.getTaskUsersForTaskDescription(item.getId());
+                item.setTaskUsers(ltu);
+                for (TaskUserModel T: item.getTaskUsers()) {
+                    temp_users.add(T.getExecutor());
+                }
+                item.setUsers(temp_users);
+            }
+            else{
+                item.setTaskUsers(myTasks.stream()
+                        .filter(x->x.getTaskDescriptionId() == item.getId())
+                        .collect(Collectors.toList()));
+            }
+        }
+        ResponseStatus result = new ResponseStatus(StatusTypes.OK);
+        result.addMessage ("Список задач");
+        result.setData(res);
+        return result;
     }
 
-    @RequestMapping(value = "/create")
-    public ResponseStatus Create(@RequestBody TaskDescriptionModel newTask) {
+    public ResponseStatus Create(TaskDescriptionModel newTask) {
         newTask.setCreator(new UserModel(_CustomUserDetailsService.getUserDetails()));
-        _TaskDataService.createNewTaskDescription(newTask);
-        return new ResponseStatus(StatusTypes.OK);
+        ResponseStatus result = new ResponseStatus(StatusTypes.OK);
+        result.addMessage("Задача создана");
+        result.setData(_TaskDataService.createNewTaskDescription(newTask));
+        return result;
     }
 
-    @RequestMapping(value = "/answer")
-    public ResponseStatus Answer(@RequestBody TaskUserModel item) {
+    public ResponseStatus Answer(TaskUserModel item) {
         _TaskDataService.changeStatusTaskUser(item);
-        return new ResponseStatus(StatusTypes.OK);
+        ResponseStatus result = new ResponseStatus(StatusTypes.OK);
+        result.addMessage("Ответ отправлен");
+        result.setData(item);
+        return result;
     }
 
-    @RequestMapping(value = "/get/{id}")
-    public TaskDescriptionModel Get(@PathVariable("id") long id) {
-        return _TaskDataService.getTaskDescriptionById(id);
+    public ResponseStatus Get(long id) {
+        ResponseStatus result = new ResponseStatus(StatusTypes.OK);
+        result.setData(_TaskDataService.getTaskDescriptionById(id));
+        return result;
     }
 
-    @RequestMapping(value = "/update")
-    public TaskDescriptionModel Update(@RequestBody TaskDescriptionModel newTask) {
-        _TaskDataService.updateTaskDescription(newTask);
-        return newTask;
+    public ResponseStatus Update(TaskDescriptionModel task) {
+        _TaskDataService.updateTaskDescription(task);
+        ResponseStatus result = new ResponseStatus(StatusTypes.OK);
+        result.addMessage("Задача обновлена");
+        result.setData(task);
+        return result;
     }
 
-    @RequestMapping(value = "/delete/{id}")
-    public ResponseStatus Delete(@PathVariable("id") long id) {
+    public ResponseStatus Delete(long id) {
         _TaskDataService.deleteTaskDescription(id);
-        return new ResponseStatus(StatusTypes.OK);
+        ResponseStatus result = new ResponseStatus(StatusTypes.OK);
+        result.addMessage("Задача удалена");
+        return result;
+    }
+
+    public ResponseStatus AddFile(long id, MultipartFile file) {
+        try {
+            TaskDescriptionFile temp = new TaskDescriptionFile();
+            TaskDescriptionModel item =  _TaskDataService.getTaskDescriptionById(id);
+            temp.setData(file.getBytes());
+            temp.setTaskDescriptionId(item.getId());
+            temp.setFileName(file.getOriginalFilename());
+            temp.setFileType(file.getContentType());
+            _fileRep.save(temp);
+        } catch (IOException e) {
+            e.printStackTrace();
+            ResponseStatus result = new ResponseStatus(StatusTypes.ERROR);
+            result.addErrors("Ошибка добавления файла");
+        }
+        ResponseStatus result = new ResponseStatus(StatusTypes.OK);
+        result.addMessage("Файл добавлен");
+        return result;
+    }
+
+    public ResponseStatus GetFile(long id) {
+        Iterable<TaskDescriptionFile> res = _fileRep.findAll();
+        ResponseStatus result = new ResponseStatus(StatusTypes.OK);
+        result.addMessage("Файл добавлен");
+        result.setData(res);
+        return result;
+    }
+
+    public TaskDescriptionFile DownloadFile(long id) {
+        Iterable<TaskDescriptionFile> res = _fileRep.findAll();
+        for(TaskDescriptionFile item: res){
+            return item;
+        }
+        return null;
     }
 }
