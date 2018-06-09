@@ -1,6 +1,8 @@
-package com.unesco.core.models;
+package com.unesco.core.models.task;
 
 import com.unesco.core.models.account.UserModel;
+
+import java.util.List;
 
 public class TaskUserModel {
 
@@ -10,6 +12,7 @@ public class TaskUserModel {
     private String statusName;
     private int status;
     private String response;
+    private List<TaskUserFileModel> files;
 
     public TaskUserModel()
     {
@@ -67,5 +70,13 @@ public class TaskUserModel {
 
     public void setStatusName(String statusName) {
         this.statusName = statusName;
+    }
+
+    public List<TaskUserFileModel> getFiles() {
+        return files;
+    }
+
+    public void setFiles(List<TaskUserFileModel> files) {
+        this.files = files;
     }
 }

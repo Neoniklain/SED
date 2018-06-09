@@ -1,6 +1,6 @@
 package com.unesco.core.services.taskService.taskUserService;
 
-import com.unesco.core.models.TaskUserModel;
+import com.unesco.core.models.task.TaskUserModel;
 import com.unesco.core.services.IDataService;
 
 import java.util.List;

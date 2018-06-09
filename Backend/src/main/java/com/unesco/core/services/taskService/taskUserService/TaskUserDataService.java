@@ -1,9 +1,8 @@
 package com.unesco.core.services.taskService.taskUserService;
 
 import com.unesco.core.entities.task.TaskUser;
-import com.unesco.core.models.TaskUserModel;
-import com.unesco.core.models.enums.TaskStatusType;
-import com.unesco.core.repositories.task.TaskRepository;
+import com.unesco.core.models.task.TaskUserModel;
+import com.unesco.core.repositories.task.TaskUserRepository;
 import com.unesco.core.services.mapperService.IMapperService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,7 +14,7 @@ import java.util.List;
 public class TaskUserDataService implements ITaskUserDataService
 {
    @Autowired
-   TaskRepository _taskRepository;
+   TaskUserRepository _taskRepository;
    @Autowired
    private IMapperService _mapperService;
 

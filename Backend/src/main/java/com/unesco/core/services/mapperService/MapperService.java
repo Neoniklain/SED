@@ -9,10 +9,14 @@ import com.unesco.core.entities.journal.Point;
 import com.unesco.core.entities.journal.PointType;
 import com.unesco.core.entities.news.News;
 import com.unesco.core.entities.schedule.*;
+import com.unesco.core.entities.task.TaskDescriptionFile;
 import com.unesco.core.entities.task.TaskUser;
 import com.unesco.core.entities.task.TaskDescription;
-import com.unesco.core.models.TaskDescriptionModel;
-import com.unesco.core.models.TaskUserModel;
+import com.unesco.core.entities.task.TaskUserFile;
+import com.unesco.core.models.task.TaskDescriptionFileModel;
+import com.unesco.core.models.task.TaskDescriptionModel;
+import com.unesco.core.models.task.TaskUserFileModel;
+import com.unesco.core.models.task.TaskUserModel;
 import com.unesco.core.models.account.ProfessorModel;
 import com.unesco.core.models.account.RoleModel;
 import com.unesco.core.models.account.StudentModel;
@@ -103,6 +107,12 @@ public class MapperService implements IMapperService {
         if (model instanceof TaskDescriptionModel)
             return TaskDescriptionToEntity((TaskDescriptionModel) model);
 
+        if (model instanceof TaskUserFileModel)
+            return TaskUserFileToEntity((TaskUserFileModel) model);
+
+        if (model instanceof TaskDescriptionFileModel)
+            return TaskDescriptionFileToEntity((TaskDescriptionFileModel) model);
+
         return new Exception("Not found "+model.getClass().toString() + " model class");
     }
 
@@ -165,6 +175,11 @@ public class MapperService implements IMapperService {
         if (entity instanceof TaskDescription)
             return TaskDescriptionToModel((TaskDescription) entity);
 
+        if (entity instanceof TaskUserFile)
+            return TaskUserFileToModel((TaskUserFile) entity);
+
+        if (entity instanceof TaskDescriptionFile)
+            return TaskDescriptionFileToModel((TaskDescriptionFile) entity);
 
         return new Exception("Not found "+entity.getClass().toString() + " entity class");
     }
@@ -556,4 +571,45 @@ public class MapperService implements IMapperService {
         return Entity;
     }
 
+    private TaskDescriptionFileModel TaskDescriptionFileToModel(TaskDescriptionFile Entity)
+    {
+        TaskDescriptionFileModel Model = new TaskDescriptionFileModel();
+        Model.setData(Entity.getData());
+        Model.setFileName(Entity.getFileName());
+        Model.setFileType(Entity.getFileType());
+        Model.setTaskDescriptionId(Entity.getTaskDescriptionId());
+        Model.setId(Entity.getId());
+        return Model;
+    }
+    private TaskDescriptionFile TaskDescriptionFileToEntity(TaskDescriptionFileModel Model)
+    {
+        TaskDescriptionFile Entity = new TaskDescriptionFile();
+        Entity.setFileType(Model.getFileType());
+        Entity.setFileName(Model.getFileName());
+        Entity.setData(Model.getData());
+        Entity.setTaskDescriptionId(Model.getTaskDescriptionId());
+        Entity.setId(Model.getId());
+        return Entity;
+    }
+
+    private TaskUserFileModel TaskUserFileToModel(TaskUserFile Entity)
+    {
+        TaskUserFileModel Model = new TaskUserFileModel();
+        Model.setData(Entity.getData());
+        Model.setFileName(Entity.getFileName());
+        Model.setFileType(Entity.getFileType());
+        Model.setTaskUserId(Entity.getTaskUserId());
+        Model.setId(Entity.getId());
+        return Model;
+    }
+    private TaskUserFile TaskUserFileToEntity(TaskUserFileModel Model)
+    {
+        TaskUserFile Entity = new TaskUserFile();
+        Entity.setFileType(Model.getFileType());
+        Entity.setFileName(Model.getFileName());
+        Entity.setData(Model.getData());
+        Entity.setTaskUserId(Model.getTaskUserId());
+        Entity.setId(Model.getId());
+        return Entity;
+    }
 }

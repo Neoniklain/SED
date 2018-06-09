@@ -1,7 +1,7 @@
 package com.unesco.core.services.taskService.taskDescriptionService;
 
 import com.unesco.core.entities.task.TaskDescription;
-import com.unesco.core.models.TaskDescriptionModel;
+import com.unesco.core.models.task.TaskDescriptionModel;
 import com.unesco.core.repositories.task.TaskDescriptionRepository;
 import com.unesco.core.services.mapperService.MapperService;
 import org.springframework.beans.factory.annotation.Autowired;

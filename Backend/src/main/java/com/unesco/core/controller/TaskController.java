@@ -1,9 +1,8 @@
 package com.unesco.core.controller;
 
 import com.unesco.core.entities.task.TaskDescriptionFile;
-import com.unesco.core.entities.task.TaskUser;
-import com.unesco.core.models.TaskDescriptionModel;
-import com.unesco.core.models.TaskUserModel;
+import com.unesco.core.models.task.TaskDescriptionModel;
+import com.unesco.core.models.task.TaskUserModel;
 import com.unesco.core.models.account.UserModel;
 import com.unesco.core.models.additional.ResponseStatus;
 import com.unesco.core.repositories.task.TaskDescriptionFileRepository;
@@ -14,7 +13,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;

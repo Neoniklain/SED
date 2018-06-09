@@ -1,13 +1,16 @@
 package com.unesco.core.services.taskService;
 
-import com.unesco.core.entities.task.TaskUser;
-import com.unesco.core.models.TaskDescriptionModel;
-import com.unesco.core.models.TaskUserModel;
+import com.unesco.core.models.task.TaskDescriptionFileModel;
+import com.unesco.core.models.task.TaskDescriptionModel;
+import com.unesco.core.models.task.TaskUserFileModel;
+import com.unesco.core.models.task.TaskUserModel;
 import com.unesco.core.models.account.UserModel;
 import com.unesco.core.models.enums.TaskStatusType;
 import com.unesco.core.services.account.userService.IUserDataService;
 import com.unesco.core.services.mapperService.MapperService;
+import com.unesco.core.services.taskService.taskDescriptionFileService.ITaskDescriptionFileDataService;
 import com.unesco.core.services.taskService.taskDescriptionService.ITaskDescriptionDataService;
+import com.unesco.core.services.taskService.taskUserFileService.ITaskUserFileDataService;
 import com.unesco.core.services.taskService.taskUserService.ITaskUserDataService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -23,7 +26,11 @@ public class TaskService implements ITaskService
    @Autowired
    ITaskDescriptionDataService _taskDescriptionDataService;
    @Autowired
+   ITaskDescriptionFileDataService _fileTaskDescriptionDataService;
+   @Autowired
    ITaskUserDataService _taskUserDataService;
+   @Autowired
+   ITaskUserFileDataService _fileTaskUserDataService;
    @Autowired
    IUserDataService _userDataService;
    @Autowired
@@ -78,8 +85,13 @@ public class TaskService implements ITaskService
    public void deleteTaskDescription(long id) {
        TaskDescriptionModel task = _taskDescriptionDataService.Get(id);
        List<TaskUserModel> subTasks = _taskUserDataService.GetTaskUserByTaskDescription(id);
+       List<TaskUserFileModel> tuFiles = new ArrayList<>();
        for (TaskUserModel item : subTasks) {
           _taskUserDataService.Delete(item.getId());
+          tuFiles = _fileTaskUserDataService.GetFilesByTaskUserId(item.getId());
+          for (TaskUserFileModel file : tuFiles){
+             _fileTaskUserDataService.Delete(file.getId());
+          }
        }
       _taskDescriptionDataService.Delete(task.getId());
    }
