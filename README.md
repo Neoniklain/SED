@@ -93,3 +93,4 @@ os: win32 x64
 #### Ссылки
 1. [Node.js 7.5.0](https://nodejs.org/en/download/releases/)
 2. [PostgreSQL](https://www.openscg.com/bigsql/postgresql/installers/)
+3. [Терминология внутри проекта и в рамках диплома](https://docs.google.com/document/d/1W4wgcB6TIVwtqD4uvjvx68ElTZ8ADfEWJCAs22TjwkE/edit)
