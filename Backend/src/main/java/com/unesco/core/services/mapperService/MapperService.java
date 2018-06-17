@@ -29,10 +29,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.nio.charset.StandardCharsets;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 @Service
 public class MapperService implements IMapperService {
@@ -195,7 +194,8 @@ public class MapperService implements IMapperService {
     {
         LessonEventModel Model = new LessonEventModel();
         Model.setId(Entity.getId());
-        Model.setDate(Entity.getDate());
+        Date Dt = new Date((long)Entity.getDate().getTime());
+        Model.setDate(Dt);
         Model.setComment(Entity.getComment());
         Model.setLesson(LessonToModel(Entity.getLesson()));
         Model.setType(PointTypeToModel(Entity.getType()));
@@ -205,7 +205,8 @@ public class MapperService implements IMapperService {
     {
         LessonEvent Entity = new LessonEvent();
         Entity.setId(Model.getId());
-        Entity.setDate(Model.getDate());
+        Timestamp ts = new Timestamp(Model.getDate().getTime());
+        Entity.setDate(ts);
         Entity.setComment(Model.getComment());
         Entity.setLesson(LessonToEntity(Model.getLesson()));
         Entity.setType(PointTypeToEntity(Model.getType()));

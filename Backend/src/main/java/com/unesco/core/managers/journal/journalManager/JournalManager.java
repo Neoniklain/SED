@@ -112,7 +112,7 @@ public class JournalManager implements IJournalManager {
                 pointLessonEvent.setId(0);
                 pointLessonEvent.setStudent(student);
                 pointLessonEvent.setType(currentLessonEvent.getType());
-                pointLessonEvent.setDate(getZeroTimeDate(currentLessonEvent.getDate()));
+                pointLessonEvent.setDate(currentLessonEvent.getDate());
                 pointLessonEvent.setPair(journal.getPairs().get(0));
                 points.add(pointLessonEvent);
             }

@@ -3,15 +3,15 @@ package com.unesco.core.utils;
 import com.unesco.core.entities.account.Role;
 import com.unesco.core.entities.account.User;
 import com.unesco.core.entities.journal.PointType;
-import com.unesco.core.entities.schedule.Department;
-import com.unesco.core.entities.schedule.FieldOfKnowledge;
-import com.unesco.core.entities.schedule.Institute;
+import com.unesco.core.entities.schedule.*;
+import com.unesco.core.repositories.RoomRepository;
 import com.unesco.core.repositories.account.RoleRepository;
 import com.unesco.core.repositories.account.UserRepository;
 import com.unesco.core.repositories.journal.LessonEventRepository;
 import com.unesco.core.repositories.journal.PointTypeRepository;
 import com.unesco.core.repositories.plan.DepartmentRepository;
 import com.unesco.core.repositories.plan.FieldOfKnowledgeRepository;
+import com.unesco.core.repositories.plan.GroupRepository;
 import com.unesco.core.repositories.plan.InstituteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationArguments;
@@ -28,6 +28,10 @@ public class DBInitializer implements ApplicationRunner {
     private UserRepository _UserRepository;
     @Autowired
     private RoleRepository _RoleRepository;
+    @Autowired
+    private RoomRepository _RoomRepository;
+    @Autowired
+    private GroupRepository _GroupRepository;
     @Autowired
     private FieldOfKnowledgeRepository _FieldOfKnowledgeRepository;
     @Autowired
@@ -83,7 +87,7 @@ public class DBInitializer implements ApplicationRunner {
             t.setName("Институт Фундаментальных наук");
             _InstituteRepository.save(t);
         }
-        Department d;
+        Department d = new Department();
         // Инициализация Institute
         if(_DepartmentRepository.findByName("Юнеско") == null)
         {
@@ -92,6 +96,14 @@ public class DBInitializer implements ApplicationRunner {
             d.setInstitute(t);
             _DepartmentRepository.save(d);
         }
+        Group g;
+        if(_GroupRepository.findByName("М-178") == null)
+        {
+            g = new Group();
+            g.setName("М-178");
+            g.setDepartment(d);
+            _GroupRepository.save(g);
+        }
         // Инициализация PointType
         PointType p = new PointType();
         if(_PointTypeRepository.findByName("Посещение") == null)
@@ -99,26 +111,31 @@ public class DBInitializer implements ApplicationRunner {
             p.setName("Посещение");
             _PointTypeRepository.save(p);
         }
+        PointType p2 = new PointType();
         if(_PointTypeRepository.findByName("Лабораторная") == null)
         {
-            p.setName("Лабораторная");
-            _PointTypeRepository.save(p);
+            p2.setName("Лабораторная");
+            _PointTypeRepository.save(p2);
         }
+        PointType p3 = new PointType();
         if(_PointTypeRepository.findByName("Семестровая") == null)
         {
-            p.setName("Семестровая");
-            _PointTypeRepository.save(p);
+            p3.setName("Семестровая");
+            _PointTypeRepository.save(p3);
         }
+        PointType p4 = new PointType();
         if(_PointTypeRepository.findByName("Контрольная работа") == null)
         {
-            p.setName("Контрольная работа");
-            _PointTypeRepository.save(p);
+            p4.setName("Контрольная работа");
+            _PointTypeRepository.save(p4);
         }
+        PointType p5 = new PointType();
         if(_PointTypeRepository.findByName("Отчет") == null)
         {
-            p.setName("Отчет");
-            _PointTypeRepository.save(p);
+            p5.setName("Отчет");
+            _PointTypeRepository.save(p5);
         }
+
 
     }
 }

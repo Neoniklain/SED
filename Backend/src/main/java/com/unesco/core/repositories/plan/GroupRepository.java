@@ -13,4 +13,6 @@ public interface GroupRepository extends CrudRepository<Group, Long>, CrudPagabl
 
     @Query("SELECT g FROM Group g where lower(g.name) LIKE CONCAT('%',lower(:filter),'%')")
     List<Group> findWithFilter(Pageable pageable, @Param("filter")  String filter);
+
+    Group findByName(String name);
 }
