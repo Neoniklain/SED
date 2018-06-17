@@ -68,7 +68,8 @@ public class JournalManager implements IJournalManager {
 
                     List<PointModel> find = this.journal.getJournalCell().stream().
                             filter(o -> o.getStudent().getUser().getId() == student.getUser().getId()
-                                    && getZeroTimeDate(o.getDate()).compareTo(getZeroTimeDate(date)) == 0
+                                    && o.getDate().compareTo(date) == 0
+                                    && o.getType().getName().equals(PointTypes.Visitation.toString())
                                     && o.getPair().getId() == pair.getId()
                             )
                             .collect(Collectors.toList());
@@ -95,7 +96,7 @@ public class JournalManager implements IJournalManager {
                         PointTypeModel visit = new PointTypeModel();
                         visit.setName(PointTypes.Visitation.toString());
                         point.setType(visit);
-                        point.setDate(getZeroTimeDate(date));
+                        point.setDate(date);
                         point.setPair(pair);
                         points.add(point);
                     }
@@ -107,14 +108,19 @@ public class JournalManager implements IJournalManager {
 
         for (StudentModel student : journal.getStudents()) {
             for (LessonEventModel currentLessonEvent : LessonEvents) {
-                PointModel pointLessonEvent = new PointModel();
-                pointLessonEvent.setValue(0);
-                pointLessonEvent.setId(0);
-                pointLessonEvent.setStudent(student);
-                pointLessonEvent.setType(currentLessonEvent.getType());
-                pointLessonEvent.setDate(currentLessonEvent.getDate());
-                pointLessonEvent.setPair(journal.getPairs().get(0));
-                points.add(pointLessonEvent);
+                if( !this.journal.getJournalCell().stream().anyMatch(
+                        o -> o.getDate().compareTo(currentLessonEvent.getDate()) == 0
+                        && o.getType().getId() == currentLessonEvent.getType().getId()
+                )) {
+                    PointModel pointLessonEvent = new PointModel();
+                    pointLessonEvent.setValue(0);
+                    pointLessonEvent.setId(0);
+                    pointLessonEvent.setStudent(student);
+                    pointLessonEvent.setType(currentLessonEvent.getType());
+                    pointLessonEvent.setDate(currentLessonEvent.getDate());
+                    pointLessonEvent.setPair(journal.getPairs().get(0));
+                    points.add(pointLessonEvent);
+                }
             }
         }
 
@@ -146,21 +152,6 @@ public class JournalManager implements IJournalManager {
                 return "Суббота";
         }
         return "";
-    }
-
-    private Date getZeroTimeDate(Date fecha) {
-        Date res = fecha;
-        Calendar calendar = Calendar.getInstance();
-
-        calendar.setTime( fecha );
-        calendar.set(Calendar.HOUR_OF_DAY, 0);
-        calendar.set(Calendar.MINUTE, 0);
-        calendar.set(Calendar.SECOND, 0);
-        calendar.set(Calendar.MILLISECOND, 0);
-
-        res = calendar.getTime();
-
-        return res;
     }
 
 }
