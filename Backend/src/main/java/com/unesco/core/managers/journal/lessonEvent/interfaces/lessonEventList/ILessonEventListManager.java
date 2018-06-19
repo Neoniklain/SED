@@ -4,6 +4,6 @@ import com.unesco.core.managers.IListManager;
 import com.unesco.core.models.journal.LessonEventModel;
 import com.unesco.core.models.shedule.LessonModel;
 
-public interface IPairEventListManager extends IListManager<LessonEventModel> {
+public interface ILessonEventListManager extends IListManager<LessonEventModel> {
     void ApplayFilter(LessonModel lesson);
 }

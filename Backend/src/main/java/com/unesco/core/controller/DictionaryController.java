@@ -139,8 +139,8 @@ public class DictionaryController {
    @RequestMapping(method = RequestMethod.PUT, value = "room")
    public ResponseStatus AddRoom(@RequestBody RoomModel room) {
       roomManager.Init(room);
-      ResponseStatus response = new ResponseStatus();
-      response.setStatus(StatusTypes.OK);
+      ResponseStatus response = roomManager.Validate();
+      if(response.getStatus() != StatusTypes.OK) return response;
       try {
          roomDataService.Save(roomManager.Get());
          response.addMessage("Кабинет сохранен.");
@@ -180,8 +180,8 @@ public class DictionaryController {
    @RequestMapping(method = RequestMethod.PUT, value = "fieldOfKnowledge")
    public ResponseStatus AddFieldOfKnowledge(@RequestBody FieldOfKnowledgeModel fieldOfKnowledge) {
       fieldOfKnowledgeManager.Init(fieldOfKnowledge);
-      ResponseStatus response = new ResponseStatus();
-      response.setStatus(StatusTypes.OK);
+      ResponseStatus response = fieldOfKnowledgeManager.Validate();
+      if(response.getStatus() != StatusTypes.OK) return response;
       try {
          fieldOfKnowledgeDataService.Save(fieldOfKnowledgeManager.Get());
          response.addMessage("Раздел знаний сохранен.");
@@ -221,8 +221,8 @@ public class DictionaryController {
    @RequestMapping(method = RequestMethod.PUT, value = "role")
    public ResponseStatus AddRole(@RequestBody RoleModel role) {
       roleManager.Init(role);
-      ResponseStatus response = new ResponseStatus();
-      response.setStatus(StatusTypes.OK);
+      ResponseStatus response = roleManager.Validate();
+      if(response.getStatus() != StatusTypes.OK) return response;
       try {
          roleDataService.Save(roleManager.Get());
          response.addMessage("Роль сохранена.");
@@ -262,8 +262,8 @@ public class DictionaryController {
    @RequestMapping(method = RequestMethod.PUT, value = "group")
    public ResponseStatus AddGroup(@RequestBody GroupModel group) {
       groupManager.Init(group);
-      ResponseStatus response = new ResponseStatus();
-      response.setStatus(StatusTypes.OK);
+      ResponseStatus response = groupManager.Validate();
+      if(response.getStatus() != StatusTypes.OK) return response;
       try {
          groupDataService.Save(groupManager.Get());
          response.addMessage("Группа сохранена.");
@@ -303,8 +303,8 @@ public class DictionaryController {
    @RequestMapping(method = RequestMethod.PUT, value = "department")
    public ResponseStatus AddDepartment(@RequestBody DepartmentModel department) {
       departmentManager.Init(department);
-      ResponseStatus response = new ResponseStatus();
-      response.setStatus(StatusTypes.OK);
+      ResponseStatus response = departmentManager.Validate();
+      if(response.getStatus() != StatusTypes.OK) return response;
       try {
          departmentDataService.Save(departmentManager.Get());
          response.addMessage("Кафедра сохранена.");
@@ -344,8 +344,8 @@ public class DictionaryController {
    @RequestMapping(method = RequestMethod.PUT, value = "institute")
    public ResponseStatus AddInstitute(@RequestBody InstituteModel institute) {
       instituteManager.Init(institute);
-      ResponseStatus response = new ResponseStatus();
-      response.setStatus(StatusTypes.OK);
+      ResponseStatus response = instituteManager.Validate();
+      if(response.getStatus() != StatusTypes.OK) return response;
       try {
          instituteDataService.Save(instituteManager.Get());
          response.addMessage("Институт сохранен.");
@@ -385,8 +385,8 @@ public class DictionaryController {
    @RequestMapping(method = RequestMethod.PUT, value = "discipline")
    public ResponseStatus AddDiscipline(@RequestBody DisciplineModel discipline) {
       disciplineManager.Init(discipline);
-      ResponseStatus response = new ResponseStatus();
-      response.setStatus(StatusTypes.OK);
+      ResponseStatus response = disciplineManager.Validate();
+      if(response.getStatus() != StatusTypes.OK) return response;
       try {
          disciplineDataService.Save(disciplineManager.Get());
          response.addMessage("Дисциплна сохранена.");
@@ -422,22 +422,6 @@ public class DictionaryController {
       List<PointTypeModel> pointTypeModels = pointTypeDataService.GetAll();
       PageResult<PointTypeModel> result = new PageResult(pointTypeModels, pointTypeModels.size());
       return result;
-   }
-   @RequestMapping(method = RequestMethod.PUT, value = "pointType")
-   public ResponseStatus AddPointType(@RequestBody PointTypeModel pointType) {
-      ResponseStatus response = new ResponseStatus();
-      response.setStatus(StatusTypes.OK);
-      try {
-         pointTypeDataService.Save(pointType);
-         response.addMessage("Дисциплна сохранена.");
-         return response;
-      }
-      catch (Exception e) {
-         response.setStatus(StatusTypes.ERROR);
-         response.addMessage("Ошибка при сохранении дисциплны.");
-         response.addMessage(e.getMessage());
-         return response;
-      }
    }
    @RequestMapping(method = RequestMethod.DELETE, value = "pointType/{id}")
    public ResponseStatus DeletePointType(@PathVariable("id") long id) {

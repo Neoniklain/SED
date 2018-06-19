@@ -1,6 +1,6 @@
 package com.unesco.core.managers.journal.lessonEvent;
 
-import com.unesco.core.managers.journal.lessonEvent.interfaces.lessonEventList.IPairEventListManager;
+import com.unesco.core.managers.journal.lessonEvent.interfaces.lessonEventList.ILessonEventListManager;
 import com.unesco.core.models.journal.LessonEventModel;
 import com.unesco.core.models.shedule.LessonModel;
 import org.springframework.context.annotation.Scope;
@@ -11,11 +11,11 @@ import java.util.List;
 
 @Component
 @Scope("prototype")
-public class PairEventListManager implements IPairEventListManager {
+public class LessonEventListManager implements ILessonEventListManager {
 
     public List<LessonEventModel> lessonEventList;
 
-    public PairEventListManager() {
+    public LessonEventListManager() {
         lessonEventList = new ArrayList<>();
     }
 
