@@ -118,6 +118,9 @@ public class PairDataService implements IPairDataService {
                 entity.getLesson().getProfessor().getId());
 
         if(findLesson==null) {
+            LessonModel lesson = pair.getLesson();
+            lesson.setId(0);
+            pair.setLesson(lesson);
             findLesson = lessonDataService.Save(pair.getLesson());
         }
 
