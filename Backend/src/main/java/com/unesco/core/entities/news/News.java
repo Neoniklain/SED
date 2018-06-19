@@ -2,6 +2,7 @@ package com.unesco.core.entities.news;
 
 
 import com.unesco.core.entities.account.User;
+import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -18,7 +19,7 @@ public class News {
     private User author;
     private String content;
     private String tags;
-    @Lob
+    @Type(type="org.hibernate.type.BinaryType")
     private byte[] image;
     private Date date;
 
