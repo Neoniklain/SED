@@ -61,7 +61,7 @@ public class DBInitializer implements ApplicationRunner {
             Set<Role> role = new HashSet<Role>();
             Role userRole = _RoleRepository.findByRole("ADMIN");
             role.add(userRole);
-            User testUser = new User("admin","Администратор", "admin@mail.com", "12345");
+            User testUser = new User("admin","Администратор", "admin@mail.com", "$2a$10$Z3MfoVmt1CNwETyjTEtL9.MTbmc8AuX.c3rpBh097D6rSZ64v3rD.");
             testUser.setRoles(role);
             _UserRepository.save(testUser);
         }

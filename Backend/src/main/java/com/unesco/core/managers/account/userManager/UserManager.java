@@ -11,6 +11,7 @@ import com.unesco.core.models.enums.RoleType;
 import com.unesco.core.utils.StatusTypes;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
@@ -20,6 +21,8 @@ import java.util.List;
 @Scope("prototype")
 public class UserManager implements IUserManager {
 
+    @Autowired
+    private PasswordEncoder passwordEncoder;
     @Autowired
     public IProfessorManager professorManager;
     @Autowired
@@ -55,7 +58,7 @@ public class UserManager implements IUserManager {
         user.setEmail(User.getEmail());
         user.setUserFIO(User.getUserFIO());
         user.setUsername(User.getUsername());
-        user.setPassword(User.getPassword());
+        user.setPassword(passwordEncoder.encode(User.getPassword()));
 
         // Если роли нет назначаем роль пользователя
         if(User.getRoles().size() == 0) {
