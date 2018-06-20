@@ -1,10 +1,23 @@
-
 .news .label{
   text-align: left;
 }
 
 .news{
   margin: 1em;
+}
+
+.news-image img {
+  border-radius: 5px;
+  box-shadow: 3px 4px 21px 3px #80808069;
+}
+
+.hr_header {
+  margin-top: 10px;
+}
+
+.news-image {
+  padding: 1em;
+  text-align: center;
 }
 
 .news-header h2{
