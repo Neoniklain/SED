@@ -1,6 +1,7 @@
 package com.unesco.core.controller;
 
 import com.unesco.core.managers.journal.journalManager.interfaces.journal.IJournalManager;
+import com.unesco.core.managers.journal.lessonEvent.interfaces.lessonEvent.ILessonEventManager;
 import com.unesco.core.models.additional.ResponseStatus;
 import com.unesco.core.models.journal.JournalModel;
 import com.unesco.core.models.journal.LessonEventModel;
@@ -26,6 +27,8 @@ public class JournalController {
     @Autowired
     private IJournalManager journalManager;
     @Autowired
+    private ILessonEventManager lessonEventManager;
+    @Autowired
     private ILessonEventDataService lessonEventDataService;
 
     @GetMapping("/professor/{professorId}/group/{groupId}/discipline/{disciplineId}")
@@ -44,11 +47,13 @@ public class JournalController {
     @RequestMapping("/save")
     public ResponseStatus SaveJournal(@RequestBody JournalModel journal) {
 
-        ResponseStatus result = new ResponseStatus();
+        journalManager.Init(journal);
+        ResponseStatus result = journalManager.Validate();
+        if(result.getStatus() != StatusTypes.OK) return result;
 
         try {
             result.setStatus(StatusTypes.OK);
-            journalDataService.Save(journal);
+            journalDataService.Save(journalManager.Get());
             result.addMessage("Журнал сохранен.");
             return result;
         }
@@ -71,10 +76,12 @@ public class JournalController {
 
     @RequestMapping("/event/save")
     public ResponseStatus SaveEvent(@RequestBody LessonEventModel event) {
-        ResponseStatus result = new ResponseStatus();
+        lessonEventManager.Init(event);
+        ResponseStatus result = lessonEventManager.Validate();
+        if(result.getStatus() != StatusTypes.OK) return result;
         try {
             result.setStatus(StatusTypes.OK);
-            lessonEventDataService.Save(event);
+            lessonEventDataService.Save(lessonEventManager.Get());
             result.addMessage("Событие сохранено.");
             return result;
         }

@@ -1,14 +1,16 @@
 package com.unesco.core.managers.journal.journalManager;
 
 import com.unesco.core.managers.journal.journalManager.interfaces.journal.IJournalManager;
-import com.unesco.core.managers.journal.lessonEvent.interfaces.lessonEventList.IPairEventListManager;
+import com.unesco.core.managers.journal.lessonEvent.interfaces.lessonEventList.ILessonEventListManager;
 import com.unesco.core.models.account.StudentModel;
+import com.unesco.core.models.additional.ResponseStatus;
 import com.unesco.core.models.journal.JournalModel;
 import com.unesco.core.models.journal.LessonEventModel;
 import com.unesco.core.models.journal.PointModel;
 import com.unesco.core.models.journal.PointTypeModel;
 import com.unesco.core.models.shedule.PairModel;
 import com.unesco.core.utils.PointTypes;
+import com.unesco.core.utils.StatusTypes;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
@@ -24,7 +26,7 @@ import java.util.stream.Collectors;
 public class JournalManager implements IJournalManager {
 
     @Autowired
-    private IPairEventListManager pairEventListManager;
+    private ILessonEventListManager pairEventListManager;
 
     JournalModel journal;
 
@@ -128,6 +130,12 @@ public class JournalManager implements IJournalManager {
         points.addAll(this.journal.getJournalCell());
         this.journal.setJournalCell(points);
 
+    }
+
+    public ResponseStatus Validate() {
+        ResponseStatus responseStatus = new ResponseStatus();
+        responseStatus.setStatus(StatusTypes.OK);
+        return responseStatus;
     }
 
     public JournalModel Get() {

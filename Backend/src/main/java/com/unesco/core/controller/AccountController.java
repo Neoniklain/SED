@@ -78,8 +78,8 @@ public class AccountController {
     @RequestMapping("/registration")
     public ResponseStatus Registration(@RequestBody UserModel user) {
         userManager.Create(user, roleDataService.GetAll());
-        ResponseStatus res = new ResponseStatus();
-        res.setStatus(StatusTypes.OK);
+        ResponseStatus res = userManager.Validate();
+        if(res.getStatus() != StatusTypes.OK) return res;
         try {
             UserModel userSaved = userDataService.Save(userManager.Get());
 

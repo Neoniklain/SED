@@ -90,21 +90,22 @@ public class SheduleController {
     @RequestMapping("/pair/save")
     public ResponseStatus savePair(@RequestBody PairModel pairModel) {
         pairManager.Init(pairModel);
-        ResponseStatus result = pairManager.CheckIntersection(pairDataService.GetAll());
-        if(result.getStatus() == StatusTypes.OK) {
-            try {
-                pairDataService.Save(pairManager.Get());
-                result.addMessage("Занятие сохранено.");
-                return result;
-            }
-            catch (Exception e) {
-                result.setStatus(StatusTypes.ERROR);
-                result.addErrors("При создании занятия произошла ошибка");
-                result.addErrors(e.getMessage());
-                return result;
-            }
+        
+        ResponseStatus result = pairManager.Validate();
+        if(result.getStatus() != StatusTypes.OK) return result;
+
+        result = pairManager.CheckIntersection(pairDataService.GetAll());
+        if(result.getStatus() != StatusTypes.OK) return result;
+
+        try {
+            pairDataService.Save(pairManager.Get());
+            result.addMessage("Занятие сохранено.");
+            return result;
         }
-        else {
+        catch (Exception e) {
+            result.setStatus(StatusTypes.ERROR);
+            result.addErrors("При создании занятия произошла ошибка");
+            result.addErrors(e.getMessage());
             return result;
         }
     }

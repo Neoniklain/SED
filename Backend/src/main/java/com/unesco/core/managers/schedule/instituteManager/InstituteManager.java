@@ -3,8 +3,7 @@ package com.unesco.core.managers.schedule.instituteManager;
 import com.unesco.core.managers.schedule.instituteManager.interfaces.institute.IInstituteManager;
 import com.unesco.core.models.additional.ResponseStatus;
 import com.unesco.core.models.shedule.InstituteModel;
-import com.unesco.core.services.schedule.instituteService.IInstituteDataService;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.unesco.core.utils.StatusTypes;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
@@ -26,4 +25,13 @@ public class InstituteManager implements IInstituteManager {
         return institute;
     }
 
+    public ResponseStatus Validate() {
+        ResponseStatus responseStatus = new ResponseStatus();
+        responseStatus.setStatus(StatusTypes.OK);
+        if (institute.getName().equals("")) {
+            responseStatus.setStatus(StatusTypes.ERROR);
+            responseStatus.addErrors("Не указано название института");
+        }
+        return responseStatus;
+    }
 }

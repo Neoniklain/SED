@@ -4,6 +4,7 @@ import com.unesco.core.managers.schedule.departmentManager.interfaces.department
 import com.unesco.core.models.additional.ResponseStatus;
 import com.unesco.core.models.plan.DepartmentModel;
 import com.unesco.core.services.schedule.departmentService.IDepartmentDataService;
+import com.unesco.core.utils.StatusTypes;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
@@ -29,4 +30,17 @@ public class DepartmentManager implements IDepartmentManager {
         return department;
     }
 
+    public ResponseStatus Validate() {
+        ResponseStatus responseStatus = new ResponseStatus();
+        responseStatus.setStatus(StatusTypes.OK);
+        if (department.getName().equals("")) {
+            responseStatus.setStatus(StatusTypes.ERROR);
+            responseStatus.addErrors("Не указано название кафедры");
+        }
+        if (department.getInstitute().getId() == 0) {
+            responseStatus.setStatus(StatusTypes.ERROR);
+            responseStatus.addErrors("Не указан институт");
+        }
+        return responseStatus;
+    }
 }

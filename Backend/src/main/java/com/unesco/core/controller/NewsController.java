@@ -66,6 +66,9 @@ public class NewsController {
 
     @RequestMapping(value = "/save")
     public ResponseStatus save(@RequestBody NewsModel news) {
+        newsManager.Init(news);
+        ResponseStatus result = newsManager.Validate();
+        if(result.getStatus() != StatusTypes.OK) return result;
         try {
             Date day = new Date();
             news.setDate(day);

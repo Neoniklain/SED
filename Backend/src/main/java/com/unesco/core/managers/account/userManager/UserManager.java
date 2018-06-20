@@ -6,7 +6,9 @@ import com.unesco.core.managers.account.studentManager.interfaces.student.IStude
 import com.unesco.core.managers.account.userManager.interfaces.user.IUserManager;
 import com.unesco.core.models.account.RoleModel;
 import com.unesco.core.models.account.UserModel;
+import com.unesco.core.models.additional.ResponseStatus;
 import com.unesco.core.models.enums.RoleType;
+import com.unesco.core.utils.StatusTypes;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
@@ -68,6 +70,34 @@ public class UserManager implements IUserManager {
 
     }
 
+    public ResponseStatus Validate() {
+        ResponseStatus responseStatus = new ResponseStatus();
+        responseStatus.setStatus(StatusTypes.OK);
+        if (user.getRoles().size() == 0) {
+            responseStatus.addErrors("Не указана роль. Назначена роль 'ГОСТЬ'.");
+        }
+        if (user.getUserFIO().equals("")) {
+            responseStatus.setStatus(StatusTypes.ERROR);
+            responseStatus.addErrors("Не указано ФИО.");
+        }
+        if (user.getUsername().equals("")) {
+            responseStatus.setStatus(StatusTypes.ERROR);
+            responseStatus.addErrors("Не указан логин.");
+        }
+        if (user.getPassword().equals("")) {
+            responseStatus.setStatus(StatusTypes.ERROR);
+            responseStatus.addErrors("Не указан пароль.");
+        }
+        if (user.getPassword().length() < 5) {
+            responseStatus.setStatus(StatusTypes.ERROR);
+            responseStatus.addErrors("Пароль должен быть больше 5 символов.");
+        }
+        if (user.getEmail().equals("")) {
+            responseStatus.setStatus(StatusTypes.ERROR);
+            responseStatus.addErrors("Не указан email.");
+        }
+        return responseStatus;
+    }
 
 
 }

@@ -3,10 +3,12 @@ package com.unesco.core.managers.schedule.sheduleDepartmentManager;
 import com.unesco.core.managers.schedule.pairManager.interfaces.pairList.IPairListManager;
 import com.unesco.core.managers.schedule.sheduleDepartmentManager.sheduleDepartment.ISheduleDepartmentManager;
 import com.unesco.core.models.account.ProfessorModel;
+import com.unesco.core.models.additional.ResponseStatus;
 import com.unesco.core.models.plan.DepartmentModel;
 import com.unesco.core.models.shedule.DepartmentSheduleModel;
 import com.unesco.core.models.shedule.PairModel;
 import com.unesco.core.models.shedule.SheduleProfessorLineModel;
+import com.unesco.core.utils.StatusTypes;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
@@ -48,5 +50,6 @@ public class SheduleDepartmentManager implements ISheduleDepartmentManager {
     public DepartmentSheduleModel Get() {
         return departmentShedule;
     }
+
 
 }
