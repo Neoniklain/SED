@@ -5,6 +5,7 @@ export class User {
     username: string;
     userFIO: string;
     email: string;
+    photo: string;
     roles: Array<Role>;
 
     constructor() {

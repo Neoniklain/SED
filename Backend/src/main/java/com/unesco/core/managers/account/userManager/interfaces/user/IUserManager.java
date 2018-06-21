@@ -16,6 +16,7 @@ public interface IUserManager extends IManager<UserModel>, IValidateManager {
     void Create(UserModel User, List<RoleModel> roleList);
     void CleanPassField();
     ResponseStatus ChangePassword(String newPass, String oldPass);
+    ResponseStatus ChangePhoto(String photo);
 
     UserModel Get();
 }

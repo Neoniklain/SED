@@ -124,8 +124,27 @@ public class AccountController {
             response.setStatus(StatusTypes.ERROR);
             response.addErrors("Не удалось изменить пароль");
         }
+        response.addMessage("Пароль изменен.");
         return response;
     }
+
+    @RequestMapping("/changePhoto")
+    public ResponseStatus ChangePhoto(@RequestBody String photo) {
+        UserModel user = new UserModel(_CustomUserDetailsService.getUserDetails());
+        userManager.Init(user);
+        ResponseStatus response = userManager.ChangePhoto(photo);
+        if (response.getStatus() == StatusTypes.ERROR) return response;
+
+        try {
+            userDataService.Save(userManager.Get());
+        } catch (Exception e) {
+            response.setStatus(StatusTypes.ERROR);
+            response.addErrors("Не удалось изменить фото");
+        }
+        response.addMessage("Фотография изменена.");
+        return response;
+    }
+
 
     @RequestMapping(value = "/FindUsersByFIO/{req}")
     public ResponseStatus FindUsersByFIO(@PathVariable("req") String req) {
@@ -198,25 +217,26 @@ public class AccountController {
             return res;
         }
     }
-}
 
-class Pass {
-    public String getNewPass() {
-        return newPass;
+    private class Pass {
+        public String getNewPass() {
+            return newPass;
+        }
+
+        public void setNewPass(String newPass) {
+            this.newPass = newPass;
+        }
+
+        public String getOldPass() {
+            return oldPass;
+        }
+
+        public void setOldPass(String oldPass) {
+            this.oldPass = oldPass;
+        }
+
+        String newPass;
+        String oldPass;
     }
 
-    public void setNewPass(String newPass) {
-        this.newPass = newPass;
-    }
-
-    public String getOldPass() {
-        return oldPass;
-    }
-
-    public void setOldPass(String oldPass) {
-        this.oldPass = oldPass;
-    }
-
-    String newPass;
-    String oldPass;
 }

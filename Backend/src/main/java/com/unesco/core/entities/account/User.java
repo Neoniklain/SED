@@ -2,6 +2,8 @@ package com.unesco.core.entities.account;
 
 
 
+import org.hibernate.annotations.Type;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.util.Set;
@@ -22,6 +24,8 @@ public class User {
     @NotNull
     @Column(unique=true)
     private String email;
+    @Type(type="org.hibernate.type.BinaryType")
+    private byte[] photo;
     @ManyToMany(fetch = FetchType.EAGER, cascade = { CascadeType.MERGE })
     @JoinTable(name = "un_user_role",
             joinColumns = {@JoinColumn(name = "user_id")},
@@ -44,6 +48,13 @@ public class User {
 
     public String getUserFIO() { return userFIO; }
     public void setUserFIO(String userFIO) { this.userFIO = userFIO;  }
+
+    public byte[] getPhoto() {
+        return photo;
+    }
+    public void setPhoto(byte[] photo) {
+        this.photo = photo;
+    }
 
     public String getPassword() {
         return password;

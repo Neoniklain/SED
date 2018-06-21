@@ -107,6 +107,20 @@ public class UserManager implements IUserManager {
         return responseStatus;
     }
 
+    public ResponseStatus ChangePhoto(String photo) {
+        ResponseStatus responseStatus = new ResponseStatus();
+        responseStatus.setStatus(StatusTypes.OK);
+        if (photo.equals("")) {
+            responseStatus.setStatus(StatusTypes.ERROR);
+            responseStatus.addErrors("Не задана новыая фотография.");
+            return responseStatus;
+        }
+
+        user.setPhoto(photo);
+
+        return responseStatus;
+    }
+
     public ResponseStatus Validate() {
         ResponseStatus responseStatus = new ResponseStatus();
         responseStatus.setStatus(StatusTypes.OK);

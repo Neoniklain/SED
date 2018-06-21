@@ -30,7 +30,6 @@ import org.springframework.stereotype.Service;
 
 import java.nio.charset.StandardCharsets;
 import java.sql.Timestamp;
-import java.text.SimpleDateFormat;
 import java.util.*;
 
 @Service
@@ -408,6 +407,7 @@ public class MapperService implements IMapperService {
         Entity.setEmail(Model.getEmail());
         Entity.setUserFIO(Model.getUserFIO());
         Entity.setPassword(Model.getPassword());
+        Entity.setPhoto(Model.getPhoto().getBytes());
 
         Set<Role> roles = new HashSet<Role>();
         for (RoleModel role: Model.getRoles()) {
@@ -427,6 +427,7 @@ public class MapperService implements IMapperService {
         Model.setEmail(Entity.getEmail());
         Model.setUserFIO(Entity.getUserFIO());
         Model.setPassword(Entity.getPassword());
+        Model.setPhoto(new String(Entity.getPhoto(), StandardCharsets.UTF_8));
 
         List<RoleModel> roles = new ArrayList<>();
         for (Role role: Entity.getRoles()) {

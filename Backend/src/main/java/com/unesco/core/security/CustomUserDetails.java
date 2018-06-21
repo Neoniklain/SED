@@ -1,15 +1,16 @@
 package com.unesco.core.security;
 
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-
 import com.unesco.core.entities.account.Role;
 import com.unesco.core.entities.account.User;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.core.userdetails.UserDetails;
+
+import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 
 public class CustomUserDetails implements UserDetails {
 
@@ -18,6 +19,7 @@ public class CustomUserDetails implements UserDetails {
     private String userFIO;
     private String password;
     private String email;
+    private String photo;
     private List<Role> roles;
     private static final long serialVersionUID = 1L;
 
@@ -27,6 +29,7 @@ public class CustomUserDetails implements UserDetails {
         this.userFIO = user.getUserFIO();
         this.password = user.getPassword();
         this.email = user.getEmail();
+        this.photo = new String(user.getPhoto(), StandardCharsets.UTF_8);
         this.roles = new ArrayList<Role>(user.getRoles());
     }
     @Override
@@ -60,6 +63,10 @@ public class CustomUserDetails implements UserDetails {
 
     public String getEmail() {
         return email;
+    }
+
+    public String getPhoto() {
+        return photo;
     }
 
     public String getUsername() {

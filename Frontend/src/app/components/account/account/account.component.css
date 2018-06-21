@@ -1,11 +1,17 @@
 .user-info .user-img img{
-  border-radius: 50%;
-  border: 1px solid #3B3939;
-  width: 4em;
+  width: auto !important;
+  height: 100%;
+  margin: 0 auto !important;
 }
 .user-img
 {
   float: left;
+  height: 4em;
+  width: 4em;
+  overflow: hidden;
+  border-radius: 50%;
+  margin: 0 auto;
+  text-align: center;
 }
 
 .user-desc

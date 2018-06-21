@@ -48,6 +48,11 @@ export class AuthenticationService {
             , {"newPass": newPass, "oldPass": oldPass});
     }
 
+    changePhoto(photo: string): Observable<ResponseStatus> {
+        return this.http.post(ApiRouteConstants.Authentication.ChangePhoto
+            , photo);
+    }
+
     logout() {
         localStorage.removeItem(TOKEN_NAME);
         this.isAuthenticated = false;

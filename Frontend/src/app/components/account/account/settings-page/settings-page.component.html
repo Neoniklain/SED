@@ -7,8 +7,11 @@
     <div class="row">
         <div class="col-md-3">
             <div class="profile-photo">
-                <img class="profile-image" src="images/anon-user.jpg" alt="">
-                <button class="btn btn-default btn-sm">Загрузить фото...</button>
+                <img class="profile-image" [src]="image" alt="">
+                <label class="btn btn-default btn-sm">
+                    Загрузить фото...
+                    <input type="file" id="avatar" (change)="onFileChange($event)" hidden> <br>
+                </label>
             </div>
         </div>
         <div class="col-md-9">

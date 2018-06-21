@@ -12,6 +12,7 @@ public class UserModel {
     private String password;
     private String userFIO;
     private String email;
+    private String photo;
     private List<RoleModel> roles;
 
     public long getId() {
@@ -49,6 +50,13 @@ public class UserModel {
         this.email = email;
     }
 
+    public String getPhoto() {
+        return photo;
+    }
+    public void setPhoto(String photo) {
+        this.photo = photo;
+    }
+
     public List<RoleModel> getRoles() {
         return roles;
     }
@@ -63,6 +71,7 @@ public class UserModel {
         this.userFIO = u.getUserFIO();
         this.password = u.getPassword();
         this.email = u.getEmail();
+        this.photo = u.getPhoto();
         this.roles = new ArrayList<RoleModel>();
         for (Role role: u.getRole()) {
             RoleModel roleModel = new RoleModel();

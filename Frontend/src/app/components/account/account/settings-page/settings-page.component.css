@@ -39,7 +39,7 @@
 
 .profile-photo img{
   padding-bottom: 1em;
-  height: 17em;
+  width: 18em;
 }
 
 .nickname {
@@ -71,4 +71,8 @@ h3 {
 
 .info-label {
   font-weight: bold;
+}
+
+[hidden] {
+  display: none !important;
 }
