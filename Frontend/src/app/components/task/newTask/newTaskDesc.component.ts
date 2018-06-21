@@ -6,7 +6,10 @@ import {User} from "../../../models/account/user.model";
 import {NotificationService} from "../../../services/notification.service";
 import {FileUploader, FileUploaderOptions} from "ng2-file-upload";
 import {AuthenticationService} from "../../../services/authService";
-import {ApiRouteConstants} from "../../../bootstrap/app.route.constants";
+import {ApiRouteConstants, BaseApiUrl} from "../../../bootstrap/app.route.constants";
+import {forEach} from "@angular/router/src/utils/collection";
+import {FileDescription} from "../../../models/file/file.model";
+import {FileService} from "../../../services/file.service";
 
 @Component({
     selector: 'new-task-desc',
@@ -33,14 +36,15 @@ export class NewTaskDescComponent {
     constructor(private taskService: TaskService,
                 private accountService: AccountService,
                 private notificationService: NotificationService,
-                private authService: AuthenticationService) {
+                private authService: AuthenticationService,
+                private fileService: FileService) {
     }
 
     ngOnInit(): void {
         this.localTD = new TaskDescription();
         this.myFiles = [];
         this._fileOptions = {
-            url:"http://localhost:8080/api/task/addfile/1",
+            url:"",
             maxFileSize: 50 * 1000 * 1000,
             headers: [
                 { name: 'Authorization', value: this.authService.getToken() }
@@ -52,6 +56,7 @@ export class NewTaskDescComponent {
     public showDialog(td?: TaskDescription) {
         this.localTD = new TaskDescription();
         this._isCreate = true;
+        this._uploader = new FileUploader(this._fileOptions);
         if (td) {
             this.localTD = td;
             this._title = "Редактирование задачи";
@@ -65,12 +70,14 @@ export class NewTaskDescComponent {
 
     public CreateTask() {
         if (this._isCreate) {
-            console.log(this._uploader);
             this.taskService.Create(this.localTD).subscribe((res) => {
                     this._show = false;
-                    console.log(res.data);
-                    this._uploader.options.url = "http://localhost:8080/api/task/addfile/1";
-                    this._uploader.queue[0].upload();
+                    let url = BaseApiUrl + ApiRouteConstants.File.AddFileForTD + res.data.id;
+                    this._uploader.options.url = url;
+                    for(let i=0;i<this._uploader.queue.length;i++){
+                        this._uploader.queue[i].url = url;
+                        this._uploader.queue[i].upload();
+                    }
                     this.notificationService.FromStatus(res);
                     this.onCreateNew.emit(res.data);
                 },
@@ -108,6 +115,17 @@ export class NewTaskDescComponent {
                 (error: any) => {
                     console.error("Ошибка" + error);
                 });
+    }
+
+    public downloadFile(item: FileDescription){
+        this.fileService.downloadFile(item.id);
+    }
+
+    public removeFile(item){
+        let removed = this._uploader.queue.findIndex(function (x) {
+            return x._file == item._file;
+        })
+        this._uploader.queue.splice(removed,1);
     }
 
     public onSelectFile(event){

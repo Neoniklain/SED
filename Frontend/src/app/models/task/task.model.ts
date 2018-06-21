@@ -1,4 +1,5 @@
 import {User} from "../account/user.model";
+import {FileDescription} from "../file/file.model";
 
 export class TaskDescription {
   public id: number;
@@ -9,6 +10,7 @@ export class TaskDescription {
   public description: string;
   public status: number;
   public statusName: string;
+  public files: FileDescription[];
   constructor() {
     this.name = "";
     this.creator = new User();
@@ -17,16 +19,9 @@ export class TaskDescription {
     this.statusName = "";
     this.description = "";
     this.taskUsers = [];
+    this.files = [];
   }
 }
-
-export class TaskDescriptionFile {
-      id:number;
-      taskDescriptionId:number;
-      fileName:string;
-      fileType:string;
-}
-
 
 export class TaskUser {
     public id: number;
@@ -34,9 +29,11 @@ export class TaskUser {
     public statusName: string;
     public status: number;
     public response: string;
+    public files: FileDescription[];
     constructor() {
         this.status = 0;
         this.response = "";
+        this.files = [];
     }
 }
 

@@ -1,6 +1,11 @@
-package com.unesco.core.models;
+package com.unesco.core.models.task;
 
+import com.unesco.core.entities.file.FileDescription;
 import com.unesco.core.models.account.UserModel;
+import com.unesco.core.models.file.FileDescriptionModel;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class TaskUserModel {
 
@@ -10,6 +15,7 @@ public class TaskUserModel {
     private String statusName;
     private int status;
     private String response;
+    private List<FileDescriptionModel> files;
 
     public TaskUserModel()
     {
@@ -19,6 +25,7 @@ public class TaskUserModel {
         this.response = "";
         this.executor = new UserModel();
         this.taskDescriptionId = 0;
+        this.files = new ArrayList<>();
     }
 
     public long getId() {
@@ -67,5 +74,13 @@ public class TaskUserModel {
 
     public void setStatusName(String statusName) {
         this.statusName = statusName;
+    }
+
+    public List<FileDescriptionModel> getFiles() {
+        return files;
+    }
+
+    public void setFiles(List<FileDescriptionModel> files) {
+        this.files = files;
     }
 }

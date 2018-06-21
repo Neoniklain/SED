@@ -1,9 +1,11 @@
 import {Component, EventEmitter, Output} from '@angular/core';
-import {TaskDescription, TaskUser, TaskStatusType, TaskDescriptionFile} from "../../../models/task/task.model";
+import {TaskDescription, TaskUser, TaskStatusType} from "../../../models/task/task.model";
 import {TaskService} from "../../../services/task.service";
 import {AccountService} from "../../../services/accountService";
 import {User} from "../../../models/account/user.model";
 import {NotificationService} from "../../../services/notification.service";
+import {FileService} from "../../../services/file.service";
+import {FileDescription} from "../../../models/file/file.model";
 
 @Component({
     selector: 'work-task',
@@ -16,7 +18,7 @@ export class WorkTaskComponent {
     public _show: boolean = false;
     public _title: string = '';
     public _editable: boolean = false;
-    public files: TaskDescriptionFile[];
+    public files: FileDescription[];
     //public statuses: TaskStatusList;
 
     // возвращаем результат
@@ -24,7 +26,8 @@ export class WorkTaskComponent {
 
     constructor(private taskService: TaskService,
                 private accountService: AccountService,
-                private notificationService: NotificationService) {
+                private notificationService: NotificationService,
+                private fileService: FileService) {
     }
 
     ngOnInit(): void {
@@ -41,21 +44,21 @@ export class WorkTaskComponent {
             (task.status == TaskStatusType.Viewed)){
             this._editable = true;
         }
-        console.log("Получаем файлы для браузера");
-        this.taskService.getFileList("1")
-            .subscribe((res)=>{
-                console.log(res);
-                this.files = res.data;
-                console.log("Скачиваем файл на комп");
-                this.taskService.downloadFile(this.files[0].id);
-            }, (error)=> {
-                console.error(error);
-            });
         this.localTD = new TaskDescription();
         this._task = new TaskUser();
         this._title = "Выполнение задачи";
         this.localTD = td;
         this._task = task;
+
+        console.log("Получаем файлы для браузера");
+        this.fileService.getFilesForTD(this.localTD.id.toString())
+            .subscribe((res)=>{
+                console.log(res);
+                this.files = res.data;
+            }, (error)=> {
+                console.error(error);
+            });
+
         this._show = true;
     }
 
@@ -81,5 +84,9 @@ export class WorkTaskComponent {
                 console.error(error);
                 this._show = false;
             });
+    }
+
+    public downloadFile(item: FileDescription){
+        this.fileService.downloadFile(item.id);
     }
 }

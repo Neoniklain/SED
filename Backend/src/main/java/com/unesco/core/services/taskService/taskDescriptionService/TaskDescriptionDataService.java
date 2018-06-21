@@ -1,14 +1,18 @@
 package com.unesco.core.services.taskService.taskDescriptionService;
 
+import com.unesco.core.entities.file.FileDescription;
 import com.unesco.core.entities.task.TaskDescription;
-import com.unesco.core.models.TaskDescriptionModel;
+import com.unesco.core.models.file.FileDescriptionModel;
+import com.unesco.core.models.task.TaskDescriptionModel;
 import com.unesco.core.repositories.task.TaskDescriptionRepository;
 import com.unesco.core.services.mapperService.MapperService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Service
 public class TaskDescriptionDataService implements ITaskDescriptionDataService
@@ -60,6 +64,11 @@ public class TaskDescriptionDataService implements ITaskDescriptionDataService
       up.setName(td.getName());
       up.setDescription(td.getDescription());
       up.setStatus(td.getStatus());
+      Set<FileDescription> files = new HashSet<>();
+      for(FileDescriptionModel file: td.getFiles()){
+         files.add((FileDescription) _mapperService.toEntity(file));
+      }
+      up.setFiles(files);
       _taskDescriptionRepository.save(up);
    }
 }

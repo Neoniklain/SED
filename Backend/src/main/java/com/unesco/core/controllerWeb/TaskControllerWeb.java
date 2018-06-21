@@ -2,26 +2,16 @@ package com.unesco.core.controllerWeb;
 
 
 import com.unesco.core.controller.TaskController;
-import com.unesco.core.entities.task.TaskDescriptionFile;
-import com.unesco.core.models.TaskDescriptionModel;
-import com.unesco.core.models.TaskUserModel;
+import com.unesco.core.models.task.TaskDescriptionModel;
+import com.unesco.core.models.task.TaskUserModel;
 import com.unesco.core.models.additional.ResponseStatus;
-import com.unesco.core.utils.StatusTypes;
-import org.apache.tomcat.util.http.fileupload.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.io.InputStreamResource;
-import org.springframework.core.io.Resource;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
 import java.io.IOException;
-
-import static org.apache.jasper.Constants.DEFAULT_BUFFER_SIZE;
 
 @CrossOrigin
 @RestController
@@ -61,14 +51,14 @@ public class TaskControllerWeb {
         return _taskController.Delete(id);
     }
 
-    @RequestMapping(value = "/addfile/{id}")
+    /*@RequestMapping(value = "/addfile/{id}")
     public ResponseStatus AddFile(@PathVariable("id") long id, @RequestParam("file") MultipartFile file) {
         return _taskController.AddFile(id,file);
     }
 
     @RequestMapping(path = "/download")
     public void download(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        TaskDescriptionFile temp = _taskController.DownloadFile(1);
+        //TaskDescriptionFile temp = _taskController.DownloadFile(1);
         //do other stuff
         byte[] file = temp.getData();
         response.reset();
@@ -83,5 +73,5 @@ public class TaskControllerWeb {
     @RequestMapping(value = "/getfile/{id}")
     public ResponseStatus GetFile(@PathVariable("id") long id) {
         return _taskController.GetFile(id);
-    }
+    }*/
 }

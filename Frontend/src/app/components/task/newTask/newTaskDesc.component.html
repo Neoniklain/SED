@@ -16,35 +16,37 @@
                       multiple="multiple" maxFileSize="{{maxFileSize}}"
                       (onSelect)="onSelectFile($event)" (onRemove)="onRemoveFile($event)" (onClear)="onClearFiles()">
         </p-fileUpload>-->
-        <input type="file" ng2FileSelect [uploader]="_uploader" />
-        <p>Всего файлов: {{ _uploader?.queue?.length }}</p>
-        <table [hidden]="!_uploader.queue.length" class="table">
-            <thead>
-            <tr>
-                <th>Файл</th>
-                <th *ngIf="_uploader.isHTML5">Размер</th>
-                <th *ngIf="_uploader.isHTML5">Progress</th>
-                <th>Статус</th>
-                <th><i class="fa fa-wrench" aria-hidden="true" title="Действия"></i></th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr *ngFor="let item of _uploader.queue">
-                <td class="file-name-wrap">{{ item?.file?.name }}</td>
-                <td *ngIf="_uploader.isHTML5" nowrap>{{ item?.file?.size/1024/1024 | number:'.3' }} MB</td>
-                <td *ngIf="_uploader.isHTML5">
-                    <div class="progress" style="margin-bottom: 0;">
-                        <div class="progress-bar" role="progressbar" [ngStyle]="{ 'width': item.progress + '%' }"></div>
-                    </div>
-                </td>
-                <td class="text-center">
-                    <span *ngIf="item.isSuccess"><i class="glyphicon glyphicon-ok"></i></span>
-                    <span *ngIf="item.isCancel"><i class="glyphicon glyphicon-ban-circle"></i></span>
-                    <span *ngIf="item.isError"><i class="glyphicon glyphicon-remove"></i></span>
-                </td>
-            </tr>
-            </tbody>
-        </table>
+        <span *ngIf="_isCreate">
+            <input type="file" ng2FileSelect [uploader]="_uploader" />
+            <p>Всего файлов: {{ _uploader?.queue?.length }}</p>
+            <table [hidden]="!_uploader.queue.length" class="table">
+                <thead>
+                <tr>
+                    <th>Файл</th>
+                    <th *ngIf="_uploader.isHTML5">Размер</th>
+                    <th><i class="fa fa-wrench" aria-hidden="true" title="Действия"></i> Действия</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr *ngFor="let item of _uploader.queue">
+                    <td class="file-name-wrap">{{ item?.file?.name }}</td>
+                    <td *ngIf="_uploader.isHTML5" nowrap>{{ item?.file?.size/1024/1024 | number:'.3' }} MB</td>
+                    <td class="text-center">
+                        <button (click)="removeFile(item)" type="button" class="btn btn-danger btn-sm" title="Удалить файл">
+                            <i class="fa fa-times" aria-hidden="true"></i>
+                        </button>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </span>
+        <span *ngIf="(!_isCreate)&&(localTD.files.length>0)">
+            <div>
+                <button *ngFor="let file of localTD.files" (click)="downloadFile(file)" type="button" class="btn btn-primary btn-sm" title="Скачать {{file.fileName}}">
+                    <i class="fa fa-floppy-o" aria-hidden="true"></i>
+                </button>
+            </div>
+        </span>
         <p style="margin: 10px 0;">Введите описание задачи:</p>
         <textarea [(ngModel)]="localTD.description" rows="3" cols="50" pInputTextarea autoResize="autoResize" style="width: 100%;"></textarea>
         <div *ngIf="!_isCreate">
@@ -56,6 +58,7 @@
                     <th class="text-center">Статус</th>
                     <th class="text-center">Ответ</th>
                     <th class="text-center"></th>
+                    <th></th>
                 </tr>
                 </thead>
                 <tbody>
@@ -73,6 +76,11 @@
                                 <i class="fa fa-ban" aria-hidden="true"></i>
                             </button>
                         </div>
+                    </td>
+                    <td>
+                        <button *ngFor="let file of item.files" (click)="downloadFile(file)" type="button" class="btn btn-primary btn-sm" title="Скачать {{file.fileName}}">
+                            <i class="fa fa-floppy-o" aria-hidden="true"></i>
+                        </button>
                     </td>
                 </tr>
                 </tbody>

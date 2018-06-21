@@ -1,9 +1,12 @@
 package com.unesco.core.entities.task;
 
+import com.unesco.core.entities.account.Role;
 import com.unesco.core.entities.account.User;
+import com.unesco.core.entities.file.FileDescription;
 
 import javax.persistence.*;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name="un_task_description")
@@ -24,6 +27,12 @@ public class TaskDescription {
     */
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "taskDescription")
     private List<TaskUser> taskUsers;
+
+    @ManyToMany(fetch = FetchType.EAGER, cascade = { CascadeType.MERGE })
+    @JoinTable(name = "un_TD_F",
+            joinColumns = {@JoinColumn(name = "taskDescription_id")},
+            inverseJoinColumns = {@JoinColumn(name = "fileDescription_id")})
+    private Set<FileDescription> files;
 
     private int status;
     private String description;
@@ -74,5 +83,13 @@ public class TaskDescription {
 
     public void setTaskUsers(List<TaskUser> taskUsers) {
         this.taskUsers = taskUsers;
+    }
+
+    public Set<FileDescription> getFiles() {
+        return files;
+    }
+
+    public void setFiles(Set<FileDescription> files) {
+        this.files = files;
     }
 }

@@ -47,22 +47,4 @@ export class  TaskService {
         return this.http.post(ApiRouteConstants.Task.AnswerTask, item, {params: params })
             .catch(this.handleError.handle);
     }
-
-    public getFileList(schetId: string): Observable<ResponseStatus> {
-        return this.http.get("task/getfile/1");
-    }
-
-    // грузим файл из базы
-    public downloadFile(fileId: number): void {
-        let a: HTMLAnchorElement = document.createElement('a');
-        let dataURI: string = "http://localhost:8080/api/task/download";
-        a.href = dataURI;
-        let e: MouseEvent = document.createEvent('MouseEvents');
-        // use of deprecated function to satisfy TypeScript.
-        e.initMouseEvent('click', true, false,
-            document.defaultView, 0, 0, 0, 0, 0,
-            false, false, false, false, 0, null);
-        a.dispatchEvent(e);
-        a.remove();
-    }
 }

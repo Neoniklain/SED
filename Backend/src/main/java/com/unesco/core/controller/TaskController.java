@@ -1,21 +1,16 @@
 package com.unesco.core.controller;
 
-import com.unesco.core.entities.task.TaskDescriptionFile;
-import com.unesco.core.entities.task.TaskUser;
-import com.unesco.core.models.TaskDescriptionModel;
-import com.unesco.core.models.TaskUserModel;
+import com.unesco.core.models.task.TaskDescriptionModel;
+import com.unesco.core.models.task.TaskUserModel;
 import com.unesco.core.models.account.UserModel;
 import com.unesco.core.models.additional.ResponseStatus;
-import com.unesco.core.repositories.task.TaskDescriptionFileRepository;
 import com.unesco.core.security.CustomUserDetailsService;
-import com.unesco.core.services.taskService.ITaskService;
+import com.unesco.core.managers.task.interfaces.ITaskService;
 import com.unesco.core.utils.StatusTypes;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -26,8 +21,6 @@ public class TaskController {
     private ITaskService _TaskDataService;
     @Autowired
     private CustomUserDetailsService _CustomUserDetailsService;
-    @Autowired
-    private TaskDescriptionFileRepository _fileRep;
 
     public ResponseStatus GetList() {
         long userId = _CustomUserDetailsService.getUserDetails().getId();
@@ -95,7 +88,7 @@ public class TaskController {
         return result;
     }
 
-    public ResponseStatus AddFile(long id, MultipartFile file) {
+    /*public ResponseStatus AddFile(long id, MultipartFile file) {
         try {
             TaskDescriptionFile temp = new TaskDescriptionFile();
             TaskDescriptionModel item =  _TaskDataService.getTaskDescriptionById(id);
@@ -115,10 +108,10 @@ public class TaskController {
     }
 
     public ResponseStatus GetFile(long id) {
-        Iterable<TaskDescriptionFile> res = _fileRep.findAll();
+        //Iterable<TaskDescriptionFile> res = _fileRep.findAll();
         ResponseStatus result = new ResponseStatus(StatusTypes.OK);
         result.addMessage("Файл добавлен");
-        result.setData(res);
+        //result.setData(res);
         return result;
     }
 
@@ -128,5 +121,5 @@ public class TaskController {
             return item;
         }
         return null;
-    }
+    }*/
 }

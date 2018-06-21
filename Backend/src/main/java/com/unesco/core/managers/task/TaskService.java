@@ -1,11 +1,13 @@
-package com.unesco.core.services.taskService;
+package com.unesco.core.managers.task;
 
-import com.unesco.core.entities.task.TaskUser;
-import com.unesco.core.models.TaskDescriptionModel;
-import com.unesco.core.models.TaskUserModel;
+import com.unesco.core.managers.task.interfaces.ITaskService;
+import com.unesco.core.models.task.TaskDescriptionModel;
+import com.unesco.core.models.task.TaskUserModel;
 import com.unesco.core.models.account.UserModel;
 import com.unesco.core.models.enums.TaskStatusType;
 import com.unesco.core.services.account.userService.IUserDataService;
+import com.unesco.core.services.file.fileByteCodeService.IFileByteCodeService;
+import com.unesco.core.services.file.fileDescriptionService.IFileDescriptionService;
 import com.unesco.core.services.mapperService.MapperService;
 import com.unesco.core.services.taskService.taskDescriptionService.ITaskDescriptionDataService;
 import com.unesco.core.services.taskService.taskUserService.ITaskUserDataService;
@@ -28,6 +30,10 @@ public class TaskService implements ITaskService
    IUserDataService _userDataService;
    @Autowired
    IUserDataService _userService;
+   @Autowired
+   IFileDescriptionService _fileDescriptionService;
+   @Autowired
+   IFileByteCodeService _fileByteCodeService;
 
    @Override
    public List<TaskDescriptionModel> getAllTaskDescription() {
@@ -75,6 +81,11 @@ public class TaskService implements ITaskService
    }
 
    @Override
+   public void updateTaskUser(TaskUserModel tu) {
+      _taskUserDataService.UpdateTaskUser(tu);
+   }
+
+   @Override
    public void deleteTaskDescription(long id) {
        TaskDescriptionModel task = _taskDescriptionDataService.Get(id);
        List<TaskUserModel> subTasks = _taskUserDataService.GetTaskUserByTaskDescription(id);
@@ -114,5 +125,10 @@ public class TaskService implements ITaskService
    @Override
    public List<TaskUserModel> getTaskUsersByExecutor(long id) {
       return _taskUserDataService.getTaskUsersByExecutor(id);
+   }
+
+   @Override
+   public TaskUserModel getTaskUserById(long id) {
+      return _taskUserDataService.Get(id);
    }
 }

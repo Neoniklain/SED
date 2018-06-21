@@ -72,6 +72,7 @@ import {JournalPageComponent} from "../components/account/account/journal-page/j
 import {LessonConfiguratorPageComponent} from "../components/account/account/lesson-configurator-page/lesson-configurator-page.component";
 import {LessonСonfiguratorComponent} from "../components/journal/lesson-configurator/lesson-configurator.component";
 import {InputTextModule} from "primeng/components/inputtext/inputtext";
+import {FileService} from "../services/file.service";
 
 @NgModule({
    imports: [
@@ -150,7 +151,8 @@ import {InputTextModule} from "primeng/components/inputtext/inputtext";
       AuthGuard,
       Globals,
       PairService,
-      PluginService
+      PluginService,
+      FileService
    ],
    entryComponents: [],
    bootstrap: [

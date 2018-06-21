@@ -1,7 +1,7 @@
 <p-dialog header="{{_title}}" [(visible)]="_show" modal="modal" [width]="450"
           [responsive]="true" [resizable]="true" [draggable]="true">
     <div style="height: 260px;">
-        <div class="row">
+        <div class="row" style="margin: 10px -15px;">
             <div class="col-md-6">
                 <input type="text" class="form-control" id="headerCreate" name="header" placeholder="Название задчи"
                        [(ngModel)]="localTD.name" [disabled]="true"/>
@@ -11,10 +11,18 @@
                        [(ngModel)]="localTD.creator.userFIO" [disabled]="true"/>
             </div>
         </div>
-        <div class="row">
+        <div class="row" style="margin: 10px -15px;">
             <div class="col-md-12">
                 <textarea [(ngModel)]="localTD.description" rows="3" cols="50" pInputTextarea title="Описание задачи"
                           autoResize="autoResize" style="width: 100%;" [disabled]="true"></textarea>
+            </div>
+        </div>
+        <div *ngIf="files.length>0" class="row" style="margin: 10px 0;">
+            <div>Файлы</div>
+            <div>
+                <button *ngFor="let file of files" (click)="downloadFile(file)" type="button" class="btn btn-primary btn-sm" title="Скачать {{file.fileName}}">
+                    <i class="fa fa-floppy-o" aria-hidden="true"></i>
+                </button>
             </div>
         </div>
         <hr>

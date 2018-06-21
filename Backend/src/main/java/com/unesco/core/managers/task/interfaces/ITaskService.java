@@ -1,7 +1,7 @@
-package com.unesco.core.services.taskService;
+package com.unesco.core.managers.task.interfaces;
 
-import com.unesco.core.models.TaskDescriptionModel;
-import com.unesco.core.models.TaskUserModel;
+import com.unesco.core.models.task.TaskDescriptionModel;
+import com.unesco.core.models.task.TaskUserModel;
 
 import java.util.List;
 
@@ -44,6 +44,12 @@ public interface ITaskService {
    void updateTaskDescription(TaskDescriptionModel td);
 
    /**
+    * Обновляет существующую реализацю задачи.
+    * @param td новая модель реализации задачи
+    */
+   void updateTaskUser(TaskUserModel tu);
+
+   /**
     * Удаляет описание задачи и её реализации.
     * @param id id существующей задачи
     */
@@ -66,4 +72,11 @@ public interface ITaskService {
     * @param id id пользователя
     */
    List<TaskUserModel> getTaskUsersByExecutor(long id);
+
+
+   /**
+    * Возвращает модель реализации задачи для указанного id.
+    * @param id id реализации задачи
+    */
+   TaskUserModel getTaskUserById(long id);
 }
