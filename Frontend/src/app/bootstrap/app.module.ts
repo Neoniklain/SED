@@ -44,7 +44,7 @@ import {DialogModule} from "primeng/components/dialog/dialog";
 import {GrowlModule} from "primeng/components/growl/growl";
 import {ConfirmDialogModule} from "primeng/components/confirmdialog/confirmdialog";
 import {MessageService} from "primeng/components/common/messageservice";
-import {CalendarModule, ConfirmationService, DataTableModule, DropdownModule} from "primeng/primeng";
+import {CalendarModule, ConfirmationService, DataTableModule, DropdownModule, PasswordModule} from "primeng/primeng";
 import {AccountService} from "../services/accountService";
 import {AccessDeniedComponent} from "../components/account/accessDenied/accessDenied.component";
 import {AdminPanelComponent} from "../components/adminPanel/adminPanel";
@@ -71,6 +71,7 @@ import {JournalPageComponent} from "../components/account/account/journal-page/j
 import {LessonConfiguratorPageComponent} from "../components/account/account/lesson-configurator-page/lesson-configurator-page.component";
 import {LessonСonfiguratorComponent} from "../components/journal/lesson-configurator/lesson-configurator.component";
 import {InputTextModule} from "primeng/components/inputtext/inputtext";
+import {SettingsPageComponent} from "../components/account/account/settings-page/settings-page.component";
 
 @NgModule({
    imports: [
@@ -90,6 +91,7 @@ import {InputTextModule} from "primeng/components/inputtext/inputtext";
       CalendarModule,
       DropdownModule,
       InputTextModule,
+      PasswordModule,
       AutoCompleteModule,
       ConfirmDialogModule
    ],
@@ -105,6 +107,7 @@ import {InputTextModule} from "primeng/components/inputtext/inputtext";
       LessonConfiguratorPageComponent,
       SingleNewsComponent,
       ListNewsComponent,
+      SettingsPageComponent,
       UserAddComponent,
       HeaderComponent,
       EditorSingleNewsComponent,

@@ -57,7 +57,8 @@ export const ApiRouteConstants = {
       Login: "account/login",
       Registration: "account/registration",
       Role: "account/role",
-      User: "account/user"
+      User: "account/user",
+      ChangePassword: "account/changePassword"
    },
     Pair: {
         All: "pairs",

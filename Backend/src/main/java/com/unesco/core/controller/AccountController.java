@@ -111,6 +111,22 @@ public class AccountController {
         return new ResponseStatus(StatusTypes.OK, user);
     }
 
+    @RequestMapping("/changePassword")
+    public ResponseStatus ChangePassword(@RequestBody Pass pass) {
+        UserModel user = new UserModel(_CustomUserDetailsService.getUserDetails());
+        userManager.Init(user);
+        ResponseStatus response = userManager.ChangePassword(pass.getNewPass(), pass.getOldPass());
+        if (response.getStatus() == StatusTypes.ERROR) return response;
+
+        try {
+            userDataService.Save(userManager.Get());
+        } catch (Exception e) {
+            response.setStatus(StatusTypes.ERROR);
+            response.addErrors("Не удалось изменить пароль");
+        }
+        return response;
+    }
+
     @RequestMapping(value = "/FindUsersByFIO/{req}")
     public ResponseStatus FindUsersByFIO(@PathVariable("req") String req) {
         userListManager.Init(userDataService.GetAll());
@@ -182,4 +198,25 @@ public class AccountController {
             return res;
         }
     }
+}
+
+class Pass {
+    public String getNewPass() {
+        return newPass;
+    }
+
+    public void setNewPass(String newPass) {
+        this.newPass = newPass;
+    }
+
+    public String getOldPass() {
+        return oldPass;
+    }
+
+    public void setOldPass(String oldPass) {
+        this.oldPass = oldPass;
+    }
+
+    String newPass;
+    String oldPass;
 }

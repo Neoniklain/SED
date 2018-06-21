@@ -1,0 +1,104 @@
+<ng-container  *ngIf="!showLoader">
+
+    <div class="header-panel-body">
+        <h3>Профиль</h3>
+    </div>
+
+    <div class="row">
+        <div class="col-md-3">
+            <div class="profile-photo">
+                <img class="profile-image" src="images/anon-user.jpg" alt="">
+                <button class="btn btn-default btn-sm">Загрузить фото...</button>
+            </div>
+        </div>
+        <div class="col-md-9">
+            <div class="profile-header">
+                <h2>{{user.userFIO}} <span class="nickname">({{user.username}})</span></h2>
+            </div>
+
+            <hr>
+
+            <h3>Информация</h3>
+
+            <div class="profile-info">
+
+                <form class="form-horizontal">
+                    <div class="form-group">
+                        <div class="info-label col-sm-3">
+                            <p class="form-control-static">Е-мэйл:</p>
+                        </div>
+                        <div class="col-sm-9">
+                            <p class="form-control-static">
+                                {{user.email}}
+                            </p>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="info-label col-sm-3">
+                            <p class="form-control-static">Роли:</p>
+                        </div>
+                        <div class="col-sm-9">
+                            <p class="form-control-static">
+                                <ng-container *ngFor="let role of user.roles">
+                                    {{role.roleName | translate}}
+                                </ng-container>
+                            </p>
+                        </div>
+                    </div>
+                </form>
+
+            </div>
+
+
+            <hr>
+
+            <h3>Смена пароля</h3>
+
+            <div class="change-password">
+                <div class="form-horizontal">
+                    <div class="form-group">
+                        <span class="col-sm-3 info-label">
+                            <p class="form-control-static">Текущий пароль:</p>
+                        </span>
+                        <div class="col-sm-6">
+                            <input  [(ngModel)]="passwordOld"
+                                    [promptLabel]="'Начните ввод'"
+                                    [weakLabel]="'Слабый'"
+                                    [mediumLabel]="'Средний'"
+                                    [strongLabel]="'Сильный'"
+                                    pPassword class="form-control" type="password" placeholder="12345">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <span class="col-sm-3 info-label">
+                            <p class="form-control-static">Подтверждение:</p>
+                        </span>
+                        <div class="col-sm-6">
+                            <input [(ngModel)]="passwordConfirm" class="form-control" type="password" placeholder="12345">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <span class="col-sm-3 info-label">
+                            <p class="form-control-static">Новый пароль:</p>
+                        </span>
+                        <div class="col-sm-6">
+                            <input  [(ngModel)]="passwordNew"
+                                    [promptLabel]="'Начните ввод'"
+                                    [weakLabel]="'Слабый'"
+                                    [mediumLabel]="'Средний'"
+                                    [strongLabel]="'Сильный'"
+                                    pPassword class="form-control" type="password" placeholder="qwe@12!wer%">
+                        </div>
+                    </div>
+                    <div class="col-sm-9 text-right">
+                        <button (click)="savePassword()" class="btn btn-success ">Сохранить</button>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+</ng-container>
+
+<data-loader [show]="showLoader"></data-loader>

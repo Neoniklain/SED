@@ -8,4 +8,5 @@ import java.util.List;
 
 public interface IRoleDataService extends IDataService<RoleModel> {
     List<RoleModel> GetPage(FilterQuery filter);
+    RoleModel GetByName(String name);
 }

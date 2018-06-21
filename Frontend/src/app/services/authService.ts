@@ -8,6 +8,7 @@ import {LogInUser, User} from "../models/account/user.model";
 import {Role} from "../models/account/role.model";
 import {ResponseStatus} from "../models/additional/responseStatus";
 import {HandelErrorService} from "./handelError.service";
+import {RequestOptions} from "@angular/http";
 
 export const TOKEN_NAME: string = 'token';
  
@@ -40,6 +41,11 @@ export class AuthenticationService {
     getUser(): Observable<ResponseStatus> {
         return this.http.get(ApiRouteConstants.Authentication.User)
             .catch(this.handleError.handle);
+    }
+
+    changePass(newPass: string, oldPass: string): Observable<ResponseStatus> {
+        return this.http.post(ApiRouteConstants.Authentication.ChangePassword
+            , {"newPass": newPass, "oldPass": oldPass});
     }
 
     logout() {

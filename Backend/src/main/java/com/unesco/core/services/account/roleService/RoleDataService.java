@@ -48,6 +48,13 @@ public class RoleDataService implements IRoleDataService {
         return model;
     }
 
+    public RoleModel GetByName(String name)
+    {
+        Role entity = roleRepository.findByRole(name);
+        RoleModel model = (RoleModel) mapperService.toModel(entity);
+        return model;
+    }
+
     public void Delete(long id)
     {
         roleRepository.delete(id);

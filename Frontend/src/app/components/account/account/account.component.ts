@@ -1,9 +1,7 @@
-import {Component, ContentChild, ElementRef, Injectable, NgModule, OnInit, ViewChild} from '@angular/core';
-import {NewsDispatcherComponent} from "./news-dispatcher/news-dispatcher.component";
+import {Component, Injectable, OnInit} from '@angular/core';
 import {Router} from "@angular/router";
 import {User} from "../../../models/account/user.model";
 import {AuthenticationService} from "../../../services/authService";
-import {TaskDescListComponent} from "../../task/taskList/taskDescList.component";
 import {Roles} from "../../../models/account/role.model";
 
 @Component({
@@ -17,10 +15,6 @@ export class AccountComponent implements OnInit {
   public user: User;
   public menuName: string;
   public Roles;
-
-  @ViewChild(NewsDispatcherComponent) newsDispatcherComponent: NewsDispatcherComponent;
-  @ViewChild(TaskDescListComponent) taskDescListComponent: TaskDescListComponent;
-
 
     constructor(private authenticationService: AuthenticationService,
               private router: Router) {

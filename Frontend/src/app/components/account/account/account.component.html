@@ -23,9 +23,6 @@
     <div class="col-md-2">
       <div class="head">
         <div class="panel panel-default panel-inverse">
-          <div class="panel-heading">
-            <h3><i class="fa fa-bars" aria-hidden="true"></i> Меню</h3>
-          </div>
           <div class="list-group">
             <a *hasRole="Roles.Administrator" style="cursor: pointer;" (click)="menuToole('news-dispatcher-page')"
                class="list-group-item">Управление новостями</a>
@@ -35,6 +32,8 @@
                class="list-group-item">Заполнение журнала</a>
             <a *hasRole="[Roles.Professor]" style="cursor: pointer;" (click)="menuToole('lesson-configurator')"
                class="list-group-item">Настройка занятий</a>
+            <a style="cursor: pointer;" (click)="menuToole('settings-page')"
+               class="list-group-item">Профиль</a>
           </div>
         </div>
       </div>
@@ -42,14 +41,12 @@
     <div class="col-md-10">
       <div class="head" [ngSwitch]="menuName">
         <div class="panel panel-default panel-inverse">
-          <div class="panel-heading">
-            <h3>{{menuName | translate}}</h3>
-          </div>
           <div class="panel-body">
             <news-dispatcher-page *ngSwitchCase="'news-dispatcher-page'"></news-dispatcher-page>
             <task-list *ngSwitchCase="'tasks-list'"></task-list>
             <journal-page *ngSwitchCase="'journal-page'"></journal-page>
             <lesson-configurator-page *ngSwitchCase="'lesson-configurator'"></lesson-configurator-page>
+            <settings-page *ngSwitchCase="'settings-page'"></settings-page>
           </div>
         </div>
       </div>

@@ -61,6 +61,7 @@ public class UserModel {
         this.id = u.getId();
         this.username = u.getUsername();
         this.userFIO = u.getUserFIO();
+        this.password = u.getPassword();
         this.email = u.getEmail();
         this.roles = new ArrayList<RoleModel>();
         for (Role role: u.getRole()) {

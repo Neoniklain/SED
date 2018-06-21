@@ -73,6 +73,40 @@ public class UserManager implements IUserManager {
 
     }
 
+    public ResponseStatus ChangePassword(String newPass, String oldPass) {
+        ResponseStatus responseStatus = new ResponseStatus();
+        responseStatus.setStatus(StatusTypes.OK);
+        if (newPass.equals("")) {
+            responseStatus.setStatus(StatusTypes.ERROR);
+            responseStatus.addErrors("Не указан новый пароль.");
+            return responseStatus;
+        }
+        if (newPass.equals("")) {
+            responseStatus.setStatus(StatusTypes.ERROR);
+            responseStatus.addErrors("Не указан старый пароль.");
+            return responseStatus;
+        }
+        if (newPass.length() < 5) {
+            responseStatus.setStatus(StatusTypes.ERROR);
+            responseStatus.addErrors("Новый пароль меньше 5 символов.");
+            return responseStatus;
+        }
+        if (!passwordEncoder.matches(oldPass,user.getPassword())) {
+            responseStatus.setStatus(StatusTypes.ERROR);
+            responseStatus.addErrors("Указан не верный пароль.");
+            return responseStatus;
+        }
+        if (newPass.equals(oldPass) || user.getPassword().equals(passwordEncoder.encode(newPass))) {
+            responseStatus.setStatus(StatusTypes.ERROR);
+            responseStatus.addErrors("Старый и новый пароль - одинаковые.");
+            return responseStatus;
+        }
+
+        user.setPassword(passwordEncoder.encode(newPass));
+
+        return responseStatus;
+    }
+
     public ResponseStatus Validate() {
         ResponseStatus responseStatus = new ResponseStatus();
         responseStatus.setStatus(StatusTypes.OK);
