@@ -17,6 +17,7 @@ public class News {
     private String header;
     @ManyToOne
     private User author;
+    @Type(type = "org.hibernate.type.TextType")
     private String content;
     private String tags;
     @Type(type="org.hibernate.type.BinaryType")

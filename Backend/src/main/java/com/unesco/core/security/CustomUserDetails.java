@@ -29,7 +29,7 @@ public class CustomUserDetails implements UserDetails {
         this.userFIO = user.getUserFIO();
         this.password = user.getPassword();
         this.email = user.getEmail();
-        this.photo = new String(user.getPhoto(), StandardCharsets.UTF_8);
+        this.photo = user.getPhoto() != null ? new String(user.getPhoto(), StandardCharsets.UTF_8) : "";
         this.roles = new ArrayList<Role>(user.getRoles());
     }
     @Override

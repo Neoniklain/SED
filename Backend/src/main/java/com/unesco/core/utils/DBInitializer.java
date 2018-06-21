@@ -16,6 +16,7 @@ import com.unesco.core.repositories.plan.InstituteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import java.util.HashSet;
@@ -24,6 +25,8 @@ import java.util.Set;
 @Component
 public class DBInitializer implements ApplicationRunner {
 
+    @Autowired
+    private PasswordEncoder passwordEncoder;
     @Autowired
     private UserRepository _UserRepository;
     @Autowired
@@ -61,7 +64,7 @@ public class DBInitializer implements ApplicationRunner {
             Set<Role> role = new HashSet<Role>();
             Role userRole = _RoleRepository.findByRole("ADMIN");
             role.add(userRole);
-            User testUser = new User("admin","Администратор", "admin@mail.com", "$2a$10$Z3MfoVmt1CNwETyjTEtL9.MTbmc8AuX.c3rpBh097D6rSZ64v3rD.");
+            User testUser = new User("admin","Администратор", "admin@mail.com", passwordEncoder.encode("12345"));
             testUser.setRoles(role);
             _UserRepository.save(testUser);
         }
