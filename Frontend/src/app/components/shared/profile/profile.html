@@ -1,0 +1,35 @@
+﻿<div *ngIf="show" class="loader-position">
+    <div class="loader"></div>
+</div>
+
+<div class="profile">
+    <div class="profile-row">
+        <div class="profile-photo">
+            <div class="user-img">
+                <img [src]="user.photo" alt="">
+            </div>
+        </div>
+        <div class="profile-info">
+            <div>
+                <span class="profile-label">Логин:</span>
+                <span class="profile-text">{{user.username}}</span>
+            </div>
+            <div>
+                <span class="profile-label">ФИО:</span>
+                <span class="profile-text">{{user.userFIO}}</span>
+            </div>
+            <div>
+                <span class="profile-label">Е-мэйл:</span>
+                <span class="profile-text">{{user.email}}</span>
+            </div>
+            <div>
+                <span class="profile-label">Роли:</span>
+                <span class="profile-text">
+                    <ng-container *ngFor="let role of user.roles">
+                        {{role.roleName}}
+                    </ng-container>
+                </span>
+            </div>
+        </div>
+    </div>
+</div>

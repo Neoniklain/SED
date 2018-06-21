@@ -7,11 +7,15 @@
   <div class="col-xs-12 col-md-8">
     <div class="news-header">
       <h2><a href="#">{{item.header}}</a></h2>
+        <!--<profile [user]="item.author"></profile>-->
       <span><i class="fa fa-calendar" aria-hidden="true"></i>
         {{item.date | date:'dd.MM.yyyy'}}
       </span>
       <span *ngIf="tags" class="tags"><i class="fa fa-tags" aria-hidden="true"></i>
         <a class="single-tag" *ngFor="let tag of tags">#{{tag}}</a>
+      </span>
+      <span class="tags" [userCard]="item.author"><i class="fa fa-user" aria-hidden="true"></i>
+        {{item.author.userFIO}}
       </span>
       <hr class="hr_header">
     </div>

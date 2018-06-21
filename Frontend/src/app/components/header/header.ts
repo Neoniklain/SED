@@ -4,7 +4,7 @@ import {Message} from "primeng/components/common/message";
 import {Roles} from "../../models/account/role.model";
 
 import {AuthenticationService} from "../../services/authService";
-import {HasRoleDirective} from '../../guards/hasRole.dirictive';
+import {HasRoleDirective} from '../../directive/hasRole.dirictive';
 import {Globals} from "../../globals";
 import {RouteConstants} from "../../bootstrap/app.route.constants";
 import {User} from "../../models/account/user.model";

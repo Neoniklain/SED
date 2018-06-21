@@ -48,7 +48,7 @@ import {CalendarModule, ConfirmationService, DataTableModule, DropdownModule, Pa
 import {AccountService} from "../services/accountService";
 import {AccessDeniedComponent} from "../components/account/accessDenied/accessDenied.component";
 import {AdminPanelComponent} from "../components/adminPanel/adminPanel";
-import {HasRoleDirective} from "../guards/hasRole.dirictive";
+import {HasRoleDirective} from "../directive/hasRole.dirictive";
 import {Globals} from "../globals";
 import {DictionaryTableComponent} from "../components/adminPanel/dictionaryTable/dictionaryTable.component";
 import {DictionaryService} from "../services/dictionary.service";
@@ -56,7 +56,7 @@ import {ParserXmlComponent} from "../components/adminPanel/parserXml/parserXml.c
 import {JournalComponent} from "../components/journal/journal.component";
 import {JournalService} from "../services/journal.service";
 import {DictionaryTableAddComponent} from "../components/adminPanel/dictionaryTable/added/dictionaryTableAdd.component";
-import {LoaderComponent} from "../components/shared/loader";
+import {LoaderComponent} from "../components/shared/loader/loader";
 import {UtilsService} from "../services/utils.service";
 import {WeekScheduleComponent} from "../components/schedule/weekSchedule/weekSchedule.component";
 import {ShowScheduleComponent} from "../components/adminPanel/showSchedule/show-schedule.component";
@@ -72,6 +72,8 @@ import {LessonConfiguratorPageComponent} from "../components/account/account/les
 import {LessonСonfiguratorComponent} from "../components/journal/lesson-configurator/lesson-configurator.component";
 import {InputTextModule} from "primeng/components/inputtext/inputtext";
 import {SettingsPageComponent} from "../components/account/account/settings-page/settings-page.component";
+import {ProfileComponent} from "../components/shared/profile/profile";
+import {ProfileDirective} from "../directive/profile.dirictive";
 
 @NgModule({
    imports: [
@@ -95,6 +97,9 @@ import {SettingsPageComponent} from "../components/account/account/settings-page
       AutoCompleteModule,
       ConfirmDialogModule
    ],
+    entryComponents: [
+        ProfileComponent
+    ],
    declarations: [
       AppComponent,
       AccountComponent,
@@ -102,6 +107,7 @@ import {SettingsPageComponent} from "../components/account/account/settings-page
       TaskDescListComponent,
       NewTaskDescComponent,
       WorkTaskComponent,
+      ProfileComponent,
       LogInComponent,
       JournalPageComponent,
       LessonConfiguratorPageComponent,
@@ -118,6 +124,7 @@ import {SettingsPageComponent} from "../components/account/account/settings-page
       EnumKeysPipe,
       EnumStringKeysPipe,
       FileSelectDirective,
+      ProfileDirective,
       DictionaryTableComponent,
       ParserXmlComponent,
       WeekScheduleComponent,
@@ -153,7 +160,6 @@ import {SettingsPageComponent} from "../components/account/account/settings-page
       PairService,
       PluginService
    ],
-   entryComponents: [],
    bootstrap: [
       AppComponent
    ]
