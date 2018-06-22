@@ -2,13 +2,11 @@ package com.unesco.core.managers.schedule.sheduleDepartmentManager;
 
 import com.unesco.core.managers.schedule.pairManager.interfaces.pairList.IPairListManager;
 import com.unesco.core.managers.schedule.sheduleDepartmentManager.sheduleDepartment.ISheduleDepartmentManager;
-import com.unesco.core.models.account.ProfessorModel;
-import com.unesco.core.models.additional.ResponseStatus;
-import com.unesco.core.models.plan.DepartmentModel;
-import com.unesco.core.models.shedule.DepartmentSheduleModel;
-import com.unesco.core.models.shedule.PairModel;
-import com.unesco.core.models.shedule.SheduleProfessorLineModel;
-import com.unesco.core.utils.StatusTypes;
+import com.unesco.core.models.account.ProfessorDTO;
+import com.unesco.core.models.plan.DepartmentDTO;
+import com.unesco.core.models.shedule.DepartmentSheduleDTO;
+import com.unesco.core.models.shedule.PairDTO;
+import com.unesco.core.models.shedule.SheduleProfessorLineDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
@@ -20,25 +18,25 @@ import java.util.stream.Collectors;
 @Scope("prototype")
 public class SheduleDepartmentManager implements ISheduleDepartmentManager {
 
-    private DepartmentSheduleModel departmentShedule;
+    private DepartmentSheduleDTO departmentShedule;
 
     @Autowired
     private IPairListManager pairListManager;
 
     public SheduleDepartmentManager() {
-        departmentShedule = new DepartmentSheduleModel();
+        departmentShedule = new DepartmentSheduleDTO();
     }
 
-    public void Init(List<PairModel> pairList, List<ProfessorModel> professorList, DepartmentModel department) {
+    public void Init(List<PairDTO> pairList, List<ProfessorDTO> professorList, DepartmentDTO department) {
 
         pairListManager.Init(pairList);
         pairListManager.ApplayFilter(department);
 
-        List<SheduleProfessorLineModel> line = new ArrayList<>();
+        List<SheduleProfessorLineDTO> line = new ArrayList<>();
 
-        for (ProfessorModel p: professorList) {
-            List<PairModel> collect = pairList.stream().filter(o -> o.getLesson().getProfessor().getId() == p.getId()).collect(Collectors.toList());
-            SheduleProfessorLineModel sheduleLineModel = new SheduleProfessorLineModel();
+        for (ProfessorDTO p: professorList) {
+            List<PairDTO> collect = pairList.stream().filter(o -> o.getLesson().getProfessor().getId() == p.getId()).collect(Collectors.toList());
+            SheduleProfessorLineDTO sheduleLineModel = new SheduleProfessorLineDTO();
             sheduleLineModel.setPairs(collect);
             sheduleLineModel.setProfessor(p);
             line.add(sheduleLineModel);
@@ -47,7 +45,7 @@ public class SheduleDepartmentManager implements ISheduleDepartmentManager {
         departmentShedule.setLines(line);
     }
 
-    public DepartmentSheduleModel Get() {
+    public DepartmentSheduleDTO Get() {
         return departmentShedule;
     }
 

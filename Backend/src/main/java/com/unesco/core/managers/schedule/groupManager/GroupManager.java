@@ -1,8 +1,8 @@
 package com.unesco.core.managers.schedule.groupManager;
 
 import com.unesco.core.managers.schedule.groupManager.interfaces.group.IGroupManager;
-import com.unesco.core.models.additional.ResponseStatus;
-import com.unesco.core.models.shedule.GroupModel;
+import com.unesco.core.models.additional.ResponseStatusDTO;
+import com.unesco.core.models.shedule.GroupDTO;
 import com.unesco.core.services.schedule.groupService.IGroupDataService;
 import com.unesco.core.utils.StatusTypes;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,32 +16,32 @@ public class GroupManager implements IGroupManager {
 @Autowired
 public IGroupDataService dataService;
 
-    GroupModel group;
+    GroupDTO group;
 
     public GroupManager() {
-        group = new GroupModel();
+        group = new GroupDTO();
     }
 
-    public void Init(GroupModel Group) {
+    public void Init(GroupDTO Group) {
         group = Group;
     }
 
-    public GroupModel Get() {
+    public GroupDTO Get() {
         return group;
     }
 
-    public ResponseStatus Validate() {
-        ResponseStatus responseStatus = new ResponseStatus();
-        responseStatus.setStatus(StatusTypes.OK);
+    public ResponseStatusDTO Validate() {
+        ResponseStatusDTO responseStatusDTO = new ResponseStatusDTO();
+        responseStatusDTO.setStatus(StatusTypes.OK);
         if (group.getName().equals("")) {
-            responseStatus.setStatus(StatusTypes.ERROR);
-            responseStatus.addErrors("Не указано название группы");
+            responseStatusDTO.setStatus(StatusTypes.ERROR);
+            responseStatusDTO.addErrors("Не указано название группы");
         }
         if (group.getDepartment().getId() == 0) {
-            responseStatus.setStatus(StatusTypes.ERROR);
-            responseStatus.addErrors("Не указана кафедра");
+            responseStatusDTO.setStatus(StatusTypes.ERROR);
+            responseStatusDTO.addErrors("Не указана кафедра");
         }
-        return responseStatus;
+        return responseStatusDTO;
     }
 
 }

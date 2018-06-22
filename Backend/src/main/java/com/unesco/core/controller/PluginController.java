@@ -1,23 +1,20 @@
 package com.unesco.core.controller;
 
-import com.unesco.core.models.PluginModel;
+import com.unesco.core.models.PluginDTO;
 import com.unesco.core.plugin.Plugin;
 import com.unesco.core.pluginfactory.PluginFactory;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 
-@RestController
-@RequestMapping("/api/demo")
+@Service
 public class PluginController {
-    @RequestMapping("/plugins")
-    public ArrayList<PluginModel> plugins() {
+
+    public ArrayList<PluginDTO> plugins() {
         ArrayList<Plugin> plugins = PluginFactory.getPlugins();
-        ArrayList<PluginModel> pluginModels = new ArrayList<>();
+        ArrayList<PluginDTO> pluginModels = new ArrayList<>();
         for(Plugin p : plugins) {
-            PluginModel pm = new PluginModel();
+            PluginDTO pm = new PluginDTO();
             pm.setName(p.getName());
             pm.setDescription(p.getDescription());
             pluginModels.add(pm);
@@ -26,8 +23,7 @@ public class PluginController {
         return pluginModels;
     }
 
-    @RequestMapping("/plugin/{name}")
-    public void startPlugin(@PathVariable String name) {
+    public void startPlugin(String name) {
         ArrayList<Plugin> plugins = PluginFactory.getPlugins();
         for(Plugin p : plugins)
             if(p.getName().equals(name)) {

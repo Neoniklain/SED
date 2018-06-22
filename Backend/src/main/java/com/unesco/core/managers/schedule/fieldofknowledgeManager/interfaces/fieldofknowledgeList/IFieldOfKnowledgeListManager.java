@@ -1,7 +1,7 @@
 package com.unesco.core.managers.schedule.fieldofknowledgeManager.interfaces.fieldofknowledgeList;
 
 import com.unesco.core.managers.IListManager;
-import com.unesco.core.models.shedule.FieldOfKnowledgeModel;
+import com.unesco.core.models.shedule.FieldOfKnowledgeDTO;
 
-public interface IFieldOfKnowledgeListManager extends IListManager<FieldOfKnowledgeModel> {
+public interface IFieldOfKnowledgeListManager extends IListManager<FieldOfKnowledgeDTO> {
 }

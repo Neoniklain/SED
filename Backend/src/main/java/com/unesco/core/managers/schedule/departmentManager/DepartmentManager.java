@@ -1,8 +1,8 @@
 package com.unesco.core.managers.schedule.departmentManager;
 
 import com.unesco.core.managers.schedule.departmentManager.interfaces.department.IDepartmentManager;
-import com.unesco.core.models.additional.ResponseStatus;
-import com.unesco.core.models.plan.DepartmentModel;
+import com.unesco.core.models.additional.ResponseStatusDTO;
+import com.unesco.core.models.plan.DepartmentDTO;
 import com.unesco.core.services.schedule.departmentService.IDepartmentDataService;
 import com.unesco.core.utils.StatusTypes;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,31 +16,31 @@ public class DepartmentManager implements IDepartmentManager {
     @Autowired
     public IDepartmentDataService dataService;
 
-    DepartmentModel department;
+    DepartmentDTO department;
 
     public DepartmentManager() {
-        department = new DepartmentModel();
+        department = new DepartmentDTO();
     }
 
-    public void Init(DepartmentModel Department) {
+    public void Init(DepartmentDTO Department) {
         department = Department;
     }
 
-    public DepartmentModel Get() {
+    public DepartmentDTO Get() {
         return department;
     }
 
-    public ResponseStatus Validate() {
-        ResponseStatus responseStatus = new ResponseStatus();
-        responseStatus.setStatus(StatusTypes.OK);
+    public ResponseStatusDTO Validate() {
+        ResponseStatusDTO responseStatusDTO = new ResponseStatusDTO();
+        responseStatusDTO.setStatus(StatusTypes.OK);
         if (department.getName().equals("")) {
-            responseStatus.setStatus(StatusTypes.ERROR);
-            responseStatus.addErrors("Не указано название кафедры");
+            responseStatusDTO.setStatus(StatusTypes.ERROR);
+            responseStatusDTO.addErrors("Не указано название кафедры");
         }
         if (department.getInstitute().getId() == 0) {
-            responseStatus.setStatus(StatusTypes.ERROR);
-            responseStatus.addErrors("Не указан институт");
+            responseStatusDTO.setStatus(StatusTypes.ERROR);
+            responseStatusDTO.addErrors("Не указан институт");
         }
-        return responseStatus;
+        return responseStatusDTO;
     }
 }

@@ -1,7 +1,7 @@
 package com.unesco.core.services.plan.competenceService;
 
-import com.unesco.core.entities.plan.Competence;
-import com.unesco.core.models.additional.FilterQuery;
+import com.unesco.core.entities.plan.CompetenceEntity;
+import com.unesco.core.models.additional.FilterQueryDTO;
 import com.unesco.core.repositories.plan.CompetenceRepository;
 import com.unesco.core.services.mapperService.IMapperService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,32 +16,32 @@ public class CompetenceDataService implements ICompetenceDataService {
     @Autowired
     private CompetenceRepository competenceRepository;
 
-    public List<Competence> GetPage(FilterQuery filter) {
+    public List<CompetenceEntity> GetPage(FilterQueryDTO filter) {
         int rows = filter.getRows()>0? filter.getRows() : (int) competenceRepository.count();
         int start = rows>0 ? filter.getFirst()/rows: 1;
-        List<Competence> entitys = competenceRepository.findWithFilter(new PageRequest(start, rows == 0 ? 10 : rows), filter.getGlobalFilter());
-        List<Competence> result = new ArrayList<Competence>();
-        for (Competence e: entitys) {
-            result.add((Competence) mapperService.toModel(e));
+        List<CompetenceEntity> entitys = competenceRepository.findWithFilter(new PageRequest(start, rows == 0 ? 10 : rows), filter.getGlobalFilter());
+        List<CompetenceEntity> result = new ArrayList<CompetenceEntity>();
+        for (CompetenceEntity e: entitys) {
+            result.add((CompetenceEntity) mapperService.toModel(e));
         }
         return result;
     }
 
-    public List<Competence> GetAll()
+    public List<CompetenceEntity> GetAll()
     {
-        List<Competence> modelList = new ArrayList<>();
-        Iterable<Competence> entityList = competenceRepository.findAll();
-        for (Competence item: entityList) {
-            Competence model = (Competence) mapperService.toModel(item);
+        List<CompetenceEntity> modelList = new ArrayList<>();
+        Iterable<CompetenceEntity> entityList = competenceRepository.findAll();
+        for (CompetenceEntity item: entityList) {
+            CompetenceEntity model = (CompetenceEntity) mapperService.toModel(item);
             modelList.add(model);
         }
         return modelList;
     }
 
-    public Competence Get(long id)
+    public CompetenceEntity Get(long id)
     {
-        Competence entity = competenceRepository.findOne(id);
-        Competence model = (Competence) mapperService.toModel(entity);
+        CompetenceEntity entity = competenceRepository.findOne(id);
+        CompetenceEntity model = (CompetenceEntity) mapperService.toModel(entity);
         return model;
     }
 
@@ -50,11 +50,11 @@ public class CompetenceDataService implements ICompetenceDataService {
         competenceRepository.delete(id);
     }
 
-    public Competence Save(Competence competence)
+    public CompetenceEntity Save(CompetenceEntity competenceEntity)
     {
-        Competence entity = (Competence) mapperService.toEntity(competence);
-        Competence model = competenceRepository.save(entity);
-        competence = (Competence) mapperService.toModel(model);
-        return competence;
+        CompetenceEntity entity = (CompetenceEntity) mapperService.toEntity(competenceEntity);
+        CompetenceEntity model = competenceRepository.save(entity);
+        competenceEntity = (CompetenceEntity) mapperService.toModel(model);
+        return competenceEntity;
     }
 }

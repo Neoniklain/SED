@@ -4,9 +4,9 @@ import com.unesco.core.managers.account.professorManager.interfaces.professor.IP
 import com.unesco.core.managers.account.roleManager.interfaces.roleList.IRoleListManager;
 import com.unesco.core.managers.account.studentManager.interfaces.student.IStudentManager;
 import com.unesco.core.managers.account.userManager.interfaces.user.IUserManager;
-import com.unesco.core.models.account.RoleModel;
-import com.unesco.core.models.account.UserModel;
-import com.unesco.core.models.additional.ResponseStatus;
+import com.unesco.core.models.account.RoleDTO;
+import com.unesco.core.models.account.UserDTO;
+import com.unesco.core.models.additional.ResponseStatusDTO;
 import com.unesco.core.models.enums.RoleType;
 import com.unesco.core.utils.StatusTypes;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,21 +30,21 @@ public class UserManager implements IUserManager {
     @Autowired
     public IRoleListManager roleListManager;
 
-    public UserModel user;
+    public UserDTO user;
 
     UserManager() {
-        user = new UserModel();
+        user = new UserDTO();
     }
 
-    public void Init(UserModel User) {
+    public void Init(UserDTO User) {
         user = User;
     }
 
-    public UserModel Get() {
+    public UserDTO Get() {
         return user;
     }
 
-    public UserModel GetWithoutPasss() {
+    public UserDTO GetWithoutPasss() {
         return user;
     }
 
@@ -52,7 +52,7 @@ public class UserManager implements IUserManager {
         user.setPassword("");
     }
 
-    public void Create(UserModel User, List<RoleModel> roleList)
+    public void Create(UserDTO User, List<RoleDTO> roleList)
     {
         roleListManager.Init(roleList);
         user.setEmail(User.getEmail());
@@ -62,8 +62,8 @@ public class UserManager implements IUserManager {
 
         // Если роли нет назначаем роль пользователя
         if(User.getRoles().size() == 0) {
-            List<RoleModel> roles = new ArrayList<RoleModel>();
-            RoleModel r = roleListManager.GetRole(RoleType.GUEST);
+            List<RoleDTO> roles = new ArrayList<RoleDTO>();
+            RoleDTO r = roleListManager.GetRole(RoleType.GUEST);
             roles.add(r);
             user.setRoles(roles);
         }
@@ -73,81 +73,81 @@ public class UserManager implements IUserManager {
 
     }
 
-    public ResponseStatus ChangePassword(String newPass, String oldPass) {
-        ResponseStatus responseStatus = new ResponseStatus();
-        responseStatus.setStatus(StatusTypes.OK);
+    public ResponseStatusDTO ChangePassword(String newPass, String oldPass) {
+        ResponseStatusDTO responseStatusDTO = new ResponseStatusDTO();
+        responseStatusDTO.setStatus(StatusTypes.OK);
         if (newPass.equals("")) {
-            responseStatus.setStatus(StatusTypes.ERROR);
-            responseStatus.addErrors("Не указан новый пароль.");
-            return responseStatus;
+            responseStatusDTO.setStatus(StatusTypes.ERROR);
+            responseStatusDTO.addErrors("Не указан новый пароль.");
+            return responseStatusDTO;
         }
         if (newPass.equals("")) {
-            responseStatus.setStatus(StatusTypes.ERROR);
-            responseStatus.addErrors("Не указан старый пароль.");
-            return responseStatus;
+            responseStatusDTO.setStatus(StatusTypes.ERROR);
+            responseStatusDTO.addErrors("Не указан старый пароль.");
+            return responseStatusDTO;
         }
         if (newPass.length() < 5) {
-            responseStatus.setStatus(StatusTypes.ERROR);
-            responseStatus.addErrors("Новый пароль меньше 5 символов.");
-            return responseStatus;
+            responseStatusDTO.setStatus(StatusTypes.ERROR);
+            responseStatusDTO.addErrors("Новый пароль меньше 5 символов.");
+            return responseStatusDTO;
         }
         if (!passwordEncoder.matches(oldPass,user.getPassword())) {
-            responseStatus.setStatus(StatusTypes.ERROR);
-            responseStatus.addErrors("Указан не верный пароль.");
-            return responseStatus;
+            responseStatusDTO.setStatus(StatusTypes.ERROR);
+            responseStatusDTO.addErrors("Указан не верный пароль.");
+            return responseStatusDTO;
         }
         if (newPass.equals(oldPass) || user.getPassword().equals(passwordEncoder.encode(newPass))) {
-            responseStatus.setStatus(StatusTypes.ERROR);
-            responseStatus.addErrors("Старый и новый пароль - одинаковые.");
-            return responseStatus;
+            responseStatusDTO.setStatus(StatusTypes.ERROR);
+            responseStatusDTO.addErrors("Старый и новый пароль - одинаковые.");
+            return responseStatusDTO;
         }
 
         user.setPassword(passwordEncoder.encode(newPass));
 
-        return responseStatus;
+        return responseStatusDTO;
     }
 
-    public ResponseStatus ChangePhoto(String photo) {
-        ResponseStatus responseStatus = new ResponseStatus();
-        responseStatus.setStatus(StatusTypes.OK);
+    public ResponseStatusDTO ChangePhoto(String photo) {
+        ResponseStatusDTO responseStatusDTO = new ResponseStatusDTO();
+        responseStatusDTO.setStatus(StatusTypes.OK);
         if (photo.equals("")) {
-            responseStatus.setStatus(StatusTypes.ERROR);
-            responseStatus.addErrors("Не задана новыая фотография.");
-            return responseStatus;
+            responseStatusDTO.setStatus(StatusTypes.ERROR);
+            responseStatusDTO.addErrors("Не задана новыая фотография.");
+            return responseStatusDTO;
         }
 
         user.setPhoto(photo);
 
-        return responseStatus;
+        return responseStatusDTO;
     }
 
-    public ResponseStatus Validate() {
-        ResponseStatus responseStatus = new ResponseStatus();
-        responseStatus.setStatus(StatusTypes.OK);
+    public ResponseStatusDTO Validate() {
+        ResponseStatusDTO responseStatusDTO = new ResponseStatusDTO();
+        responseStatusDTO.setStatus(StatusTypes.OK);
         if (user.getRoles().size() == 0) {
-            responseStatus.addErrors("Не указана роль. Назначена роль 'ГОСТЬ'.");
+            responseStatusDTO.addErrors("Не указана роль. Назначена роль 'ГОСТЬ'.");
         }
         if (user.getUserFIO().equals("")) {
-            responseStatus.setStatus(StatusTypes.ERROR);
-            responseStatus.addErrors("Не указано ФИО.");
+            responseStatusDTO.setStatus(StatusTypes.ERROR);
+            responseStatusDTO.addErrors("Не указано ФИО.");
         }
         if (user.getUsername().equals("")) {
-            responseStatus.setStatus(StatusTypes.ERROR);
-            responseStatus.addErrors("Не указан логин.");
+            responseStatusDTO.setStatus(StatusTypes.ERROR);
+            responseStatusDTO.addErrors("Не указан логин.");
         }
         if (user.getPassword().equals("")) {
-            responseStatus.setStatus(StatusTypes.ERROR);
-            responseStatus.addErrors("Не указан пароль.");
+            responseStatusDTO.setStatus(StatusTypes.ERROR);
+            responseStatusDTO.addErrors("Не указан пароль.");
         }
         if (user.getPassword().length() < 5) {
-            responseStatus.setStatus(StatusTypes.ERROR);
-            responseStatus.addErrors("Пароль должен быть больше 5 символов.");
+            responseStatusDTO.setStatus(StatusTypes.ERROR);
+            responseStatusDTO.addErrors("Пароль должен быть больше 5 символов.");
         }
         if (user.getEmail().equals("")) {
-            responseStatus.setStatus(StatusTypes.ERROR);
-            responseStatus.addErrors("Не указан email.");
+            responseStatusDTO.setStatus(StatusTypes.ERROR);
+            responseStatusDTO.addErrors("Не указан email.");
         }
-        return responseStatus;
+        return responseStatusDTO;
     }
 
 

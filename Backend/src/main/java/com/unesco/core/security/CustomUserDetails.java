@@ -1,8 +1,8 @@
 package com.unesco.core.security;
 
 
-import com.unesco.core.entities.account.Role;
-import com.unesco.core.entities.account.User;
+import com.unesco.core.entities.account.RoleEntity;
+import com.unesco.core.entities.account.UserEntity;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -20,21 +20,21 @@ public class CustomUserDetails implements UserDetails {
     private String password;
     private String email;
     private String photo;
-    private List<Role> roles;
+    private List<RoleEntity> roleEntities;
     private static final long serialVersionUID = 1L;
 
-    public CustomUserDetails(User user){
-        this.id = user.getId();
-        this.username = user.getUsername();
-        this.userFIO = user.getUserFIO();
-        this.password = user.getPassword();
-        this.email = user.getEmail();
-        this.photo = user.getPhoto() != null ? new String(user.getPhoto(), StandardCharsets.UTF_8) : "";
-        this.roles = new ArrayList<Role>(user.getRoles());
+    public CustomUserDetails(UserEntity userEntity){
+        this.id = userEntity.getId();
+        this.username = userEntity.getUsername();
+        this.userFIO = userEntity.getUserFIO();
+        this.password = userEntity.getPassword();
+        this.email = userEntity.getEmail();
+        this.photo = userEntity.getPhoto() != null ? new String(userEntity.getPhoto(), StandardCharsets.UTF_8) : "";
+        this.roleEntities = new ArrayList<RoleEntity>(userEntity.getRoleEntities());
     }
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return AuthorityUtils.createAuthorityList("ROLE_"+roles);
+        return AuthorityUtils.createAuthorityList("ROLE_"+ roleEntities);
     }
     @Override
     public boolean isAccountNonExpired() {
@@ -57,8 +57,8 @@ public class CustomUserDetails implements UserDetails {
         return this.id;
     }
 
-    public List<Role> getRole() {
-        return this.roles;
+    public List<RoleEntity> getRole() {
+        return this.roleEntities;
     }
 
     public String getEmail() {

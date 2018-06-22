@@ -1,8 +1,8 @@
 package com.unesco.core.services.news.newsService;
 
-import com.unesco.core.entities.news.News;
-import com.unesco.core.models.news.NewsModel;
-import com.unesco.core.models.additional.FilterQuery;
+import com.unesco.core.entities.news.NewsEntity;
+import com.unesco.core.models.news.NewsDTO;
+import com.unesco.core.models.additional.FilterQueryDTO;
 import com.unesco.core.repositories.news.NewsRepository;
 import com.unesco.core.services.mapperService.IMapperService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,32 +20,32 @@ public class NewsDataService implements INewsDataService {
     @Autowired
     private NewsRepository newsRepository;
 
-    public List<NewsModel> GetPage(FilterQuery filter) {
+    public List<NewsDTO> GetPage(FilterQueryDTO filter) {
         int rows = filter.getRows()>0? filter.getRows() : (int) newsRepository.count();
         int start = rows>0 ? filter.getFirst()/rows: 1;
-        List<News> entitys = newsRepository.findWithFilter(new PageRequest(start, rows == 0 ? 10 : rows), filter.getGlobalFilter());
-        List<NewsModel> result = new ArrayList<>();
-        for (News e: entitys) {
-            result.add((NewsModel) mapperService.toModel(e));
+        List<NewsEntity> entitys = newsRepository.findWithFilter(new PageRequest(start, rows == 0 ? 10 : rows), filter.getGlobalFilter());
+        List<NewsDTO> result = new ArrayList<>();
+        for (NewsEntity e: entitys) {
+            result.add((NewsDTO) mapperService.toModel(e));
         }
         return result;
     }
 
-    public List<NewsModel> GetAll()
+    public List<NewsDTO> GetAll()
     {
-        List<NewsModel> modelList = new ArrayList<>();
-        Iterable<News> entityList = newsRepository.findAll();
-        for (News item: entityList) {
-            NewsModel model = (NewsModel) mapperService.toModel(item);
+        List<NewsDTO> modelList = new ArrayList<>();
+        Iterable<NewsEntity> entityList = newsRepository.findAll();
+        for (NewsEntity item: entityList) {
+            NewsDTO model = (NewsDTO) mapperService.toModel(item);
             modelList.add(model);
         }
         return modelList;
     }
 
-    public NewsModel Get(long id)
+    public NewsDTO Get(long id)
     {
-        News entity = newsRepository.findOne(id);
-        NewsModel model = (NewsModel) mapperService.toModel(entity);
+        NewsEntity entity = newsRepository.findOne(id);
+        NewsDTO model = (NewsDTO) mapperService.toModel(entity);
         return model;
     }
 
@@ -54,17 +54,17 @@ public class NewsDataService implements INewsDataService {
         newsRepository.delete(id);
     }
 
-    public NewsModel Save(NewsModel news)
+    public NewsDTO Save(NewsDTO news)
     {
-        News entity = (News) mapperService.toEntity(news);
+        NewsEntity entity = (NewsEntity) mapperService.toEntity(news);
         entity = newsRepository.save(entity);
-        news = (NewsModel) mapperService.toModel(entity);
+        news = (NewsDTO) mapperService.toModel(entity);
         return news;
     }
 
-    public NewsModel GetLast()
+    public NewsDTO GetLast()
     {
-        News entity = newsRepository.findTop1ByOrderByDateDesc();
-        return (NewsModel) mapperService.toModel(entity);
+        NewsEntity entity = newsRepository.findTop1ByOrderByDateDesc();
+        return (NewsDTO) mapperService.toModel(entity);
     }
 }

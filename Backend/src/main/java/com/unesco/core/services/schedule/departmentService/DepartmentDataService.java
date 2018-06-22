@@ -1,8 +1,8 @@
 package com.unesco.core.services.schedule.departmentService;
 
-import com.unesco.core.entities.schedule.Department;
-import com.unesco.core.models.plan.DepartmentModel;
-import com.unesco.core.models.additional.FilterQuery;
+import com.unesco.core.entities.schedule.DepartmentEntity;
+import com.unesco.core.models.plan.DepartmentDTO;
+import com.unesco.core.models.additional.FilterQueryDTO;
 import com.unesco.core.repositories.plan.DepartmentRepository;
 import com.unesco.core.services.mapperService.IMapperService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,32 +20,32 @@ public class DepartmentDataService implements IDepartmentDataService {
     @Autowired
     private DepartmentRepository departmentRepository;
 
-    public List<DepartmentModel> GetPage(FilterQuery filter) {
+    public List<DepartmentDTO> GetPage(FilterQueryDTO filter) {
         int rows = filter.getRows()>0? filter.getRows() : (int) departmentRepository.count();
         int start = rows>0 ? filter.getFirst()/rows: 1;
-        List<Department> entitys = departmentRepository.findWithFilter(new PageRequest(start, rows == 0 ? 10 : rows), filter.getGlobalFilter());
-        List<DepartmentModel> result = new ArrayList<DepartmentModel>();
-        for (Department e: entitys) {
-            result.add((DepartmentModel) mapperService.toModel(e));
+        List<DepartmentEntity> entitys = departmentRepository.findWithFilter(new PageRequest(start, rows == 0 ? 10 : rows), filter.getGlobalFilter());
+        List<DepartmentDTO> result = new ArrayList<DepartmentDTO>();
+        for (DepartmentEntity e: entitys) {
+            result.add((DepartmentDTO) mapperService.toModel(e));
         }
         return result;
     }
 
-    public List<DepartmentModel> GetAll()
+    public List<DepartmentDTO> GetAll()
     {
-        List<DepartmentModel> modelList = new ArrayList<>();
-        Iterable<Department> entityList = departmentRepository.findAll();
-        for (Department item: entityList) {
-            DepartmentModel model = (DepartmentModel) mapperService.toModel(item);
+        List<DepartmentDTO> modelList = new ArrayList<>();
+        Iterable<DepartmentEntity> entityList = departmentRepository.findAll();
+        for (DepartmentEntity item: entityList) {
+            DepartmentDTO model = (DepartmentDTO) mapperService.toModel(item);
             modelList.add(model);
         }
         return modelList;
     }
 
-    public DepartmentModel Get(long id)
+    public DepartmentDTO Get(long id)
     {
-        Department entity = departmentRepository.findOne(id);
-        DepartmentModel model = (DepartmentModel) mapperService.toModel(entity);
+        DepartmentEntity entity = departmentRepository.findOne(id);
+        DepartmentDTO model = (DepartmentDTO) mapperService.toModel(entity);
         return model;
     }
 
@@ -54,11 +54,11 @@ public class DepartmentDataService implements IDepartmentDataService {
         departmentRepository.delete(id);
     }
 
-    public DepartmentModel Save(DepartmentModel department)
+    public DepartmentDTO Save(DepartmentDTO department)
     {
-        Department entity = (Department) mapperService.toEntity(department);
-        Department model = departmentRepository.save(entity);
-        department = (DepartmentModel) mapperService.toModel(model);
+        DepartmentEntity entity = (DepartmentEntity) mapperService.toEntity(department);
+        DepartmentEntity model = departmentRepository.save(entity);
+        department = (DepartmentDTO) mapperService.toModel(model);
         return department;
     }
 }

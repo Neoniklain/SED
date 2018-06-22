@@ -1,8 +1,8 @@
 package com.unesco.core.services.schedule.disciplineService;
 
-import com.unesco.core.entities.schedule.Discipline;
-import com.unesco.core.models.shedule.DisciplineModel;
-import com.unesco.core.models.additional.FilterQuery;
+import com.unesco.core.entities.schedule.DisciplineEntity;
+import com.unesco.core.models.shedule.DisciplineDTO;
+import com.unesco.core.models.additional.FilterQueryDTO;
 import com.unesco.core.repositories.plan.DisciplineRepository;
 import com.unesco.core.services.mapperService.IMapperService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,32 +20,32 @@ public class DisciplineDataService implements IDisciplineDataService {
     @Autowired
     private DisciplineRepository disciplineRepository;
 
-    public List<DisciplineModel> GetPage(FilterQuery filter) {
+    public List<DisciplineDTO> GetPage(FilterQueryDTO filter) {
         int rows = filter.getRows()>0? filter.getRows() : (int) disciplineRepository.count();
         int start = rows>0 ? filter.getFirst()/rows: 1;
-        List<Discipline> entitys = disciplineRepository.findWithFilter(new PageRequest(start, rows == 0 ? 10 : rows), filter.getGlobalFilter());
-        List<DisciplineModel> result = new ArrayList<DisciplineModel>();
-        for (Discipline e: entitys) {
-            result.add((DisciplineModel) mapperService.toModel(e));
+        List<DisciplineEntity> entitys = disciplineRepository.findWithFilter(new PageRequest(start, rows == 0 ? 10 : rows), filter.getGlobalFilter());
+        List<DisciplineDTO> result = new ArrayList<DisciplineDTO>();
+        for (DisciplineEntity e: entitys) {
+            result.add((DisciplineDTO) mapperService.toModel(e));
         }
         return result;
     }
 
-    public List<DisciplineModel> GetAll()
+    public List<DisciplineDTO> GetAll()
     {
-        List<DisciplineModel> modelList = new ArrayList<>();
-        Iterable<Discipline> entityList = disciplineRepository.findAll();
-        for (Discipline item: entityList) {
-            DisciplineModel model = (DisciplineModel) mapperService.toModel(item);
+        List<DisciplineDTO> modelList = new ArrayList<>();
+        Iterable<DisciplineEntity> entityList = disciplineRepository.findAll();
+        for (DisciplineEntity item: entityList) {
+            DisciplineDTO model = (DisciplineDTO) mapperService.toModel(item);
             modelList.add(model);
         }
         return modelList;
     }
 
-    public DisciplineModel Get(long id)
+    public DisciplineDTO Get(long id)
     {
-        Discipline entity = disciplineRepository.findOne(id);
-        DisciplineModel model = (DisciplineModel) mapperService.toModel(entity);
+        DisciplineEntity entity = disciplineRepository.findOne(id);
+        DisciplineDTO model = (DisciplineDTO) mapperService.toModel(entity);
         return model;
     }
 
@@ -54,11 +54,11 @@ public class DisciplineDataService implements IDisciplineDataService {
         disciplineRepository.delete(id);
     }
 
-    public DisciplineModel Save(DisciplineModel discipline)
+    public DisciplineDTO Save(DisciplineDTO discipline)
     {
-        Discipline entity = (Discipline) mapperService.toEntity(discipline);
-        Discipline model = disciplineRepository.save(entity);
-        discipline = (DisciplineModel) mapperService.toModel(model);
+        DisciplineEntity entity = (DisciplineEntity) mapperService.toEntity(discipline);
+        DisciplineEntity model = disciplineRepository.save(entity);
+        discipline = (DisciplineDTO) mapperService.toModel(model);
         return discipline;
     }
 

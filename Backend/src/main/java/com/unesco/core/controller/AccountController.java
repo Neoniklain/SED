@@ -8,10 +8,10 @@ import com.unesco.core.managers.account.userManager.interfaces.user.IUserManager
 import com.unesco.core.managers.account.userManager.interfaces.userList.IUserListManager;
 import com.unesco.core.managers.schedule.departmentManager.interfaces.department.IDepartmentManager;
 import com.unesco.core.managers.schedule.groupManager.interfaces.group.IGroupManager;
-import com.unesco.core.models.account.ProfessorModel;
-import com.unesco.core.models.account.StudentModel;
-import com.unesco.core.models.account.UserModel;
-import com.unesco.core.models.additional.ResponseStatus;
+import com.unesco.core.models.account.ProfessorDTO;
+import com.unesco.core.models.account.StudentDTO;
+import com.unesco.core.models.account.UserDTO;
+import com.unesco.core.models.additional.ResponseStatusDTO;
 import com.unesco.core.models.enums.RoleType;
 import com.unesco.core.security.CustomUserDetailsService;
 import com.unesco.core.services.account.professorService.IProfessorDataService;
@@ -22,14 +22,9 @@ import com.unesco.core.services.schedule.departmentService.IDepartmentDataServic
 import com.unesco.core.services.schedule.groupService.IGroupDataService;
 import com.unesco.core.utils.StatusTypes;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Scope;
-import org.springframework.web.bind.annotation.*;
-import org.springframework.web.context.WebApplicationContext;
+import org.springframework.stereotype.Service;
 
-@CrossOrigin
-@RestController
-@RequestMapping("api/account")
-@Scope(value = WebApplicationContext.SCOPE_REQUEST)
+@Service
 public class AccountController {
 
     @Autowired
@@ -69,53 +64,49 @@ public class AccountController {
     @Autowired
     private IGroupManager groupManager;
 
-    @GetMapping("/role")
-    public ResponseStatus GetRoles() {
-        UserModel user = new UserModel(_CustomUserDetailsService.getUserDetails());
-        return new ResponseStatus(StatusTypes.OK, user.getRoles());
+    public ResponseStatusDTO GetRoles() {
+        UserDTO user = new UserDTO(_CustomUserDetailsService.getUserDetails());
+        return new ResponseStatusDTO(StatusTypes.OK, user.getRoles());
     }
 
-    @RequestMapping("/registration")
-    public ResponseStatus Registration(@RequestBody UserModel user) {
+    public ResponseStatusDTO Registration(UserDTO user) {
         userManager.Create(user, roleDataService.GetAll());
-        ResponseStatus res = userManager.Validate();
+        ResponseStatusDTO res = userManager.Validate();
         if(res.getStatus() != StatusTypes.OK) return res;
         try {
-            UserModel userSaved = userDataService.Save(userManager.Get());
+            UserDTO userSaved = userDataService.Save(userManager.Get());
 
             roleListManager.Init(userSaved.getRoles());
 
             if (roleListManager.ContainRole(RoleType.PROFESSOR))
             {
                 professorManager.Create(userSaved);
-                ProfessorModel professor = professorDataService.Save(professorManager.Get());
+                ProfessorDTO professor = professorDataService.Save(professorManager.Get());
             }
 
             if (roleListManager.ContainRole(RoleType.STUDENT))
             {
                 studentManager.Create(userSaved);
-                StudentModel student = studentDataService.Save(studentManager.Get());
+                StudentDTO student = studentDataService.Save(studentManager.Get());
             }
             res.setData(userSaved);
             res.addMessage("Пользователь добавлен");
             return res;
         }
         catch (Exception e) {
-            return new ResponseStatus(StatusTypes.ERROR, e.getMessage());
+            return new ResponseStatusDTO(StatusTypes.ERROR, e.getMessage());
         }
     }
 
-    @GetMapping("/user")
-    public ResponseStatus GetUser() {
-        UserModel user = new UserModel(_CustomUserDetailsService.getUserDetails());
-        return new ResponseStatus(StatusTypes.OK, user);
+    public ResponseStatusDTO GetUser() {
+        UserDTO user = new UserDTO(_CustomUserDetailsService.getUserDetails());
+        return new ResponseStatusDTO(StatusTypes.OK, user);
     }
 
-    @RequestMapping("/changePassword")
-    public ResponseStatus ChangePassword(@RequestBody Pass pass) {
-        UserModel user = new UserModel(_CustomUserDetailsService.getUserDetails());
+    public ResponseStatusDTO ChangePassword(String newPass, String oldPass) {
+        UserDTO user = new UserDTO(_CustomUserDetailsService.getUserDetails());
         userManager.Init(user);
-        ResponseStatus response = userManager.ChangePassword(pass.getNewPass(), pass.getOldPass());
+        ResponseStatusDTO response = userManager.ChangePassword(newPass, oldPass);
         if (response.getStatus() == StatusTypes.ERROR) return response;
 
         try {
@@ -128,11 +119,10 @@ public class AccountController {
         return response;
     }
 
-    @RequestMapping("/changePhoto")
-    public ResponseStatus ChangePhoto(@RequestBody String photo) {
-        UserModel user = new UserModel(_CustomUserDetailsService.getUserDetails());
+    public ResponseStatusDTO ChangePhoto(String photo) {
+        UserDTO user = new UserDTO(_CustomUserDetailsService.getUserDetails());
         userManager.Init(user);
-        ResponseStatus response = userManager.ChangePhoto(photo);
+        ResponseStatusDTO response = userManager.ChangePhoto(photo);
         if (response.getStatus() == StatusTypes.ERROR) return response;
 
         try {
@@ -146,40 +136,34 @@ public class AccountController {
         return response;
     }
 
-
-    @RequestMapping(value = "/FindUsersByFIO/{req}")
-    public ResponseStatus FindUsersByFIO(@PathVariable("req") String req) {
+    public ResponseStatusDTO FindUsersByFIO(String req) {
         userListManager.Init(userDataService.GetAll());
-        return new ResponseStatus(StatusTypes.OK, userListManager.GetByFio(req));
+        return new ResponseStatusDTO(StatusTypes.OK, userListManager.GetByFio(req));
     }
 
-    @GetMapping("/professors")
-    public ResponseStatus GetProfessors() {
+    public ResponseStatusDTO GetProfessors() {
         professorListManager.Init(professorDataService.GetAll());
-        return new ResponseStatus(StatusTypes.OK, professorListManager.GetAll());
+        return new ResponseStatusDTO(StatusTypes.OK, professorListManager.GetAll());
     }
 
-    @GetMapping("/professorByUser/{userId}")
-    public ResponseStatus GetProfessorByUser(@PathVariable("userId") int userId) {
+    public ResponseStatusDTO GetProfessorByUser(int userId) {
         professorManager.Init(professorDataService.GetByUser(userId));
-        return new ResponseStatus(StatusTypes.OK, professorManager.Get());
+        return new ResponseStatusDTO(StatusTypes.OK, professorManager.Get());
     }
 
-    @GetMapping("/studentByUser/{userId}")
-    public ResponseStatus GetStudentByUser(@PathVariable("userId") int userId) {
+    public ResponseStatusDTO GetStudentByUser(int userId) {
         studentManager.Init(studentDataService.GetByUser(userId));
-        return new ResponseStatus(StatusTypes.OK, studentManager.Get());
+        return new ResponseStatusDTO(StatusTypes.OK, studentManager.Get());
     }
 
-    @RequestMapping(value = "/professor/{userId}/setDepartment/{departmentId}")
-    public ResponseStatus setProfessorDepartment(@PathVariable("userId") int userId, @PathVariable("departmentId") int departmentId) {
+    public ResponseStatusDTO setProfessorDepartment(int userId, int departmentId) {
         professorManager.Init(professorDataService.GetByUser(userId));
         departmentManager.Init(departmentDataService.Get(departmentId));
         professorManager.SetDepartment(departmentManager.Get());
-        ResponseStatus res = new ResponseStatus();
+        ResponseStatusDTO res = new ResponseStatusDTO();
         res.setStatus(StatusTypes.OK);
         try {
-            ProfessorModel professor = professorDataService.Save(professorManager.Get());
+            ProfessorDTO professor = professorDataService.Save(professorManager.Get());
             res.setData(professor);
             res.addMessage("Кафедра для преподавателя установленна");
             return res;
@@ -192,21 +176,19 @@ public class AccountController {
         }
     }
 
-    @RequestMapping(value = "/FindUserByUsername/{req}")
-    public ResponseStatus FindUserByUsername(@PathVariable("req") String req) {
+    public ResponseStatusDTO FindUserByUsername(String req) {
         userListManager.Init(userDataService.GetAll());
-        return new ResponseStatus(StatusTypes.OK, userListManager.GetByUsername(req));
+        return new ResponseStatusDTO(StatusTypes.OK, userListManager.GetByUsername(req));
     }
 
-    @RequestMapping(value = "/student/{userId}/setGroup/{groupId}")
-    public ResponseStatus setStudentGroup(@PathVariable("userId") int userId, @PathVariable("groupId") int groupId) {
+    public ResponseStatusDTO setStudentGroup(int userId, int groupId) {
         studentManager.Init(studentDataService.GetByUser(userId));
         groupManager.Init(groupDataService.Get(groupId));
         studentManager.SetGroup(groupManager.Get());
-        ResponseStatus res = new ResponseStatus();
+        ResponseStatusDTO res = new ResponseStatusDTO();
         res.setStatus(StatusTypes.OK);
         try {
-            StudentModel stident = studentDataService.Save(studentManager.Get());
+            StudentDTO stident = studentDataService.Save(studentManager.Get());
             res.setData(stident);
             res.addMessage("Группа для студента установленна");
             return res;
@@ -217,27 +199,6 @@ public class AccountController {
             res.addErrors(e.getMessage());
             return res;
         }
-    }
-
-    private class Pass {
-        public String getNewPass() {
-            return newPass;
-        }
-
-        public void setNewPass(String newPass) {
-            this.newPass = newPass;
-        }
-
-        public String getOldPass() {
-            return oldPass;
-        }
-
-        public void setOldPass(String oldPass) {
-            this.oldPass = oldPass;
-        }
-
-        String newPass;
-        String oldPass;
     }
 
 }

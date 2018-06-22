@@ -1,8 +1,7 @@
 package com.unesco.core.managers.schedule.groupManager;
 
 import com.unesco.core.managers.schedule.groupManager.interfaces.groupList.IGroupListManager;
-import com.unesco.core.models.additional.FilterQuery;
-import com.unesco.core.models.shedule.GroupModel;
+import com.unesco.core.models.shedule.GroupDTO;
 import com.unesco.core.services.schedule.groupService.IGroupDataService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
@@ -18,17 +17,17 @@ public class GroupListManager implements IGroupListManager {
     @Autowired
     public IGroupDataService dataService;
 
-    public List<GroupModel> groupList;
+    public List<GroupDTO> groupList;
 
     public GroupListManager() {
         groupList = new ArrayList<>();
     }
 
-    public void Init(List<GroupModel> GroupList) {
+    public void Init(List<GroupDTO> GroupList) {
         groupList = GroupList;
     }
 
-    public List<GroupModel> GetAll() {
+    public List<GroupDTO> GetAll() {
         return groupList;
     }
 

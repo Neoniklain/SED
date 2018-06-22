@@ -1,14 +1,14 @@
 package com.unesco.core.services.account.professorService;
 
-import com.unesco.core.models.account.ProfessorModel;
-import com.unesco.core.models.additional.FilterQuery;
+import com.unesco.core.models.account.ProfessorDTO;
+import com.unesco.core.models.additional.FilterQueryDTO;
 import com.unesco.core.services.IDataService;
 
 import java.util.List;
 
-public interface IProfessorDataService extends IDataService<ProfessorModel> {
-    List<ProfessorModel> GetPage(FilterQuery filter);
-    ProfessorModel GetByUser(long userId);
+public interface IProfessorDataService extends IDataService<ProfessorDTO> {
+    List<ProfessorDTO> GetPage(FilterQueryDTO filter);
+    ProfessorDTO GetByUser(long userId);
 
-    List<ProfessorModel> GetAllByDepartament(long departmentId);
+    List<ProfessorDTO> GetAllByDepartament(long departmentId);
 }

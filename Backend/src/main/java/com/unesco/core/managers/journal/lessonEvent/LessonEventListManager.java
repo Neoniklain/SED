@@ -1,8 +1,8 @@
 package com.unesco.core.managers.journal.lessonEvent;
 
 import com.unesco.core.managers.journal.lessonEvent.interfaces.lessonEventList.ILessonEventListManager;
-import com.unesco.core.models.journal.LessonEventModel;
-import com.unesco.core.models.shedule.LessonModel;
+import com.unesco.core.models.journal.LessonEventDTO;
+import com.unesco.core.models.shedule.LessonDTO;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
@@ -13,23 +13,23 @@ import java.util.List;
 @Scope("prototype")
 public class LessonEventListManager implements ILessonEventListManager {
 
-    public List<LessonEventModel> lessonEventList;
+    public List<LessonEventDTO> lessonEventList;
 
     public LessonEventListManager() {
         lessonEventList = new ArrayList<>();
     }
 
-    public void Init(List<LessonEventModel> LessonEventist) {
+    public void Init(List<LessonEventDTO> LessonEventist) {
         lessonEventList = LessonEventist;
     }
 
-    public List<LessonEventModel> GetAll() {
+    public List<LessonEventDTO> GetAll() {
         return lessonEventList;
     }
 
-    public void ApplayFilter(LessonModel lesson) {
-        List<LessonEventModel> result = new ArrayList<>();
-        for (LessonEventModel p: lessonEventList) {
+    public void ApplayFilter(LessonDTO lesson) {
+        List<LessonEventDTO> result = new ArrayList<>();
+        for (LessonEventDTO p: lessonEventList) {
             if(p.getLesson().getDiscipline().getId() == lesson.getDiscipline().getId() &&
                 p.getLesson().getGroup().getId() == lesson.getGroup().getId() &&
                 p.getLesson().getProfessor().getId() == lesson.getProfessor().getId())

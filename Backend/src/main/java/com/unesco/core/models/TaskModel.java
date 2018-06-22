@@ -1,17 +1,11 @@
 package com.unesco.core.models;
 
-import com.unesco.core.entities.account.User;
-import com.unesco.core.entities.workflow.Task;
-import com.unesco.core.entities.workflow.TaskDescription;
-import com.unesco.core.models.account.UserModel;
-
-import java.util.ArrayList;
-import java.util.List;
+import com.unesco.core.models.account.UserDTO;
 
 public class TaskModel {
 
     private long id;
-    private UserModel executor;
+    private UserDTO executor;
     private long taskDescriptionId;
     private String status;
     private String response;
@@ -21,7 +15,7 @@ public class TaskModel {
         this.id = 0;
         this.status = "";
         this.response = "";
-        this.executor = new UserModel();
+        this.executor = new UserDTO();
         this.taskDescriptionId = 0;
     }
 
@@ -33,11 +27,11 @@ public class TaskModel {
         this.id = id;
     }
 
-    public UserModel getExecutor() {
+    public UserDTO getExecutor() {
         return executor;
     }
 
-    public void setExecutor(UserModel executor) {
+    public void setExecutor(UserDTO executor) {
         this.executor = executor;
     }
 

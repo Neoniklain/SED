@@ -1,8 +1,8 @@
 package com.unesco.core.services.schedule.lessonService;
 
-import com.unesco.core.entities.schedule.Lesson;
-import com.unesco.core.models.additional.FilterQuery;
-import com.unesco.core.models.shedule.LessonModel;
+import com.unesco.core.entities.schedule.LessonEntity;
+import com.unesco.core.models.additional.FilterQueryDTO;
+import com.unesco.core.models.shedule.LessonDTO;
 import com.unesco.core.repositories.LessonRepository;
 import com.unesco.core.services.account.professorService.IProfessorDataService;
 import com.unesco.core.services.mapperService.IMapperService;
@@ -23,39 +23,39 @@ public class LessonDataService implements ILessonDataService {
     @Autowired
     private IProfessorDataService professorDataService;
 
-    public List<LessonModel> GetPage(FilterQuery filter) {
+    public List<LessonDTO> GetPage(FilterQueryDTO filter) {
         int rows = filter.getRows()>0? filter.getRows() : (int) lessonRepository.count();
         int start = rows>0 ? filter.getFirst()/rows: 1;
-        List<Lesson> entitys = lessonRepository.findWithFilter(new PageRequest(start, rows == 0 ? 10 : rows), filter.getGlobalFilter());
-        List<LessonModel> result = new ArrayList<LessonModel>();
-        for (Lesson e: entitys) {
-            result.add((LessonModel) mapperService.toModel(e));
+        List<LessonEntity> entitys = lessonRepository.findWithFilter(new PageRequest(start, rows == 0 ? 10 : rows), filter.getGlobalFilter());
+        List<LessonDTO> result = new ArrayList<LessonDTO>();
+        for (LessonEntity e: entitys) {
+            result.add((LessonDTO) mapperService.toModel(e));
         }
         return result;
     }
 
-    public List<LessonModel> GetAll()
+    public List<LessonDTO> GetAll()
     {
-        List<LessonModel> modelList = new ArrayList<>();
-        Iterable<Lesson> entityList = lessonRepository.findAll();
-        for (Lesson item: entityList) {
-            LessonModel model = (LessonModel) mapperService.toModel(item);
+        List<LessonDTO> modelList = new ArrayList<>();
+        Iterable<LessonEntity> entityList = lessonRepository.findAll();
+        for (LessonEntity item: entityList) {
+            LessonDTO model = (LessonDTO) mapperService.toModel(item);
             modelList.add(model);
         }
         return modelList;
     }
 
-    public LessonModel Get(long id)
+    public LessonDTO Get(long id)
     {
-        Lesson entity = lessonRepository.findOne(id);
-        LessonModel model = (LessonModel) mapperService.toModel(entity);
+        LessonEntity entity = lessonRepository.findOne(id);
+        LessonDTO model = (LessonDTO) mapperService.toModel(entity);
         return model;
     }
 
-    public LessonModel GetDisciplineIdAndGroupIdAndProfessorId(long disciplineId, long groupId, long professorId)
+    public LessonDTO GetDisciplineIdAndGroupIdAndProfessorId(long disciplineId, long groupId, long professorId)
     {
-        Lesson entity = lessonRepository.findByDisciplineIdAndGroupIdAndProfessorId(disciplineId, groupId, professorId);
-        LessonModel model = (LessonModel) mapperService.toModel(entity);
+        LessonEntity entity = lessonRepository.findByDisciplineIdAndGroupIdAndProfessorId(disciplineId, groupId, professorId);
+        LessonDTO model = (LessonDTO) mapperService.toModel(entity);
         return model;
     }
 
@@ -64,11 +64,11 @@ public class LessonDataService implements ILessonDataService {
         lessonRepository.delete(id);
     }
 
-    public LessonModel Save(LessonModel lesson)
+    public LessonDTO Save(LessonDTO lesson)
     {
-        Lesson entity = (Lesson) mapperService.toEntity(lesson);
-        Lesson model = lessonRepository.save(entity);
-        lesson = (LessonModel) mapperService.toModel(model);
+        LessonEntity entity = (LessonEntity) mapperService.toEntity(lesson);
+        LessonEntity model = lessonRepository.save(entity);
+        lesson = (LessonDTO) mapperService.toModel(model);
         return lesson;
     }
 

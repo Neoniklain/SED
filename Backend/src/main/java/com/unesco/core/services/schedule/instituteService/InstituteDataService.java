@@ -1,8 +1,8 @@
 package com.unesco.core.services.schedule.instituteService;
 
-import com.unesco.core.entities.schedule.Institute;
-import com.unesco.core.models.shedule.InstituteModel;
-import com.unesco.core.models.additional.FilterQuery;
+import com.unesco.core.entities.schedule.InstituteEntity;
+import com.unesco.core.models.shedule.InstituteDTO;
+import com.unesco.core.models.additional.FilterQueryDTO;
 import com.unesco.core.repositories.plan.InstituteRepository;
 import com.unesco.core.services.mapperService.IMapperService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,32 +20,32 @@ public class InstituteDataService implements IInstituteDataService {
     @Autowired
     private InstituteRepository instituteRepository;
 
-    public List<InstituteModel> GetPage(FilterQuery filter) {
+    public List<InstituteDTO> GetPage(FilterQueryDTO filter) {
         int rows = filter.getRows()>0? filter.getRows() : (int) instituteRepository.count();
         int start = rows>0 ? filter.getFirst()/rows: 1;
-        List<Institute> entitys = instituteRepository.findWithFilter(new PageRequest(start, rows == 0 ? 10 : rows), filter.getGlobalFilter());
-        List<InstituteModel> result = new ArrayList<InstituteModel>();
-        for (Institute e: entitys) {
-            result.add((InstituteModel) mapperService.toModel(e));
+        List<InstituteEntity> entitys = instituteRepository.findWithFilter(new PageRequest(start, rows == 0 ? 10 : rows), filter.getGlobalFilter());
+        List<InstituteDTO> result = new ArrayList<InstituteDTO>();
+        for (InstituteEntity e: entitys) {
+            result.add((InstituteDTO) mapperService.toModel(e));
         }
         return result;
     }
 
-    public List<InstituteModel> GetAll()
+    public List<InstituteDTO> GetAll()
     {
-        List<InstituteModel> modelList = new ArrayList<>();
-        Iterable<Institute> entityList = instituteRepository.findAll();
-        for (Institute item: entityList) {
-            InstituteModel model = (InstituteModel) mapperService.toModel(item);
+        List<InstituteDTO> modelList = new ArrayList<>();
+        Iterable<InstituteEntity> entityList = instituteRepository.findAll();
+        for (InstituteEntity item: entityList) {
+            InstituteDTO model = (InstituteDTO) mapperService.toModel(item);
             modelList.add(model);
         }
         return modelList;
     }
 
-    public InstituteModel Get(long id)
+    public InstituteDTO Get(long id)
     {
-        Institute entity = instituteRepository.findOne(id);
-        InstituteModel model = (InstituteModel) mapperService.toModel(entity);
+        InstituteEntity entity = instituteRepository.findOne(id);
+        InstituteDTO model = (InstituteDTO) mapperService.toModel(entity);
         return model;
     }
 
@@ -54,11 +54,11 @@ public class InstituteDataService implements IInstituteDataService {
         instituteRepository.delete(id);
     }
 
-    public InstituteModel Save(InstituteModel institute)
+    public InstituteDTO Save(InstituteDTO institute)
     {
-        Institute entity = (Institute) mapperService.toEntity(institute);
-        Institute model = instituteRepository.save(entity);
-        institute = (InstituteModel) mapperService.toModel(model);
+        InstituteEntity entity = (InstituteEntity) mapperService.toEntity(institute);
+        InstituteEntity model = instituteRepository.save(entity);
+        institute = (InstituteDTO) mapperService.toModel(model);
         return institute;
     }
 }

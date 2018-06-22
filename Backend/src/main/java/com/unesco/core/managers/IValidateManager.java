@@ -1,7 +1,7 @@
 package com.unesco.core.managers;
 
-import com.unesco.core.models.additional.ResponseStatus;
+import com.unesco.core.models.additional.ResponseStatusDTO;
 
 public interface IValidateManager {
-    ResponseStatus Validate();
+    ResponseStatusDTO Validate();
 }

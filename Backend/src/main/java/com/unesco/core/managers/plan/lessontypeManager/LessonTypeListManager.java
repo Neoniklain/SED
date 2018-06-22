@@ -1,9 +1,7 @@
 package com.unesco.core.managers.plan.lessontypeManager;
 
 import com.unesco.core.managers.plan.lessontypeManager.interfaces.lessontypeList.ILessonTypeListManager;
-import com.unesco.core.models.plan.LessonTypeModel;
-import com.unesco.core.services.plan.lessonTypeService.ILessonTypeDataService;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.unesco.core.models.plan.LessonTypeDTO;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
@@ -14,17 +12,17 @@ import java.util.List;
 @Scope("prototype")
 public class LessonTypeListManager implements ILessonTypeListManager {
 
-    public List<LessonTypeModel> lessontypeList;
+    public List<LessonTypeDTO> lessontypeList;
 
     public LessonTypeListManager() {
         lessontypeList = new ArrayList<>();
     }
 
-    public void Init(List<LessonTypeModel> LessonTypeList) {
+    public void Init(List<LessonTypeDTO> LessonTypeList) {
         lessontypeList = LessonTypeList;
     }
 
-    public List<LessonTypeModel> GetAll() {
+    public List<LessonTypeDTO> GetAll() {
         return lessontypeList;
     }
 }

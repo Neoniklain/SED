@@ -2,7 +2,7 @@ package com.unesco.core.managers.schedule.disciplineManager.interfaces.disciplin
 
 import com.unesco.core.managers.IManager;
 import com.unesco.core.managers.IValidateManager;
-import com.unesco.core.models.shedule.DisciplineModel;
+import com.unesco.core.models.shedule.DisciplineDTO;
 
-public interface IDisciplineManager extends IManager<DisciplineModel>, IValidateManager {
+public interface IDisciplineManager extends IManager<DisciplineDTO>, IValidateManager {
 }

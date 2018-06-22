@@ -1,7 +1,7 @@
 package com.unesco.core.managers.account.roleManager;
 
 import com.unesco.core.managers.account.roleManager.interfaces.roleList.IRoleListManager;
-import com.unesco.core.models.account.RoleModel;
+import com.unesco.core.models.account.RoleDTO;
 import com.unesco.core.models.enums.RoleType;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
@@ -13,22 +13,22 @@ import java.util.List;
 @Scope("prototype")
 public class RoleListManager implements IRoleListManager {
 
-    public List<RoleModel> roleList;
+    public List<RoleDTO> roleList;
 
     public RoleListManager() {
         roleList = new ArrayList<>();
     }
 
-    public void Init(List<RoleModel> RoleList) {
+    public void Init(List<RoleDTO> RoleList) {
         roleList = RoleList;
     }
 
-    public List<RoleModel> GetAll() {
+    public List<RoleDTO> GetAll() {
         return roleList;
     }
 
-    public RoleModel GetRole(RoleType roleType) {
-        for(RoleModel r :roleList) {
+    public RoleDTO GetRole(RoleType roleType) {
+        for(RoleDTO r :roleList) {
             if (r.getRoleName().equals(roleType.toString())) {
                 return r;
             }
@@ -37,7 +37,7 @@ public class RoleListManager implements IRoleListManager {
     }
 
     public Boolean ContainRole(RoleType roleType) {
-        for(RoleModel r :roleList) {
+        for(RoleDTO r :roleList) {
             if (r.getRoleName().equals(roleType.toString())) {
                 return true;
             }

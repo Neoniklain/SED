@@ -1,6 +1,6 @@
 package com.unesco.core.repositories.plan;
 
-import com.unesco.core.entities.schedule.Discipline;
+import com.unesco.core.entities.schedule.DisciplineEntity;
 import com.unesco.core.repositories.utils.CrudPagableRepository;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.Lock;
@@ -11,17 +11,17 @@ import org.springframework.data.repository.query.Param;
 import javax.persistence.LockModeType;
 import java.util.List;
 
-public interface DisciplineRepository extends CrudRepository<Discipline, Long>, CrudPagableRepository<Discipline, Long> {
-    Discipline findById(long id);
+public interface DisciplineRepository extends CrudRepository<DisciplineEntity, Long>, CrudPagableRepository<DisciplineEntity, Long> {
+    DisciplineEntity findById(long id);
 
-    Discipline findDisciplineByName(String name);
+    DisciplineEntity findDisciplineByName(String name);
 
     @Lock(LockModeType.OPTIMISTIC)
-    Iterable<Discipline> findAll();
+    Iterable<DisciplineEntity> findAll();
 
-    Discipline save(Discipline s);
+    DisciplineEntity save(DisciplineEntity s);
 
-    @Query("SELECT d FROM Discipline d where lower(d.name) LIKE CONCAT('%',lower(:filter),'%')")
-    List<Discipline> findWithFilter(Pageable pageable, @Param("filter")  String filter);
+    @Query("SELECT d FROM DisciplineEntity d where lower(d.name) LIKE CONCAT('%',lower(:filter),'%')")
+    List<DisciplineEntity> findWithFilter(Pageable pageable, @Param("filter")  String filter);
 
 }

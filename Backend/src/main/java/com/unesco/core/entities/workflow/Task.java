@@ -1,9 +1,8 @@
 package com.unesco.core.entities.workflow;
 
-import com.unesco.core.entities.account.User;
+import com.unesco.core.entities.account.UserEntity;
 
 import javax.persistence.*;
-import java.util.Set;
 
 @Entity
 @Table(name="task")
@@ -19,7 +18,7 @@ public class Task {
 
     @OneToOne
     @JoinColumn(name = "user_id")
-    private User executor;
+    private UserEntity executor;
     private String status;
     private String response;
 
@@ -55,11 +54,11 @@ public class Task {
         this.response = response;
     }
 
-    public User getExecutor() {
+    public UserEntity getExecutor() {
         return executor;
     }
 
-    public void setExecutor(User executor) {
+    public void setExecutor(UserEntity executor) {
         this.executor = executor;
     }
 }

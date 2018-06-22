@@ -1,10 +1,10 @@
 package com.unesco.core.services.schedule.pairService;
 
-import com.unesco.core.entities.schedule.Lesson;
-import com.unesco.core.entities.schedule.Pair;
-import com.unesco.core.models.additional.FilterQuery;
-import com.unesco.core.models.shedule.LessonModel;
-import com.unesco.core.models.shedule.PairModel;
+import com.unesco.core.entities.schedule.LessonEntity;
+import com.unesco.core.entities.schedule.PairEntity;
+import com.unesco.core.models.additional.FilterQueryDTO;
+import com.unesco.core.models.shedule.LessonDTO;
+import com.unesco.core.models.shedule.PairDTO;
 import com.unesco.core.repositories.PairRepository;
 import com.unesco.core.repositories.account.ProfessorRepository;
 import com.unesco.core.services.mapperService.IMapperService;
@@ -30,76 +30,76 @@ public class PairDataService implements IPairDataService {
     @Autowired
     private ProfessorRepository professorRepository;
 
-    public List<PairModel> GetPage(FilterQuery filter) {
+    public List<PairDTO> GetPage(FilterQueryDTO filter) {
         int rows = filter.getRows()>0? filter.getRows() : (int) pairRepository.count();
         int start = rows>0 ? filter.getFirst()/rows: 1;
-        List<Pair> entitys = pairRepository.findWithFilter(new PageRequest(start, rows == 0 ? 10 : rows), filter.getGlobalFilter());
-        List<PairModel> result = new ArrayList<PairModel>();
-        for (Pair e: entitys) {
-            result.add((PairModel) mapperService.toModel(e));
+        List<PairEntity> entitys = pairRepository.findWithFilter(new PageRequest(start, rows == 0 ? 10 : rows), filter.getGlobalFilter());
+        List<PairDTO> result = new ArrayList<PairDTO>();
+        for (PairEntity e: entitys) {
+            result.add((PairDTO) mapperService.toModel(e));
         }
         return result;
     }
 
-    public List<PairModel> GetAll()
+    public List<PairDTO> GetAll()
     {
-        List<PairModel> modelList = new ArrayList<>();
-        Iterable<Pair> entityList = pairRepository.findAll();
-        for (Pair item: entityList) {
-            PairModel model = (PairModel) mapperService.toModel(item);
+        List<PairDTO> modelList = new ArrayList<>();
+        Iterable<PairEntity> entityList = pairRepository.findAll();
+        for (PairEntity item: entityList) {
+            PairDTO model = (PairDTO) mapperService.toModel(item);
             modelList.add(model);
         }
         return modelList;
     }
 
-    public List<PairModel> GetAllByProfessor(long professorId)
+    public List<PairDTO> GetAllByProfessor(long professorId)
     {
-        List<PairModel> modelList = new ArrayList<>();
-        Iterable<Pair> entityList = pairRepository.findPairsByProfessorId(professorId);
-        for (Pair item: entityList) {
-            PairModel model = (PairModel) mapperService.toModel(item);
+        List<PairDTO> modelList = new ArrayList<>();
+        Iterable<PairEntity> entityList = pairRepository.findPairsByProfessorId(professorId);
+        for (PairEntity item: entityList) {
+            PairDTO model = (PairDTO) mapperService.toModel(item);
             modelList.add(model);
         }
         return modelList;
     }
 
-    public List<PairModel> GetAllByDepartament(long departmentId)
+    public List<PairDTO> GetAllByDepartament(long departmentId)
     {
-        List<PairModel> modelList = new ArrayList<>();
-        Iterable<Pair> entityList = pairRepository.findPairsByDepartmentId(departmentId);
-        for (Pair item: entityList) {
-            PairModel model = (PairModel) mapperService.toModel(item);
+        List<PairDTO> modelList = new ArrayList<>();
+        Iterable<PairEntity> entityList = pairRepository.findPairsByDepartmentId(departmentId);
+        for (PairEntity item: entityList) {
+            PairDTO model = (PairDTO) mapperService.toModel(item);
             modelList.add(model);
         }
         return modelList;
     }
 
-    public List<PairModel> GetAllByGroup(long groupId)
+    public List<PairDTO> GetAllByGroup(long groupId)
     {
-        List<PairModel> modelList = new ArrayList<>();
-        Iterable<Pair> entityList = pairRepository.findPairsByGroupId(groupId);
-        for (Pair item: entityList) {
-            PairModel model = (PairModel) mapperService.toModel(item);
+        List<PairDTO> modelList = new ArrayList<>();
+        Iterable<PairEntity> entityList = pairRepository.findPairsByGroupId(groupId);
+        for (PairEntity item: entityList) {
+            PairDTO model = (PairDTO) mapperService.toModel(item);
             modelList.add(model);
         }
         return modelList;
     }
 
-    public List<PairModel> GetAllByLesson(long lessonId)
+    public List<PairDTO> GetAllByLesson(long lessonId)
     {
-        List<PairModel> modelList = new ArrayList<>();
-        Iterable<Pair> entityList = pairRepository.findPairsByLessonId(lessonId);
-        for (Pair item: entityList) {
-            PairModel model = (PairModel) mapperService.toModel(item);
+        List<PairDTO> modelList = new ArrayList<>();
+        Iterable<PairEntity> entityList = pairRepository.findPairsByLessonId(lessonId);
+        for (PairEntity item: entityList) {
+            PairDTO model = (PairDTO) mapperService.toModel(item);
             modelList.add(model);
         }
         return modelList;
     }
 
-    public PairModel Get(long id)
+    public PairDTO Get(long id)
     {
-        Pair entity = pairRepository.findOne(id);
-        PairModel model = (PairModel) mapperService.toModel(entity);
+        PairEntity entity = pairRepository.findOne(id);
+        PairDTO model = (PairDTO) mapperService.toModel(entity);
         return model;
     }
 
@@ -108,49 +108,49 @@ public class PairDataService implements IPairDataService {
         pairRepository.delete(id);
     }
 
-    public PairModel Save(PairModel pair)
+    public PairDTO Save(PairDTO pair)
     {
-        Pair entity = (Pair) mapperService.toEntity(pair);
+        PairEntity entity = (PairEntity) mapperService.toEntity(pair);
 
-        LessonModel findLesson = lessonDataService.GetDisciplineIdAndGroupIdAndProfessorId(
-                entity.getLesson().getDiscipline().getId(),
-                entity.getLesson().getGroup().getId(),
-                entity.getLesson().getProfessor().getId());
+        LessonDTO findLesson = lessonDataService.GetDisciplineIdAndGroupIdAndProfessorId(
+                entity.getLessonEntity().getDisciplineEntity().getId(),
+                entity.getLessonEntity().getGroupEntity().getId(),
+                entity.getLessonEntity().getProfessorEntity().getId());
 
         if(findLesson==null) {
-            LessonModel lesson = pair.getLesson();
+            LessonDTO lesson = pair.getLesson();
             lesson.setId(0);
             pair.setLesson(lesson);
             findLesson = lessonDataService.Save(pair.getLesson());
         }
 
-        entity.setLesson((Lesson) mapperService.toEntity(findLesson));
+        entity.setLessonEntity((LessonEntity) mapperService.toEntity(findLesson));
 
-        Pair model = pairRepository.save(entity);
-        pair = (PairModel) mapperService.toModel(model);
+        PairEntity model = pairRepository.save(entity);
+        pair = (PairDTO) mapperService.toModel(model);
         return pair;
     }
 
-    public List<PairModel> FindIntersections(PairModel pairModel) {
+    public List<PairDTO> FindIntersections(PairDTO pairModel) {
 
-        Pair entity = (Pair) mapperService.toEntity(pairModel);
-        Set<Pair> allIntersections = new HashSet<>();
+        PairEntity entity = (PairEntity) mapperService.toEntity(pairModel);
+        Set<PairEntity> allIntersections = new HashSet<>();
 
         // Проверка занятий на переcечение для проподавателя
         allIntersections.addAll(pairRepository.findPairsByDayofweekAndPairNumberAndWeektypeAndProfessor
-                (entity.getDayofweek(), entity.getPairNumber(), entity.getWeektype(), entity.getLesson().getProfessor().getId()));
+                (entity.getDayofweek(), entity.getPairNumber(), entity.getWeektype(), entity.getLessonEntity().getProfessorEntity().getId()));
 
         // Проверка занятий на переcечение для аудиотрии
         allIntersections.addAll(pairRepository.findPairsByDayofweekAndPairNumberAndWeektypeAndRoom
-                (entity.getDayofweek(), entity.getPairNumber(), entity.getWeektype(), entity.getRoom().getId()));
+                (entity.getDayofweek(), entity.getPairNumber(), entity.getWeektype(), entity.getRoomEntity().getId()));
 
         // Проверка занятий на переcечение для группы
         allIntersections.addAll(pairRepository.findPairsByDayofweekAndPairNumberAndWeektypeAndGroup
-                (entity.getDayofweek(), entity.getPairNumber(), entity.getWeektype(), entity.getLesson().getGroup().getId()));
+                (entity.getDayofweek(), entity.getPairNumber(), entity.getWeektype(), entity.getLessonEntity().getGroupEntity().getId()));
 
-        List<PairModel> result = new ArrayList<>();
-        for (Pair p: allIntersections) {
-            result.add((PairModel) mapperService.toModel(p));
+        List<PairDTO> result = new ArrayList<>();
+        for (PairEntity p: allIntersections) {
+            result.add((PairDTO) mapperService.toModel(p));
         }
         return result;
     }

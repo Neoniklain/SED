@@ -1,12 +1,12 @@
 package com.unesco.core.repositories.journal;
 
-import com.unesco.core.entities.journal.LessonEvent;
+import com.unesco.core.entities.journal.LessonEventEntity;
 import org.springframework.data.repository.CrudRepository;
 
 import java.util.List;
 
-public interface LessonEventRepository extends CrudRepository<LessonEvent, Long> {
-    LessonEvent findByTypeId(long id);
+public interface LessonEventRepository extends CrudRepository<LessonEventEntity, Long> {
+    LessonEventEntity findByTypeId(long id);
 
-    List<LessonEvent> findByLessonId(long lessonId);
+    List<LessonEventEntity> findByLessonEntityId(long lessonId);
 }

@@ -1,8 +1,8 @@
 package com.unesco.core.services.account.roleService;
 
-import com.unesco.core.entities.account.Role;
-import com.unesco.core.models.account.RoleModel;
-import com.unesco.core.models.additional.FilterQuery;
+import com.unesco.core.entities.account.RoleEntity;
+import com.unesco.core.models.account.RoleDTO;
+import com.unesco.core.models.additional.FilterQueryDTO;
 import com.unesco.core.repositories.account.RoleRepository;
 import com.unesco.core.services.mapperService.IMapperService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,39 +19,39 @@ public class RoleDataService implements IRoleDataService {
     @Autowired
     private RoleRepository roleRepository;
 
-    public List<RoleModel> GetPage(FilterQuery filter) {
+    public List<RoleDTO> GetPage(FilterQueryDTO filter) {
         int rows = filter.getRows()>0? filter.getRows() : (int) roleRepository.count();
         int start = rows>0 ? filter.getFirst()/rows: 1;
-        List<Role> entitys = roleRepository.findWithFilter(new PageRequest(start, rows == 0 ? 10 : rows), filter.getGlobalFilter());
-        List<RoleModel> result = new ArrayList<RoleModel>();
-        for (Role e: entitys) {
-            result.add((RoleModel) mapperService.toModel(e));
+        List<RoleEntity> entitys = roleRepository.findWithFilter(new PageRequest(start, rows == 0 ? 10 : rows), filter.getGlobalFilter());
+        List<RoleDTO> result = new ArrayList<RoleDTO>();
+        for (RoleEntity e: entitys) {
+            result.add((RoleDTO) mapperService.toModel(e));
         }
         return result;
     }
 
-    public List<RoleModel> GetAll()
+    public List<RoleDTO> GetAll()
     {
-        List<RoleModel> modelList = new ArrayList<>();
-        Iterable<Role> entityList = roleRepository.findAll();
-        for (Role item: entityList) {
-            RoleModel model = (RoleModel) mapperService.toModel(item);
+        List<RoleDTO> modelList = new ArrayList<>();
+        Iterable<RoleEntity> entityList = roleRepository.findAll();
+        for (RoleEntity item: entityList) {
+            RoleDTO model = (RoleDTO) mapperService.toModel(item);
             modelList.add(model);
         }
         return modelList;
     }
 
-    public RoleModel Get(long id)
+    public RoleDTO Get(long id)
     {
-        Role entity = roleRepository.findOne(id);
-        RoleModel model = (RoleModel) mapperService.toModel(entity);
+        RoleEntity entity = roleRepository.findOne(id);
+        RoleDTO model = (RoleDTO) mapperService.toModel(entity);
         return model;
     }
 
-    public RoleModel GetByName(String name)
+    public RoleDTO GetByName(String name)
     {
-        Role entity = roleRepository.findByRole(name);
-        RoleModel model = (RoleModel) mapperService.toModel(entity);
+        RoleEntity entity = roleRepository.findByRole(name);
+        RoleDTO model = (RoleDTO) mapperService.toModel(entity);
         return model;
     }
 
@@ -60,11 +60,11 @@ public class RoleDataService implements IRoleDataService {
         roleRepository.delete(id);
     }
 
-    public RoleModel Save(RoleModel role)
+    public RoleDTO Save(RoleDTO role)
     {
-        Role entity = (Role) mapperService.toEntity(role);
-        Role model = roleRepository.save(entity);
-        role = (RoleModel) mapperService.toModel(model);
+        RoleEntity entity = (RoleEntity) mapperService.toEntity(role);
+        RoleEntity model = roleRepository.save(entity);
+        role = (RoleDTO) mapperService.toModel(model);
         return role;
     }
 

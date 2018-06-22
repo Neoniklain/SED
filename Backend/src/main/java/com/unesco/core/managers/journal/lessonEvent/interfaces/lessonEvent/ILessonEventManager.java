@@ -2,8 +2,8 @@ package com.unesco.core.managers.journal.lessonEvent.interfaces.lessonEvent;
 
 import com.unesco.core.managers.IManager;
 import com.unesco.core.managers.IValidateManager;
-import com.unesco.core.models.journal.LessonEventModel;
+import com.unesco.core.models.journal.LessonEventDTO;
 
-public interface ILessonEventManager extends IManager<LessonEventModel>, IValidateManager {
+public interface ILessonEventManager extends IManager<LessonEventDTO>, IValidateManager {
 
 }

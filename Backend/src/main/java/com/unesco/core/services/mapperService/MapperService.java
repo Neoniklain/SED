@@ -1,27 +1,27 @@
 package com.unesco.core.services.mapperService;
 
-import com.unesco.core.entities.account.Professor;
-import com.unesco.core.entities.account.Role;
-import com.unesco.core.entities.account.Student;
-import com.unesco.core.entities.account.User;
-import com.unesco.core.entities.journal.LessonEvent;
-import com.unesco.core.entities.journal.Point;
-import com.unesco.core.entities.journal.PointType;
-import com.unesco.core.entities.news.News;
+import com.unesco.core.entities.account.ProfessorEntity;
+import com.unesco.core.entities.account.RoleEntity;
+import com.unesco.core.entities.account.StudentEntity;
+import com.unesco.core.entities.account.UserEntity;
+import com.unesco.core.entities.journal.LessonEventEntity;
+import com.unesco.core.entities.journal.PointEntity;
+import com.unesco.core.entities.journal.PointTypeEntity;
+import com.unesco.core.entities.news.NewsEntity;
 import com.unesco.core.entities.schedule.*;
 import com.unesco.core.entities.workflow.Task;
 import com.unesco.core.entities.workflow.TaskDescription;
 import com.unesco.core.models.TaskDescriptionModel;
 import com.unesco.core.models.TaskModel;
-import com.unesco.core.models.account.ProfessorModel;
-import com.unesco.core.models.account.RoleModel;
-import com.unesco.core.models.account.StudentModel;
-import com.unesco.core.models.account.UserModel;
-import com.unesco.core.models.journal.LessonEventModel;
-import com.unesco.core.models.journal.PointModel;
-import com.unesco.core.models.journal.PointTypeModel;
-import com.unesco.core.models.news.NewsModel;
-import com.unesco.core.models.plan.DepartmentModel;
+import com.unesco.core.models.account.ProfessorDTO;
+import com.unesco.core.models.account.RoleDTO;
+import com.unesco.core.models.account.StudentDTO;
+import com.unesco.core.models.account.UserDTO;
+import com.unesco.core.models.journal.LessonEventDTO;
+import com.unesco.core.models.journal.PointDTO;
+import com.unesco.core.models.journal.PointTypeDTO;
+import com.unesco.core.models.news.NewsDTO;
+import com.unesco.core.models.plan.DepartmentDTO;
 import com.unesco.core.models.shedule.*;
 import com.unesco.core.repositories.account.ProfessorRepository;
 import com.unesco.core.repositories.account.StudentRepository;
@@ -46,56 +46,56 @@ public class MapperService implements IMapperService {
         if (model == null)
             return null;
 
-        if (model instanceof LessonEventModel)
-            return LessonEventToEntity((LessonEventModel) model);
+        if (model instanceof LessonEventDTO)
+            return LessonEventToEntity((LessonEventDTO) model);
 
-        if (model instanceof PointModel)
-            return PointToEntity((PointModel) model);
+        if (model instanceof PointDTO)
+            return PointToEntity((PointDTO) model);
 
-        if (model instanceof PointTypeModel)
-            return PointTypeToEntity((PointTypeModel) model);
+        if (model instanceof PointTypeDTO)
+            return PointTypeToEntity((PointTypeDTO) model);
 
-        if (model instanceof LessonModel)
-            return LessonToEntity((LessonModel) model);
+        if (model instanceof LessonDTO)
+            return LessonToEntity((LessonDTO) model);
 
-        if (model instanceof ProfessorModel)
-            return ProfessorToEntity((ProfessorModel) model);
+        if (model instanceof ProfessorDTO)
+            return ProfessorToEntity((ProfessorDTO) model);
 
-        if (model instanceof StudentModel)
-            return StudentToEntity((StudentModel) model);
+        if (model instanceof StudentDTO)
+            return StudentToEntity((StudentDTO) model);
 
-        if (model instanceof PairModel)
-            return PairToEntity((PairModel) model);
+        if (model instanceof PairDTO)
+            return PairToEntity((PairDTO) model);
 
-        if (model instanceof RoleModel)
-            return RoleToEntity((RoleModel) model);
+        if (model instanceof RoleDTO)
+            return RoleToEntity((RoleDTO) model);
 
-        if (model instanceof UserModel)
-            return UserToEntity((UserModel) model);
+        if (model instanceof UserDTO)
+            return UserToEntity((UserDTO) model);
 
-        if (model instanceof InstituteModel)
-            return InstituteToEntity((InstituteModel) model);
+        if (model instanceof InstituteDTO)
+            return InstituteToEntity((InstituteDTO) model);
 
-        if (model instanceof DepartmentModel)
-            return DepartmentToEntity((DepartmentModel) model);
+        if (model instanceof DepartmentDTO)
+            return DepartmentToEntity((DepartmentDTO) model);
 
-        if (model instanceof GroupModel)
-            return GroupToEntity((GroupModel) model);
+        if (model instanceof GroupDTO)
+            return GroupToEntity((GroupDTO) model);
 
-        if (model instanceof DisciplineModel)
-            return DisciplineToEntity((DisciplineModel) model);
+        if (model instanceof DisciplineDTO)
+            return DisciplineToEntity((DisciplineDTO) model);
 
-        if (model instanceof FieldOfKnowledgeModel)
-            return FieldOfKnowledgeToEntity((FieldOfKnowledgeModel) model);
+        if (model instanceof FieldOfKnowledgeDTO)
+            return FieldOfKnowledgeToEntity((FieldOfKnowledgeDTO) model);
 
-        if (model instanceof RoomModel)
-            return RoomToEntity((RoomModel) model);
+        if (model instanceof RoomDTO)
+            return RoomToEntity((RoomDTO) model);
 
         if (model instanceof TaskModel)
             return TaskToEntity((TaskModel) model);
 
-        if (model instanceof NewsModel)
-            return NewsToEntity((NewsModel) model);
+        if (model instanceof NewsDTO)
+            return NewsToEntity((NewsDTO) model);
 
         if (model instanceof TaskDescription)
             return TaskDescriptionToEntity((TaskDescriptionModel) model);
@@ -108,56 +108,56 @@ public class MapperService implements IMapperService {
         if (entity == null)
             return null;
 
-        if (entity instanceof LessonEvent)
-            return LessonEventToModel((LessonEvent) entity);
+        if (entity instanceof LessonEventEntity)
+            return LessonEventToModel((LessonEventEntity) entity);
 
-        if (entity instanceof Point)
-            return PointToModel((Point) entity);
+        if (entity instanceof PointEntity)
+            return PointToModel((PointEntity) entity);
 
-        if (entity instanceof PointType)
-            return PointTypeToModel((PointType) entity);
+        if (entity instanceof PointTypeEntity)
+            return PointTypeToModel((PointTypeEntity) entity);
 
-        if (entity instanceof Lesson)
-            return LessonToModel((Lesson) entity);
+        if (entity instanceof LessonEntity)
+            return LessonToModel((LessonEntity) entity);
 
-        if (entity instanceof Professor)
-            return ProfessorToModel((Professor) entity);
+        if (entity instanceof ProfessorEntity)
+            return ProfessorToModel((ProfessorEntity) entity);
 
-        if (entity instanceof Student)
-            return StudentToModel((Student) entity);
+        if (entity instanceof StudentEntity)
+            return StudentToModel((StudentEntity) entity);
 
-        if (entity instanceof Pair)
-            return PairToModel((Pair) entity);
+        if (entity instanceof PairEntity)
+            return PairToModel((PairEntity) entity);
 
-        if (entity instanceof Role)
-            return RoleToModel((Role) entity);
+        if (entity instanceof RoleEntity)
+            return RoleToModel((RoleEntity) entity);
 
-        if (entity instanceof User)
-            return UserToModel((User) entity);
+        if (entity instanceof UserEntity)
+            return UserToModel((UserEntity) entity);
 
-        if (entity instanceof Institute)
-            return InstituteToModel((Institute) entity);
+        if (entity instanceof InstituteEntity)
+            return InstituteToModel((InstituteEntity) entity);
 
-        if (entity instanceof Department)
-            return DepartmentToModel((Department) entity);
+        if (entity instanceof DepartmentEntity)
+            return DepartmentToModel((DepartmentEntity) entity);
 
-        if (entity instanceof Group)
-            return GroupToModel((Group) entity);
+        if (entity instanceof GroupEntity)
+            return GroupToModel((GroupEntity) entity);
 
-        if (entity instanceof Discipline)
-            return DisciplineToModel((Discipline) entity);
+        if (entity instanceof DisciplineEntity)
+            return DisciplineToModel((DisciplineEntity) entity);
 
-        if (entity instanceof FieldOfKnowledge)
-            return FieldOfKnowledgeToModel((FieldOfKnowledge) entity );
+        if (entity instanceof FieldOfKnowledgeEntity)
+            return FieldOfKnowledgeToModel((FieldOfKnowledgeEntity) entity );
 
-        if (entity instanceof Room)
-            return RoomToModel((Room) entity);
+        if (entity instanceof RoomEntity)
+            return RoomToModel((RoomEntity) entity);
 
         if (entity instanceof Task)
             return TaskToModel((Task) entity);
 
-        if (entity instanceof News)
-            return NewsToModel((News) entity);
+        if (entity instanceof NewsEntity)
+            return NewsToModel((NewsEntity) entity);
 
         if (entity instanceof TaskDescription)
             return TaskDescriptionToModel((TaskDescription) entity);
@@ -166,62 +166,62 @@ public class MapperService implements IMapperService {
         return new Exception("Not found "+entity.getClass().toString() + " entity class");
     }
 
-    public PointModel PointToModel(Point Entity)
+    public PointDTO PointToModel(PointEntity Entity)
     {
-        PointModel Model = new PointModel();
+        PointDTO Model = new PointDTO();
         Model.setId(Entity.getId());
-        Model.setStudent(StudentToModel(Entity.getStudent()));
+        Model.setStudent(StudentToModel(Entity.getStudentEntity()));
         Model.setValue(Entity.getValue());
-        Model.setPair(PairToModel(Entity.getPair()));
+        Model.setPair(PairToModel(Entity.getPairEntity()));
         Model.setType(PointTypeToModel(Entity.getType()));
         Model.setDate(Entity.getDate());
         return Model;
     }
-    public Point PointToEntity(PointModel Model)
+    public PointEntity PointToEntity(PointDTO Model)
     {
-        Point Entity = new Point();
+        PointEntity Entity = new PointEntity();
         Entity.setId(Model.getId());
-        Entity.setStudent(StudentToEntity(Model.getStudent()));
+        Entity.setStudentEntity(StudentToEntity(Model.getStudent()));
         Entity.setValue(Model.getValue());
-        Entity.setPair(PairToEntity(Model.getPair()));
+        Entity.setPairEntity(PairToEntity(Model.getPair()));
         Entity.setType(PointTypeToEntity(Model.getType()));
         Entity.setDate(Model.getDate());
         return Entity;
     }
 
-    public LessonEventModel LessonEventToModel(LessonEvent Entity)
+    public LessonEventDTO LessonEventToModel(LessonEventEntity Entity)
     {
-        LessonEventModel Model = new LessonEventModel();
+        LessonEventDTO Model = new LessonEventDTO();
         Model.setId(Entity.getId());
         Date Dt = new Date((long)Entity.getDate().getTime());
         Model.setDate(Dt);
         Model.setComment(Entity.getComment());
-        Model.setLesson(LessonToModel(Entity.getLesson()));
+        Model.setLesson(LessonToModel(Entity.getLessonEntity()));
         Model.setType(PointTypeToModel(Entity.getType()));
         return Model;
     }
-    public LessonEvent LessonEventToEntity(LessonEventModel Model)
+    public LessonEventEntity LessonEventToEntity(LessonEventDTO Model)
     {
-        LessonEvent Entity = new LessonEvent();
+        LessonEventEntity Entity = new LessonEventEntity();
         Entity.setId(Model.getId());
         Timestamp ts = new Timestamp(Model.getDate().getTime());
         Entity.setDate(ts);
         Entity.setComment(Model.getComment());
-        Entity.setLesson(LessonToEntity(Model.getLesson()));
+        Entity.setLessonEntity(LessonToEntity(Model.getLesson()));
         Entity.setType(PointTypeToEntity(Model.getType()));
         return Entity;
     }
 
-    public PointTypeModel PointTypeToModel(PointType Entity)
+    public PointTypeDTO PointTypeToModel(PointTypeEntity Entity)
     {
-        PointTypeModel Model = new PointTypeModel();
+        PointTypeDTO Model = new PointTypeDTO();
         Model.setId(Entity.getId());
         Model.setName(Entity.getName());
         return Model;
     }
-    public PointType PointTypeToEntity(PointTypeModel Model)
+    public PointTypeEntity PointTypeToEntity(PointTypeDTO Model)
     {
-        PointType Entity = new PointType();
+        PointTypeEntity Entity = new PointTypeEntity();
         Entity.setId(Model.getId());
         Entity.setName(Model.getName());
         return Entity;
@@ -280,9 +280,9 @@ public class MapperService implements IMapperService {
         return Entity;
     }
 
-    public NewsModel NewsToModel(News Entity)
+    public NewsDTO NewsToModel(NewsEntity Entity)
     {
-        NewsModel Model = new NewsModel();
+        NewsDTO Model = new NewsDTO();
         Model.setId(Entity.getId());
         Model.setAuthor(UserToModel(Entity.getAuthor()));
         Model.setDate(Entity.getDate());
@@ -293,9 +293,9 @@ public class MapperService implements IMapperService {
         Model.setTags(Entity.getTags());
         return Model;
     }
-    public News NewsToEntity(NewsModel Model)
+    public NewsEntity NewsToEntity(NewsDTO Model)
     {
-        News Entity = new News();
+        NewsEntity Entity = new NewsEntity();
         Entity.setId(Model.getId());
         Entity.setAuthor(UserToEntity(Model.getAuthor()));
         Entity.setDate(Model.getDate());
@@ -307,100 +307,100 @@ public class MapperService implements IMapperService {
         return Entity;
     }
 
-    public ProfessorModel ProfessorToModel(Professor Entity)
+    public ProfessorDTO ProfessorToModel(ProfessorEntity Entity)
     {
-        ProfessorModel Model = new ProfessorModel();
+        ProfessorDTO Model = new ProfessorDTO();
         Model.setId(Entity.getId());
-        Model.setUser(UserToModel(Entity.getUser()));
-        Model.setDepartment((DepartmentModel) toModel(Entity.getDepartment()));
+        Model.setUser(UserToModel(Entity.getUserEntity()));
+        Model.setDepartment((DepartmentDTO) toModel(Entity.getDepartmentEntity()));
         return Model;
     }
-    public Professor ProfessorToEntity(ProfessorModel Model)
+    public ProfessorEntity ProfessorToEntity(ProfessorDTO Model)
     {
-        Professor Entity = new Professor();
+        ProfessorEntity Entity = new ProfessorEntity();
         Entity.setId(Model.getId());
-        Entity.setUser(UserToEntity(Model.getUser()));
-        Entity.setDepartment((Department) toEntity(Model.getDepartment()));
+        Entity.setUserEntity(UserToEntity(Model.getUser()));
+        Entity.setDepartmentEntity((DepartmentEntity) toEntity(Model.getDepartment()));
         return Entity;
     }
 
-    public StudentModel StudentToModel(Student Entity)
+    public StudentDTO StudentToModel(StudentEntity Entity)
     {
-        StudentModel Model = new StudentModel();
+        StudentDTO Model = new StudentDTO();
         Model.setId(Entity.getId());
-        Model.setUser(UserToModel(Entity.getUser()));
-        Model.setGroup((GroupModel) toModel(Entity.getGroup()));
+        Model.setUser(UserToModel(Entity.getUserEntity()));
+        Model.setGroup((GroupDTO) toModel(Entity.getGroupEntity()));
         return Model;
     }
-    public Student StudentToEntity(StudentModel Model)
+    public StudentEntity StudentToEntity(StudentDTO Model)
     {
-        Student Entity = new Student();
+        StudentEntity Entity = new StudentEntity();
         Entity.setId(Model.getId());
-        Entity.setUser(UserToEntity(Model.getUser()));
-        Entity.setGroup((Group) toEntity(Model.getGroup()));
+        Entity.setUserEntity(UserToEntity(Model.getUser()));
+        Entity.setGroupEntity((GroupEntity) toEntity(Model.getGroup()));
         return Entity;
     }
 
-    public RoomModel RoomToModel(Room Entity)
+    public RoomDTO RoomToModel(RoomEntity Entity)
     {
-        RoomModel Model = new RoomModel();
+        RoomDTO Model = new RoomDTO();
         Model.setId(Entity.getId());
         Model.setRoom(Entity.getRoom());
         return Model;
     }
-    public Room RoomToEntity(RoomModel Model)
+    public RoomEntity RoomToEntity(RoomDTO Model)
     {
-        Room Entity = new Room();
+        RoomEntity Entity = new RoomEntity();
         Entity.setId(Model.getId());
         Entity.setRoom(Model.getRoom());
         return Entity;
     }
 
-    public LessonModel LessonToModel(Lesson Entity)
+    public LessonDTO LessonToModel(LessonEntity Entity)
     {
-        LessonModel Model = new LessonModel();
+        LessonDTO Model = new LessonDTO();
         Model.setId((int) Entity.getId());
-        Model.setDiscipline(DisciplineToModel(Entity.getDiscipline()));
-        Model.setGroup(GroupToModel(Entity.getGroup()));
-        Model.setProfessor(ProfessorToModel(Entity.getProfessor()));
+        Model.setDiscipline(DisciplineToModel(Entity.getDisciplineEntity()));
+        Model.setGroup(GroupToModel(Entity.getGroupEntity()));
+        Model.setProfessor(ProfessorToModel(Entity.getProfessorEntity()));
         return Model;
     }
-    public Lesson LessonToEntity(LessonModel Model)
+    public LessonEntity LessonToEntity(LessonDTO Model)
     {
-        Lesson Entity = new Lesson();
+        LessonEntity Entity = new LessonEntity();
         Entity.setId(Model.getId());
-        Entity.setDiscipline(DisciplineToEntity(Model.getDiscipline()));
-        Entity.setGroup(GroupToEntity(Model.getGroup()));
-        Entity.setProfessor(ProfessorToEntity(Model.getProfessor()));
+        Entity.setDisciplineEntity(DisciplineToEntity(Model.getDiscipline()));
+        Entity.setGroupEntity(GroupToEntity(Model.getGroup()));
+        Entity.setProfessorEntity(ProfessorToEntity(Model.getProfessor()));
         return Entity;
     }
 
-    public PairModel PairToModel(Pair Entity)
+    public PairDTO PairToModel(PairEntity Entity)
     {
-        PairModel Model = new PairModel();
+        PairDTO Model = new PairDTO();
         Model.setId((int) Entity.getId());
         Model.setPairNumber(Entity.getPairNumber());
         Model.setWeektype(Entity.getWeektype());
         Model.setDayofweek(Entity.getDayofweek());
-        Model.setLesson(LessonToModel(Entity.getLesson()));
-        Model.setRoom(RoomToModel(Entity.getRoom()));
+        Model.setLesson(LessonToModel(Entity.getLessonEntity()));
+        Model.setRoom(RoomToModel(Entity.getRoomEntity()));
         return Model;
     }
-    public Pair PairToEntity(PairModel Model)
+    public PairEntity PairToEntity(PairDTO Model)
     {
-        Pair Entity = new Pair();
+        PairEntity Entity = new PairEntity();
         Entity.setId((int) Model.getId());
         Entity.setPairNumber(Model.getPairNumber());
         Entity.setWeektype(Model.getWeektype());
         Entity.setDayofweek(Model.getDayofweek());
-        Entity.setLesson(LessonToEntity(Model.getLesson()));
-        Entity.setRoom(RoomToEntity(Model.getRoom()));
+        Entity.setLessonEntity(LessonToEntity(Model.getLesson()));
+        Entity.setRoomEntity(RoomToEntity(Model.getRoom()));
         return Entity;
     }
 
-    public User UserToEntity(UserModel Model)
+    public UserEntity UserToEntity(UserDTO Model)
     {
-        User Entity = new User();
+        UserEntity Entity = new UserEntity();
 
         Entity.setId(Model.getId());
         Entity.setUsername(Model.getUsername());
@@ -409,18 +409,18 @@ public class MapperService implements IMapperService {
         Entity.setPassword(Model.getPassword());
         Entity.setPhoto(Model.getPhoto().getBytes());
 
-        Set<Role> roles = new HashSet<Role>();
-        for (RoleModel role: Model.getRoles()) {
-            Role roleEntity = (Role) toEntity(role);
-            roles.add(roleEntity);
+        Set<RoleEntity> roleEntities = new HashSet<RoleEntity>();
+        for (RoleDTO role: Model.getRoles()) {
+            RoleEntity roleEntityEntity = (RoleEntity) toEntity(role);
+            roleEntities.add(roleEntityEntity);
         }
-        Entity.setRoles(roles);
+        Entity.setRoleEntities(roleEntities);
 
         return Entity;
     }
-    public UserModel UserToModel(User Entity)
+    public UserDTO UserToModel(UserEntity Entity)
     {
-        UserModel Model = new UserModel();
+        UserDTO Model = new UserDTO();
 
         Model.setId(Entity.getId());
         Model.setUsername(Entity.getUsername());
@@ -431,124 +431,124 @@ public class MapperService implements IMapperService {
         if(Entity.getPhoto() != null)
             photo = new String(Entity.getPhoto(), StandardCharsets.UTF_8);
         Model.setPhoto(photo);
-        List<RoleModel> roles = new ArrayList<>();
-        for (Role role: Entity.getRoles()) {
-            RoleModel roleModel = (RoleModel) toModel(role);
-            roles.add(roleModel);
+        List<RoleDTO> roles = new ArrayList<>();
+        for (RoleEntity roleEntity : Entity.getRoleEntities()) {
+            RoleDTO roleDTO = (RoleDTO) toModel(roleEntity);
+            roles.add(roleDTO);
         }
         Model.setRoles(roles);
         return Model;
     }
 
-    public RoleModel RoleToModel(Role Entity)
+    public RoleDTO RoleToModel(RoleEntity Entity)
     {
-        RoleModel Model = new RoleModel();
+        RoleDTO Model = new RoleDTO();
         Model.setId((int) Entity.getId());
         Model.setRoleName(Entity.getRoleName());
         return Model;
     }
-    public Role RoleToEntity(RoleModel Model)
+    public RoleEntity RoleToEntity(RoleDTO Model)
     {
-        Role Entity = new Role();
+        RoleEntity Entity = new RoleEntity();
         Entity.setId(Model.getId());
         Entity.setRoleName(Model.getRoleName());
         return Entity;
     }
 
-    public InstituteModel InstituteToModel(Institute Entity)
+    public InstituteDTO InstituteToModel(InstituteEntity Entity)
     {
-        InstituteModel Model = new InstituteModel();
+        InstituteDTO Model = new InstituteDTO();
 
         Model.setId(Entity.getId());
         Model.setName(Entity.getName());
         return Model;
     }
-    public Institute InstituteToEntity(InstituteModel Model)
+    public InstituteEntity InstituteToEntity(InstituteDTO Model)
     {
-        Institute Entity = new Institute();
+        InstituteEntity Entity = new InstituteEntity();
 
         Entity.setId(Model.getId());
         Entity.setName(Model.getName());
         return Entity;
     }
 
-    public DepartmentModel DepartmentToModel(Department Entity)
+    public DepartmentDTO DepartmentToModel(DepartmentEntity Entity)
     {
-        DepartmentModel Model = new DepartmentModel();
+        DepartmentDTO Model = new DepartmentDTO();
 
         Model.setId(Entity.getId());
         Model.setName(Entity.getName());
-        Model.setInstitute((InstituteModel) toModel(Entity.getInstitute()));
+        Model.setInstitute((InstituteDTO) toModel(Entity.getInstituteEntity()));
         return Model;
     }
-    public Department DepartmentToEntity(DepartmentModel Model)
+    public DepartmentEntity DepartmentToEntity(DepartmentDTO Model)
     {
-        Department Entity = new Department();
+        DepartmentEntity Entity = new DepartmentEntity();
         Entity.setId(Model.getId());
         Entity.setName(Model.getName());
-        Entity.setInstitute((Institute) toEntity(Model.getInstitute()));
+        Entity.setInstituteEntity((InstituteEntity) toEntity(Model.getInstitute()));
         return Entity;
     }
 
-    public GroupModel GroupToModel(Group Entity)
+    public GroupDTO GroupToModel(GroupEntity Entity)
     {
-        GroupModel Model = new GroupModel();
+        GroupDTO Model = new GroupDTO();
 
         Model.setName(Entity.getName());
         Model.setId(Entity.getId());
-        Model.setDepartment((DepartmentModel) toModel(Entity.getDepartment()));
+        Model.setDepartment((DepartmentDTO) toModel(Entity.getDepartmentEntity()));
 
         return Model;
     }
-    public Group GroupToEntity(GroupModel Model)
+    public GroupEntity GroupToEntity(GroupDTO Model)
     {
 
-        Group Entity = new Group();
+        GroupEntity Entity = new GroupEntity();
 
         Entity.setName(Model.getName());
         Entity.setId(Model.getId());
-        Entity.setDepartment((Department) toEntity(Model.getDepartment()));
+        Entity.setDepartmentEntity((DepartmentEntity) toEntity(Model.getDepartment()));
 
         return Entity;
     }
 
-    private DisciplineModel DisciplineToModel(Discipline Entity)
+    private DisciplineDTO DisciplineToModel(DisciplineEntity Entity)
     {
-        DisciplineModel Model = new DisciplineModel();
+        DisciplineDTO Model = new DisciplineDTO();
 
         Model.setId((int) Entity.getId());
         Model.setName(Entity.getName());
-        if(Entity.getFieldOfKnowledge() != null)
-            Model.setFieldOfKnowledge((FieldOfKnowledgeModel) toModel(Entity.getFieldOfKnowledge()));
+        if(Entity.getFieldOfKnowledgeEntity() != null)
+            Model.setFieldOfKnowledge((FieldOfKnowledgeDTO) toModel(Entity.getFieldOfKnowledgeEntity()));
 
         return Model;
     }
-    private Discipline DisciplineToEntity(DisciplineModel Model)
+    private DisciplineEntity DisciplineToEntity(DisciplineDTO Model)
     {
-        Discipline Entity = new Discipline();
+        DisciplineEntity Entity = new DisciplineEntity();
 
         Entity.setId(Model.getId());
         Entity.setName(Model.getName());
         if(Model.getFieldOfKnowledge() != null) {
-            Entity.setFieldOfKnowledge((FieldOfKnowledge) toEntity(Model.getFieldOfKnowledge()));
+            Entity.setFieldOfKnowledgeEntity((FieldOfKnowledgeEntity) toEntity(Model.getFieldOfKnowledge()));
         }
 
         return Entity;
     }
 
-    private FieldOfKnowledgeModel FieldOfKnowledgeToModel(FieldOfKnowledge Entity)
+    private FieldOfKnowledgeDTO FieldOfKnowledgeToModel(FieldOfKnowledgeEntity Entity)
     {
 
-        FieldOfKnowledgeModel Model = new FieldOfKnowledgeModel();
+        FieldOfKnowledgeDTO Model = new FieldOfKnowledgeDTO();
         Model.setName(Entity.getName());
         Model.setId(Entity.getId());
 
         return Model;
     }
-    private FieldOfKnowledge FieldOfKnowledgeToEntity(FieldOfKnowledgeModel Model)
+    private FieldOfKnowledgeEntity FieldOfKnowledgeToEntity(FieldOfKnowledgeDTO Model)
     {
 
-        FieldOfKnowledge Entity = new FieldOfKnowledge();
+        FieldOfKnowledgeEntity Entity = new FieldOfKnowledgeEntity();
 
         Entity.setName(Model.getName());
         Entity.setId(Model.getId());

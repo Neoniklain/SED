@@ -1,8 +1,8 @@
 package com.unesco.core.services.plan.planService;
 
-import com.unesco.core.entities.plan.Plan;
-import com.unesco.core.models.plan.PlanModel;
-import com.unesco.core.models.additional.FilterQuery;
+import com.unesco.core.entities.plan.PlanEntity;
+import com.unesco.core.models.plan.PlanDTO;
+import com.unesco.core.models.additional.FilterQueryDTO;
 import com.unesco.core.repositories.plan.PlanRepository;
 import com.unesco.core.services.mapperService.IMapperService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,32 +20,32 @@ public class PlanDataService implements IPlanDataService {
     @Autowired
     private PlanRepository planRepository;
 
-    public List<PlanModel> GetPage(FilterQuery filter) {
+    public List<PlanDTO> GetPage(FilterQueryDTO filter) {
         int rows = filter.getRows()>0? filter.getRows() : (int) planRepository.count();
         int start = rows>0 ? filter.getFirst()/rows: 1;
-        List<Plan> entitys = planRepository.findWithFilter(new PageRequest(start, rows == 0 ? 10 : rows), filter.getGlobalFilter());
-        List<PlanModel> result = new ArrayList<PlanModel>();
-        for (Plan e: entitys) {
-            result.add((PlanModel) mapperService.toModel(e));
+        List<PlanEntity> entitys = planRepository.findWithFilter(new PageRequest(start, rows == 0 ? 10 : rows), filter.getGlobalFilter());
+        List<PlanDTO> result = new ArrayList<PlanDTO>();
+        for (PlanEntity e: entitys) {
+            result.add((PlanDTO) mapperService.toModel(e));
         }
         return result;
     }
 
-    public List<PlanModel> GetAll()
+    public List<PlanDTO> GetAll()
     {
-        List<PlanModel> modelList = new ArrayList<>();
-        Iterable<Plan> entityList = planRepository.findAll();
-        for (Plan item: entityList) {
-            PlanModel model = (PlanModel) mapperService.toModel(item);
+        List<PlanDTO> modelList = new ArrayList<>();
+        Iterable<PlanEntity> entityList = planRepository.findAll();
+        for (PlanEntity item: entityList) {
+            PlanDTO model = (PlanDTO) mapperService.toModel(item);
             modelList.add(model);
         }
         return modelList;
     }
 
-    public PlanModel Get(long id)
+    public PlanDTO Get(long id)
     {
-        Plan entity = planRepository.findOne(id);
-        PlanModel model = (PlanModel) mapperService.toModel(entity);
+        PlanEntity entity = planRepository.findOne(id);
+        PlanDTO model = (PlanDTO) mapperService.toModel(entity);
         return model;
     }
 
@@ -54,11 +54,11 @@ public class PlanDataService implements IPlanDataService {
         planRepository.delete(id);
     }
 
-    public PlanModel Save(PlanModel plan)
+    public PlanDTO Save(PlanDTO plan)
     {
-        Plan entity = (Plan) mapperService.toEntity(plan);
-        Plan model = planRepository.save(entity);
-        plan = (PlanModel) mapperService.toModel(model);
+        PlanEntity entity = (PlanEntity) mapperService.toEntity(plan);
+        PlanEntity model = planRepository.save(entity);
+        plan = (PlanDTO) mapperService.toModel(model);
         return plan;
     }
 }

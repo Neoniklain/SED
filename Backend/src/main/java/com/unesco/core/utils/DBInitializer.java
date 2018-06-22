@@ -1,8 +1,8 @@
 package com.unesco.core.utils;
 
-import com.unesco.core.entities.account.Role;
-import com.unesco.core.entities.account.User;
-import com.unesco.core.entities.journal.PointType;
+import com.unesco.core.entities.account.RoleEntity;
+import com.unesco.core.entities.account.UserEntity;
+import com.unesco.core.entities.journal.PointTypeEntity;
 import com.unesco.core.entities.schedule.*;
 import com.unesco.core.repositories.RoomRepository;
 import com.unesco.core.repositories.account.RoleRepository;
@@ -49,90 +49,90 @@ public class DBInitializer implements ApplicationRunner {
     public void run(ApplicationArguments args) {
         // Инициализация ролей
         if(_RoleRepository.findByRole("ADMIN") == null)
-            _RoleRepository.save(new Role("ADMIN"));
+            _RoleRepository.save(new RoleEntity("ADMIN"));
         if(_RoleRepository.findByRole("STUDENT") == null)
-            _RoleRepository.save(new Role("STUDENT"));
+            _RoleRepository.save(new RoleEntity("STUDENT"));
         if(_RoleRepository.findByRole("PROFESSOR") == null)
-            _RoleRepository.save(new Role("PROFESSOR"));
+            _RoleRepository.save(new RoleEntity("PROFESSOR"));
         if(_RoleRepository.findByRole("ENGINEER") == null)
-            _RoleRepository.save(new Role("ENGINEER"));
+            _RoleRepository.save(new RoleEntity("ENGINEER"));
         if(_RoleRepository.findByRole("GUEST") == null)
-            _RoleRepository.save(new Role("GUEST"));
+            _RoleRepository.save(new RoleEntity("GUEST"));
         // Инициализация Тестового пользователя.
         if(_UserRepository.findByUsername("admin") == null)
         {
-            Set<Role> role = new HashSet<Role>();
-            Role userRole = _RoleRepository.findByRole("ADMIN");
-            role.add(userRole);
-            User testUser = new User("admin","Администратор", "admin@mail.com", passwordEncoder.encode("12345"));
-            testUser.setRoles(role);
-            _UserRepository.save(testUser);
+            Set<RoleEntity> roleEntity = new HashSet<RoleEntity>();
+            RoleEntity userRoleEntity = _RoleRepository.findByRole("ADMIN");
+            roleEntity.add(userRoleEntity);
+            UserEntity testUserEntity = new UserEntity("admin","Администратор", "admin@mail.com", passwordEncoder.encode("12345"));
+            testUserEntity.setRoleEntities(roleEntity);
+            _UserRepository.save(testUserEntity);
         }
         // Инициализация Типов отметок
         if(_PointTypeRepository.findByName("Посещение") == null)
         {
-            PointType p = new PointType();
+            PointTypeEntity p = new PointTypeEntity();
             p.setName("Посещение");
             _PointTypeRepository.save(p);
         }
         // Инициализация раздела знаний
         if(_FieldOfKnowledgeRepository.findByName("Тестовый") == null)
         {
-            FieldOfKnowledge t = new FieldOfKnowledge();
+            FieldOfKnowledgeEntity t = new FieldOfKnowledgeEntity();
             t.setName("Тестовый");
             _FieldOfKnowledgeRepository.save(t);
         }
-        Institute t = new Institute();
-        // Инициализация Institute
+        InstituteEntity t = new InstituteEntity();
+        // Инициализация InstituteEntity
         if(_InstituteRepository.findByName("Институт Фундаментальных наук") == null)
         {
-            t = new Institute();
+            t = new InstituteEntity();
             t.setName("Институт Фундаментальных наук");
             _InstituteRepository.save(t);
         }
-        Department d = new Department();
-        // Инициализация Institute
+        DepartmentEntity d = new DepartmentEntity();
+        // Инициализация InstituteEntity
         if(_DepartmentRepository.findByName("Юнеско") == null)
         {
-            d = new Department();
+            d = new DepartmentEntity();
             d.setName("Юнеско");
-            d.setInstitute(t);
+            d.setInstituteEntity(t);
             _DepartmentRepository.save(d);
         }
-        Group g;
+        GroupEntity g;
         if(_GroupRepository.findByName("М-178") == null)
         {
-            g = new Group();
+            g = new GroupEntity();
             g.setName("М-178");
-            g.setDepartment(d);
+            g.setDepartmentEntity(d);
             _GroupRepository.save(g);
         }
-        // Инициализация PointType
-        PointType p = new PointType();
+        // Инициализация PointTypeEntity
+        PointTypeEntity p = new PointTypeEntity();
         if(_PointTypeRepository.findByName("Посещение") == null)
         {
             p.setName("Посещение");
             _PointTypeRepository.save(p);
         }
-        PointType p2 = new PointType();
+        PointTypeEntity p2 = new PointTypeEntity();
         if(_PointTypeRepository.findByName("Лабораторная") == null)
         {
             p2.setName("Лабораторная");
             _PointTypeRepository.save(p2);
         }
-        PointType p3 = new PointType();
+        PointTypeEntity p3 = new PointTypeEntity();
         if(_PointTypeRepository.findByName("Семестровая") == null)
         {
             p3.setName("Семестровая");
             _PointTypeRepository.save(p3);
         }
-        PointType p4 = new PointType();
+        PointTypeEntity p4 = new PointTypeEntity();
         if(_PointTypeRepository.findByName("Контрольная работа") == null)
         {
             p4.setName("Контрольная работа");
             _PointTypeRepository.save(p4);
         }
-        PointType p5 = new PointType();
+        PointTypeEntity p5 = new PointTypeEntity();
         if(_PointTypeRepository.findByName("Отчет") == null)
         {
             p5.setName("Отчет");

@@ -1,9 +1,9 @@
 package com.unesco.core.services.account.professorService;
 
-import com.unesco.core.entities.account.Professor;
-import com.unesco.core.entities.account.User;
-import com.unesco.core.models.account.ProfessorModel;
-import com.unesco.core.models.additional.FilterQuery;
+import com.unesco.core.entities.account.ProfessorEntity;
+import com.unesco.core.entities.account.UserEntity;
+import com.unesco.core.models.account.ProfessorDTO;
+import com.unesco.core.models.additional.FilterQueryDTO;
 import com.unesco.core.repositories.account.ProfessorRepository;
 import com.unesco.core.services.account.userService.IUserDataService;
 import com.unesco.core.services.mapperService.IMapperService;
@@ -23,65 +23,65 @@ public class ProfessorDataService implements IProfessorDataService {
     @Autowired
     private IUserDataService userDataService;
 
-    public List<ProfessorModel> GetPage(FilterQuery filter) {
+    public List<ProfessorDTO> GetPage(FilterQueryDTO filter) {
         int rows = filter.getRows()>0? filter.getRows() : (int) professorRepository.count();
         int start = rows>0 ? filter.getFirst()/rows: 1;
-        List<Professor> entitys = professorRepository.findWithFilter(new PageRequest(start, rows == 0 ? 10 : rows), filter.getGlobalFilter());
-        List<ProfessorModel> result = new ArrayList<ProfessorModel>();
-        for (Professor e: entitys) {
-            result.add((ProfessorModel) mapperService.toModel(e));
+        List<ProfessorEntity> entitys = professorRepository.findWithFilter(new PageRequest(start, rows == 0 ? 10 : rows), filter.getGlobalFilter());
+        List<ProfessorDTO> result = new ArrayList<ProfessorDTO>();
+        for (ProfessorEntity e: entitys) {
+            result.add((ProfessorDTO) mapperService.toModel(e));
         }
         return result;
     }
 
-    public List<ProfessorModel> GetAll()
+    public List<ProfessorDTO> GetAll()
     {
-        List<ProfessorModel> modelList = new ArrayList<>();
-        Iterable<Professor> entityList = professorRepository.findAll();
-        for (Professor item: entityList) {
-            ProfessorModel model = (ProfessorModel) mapperService.toModel(item);
+        List<ProfessorDTO> modelList = new ArrayList<>();
+        Iterable<ProfessorEntity> entityList = professorRepository.findAll();
+        for (ProfessorEntity item: entityList) {
+            ProfessorDTO model = (ProfessorDTO) mapperService.toModel(item);
             modelList.add(model);
         }
         return modelList;
     }
 
-    public List<ProfessorModel> GetAllByDepartament(long departmentId)
+    public List<ProfessorDTO> GetAllByDepartament(long departmentId)
     {
-        List<ProfessorModel> modelList = new ArrayList<>();
-        Iterable<Professor> entityList = professorRepository.findAllByDepartmentId(departmentId);
-        for (Professor item: entityList) {
-            ProfessorModel model = (ProfessorModel) mapperService.toModel(item);
+        List<ProfessorDTO> modelList = new ArrayList<>();
+        Iterable<ProfessorEntity> entityList = professorRepository.findAllByDepartmentId(departmentId);
+        for (ProfessorEntity item: entityList) {
+            ProfessorDTO model = (ProfessorDTO) mapperService.toModel(item);
             modelList.add(model);
         }
         return modelList;
     }
 
-    public ProfessorModel Get(long id)
+    public ProfessorDTO Get(long id)
     {
-        Professor entity = professorRepository.findOne(id);
-        ProfessorModel model = (ProfessorModel) mapperService.toModel(entity);
+        ProfessorEntity entity = professorRepository.findOne(id);
+        ProfessorDTO model = (ProfessorDTO) mapperService.toModel(entity);
         return model;
     }
 
     public void Delete(long id)
     {
-        Professor entity = professorRepository.findOne(id);
+        ProfessorEntity entity = professorRepository.findOne(id);
         professorRepository.delete(entity.getId());
     }
 
-    public ProfessorModel Save(ProfessorModel professor)
+    public ProfessorDTO Save(ProfessorDTO professor)
     {
-        Professor entity = (Professor) mapperService.toEntity(professor);
-        User user = (User) mapperService.toEntity(userDataService.GetByUsername(entity.getUser().getUsername()));
-        entity.setUser(user);
-        Professor model = professorRepository.save(entity);
-        professor = (ProfessorModel) mapperService.toModel(model);
+        ProfessorEntity entity = (ProfessorEntity) mapperService.toEntity(professor);
+        UserEntity userEntity = (UserEntity) mapperService.toEntity(userDataService.GetByUsername(entity.getUserEntity().getUsername()));
+        entity.setUserEntity(userEntity);
+        ProfessorEntity model = professorRepository.save(entity);
+        professor = (ProfessorDTO) mapperService.toModel(model);
         return professor;
     }
 
-    public ProfessorModel GetByUser(long userId) {
-        Professor entity = professorRepository.findByUserId(userId);
-        ProfessorModel model = (ProfessorModel) mapperService.toModel(entity);
+    public ProfessorDTO GetByUser(long userId) {
+        ProfessorEntity entity = professorRepository.findByUserId(userId);
+        ProfessorDTO model = (ProfessorDTO) mapperService.toModel(entity);
         return model;
     }
 }

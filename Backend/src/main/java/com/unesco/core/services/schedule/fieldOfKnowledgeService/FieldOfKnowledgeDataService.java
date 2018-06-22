@@ -1,8 +1,8 @@
 package com.unesco.core.services.schedule.fieldOfKnowledgeService;
 
-import com.unesco.core.entities.schedule.FieldOfKnowledge;
-import com.unesco.core.models.shedule.FieldOfKnowledgeModel;
-import com.unesco.core.models.additional.FilterQuery;
+import com.unesco.core.entities.schedule.FieldOfKnowledgeEntity;
+import com.unesco.core.models.shedule.FieldOfKnowledgeDTO;
+import com.unesco.core.models.additional.FilterQueryDTO;
 import com.unesco.core.repositories.plan.FieldOfKnowledgeRepository;
 import com.unesco.core.services.mapperService.IMapperService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,32 +20,32 @@ public class FieldOfKnowledgeDataService implements IFieldOfKnowledgeDataService
     @Autowired
     private FieldOfKnowledgeRepository fieldOfKnowledgeRepository;
 
-    public List<FieldOfKnowledgeModel> GetPage(FilterQuery filter) {
+    public List<FieldOfKnowledgeDTO> GetPage(FilterQueryDTO filter) {
         int rows = filter.getRows()>0? filter.getRows() : (int) fieldOfKnowledgeRepository.count();
         int start = rows>0 ? filter.getFirst()/rows: 1;
-        List<FieldOfKnowledge> entitys = fieldOfKnowledgeRepository.findWithFilter(new PageRequest(start, rows == 0 ? 10 : rows), filter.getGlobalFilter());
-        List<FieldOfKnowledgeModel> result = new ArrayList<FieldOfKnowledgeModel>();
-        for (FieldOfKnowledge e: entitys) {
-            result.add((FieldOfKnowledgeModel) mapperService.toModel(e));
+        List<FieldOfKnowledgeEntity> entitys = fieldOfKnowledgeRepository.findWithFilter(new PageRequest(start, rows == 0 ? 10 : rows), filter.getGlobalFilter());
+        List<FieldOfKnowledgeDTO> result = new ArrayList<FieldOfKnowledgeDTO>();
+        for (FieldOfKnowledgeEntity e: entitys) {
+            result.add((FieldOfKnowledgeDTO) mapperService.toModel(e));
         }
         return result;
     }
 
-    public List<FieldOfKnowledgeModel> GetAll()
+    public List<FieldOfKnowledgeDTO> GetAll()
     {
-        List<FieldOfKnowledgeModel> modelList = new ArrayList<>();
-        Iterable<FieldOfKnowledge> entityList = fieldOfKnowledgeRepository.findAll();
-        for (FieldOfKnowledge item: entityList) {
-            FieldOfKnowledgeModel model = (FieldOfKnowledgeModel) mapperService.toModel(item);
+        List<FieldOfKnowledgeDTO> modelList = new ArrayList<>();
+        Iterable<FieldOfKnowledgeEntity> entityList = fieldOfKnowledgeRepository.findAll();
+        for (FieldOfKnowledgeEntity item: entityList) {
+            FieldOfKnowledgeDTO model = (FieldOfKnowledgeDTO) mapperService.toModel(item);
             modelList.add(model);
         }
         return modelList;
     }
 
-    public FieldOfKnowledgeModel Get(long id)
+    public FieldOfKnowledgeDTO Get(long id)
     {
-        FieldOfKnowledge entity = fieldOfKnowledgeRepository.findOne(id);
-        FieldOfKnowledgeModel model = (FieldOfKnowledgeModel) mapperService.toModel(entity);
+        FieldOfKnowledgeEntity entity = fieldOfKnowledgeRepository.findOne(id);
+        FieldOfKnowledgeDTO model = (FieldOfKnowledgeDTO) mapperService.toModel(entity);
         return model;
     }
 
@@ -54,11 +54,11 @@ public class FieldOfKnowledgeDataService implements IFieldOfKnowledgeDataService
         fieldOfKnowledgeRepository.delete(id);
     }
 
-    public FieldOfKnowledgeModel Save(FieldOfKnowledgeModel fieldOfKnowledge)
+    public FieldOfKnowledgeDTO Save(FieldOfKnowledgeDTO fieldOfKnowledge)
     {
-        FieldOfKnowledge entity = (FieldOfKnowledge) mapperService.toEntity(fieldOfKnowledge);
-        FieldOfKnowledge model = fieldOfKnowledgeRepository.save(entity);
-        fieldOfKnowledge = (FieldOfKnowledgeModel) mapperService.toModel(model);
+        FieldOfKnowledgeEntity entity = (FieldOfKnowledgeEntity) mapperService.toEntity(fieldOfKnowledge);
+        FieldOfKnowledgeEntity model = fieldOfKnowledgeRepository.save(entity);
+        fieldOfKnowledge = (FieldOfKnowledgeDTO) mapperService.toModel(model);
         return fieldOfKnowledge;
     }
 }

@@ -1,8 +1,7 @@
 package com.unesco.core.services.journal.lessonEvent;
 
-import com.unesco.core.entities.account.Professor;
-import com.unesco.core.entities.journal.LessonEvent;
-import com.unesco.core.models.journal.LessonEventModel;
+import com.unesco.core.entities.journal.LessonEventEntity;
+import com.unesco.core.models.journal.LessonEventDTO;
 import com.unesco.core.repositories.account.ProfessorRepository;
 import com.unesco.core.repositories.journal.LessonEventRepository;
 import com.unesco.core.services.mapperService.IMapperService;
@@ -22,31 +21,31 @@ public class LessonEventDataService implements ILessonEventDataService {
     @Autowired
     private ProfessorRepository professorRepository;
 
-    public List<LessonEventModel> GetAll()
+    public List<LessonEventDTO> GetAll()
     {
-        List<LessonEventModel> modelList = new ArrayList<>();
-        Iterable<LessonEvent> entityList = lessonEventRepository.findAll();
-        for (LessonEvent item: entityList) {
-            LessonEventModel model = (LessonEventModel) mapperService.toModel(item);
+        List<LessonEventDTO> modelList = new ArrayList<>();
+        Iterable<LessonEventEntity> entityList = lessonEventRepository.findAll();
+        for (LessonEventEntity item: entityList) {
+            LessonEventDTO model = (LessonEventDTO) mapperService.toModel(item);
             modelList.add(model);
         }
         return modelList;
     }
 
-    public LessonEventModel Get(long id)
+    public LessonEventDTO Get(long id)
     {
-        LessonEvent entity = lessonEventRepository.findOne(id);
-        LessonEventModel model = (LessonEventModel) mapperService.toModel(entity);
+        LessonEventEntity entity = lessonEventRepository.findOne(id);
+        LessonEventDTO model = (LessonEventDTO) mapperService.toModel(entity);
         return model;
     }
 
-    public List<LessonEventModel> GetByLesson(long lessonId)
+    public List<LessonEventDTO> GetByLesson(long lessonId)
     {
 
-        List<LessonEventModel> modelList = new ArrayList<>();
-        Iterable<LessonEvent> entityList = lessonEventRepository.findByLessonId(lessonId);
-        for (LessonEvent item: entityList) {
-            LessonEventModel model = (LessonEventModel) mapperService.toModel(item);
+        List<LessonEventDTO> modelList = new ArrayList<>();
+        Iterable<LessonEventEntity> entityList = lessonEventRepository.findByLessonEntityId(lessonId);
+        for (LessonEventEntity item: entityList) {
+            LessonEventDTO model = (LessonEventDTO) mapperService.toModel(item);
             modelList.add(model);
         }
         return modelList;
@@ -57,11 +56,11 @@ public class LessonEventDataService implements ILessonEventDataService {
         lessonEventRepository.delete(id);
     }
 
-    public LessonEventModel Save(LessonEventModel lessonEvent)
+    public LessonEventDTO Save(LessonEventDTO lessonEvent)
     {
-        LessonEvent entity = (LessonEvent) mapperService.toEntity(lessonEvent);
+        LessonEventEntity entity = (LessonEventEntity) mapperService.toEntity(lessonEvent);
         entity = lessonEventRepository.save(entity);
-        lessonEvent = (LessonEventModel) mapperService.toModel(entity);
+        lessonEvent = (LessonEventDTO) mapperService.toModel(entity);
         return lessonEvent;
     }
 }

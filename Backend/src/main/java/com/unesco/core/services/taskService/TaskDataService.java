@@ -4,7 +4,7 @@ import com.unesco.core.entities.workflow.Task;
 import com.unesco.core.entities.workflow.TaskDescription;
 import com.unesco.core.models.TaskDescriptionModel;
 import com.unesco.core.models.TaskModel;
-import com.unesco.core.models.account.UserModel;
+import com.unesco.core.models.account.UserDTO;
 import com.unesco.core.repositories.account.UserRepository;
 import com.unesco.core.repositories.task.TaskDescriptionRepository;
 import com.unesco.core.repositories.task.TaskRepository;
@@ -61,7 +61,7 @@ public class TaskDataService implements ITaskDataService
       res.setDescription(td.getDescription());
       Set<Task> col = new HashSet<>();
       List<Task> subTasks = new ArrayList<>();
-      for (UserModel user: td.getUsers()) {
+      for (UserDTO user: td.getUsers()) {
           Task temp = new Task();
           temp.setResponse("");
           temp.setStatus(_Statuses.Processed);

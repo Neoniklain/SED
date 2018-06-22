@@ -1,8 +1,8 @@
 package com.unesco.core.services.plan.semesterService;
 
-import com.unesco.core.entities.plan.Semester;
-import com.unesco.core.models.plan.SemesterModel;
-import com.unesco.core.models.additional.FilterQuery;
+import com.unesco.core.entities.plan.SemesterEntity;
+import com.unesco.core.models.plan.SemesterDTO;
+import com.unesco.core.models.additional.FilterQueryDTO;
 import com.unesco.core.repositories.plan.SemesterRepository;
 import com.unesco.core.services.mapperService.IMapperService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,32 +20,32 @@ public class SemesterDataService implements ISemesterDataService {
     @Autowired
     private SemesterRepository semesterRepository;
 
-    public List<SemesterModel> GetPage(FilterQuery filter) {
+    public List<SemesterDTO> GetPage(FilterQueryDTO filter) {
         int rows = filter.getRows()>0? filter.getRows() : (int) semesterRepository.count();
         int start = rows>0 ? filter.getFirst()/rows: 1;
-        List<Semester> entitys = semesterRepository.findWithFilter(new PageRequest(start, rows == 0 ? 10 : rows), filter.getGlobalFilter());
-        List<SemesterModel> result = new ArrayList<SemesterModel>();
-        for (Semester e: entitys) {
-            result.add((SemesterModel) mapperService.toModel(e));
+        List<SemesterEntity> entitys = semesterRepository.findWithFilter(new PageRequest(start, rows == 0 ? 10 : rows), filter.getGlobalFilter());
+        List<SemesterDTO> result = new ArrayList<SemesterDTO>();
+        for (SemesterEntity e: entitys) {
+            result.add((SemesterDTO) mapperService.toModel(e));
         }
         return result;
     }
 
-    public List<SemesterModel> GetAll()
+    public List<SemesterDTO> GetAll()
     {
-        List<SemesterModel> modelList = new ArrayList<>();
-        Iterable<Semester> entityList = semesterRepository.findAll();
-        for (Semester item: entityList) {
-            SemesterModel model = (SemesterModel) mapperService.toModel(item);
+        List<SemesterDTO> modelList = new ArrayList<>();
+        Iterable<SemesterEntity> entityList = semesterRepository.findAll();
+        for (SemesterEntity item: entityList) {
+            SemesterDTO model = (SemesterDTO) mapperService.toModel(item);
             modelList.add(model);
         }
         return modelList;
     }
 
-    public SemesterModel Get(long id)
+    public SemesterDTO Get(long id)
     {
-        Semester entity = semesterRepository.findOne(id);
-        SemesterModel model = (SemesterModel) mapperService.toModel(entity);
+        SemesterEntity entity = semesterRepository.findOne(id);
+        SemesterDTO model = (SemesterDTO) mapperService.toModel(entity);
         return model;
     }
 
@@ -54,11 +54,11 @@ public class SemesterDataService implements ISemesterDataService {
         semesterRepository.delete(id);
     }
 
-    public SemesterModel Save(SemesterModel semester)
+    public SemesterDTO Save(SemesterDTO semester)
     {
-        Semester entity = (Semester) mapperService.toEntity(semester);
-        Semester model = semesterRepository.save(entity);
-        semester = (SemesterModel) mapperService.toModel(model);
+        SemesterEntity entity = (SemesterEntity) mapperService.toEntity(semester);
+        SemesterEntity model = semesterRepository.save(entity);
+        semester = (SemesterDTO) mapperService.toModel(model);
         return semester;
     }
 }

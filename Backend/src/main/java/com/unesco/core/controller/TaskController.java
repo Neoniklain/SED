@@ -3,8 +3,8 @@ package com.unesco.core.controller;
 
 import com.unesco.core.models.TaskDescriptionModel;
 import com.unesco.core.models.TaskModel;
-import com.unesco.core.models.account.UserModel;
-import com.unesco.core.models.additional.ResponseStatus;
+import com.unesco.core.models.account.UserDTO;
+import com.unesco.core.models.additional.ResponseStatusDTO;
 import com.unesco.core.security.CustomUserDetailsService;
 import com.unesco.core.services.taskService.ITaskDataService;
 import com.unesco.core.utils.StatusTypes;
@@ -27,15 +27,15 @@ public class TaskController {
 
     @GetMapping(value = "/list")
     public Iterable<TaskDescriptionModel> GetList() {
-        /*UserModel user = new UserModel(_CustomUserDetailsService.getUserDetails());
+        /*UserDTO user = new UserDTO(_CustomUserDetailsService.getUserDetails());
         Iterable<TaskDescriptionModel> result =  new ArrayList<>();
-        List<String> role = new ArrayList<RoleModel>(user.getRoles())
+        List<String> role = new ArrayList<RoleDTO>(user.getRoleEntities())
                 .stream()
-                .map(RoleModel::getRoleName)
+                .map(RoleDTO::getRoleName)
                 .collect(Collectors.toList());*/
         Iterable<TaskDescriptionModel> res = _TaskDataService.getAllTaskDescription();
         for (TaskDescriptionModel TD: res) {
-            List<UserModel> temp_users = new ArrayList<>();
+            List<UserDTO> temp_users = new ArrayList<>();
             for (TaskModel T: TD.getSubTasks()) {
                 temp_users.add(T.getExecutor());
             }
@@ -45,16 +45,16 @@ public class TaskController {
     }
 
     @RequestMapping(value = "/create")
-    public ResponseStatus Create(@RequestBody TaskDescriptionModel newTask) {
-        newTask.setCreator(new UserModel(_CustomUserDetailsService.getUserDetails()));
+    public ResponseStatusDTO Create(@RequestBody TaskDescriptionModel newTask) {
+        newTask.setCreator(new UserDTO(_CustomUserDetailsService.getUserDetails()));
         _TaskDataService.createNewTaskDescription(newTask);
-        return new ResponseStatus(StatusTypes.OK);
+        return new ResponseStatusDTO(StatusTypes.OK);
     }
 
     @RequestMapping(value = "/answer")
-    public ResponseStatus Answer(@RequestBody TaskModel item) {
+    public ResponseStatusDTO Answer(@RequestBody TaskModel item) {
         _TaskDataService.answerTask(item);
-        return new ResponseStatus(StatusTypes.OK);
+        return new ResponseStatusDTO(StatusTypes.OK);
     }
 
     @RequestMapping(value = "/get/{id}")
@@ -69,8 +69,8 @@ public class TaskController {
     }
 
     @RequestMapping(value = "/delete/{id}")
-    public ResponseStatus Delete(@PathVariable("id") long id) {
+    public ResponseStatusDTO Delete(@PathVariable("id") long id) {
         _TaskDataService.deleteTaskDescription(id);
-        return new ResponseStatus(StatusTypes.OK);
+        return new ResponseStatusDTO(StatusTypes.OK);
     }
 }

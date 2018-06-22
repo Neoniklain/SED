@@ -2,13 +2,13 @@ package com.unesco.core.managers.journal.journalManager;
 
 import com.unesco.core.managers.journal.journalManager.interfaces.journal.IJournalManager;
 import com.unesco.core.managers.journal.lessonEvent.interfaces.lessonEventList.ILessonEventListManager;
-import com.unesco.core.models.account.StudentModel;
-import com.unesco.core.models.additional.ResponseStatus;
-import com.unesco.core.models.journal.JournalModel;
-import com.unesco.core.models.journal.LessonEventModel;
-import com.unesco.core.models.journal.PointModel;
-import com.unesco.core.models.journal.PointTypeModel;
-import com.unesco.core.models.shedule.PairModel;
+import com.unesco.core.models.account.StudentDTO;
+import com.unesco.core.models.additional.ResponseStatusDTO;
+import com.unesco.core.models.journal.JournalDTO;
+import com.unesco.core.models.journal.LessonEventDTO;
+import com.unesco.core.models.journal.PointDTO;
+import com.unesco.core.models.journal.PointTypeDTO;
+import com.unesco.core.models.shedule.PairDTO;
 import com.unesco.core.utils.PointTypes;
 import com.unesco.core.utils.StatusTypes;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,24 +28,24 @@ public class JournalManager implements IJournalManager {
     @Autowired
     private ILessonEventListManager pairEventListManager;
 
-    JournalModel journal;
+    JournalDTO journal;
 
     public JournalManager() {
-        journal = new JournalModel();
+        journal = new JournalDTO();
     }
 
-    public void Init(JournalModel journal)
+    public void Init(JournalDTO journal)
     {
         this.journal = journal;
     }
 
-    public void InitEmptyCells(List<LessonEventModel> lessonEvents)
+    public void InitEmptyCells(List<LessonEventDTO> lessonEvents)
     {
         pairEventListManager.Init(lessonEvents);
         pairEventListManager.ApplayFilter(this.journal.getLesson());
-        List<LessonEventModel> LessonEvents = pairEventListManager.GetAll();
+        List<LessonEventDTO> LessonEvents = pairEventListManager.GetAll();
 
-        List<PointModel> points = new ArrayList<>();
+        List<PointDTO> points = new ArrayList<>();
 
         ArrayList<Object> objects = new ArrayList<>();
 
@@ -64,11 +64,11 @@ public class JournalManager implements IJournalManager {
                 weekNumber = weekNumber + 1;
             }
 
-            for (StudentModel student : journal.getStudents()) {
-                for (PairModel pair : journal.getPairs()) {
+            for (StudentDTO student : journal.getStudents()) {
+                for (PairDTO pair : journal.getPairs()) {
 
 
-                    List<PointModel> find = this.journal.getJournalCell().stream().
+                    List<PointDTO> find = this.journal.getJournalCell().stream().
                             filter(o -> o.getStudent().getUser().getId() == student.getUser().getId()
                                     && o.getDate().compareTo(date) == 0
                                     && o.getType().getName().equals(PointTypes.Visitation.toString())
@@ -93,11 +93,11 @@ public class JournalManager implements IJournalManager {
                         ) {
                             continue;
                         }
-                        PointModel point = new PointModel();
+                        PointDTO point = new PointDTO();
                         point.setValue(0);
                         point.setId(0);
                         point.setStudent(student);
-                        PointTypeModel visit = new PointTypeModel();
+                        PointTypeDTO visit = new PointTypeDTO();
                         visit.setName(PointTypes.Visitation.toString());
                         point.setType(visit);
                         point.setDate(date);
@@ -110,13 +110,13 @@ public class JournalManager implements IJournalManager {
             lastDate = date;
         }
 
-        for (StudentModel student : journal.getStudents()) {
-            for (LessonEventModel currentLessonEvent : LessonEvents) {
+        for (StudentDTO student : journal.getStudents()) {
+            for (LessonEventDTO currentLessonEvent : LessonEvents) {
                 if( !this.journal.getJournalCell().stream().anyMatch(
                         o -> o.getDate().compareTo(currentLessonEvent.getDate()) == 0
                         && o.getType().getId() == currentLessonEvent.getType().getId()
                 )) {
-                    PointModel pointLessonEvent = new PointModel();
+                    PointDTO pointLessonEvent = new PointDTO();
                     pointLessonEvent.setValue(0);
                     pointLessonEvent.setId(0);
                     pointLessonEvent.setStudent(student);
@@ -139,13 +139,13 @@ public class JournalManager implements IJournalManager {
         return  journal.getDates();
     }
 
-    public ResponseStatus Validate() {
-        ResponseStatus responseStatus = new ResponseStatus();
-        responseStatus.setStatus(StatusTypes.OK);
-        return responseStatus;
+    public ResponseStatusDTO Validate() {
+        ResponseStatusDTO responseStatusDTO = new ResponseStatusDTO();
+        responseStatusDTO.setStatus(StatusTypes.OK);
+        return responseStatusDTO;
     }
 
-    public JournalModel Get() {
+    public JournalDTO Get() {
         return journal;
     }
 

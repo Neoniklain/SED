@@ -1,9 +1,7 @@
 package com.unesco.core.managers.plan.semesterManager;
 
 import com.unesco.core.managers.plan.semesterManager.interfaces.semesterList.ISemesterListManager;
-import com.unesco.core.models.plan.SemesterModel;
-import com.unesco.core.services.plan.semesterService.ISemesterDataService;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.unesco.core.models.plan.SemesterDTO;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
@@ -14,17 +12,17 @@ import java.util.List;
 @Scope("prototype")
 public class SemesterListManager implements ISemesterListManager {
 
-    public List<SemesterModel> semesterList;
+    public List<SemesterDTO> semesterList;
 
     public SemesterListManager() {
         semesterList = new ArrayList<>();
     }
 
-    public void Init(List<SemesterModel> SemesterList) {
+    public void Init(List<SemesterDTO> SemesterList) {
         semesterList = SemesterList;
     }
 
-    public List<SemesterModel> GetAll() {
+    public List<SemesterDTO> GetAll() {
         return semesterList;
     }
 

@@ -1,9 +1,9 @@
 package com.unesco.core.managers.account.studentManager;
 
 import com.unesco.core.managers.account.studentManager.interfaces.student.IStudentManager;
-import com.unesco.core.models.account.StudentModel;
-import com.unesco.core.models.account.UserModel;
-import com.unesco.core.models.shedule.GroupModel;
+import com.unesco.core.models.account.StudentDTO;
+import com.unesco.core.models.account.UserDTO;
+import com.unesco.core.models.shedule.GroupDTO;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
@@ -11,26 +11,26 @@ import org.springframework.stereotype.Component;
 @Scope("prototype")
 public class StudentManager implements IStudentManager {
 
-    StudentModel student;
+    StudentDTO student;
 
     public StudentManager() {
-        student = new StudentModel();
+        student = new StudentDTO();
     }
 
-    public void Init(StudentModel Student) {
+    public void Init(StudentDTO Student) {
         student = Student;
     }
 
-    public StudentModel Get() {
+    public StudentDTO Get() {
         return student;
     }
 
-    public void SetGroup(GroupModel group)
+    public void SetGroup(GroupDTO group)
     {
         student.setGroup(group);
     }
 
-    public void Create(UserModel user) {
+    public void Create(UserDTO user) {
         student.setId(0);
         student.setUser(user);
         student.setGroup(null);

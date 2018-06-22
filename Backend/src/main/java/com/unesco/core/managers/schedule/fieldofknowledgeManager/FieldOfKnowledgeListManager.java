@@ -1,10 +1,7 @@
 package com.unesco.core.managers.schedule.fieldofknowledgeManager;
 
 import com.unesco.core.managers.schedule.fieldofknowledgeManager.interfaces.fieldofknowledgeList.IFieldOfKnowledgeListManager;
-import com.unesco.core.models.additional.FilterQuery;
-import com.unesco.core.models.shedule.FieldOfKnowledgeModel;
-import com.unesco.core.services.schedule.fieldOfKnowledgeService.IFieldOfKnowledgeDataService;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.unesco.core.models.shedule.FieldOfKnowledgeDTO;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
@@ -15,7 +12,7 @@ import java.util.List;
 @Scope("prototype")
 public class FieldOfKnowledgeListManager implements IFieldOfKnowledgeListManager {
 
-    public List<FieldOfKnowledgeModel> fieldofknowledgeList;
+    public List<FieldOfKnowledgeDTO> fieldofknowledgeList;
 
     public FieldOfKnowledgeListManager() {
         fieldofknowledgeList = new ArrayList<>();
@@ -23,11 +20,11 @@ public class FieldOfKnowledgeListManager implements IFieldOfKnowledgeListManager
 
     //Base
 
-    public void Init(List<FieldOfKnowledgeModel> FieldOfKnowledgeList) {
+    public void Init(List<FieldOfKnowledgeDTO> FieldOfKnowledgeList) {
         fieldofknowledgeList = FieldOfKnowledgeList;
     }
 
-    public List<FieldOfKnowledgeModel> GetAll() {
+    public List<FieldOfKnowledgeDTO> GetAll() {
         return fieldofknowledgeList;
     }
 

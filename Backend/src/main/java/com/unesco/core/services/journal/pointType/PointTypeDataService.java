@@ -1,7 +1,7 @@
 package com.unesco.core.services.journal.pointType;
 
-import com.unesco.core.entities.journal.PointType;
-import com.unesco.core.models.journal.PointTypeModel;
+import com.unesco.core.entities.journal.PointTypeEntity;
+import com.unesco.core.models.journal.PointTypeDTO;
 import com.unesco.core.repositories.journal.PointTypeRepository;
 import com.unesco.core.services.mapperService.IMapperService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,21 +17,21 @@ public class PointTypeDataService implements IPointTypeDataService {
     @Autowired
     private PointTypeRepository pointTypeRepository;
 
-    public List<PointTypeModel> GetAll()
+    public List<PointTypeDTO> GetAll()
     {
-        List<PointTypeModel> modelList = new ArrayList<>();
-        Iterable<PointType> entityList = pointTypeRepository.findAll();
-        for (PointType item: entityList) {
-            PointTypeModel model = (PointTypeModel) mapperService.toModel(item);
+        List<PointTypeDTO> modelList = new ArrayList<>();
+        Iterable<PointTypeEntity> entityList = pointTypeRepository.findAll();
+        for (PointTypeEntity item: entityList) {
+            PointTypeDTO model = (PointTypeDTO) mapperService.toModel(item);
             modelList.add(model);
         }
         return modelList;
     }
 
-    public PointTypeModel Get(long id)
+    public PointTypeDTO Get(long id)
     {
-        PointType entity = pointTypeRepository.findOne(id);
-        PointTypeModel model = (PointTypeModel) mapperService.toModel(entity);
+        PointTypeEntity entity = pointTypeRepository.findOne(id);
+        PointTypeDTO model = (PointTypeDTO) mapperService.toModel(entity);
         return model;
     }
 
@@ -40,18 +40,18 @@ public class PointTypeDataService implements IPointTypeDataService {
         pointTypeRepository.delete(id);
     }
 
-    public PointTypeModel Save(PointTypeModel pointType)
+    public PointTypeDTO Save(PointTypeDTO pointType)
     {
-        PointType entity = (PointType) mapperService.toEntity(pointType);
+        PointTypeEntity entity = (PointTypeEntity) mapperService.toEntity(pointType);
         entity = pointTypeRepository.save(entity);
-        pointType = (PointTypeModel) mapperService.toModel(entity);
+        pointType = (PointTypeDTO) mapperService.toModel(entity);
         return pointType;
     }
 
-    public PointTypeModel FindByName(String name)
+    public PointTypeDTO FindByName(String name)
     {
-        PointType entity = pointTypeRepository.findByName(name);
-        PointTypeModel pointType = (PointTypeModel) mapperService.toModel(entity);
+        PointTypeEntity entity = pointTypeRepository.findByName(name);
+        PointTypeDTO pointType = (PointTypeDTO) mapperService.toModel(entity);
         return pointType;
     }
 

@@ -1,9 +1,8 @@
 package com.unesco.core.managers.plan.competenceManager;
 
 
-import com.unesco.core.entities.plan.Competence;
+import com.unesco.core.entities.plan.CompetenceEntity;
 import com.unesco.core.managers.plan.competenceManager.interfaces.competence.ICompetenceManager;
-import com.unesco.core.models.additional.ResponseStatus;
 import com.unesco.core.services.plan.competenceService.ICompetenceDataService;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -12,17 +11,17 @@ public class CompetenceManager implements ICompetenceManager {
     @Autowired
     public ICompetenceDataService dataService;
 
-    public Competence competence;
+    public CompetenceEntity competenceEntity;
 
     public CompetenceManager() {
-        competence = new Competence();
+        competenceEntity = new CompetenceEntity();
     }
 
-    public void Init(Competence Professor) {
-        competence = Professor;
+    public void Init(CompetenceEntity Professor) {
+        competenceEntity = Professor;
     }
 
-    public Competence Get() {
-        return competence;
+    public CompetenceEntity Get() {
+        return competenceEntity;
     }
 }

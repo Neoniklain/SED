@@ -2,24 +2,18 @@ package com.unesco.core.controller;
 
 import com.unesco.core.managers.journal.journalManager.interfaces.journal.IJournalManager;
 import com.unesco.core.managers.journal.lessonEvent.interfaces.lessonEvent.ILessonEventManager;
-import com.unesco.core.models.additional.ResponseStatus;
-import com.unesco.core.models.journal.JournalModel;
-import com.unesco.core.models.journal.LessonEventModel;
+import com.unesco.core.models.additional.ResponseStatusDTO;
+import com.unesco.core.models.journal.JournalDTO;
+import com.unesco.core.models.journal.LessonEventDTO;
 import com.unesco.core.services.journal.journal.IJournalDataService;
 import com.unesco.core.services.journal.lessonEvent.ILessonEventDataService;
 import com.unesco.core.utils.StatusTypes;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-/**
- * Created by lukasz on 27.08.2017.
- * With IntelliJ IDEA 15
- */
-@CrossOrigin
-@RestController
-@RequestMapping("api/journal")
+@Service
 public class JournalController {
 
     @Autowired
@@ -31,34 +25,31 @@ public class JournalController {
     @Autowired
     private ILessonEventDataService lessonEventDataService;
 
-    @GetMapping("/{lessonId}")
-    public ResponseStatus GetJournal(@PathVariable("lessonId") long lessonId) {
+    public ResponseStatusDTO GetJournal(long lessonId) {
 
-        JournalModel journal = journalDataService.Get(lessonId);
-
-        journalManager.Init(journal);
-        journalManager.InitEmptyCells(lessonEventDataService.GetAll());
-
-        return new ResponseStatus(StatusTypes.OK, journalManager.Get());
-    }
-
-    @RequestMapping("/dates/{lessonId}")
-    public ResponseStatus GetDates(@PathVariable("lessonId") long lessonId) {
-
-        JournalModel journal = journalDataService.Get(lessonId);
+        JournalDTO journal = journalDataService.Get(lessonId);
 
         journalManager.Init(journal);
         journalManager.InitEmptyCells(lessonEventDataService.GetAll());
 
-        return new ResponseStatus(StatusTypes.OK, journalManager.GetDates());
+        return new ResponseStatusDTO(StatusTypes.OK, journalManager.Get());
+    }
+
+    public ResponseStatusDTO GetDates(long lessonId) {
+
+        JournalDTO journal = journalDataService.Get(lessonId);
+
+        journalManager.Init(journal);
+        journalManager.InitEmptyCells(lessonEventDataService.GetAll());
+
+        return new ResponseStatusDTO(StatusTypes.OK, journalManager.GetDates());
 
     }
 
-    @RequestMapping("/save")
-    public ResponseStatus SaveJournal(@RequestBody JournalModel journal) {
+    public ResponseStatusDTO SaveJournal(JournalDTO journal) {
 
         journalManager.Init(journal);
-        ResponseStatus result = journalManager.Validate();
+        ResponseStatusDTO result = journalManager.Validate();
         if(result.getStatus() != StatusTypes.OK) return result;
 
         try {
@@ -76,18 +67,16 @@ public class JournalController {
         }
     }
 
-    @RequestMapping("/event/lesson/{lessonId}")
-    public ResponseStatus GetEvents(@PathVariable("lessonId") long lessonId) {
+    public ResponseStatusDTO GetEvents(long lessonId) {
 
-        List<LessonEventModel> pairEventModels = lessonEventDataService.GetByLesson(lessonId);
+        List<LessonEventDTO> pairEventModels = lessonEventDataService.GetByLesson(lessonId);
 
-        return new ResponseStatus(StatusTypes.OK, pairEventModels);
+        return new ResponseStatusDTO(StatusTypes.OK, pairEventModels);
     }
 
-    @RequestMapping("/event/save")
-    public ResponseStatus SaveEvent(@RequestBody LessonEventModel event) {
+    public ResponseStatusDTO SaveEvent(LessonEventDTO event) {
         lessonEventManager.Init(event);
-        ResponseStatus result = lessonEventManager.Validate();
+        ResponseStatusDTO result = lessonEventManager.Validate();
         if(result.getStatus() != StatusTypes.OK) return result;
         try {
             result.setStatus(StatusTypes.OK);
@@ -104,9 +93,8 @@ public class JournalController {
         }
     }
 
-    @RequestMapping("/event/delete/{id}")
-    public ResponseStatus SaveEvent(@PathVariable("id") long id) {
-        ResponseStatus result = new ResponseStatus();
+    public ResponseStatusDTO SaveEvent(long id) {
+        ResponseStatusDTO result = new ResponseStatusDTO();
         try {
             result.setStatus(StatusTypes.OK);
             lessonEventDataService.Delete(id);

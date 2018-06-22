@@ -1,17 +1,17 @@
 package com.unesco.core.managers.schedule.pairManager.interfaces.pairList;
 
 import com.unesco.core.managers.IListManager;
-import com.unesco.core.models.account.ProfessorModel;
-import com.unesco.core.models.plan.DepartmentModel;
-import com.unesco.core.models.shedule.DisciplineModel;
-import com.unesco.core.models.shedule.GroupModel;
-import com.unesco.core.models.shedule.PairModel;
+import com.unesco.core.models.account.ProfessorDTO;
+import com.unesco.core.models.plan.DepartmentDTO;
+import com.unesco.core.models.shedule.DisciplineDTO;
+import com.unesco.core.models.shedule.GroupDTO;
+import com.unesco.core.models.shedule.PairDTO;
 
-public interface IPairListManager extends IListManager<PairModel> {
+public interface IPairListManager extends IListManager<PairDTO> {
 
-    void ApplayFilter(ProfessorModel professor);
-    void ApplayFilter(GroupModel group);
-    void ApplayFilter(DisciplineModel discipline);
-    void ApplayFilter(DepartmentModel department);
+    void ApplayFilter(ProfessorDTO professor);
+    void ApplayFilter(GroupDTO group);
+    void ApplayFilter(DisciplineDTO discipline);
+    void ApplayFilter(DepartmentDTO department);
 
 }

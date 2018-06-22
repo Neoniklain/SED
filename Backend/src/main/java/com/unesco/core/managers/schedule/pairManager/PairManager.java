@@ -1,8 +1,8 @@
 package com.unesco.core.managers.schedule.pairManager;
 
 import com.unesco.core.managers.schedule.pairManager.interfaces.pair.IPairManager;
-import com.unesco.core.models.additional.ResponseStatus;
-import com.unesco.core.models.shedule.PairModel;
+import com.unesco.core.models.additional.ResponseStatusDTO;
+import com.unesco.core.models.shedule.PairDTO;
 import com.unesco.core.utils.StatusTypes;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
@@ -14,15 +14,15 @@ import java.util.List;
 @Scope("prototype")
 public class PairManager implements IPairManager {
 
-    PairModel pair;
+    PairDTO pair;
 
     public PairManager() {
-        pair = new PairModel();
+        pair = new PairDTO();
     }
 
-    public ResponseStatus CheckIntersection(List<PairModel> pairsForValidate) {
+    public ResponseStatusDTO CheckIntersection(List<PairDTO> pairsForValidate) {
 
-        ResponseStatus result = new ResponseStatus();
+        ResponseStatusDTO result = new ResponseStatusDTO();
         result.setStatus(StatusTypes.OK);
 
         int size = pairsForValidate.size();
@@ -32,7 +32,7 @@ public class PairManager implements IPairManager {
 
         List<String> messages = new ArrayList<>();
 
-        for (PairModel p: pairsForValidate) {
+        for (PairDTO p: pairsForValidate) {
 
             if (pair.getId() == p.getId()) {
                 continue;
@@ -89,46 +89,46 @@ public class PairManager implements IPairManager {
         return result;
     }
 
-    public void Init(PairModel Pair) {
+    public void Init(PairDTO Pair) {
         pair = Pair;
     }
 
-    public PairModel Get() {
+    public PairDTO Get() {
         return pair;
     }
 
-    public ResponseStatus Validate() {
-        ResponseStatus responseStatus = new ResponseStatus();
-        responseStatus.setStatus(StatusTypes.OK);
+    public ResponseStatusDTO Validate() {
+        ResponseStatusDTO responseStatusDTO = new ResponseStatusDTO();
+        responseStatusDTO.setStatus(StatusTypes.OK);
         if (pair.getLesson().getGroup() == null || pair.getLesson().getGroup().getId() == 0) {
-            responseStatus.setStatus(StatusTypes.ERROR);
-            responseStatus.addErrors("Не указанна группа");
+            responseStatusDTO.setStatus(StatusTypes.ERROR);
+            responseStatusDTO.addErrors("Не указанна группа");
         }
         if (pair.getLesson().getDiscipline() == null || pair.getLesson().getDiscipline().getId() == 0) {
-            responseStatus.setStatus(StatusTypes.ERROR);
-            responseStatus.addErrors("Не указанна дисциплина");
+            responseStatusDTO.setStatus(StatusTypes.ERROR);
+            responseStatusDTO.addErrors("Не указанна дисциплина");
         }
         if (pair.getLesson().getProfessor() == null || pair.getLesson().getProfessor().getId() == 0) {
-            responseStatus.setStatus(StatusTypes.ERROR);
-            responseStatus.addErrors("Не указан преподаватель");
+            responseStatusDTO.setStatus(StatusTypes.ERROR);
+            responseStatusDTO.addErrors("Не указан преподаватель");
         }
         if (pair.getWeektype().equals("")) {
-            responseStatus.setStatus(StatusTypes.ERROR);
-            responseStatus.addErrors("Не указана переодичность");
+            responseStatusDTO.setStatus(StatusTypes.ERROR);
+            responseStatusDTO.addErrors("Не указана переодичность");
         }
         if (pair.getDayofweek().equals("")) {
-            responseStatus.setStatus(StatusTypes.ERROR);
-            responseStatus.addErrors("Не указан день недели");
+            responseStatusDTO.setStatus(StatusTypes.ERROR);
+            responseStatusDTO.addErrors("Не указан день недели");
         }
         if (pair.getRoom() == null || pair.getRoom().getId() == 0) {
-            responseStatus.setStatus(StatusTypes.ERROR);
-            responseStatus.addErrors("Не указана аудитория");
+            responseStatusDTO.setStatus(StatusTypes.ERROR);
+            responseStatusDTO.addErrors("Не указана аудитория");
         }
         if (pair.getPairNumber() == 0) {
-            responseStatus.setStatus(StatusTypes.ERROR);
-            responseStatus.addErrors("Не указана аудитория");
+            responseStatusDTO.setStatus(StatusTypes.ERROR);
+            responseStatusDTO.addErrors("Не указана аудитория");
         }
-        return responseStatus;
+        return responseStatusDTO;
     }
 
 }

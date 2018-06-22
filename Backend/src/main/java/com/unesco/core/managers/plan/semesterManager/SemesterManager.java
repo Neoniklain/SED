@@ -1,10 +1,7 @@
 package com.unesco.core.managers.plan.semesterManager;
 
 import com.unesco.core.managers.plan.semesterManager.interfaces.semester.ISemesterManager;
-import com.unesco.core.models.additional.ResponseStatus;
-import com.unesco.core.models.plan.SemesterModel;
-import com.unesco.core.services.plan.semesterService.ISemesterDataService;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.unesco.core.models.plan.SemesterDTO;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
@@ -12,17 +9,17 @@ import org.springframework.stereotype.Component;
 @Scope("prototype")
 public class SemesterManager implements ISemesterManager {
 
-    SemesterModel semester;
+    SemesterDTO semester;
 
     public SemesterManager() {
-        semester = new SemesterModel();
+        semester = new SemesterDTO();
     }
 
-    public void Init(SemesterModel Semester) {
+    public void Init(SemesterDTO Semester) {
         semester = Semester;
     }
 
-    public SemesterModel Get() {
+    public SemesterDTO Get() {
         return semester;
     }
 

@@ -1,15 +1,15 @@
 package com.unesco.core.managers.schedule.sheduleDepartmentManager.sheduleDepartment;
 
-import com.unesco.core.models.account.ProfessorModel;
-import com.unesco.core.models.plan.DepartmentModel;
-import com.unesco.core.models.shedule.DepartmentSheduleModel;
-import com.unesco.core.models.shedule.PairModel;
+import com.unesco.core.models.account.ProfessorDTO;
+import com.unesco.core.models.plan.DepartmentDTO;
+import com.unesco.core.models.shedule.DepartmentSheduleDTO;
+import com.unesco.core.models.shedule.PairDTO;
 
 import java.util.List;
 
 public interface ISheduleDepartmentManager {
 
-    void Init(List<PairModel> pairList, List<ProfessorModel> professorList, DepartmentModel department);
+    void Init(List<PairDTO> pairList, List<ProfessorDTO> professorList, DepartmentDTO department);
 
-    DepartmentSheduleModel Get();
+    DepartmentSheduleDTO Get();
 }

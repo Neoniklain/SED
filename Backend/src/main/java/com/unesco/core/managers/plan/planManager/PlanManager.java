@@ -1,10 +1,7 @@
 package com.unesco.core.managers.plan.planManager;
 
 import com.unesco.core.managers.plan.planManager.interfaces.plan.IPlanManager;
-import com.unesco.core.models.additional.ResponseStatus;
-import com.unesco.core.models.plan.PlanModel;
-import com.unesco.core.services.plan.planService.IPlanDataService;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.unesco.core.models.plan.PlanDTO;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
@@ -12,17 +9,17 @@ import org.springframework.stereotype.Component;
 @Scope("prototype")
 public class PlanManager implements IPlanManager {
 
-    PlanModel plan;
+    PlanDTO plan;
 
     public PlanManager() {
-        plan = new PlanModel();
+        plan = new PlanDTO();
     }
 
-    public void Init(PlanModel Plan) {
+    public void Init(PlanDTO Plan) {
         plan = Plan;
     }
 
-    public PlanModel Get() {
+    public PlanDTO Get() {
         return plan;
     }
 

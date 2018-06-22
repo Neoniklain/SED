@@ -1,6 +1,6 @@
 package com.unesco.core.security;
 
-import com.unesco.core.entities.account.User;
+import com.unesco.core.entities.account.UserEntity;
 import com.unesco.core.repositories.account.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -18,22 +18,22 @@ public class CustomUserDetailsService implements UserDetailsService{
     }
     public CustomUserDetails getUserDetails() {
         String username = SecurityContextHolder.getContext().getAuthentication().getName();
-        User user=userRepository.findByUsername(username);
-        if(user == null){
-            throw new UsernameNotFoundException("No user present with username: "+username);
+        UserEntity userEntity =userRepository.findByUsername(username);
+        if(userEntity == null){
+            throw new UsernameNotFoundException("No userEntity present with username: "+username);
         }else{
-            return new CustomUserDetails(user);
+            return new CustomUserDetails(userEntity);
         }
     }
 
     @Override
     public CustomUserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        User user=userRepository.findByUsername(username);
+        UserEntity userEntity =userRepository.findByUsername(username);
 
-        if(user == null){
-            throw new UsernameNotFoundException("No user present with username: "+username);
+        if(userEntity == null){
+            throw new UsernameNotFoundException("No userEntity present with username: "+username);
         }else{
-            return new CustomUserDetails(user);
+            return new CustomUserDetails(userEntity);
         }
     }
 }

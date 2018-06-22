@@ -1,7 +1,7 @@
 package com.unesco.core.managers.account.userManager;
 
 import com.unesco.core.managers.account.userManager.interfaces.userList.IUserListManager;
-import com.unesco.core.models.account.UserModel;
+import com.unesco.core.models.account.UserDTO;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
@@ -12,30 +12,30 @@ import java.util.List;
 @Scope("prototype")
 public class UserListManager implements IUserListManager {
 
-    public List<UserModel> userList;
+    public List<UserDTO> userList;
 
     public UserListManager() {
         userList = new ArrayList<>();
     }
 
-    public void Init(List<UserModel> UserList) {
+    public void Init(List<UserDTO> UserList) {
         userList = UserList;
     }
 
     public void CleanPassField() {
-        for (UserModel u: userList) {
+        for (UserDTO u: userList) {
             u.setPassword("");
         }
     }
 
-    public List<UserModel> GetAll() {
+    public List<UserDTO> GetAll() {
         return userList;
     }
 
-    public List<UserModel> GetByFio(String fio)
+    public List<UserDTO> GetByFio(String fio)
     {
-        List<UserModel> result = new ArrayList<>();
-        for (UserModel item : userList) {
+        List<UserDTO> result = new ArrayList<>();
+        for (UserDTO item : userList) {
             if(item.getUserFIO().toLowerCase().contains(fio.toLowerCase()))
             {
                 result.add(item);
@@ -44,9 +44,9 @@ public class UserListManager implements IUserListManager {
         return result;
     }
 
-    public UserModel GetByUsername(String username)
+    public UserDTO GetByUsername(String username)
     {
-        for (UserModel item : userList) {
+        for (UserDTO item : userList) {
             if(item.getUsername().toLowerCase().contains(username.toLowerCase()))
             {
                 return item;

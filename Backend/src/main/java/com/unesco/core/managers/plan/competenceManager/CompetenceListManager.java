@@ -1,7 +1,7 @@
 package com.unesco.core.managers.plan.competenceManager;
 
 
-import com.unesco.core.entities.plan.Competence;
+import com.unesco.core.entities.plan.CompetenceEntity;
 import com.unesco.core.managers.plan.competenceManager.interfaces.competenceList.ICompetenceListManager;
 
 import java.util.ArrayList;
@@ -9,18 +9,18 @@ import java.util.List;
 
 public class CompetenceListManager implements ICompetenceListManager {
 
-    public List<Competence> competenceList;
+    public List<CompetenceEntity> competenceEntityList;
 
     public CompetenceListManager() {
-        competenceList = new ArrayList<>();
+        competenceEntityList = new ArrayList<>();
     }
 
-    public void Init(List<Competence> Competenceist) {
-        competenceList = Competenceist;
+    public void Init(List<CompetenceEntity> competenceist) {
+        competenceEntityList = competenceist;
     }
 
-    public List<Competence> GetAll() {
-        return competenceList;
+    public List<CompetenceEntity> GetAll() {
+        return competenceEntityList;
     }
 
 }

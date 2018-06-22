@@ -1,9 +1,9 @@
 package com.unesco.core.services.journal.journal;
 
-import com.unesco.core.models.journal.JournalModel;
+import com.unesco.core.models.journal.JournalDTO;
 
 public interface IJournalDataService {
-    JournalModel Get(long lessonId);
+    JournalDTO Get(long lessonId);
 
-    JournalModel Save(JournalModel journal);
+    JournalDTO Save(JournalDTO journal);
 }

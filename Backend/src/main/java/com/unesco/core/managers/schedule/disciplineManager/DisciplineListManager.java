@@ -1,8 +1,7 @@
 package com.unesco.core.managers.schedule.disciplineManager;
 
 import com.unesco.core.managers.schedule.disciplineManager.interfaces.disciplineList.IDisciplineListManager;
-import com.unesco.core.models.additional.FilterQuery;
-import com.unesco.core.models.shedule.DisciplineModel;
+import com.unesco.core.models.shedule.DisciplineDTO;
 import com.unesco.core.services.schedule.disciplineService.IDisciplineDataService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
@@ -18,17 +17,17 @@ public class DisciplineListManager implements IDisciplineListManager {
     @Autowired
     public IDisciplineDataService dataService;
 
-    public List<DisciplineModel> disciplineList;
+    public List<DisciplineDTO> disciplineList;
 
     public DisciplineListManager() {
         disciplineList = new ArrayList<>();
     }
 
-    public void Init(List<DisciplineModel> DisciplineList) {
+    public void Init(List<DisciplineDTO> DisciplineList) {
         disciplineList = DisciplineList;
     }
 
-    public List<DisciplineModel> GetAll() {
+    public List<DisciplineDTO> GetAll() {
         return disciplineList;
     }
 }

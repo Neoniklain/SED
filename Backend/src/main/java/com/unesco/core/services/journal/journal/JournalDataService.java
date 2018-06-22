@@ -1,11 +1,11 @@
 package com.unesco.core.services.journal.journal;
 
-import com.unesco.core.models.account.StudentModel;
-import com.unesco.core.models.journal.JournalModel;
-import com.unesco.core.models.journal.PointModel;
-import com.unesco.core.models.journal.PointTypeModel;
-import com.unesco.core.models.shedule.LessonModel;
-import com.unesco.core.models.shedule.PairModel;
+import com.unesco.core.models.account.StudentDTO;
+import com.unesco.core.models.journal.JournalDTO;
+import com.unesco.core.models.journal.PointDTO;
+import com.unesco.core.models.journal.PointTypeDTO;
+import com.unesco.core.models.shedule.LessonDTO;
+import com.unesco.core.models.shedule.PairDTO;
 import com.unesco.core.services.account.studentService.IStudentDataService;
 import com.unesco.core.services.journal.point.IPointDataService;
 import com.unesco.core.services.journal.pointType.IPointTypeDataService;
@@ -33,11 +33,11 @@ public class JournalDataService implements IJournalDataService {
     @Autowired
     private IPointDataService pointDataService;
 
-    public JournalModel Get(long lessonId)
+    public JournalDTO Get(long lessonId)
     {
-        LessonModel lesson = lessonDataService.Get(lessonId);
-        List<StudentModel> students = studentDataService.GetByGroup(lesson.getGroup().getId());
-        List<PairModel> pairs = pairDataService.GetAllByLesson(lesson.getId());
+        LessonDTO lesson = lessonDataService.Get(lessonId);
+        List<StudentDTO> students = studentDataService.GetByGroup(lesson.getGroup().getId());
+        List<PairDTO> pairs = pairDataService.GetAllByLesson(lesson.getId());
 
         Calendar starDate = Calendar.getInstance();
         Calendar endDate = Calendar.getInstance();
@@ -45,7 +45,7 @@ public class JournalDataService implements IJournalDataService {
         DateFormat df = new SimpleDateFormat("dd.MM");
         Set<Date> days = new HashSet<>();
 
-        for (PairModel pair: pairs) {
+        for (PairDTO pair: pairs) {
 
             starDate.set(2018,0,1);
             endDate.set(2018,5,28);
@@ -102,15 +102,15 @@ public class JournalDataService implements IJournalDataService {
             }
         }
 
-        List<PointModel> points = new ArrayList<>();
+        List<PointDTO> points = new ArrayList<>();
 
-        for (StudentModel student : students ) {
-            for (PairModel pair : pairs ) {
+        for (StudentDTO student : students ) {
+            for (PairDTO pair : pairs ) {
                 points.addAll(pointDataService.GetByStudentAndPair(student.getUser().getId(), pair.getId()));
             }
         }
 
-        JournalModel model = new JournalModel();
+        JournalDTO model = new JournalDTO();
         model.setPairs(pairs);
         model.setLesson(lesson);
         model.setDates(days.stream().collect(Collectors.toList()));
@@ -120,14 +120,14 @@ public class JournalDataService implements IJournalDataService {
         return model;
     }
 
-    public JournalModel Save(JournalModel journal)
+    public JournalDTO Save(JournalDTO journal)
     {
-        List<PointModel> result = new ArrayList<>();
+        List<PointDTO> result = new ArrayList<>();
 
-        for (PointModel point : journal.getJournalCell() ) {
+        for (PointDTO point : journal.getJournalCell() ) {
 
             if(point.getType().getId() == 0) {
-                PointTypeModel pointType = pointTypeDataService.FindByName(point.getType().getName());
+                PointTypeDTO pointType = pointTypeDataService.FindByName(point.getType().getName());
                 if(pointType==null) {
                     throw new NullPointerException("Не верно указан тип отметки");
                 }
@@ -136,7 +136,7 @@ public class JournalDataService implements IJournalDataService {
 
             if(point.getId() == 0) {
 
-                PointModel findPoint = pointDataService.GetByStudentAndDateAndTypeAndPair(
+                PointDTO findPoint = pointDataService.GetByStudentAndDateAndTypeAndPair(
                         point.getStudent().getUser().getId(),
                         point.getDate(),
                         point.getType().getId(),

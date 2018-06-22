@@ -1,8 +1,8 @@
 package com.unesco.core.managers.schedule.disciplineManager;
 
 import com.unesco.core.managers.schedule.disciplineManager.interfaces.discipline.IDisciplineManager;
-import com.unesco.core.models.additional.ResponseStatus;
-import com.unesco.core.models.shedule.DisciplineModel;
+import com.unesco.core.models.additional.ResponseStatusDTO;
+import com.unesco.core.models.shedule.DisciplineDTO;
 import com.unesco.core.utils.StatusTypes;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
@@ -11,32 +11,32 @@ import org.springframework.stereotype.Component;
 @Scope("prototype")
 public class DisciplineManager implements IDisciplineManager {
 
-    DisciplineModel discipline;
+    DisciplineDTO discipline;
 
     public DisciplineManager() {
-        discipline = new DisciplineModel();
+        discipline = new DisciplineDTO();
     }
 
-    public void Init(DisciplineModel Discipline) {
+    public void Init(DisciplineDTO Discipline) {
         discipline = Discipline;
     }
 
-    public DisciplineModel Get() {
+    public DisciplineDTO Get() {
         return discipline;
     }
 
-    public ResponseStatus Validate() {
-        ResponseStatus responseStatus = new ResponseStatus();
-        responseStatus.setStatus(StatusTypes.OK);
+    public ResponseStatusDTO Validate() {
+        ResponseStatusDTO responseStatusDTO = new ResponseStatusDTO();
+        responseStatusDTO.setStatus(StatusTypes.OK);
         if (discipline.getName().equals("")) {
-            responseStatus.setStatus(StatusTypes.ERROR);
-            responseStatus.addErrors("Не указано название дисциплины");
+            responseStatusDTO.setStatus(StatusTypes.ERROR);
+            responseStatusDTO.addErrors("Не указано название дисциплины");
         }
         if (discipline.getFieldOfKnowledge().getId() == 0) {
-            responseStatus.setStatus(StatusTypes.ERROR);
-            responseStatus.addErrors("Не указан раздел знаний");
+            responseStatusDTO.setStatus(StatusTypes.ERROR);
+            responseStatusDTO.addErrors("Не указан раздел знаний");
         }
-        return responseStatus;
+        return responseStatusDTO;
     }
 
 }

@@ -1,8 +1,7 @@
 package com.unesco.core.managers.schedule.roomManager;
 
 import com.unesco.core.managers.schedule.roomManager.interfaces.roomList.IRoomListManager;
-import com.unesco.core.models.additional.FilterQuery;
-import com.unesco.core.models.shedule.RoomModel;
+import com.unesco.core.models.shedule.RoomDTO;
 import com.unesco.core.services.schedule.roomService.IRoomDataService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
@@ -18,17 +17,17 @@ public class RoomListManager implements IRoomListManager {
     @Autowired
     public IRoomDataService dataService;
 
-    public List<RoomModel> roomList;
+    public List<RoomDTO> roomList;
 
     public RoomListManager() {
         roomList = new ArrayList<>();
     }
 
-    public void Init(List<RoomModel> RoomList) {
+    public void Init(List<RoomDTO> RoomList) {
         roomList = RoomList;
     }
 
-    public List<RoomModel> GetAll() {
+    public List<RoomDTO> GetAll() {
         return roomList;
     }
 }

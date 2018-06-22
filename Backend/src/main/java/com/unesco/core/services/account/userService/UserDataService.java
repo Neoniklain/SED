@@ -1,9 +1,9 @@
 package com.unesco.core.services.account.userService;
 
-import com.unesco.core.entities.account.User;
-import com.unesco.core.models.account.RoleModel;
-import com.unesco.core.models.account.UserModel;
-import com.unesco.core.models.additional.FilterQuery;
+import com.unesco.core.entities.account.UserEntity;
+import com.unesco.core.models.account.RoleDTO;
+import com.unesco.core.models.account.UserDTO;
+import com.unesco.core.models.additional.FilterQueryDTO;
 import com.unesco.core.repositories.account.UserRepository;
 import com.unesco.core.services.account.roleService.RoleDataService;
 import com.unesco.core.services.mapperService.IMapperService;
@@ -23,39 +23,39 @@ public class UserDataService implements IUserDataService {
     @Autowired
     private RoleDataService roleDataService;
 
-    public List<UserModel> GetPage(FilterQuery filter) {
+    public List<UserDTO> GetPage(FilterQueryDTO filter) {
         int rows = filter.getRows()>0? filter.getRows() : (int) userRepository.count();
         int start = rows>0 ? filter.getFirst()/rows: 1;
-        List<User> entitys = userRepository.findWithFilter(new PageRequest(start, rows == 0 ? 10 : rows), filter.getGlobalFilter());
-        List<UserModel> result = new ArrayList<UserModel>();
-        for (User e: entitys) {
-            result.add((UserModel) mapperService.toModel(e));
+        List<UserEntity> entitys = userRepository.findWithFilter(new PageRequest(start, rows == 0 ? 10 : rows), filter.getGlobalFilter());
+        List<UserDTO> result = new ArrayList<UserDTO>();
+        for (UserEntity e: entitys) {
+            result.add((UserDTO) mapperService.toModel(e));
         }
         return result;
     }
 
-    public List<UserModel> GetAll()
+    public List<UserDTO> GetAll()
     {
-        List<UserModel> modelList = new ArrayList<>();
-        Iterable<User> entityList = userRepository.findAll();
-        for (User item: entityList) {
-            UserModel model = (UserModel) mapperService.toModel(item);
+        List<UserDTO> modelList = new ArrayList<>();
+        Iterable<UserEntity> entityList = userRepository.findAll();
+        for (UserEntity item: entityList) {
+            UserDTO model = (UserDTO) mapperService.toModel(item);
             modelList.add(model);
         }
         return modelList;
     }
 
-    public UserModel Get(long id)
+    public UserDTO Get(long id)
     {
-        User entity = userRepository.findOne(id);
-        UserModel model = (UserModel) mapperService.toModel(entity);
+        UserEntity entity = userRepository.findOne(id);
+        UserDTO model = (UserDTO) mapperService.toModel(entity);
         return model;
     }
 
-    public UserModel GetByUsername(String username)
+    public UserDTO GetByUsername(String username)
     {
-        User entity = userRepository.findByUsername(username);
-        UserModel model = (UserModel) mapperService.toModel(entity);
+        UserEntity entity = userRepository.findByUsername(username);
+        UserDTO model = (UserDTO) mapperService.toModel(entity);
         return model;
     }
 
@@ -64,21 +64,21 @@ public class UserDataService implements IUserDataService {
         userRepository.delete(id);
     }
 
-    public UserModel Save(UserModel user)
+    public UserDTO Save(UserDTO user)
     {
-        List<RoleModel> roles = new ArrayList<>();
-        for (RoleModel role:  user.getRoles()) {
-            RoleModel findRole = roleDataService.GetByName(role.roleName);
+        List<RoleDTO> roles = new ArrayList<>();
+        for (RoleDTO role:  user.getRoles()) {
+            RoleDTO findRole = roleDataService.GetByName(role.roleName);
             if(findRole != null) {
                 roles.add(findRole);
             }
         }
         user.setRoles(roles);
 
-        User entity = (User) mapperService.toEntity(user);
+        UserEntity entity = (UserEntity) mapperService.toEntity(user);
         entity = userRepository.save(entity);
 
-        UserModel model = (UserModel) mapperService.toModel(entity);
+        UserDTO model = (UserDTO) mapperService.toModel(entity);
         return model;
     }
 
