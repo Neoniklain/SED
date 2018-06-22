@@ -32,16 +32,11 @@ public class JournalDataService implements IJournalDataService {
     private IPointTypeDataService pointTypeDataService;
     @Autowired
     private IPointDataService pointDataService;
-    @Autowired
-    private IPointTypeDataService pointType;
 
-
-    public JournalModel Get(long professorId,
-                            long groupId,
-                            long disciplineId)
+    public JournalModel Get(long lessonId)
     {
-        List<StudentModel> students = studentDataService.GetByGroup(groupId);
-        LessonModel lesson = lessonDataService.GetDisciplineIdAndGroupIdAndProfessorId(disciplineId, groupId, professorId);
+        LessonModel lesson = lessonDataService.Get(lessonId);
+        List<StudentModel> students = studentDataService.GetByGroup(lesson.getGroup().getId());
         List<PairModel> pairs = pairDataService.GetAllByLesson(lesson.getId());
 
         Calendar starDate = Calendar.getInstance();

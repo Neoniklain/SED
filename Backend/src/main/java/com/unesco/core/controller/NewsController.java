@@ -38,12 +38,14 @@ public class NewsController {
     @GetMapping("/all")
     public ResponseStatus GetAllNews() {
         newsListManager.Init(newsDataService.GetAll());
+        newsListManager.SortDesc();
         return new ResponseStatus(StatusTypes.OK, newsListManager.GetAll());
     }
 
     @GetMapping("/last")
     public ResponseStatus GetLast() {
         newsListManager.Init(newsDataService.GetAll());
+        newsListManager.SortDesc();
         return new ResponseStatus(StatusTypes.OK, newsListManager.GetLast());
     }
 

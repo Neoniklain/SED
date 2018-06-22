@@ -5,4 +5,5 @@ import com.unesco.core.models.news.NewsModel;
 
 public interface INewsListManager extends IListManager<NewsModel> {
     NewsModel GetLast();
+    void SortDesc();
 }

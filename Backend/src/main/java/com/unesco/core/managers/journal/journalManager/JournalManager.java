@@ -82,11 +82,13 @@ public class JournalManager implements IJournalManager {
                     boolean pairEqDay = translateDay(dayOfWeek).equals(pair.getDayofweek());
 
                     if (find.size() == 0 && pairEqDay) {
+
                         if(!pair.getWeektype().equals("Все")
                             && (
-                                (pair.getWeektype().equals("Чет") && weekNumber % 2 != 0)
+                                (pair.getWeektype().equals("Чет") && weekNumber % 2 != 0
                                 ||
-                                (pair.getWeektype().equals("Нечет") && weekNumber % 2 == 0)
+                                pair.getWeektype().equals("Нечет") && weekNumber % 2 == 0)
+                                && journal.getPairs().stream().anyMatch(o -> o.getWeektype().equals("Все"))
                                 )
                         ) {
                             continue;
@@ -130,6 +132,11 @@ public class JournalManager implements IJournalManager {
         points.addAll(this.journal.getJournalCell());
         this.journal.setJournalCell(points);
 
+    }
+
+    public List<Date> GetDates()
+    {
+        return  journal.getDates();
     }
 
     public ResponseStatus Validate() {

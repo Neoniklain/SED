@@ -9,6 +9,7 @@
 .news-image img {
   border-radius: 5px;
   box-shadow: 3px 4px 21px 3px #80808069;
+  width: 100%;
 }
 
 .hr_header {

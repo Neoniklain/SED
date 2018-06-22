@@ -72,7 +72,8 @@
                 <p-calendar [inputStyle]="{'width':'100%'}"
                             [style]="{'width':'100%'}"
                             dateFormat="dd.mm.yy"
-                            [disabledDays]="disabledDays"
+                            [disabledDates]="disabledDates"
+                            (onMonthChange)="updateDisabledDates($event)"
                             readonlyInput="true"
                             [(ngModel)]="model.date"
                             [locale]="ru"></p-calendar>

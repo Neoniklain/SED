@@ -52,7 +52,7 @@ export class JournalPageComponent implements OnInit {
     onClick(pair: Pair) {
         if (pair.id !== 0) {
             this.showLoader = true;
-            this.journalService.GetJournal(this.professor.id, pair.lesson.group.id, pair.lesson.discipline.id).subscribe(
+            this.journalService.GetJournal(pair.lesson.id).subscribe(
                 result => {
                     this.journal = result.data;
                     this.showLoader = false;

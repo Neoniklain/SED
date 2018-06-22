@@ -20,12 +20,13 @@ import {DatePipe} from "@angular/common";
 export class LessonСonfiguratorComponent implements OnInit {
 
     @Input() pair: Pair;
-    public pairs: Array<Pair> = new  Array<Pair>();
+    public dates: Array<Date> = new  Array<Date>();
     public events: Array<LessonEvent> = new  Array<LessonEvent>();
     public eventTypes: Array<PointType> = new  Array<PointType>();
     public model: LessonEvent = new LessonEvent();
     public ru;
-    public disabledDays: Array<number>;
+    public allDisabledDates: Array<Date>;
+    public disabledDates: Array<Date>;
     public editMode: boolean = false;
     public datePipe = new DatePipe("ru");
 
@@ -42,7 +43,7 @@ export class LessonСonfiguratorComponent implements OnInit {
             dayNames: ["Воскресенье", "Понедельник", "Вторник", "Среда", "Четверг", "Пятница", "Суббота"],
             dayNamesShort: ["Вск", "Пн", "Вт", "СР", "Чт", "Пт", "Сб" ],
             dayNamesMin: ["Вск", "Пн", "Вт", "СР", "Чт", "Пт", "Сб" ],
-            monthNames: [ "Январь", "Февраль", "Март", "Апрель", "Ми ", "Июнь", "Июль", "Август", "Сентябрь", "Октябрь", "Ноябрь", "Декабрь" ],
+            monthNames: [ "Январь", "Февраль", "Март", "Апрель", "Май", "Июнь", "Июль", "Август", "Сентябрь", "Октябрь", "Ноябрь", "Декабрь" ],
             monthNamesShort: [ "Янв", "Фев", "Мар", "Апр", "Май", "Июн", "Июл", "Авг", "Сен", "Окт", "Ноя", "Дек" ],
             today: 'Сегодня',
             clear: 'Очистить'
@@ -60,27 +61,41 @@ export class LessonСonfiguratorComponent implements OnInit {
             });
     }
 
-    disableUnusedDays() {
-        this.pairService.GetLessonPair(this.pair.lesson.id).subscribe(
-            result => {
-                this.pairs = result.data;
-                let enabledDays = [];
-                for (let pair of this.pairs) {
-                    enabledDays.push(this.utilsService.getDayNumFromName(pair.dayofweek));
-                }
-                this.disabledDays = [];
-                for (let i = 0; i < 7; i++) {
-                    if (isUndefined(enabledDays.find(function(element) { return element === i; }))) {
-                        if (this.disabledDays.length === 0
-                            || isUndefined(this.disabledDays.find(function(element) { return element === i; }))) {
-                            this.disabledDays.push(i);
-                        }
-                    }
-                }
+    updateDisabledDates(event) {
+        /* Прибавление еденицы к месяцу обаснованно тем,
+        * что объект Date() возвращает месяц с нуля, а
+        * календарь начиная с нуля.
+        */
+        let daysInMonth = new Date(event.year, event.month, 0).getDate();
+        this.disabledDates = [];
+        // Отключаем даты в текущем месяце
+        for (let i = 1; i < daysInMonth + 1; i++) {
+            let find = this.allDisabledDates.find(function(element) {
+                let bool = element.getFullYear() === event.year
+                    && (element.getMonth() + 1) === (event.month)
+                    && element.getDate() === i;
+                return bool;
+            });
+            if (isUndefined(find))
+                this.disabledDates.push(new Date(event.year, event.month - 1, i));
+        }
+    }
 
+    disableUnusedDays() {
+        this.journalService.GetJournalDates(this.pair.lesson.id).subscribe(
+            result => {
+                this.dates = result.data;
+                this.allDisabledDates = [];
+                for (let date of this.dates) {
+                    let temp = new Date(this.datePipe.transform(date, "yyyy-MM-ddTHH:mm:ss"));
+                    this.allDisabledDates.push(temp);
+                }
+                let date: Date = new Date();
+                this.updateDisabledDates({year: date.getFullYear(), month: date.getMonth() + 1});
             }
         );
     }
+
 
     getPointsType() {
         this.dictionaryService.GetPointTypes()

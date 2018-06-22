@@ -15,7 +15,8 @@ export class ProfileComponent implements OnInit {
     }
 
    ngOnInit() {
-
+       if (this.user.photo === "")
+           this.user.photo = "images/anon-user.jpg";
    }
 
 }

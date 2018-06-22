@@ -140,6 +140,7 @@ public class AccountController {
         } catch (Exception e) {
             response.setStatus(StatusTypes.ERROR);
             response.addErrors("Не удалось изменить фото");
+            return response;
         }
         response.addMessage("Фотография изменена.");
         return response;

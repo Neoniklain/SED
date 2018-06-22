@@ -25,11 +25,15 @@ export class JournalService {
           .catch(this.handleError.handle);
    }
 
-    public GetJournal(professorId, groupId, disciplineId): Observable<ResponseStatus> {
+    public GetJournal(lessonId): Observable<ResponseStatus> {
         return this.http.get(ApiRouteConstants.Journal.All
-            .replace(":professorId", professorId)
-            .replace(":groupId", groupId)
-            .replace(":disciplineId", disciplineId))
+            .replace(":lessonId", lessonId))
+            .catch(this.handleError.handle);
+    }
+
+    public GetJournalDates(lessonId): Observable<ResponseStatus> {
+        return this.http.get(ApiRouteConstants.Journal.Dates
+            .replace(":lessonId", lessonId))
             .catch(this.handleError.handle);
     }
 

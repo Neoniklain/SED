@@ -87,7 +87,8 @@ export const ApiRouteConstants = {
       AnswerTask: "task/answer"
    },
    Journal: {
-      All: "journal/professor/:professorId/group/:groupId/discipline/:disciplineId",
+      All: "journal/:lessonId",
+      Dates: "journal/dates/:lessonId",
       Save: "journal/save",
       Events: "journal/event/lesson/:lessonId",
       EventSave: "journal/event/save",

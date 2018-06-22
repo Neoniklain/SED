@@ -5,6 +5,8 @@ import com.unesco.core.models.news.NewsModel;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 @Service
@@ -26,14 +28,16 @@ public class NewsListManager implements INewsListManager {
 
     public NewsModel GetLast() {
         NewsModel last = new NewsModel();
-        if(newsList.size()>0) {
-            last = newsList.stream().findFirst().get();
-            for (NewsModel n :newsList) {
-                if (last.getDate().compareTo(n.getDate()) > 0) {
-                    last = n;
-                }
-            }
-        }
+        SortDesc();
+        last = newsList.get(0);
         return last;
+    }
+
+    public void SortDesc() {
+        Collections.sort(newsList, new Comparator<NewsModel>() {
+            public int compare(NewsModel o1, NewsModel o2) {
+                return o2.getDate().compareTo(o1.getDate());
+            }
+        });
     }
 }

@@ -22,6 +22,8 @@ export class AccountComponent implements OnInit {
     this.authenticationService.getUser().subscribe(
         res => {
           this.user = res.data;
+            if (this.user.photo === "")
+                this.user.photo = "images/anon-user.jpg";
         });
   }
 

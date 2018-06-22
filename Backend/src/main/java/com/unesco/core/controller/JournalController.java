@@ -31,17 +31,27 @@ public class JournalController {
     @Autowired
     private ILessonEventDataService lessonEventDataService;
 
-    @GetMapping("/professor/{professorId}/group/{groupId}/discipline/{disciplineId}")
-    public ResponseStatus GetJournal(@PathVariable("professorId") long professorId,
-                                   @PathVariable("groupId") long groupId,
-                                   @PathVariable("disciplineId") long disciplineId) {
+    @GetMapping("/{lessonId}")
+    public ResponseStatus GetJournal(@PathVariable("lessonId") long lessonId) {
 
-        JournalModel journal = journalDataService.Get(professorId, groupId, disciplineId);
+        JournalModel journal = journalDataService.Get(lessonId);
 
         journalManager.Init(journal);
         journalManager.InitEmptyCells(lessonEventDataService.GetAll());
 
         return new ResponseStatus(StatusTypes.OK, journalManager.Get());
+    }
+
+    @RequestMapping("/dates/{lessonId}")
+    public ResponseStatus GetDates(@PathVariable("lessonId") long lessonId) {
+
+        JournalModel journal = journalDataService.Get(lessonId);
+
+        journalManager.Init(journal);
+        journalManager.InitEmptyCells(lessonEventDataService.GetAll());
+
+        return new ResponseStatus(StatusTypes.OK, journalManager.GetDates());
+
     }
 
     @RequestMapping("/save")

@@ -66,11 +66,10 @@ public class UserDataService implements IUserDataService {
 
     public UserModel Save(UserModel user)
     {
-        List<RoleModel> roles = user.getRoles();
-        for (RoleModel role: roles) {
+        List<RoleModel> roles = new ArrayList<>();
+        for (RoleModel role:  user.getRoles()) {
             RoleModel findRole = roleDataService.GetByName(role.roleName);
             if(findRole != null) {
-                roles.remove(role);
                 roles.add(findRole);
             }
         }
