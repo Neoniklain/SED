@@ -49,6 +49,13 @@ public class DepartmentDataService implements IDepartmentDataService {
         return model;
     }
 
+    public DepartmentDTO GetByName(String name)
+    {
+        DepartmentEntity entity = departmentRepository.findByName(name);
+        DepartmentDTO model = (DepartmentDTO) mapperService.toModel(entity);
+        return model;
+    }
+
     public void Delete(long id)
     {
         departmentRepository.delete(id);

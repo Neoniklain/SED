@@ -128,14 +128,13 @@ public class DictionaryController {
       try {
          roomDataService.Save(roomManager.Get());
          response.addMessage("Кабинет сохранен.");
-         return response;
       }
       catch (Exception e) {
          response.setStatus(StatusTypes.ERROR);
          response.addMessage("Ошибка при сохранении кабинета.");
          response.addMessage(e.getMessage());
-         return response;
       }
+      return response;
    }
    public ResponseStatusDTO DeleteRoom(long id) {
       roomManager.Init(roomDataService.Get(id));
@@ -144,14 +143,13 @@ public class DictionaryController {
       try {
          roomDataService.Delete(id);
          response.addMessage("Кабинет удален.");
-         return response;
       }
       catch (Exception e) {
          response.setStatus(StatusTypes.ERROR);
          response.addMessage("Оошибка при удаленни кабинета.");
          response.addMessage(e.getMessage());
-         return response;
       }
+      return response;
    }
 
    public PageResultDTO<FieldOfKnowledgeDTO> GetFieldOfKnowledgeList(FilterQueryDTO filter) {
@@ -167,14 +165,13 @@ public class DictionaryController {
       try {
          fieldOfKnowledgeDataService.Save(fieldOfKnowledgeManager.Get());
          response.addMessage("Раздел знаний сохранен.");
-         return response;
       }
       catch (Exception e) {
          response.setStatus(StatusTypes.ERROR);
          response.addMessage("Ошибка при сохранении раздела знаний.");
          response.addMessage(e.getMessage());
-         return response;
       }
+      return response;
    }
    
    public ResponseStatusDTO DeleteFieldOfKnowledge(long id) {
@@ -184,14 +181,13 @@ public class DictionaryController {
       try {
          fieldOfKnowledgeDataService.Delete(id);
          response.addMessage("Раздел знаний удален.");
-         return response;
       }
       catch (Exception e) {
          response.setStatus(StatusTypes.ERROR);
          response.addMessage("Ошибка при удалении раздела знаний.");
          response.addMessage(e.getMessage());
-         return response;
       }
+      return response;
    }
 
    public PageResultDTO<RoleDTO> GetRoleList(FilterQueryDTO filter) {
@@ -207,14 +203,13 @@ public class DictionaryController {
       try {
          roleDataService.Save(roleManager.Get());
          response.addMessage("Роль сохранена.");
-         return response;
       }
       catch (Exception e) {
          response.setStatus(StatusTypes.ERROR);
          response.addMessage("Ошибка при сохранении роли.");
          response.addMessage(e.getMessage());
-         return response;
       }
+      return response;
    }
    
    public ResponseStatusDTO DeleteRole(long id) {
@@ -224,14 +219,13 @@ public class DictionaryController {
       try {
          roleDataService.Delete(id);
          response.addMessage("Роль удалена.");
-         return response;
       }
       catch (Exception e) {
          response.setStatus(StatusTypes.ERROR);
          response.addMessage("Ошибка при удалении роли.");
          response.addMessage(e.getMessage());
-         return response;
       }
+      return response;
    }
 
    public PageResultDTO<GroupDTO> GetGroupList(FilterQueryDTO filter) {
@@ -247,14 +241,13 @@ public class DictionaryController {
       try {
          groupDataService.Save(groupManager.Get());
          response.addMessage("Группа сохранена.");
-         return response;
       }
       catch (Exception e) {
          response.setStatus(StatusTypes.ERROR);
          response.addMessage("Ошибка при сохранении группы.");
          response.addMessage(e.getMessage());
-         return response;
       }
+      return response;
    }
    
    public ResponseStatusDTO DeleteGroup(long id) {
@@ -264,14 +257,13 @@ public class DictionaryController {
       try {
          groupDataService.Delete(id);
          response.addMessage("Группа удалена.");
-         return response;
       }
       catch (Exception e) {
          response.setStatus(StatusTypes.ERROR);
          response.addMessage("Ошибка при удалении группы.");
          response.addMessage(e.getMessage());
-         return response;
       }
+      return response;
    }
 
    public PageResultDTO<DepartmentDTO> GetDepartmentList(FilterQueryDTO filter) {
@@ -287,14 +279,13 @@ public class DictionaryController {
       try {
          departmentDataService.Save(departmentManager.Get());
          response.addMessage("Кафедра сохранена.");
-         return response;
       }
       catch (Exception e) {
          response.setStatus(StatusTypes.ERROR);
          response.addMessage("Ошибка при сохранении кафедры.");
          response.addMessage(e.getMessage());
-         return response;
       }
+      return response;
    }
    
    public ResponseStatusDTO DeleteDepartment(long id) {
@@ -304,14 +295,13 @@ public class DictionaryController {
       try {
          departmentDataService.Delete(id);
          response.addMessage("Кафедра удалена.");
-         return response;
       }
       catch (Exception e) {
          response.setStatus(StatusTypes.ERROR);
          response.addMessage("Ошибка при удалении кафедры.");
          response.addMessage(e.getMessage());
-         return response;
       }
+      return response;
    }
 
    public PageResultDTO<InstituteDTO> GetInstituteList(FilterQueryDTO filter) {
@@ -327,14 +317,13 @@ public class DictionaryController {
       try {
          instituteDataService.Save(instituteManager.Get());
          response.addMessage("Институт сохранен.");
-         return response;
       }
       catch (Exception e) {
          response.setStatus(StatusTypes.ERROR);
          response.addMessage("Ошибка при сохранении института.");
          response.addMessage(e.getMessage());
-         return response;
       }
+      return response;
    }
 
    public ResponseStatusDTO DeleteInstitute(long id) {
@@ -344,14 +333,13 @@ public class DictionaryController {
       try {
          instituteDataService.Delete(id);
          response.addMessage("Институт удален.");
-         return response;
       }
       catch (Exception e) {
          response.setStatus(StatusTypes.ERROR);
          response.addMessage("Ошибка при удалении института .");
          response.addMessage(e.getMessage());
-         return response;
       }
+      return response;
    }
 
    public PageResultDTO<DisciplineDTO> GetDisciplineList(FilterQueryDTO filter) {
@@ -367,14 +355,13 @@ public class DictionaryController {
       try {
          disciplineDataService.Save(disciplineManager.Get());
          response.addMessage("Дисциплна сохранена.");
-         return response;
       }
       catch (Exception e) {
          response.setStatus(StatusTypes.ERROR);
          response.addMessage("Ошибка при сохранении дисциплны.");
          response.addMessage(e.getMessage());
-         return response;
       }
+      return response;
    }
    
    public ResponseStatusDTO DeleteDiscipline(long id) {
@@ -384,14 +371,13 @@ public class DictionaryController {
       try {
          disciplineDataService.Delete(id);
          response.addMessage("Дисциплна удалена.");
-         return response;
       }
       catch (Exception e) {
          response.setStatus(StatusTypes.ERROR);
          response.addMessage("Ошибка при удалении дисциплины.");
          response.addMessage(e.getMessage());
-         return response;
       }
+      return response;
    }
 
    public PageResultDTO<PointTypeDTO> GetPointTypeList(FilterQueryDTO filter) {
@@ -405,15 +391,15 @@ public class DictionaryController {
       response.setStatus(StatusTypes.OK);
       try {
          pointTypeDataService.Delete(id);
-         response.addMessage("Дисциплна удалена.");
-         return response;
+         response.addMessage("Типа занятия удален.");
       }
       catch (Exception e) {
          response.setStatus(StatusTypes.ERROR);
-         response.addMessage("Ошибка при удалении дисциплины.");
+         response.addMessage("Ошибка при удалении типа занятия.");
          response.addMessage(e.getMessage());
-         return response;
       }
+      return response;
+
    }
 
 }

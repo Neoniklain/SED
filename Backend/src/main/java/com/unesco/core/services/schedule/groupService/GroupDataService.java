@@ -1,8 +1,8 @@
 package com.unesco.core.services.schedule.groupService;
 
 import com.unesco.core.entities.schedule.GroupEntity;
-import com.unesco.core.models.shedule.GroupDTO;
 import com.unesco.core.models.additional.FilterQueryDTO;
+import com.unesco.core.models.shedule.GroupDTO;
 import com.unesco.core.repositories.plan.GroupRepository;
 import com.unesco.core.services.mapperService.IMapperService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,6 +45,13 @@ public class GroupDataService implements IGroupDataService {
     public GroupDTO Get(long id)
     {
         GroupEntity entity = groupRepository.findOne(id);
+        GroupDTO model = (GroupDTO) mapperService.toModel(entity);
+        return model;
+    }
+
+    public GroupDTO GetByName(String name)
+    {
+        GroupEntity entity = groupRepository.findByName(name);
         GroupDTO model = (GroupDTO) mapperService.toModel(entity);
         return model;
     }

@@ -1,8 +1,8 @@
 package com.unesco.core.services.schedule.instituteService;
 
 import com.unesco.core.entities.schedule.InstituteEntity;
-import com.unesco.core.models.shedule.InstituteDTO;
 import com.unesco.core.models.additional.FilterQueryDTO;
+import com.unesco.core.models.shedule.InstituteDTO;
 import com.unesco.core.repositories.plan.InstituteRepository;
 import com.unesco.core.services.mapperService.IMapperService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,6 +45,13 @@ public class InstituteDataService implements IInstituteDataService {
     public InstituteDTO Get(long id)
     {
         InstituteEntity entity = instituteRepository.findOne(id);
+        InstituteDTO model = (InstituteDTO) mapperService.toModel(entity);
+        return model;
+    }
+
+    public InstituteDTO GetByName(String name)
+    {
+        InstituteEntity entity = instituteRepository.findByName(name);
         InstituteDTO model = (InstituteDTO) mapperService.toModel(entity);
         return model;
     }

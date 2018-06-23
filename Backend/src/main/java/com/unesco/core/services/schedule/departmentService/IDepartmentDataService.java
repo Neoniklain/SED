@@ -9,4 +9,5 @@ import java.util.List;
 
 public interface IDepartmentDataService extends IDataService<DepartmentDTO> {
     List<DepartmentDTO> GetPage(FilterQueryDTO filter);
+    DepartmentDTO GetByName(String name);
 }

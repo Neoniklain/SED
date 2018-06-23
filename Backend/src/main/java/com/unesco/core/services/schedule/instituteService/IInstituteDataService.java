@@ -8,4 +8,5 @@ import java.util.List;
 
 public interface IInstituteDataService extends IDataService<InstituteDTO> {
     List<InstituteDTO> GetPage(FilterQueryDTO filter);
+    InstituteDTO GetByName(String name);
 }

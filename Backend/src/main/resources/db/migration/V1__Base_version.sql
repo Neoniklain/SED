@@ -20,6 +20,7 @@ create sequence student_sequence_gen start 1 increment 1;
 create sequence task_description_sequence_gen start 1 increment 1;
 create sequence task_sequence_gen start 1 increment 1;
 create sequence user_sequence_gen start 1 increment 1;
+create sequence room_sequence_gen start 1 increment 1;
 create table task (id int8 not null, response varchar(255), status varchar(255), user_id int8, task_description int8, primary key (id));
 create table task_description (id int8 not null, description varchar(255), name varchar(255), user_id int8, primary key (id));
 create table un_competence (id int8 not null, code varchar(255), description varchar(255), primary key (id));

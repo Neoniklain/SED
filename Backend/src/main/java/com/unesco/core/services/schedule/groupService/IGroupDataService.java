@@ -8,4 +8,5 @@ import java.util.List;
 
 public interface IGroupDataService extends IDataService<GroupDTO> {
     List<GroupDTO> GetPage(FilterQueryDTO filter);
+    GroupDTO GetByName(String name);
 }

@@ -3,6 +3,7 @@ package com.unesco.core.controllerWeb;
 import com.unesco.core.controller.AccountController;
 import com.unesco.core.models.account.UserDTO;
 import com.unesco.core.models.additional.ResponseStatusDTO;
+import com.unesco.core.security.CustomUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.web.bind.annotation.*;
@@ -15,11 +16,14 @@ import org.springframework.web.context.WebApplicationContext;
 public class AccountControllerWeb {
 
     @Autowired
+    private CustomUserDetailsService _CustomUserDetailsService;
+    @Autowired
     private AccountController accountController;
 
     @GetMapping("/role")
     public ResponseStatusDTO GetRoles() {
-        return accountController.GetRoles();
+        UserDTO user = new UserDTO(_CustomUserDetailsService.getUserDetails());
+        return accountController.GetRoles(user);
     }
 
     @RequestMapping("/registration")
@@ -29,17 +33,20 @@ public class AccountControllerWeb {
 
     @GetMapping("/user")
     public ResponseStatusDTO GetUser() {
-        return accountController.GetUser();
+        UserDTO user = new UserDTO(_CustomUserDetailsService.getUserDetails());
+        return accountController.GetUser(user);
     }
 
     @RequestMapping("/changePassword")
     public ResponseStatusDTO ChangePassword(@RequestBody Pass pass) {
-        return accountController.ChangePassword(pass.newPass, pass.oldPass);
+        UserDTO user = new UserDTO(_CustomUserDetailsService.getUserDetails());
+        return accountController.ChangePassword(user, pass.newPass, pass.oldPass);
     }
 
     @RequestMapping("/changePhoto")
     public ResponseStatusDTO ChangePhoto(@RequestBody String photo) {
-        return accountController.ChangePhoto(photo);
+        UserDTO user = new UserDTO(_CustomUserDetailsService.getUserDetails());
+        return accountController.ChangePhoto(user, photo);
     }
 
     @RequestMapping(value = "/FindUsersByFIO/{req}")
@@ -53,17 +60,17 @@ public class AccountControllerWeb {
     }
 
     @GetMapping("/professorByUser/{userId}")
-    public ResponseStatusDTO GetProfessorByUser(@PathVariable("userId") int userId) {
+    public ResponseStatusDTO GetProfessorByUser(@PathVariable("userId") long userId) {
         return accountController.GetProfessorByUser(userId);
     }
 
     @GetMapping("/studentByUser/{userId}")
-    public ResponseStatusDTO GetStudentByUser(@PathVariable("userId") int userId) {
+    public ResponseStatusDTO GetStudentByUser(@PathVariable("userId") long userId) {
         return accountController.GetStudentByUser(userId);
     }
 
     @RequestMapping(value = "/professor/{userId}/setDepartment/{departmentId}")
-    public ResponseStatusDTO setProfessorDepartment(@PathVariable("userId") int userId, @PathVariable("departmentId") int departmentId) {
+    public ResponseStatusDTO setProfessorDepartment(@PathVariable("userId") long userId, @PathVariable("departmentId") long departmentId) {
         return accountController.setProfessorDepartment(userId, departmentId);
     }
 
@@ -73,7 +80,7 @@ public class AccountControllerWeb {
     }
 
     @RequestMapping(value = "/student/{userId}/setGroup/{groupId}")
-    public ResponseStatusDTO setStudentGroup(@PathVariable("userId") int userId, @PathVariable("groupId") int groupId) {
+    public ResponseStatusDTO setStudentGroup(@PathVariable("userId") long userId, @PathVariable("groupId") long groupId) {
         return accountController.setStudentGroup(userId, groupId);
     }
 
