@@ -29,15 +29,17 @@ public class NewsListManager implements INewsListManager {
     public NewsDTO GetLast() {
         NewsDTO last = new NewsDTO();
         SortDesc();
-        last = newsList.get(0);
+        if(!newsList.isEmpty())
+            last = newsList.get(0);
         return last;
     }
 
     public void SortDesc() {
-        Collections.sort(newsList, new Comparator<NewsDTO>() {
-            public int compare(NewsDTO o1, NewsDTO o2) {
+        if(!newsList.isEmpty())
+            Collections.sort(newsList, new Comparator<NewsDTO>() {
+                public int compare(NewsDTO o1, NewsDTO o2) {
                 return o2.getDate().compareTo(o1.getDate());
             }
-        });
+            });
     }
 }
