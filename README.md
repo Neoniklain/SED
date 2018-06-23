@@ -2,40 +2,53 @@
 
 ***Перед запуском сервера настройте базу (описание настройки внизу)***
 
-1. Необходима InteliJ IDEA 2017
-2. Копируем репозиторий
+1. Необходима InteliJ IDEA
+2. Копируем репозиторий.
 3. Запускаем через IDEA.
-4. Жмем зеленый треугольник
-	1. На этом этапе может быть ошибка в том что треугольника нет. Скорее всго нужно просто подождать пока Idea распознает полностью проект
+4. Жмем зеленый треугольник.
+	1. На этом этапе может быть ошибка в том что треугольника нет. Скорее всго нужно просто подождать пока Idea распознает полностью проект.
 	2. Но если распознование закончилось, а треугольник не появился, то:
-	3. Находим файл SpringBootJspApplication.java (Backend\src\main\java\com\unesco\core\SpringBootJspApplication.java)
-	4. Жмем по нему ПКМ и выбираем "Run 'SpringBootJspApplication'"
+	3. Находим файл SpringBootJspApplication.java (Backend\src\main\java\com\unesco\core\SpringBootJspApplication.java).
+	4. Жмем по нему ПКМ и выбираем "Run 'SpringBootJspApplication'".
 5. Проект запущен.
 
 ### База Данных
 
-Для проекта необходима база данных PostgreSQL. Если хотите использоват ее локально то:
+Для проекта необходима база данных PostgreSQL. Если хотите использовать ее локально то:
 
 1. Создаем базу с названием unesco (можно другое)
 2. Указываем настройки подключения в файле [application.yml](Backend\src\main\resources\application.yml)
-3. Далее в этом же файле необходим указать настройку ddl-auto: update. С данной настройкой файл выгляди так:
+3. Файл выглядит примерно так:
 ```
 spring:
   jpa:
     database: POSTGRESQL
-    show-sql: true
+    show-sql: false
     hibernate:
-      ddl-auto: update
+      ddl-auto: none
   datasource:
     url: jdbc:postgresql://localhost:5432/unesco
-    username: postresql
-    password: postresql
+    username: postgres
+    password: postgres
     driverClassName: org.postgresql.Driver
   http:
     multipart:
       max-file-size: 50Mb
       max-request-size: 50Mb
 ```
+
+### Работа с миграциями
+
+- Все миграции хранятся в папке проекта - SED\Backend\src\main\resources\db\migration
+- Миграции именуются в виде:
+   ```
+   V1__Base_version.sql
+   ```
+- О том, как верно называть миграции можно прочитать по ссылке выше.
+- Миграции запускаются автоматически при старте проекта, если еще не были применены.
+
+Дополнительная информация для создания миграций указана здесь: https://flywaydb.org/documentation/migrations.
+Для миграций используется инструмент [FlyWay](https://flywaydb.org/).
 
 ## Запуск фронтендовой части на Angular
  1. Запускаем cmd, переходим в папку проекта (./SED), и выполняем:

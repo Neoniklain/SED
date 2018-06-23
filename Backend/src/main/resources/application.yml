@@ -3,7 +3,7 @@ spring:
     database: POSTGRESQL
     show-sql: false
     hibernate:
-      ddl-auto: update
+      ddl-auto: none
   datasource:
     # Release DB
     #url: jdbc:postgresql://ictkem.ru:3254/ict?currentSchema=public

@@ -58,6 +58,7 @@ public class UserManager implements IUserManager {
         user.setEmail(User.getEmail());
         user.setUserFIO(User.getUserFIO());
         user.setUsername(User.getUsername());
+        user.setPhoto(User.getPhoto());
         user.setPassword(passwordEncoder.encode(User.getPassword()));
 
         // Если роли нет назначаем роль пользователя
