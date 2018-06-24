@@ -21,6 +21,8 @@ public interface DisciplineRepository extends CrudRepository<DisciplineEntity, L
 
     DisciplineEntity save(DisciplineEntity s);
 
+    DisciplineEntity findByName(String name);
+
     @Query("SELECT d FROM DisciplineEntity d where lower(d.name) LIKE CONCAT('%',lower(:filter),'%')")
     List<DisciplineEntity> findWithFilter(Pageable pageable, @Param("filter")  String filter);
 

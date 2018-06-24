@@ -93,7 +93,7 @@ public class JournalController {
         }
     }
 
-    public ResponseStatusDTO SaveEvent(long id) {
+    public ResponseStatusDTO DeleteEvent(long id) {
         ResponseStatusDTO result = new ResponseStatusDTO();
         try {
             result.setStatus(StatusTypes.OK);

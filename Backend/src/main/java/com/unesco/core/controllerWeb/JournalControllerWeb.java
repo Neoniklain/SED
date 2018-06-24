@@ -45,7 +45,7 @@ public class JournalControllerWeb {
     }
 
     @RequestMapping("/event/delete/{id}")
-    public ResponseStatusDTO SaveEvent(@PathVariable("id") long id) {
-        return journalController.SaveEvent(id);
+    public ResponseStatusDTO DeleteEvent(@PathVariable("id") long id) {
+        return journalController.DeleteEvent(id);
     }
 }

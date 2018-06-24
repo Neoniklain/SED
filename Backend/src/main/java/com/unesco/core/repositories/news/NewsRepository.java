@@ -13,6 +13,10 @@ import java.util.List;
 public interface NewsRepository extends CrudRepository<NewsEntity, Long>, CrudPagableRepository<NewsEntity, Long> {
     NewsEntity findTop1ByOrderByDateDesc();
     NewsEntity findById(long id);
+
+    @Query("SELECT n FROM NewsEntity n where lower(n.header) LIKE lower(:header)")
+    NewsEntity findByHeader(@Param("header") String header);
+
     Page findAll(Pageable pageRequest);
 
     @Query("SELECT n FROM NewsEntity n where lower(n.header) LIKE CONCAT('%',lower(:filter),'%')")

@@ -8,4 +8,5 @@ import java.util.List;
 
 public interface IDisciplineDataService extends IDataService<DisciplineDTO> {
     List<DisciplineDTO> GetPage(FilterQueryDTO filter);
+    DisciplineDTO GetByName(String name);
 }

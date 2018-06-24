@@ -1,8 +1,8 @@
 package com.unesco.core.services.schedule.fieldOfKnowledgeService;
 
 import com.unesco.core.entities.schedule.FieldOfKnowledgeEntity;
-import com.unesco.core.models.shedule.FieldOfKnowledgeDTO;
 import com.unesco.core.models.additional.FilterQueryDTO;
+import com.unesco.core.models.shedule.FieldOfKnowledgeDTO;
 import com.unesco.core.repositories.plan.FieldOfKnowledgeRepository;
 import com.unesco.core.services.mapperService.IMapperService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,6 +45,13 @@ public class FieldOfKnowledgeDataService implements IFieldOfKnowledgeDataService
     public FieldOfKnowledgeDTO Get(long id)
     {
         FieldOfKnowledgeEntity entity = fieldOfKnowledgeRepository.findOne(id);
+        FieldOfKnowledgeDTO model = (FieldOfKnowledgeDTO) mapperService.toModel(entity);
+        return model;
+    }
+
+    public FieldOfKnowledgeDTO GetByName(String name)
+    {
+        FieldOfKnowledgeEntity entity = fieldOfKnowledgeRepository.findByName(name);
         FieldOfKnowledgeDTO model = (FieldOfKnowledgeDTO) mapperService.toModel(entity);
         return model;
     }

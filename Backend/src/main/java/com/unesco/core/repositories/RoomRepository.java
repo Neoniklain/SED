@@ -1,6 +1,5 @@
 package com.unesco.core.repositories;
 
-import com.unesco.core.entities.schedule.GroupEntity;
 import com.unesco.core.entities.schedule.RoomEntity;
 import com.unesco.core.repositories.utils.CrudPagableRepository;
 import org.springframework.data.domain.Pageable;
@@ -16,5 +15,5 @@ public interface RoomRepository extends CrudRepository <RoomEntity, Long>, CrudP
     @Query("SELECT r FROM RoomEntity r where lower(r.room) LIKE CONCAT('%',lower(:filter),'%')")
     List<RoomEntity> findWithFilter(Pageable pageable, @Param("filter")  String filter);
 
-    GroupEntity findByRoom(String name);
+    RoomEntity findByRoom(String name);
 }

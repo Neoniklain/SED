@@ -8,4 +8,5 @@ import java.util.List;
 
 public interface IFieldOfKnowledgeDataService extends IDataService<FieldOfKnowledgeDTO> {
     List<FieldOfKnowledgeDTO> GetPage(FilterQueryDTO filter);
+    FieldOfKnowledgeDTO GetByName(String name);
 }

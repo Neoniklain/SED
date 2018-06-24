@@ -8,4 +8,5 @@ import java.util.List;
 
 public interface IRoomDataService extends IDataService<RoomDTO> {
     List<RoomDTO> GetPage(FilterQueryDTO filter);
+    RoomDTO GetByRoom(String room);
 }

@@ -49,6 +49,13 @@ public class RoomDataService implements IRoomDataService {
         return model;
     }
 
+    public RoomDTO GetByRoom(String room)
+    {
+        RoomEntity entity = roomRepository.findByRoom(room);
+        RoomDTO model = (RoomDTO) mapperService.toModel(entity);
+        return model;
+    }
+
     public void Delete(long id)
     {
         roomRepository.delete(id);

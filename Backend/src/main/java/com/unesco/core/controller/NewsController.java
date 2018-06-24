@@ -2,14 +2,13 @@ package com.unesco.core.controller;
 
 import com.unesco.core.managers.news.newsManager.interfaces.news.INewsManager;
 import com.unesco.core.managers.news.newsManager.interfaces.newsList.INewsListManager;
+import com.unesco.core.models.account.UserDTO;
 import com.unesco.core.models.additional.ResponseStatusDTO;
 import com.unesco.core.models.news.NewsDTO;
-import com.unesco.core.security.CustomUserDetailsService;
 import com.unesco.core.services.account.userService.IUserDataService;
 import com.unesco.core.services.news.newsService.INewsDataService;
 import com.unesco.core.utils.StatusTypes;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
@@ -25,9 +24,6 @@ public class NewsController {
     private INewsManager newsManager;
     @Autowired
     private INewsListManager newsListManager;
-
-    @Autowired
-    private CustomUserDetailsService _CustomUserDetailsService;
 
     public ResponseStatusDTO GetAllNews() {
         newsListManager.Init(newsDataService.GetAll());
@@ -56,15 +52,14 @@ public class NewsController {
         }
     }
 
-    public ResponseStatusDTO Save(NewsDTO news) {
+    public ResponseStatusDTO Save(UserDTO user, NewsDTO news) {
+        Date day = new Date();
+        news.setDate(day);
+        news.setAuthor(user);
         newsManager.Init(news);
         ResponseStatusDTO result = newsManager.Validate();
         if(result.getStatus() != StatusTypes.OK) return result;
         try {
-            Date day = new Date();
-            news.setDate(day);
-            UserDetails user = _CustomUserDetailsService.getUserDetails();
-            news.setAuthor(userDataService.GetByUsername(user.getUsername()));
             newsDataService.Save(news);
             return new ResponseStatusDTO(StatusTypes.OK);
         }

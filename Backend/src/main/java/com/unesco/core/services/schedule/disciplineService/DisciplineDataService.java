@@ -1,8 +1,8 @@
 package com.unesco.core.services.schedule.disciplineService;
 
 import com.unesco.core.entities.schedule.DisciplineEntity;
-import com.unesco.core.models.shedule.DisciplineDTO;
 import com.unesco.core.models.additional.FilterQueryDTO;
+import com.unesco.core.models.shedule.DisciplineDTO;
 import com.unesco.core.repositories.plan.DisciplineRepository;
 import com.unesco.core.services.mapperService.IMapperService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,6 +45,13 @@ public class DisciplineDataService implements IDisciplineDataService {
     public DisciplineDTO Get(long id)
     {
         DisciplineEntity entity = disciplineRepository.findOne(id);
+        DisciplineDTO model = (DisciplineDTO) mapperService.toModel(entity);
+        return model;
+    }
+
+    public DisciplineDTO GetByName(String name)
+    {
+        DisciplineEntity entity = disciplineRepository.findByName(name);
         DisciplineDTO model = (DisciplineDTO) mapperService.toModel(entity);
         return model;
     }
