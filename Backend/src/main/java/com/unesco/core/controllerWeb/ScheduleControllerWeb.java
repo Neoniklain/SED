@@ -1,6 +1,6 @@
 package com.unesco.core.controllerWeb;
 
-import com.unesco.core.controller.SheduleController;
+import com.unesco.core.controller.ScheduleController;
 import com.unesco.core.models.additional.ResponseStatusDTO;
 import com.unesco.core.models.shedule.PairDTO;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,9 +9,9 @@ import org.springframework.web.bind.annotation.*;
 @CrossOrigin
 @RestController
 @RequestMapping("/api/shedule")
-public class SheduleControllerWeb {
+public class ScheduleControllerWeb {
     @Autowired
-    private SheduleController sheduleController;
+    private ScheduleController sheduleController;
 
     @RequestMapping("/department/{id}/pairs")
     public ResponseStatusDTO getDepartmentPairs(@PathVariable("id") long departmentId) {

@@ -16,7 +16,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.*;
 
 @Service
-public class SheduleController {
+public class ScheduleController {
 
     @Autowired
     private ISheduleManager sheduleManager;
