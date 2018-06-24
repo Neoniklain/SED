@@ -125,9 +125,5 @@ public class DictionaryControllerWeb {
    public PageResultDTO<PointTypeDTO> GetPointTypeList(@RequestBody FilterQueryDTO filter) {
       return dictionaryController.GetPointTypeList(filter);
    }
-   @RequestMapping(method = RequestMethod.DELETE, value = "pointType/{id}")
-   public ResponseStatusDTO DeletePointType(@PathVariable("id") long id) {
-      return dictionaryController.DeletePointType(id);
-   }
 
 }
