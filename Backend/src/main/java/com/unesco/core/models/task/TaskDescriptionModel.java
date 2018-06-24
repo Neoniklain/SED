@@ -1,6 +1,6 @@
 package com.unesco.core.models.task;
 
-import com.unesco.core.models.account.UserModel;
+import com.unesco.core.models.account.UserDTO;
 import com.unesco.core.models.file.FileDescriptionModel;
 
 import java.util.ArrayList;
@@ -10,9 +10,9 @@ public class TaskDescriptionModel {
 
     private long id;
     private String name;
-    private UserModel creator;
+    private UserDTO creator;
     private List<TaskUserModel> taskUsers;
-    private List<UserModel> users;
+    private List<UserDTO> users;
     private String description;
     private int status;
     private String statusName;
@@ -23,7 +23,7 @@ public class TaskDescriptionModel {
         this.id = 0;
         this.name = "";
         this.description = "";
-        this.creator = new UserModel();
+        this.creator = new UserDTO();
         this.taskUsers = new ArrayList<>();
         this.users = new ArrayList<>();
         this.status = 0;
@@ -47,11 +47,11 @@ public class TaskDescriptionModel {
         this.name = name;
     }
 
-    public UserModel getCreator() {
+    public UserDTO getCreator() {
         return creator;
     }
 
-    public void setCreator(UserModel creator) {
+    public void setCreator(UserDTO creator) {
         this.creator = creator;
     }
 
@@ -63,11 +63,11 @@ public class TaskDescriptionModel {
         this.description = description;
     }
 
-    public List<UserModel> getUsers() {
+    public List<UserDTO> getUsers() {
         return users;
     }
 
-    public void setUsers(List<UserModel> users) {
+    public void setUsers(List<UserDTO> users) {
         this.users = users;
     }
 

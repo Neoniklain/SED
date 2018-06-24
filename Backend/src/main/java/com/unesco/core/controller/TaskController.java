@@ -1,15 +1,14 @@
 package com.unesco.core.controller;
 
+import com.unesco.core.managers.task.interfaces.ITaskService;
+import com.unesco.core.models.account.UserDTO;
+import com.unesco.core.models.additional.ResponseStatusDTO;
 import com.unesco.core.models.task.TaskDescriptionModel;
 import com.unesco.core.models.task.TaskUserModel;
-import com.unesco.core.models.account.UserModel;
-import com.unesco.core.models.additional.ResponseStatus;
 import com.unesco.core.security.CustomUserDetailsService;
-import com.unesco.core.managers.task.interfaces.ITaskService;
 import com.unesco.core.utils.StatusTypes;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.multipart.MultipartFile;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,7 +21,7 @@ public class TaskController {
     @Autowired
     private CustomUserDetailsService _CustomUserDetailsService;
 
-    public ResponseStatus GetList() {
+    public ResponseStatusDTO GetList() {
         long userId = _CustomUserDetailsService.getUserDetails().getId();
         List<TaskDescriptionModel> res = _TaskDataService.getTaskDescriptionByCreator(userId);
         List<TaskUserModel> myTasks = _TaskDataService.getTaskUsersByExecutor(userId);
@@ -31,7 +30,7 @@ public class TaskController {
         }
         for (TaskDescriptionModel item:res){
             if(item.getCreator().getId() == userId){
-                List<UserModel> temp_users = new ArrayList<>();
+                List<UserDTO> temp_users = new ArrayList<>();
                 List<TaskUserModel> ltu = _TaskDataService.getTaskUsersForTaskDescription(item.getId());
                 item.setTaskUsers(ltu);
                 for (TaskUserModel T: item.getTaskUsers()) {
@@ -45,45 +44,45 @@ public class TaskController {
                         .collect(Collectors.toList()));
             }
         }
-        ResponseStatus result = new ResponseStatus(StatusTypes.OK);
+        ResponseStatusDTO result = new ResponseStatusDTO(StatusTypes.OK);
         result.addMessage ("Список задач");
         result.setData(res);
         return result;
     }
 
-    public ResponseStatus Create(TaskDescriptionModel newTask) {
-        newTask.setCreator(new UserModel(_CustomUserDetailsService.getUserDetails()));
-        ResponseStatus result = new ResponseStatus(StatusTypes.OK);
+    public ResponseStatusDTO Create(TaskDescriptionModel newTask) {
+        newTask.setCreator(new UserDTO(_CustomUserDetailsService.getUserDetails()));
+        ResponseStatusDTO result = new ResponseStatusDTO(StatusTypes.OK);
         result.addMessage("Задача создана");
         result.setData(_TaskDataService.createNewTaskDescription(newTask));
         return result;
     }
 
-    public ResponseStatus Answer(TaskUserModel item) {
+    public ResponseStatusDTO Answer(TaskUserModel item) {
         _TaskDataService.changeStatusTaskUser(item);
-        ResponseStatus result = new ResponseStatus(StatusTypes.OK);
+        ResponseStatusDTO result = new ResponseStatusDTO(StatusTypes.OK);
         result.addMessage("Ответ отправлен");
         result.setData(item);
         return result;
     }
 
-    public ResponseStatus Get(long id) {
-        ResponseStatus result = new ResponseStatus(StatusTypes.OK);
+    public ResponseStatusDTO Get(long id) {
+        ResponseStatusDTO result = new ResponseStatusDTO(StatusTypes.OK);
         result.setData(_TaskDataService.getTaskDescriptionById(id));
         return result;
     }
 
-    public ResponseStatus Update(TaskDescriptionModel task) {
+    public ResponseStatusDTO Update(TaskDescriptionModel task) {
         _TaskDataService.updateTaskDescription(task);
-        ResponseStatus result = new ResponseStatus(StatusTypes.OK);
+        ResponseStatusDTO result = new ResponseStatusDTO(StatusTypes.OK);
         result.addMessage("Задача обновлена");
         result.setData(task);
         return result;
     }
 
-    public ResponseStatus Delete(long id) {
+    public ResponseStatusDTO Delete(long id) {
         _TaskDataService.deleteTaskDescription(id);
-        ResponseStatus result = new ResponseStatus(StatusTypes.OK);
+        ResponseStatusDTO result = new ResponseStatusDTO(StatusTypes.OK);
         result.addMessage("Задача удалена");
         return result;
     }

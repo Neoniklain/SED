@@ -1,7 +1,7 @@
 package com.unesco.core.controller;
 
 import com.unesco.core.managers.task.interfaces.ITaskService;
-import com.unesco.core.models.additional.ResponseStatus;
+import com.unesco.core.models.additional.ResponseStatusDTO;
 import com.unesco.core.models.file.FileByteCodeModel;
 import com.unesco.core.models.file.FileDescriptionModel;
 import com.unesco.core.models.task.TaskDescriptionModel;
@@ -28,7 +28,7 @@ public class FileController {
     @Autowired
     private ITaskService _taskService;
 
-    public ResponseStatus AddFileForTD(long id, MultipartFile file) {
+    public ResponseStatusDTO AddFileForTD(long id, MultipartFile file) {
         try
         {
             FileDescriptionModel FD = new FileDescriptionModel();
@@ -51,15 +51,15 @@ public class FileController {
         catch (IOException e)
         {
             e.printStackTrace();
-            ResponseStatus result = new ResponseStatus(StatusTypes.ERROR);
+            ResponseStatusDTO result = new ResponseStatusDTO(StatusTypes.ERROR);
             result.addErrors("Ошибка добавления файла");
         }
-        ResponseStatus result = new ResponseStatus(StatusTypes.OK);
+        ResponseStatusDTO result = new ResponseStatusDTO(StatusTypes.OK);
         result.addMessage("Файл добавлен");
         return result;
     }
 
-    public ResponseStatus AddFileForTU(long id, MultipartFile file) {
+    public ResponseStatusDTO AddFileForTU(long id, MultipartFile file) {
         try
         {
             FileDescriptionModel FD = new FileDescriptionModel();
@@ -82,25 +82,25 @@ public class FileController {
         catch (IOException e)
         {
             e.printStackTrace();
-            ResponseStatus result = new ResponseStatus(StatusTypes.ERROR);
+            ResponseStatusDTO result = new ResponseStatusDTO(StatusTypes.ERROR);
             result.addErrors("Ошибка добавления файла");
         }
-        ResponseStatus result = new ResponseStatus(StatusTypes.OK);
+        ResponseStatusDTO result = new ResponseStatusDTO(StatusTypes.OK);
         result.addMessage("Файл добавлен");
         return result;
     }
 
-    public ResponseStatus GetFilesForTD(long TD_id) {
+    public ResponseStatusDTO GetFilesForTD(long TD_id) {
         TaskDescriptionModel res = _taskService.getTaskDescriptionById(TD_id);
-        ResponseStatus result = new ResponseStatus(StatusTypes.OK);
+        ResponseStatusDTO result = new ResponseStatusDTO(StatusTypes.OK);
         result.addMessage("Файл получен");
         result.setData(res.getFiles());
         return result;
     }
 
-    public ResponseStatus GetFilesForTU(long TU_id) {
+    public ResponseStatusDTO GetFilesForTU(long TU_id) {
         TaskUserModel res = _taskService.getTaskUserById(TU_id);
-        ResponseStatus result = new ResponseStatus(StatusTypes.OK);
+        ResponseStatusDTO result = new ResponseStatusDTO(StatusTypes.OK);
         result.addMessage("Файл получен");
         result.setData(res.getFiles());
         return result;

@@ -3,7 +3,7 @@ package com.unesco.core.managers.task;
 import com.unesco.core.managers.task.interfaces.ITaskService;
 import com.unesco.core.models.task.TaskDescriptionModel;
 import com.unesco.core.models.task.TaskUserModel;
-import com.unesco.core.models.account.UserModel;
+import com.unesco.core.models.account.UserDTO;
 import com.unesco.core.models.enums.TaskStatusType;
 import com.unesco.core.services.account.userService.IUserDataService;
 import com.unesco.core.services.file.fileByteCodeService.IFileByteCodeService;
@@ -60,7 +60,7 @@ public class TaskService implements ITaskService
    public TaskDescriptionModel createNewTaskDescription(TaskDescriptionModel td){
       TaskDescriptionModel saved = _taskDescriptionDataService.Save(td);
       List<TaskUserModel> ltu = new ArrayList<>();
-      for(UserModel user:td.getUsers()){
+      for(UserDTO user:td.getUsers()){
          TaskUserModel newTUM = new TaskUserModel();
          newTUM.setResponse("");
          newTUM.setStatus(TaskStatusType.Processed.ordinal());

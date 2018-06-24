@@ -1,7 +1,6 @@
 package com.unesco.core.entities.task;
 
-import com.unesco.core.entities.account.Role;
-import com.unesco.core.entities.account.User;
+import com.unesco.core.entities.account.UserEntity;
 import com.unesco.core.entities.file.FileDescription;
 
 import javax.persistence.*;
@@ -19,7 +18,7 @@ public class TaskDescription {
 
     @OneToOne
     @JoinColumn(name = "user_id")
-    private User creator;
+    private UserEntity creator;
 
     /*  FetchType.
         LAZY = Загрузит при обращении к полю этого класса
@@ -53,11 +52,11 @@ public class TaskDescription {
         this.name = name;
     }
 
-    public User getCreator() {
+    public UserEntity getCreator() {
         return creator;
     }
 
-    public void setCreator(User creator) {
+    public void setCreator(UserEntity creator) {
         this.creator = creator;
     }
 

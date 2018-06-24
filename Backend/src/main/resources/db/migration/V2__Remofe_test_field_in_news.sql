@@ -1,1 +1,0 @@
-alter table un_news drop column test;

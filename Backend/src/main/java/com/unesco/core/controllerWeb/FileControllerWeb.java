@@ -2,7 +2,7 @@ package com.unesco.core.controllerWeb;
 
 
 import com.unesco.core.controller.FileController;
-import com.unesco.core.models.additional.ResponseStatus;
+import com.unesco.core.models.additional.ResponseStatusDTO;
 import com.unesco.core.models.file.FileByteCodeModel;
 import com.unesco.core.utils.StatusTypes;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,29 +24,29 @@ public class FileControllerWeb {
     FileController _fileController;
 
     @RequestMapping(value = "/getFilesForTD/{id}")
-    public ResponseStatus GetFilesForTD(@PathVariable("id") long id) {
+    public ResponseStatusDTO GetFilesForTD(@PathVariable("id") long id) {
         return _fileController.GetFilesForTD(id);
     }
 
     @RequestMapping(value = "/addFileForTD/{id}")
-    public ResponseStatus AddFileForTD(@PathVariable("id") long id, @RequestParam("file") MultipartFile file) {
+    public ResponseStatusDTO AddFileForTD(@PathVariable("id") long id, @RequestParam("file") MultipartFile file) {
         return _fileController.AddFileForTD(id,file);
     }
 
     @RequestMapping(value = "/getFilesForTU/{id}")
-    public ResponseStatus GetFilesForTU(@PathVariable("id") long id) {
+    public ResponseStatusDTO GetFilesForTU(@PathVariable("id") long id) {
         return _fileController.GetFilesForTU(id);
     }
 
     @RequestMapping(value = "/addFileForTU/{id}")
-    public ResponseStatus AddFileForTU(@PathVariable("id") long id, @RequestParam("file") MultipartFile file) {
+    public ResponseStatusDTO AddFileForTU(@PathVariable("id") long id, @RequestParam("file") MultipartFile file) {
         return _fileController.AddFileForTU(id,file);
     }
 
     @RequestMapping(value = "/download/{id}")
-    public ResponseStatus Download(@PathVariable("id") long id, HttpServletRequest request, HttpServletResponse response) throws IOException
+    public ResponseStatusDTO Download(@PathVariable("id") long id, HttpServletRequest request, HttpServletResponse response) throws IOException
     {
-        ResponseStatus result = new ResponseStatus(StatusTypes.OK);
+        ResponseStatusDTO result = new ResponseStatusDTO(StatusTypes.OK);
         try
         {
             FileByteCodeModel myFile = _fileController.Download(id);

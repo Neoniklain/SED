@@ -1,7 +1,6 @@
 package com.unesco.core.models.task;
 
-import com.unesco.core.entities.file.FileDescription;
-import com.unesco.core.models.account.UserModel;
+import com.unesco.core.models.account.UserDTO;
 import com.unesco.core.models.file.FileDescriptionModel;
 
 import java.util.ArrayList;
@@ -10,7 +9,7 @@ import java.util.List;
 public class TaskUserModel {
 
     private long id;
-    private UserModel executor;
+    private UserDTO executor;
     private long taskDescriptionId;
     private String statusName;
     private int status;
@@ -23,7 +22,7 @@ public class TaskUserModel {
         this.status = 0;
         this.statusName = "";
         this.response = "";
-        this.executor = new UserModel();
+        this.executor = new UserDTO();
         this.taskDescriptionId = 0;
         this.files = new ArrayList<>();
     }
@@ -36,11 +35,11 @@ public class TaskUserModel {
         this.id = id;
     }
 
-    public UserModel getExecutor() {
+    public UserDTO getExecutor() {
         return executor;
     }
 
-    public void setExecutor(UserModel executor) {
+    public void setExecutor(UserDTO executor) {
         this.executor = executor;
     }
 

@@ -1,10 +1,9 @@
 package com.unesco.core.entities.task;
 
-import com.unesco.core.entities.account.User;
+import com.unesco.core.entities.account.UserEntity;
 import com.unesco.core.entities.file.FileDescription;
 
 import javax.persistence.*;
-import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -27,7 +26,7 @@ public class TaskUser {
 
     @OneToOne
     @JoinColumn(name = "user_id")
-    private User executor;
+    private UserEntity executor;
     private int status;
     private String response;
 
@@ -63,11 +62,11 @@ public class TaskUser {
         this.response = response;
     }
 
-    public User getExecutor() {
+    public UserEntity getExecutor() {
         return executor;
     }
 
-    public void setExecutor(User executor) {
+    public void setExecutor(UserEntity executor) {
         this.executor = executor;
     }
 
