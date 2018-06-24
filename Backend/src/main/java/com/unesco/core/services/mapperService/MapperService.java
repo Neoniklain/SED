@@ -9,10 +9,12 @@ import com.unesco.core.entities.journal.PointEntity;
 import com.unesco.core.entities.journal.PointTypeEntity;
 import com.unesco.core.entities.news.NewsEntity;
 import com.unesco.core.entities.schedule.*;
-import com.unesco.core.entities.workflow.Task;
-import com.unesco.core.entities.workflow.TaskDescription;
-import com.unesco.core.models.TaskDescriptionModel;
-import com.unesco.core.models.TaskModel;
+import com.unesco.core.entities.task.TaskUser;
+import com.unesco.core.entities.task.TaskDescription;
+import com.unesco.core.models.file.FileByteCodeModel;
+import com.unesco.core.models.file.FileDescriptionModel;
+import com.unesco.core.models.task.TaskDescriptionModel;
+import com.unesco.core.models.task.TaskUserModel;
 import com.unesco.core.models.account.ProfessorDTO;
 import com.unesco.core.models.account.RoleDTO;
 import com.unesco.core.models.account.StudentDTO;
@@ -25,6 +27,7 @@ import com.unesco.core.models.plan.DepartmentDTO;
 import com.unesco.core.models.shedule.*;
 import com.unesco.core.repositories.account.ProfessorRepository;
 import com.unesco.core.repositories.account.StudentRepository;
+import com.unesco.core.repositories.file.FileByteCodeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -91,16 +94,22 @@ public class MapperService implements IMapperService {
         if (model instanceof RoomDTO)
             return RoomToEntity((RoomDTO) model);
 
-        if (model instanceof TaskModel)
-            return TaskToEntity((TaskModel) model);
+        if (model instanceof TaskUserModel)
+            return TaskUserToEntity((TaskUserModel) model);
 
         if (model instanceof NewsDTO)
             return NewsToEntity((NewsDTO) model);
 
-        if (model instanceof TaskDescription)
+        if (model instanceof TaskDescriptionModel)
             return TaskDescriptionToEntity((TaskDescriptionModel) model);
 
-        return new Exception("Not found "+model.getClass().toString() + " model class");
+        if (model instanceof FileByteCodeModel)
+            return FileByteCodeToEntity((FileByteCodeModel) model);
+
+        if (model instanceof FileDescriptionModel)
+            return FileDescriptionToEntity((FileDescriptionModel) model);
+
+        return new Exception("Not found " + model.getClass().toString() + " model class");
     }
 
     public <T> Object toModel(T entity) {
@@ -153,8 +162,8 @@ public class MapperService implements IMapperService {
         if (entity instanceof RoomEntity)
             return RoomToModel((RoomEntity) entity);
 
-        if (entity instanceof Task)
-            return TaskToModel((Task) entity);
+        if (entity instanceof TaskUser)
+            return TaskUserToModel((TaskUser) entity);
 
         if (entity instanceof NewsEntity)
             return NewsToModel((NewsEntity) entity);
@@ -162,8 +171,14 @@ public class MapperService implements IMapperService {
         if (entity instanceof TaskDescription)
             return TaskDescriptionToModel((TaskDescription) entity);
 
+        if (entity instanceof FileByteCode)
+            return FileByteCodeToModel((FileByteCode) entity);
 
-        return new Exception("Not found "+entity.getClass().toString() + " entity class");
+        if (entity instanceof FileDescription)
+            return FileDescriptionToModel((FileDescription) entity);
+
+
+        return new Exception("Not found " + entity.getClass().toString() + " entity class");
     }
 
     public PointDTO PointToModel(PointEntity Entity)
@@ -227,49 +242,66 @@ public class MapperService implements IMapperService {
         return Entity;
     }
 
-    public TaskDescriptionModel TaskDescriptionToModel(TaskDescription Entity)
-    {
+    public TaskDescriptionModel TaskDescriptionToModel(TaskDescription Entity) {
         TaskDescriptionModel Model = new TaskDescriptionModel();
         Model.setId(Entity.getId());
         Model.setCreator(UserToModel(Entity.getCreator()));
         Model.setUsers(new ArrayList<>());
         Model.setDescription(Entity.getDescription());
         Model.setName(Entity.getName());
-        List<TaskModel> tasks = new ArrayList<>();
-        for (Task t: Entity.getSubTasks()) {
+        Model.setStatus(Entity.getStatus());
+        Model.setStatusName(TaskStatusType.values()[Entity.getStatus()].name());
+        List<TaskUserModel> tasks = new ArrayList<>();
+        /*for (Task t: Entity.getSubTasks()) {
             tasks.add(TaskToModel(t));
+        }*/
+        Model.setTaskUsers(tasks);
+        List<FileDescriptionModel> files = new ArrayList<>();
+        for (FileDescription t: Entity.getFiles()) {
+            files.add(FileDescriptionToModel(t));
         }
-        Model.setSubTasks(tasks);
+        Model.setFiles(files);
         return Model;
     }
-    public TaskDescription TaskDescriptionToEntity(TaskDescriptionModel Model)
-    {
+
+    public TaskDescription TaskDescriptionToEntity(TaskDescriptionModel Model) {
         TaskDescription Entity = new TaskDescription();
         Entity.setId(Model.getId());
         Entity.setCreator(UserToEntity(Model.getCreator()));
         Entity.setDescription(Model.getDescription());
         Entity.setName(Model.getName());
-        List<Task> tasks = new ArrayList<>();
-        for (TaskModel t: Model.getSubTasks()) {
-            tasks.add(TaskToEntity(t));
+        List<TaskUser> tasks = new ArrayList<>();
+        for (TaskUserModel t : Model.getTaskUsers()) {
+            tasks.add(TaskUserToEntity(t));
         }
-        Entity.setSubTasks(tasks);
+        Entity.setTaskUsers(tasks);
+
+        Set<FileDescription> files = new HashSet<>();
+        for (FileDescriptionModel t : Model.getFiles()) {
+            files.add(FileDescriptionToEntity(t));
+        }
+        Entity.setFiles(files);
         return Entity;
     }
 
-    public TaskModel TaskToModel(Task Entity)
-    {
-        TaskModel Model = new TaskModel();
+    public TaskUserModel TaskUserToModel(TaskUser Entity) {
+        TaskUserModel Model = new TaskUserModel();
         Model.setId(Entity.getId());
         Model.setExecutor(UserToModel(Entity.getExecutor()));
         Model.setResponse(Entity.getResponse());
         Model.setStatus(Entity.getStatus());
+        Model.setStatusName(TaskStatusType.values()[Entity.getStatus()].name());
         Model.setTaskDescriptionId(Entity.getTaskDescription().getId());
+        List<FileDescriptionModel> files = new ArrayList<>();
+        for (FileDescription t: Entity.getFiles()) {
+            files.add(FileDescriptionToModel(t));
+        }
+        Model.setFiles(files);
         return Model;
     }
-    public Task TaskToEntity(TaskModel Model)
-    {
-        Task Entity = new Task();
+
+    public TaskUser TaskUserToEntity(TaskUserModel Model) {
+        TaskUser Entity = new TaskUser();
         Entity.setId(Model.getId());
         Entity.setExecutor(UserToEntity(Model.getExecutor()));
         Entity.setResponse(Model.getResponse());
@@ -277,6 +309,11 @@ public class MapperService implements IMapperService {
         TaskDescription taskDescription = new TaskDescription();
         taskDescription.setId(Model.getTaskDescriptionId());
         Entity.setTaskDescription(taskDescription);
+        Set<FileDescription> files = new HashSet<>();
+        for (FileDescriptionModel t : Model.getFiles()) {
+            files.add(FileDescriptionToEntity(t));
+        }
+        Entity.setFiles(files);
         return Entity;
     }
 
@@ -531,7 +568,7 @@ public class MapperService implements IMapperService {
 
         Entity.setId(Model.getId());
         Entity.setName(Model.getName());
-        if(Model.getFieldOfKnowledge() != null) {
+        if (Model.getFieldOfKnowledge() != null) {
             Entity.setFieldOfKnowledgeEntity((FieldOfKnowledgeEntity) toEntity(Model.getFieldOfKnowledge()));
         }
 
@@ -558,4 +595,35 @@ public class MapperService implements IMapperService {
         return Entity;
     }
 
+    private FileByteCodeModel FileByteCodeToModel(FileByteCode entity){
+        FileByteCodeModel Model = new FileByteCodeModel();
+        Model.setData(entity.getData());
+        Model.setFileDescription((FileDescriptionModel) toModel(entity.getFileDescription()));
+        Model.setId(entity.getId());
+        return Model;
+    }
+
+    private FileByteCode FileByteCodeToEntity(FileByteCodeModel model) {
+        FileByteCode Entity = new FileByteCode();
+        Entity.setData(model.getData());
+        Entity.setId(model.getId());
+        Entity.setFileDescription((FileDescription) toEntity(model.getFileDescription()));
+        return Entity;
+    }
+
+    private FileDescriptionModel FileDescriptionToModel(FileDescription entity){
+        FileDescriptionModel Model = new FileDescriptionModel();
+        Model.setFileName(entity.getFileName());
+        Model.setFileType(entity.getFileType());
+        Model.setId(entity.getId());
+        return Model;
+    }
+
+    private FileDescription FileDescriptionToEntity(FileDescriptionModel model) {
+        FileDescription Entity = new FileDescription();
+        Entity.setFileName(model.getFileName());
+        Entity.setFileType(model.getFileType());
+        Entity.setId(model.getId());
+        return Entity;
+    }
 }

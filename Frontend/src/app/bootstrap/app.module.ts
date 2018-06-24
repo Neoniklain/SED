@@ -10,6 +10,7 @@ import {ToastrModule} from "ngx-toastr";
 import {Ng2AutoCompleteModule} from "ng2-auto-complete";
 import {AutoCompleteModule} from 'primeng/components/autocomplete/autocomplete';
 import {FileSelectDirective} from 'ng2-file-upload';
+import {FileUploadModule} from 'primeng/components/fileupload/fileupload';
 // custom
 import {routing} from "./app.routes";
 import {LowerCaseUrlSerializer} from "../providers/router";
@@ -74,6 +75,7 @@ import {InputTextModule} from "primeng/components/inputtext/inputtext";
 import {SettingsPageComponent} from "../components/account/account/settings-page/settings-page.component";
 import {ProfileComponent} from "../components/shared/profile/profile";
 import {ProfileDirective} from "../directive/profile.dirictive";
+import {FileService} from "../services/file.service";
 
 @NgModule({
    imports: [
@@ -95,7 +97,8 @@ import {ProfileDirective} from "../directive/profile.dirictive";
       InputTextModule,
       PasswordModule,
       AutoCompleteModule,
-      ConfirmDialogModule
+      ConfirmDialogModule,
+       FileUploadModule
    ],
     entryComponents: [
         ProfileComponent
@@ -158,7 +161,8 @@ import {ProfileDirective} from "../directive/profile.dirictive";
       AuthGuard,
       Globals,
       PairService,
-      PluginService
+      PluginService,
+      FileService
    ],
    bootstrap: [
       AppComponent

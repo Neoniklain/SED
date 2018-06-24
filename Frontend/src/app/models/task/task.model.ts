@@ -1,35 +1,53 @@
 import {User} from "../account/user.model";
+import {FileDescription} from "../file/file.model";
 
 export class TaskDescription {
   public id: number;
   public name: string;
   public creator: User;
-  public subTasks: Task[];
+  public taskUsers: TaskUser[];
   public users: User[];
   public description: string;
-  public globalStatus: string;
+  public status: number;
+  public statusName: string;
+  public files: FileDescription[];
   constructor() {
     this.name = "";
     this.creator = new User();
     this.users = [];
-    this.globalStatus = "";
+    this.status = 0;
+    this.statusName = "";
     this.description = "";
-    this.subTasks = [];
+    this.taskUsers = [];
+    this.files = [];
   }
 }
 
-export class Task {
+export class TaskUser {
     public id: number;
     public executor: User;
-    public status: string;
+    public statusName: string;
+    public status: number;
     public response: string;
+    public files: FileDescription[];
     constructor() {
-        this.status = "";
+        this.status = 0;
         this.response = "";
+        this.files = [];
     }
 }
 
-export class TaskStatusList {
+export enum TaskStatusType{
+    Processed = 0,
+    Denied = 1,
+    Completed = 2,
+    Checked = 3,
+    Viewed = 4,
+    SentToRevision = 5,
+    SentToReview = 6
+}
+
+/*export class TaskStatusList {
     public Processed: string = "Processed";
     public Denied: string = "Denied";
     public Completed: string = "Completed";
@@ -46,4 +64,4 @@ export class TaskStatusList {
         this.SentToRevision = "SentToRevision";
         this.SentToReview = "SentToReview";
     }
-}
+}*/

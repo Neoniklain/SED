@@ -84,7 +84,8 @@ export const ApiRouteConstants = {
       Update: "task/update",
       Get: "task/get/:id",
       Delete: "task/delete/:id",
-      AnswerTask: "task/answer"
+      AnswerTask: "task/answer",
+      AddFile:"task/addfile"
    },
    Journal: {
       All: "journal/:lessonId",
@@ -114,5 +115,14 @@ export const ApiRouteConstants = {
    },
    Plugin: {
       All: "plugins"
-   }
+   },
+    File: {
+        Download: "file/download/",
+
+        GetFilesForTD:"file/getFilesForTD/",
+        GetFilesForTU:"file/getFilesForTU/",
+
+        AddFileForTD:"file/addFileForTD/",
+        AddFileForTU:"file/addFileForTU/"
+    }
 }

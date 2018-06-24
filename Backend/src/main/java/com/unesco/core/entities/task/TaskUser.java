@@ -1,25 +1,34 @@
-package com.unesco.core.entities.workflow;
+package com.unesco.core.entities.task;
 
-import com.unesco.core.entities.account.UserEntity;
+import com.unesco.core.entities.account.User;
+import com.unesco.core.entities.file.FileDescription;
 
 import javax.persistence.*;
+import java.util.List;
+import java.util.Set;
 
 @Entity
-@Table(name="task")
-public class Task {
+@Table(name="un_task_user")
+public class TaskUser {
     @Id
     @SequenceGenerator(name = "taskSequenceGen", sequenceName = "taskSequenceGen", allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "taskSequenceGen")
     private long id;
 
     @ManyToOne
-    @JoinColumn(name = "task_description", referencedColumnName = "id")
+    @JoinColumn(name = "un_task_description", referencedColumnName = "id")
     private TaskDescription taskDescription;
+
+    @ManyToMany(fetch = FetchType.EAGER, cascade = { CascadeType.MERGE })
+    @JoinTable(name = "un_TU_F",
+            joinColumns = {@JoinColumn(name = "taskUser_id")},
+            inverseJoinColumns = {@JoinColumn(name = "fileDescription_id")})
+    private Set<FileDescription> files;
 
     @OneToOne
     @JoinColumn(name = "user_id")
-    private UserEntity executor;
-    private String status;
+    private User executor;
+    private int status;
     private String response;
 
     public long getId() {
@@ -38,11 +47,11 @@ public class Task {
         this.taskDescription = taskDescription;
     }
 
-    public String getStatus() {
+    public int getStatus() {
         return status;
     }
 
-    public void setStatus(String status) {
+    public void setStatus(int status) {
         this.status = status;
     }
 
@@ -54,11 +63,19 @@ public class Task {
         this.response = response;
     }
 
-    public UserEntity getExecutor() {
+    public User getExecutor() {
         return executor;
     }
 
-    public void setExecutor(UserEntity executor) {
+    public void setExecutor(User executor) {
         this.executor = executor;
+    }
+
+    public Set<FileDescription> getFiles() {
+        return files;
+    }
+
+    public void setFiles(Set<FileDescription> files) {
+        this.files = files;
     }
 }

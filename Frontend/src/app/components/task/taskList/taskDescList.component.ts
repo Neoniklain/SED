@@ -1,5 +1,5 @@
 import {Component, ViewChild} from '@angular/core';
-import {TaskDescription, TaskStatusList} from "../../../models/workflow/task.model";
+import {TaskDescription, TaskStatusType} from "../../../models/task/task.model";
 import {TaskService} from "../../../services/task.service";
 import {forEach} from "@angular/router/src/utils/collection";
 import {NewTaskDescComponent} from "../newTask/newTaskDesc.component";
@@ -7,6 +7,7 @@ import {User} from "../../../models/account/user.model";
 import {AuthenticationService} from "../../../services/authService";
 import {Router} from "@angular/router";
 import {WorkTaskComponent} from "../workTask/workTask.component";
+import {NotificationService} from "../../../services/notification.service";
 
 @Component({
    selector: 'task-list',
@@ -17,20 +18,25 @@ import {WorkTaskComponent} from "../workTask/workTask.component";
 export class TaskDescListComponent {
     public taskDescList: TaskDescription[] = [];
     public user: User;
-    public statuses: TaskStatusList;
+    // ↓ Нужно для работы на view
+    TaskStatusType = TaskStatusType;
 
-    @ViewChild(NewTaskDescComponent) newTaskDescDialog: NewTaskDescComponent;
-    @ViewChild(WorkTaskComponent) workTaskDialog: WorkTaskComponent;
+    @ViewChild(NewTaskDescComponent)
+    newTaskDescDialog: NewTaskDescComponent;
+
+    @ViewChild(WorkTaskComponent)
+    workTaskDialog: WorkTaskComponent;
 
    constructor(private taskService: TaskService,
                private authService: AuthenticationService,
-               private router: Router) {
+               private router: Router,
+               private notificationService: NotificationService) {
    }
 
    ngOnInit(): void {
       this.getTaskDescList();
        this.user = new User();
-       this.statuses = new TaskStatusList();
+       //this.statuses = new TaskStatusList();
        this.authService.getUser().subscribe(
            res => {
                this.user = res.data;
@@ -42,19 +48,26 @@ export class TaskDescListComponent {
    }
 
    public isMyTask(item: TaskDescription): boolean {
-       for (let i = 0; i < item.subTasks.length; i++) {
-           if (item.subTasks[i].executor.id === this.user.id) {
-               if ((item.subTasks[i].status !== this.statuses.Completed) &&
-                   (item.subTasks[i].status !== this.statuses.Denied))
-                   return true;
+       let localUser = this.user;
+       var result = item.taskUsers.filter(function(v) {
+           return v.executor.id === localUser.id;
+       })[0];
+
+       if(result != null){
+           if ((result.status == TaskStatusType.Processed) ||
+               (result.status == TaskStatusType.SentToRevision) ||
+               (result.status == TaskStatusType.Viewed))
+           {
+               return true;
            }
        }
+
        return false;
    }
 
    public getTaskDescList() {
       this.taskService.GetList().subscribe((res) => {
-              this.taskDescList = res;
+              this.taskDescList = res.data;
               this.checkStatusTaskDescription(this.taskDescList);
           },
           (error: any) => {
@@ -73,35 +86,38 @@ export class TaskDescListComponent {
     public deleteTaskDescription(id: number) {
         this.taskService.Delete(id).subscribe((res) => {
                 this.getTaskDescList();
+                this.notificationService.FromStatus(res);
             },
             (error: any) => {
                 console.error("Ошибка" + error);
             });
     }
 
-    public onCloseModalNew(event: any) {
+    public onCreateNew(TD: TaskDescription) {
        this.getTaskDescList();
     }
 
     public showDialogTaskWork(td: TaskDescription) {
        let userId = this.user.id;
-       let myTask = td.subTasks.filter(function(v) {
+       let myTask = td.taskUsers.filter(function(v) {
             return v.executor.id === userId;
         })[0];
-       this.workTaskDialog.showDialog(td, myTask);
+       if(myTask != null){
+           this.workTaskDialog.showDialog(td, myTask);
+       }
     }
 
     public checkStatusTaskDescription(listTD: TaskDescription[]) {
        for (let tdi = 0; tdi < listTD.length; tdi++) {
           let tempTD = listTD[tdi];
           let count = 0;
-          for (let ti = 0; ti < tempTD.subTasks.length; ti++) {
-             let tempT = tempTD.subTasks[ti];
-             if (tempT.status === "Completed") count++;
-             else if (tempT.status === "Denied") count++;
+          for (let ti = 0; ti < tempTD.taskUsers.length; ti++) {
+             let tempT = tempTD.taskUsers[ti];
+             if (tempT.status === TaskStatusType.Completed) count++;
+             else if (tempT.status === TaskStatusType.Denied) count++;
           }
-          tempTD.globalStatus = "Processed";
-          if (count === tempTD.subTasks.length) tempTD.globalStatus = "Completed";
+          tempTD.statusName = TaskStatusType[TaskStatusType.Processed];
+          if (count === tempTD.taskUsers.length) tempTD.statusName = TaskStatusType[TaskStatusType.Completed];
        }
     }
 }

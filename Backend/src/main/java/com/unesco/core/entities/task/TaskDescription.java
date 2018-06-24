@@ -1,12 +1,15 @@
-package com.unesco.core.entities.workflow;
+package com.unesco.core.entities.task;
 
-import com.unesco.core.entities.account.UserEntity;
+import com.unesco.core.entities.account.Role;
+import com.unesco.core.entities.account.User;
+import com.unesco.core.entities.file.FileDescription;
 
 import javax.persistence.*;
 import java.util.List;
+import java.util.Set;
 
 @Entity
-@Table(name="task_description")
+@Table(name="un_task_description")
 public class TaskDescription {
     @Id
     @SequenceGenerator(name = "taskDescriptionSequenceGen", sequenceName = "taskDescriptionSequenceGen", allocationSize = 1)
@@ -16,15 +19,22 @@ public class TaskDescription {
 
     @OneToOne
     @JoinColumn(name = "user_id")
-    private UserEntity creator;
+    private User creator;
 
     /*  FetchType.
         LAZY = Загрузит при обращении к полю этого класса
         EAGER = Загрузит сразу, при создании объекта этого класса
     */
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "taskDescription")
-    private List<Task> subTasks;
+    private List<TaskUser> taskUsers;
 
+    @ManyToMany(fetch = FetchType.EAGER, cascade = { CascadeType.MERGE })
+    @JoinTable(name = "un_TD_F",
+            joinColumns = {@JoinColumn(name = "taskDescription_id")},
+            inverseJoinColumns = {@JoinColumn(name = "fileDescription_id")})
+    private Set<FileDescription> files;
+
+    private int status;
     private String description;
 
     public long getId() {
@@ -43,20 +53,12 @@ public class TaskDescription {
         this.name = name;
     }
 
-    public UserEntity getCreator() {
+    public User getCreator() {
         return creator;
     }
 
-    public void setCreator(UserEntity creator) {
+    public void setCreator(User creator) {
         this.creator = creator;
-    }
-
-    public List<Task> getSubTasks() {
-        return subTasks;
-    }
-
-    public void setSubTasks(List<Task> subTasks) {
-        this.subTasks = subTasks;
     }
 
     public String getDescription() {
@@ -65,5 +67,29 @@ public class TaskDescription {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public int getStatus() {
+        return status;
+    }
+
+    public void setStatus(int status) {
+        this.status = status;
+    }
+
+    public List<TaskUser> getTaskUsers() {
+        return taskUsers;
+    }
+
+    public void setTaskUsers(List<TaskUser> taskUsers) {
+        this.taskUsers = taskUsers;
+    }
+
+    public Set<FileDescription> getFiles() {
+        return files;
+    }
+
+    public void setFiles(Set<FileDescription> files) {
+        this.files = files;
     }
 }

@@ -1,76 +1,90 @@
 package com.unesco.core.controller;
 
-
-import com.unesco.core.models.TaskDescriptionModel;
-import com.unesco.core.models.TaskModel;
-import com.unesco.core.models.account.UserDTO;
-import com.unesco.core.models.additional.ResponseStatusDTO;
+import com.unesco.core.models.task.TaskDescriptionModel;
+import com.unesco.core.models.task.TaskUserModel;
+import com.unesco.core.models.account.UserModel;
+import com.unesco.core.models.additional.ResponseStatus;
 import com.unesco.core.security.CustomUserDetailsService;
-import com.unesco.core.services.taskService.ITaskDataService;
+import com.unesco.core.managers.task.interfaces.ITaskService;
 import com.unesco.core.utils.StatusTypes;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
-@CrossOrigin
-@RestController
-@RequestMapping("api/task")
+@Service
 public class TaskController {
-
-
     @Autowired
-    private ITaskDataService _TaskDataService;
+    private ITaskService _TaskDataService;
     @Autowired
     private CustomUserDetailsService _CustomUserDetailsService;
 
-    @GetMapping(value = "/list")
-    public Iterable<TaskDescriptionModel> GetList() {
-        /*UserDTO user = new UserDTO(_CustomUserDetailsService.getUserDetails());
-        Iterable<TaskDescriptionModel> result =  new ArrayList<>();
-        List<String> role = new ArrayList<RoleDTO>(user.getRoleEntities())
-                .stream()
-                .map(RoleDTO::getRoleName)
-                .collect(Collectors.toList());*/
-        Iterable<TaskDescriptionModel> res = _TaskDataService.getAllTaskDescription();
-        for (TaskDescriptionModel TD: res) {
-            List<UserDTO> temp_users = new ArrayList<>();
-            for (TaskModel T: TD.getSubTasks()) {
-                temp_users.add(T.getExecutor());
-            }
-            TD.setUsers(temp_users);
+    public ResponseStatus GetList() {
+        long userId = _CustomUserDetailsService.getUserDetails().getId();
+        List<TaskDescriptionModel> res = _TaskDataService.getTaskDescriptionByCreator(userId);
+        List<TaskUserModel> myTasks = _TaskDataService.getTaskUsersByExecutor(userId);
+        for (TaskUserModel item: myTasks) {
+            res.add(_TaskDataService.getTaskDescriptionById(item.getTaskDescriptionId()));
         }
-        return res;
+        for (TaskDescriptionModel item:res){
+            if(item.getCreator().getId() == userId){
+                List<UserModel> temp_users = new ArrayList<>();
+                List<TaskUserModel> ltu = _TaskDataService.getTaskUsersForTaskDescription(item.getId());
+                item.setTaskUsers(ltu);
+                for (TaskUserModel T: item.getTaskUsers()) {
+                    temp_users.add(T.getExecutor());
+                }
+                item.setUsers(temp_users);
+            }
+            else{
+                item.setTaskUsers(myTasks.stream()
+                        .filter(x->x.getTaskDescriptionId() == item.getId())
+                        .collect(Collectors.toList()));
+            }
+        }
+        ResponseStatus result = new ResponseStatus(StatusTypes.OK);
+        result.addMessage ("Список задач");
+        result.setData(res);
+        return result;
     }
 
-    @RequestMapping(value = "/create")
-    public ResponseStatusDTO Create(@RequestBody TaskDescriptionModel newTask) {
-        newTask.setCreator(new UserDTO(_CustomUserDetailsService.getUserDetails()));
-        _TaskDataService.createNewTaskDescription(newTask);
-        return new ResponseStatusDTO(StatusTypes.OK);
+    public ResponseStatus Create(TaskDescriptionModel newTask) {
+        newTask.setCreator(new UserModel(_CustomUserDetailsService.getUserDetails()));
+        ResponseStatus result = new ResponseStatus(StatusTypes.OK);
+        result.addMessage("Задача создана");
+        result.setData(_TaskDataService.createNewTaskDescription(newTask));
+        return result;
     }
 
-    @RequestMapping(value = "/answer")
-    public ResponseStatusDTO Answer(@RequestBody TaskModel item) {
-        _TaskDataService.answerTask(item);
-        return new ResponseStatusDTO(StatusTypes.OK);
+    public ResponseStatus Answer(TaskUserModel item) {
+        _TaskDataService.changeStatusTaskUser(item);
+        ResponseStatus result = new ResponseStatus(StatusTypes.OK);
+        result.addMessage("Ответ отправлен");
+        result.setData(item);
+        return result;
     }
 
-    @RequestMapping(value = "/get/{id}")
-    public TaskDescriptionModel Get(@PathVariable("id") long id) {
-        return _TaskDataService.getTaskDescriptionById(id);
+    public ResponseStatus Get(long id) {
+        ResponseStatus result = new ResponseStatus(StatusTypes.OK);
+        result.setData(_TaskDataService.getTaskDescriptionById(id));
+        return result;
     }
 
-    @RequestMapping(value = "/update")
-    public TaskDescriptionModel Update(@RequestBody TaskDescriptionModel newTask) {
-        _TaskDataService.updateTaskDescription(newTask);
-        return newTask;
+    public ResponseStatus Update(TaskDescriptionModel task) {
+        _TaskDataService.updateTaskDescription(task);
+        ResponseStatus result = new ResponseStatus(StatusTypes.OK);
+        result.addMessage("Задача обновлена");
+        result.setData(task);
+        return result;
     }
 
-    @RequestMapping(value = "/delete/{id}")
-    public ResponseStatusDTO Delete(@PathVariable("id") long id) {
+    public ResponseStatus Delete(long id) {
         _TaskDataService.deleteTaskDescription(id);
-        return new ResponseStatusDTO(StatusTypes.OK);
+        ResponseStatus result = new ResponseStatus(StatusTypes.OK);
+        result.addMessage("Задача удалена");
+        return result;
     }
 }
