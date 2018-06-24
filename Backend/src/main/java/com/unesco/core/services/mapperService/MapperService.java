@@ -447,7 +447,7 @@ public class MapperService implements IMapperService {
         Entity.setUserFIO(Model.getUserFIO());
         Entity.setPassword(Model.getPassword());
         byte[] photo = null;
-        if(Entity.getPhoto() != null)
+        if(Model.getPhoto() != null)
             photo = Model.getPhoto().getBytes();
         Entity.setPhoto(photo);
         Set<RoleEntity> roleEntities = new HashSet<RoleEntity>();

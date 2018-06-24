@@ -6,12 +6,12 @@ spring:
       ddl-auto: none
   datasource:
     # Release DB
-    #url: jdbc:postgresql://ictkem.ru:3254/ict?currentSchema=public
-    #username: ict
-    #password: 123456
-    url: jdbc:postgresql://localhost:5432/unesco
-    username: postgres
-    password: postgres
+    url: jdbc:postgresql://ictkem.ru:3254/ict?currentSchema=public
+    username: ict
+    password: 123456
+    #url: jdbc:postgresql://localhost:5432/unesco
+    #username: postgres
+    #password: postgres
     driverClassName: org.postgresql.Driver
   http:
     multipart:
