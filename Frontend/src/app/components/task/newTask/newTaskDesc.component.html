@@ -32,7 +32,7 @@
                     <td class="file-name-wrap">{{ item?.file?.name }}</td>
                     <td *ngIf="_uploader.isHTML5" nowrap>{{ item?.file?.size/1024/1024 | number:'.3' }} MB</td>
                     <td class="text-center">
-                        <button (click)="removeFile(item)" type="button" class="btn btn-danger btn-sm" title="Удалить файл">
+                        <button (click)="item.remove()" type="button" class="btn btn-danger btn-sm" title="Удалить файл">
                             <i class="fa fa-times" aria-hidden="true"></i>
                         </button>
                     </td>

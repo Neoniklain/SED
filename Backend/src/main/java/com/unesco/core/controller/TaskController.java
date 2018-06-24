@@ -87,39 +87,4 @@ public class TaskController {
         result.addMessage("Задача удалена");
         return result;
     }
-
-    /*public ResponseStatus AddFile(long id, MultipartFile file) {
-        try {
-            TaskDescriptionFile temp = new TaskDescriptionFile();
-            TaskDescriptionModel item =  _TaskDataService.getTaskDescriptionById(id);
-            temp.setData(file.getBytes());
-            temp.setTaskDescriptionId(item.getId());
-            temp.setFileName(file.getOriginalFilename());
-            temp.setFileType(file.getContentType());
-            _fileRep.save(temp);
-        } catch (IOException e) {
-            e.printStackTrace();
-            ResponseStatus result = new ResponseStatus(StatusTypes.ERROR);
-            result.addErrors("Ошибка добавления файла");
-        }
-        ResponseStatus result = new ResponseStatus(StatusTypes.OK);
-        result.addMessage("Файл добавлен");
-        return result;
-    }
-
-    public ResponseStatus GetFile(long id) {
-        //Iterable<TaskDescriptionFile> res = _fileRep.findAll();
-        ResponseStatus result = new ResponseStatus(StatusTypes.OK);
-        result.addMessage("Файл добавлен");
-        //result.setData(res);
-        return result;
-    }
-
-    public TaskDescriptionFile DownloadFile(long id) {
-        Iterable<TaskDescriptionFile> res = _fileRep.findAll();
-        for(TaskDescriptionFile item: res){
-            return item;
-        }
-        return null;
-    }*/
 }

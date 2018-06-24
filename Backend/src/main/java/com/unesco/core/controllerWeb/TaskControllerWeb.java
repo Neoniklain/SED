@@ -50,28 +50,4 @@ public class TaskControllerWeb {
     public ResponseStatus Delete(@PathVariable("id") long id) {
         return _taskController.Delete(id);
     }
-
-    /*@RequestMapping(value = "/addfile/{id}")
-    public ResponseStatus AddFile(@PathVariable("id") long id, @RequestParam("file") MultipartFile file) {
-        return _taskController.AddFile(id,file);
-    }
-
-    @RequestMapping(path = "/download")
-    public void download(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        //TaskDescriptionFile temp = _taskController.DownloadFile(1);
-        //do other stuff
-        byte[] file = temp.getData();
-        response.reset();
-        response.setBufferSize(DEFAULT_BUFFER_SIZE);
-        response.setContentType(temp.getFileType()); //or whatever file type you want to send.
-        try {
-            response.getOutputStream().write(file);
-        } catch (IOException e) {
-            // Do something
-        }
-    }
-    @RequestMapping(value = "/getfile/{id}")
-    public ResponseStatus GetFile(@PathVariable("id") long id) {
-        return _taskController.GetFile(id);
-    }*/
 }

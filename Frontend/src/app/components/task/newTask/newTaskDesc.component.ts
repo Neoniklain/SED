@@ -7,7 +7,6 @@ import {NotificationService} from "../../../services/notification.service";
 import {FileUploader, FileUploaderOptions} from "ng2-file-upload";
 import {AuthenticationService} from "../../../services/authService";
 import {ApiRouteConstants, BaseApiUrl} from "../../../bootstrap/app.route.constants";
-import {forEach} from "@angular/router/src/utils/collection";
 import {FileDescription} from "../../../models/file/file.model";
 import {FileService} from "../../../services/file.service";
 
@@ -21,7 +20,7 @@ export class NewTaskDescComponent {
     public planDate: Date;
     public _fileOptions: FileUploaderOptions;
     public myFiles: File[];
-    public maxFileSize:number = 1000*1000*10;
+    public maxFileSize: number = 1000 * 1000 * 10;
     public localTD: TaskDescription;
     public _foundedUsers: User[];
     public _show: boolean = false;
@@ -44,7 +43,7 @@ export class NewTaskDescComponent {
         this.localTD = new TaskDescription();
         this.myFiles = [];
         this._fileOptions = {
-            url:"",
+            url: "",
             maxFileSize: 50 * 1000 * 1000,
             headers: [
                 { name: 'Authorization', value: this.authService.getToken() }
@@ -72,11 +71,13 @@ export class NewTaskDescComponent {
         if (this._isCreate) {
             this.taskService.Create(this.localTD).subscribe((res) => {
                     this._show = false;
-                    let url = BaseApiUrl + ApiRouteConstants.File.AddFileForTD + res.data.id;
-                    this._uploader.options.url = url;
-                    for(let i=0;i<this._uploader.queue.length;i++){
-                        this._uploader.queue[i].url = url;
-                        this._uploader.queue[i].upload();
+                    if (this._uploader.queue.length > 0) {
+                        let url = BaseApiUrl + ApiRouteConstants.File.AddFileForTD + res.data.id;
+                        this._uploader.options.url = url;
+                        for (let i = 0; i < this._uploader.queue.length; i++) {
+                            this._uploader.queue[i].url = url;
+                            this._uploader.queue[i].upload();
+                        }
                     }
                     this.notificationService.FromStatus(res);
                     this.onCreateNew.emit(res.data);
@@ -119,32 +120,5 @@ export class NewTaskDescComponent {
 
     public downloadFile(item: FileDescription){
         this.fileService.downloadFile(item.id);
-    }
-
-    public removeFile(item){
-        let removed = this._uploader.queue.findIndex(function (x) {
-            return x._file == item._file;
-        })
-        this._uploader.queue.splice(removed,1);
-    }
-
-    public onSelectFile(event){
-        for(let file of event.files){
-            this.myFiles.push(file);
-        }
-    }
-
-    public onRemoveFile(event){
-        let tempMS: File[] = [];
-        for(let item of this.myFiles){
-            if(item.name != event.file.name || item.size != event.file.size){
-                tempMS.push(item);
-            }
-        }
-        this.myFiles = tempMS;
-    }
-
-    public onClearFiles(){
-        this.myFiles = [];
     }
 }
