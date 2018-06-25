@@ -22,16 +22,24 @@
                 <div *ngSwitchCase="'professor'">
                     <div class="row">
                         <div class="col-md-3 text-left">
-                            <div class="dropdown">
-                                <button class="btn btn-dark dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><h4>Выберете преподавателя <i class="fa fa-caret-down" aria-hidden="true"></i></h4></button>
-                                <div class="dropdown-menu dropdown-elegant">
-                                    <li *ngFor="let item of profs">
-                                        <a class="dropdown-item" (click)="getProfessorPair(item)">
-                                            {{item.user.userFIO}}
-                                        </a>
-                                    </li>
-                                </div>
-                            </div>
+                            <p-dropdown
+                                    (onChange)="getProfessorPair($event)"
+                                    [style]="{'width':'100%'}"
+                                    [options]="profs"
+                                    [autoWidth]="false"
+                                    placeholder="Выберете преподавателя"
+                                    optionLabel="user.userFIO">
+                                <ng-template let-item pTemplate="currentProfessor">
+                                    <span style="vertical-align:middle">{{item.user.userFIO}}</span>
+                                </ng-template>
+                                <ng-template let-prof pTemplate="item">
+                                    <div class="ui-helper-clearfix" style="position: relative;height:25px;">
+                                        <div class="user-img">
+                                            <img [src]="prof.value.user.photo" alt="">
+                                        </div>
+                                        <div style="font-size:14px;float:right;margin-top:4px">{{prof.value.user.userFIO}}</div> </div>
+                                </ng-template>
+                            </p-dropdown>
                         </div>
                         <div class="col-md-6 text-center">
                            <h3 *ngIf="currentProfessor"><span [userCard]="currentProfessor.user">{{currentProfessor.user.userFIO}}</span></h3>

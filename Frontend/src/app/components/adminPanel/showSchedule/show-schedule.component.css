@@ -53,3 +53,21 @@
     text-align: center;
     padding-bottom: 1em;
 }
+
+.user-img img{
+    width: auto !important;
+    height: 100%;
+    margin: 0 auto !important;
+}
+
+.user-img
+{
+    margin-right: 1em;
+    float: left;
+    height: 25px;
+    width: 25px;
+    overflow: hidden;
+    border-radius: 50%;
+    text-align: center;
+    border: 1px solid #008080;
+}

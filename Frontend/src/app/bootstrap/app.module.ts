@@ -45,7 +45,14 @@ import {DialogModule} from "primeng/components/dialog/dialog";
 import {GrowlModule} from "primeng/components/growl/growl";
 import {ConfirmDialogModule} from "primeng/components/confirmdialog/confirmdialog";
 import {MessageService} from "primeng/components/common/messageservice";
-import {CalendarModule, ConfirmationService, DataTableModule, DropdownModule, PasswordModule} from "primeng/primeng";
+import {
+    CalendarModule,
+    ConfirmationService,
+    DataTableModule,
+    DropdownModule,
+    MultiSelectModule,
+    PasswordModule
+} from "primeng/primeng";
 import {AccountService} from "../services/accountService";
 import {AccessDeniedComponent} from "../components/account/accessDenied/accessDenied.component";
 import {AdminPanelComponent} from "../components/adminPanel/adminPanel";
@@ -98,7 +105,7 @@ import {FileService} from "../services/file.service";
       PasswordModule,
       AutoCompleteModule,
       ConfirmDialogModule,
-       FileUploadModule
+      FileUploadModule
    ],
     entryComponents: [
         ProfileComponent

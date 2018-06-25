@@ -12,6 +12,7 @@ import {StatusType} from "../../../models/statusType.model";
 import {NotificationService} from "../../../services/notification.service";
 import {WeekType} from "../../../models/shedule/weekType.enum";
 import {PairType} from "../../../models/shedule/pairType";
+import {PageResult} from "../../../models/admin/PageResult.model.list";
 
 @Component({
     selector: 'pair-details',
@@ -34,7 +35,7 @@ export class PairDetailsComponent implements OnInit, OnChanges {
     public findRooms: Array<Room>;
     public pair: Pair;
     public showDeleteDialog: boolean = false;
-    public findPairTypes: Array<PairType>;
+    public findPairTypes: Array<PairType> = new Array<PairType>();
 
     constructor(private dictionaryService: DictionaryService,
                 private accountService: AccountService,
@@ -45,6 +46,7 @@ export class PairDetailsComponent implements OnInit, OnChanges {
     ngOnInit() {
         console.log("p", this.pair);
         this.WeekTypes = WeekType;
+        this.GetPairTypes();
     }
 
     ngOnChanges() {
@@ -97,6 +99,13 @@ export class PairDetailsComponent implements OnInit, OnChanges {
         this.close.emit();
     }
 
+    public GetPairTypes() {
+        this.dictionaryService.GetPairTypes()
+            .subscribe((res: PageResult) => {
+                this.findPairTypes = res.content;
+            });
+    }
+
     public selectGroup(group: Group) {
         this.pair.lesson.group = group;
     }
@@ -123,10 +132,10 @@ export class PairDetailsComponent implements OnInit, OnChanges {
         }
         this.pair.weektype = week;
     }
-    public selectPairType(pairType: PairType) {
+    /* selectPairType(pairType: PairType) {
         this.pair.pairType = pairType;
     }
-
+    */
     public checkOneEmpty() {
         if (this.pair.lesson.discipline == null) {
             this.pair.lesson.discipline = new Discipline();
@@ -175,7 +184,7 @@ export class PairDetailsComponent implements OnInit, OnChanges {
             }, error => console.error(error)
         );
     }
-    public searchPairTypes(event: any) {
+    /*public searchPairTypes(event: any) {
         let filter = {
             globalFilter: event.query.substring(0, 60)
         }
@@ -190,7 +199,7 @@ export class PairDetailsComponent implements OnInit, OnChanges {
                     this.findPairTypes = [];
             }, error => console.error(error)
         );
-    }
+    }*/
 
     public searchProfessors(event: any) {
         let filter = {
