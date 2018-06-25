@@ -12,6 +12,10 @@ public class PairEntity {
     private int pairNumber;
     private String dayofweek;
     private String weektype;
+
+    @ManyToOne
+    @JoinColumn(name = "pair_type_id", referencedColumnName = "id")
+    private PairTypeEntity pairType;
     @ManyToOne
     @JoinColumn(name = "room_id", referencedColumnName = "id")
     private RoomEntity room;
@@ -27,6 +31,13 @@ public class PairEntity {
     }
     public void setId(long id) {
         this.id = id;
+    }
+
+    public PairTypeEntity getPairType() {
+        return pairType;
+    }
+    public void setPairType(PairTypeEntity pairType) {
+        this.pairType = pairType;
     }
 
     public int getPairNumber() {
