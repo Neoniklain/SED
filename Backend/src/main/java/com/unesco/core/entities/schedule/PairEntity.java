@@ -12,7 +12,6 @@ public class PairEntity {
     private int pairNumber;
     private String dayofweek;
     private String weektype;
-
     @ManyToOne
     @JoinColumn(name = "pair_type_id", referencedColumnName = "id")
     private PairTypeEntity pairType;

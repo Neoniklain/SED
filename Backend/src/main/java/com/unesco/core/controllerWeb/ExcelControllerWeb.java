@@ -1,7 +1,7 @@
 package com.unesco.core.controllerWeb;
 
 import com.unesco.core.controller.ExcelController;
-import com.unesco.core.models.additional.ResponseStatusDTO;
+import com.unesco.core.dto.additional.ResponseStatusDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;

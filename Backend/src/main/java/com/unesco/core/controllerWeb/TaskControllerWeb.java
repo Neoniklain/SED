@@ -2,16 +2,11 @@ package com.unesco.core.controllerWeb;
 
 
 import com.unesco.core.controller.TaskController;
-import com.unesco.core.models.task.TaskDescriptionModel;
-import com.unesco.core.models.task.TaskUserModel;
-import com.unesco.core.models.additional.ResponseStatusDTO;
+import com.unesco.core.dto.task.TaskDescriptionModel;
+import com.unesco.core.dto.task.TaskUserModel;
+import com.unesco.core.dto.additional.ResponseStatusDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
 
 @CrossOrigin
 @RestController

@@ -1,7 +1,7 @@
 package com.unesco.core.services.schedule.pairService;
 
-import com.unesco.core.models.additional.FilterQueryDTO;
-import com.unesco.core.models.shedule.PairDTO;
+import com.unesco.core.dto.additional.FilterQueryDTO;
+import com.unesco.core.dto.shedule.PairDTO;
 import com.unesco.core.services.IDataService;
 
 import java.util.List;

@@ -1,8 +1,8 @@
 package com.unesco.core.managers.account.studentManager;
 
 import com.unesco.core.managers.account.studentManager.interfaces.studentList.IStudentListManager;
-import com.unesco.core.models.account.StudentDTO;
-import com.unesco.core.models.shedule.GroupDTO;
+import com.unesco.core.dto.account.StudentDTO;
+import com.unesco.core.dto.shedule.GroupDTO;
 import com.unesco.core.services.account.studentService.IStudentDataService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;

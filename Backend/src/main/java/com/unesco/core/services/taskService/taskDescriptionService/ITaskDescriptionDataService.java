@@ -1,6 +1,6 @@
 package com.unesco.core.services.taskService.taskDescriptionService;
 
-import com.unesco.core.models.task.TaskDescriptionModel;
+import com.unesco.core.dto.task.TaskDescriptionModel;
 import com.unesco.core.services.IDataService;
 
 import java.util.List;

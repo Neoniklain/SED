@@ -1,8 +1,8 @@
 package com.unesco.core.services.schedule.instituteService;
 
 import com.unesco.core.entities.schedule.InstituteEntity;
-import com.unesco.core.models.additional.FilterQueryDTO;
-import com.unesco.core.models.shedule.InstituteDTO;
+import com.unesco.core.dto.additional.FilterQueryDTO;
+import com.unesco.core.dto.shedule.InstituteDTO;
 import com.unesco.core.repositories.plan.InstituteRepository;
 import com.unesco.core.services.mapperService.IMapperService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,7 +26,7 @@ public class InstituteDataService implements IInstituteDataService {
         List<InstituteEntity> entitys = instituteRepository.findWithFilter(new PageRequest(start, rows == 0 ? 10 : rows), filter.getGlobalFilter());
         List<InstituteDTO> result = new ArrayList<InstituteDTO>();
         for (InstituteEntity e: entitys) {
-            result.add((InstituteDTO) mapperService.toModel(e));
+            result.add((InstituteDTO) mapperService.toDto(e));
         }
         return result;
     }
@@ -36,7 +36,7 @@ public class InstituteDataService implements IInstituteDataService {
         List<InstituteDTO> modelList = new ArrayList<>();
         Iterable<InstituteEntity> entityList = instituteRepository.findAll();
         for (InstituteEntity item: entityList) {
-            InstituteDTO model = (InstituteDTO) mapperService.toModel(item);
+            InstituteDTO model = (InstituteDTO) mapperService.toDto(item);
             modelList.add(model);
         }
         return modelList;
@@ -45,14 +45,14 @@ public class InstituteDataService implements IInstituteDataService {
     public InstituteDTO Get(long id)
     {
         InstituteEntity entity = instituteRepository.findOne(id);
-        InstituteDTO model = (InstituteDTO) mapperService.toModel(entity);
+        InstituteDTO model = (InstituteDTO) mapperService.toDto(entity);
         return model;
     }
 
     public InstituteDTO GetByName(String name)
     {
         InstituteEntity entity = instituteRepository.findByName(name);
-        InstituteDTO model = (InstituteDTO) mapperService.toModel(entity);
+        InstituteDTO model = (InstituteDTO) mapperService.toDto(entity);
         return model;
     }
 
@@ -65,7 +65,7 @@ public class InstituteDataService implements IInstituteDataService {
     {
         InstituteEntity entity = (InstituteEntity) mapperService.toEntity(institute);
         InstituteEntity model = instituteRepository.save(entity);
-        institute = (InstituteDTO) mapperService.toModel(model);
+        institute = (InstituteDTO) mapperService.toDto(model);
         return institute;
     }
 }

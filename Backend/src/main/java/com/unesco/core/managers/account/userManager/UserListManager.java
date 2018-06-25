@@ -1,7 +1,7 @@
 package com.unesco.core.managers.account.userManager;
 
 import com.unesco.core.managers.account.userManager.interfaces.userList.IUserListManager;
-import com.unesco.core.models.account.UserDTO;
+import com.unesco.core.dto.account.UserDTO;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 

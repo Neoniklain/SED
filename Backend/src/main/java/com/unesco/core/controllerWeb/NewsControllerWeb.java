@@ -1,12 +1,11 @@
 package com.unesco.core.controllerWeb;
 
 import com.unesco.core.controller.NewsController;
-import com.unesco.core.models.account.UserDTO;
-import com.unesco.core.models.additional.ResponseStatusDTO;
-import com.unesco.core.models.news.NewsDTO;
+import com.unesco.core.dto.account.UserDTO;
+import com.unesco.core.dto.additional.ResponseStatusDTO;
+import com.unesco.core.dto.news.NewsDTO;
 import com.unesco.core.security.CustomUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
 /**

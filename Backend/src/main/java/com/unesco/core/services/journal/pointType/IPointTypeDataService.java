@@ -1,6 +1,6 @@
 package com.unesco.core.services.journal.pointType;
 
-import com.unesco.core.models.journal.PointTypeDTO;
+import com.unesco.core.dto.journal.PointTypeDTO;
 import com.unesco.core.services.IDataService;
 
 

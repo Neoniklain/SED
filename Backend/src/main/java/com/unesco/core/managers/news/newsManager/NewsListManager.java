@@ -1,7 +1,7 @@
 package com.unesco.core.managers.news.newsManager;
 
 import com.unesco.core.managers.news.newsManager.interfaces.newsList.INewsListManager;
-import com.unesco.core.models.news.NewsDTO;
+import com.unesco.core.dto.news.NewsDTO;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;

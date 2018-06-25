@@ -1,7 +1,7 @@
 package com.unesco.core.services.journal.point;
 
 import com.unesco.core.entities.journal.PointEntity;
-import com.unesco.core.models.journal.PointDTO;
+import com.unesco.core.dto.journal.PointDTO;
 import com.unesco.core.repositories.journal.PointRepository;
 import com.unesco.core.services.mapperService.IMapperService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,7 +24,7 @@ public class PointDataService implements IPointDataService {
         List<PointDTO> modelList = new ArrayList<>();
         Iterable<PointEntity> entityList = pointRepository.findAll();
         for (PointEntity item: entityList) {
-            PointDTO model = (PointDTO) mapperService.toModel(item);
+            PointDTO model = (PointDTO) mapperService.toDto(item);
             modelList.add(model);
         }
         return modelList;
@@ -33,7 +33,7 @@ public class PointDataService implements IPointDataService {
     public PointDTO Get(long id)
     {
         PointEntity entity = pointRepository.findOne(id);
-        PointDTO model = (PointDTO) mapperService.toModel(entity);
+        PointDTO model = (PointDTO) mapperService.toDto(entity);
         return model;
     }
 
@@ -42,7 +42,7 @@ public class PointDataService implements IPointDataService {
         List<PointDTO> modelList = new ArrayList<>();
         Iterable<PointEntity> entityList = pointRepository.findByStudentIdAndPairId(studentId, pairId);
         for (PointEntity item: entityList) {
-            PointDTO model = (PointDTO) mapperService.toModel(item);
+            PointDTO model = (PointDTO) mapperService.toDto(item);
             modelList.add(model);
         }
         return modelList;
@@ -51,7 +51,7 @@ public class PointDataService implements IPointDataService {
     public PointDTO GetByStudentAndDateAndTypeAndPair(long studentId, Date date, long typeId, long pairId)
     {
         PointEntity entity = pointRepository.findByStudentIdAndDateAndTypeIdAndPairId(studentId, date, typeId, pairId);
-        PointDTO model = (PointDTO) mapperService.toModel(entity);
+        PointDTO model = (PointDTO) mapperService.toDto(entity);
         return model;
     }
 
@@ -64,7 +64,7 @@ public class PointDataService implements IPointDataService {
     {
         PointEntity entity = (PointEntity) mapperService.toEntity(point);
         entity = pointRepository.save(entity);
-        point = (PointDTO) mapperService.toModel(entity);
+        point = (PointDTO) mapperService.toDto(entity);
         return point;
     }
 

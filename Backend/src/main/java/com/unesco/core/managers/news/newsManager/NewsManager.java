@@ -1,8 +1,8 @@
 package com.unesco.core.managers.news.newsManager;
 
 import com.unesco.core.managers.news.newsManager.interfaces.news.INewsManager;
-import com.unesco.core.models.additional.ResponseStatusDTO;
-import com.unesco.core.models.news.NewsDTO;
+import com.unesco.core.dto.additional.ResponseStatusDTO;
+import com.unesco.core.dto.news.NewsDTO;
 import com.unesco.core.utils.StatusTypes;
 import org.springframework.stereotype.Service;
 

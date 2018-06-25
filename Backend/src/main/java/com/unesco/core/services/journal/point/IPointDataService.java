@@ -1,6 +1,6 @@
 package com.unesco.core.services.journal.point;
 
-import com.unesco.core.models.journal.PointDTO;
+import com.unesco.core.dto.journal.PointDTO;
 import com.unesco.core.services.IDataService;
 
 import java.util.Date;

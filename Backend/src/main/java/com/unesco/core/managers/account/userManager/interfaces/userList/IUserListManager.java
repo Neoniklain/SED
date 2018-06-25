@@ -1,7 +1,7 @@
 package com.unesco.core.managers.account.userManager.interfaces.userList;
 
 import com.unesco.core.managers.IListManager;
-import com.unesco.core.models.account.UserDTO;
+import com.unesco.core.dto.account.UserDTO;
 
 import java.util.List;
 

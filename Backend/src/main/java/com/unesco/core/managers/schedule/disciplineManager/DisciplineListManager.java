@@ -1,7 +1,7 @@
 package com.unesco.core.managers.schedule.disciplineManager;
 
 import com.unesco.core.managers.schedule.disciplineManager.interfaces.disciplineList.IDisciplineListManager;
-import com.unesco.core.models.shedule.DisciplineDTO;
+import com.unesco.core.dto.shedule.DisciplineDTO;
 import com.unesco.core.services.schedule.disciplineService.IDisciplineDataService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;

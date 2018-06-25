@@ -1,7 +1,7 @@
 package com.unesco.core.services.account.studentService;
 
-import com.unesco.core.models.account.StudentDTO;
-import com.unesco.core.models.additional.FilterQueryDTO;
+import com.unesco.core.dto.account.StudentDTO;
+import com.unesco.core.dto.additional.FilterQueryDTO;
 import com.unesco.core.services.IDataService;
 
 import java.util.List;

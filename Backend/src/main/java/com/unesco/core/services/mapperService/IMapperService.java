@@ -7,6 +7,6 @@ public interface IMapperService {
 
     <T> Object toEntity(T model);
 
-    <T> Object toModel(T entity);
+    <T> Object toDto(T entity);
 
 }

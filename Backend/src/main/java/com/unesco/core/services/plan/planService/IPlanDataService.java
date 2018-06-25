@@ -1,7 +1,7 @@
 package com.unesco.core.services.plan.planService;
 
-import com.unesco.core.models.plan.PlanDTO;
-import com.unesco.core.models.additional.FilterQueryDTO;
+import com.unesco.core.dto.plan.PlanDTO;
+import com.unesco.core.dto.additional.FilterQueryDTO;
 import com.unesco.core.services.IDataService;
 
 import java.util.List;

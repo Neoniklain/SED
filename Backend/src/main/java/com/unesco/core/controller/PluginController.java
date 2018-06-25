@@ -1,6 +1,6 @@
 package com.unesco.core.controller;
 
-import com.unesco.core.models.PluginDTO;
+import com.unesco.core.dto.PluginDTO;
 import com.unesco.core.plugin.Plugin;
 import com.unesco.core.pluginfactory.PluginFactory;
 import org.springframework.stereotype.Service;

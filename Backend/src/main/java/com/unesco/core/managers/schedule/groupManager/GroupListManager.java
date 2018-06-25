@@ -1,7 +1,7 @@
 package com.unesco.core.managers.schedule.groupManager;
 
 import com.unesco.core.managers.schedule.groupManager.interfaces.groupList.IGroupListManager;
-import com.unesco.core.models.shedule.GroupDTO;
+import com.unesco.core.dto.shedule.GroupDTO;
 import com.unesco.core.services.schedule.groupService.IGroupDataService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;

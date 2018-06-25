@@ -2,9 +2,9 @@ package com.unesco.core.services.schedule.pairService;
 
 import com.unesco.core.entities.schedule.LessonEntity;
 import com.unesco.core.entities.schedule.PairEntity;
-import com.unesco.core.models.additional.FilterQueryDTO;
-import com.unesco.core.models.shedule.LessonDTO;
-import com.unesco.core.models.shedule.PairDTO;
+import com.unesco.core.dto.additional.FilterQueryDTO;
+import com.unesco.core.dto.shedule.LessonDTO;
+import com.unesco.core.dto.shedule.PairDTO;
 import com.unesco.core.repositories.PairRepository;
 import com.unesco.core.repositories.account.ProfessorRepository;
 import com.unesco.core.services.mapperService.IMapperService;
@@ -36,7 +36,7 @@ public class PairDataService implements IPairDataService {
         List<PairEntity> entitys = pairRepository.findWithFilter(new PageRequest(start, rows == 0 ? 10 : rows), filter.getGlobalFilter());
         List<PairDTO> result = new ArrayList<PairDTO>();
         for (PairEntity e: entitys) {
-            result.add((PairDTO) mapperService.toModel(e));
+            result.add((PairDTO) mapperService.toDto(e));
         }
         return result;
     }
@@ -46,7 +46,7 @@ public class PairDataService implements IPairDataService {
         List<PairDTO> modelList = new ArrayList<>();
         Iterable<PairEntity> entityList = pairRepository.findAll();
         for (PairEntity item: entityList) {
-            PairDTO model = (PairDTO) mapperService.toModel(item);
+            PairDTO model = (PairDTO) mapperService.toDto(item);
             modelList.add(model);
         }
         return modelList;
@@ -57,7 +57,7 @@ public class PairDataService implements IPairDataService {
         List<PairDTO> modelList = new ArrayList<>();
         Iterable<PairEntity> entityList = pairRepository.findPairsByProfessorId(professorId);
         for (PairEntity item: entityList) {
-            PairDTO model = (PairDTO) mapperService.toModel(item);
+            PairDTO model = (PairDTO) mapperService.toDto(item);
             modelList.add(model);
         }
         return modelList;
@@ -68,7 +68,7 @@ public class PairDataService implements IPairDataService {
         List<PairDTO> modelList = new ArrayList<>();
         Iterable<PairEntity> entityList = pairRepository.findPairsByDepartmentId(departmentId);
         for (PairEntity item: entityList) {
-            PairDTO model = (PairDTO) mapperService.toModel(item);
+            PairDTO model = (PairDTO) mapperService.toDto(item);
             modelList.add(model);
         }
         return modelList;
@@ -79,7 +79,7 @@ public class PairDataService implements IPairDataService {
         List<PairDTO> modelList = new ArrayList<>();
         Iterable<PairEntity> entityList = pairRepository.findPairsByGroupId(groupId);
         for (PairEntity item: entityList) {
-            PairDTO model = (PairDTO) mapperService.toModel(item);
+            PairDTO model = (PairDTO) mapperService.toDto(item);
             modelList.add(model);
         }
         return modelList;
@@ -90,7 +90,7 @@ public class PairDataService implements IPairDataService {
         List<PairDTO> modelList = new ArrayList<>();
         Iterable<PairEntity> entityList = pairRepository.findPairsByLessonId(lessonId);
         for (PairEntity item: entityList) {
-            PairDTO model = (PairDTO) mapperService.toModel(item);
+            PairDTO model = (PairDTO) mapperService.toDto(item);
             modelList.add(model);
         }
         return modelList;
@@ -99,7 +99,7 @@ public class PairDataService implements IPairDataService {
     public PairDTO Get(long id)
     {
         PairEntity entity = pairRepository.findOne(id);
-        PairDTO model = (PairDTO) mapperService.toModel(entity);
+        PairDTO model = (PairDTO) mapperService.toDto(entity);
         return model;
     }
 
@@ -127,7 +127,7 @@ public class PairDataService implements IPairDataService {
         entity.setLessonEntity((LessonEntity) mapperService.toEntity(findLesson));
 
         PairEntity model = pairRepository.save(entity);
-        pair = (PairDTO) mapperService.toModel(model);
+        pair = (PairDTO) mapperService.toDto(model);
         return pair;
     }
 
@@ -150,7 +150,7 @@ public class PairDataService implements IPairDataService {
 
         List<PairDTO> result = new ArrayList<>();
         for (PairEntity p: allIntersections) {
-            result.add((PairDTO) mapperService.toModel(p));
+            result.add((PairDTO) mapperService.toDto(p));
         }
         return result;
     }

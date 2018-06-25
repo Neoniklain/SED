@@ -1,7 +1,7 @@
 package com.unesco.core.managers.schedule.instituteManager;
 
 import com.unesco.core.managers.schedule.instituteManager.interfaces.instituteList.IInstituteListManager;
-import com.unesco.core.models.shedule.InstituteDTO;
+import com.unesco.core.dto.shedule.InstituteDTO;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 

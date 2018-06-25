@@ -1,7 +1,7 @@
 package com.unesco.core.managers.plan.lessontypeManager;
 
 import com.unesco.core.managers.plan.lessontypeManager.interfaces.lessontypeList.ILessonTypeListManager;
-import com.unesco.core.models.plan.LessonTypeDTO;
+import com.unesco.core.dto.plan.LessonTypeDTO;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 

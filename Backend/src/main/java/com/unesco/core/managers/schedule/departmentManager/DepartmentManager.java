@@ -1,8 +1,8 @@
 package com.unesco.core.managers.schedule.departmentManager;
 
 import com.unesco.core.managers.schedule.departmentManager.interfaces.department.IDepartmentManager;
-import com.unesco.core.models.additional.ResponseStatusDTO;
-import com.unesco.core.models.plan.DepartmentDTO;
+import com.unesco.core.dto.additional.ResponseStatusDTO;
+import com.unesco.core.dto.plan.DepartmentDTO;
 import com.unesco.core.services.schedule.departmentService.IDepartmentDataService;
 import com.unesco.core.utils.StatusTypes;
 import org.springframework.beans.factory.annotation.Autowired;

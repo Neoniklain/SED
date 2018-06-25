@@ -1,10 +1,10 @@
 package com.unesco.core.managers.task;
 
 import com.unesco.core.managers.task.interfaces.ITaskService;
-import com.unesco.core.models.task.TaskDescriptionModel;
-import com.unesco.core.models.task.TaskUserModel;
-import com.unesco.core.models.account.UserDTO;
-import com.unesco.core.models.enums.TaskStatusType;
+import com.unesco.core.dto.task.TaskDescriptionModel;
+import com.unesco.core.dto.task.TaskUserModel;
+import com.unesco.core.dto.account.UserDTO;
+import com.unesco.core.dto.enums.TaskStatusType;
 import com.unesco.core.services.account.userService.IUserDataService;
 import com.unesco.core.services.file.fileByteCodeService.IFileByteCodeService;
 import com.unesco.core.services.file.fileDescriptionService.IFileDescriptionService;

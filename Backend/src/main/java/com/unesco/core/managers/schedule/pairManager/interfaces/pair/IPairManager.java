@@ -2,8 +2,8 @@ package com.unesco.core.managers.schedule.pairManager.interfaces.pair;
 
 import com.unesco.core.managers.IManager;
 import com.unesco.core.managers.IValidateManager;
-import com.unesco.core.models.additional.ResponseStatusDTO;
-import com.unesco.core.models.shedule.PairDTO;
+import com.unesco.core.dto.additional.ResponseStatusDTO;
+import com.unesco.core.dto.shedule.PairDTO;
 
 import java.util.List;
 

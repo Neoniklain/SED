@@ -1,15 +1,15 @@
 package com.unesco.core.controllerWeb;
 
 import com.unesco.core.controller.DictionaryController;
-import com.unesco.core.models.account.ProfessorDTO;
-import com.unesco.core.models.account.RoleDTO;
-import com.unesco.core.models.account.UserDTO;
-import com.unesco.core.models.additional.FilterQueryDTO;
-import com.unesco.core.models.additional.PageResultDTO;
-import com.unesco.core.models.additional.ResponseStatusDTO;
-import com.unesco.core.models.journal.PointTypeDTO;
-import com.unesco.core.models.plan.DepartmentDTO;
-import com.unesco.core.models.shedule.*;
+import com.unesco.core.dto.account.ProfessorDTO;
+import com.unesco.core.dto.account.RoleDTO;
+import com.unesco.core.dto.account.UserDTO;
+import com.unesco.core.dto.additional.FilterQueryDTO;
+import com.unesco.core.dto.additional.PageResultDTO;
+import com.unesco.core.dto.additional.ResponseStatusDTO;
+import com.unesco.core.dto.journal.PointTypeDTO;
+import com.unesco.core.dto.plan.DepartmentDTO;
+import com.unesco.core.dto.shedule.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 

@@ -2,8 +2,8 @@ package com.unesco.core.services.account.studentService;
 
 import com.unesco.core.entities.account.StudentEntity;
 import com.unesco.core.entities.account.UserEntity;
-import com.unesco.core.models.account.StudentDTO;
-import com.unesco.core.models.additional.FilterQueryDTO;
+import com.unesco.core.dto.account.StudentDTO;
+import com.unesco.core.dto.additional.FilterQueryDTO;
 import com.unesco.core.repositories.account.StudentRepository;
 import com.unesco.core.services.account.userService.IUserDataService;
 import com.unesco.core.services.mapperService.IMapperService;
@@ -29,7 +29,7 @@ public class StudentDataService implements IStudentDataService {
         List<StudentEntity> entitys = studentRepository.findWithFilter(new PageRequest(start, rows == 0 ? 10 : rows), filter.getGlobalFilter());
         List<StudentDTO> result = new ArrayList<StudentDTO>();
         for (StudentEntity e: entitys) {
-            result.add((StudentDTO) mapperService.toModel(e));
+            result.add((StudentDTO) mapperService.toDto(e));
         }
         return result;
     }
@@ -39,7 +39,7 @@ public class StudentDataService implements IStudentDataService {
         List<StudentDTO> modelList = new ArrayList<>();
         Iterable<StudentEntity> entityList = studentRepository.findAll();
         for (StudentEntity item: entityList) {
-            StudentDTO model = (StudentDTO) mapperService.toModel(item);
+            StudentDTO model = (StudentDTO) mapperService.toDto(item);
             modelList.add(model);
         }
         return modelList;
@@ -48,7 +48,7 @@ public class StudentDataService implements IStudentDataService {
     public StudentDTO Get(long id)
     {
         StudentEntity entity = studentRepository.findOne(id);
-        StudentDTO model = (StudentDTO) mapperService.toModel(entity);
+        StudentDTO model = (StudentDTO) mapperService.toDto(entity);
         return model;
     }
 
@@ -61,7 +61,7 @@ public class StudentDataService implements IStudentDataService {
         List<StudentDTO> modelList = new ArrayList<>();
         Iterable<StudentEntity> entityList = studentRepository.findAllByGroupId(groupId);
         for (StudentEntity item: entityList) {
-            StudentDTO model = (StudentDTO) mapperService.toModel(item);
+            StudentDTO model = (StudentDTO) mapperService.toDto(item);
             modelList.add(model);
         }
         return modelList;
@@ -72,13 +72,13 @@ public class StudentDataService implements IStudentDataService {
         UserEntity userEntity = (UserEntity) mapperService.toEntity(userDataService.GetByUsername(entity.getUserEntity().getUsername()));
         entity.setUserEntity(userEntity);
         StudentEntity model = studentRepository.save(entity);
-        student = (StudentDTO) mapperService.toModel(model);
+        student = (StudentDTO) mapperService.toDto(model);
         return student;
     }
 
     public StudentDTO GetByUser(long userId) {
         StudentEntity entity = studentRepository.findByUserId(userId);
-        StudentDTO model = (StudentDTO) mapperService.toModel(entity);
+        StudentDTO model = (StudentDTO) mapperService.toDto(entity);
         return model;
     }
 }

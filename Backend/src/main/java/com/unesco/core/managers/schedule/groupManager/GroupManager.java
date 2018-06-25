@@ -1,8 +1,8 @@
 package com.unesco.core.managers.schedule.groupManager;
 
 import com.unesco.core.managers.schedule.groupManager.interfaces.group.IGroupManager;
-import com.unesco.core.models.additional.ResponseStatusDTO;
-import com.unesco.core.models.shedule.GroupDTO;
+import com.unesco.core.dto.additional.ResponseStatusDTO;
+import com.unesco.core.dto.shedule.GroupDTO;
 import com.unesco.core.services.schedule.groupService.IGroupDataService;
 import com.unesco.core.utils.StatusTypes;
 import org.springframework.beans.factory.annotation.Autowired;

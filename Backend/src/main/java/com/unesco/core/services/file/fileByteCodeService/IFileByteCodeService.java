@@ -1,8 +1,7 @@
 package com.unesco.core.services.file.fileByteCodeService;
 
 
-import com.unesco.core.entities.file.FileByteCode;
-import com.unesco.core.models.file.FileByteCodeModel;
+import com.unesco.core.dto.file.FileByteCodeModel;
 import com.unesco.core.services.IDataService;
 
 public interface IFileByteCodeService extends IDataService<FileByteCodeModel> {

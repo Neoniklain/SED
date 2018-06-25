@@ -1,7 +1,7 @@
 package com.unesco.core.managers.schedule.departmentManager;
 
 import com.unesco.core.managers.schedule.departmentManager.interfaces.departmentList.IDepartmentListManager;
-import com.unesco.core.models.plan.DepartmentDTO;
+import com.unesco.core.dto.plan.DepartmentDTO;
 import com.unesco.core.services.schedule.departmentService.IDepartmentDataService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;

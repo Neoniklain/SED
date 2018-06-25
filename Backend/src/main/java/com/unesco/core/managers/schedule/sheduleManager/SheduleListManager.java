@@ -1,7 +1,7 @@
 package com.unesco.core.managers.schedule.sheduleManager;
 
 import com.unesco.core.managers.schedule.sheduleManager.interfaces.sheduleList.ISheduleListManager;
-import com.unesco.core.models.SheduleDTO;
+import com.unesco.core.dto.SheduleDTO;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 

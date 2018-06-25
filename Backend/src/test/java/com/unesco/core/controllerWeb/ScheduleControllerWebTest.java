@@ -3,15 +3,15 @@ package com.unesco.core.controllerWeb;
 import com.unesco.core.controller.AccountController;
 import com.unesco.core.controller.JournalController;
 import com.unesco.core.controller.ScheduleController;
-import com.unesco.core.models.account.ProfessorDTO;
-import com.unesco.core.models.account.RoleDTO;
-import com.unesco.core.models.account.StudentDTO;
-import com.unesco.core.models.account.UserDTO;
-import com.unesco.core.models.additional.ResponseStatusDTO;
-import com.unesco.core.models.enums.RoleType;
-import com.unesco.core.models.journal.LessonEventDTO;
-import com.unesco.core.models.plan.DepartmentDTO;
-import com.unesco.core.models.shedule.*;
+import com.unesco.core.dto.account.ProfessorDTO;
+import com.unesco.core.dto.account.RoleDTO;
+import com.unesco.core.dto.account.StudentDTO;
+import com.unesco.core.dto.account.UserDTO;
+import com.unesco.core.dto.additional.ResponseStatusDTO;
+import com.unesco.core.dto.enums.RoleType;
+import com.unesco.core.dto.journal.LessonEventDTO;
+import com.unesco.core.dto.plan.DepartmentDTO;
+import com.unesco.core.dto.shedule.*;
 import com.unesco.core.services.account.professorService.IProfessorDataService;
 import com.unesco.core.services.account.roleService.IRoleDataService;
 import com.unesco.core.services.account.studentService.IStudentDataService;
@@ -40,8 +40,6 @@ import org.springframework.test.context.junit4.SpringRunner;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-
-import static org.junit.Assert.*;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest

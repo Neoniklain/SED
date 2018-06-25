@@ -8,11 +8,11 @@ import com.unesco.core.managers.account.userManager.interfaces.user.IUserManager
 import com.unesco.core.managers.account.userManager.interfaces.userList.IUserListManager;
 import com.unesco.core.managers.schedule.departmentManager.interfaces.department.IDepartmentManager;
 import com.unesco.core.managers.schedule.groupManager.interfaces.group.IGroupManager;
-import com.unesco.core.models.account.ProfessorDTO;
-import com.unesco.core.models.account.StudentDTO;
-import com.unesco.core.models.account.UserDTO;
-import com.unesco.core.models.additional.ResponseStatusDTO;
-import com.unesco.core.models.enums.RoleType;
+import com.unesco.core.dto.account.ProfessorDTO;
+import com.unesco.core.dto.account.StudentDTO;
+import com.unesco.core.dto.account.UserDTO;
+import com.unesco.core.dto.additional.ResponseStatusDTO;
+import com.unesco.core.dto.enums.RoleType;
 import com.unesco.core.services.account.professorService.IProfessorDataService;
 import com.unesco.core.services.account.roleService.IRoleDataService;
 import com.unesco.core.services.account.studentService.IStudentDataService;

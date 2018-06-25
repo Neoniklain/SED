@@ -1,8 +1,8 @@
 package com.unesco.core.services.schedule.disciplineService;
 
 import com.unesco.core.entities.schedule.DisciplineEntity;
-import com.unesco.core.models.additional.FilterQueryDTO;
-import com.unesco.core.models.shedule.DisciplineDTO;
+import com.unesco.core.dto.additional.FilterQueryDTO;
+import com.unesco.core.dto.shedule.DisciplineDTO;
 import com.unesco.core.repositories.plan.DisciplineRepository;
 import com.unesco.core.services.mapperService.IMapperService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,7 +26,7 @@ public class DisciplineDataService implements IDisciplineDataService {
         List<DisciplineEntity> entitys = disciplineRepository.findWithFilter(new PageRequest(start, rows == 0 ? 10 : rows), filter.getGlobalFilter());
         List<DisciplineDTO> result = new ArrayList<DisciplineDTO>();
         for (DisciplineEntity e: entitys) {
-            result.add((DisciplineDTO) mapperService.toModel(e));
+            result.add((DisciplineDTO) mapperService.toDto(e));
         }
         return result;
     }
@@ -36,7 +36,7 @@ public class DisciplineDataService implements IDisciplineDataService {
         List<DisciplineDTO> modelList = new ArrayList<>();
         Iterable<DisciplineEntity> entityList = disciplineRepository.findAll();
         for (DisciplineEntity item: entityList) {
-            DisciplineDTO model = (DisciplineDTO) mapperService.toModel(item);
+            DisciplineDTO model = (DisciplineDTO) mapperService.toDto(item);
             modelList.add(model);
         }
         return modelList;
@@ -45,14 +45,14 @@ public class DisciplineDataService implements IDisciplineDataService {
     public DisciplineDTO Get(long id)
     {
         DisciplineEntity entity = disciplineRepository.findOne(id);
-        DisciplineDTO model = (DisciplineDTO) mapperService.toModel(entity);
+        DisciplineDTO model = (DisciplineDTO) mapperService.toDto(entity);
         return model;
     }
 
     public DisciplineDTO GetByName(String name)
     {
         DisciplineEntity entity = disciplineRepository.findByName(name);
-        DisciplineDTO model = (DisciplineDTO) mapperService.toModel(entity);
+        DisciplineDTO model = (DisciplineDTO) mapperService.toDto(entity);
         return model;
     }
 
@@ -65,7 +65,7 @@ public class DisciplineDataService implements IDisciplineDataService {
     {
         DisciplineEntity entity = (DisciplineEntity) mapperService.toEntity(discipline);
         DisciplineEntity model = disciplineRepository.save(entity);
-        discipline = (DisciplineDTO) mapperService.toModel(model);
+        discipline = (DisciplineDTO) mapperService.toDto(model);
         return discipline;
     }
 

@@ -1,7 +1,7 @@
 package com.unesco.core.controllerWeb;
 
 import com.unesco.core.controller.PluginController;
-import com.unesco.core.models.PluginDTO;
+import com.unesco.core.dto.PluginDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;

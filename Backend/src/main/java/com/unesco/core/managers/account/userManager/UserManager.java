@@ -4,10 +4,10 @@ import com.unesco.core.managers.account.professorManager.interfaces.professor.IP
 import com.unesco.core.managers.account.roleManager.interfaces.roleList.IRoleListManager;
 import com.unesco.core.managers.account.studentManager.interfaces.student.IStudentManager;
 import com.unesco.core.managers.account.userManager.interfaces.user.IUserManager;
-import com.unesco.core.models.account.RoleDTO;
-import com.unesco.core.models.account.UserDTO;
-import com.unesco.core.models.additional.ResponseStatusDTO;
-import com.unesco.core.models.enums.RoleType;
+import com.unesco.core.dto.account.RoleDTO;
+import com.unesco.core.dto.account.UserDTO;
+import com.unesco.core.dto.additional.ResponseStatusDTO;
+import com.unesco.core.dto.enums.RoleType;
 import com.unesco.core.utils.StatusTypes;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;

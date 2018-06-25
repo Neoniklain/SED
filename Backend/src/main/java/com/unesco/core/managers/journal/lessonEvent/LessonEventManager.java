@@ -1,8 +1,8 @@
 package com.unesco.core.managers.journal.lessonEvent;
 
 import com.unesco.core.managers.journal.lessonEvent.interfaces.lessonEvent.ILessonEventManager;
-import com.unesco.core.models.additional.ResponseStatusDTO;
-import com.unesco.core.models.journal.LessonEventDTO;
+import com.unesco.core.dto.additional.ResponseStatusDTO;
+import com.unesco.core.dto.journal.LessonEventDTO;
 import com.unesco.core.services.journal.lessonEvent.ILessonEventDataService;
 import com.unesco.core.utils.StatusTypes;
 import org.springframework.beans.factory.annotation.Autowired;

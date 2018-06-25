@@ -1,9 +1,9 @@
 package com.unesco.core.controllerWeb;
 
 import com.unesco.core.controller.JournalController;
-import com.unesco.core.models.additional.ResponseStatusDTO;
-import com.unesco.core.models.journal.JournalDTO;
-import com.unesco.core.models.journal.LessonEventDTO;
+import com.unesco.core.dto.additional.ResponseStatusDTO;
+import com.unesco.core.dto.journal.JournalDTO;
+import com.unesco.core.dto.journal.LessonEventDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 

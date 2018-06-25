@@ -2,9 +2,9 @@ package com.unesco.core.managers.account.userManager.interfaces.user;
 
 import com.unesco.core.managers.IManager;
 import com.unesco.core.managers.IValidateManager;
-import com.unesco.core.models.account.RoleDTO;
-import com.unesco.core.models.account.UserDTO;
-import com.unesco.core.models.additional.ResponseStatusDTO;
+import com.unesco.core.dto.account.RoleDTO;
+import com.unesco.core.dto.account.UserDTO;
+import com.unesco.core.dto.additional.ResponseStatusDTO;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

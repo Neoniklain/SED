@@ -2,8 +2,8 @@ package com.unesco.core.services.account.professorService;
 
 import com.unesco.core.entities.account.ProfessorEntity;
 import com.unesco.core.entities.account.UserEntity;
-import com.unesco.core.models.account.ProfessorDTO;
-import com.unesco.core.models.additional.FilterQueryDTO;
+import com.unesco.core.dto.account.ProfessorDTO;
+import com.unesco.core.dto.additional.FilterQueryDTO;
 import com.unesco.core.repositories.account.ProfessorRepository;
 import com.unesco.core.services.account.userService.IUserDataService;
 import com.unesco.core.services.mapperService.IMapperService;
@@ -29,7 +29,7 @@ public class ProfessorDataService implements IProfessorDataService {
         List<ProfessorEntity> entitys = professorRepository.findWithFilter(new PageRequest(start, rows == 0 ? 10 : rows), filter.getGlobalFilter());
         List<ProfessorDTO> result = new ArrayList<ProfessorDTO>();
         for (ProfessorEntity e: entitys) {
-            result.add((ProfessorDTO) mapperService.toModel(e));
+            result.add((ProfessorDTO) mapperService.toDto(e));
         }
         return result;
     }
@@ -39,7 +39,7 @@ public class ProfessorDataService implements IProfessorDataService {
         List<ProfessorDTO> modelList = new ArrayList<>();
         Iterable<ProfessorEntity> entityList = professorRepository.findAll();
         for (ProfessorEntity item: entityList) {
-            ProfessorDTO model = (ProfessorDTO) mapperService.toModel(item);
+            ProfessorDTO model = (ProfessorDTO) mapperService.toDto(item);
             modelList.add(model);
         }
         return modelList;
@@ -50,7 +50,7 @@ public class ProfessorDataService implements IProfessorDataService {
         List<ProfessorDTO> modelList = new ArrayList<>();
         Iterable<ProfessorEntity> entityList = professorRepository.findAllByDepartmentId(departmentId);
         for (ProfessorEntity item: entityList) {
-            ProfessorDTO model = (ProfessorDTO) mapperService.toModel(item);
+            ProfessorDTO model = (ProfessorDTO) mapperService.toDto(item);
             modelList.add(model);
         }
         return modelList;
@@ -59,7 +59,7 @@ public class ProfessorDataService implements IProfessorDataService {
     public ProfessorDTO Get(long id)
     {
         ProfessorEntity entity = professorRepository.findOne(id);
-        ProfessorDTO model = (ProfessorDTO) mapperService.toModel(entity);
+        ProfessorDTO model = (ProfessorDTO) mapperService.toDto(entity);
         return model;
     }
 
@@ -75,13 +75,13 @@ public class ProfessorDataService implements IProfessorDataService {
         UserEntity userEntity = (UserEntity) mapperService.toEntity(userDataService.GetByUsername(entity.getUserEntity().getUsername()));
         entity.setUserEntity(userEntity);
         ProfessorEntity model = professorRepository.save(entity);
-        professor = (ProfessorDTO) mapperService.toModel(model);
+        professor = (ProfessorDTO) mapperService.toDto(model);
         return professor;
     }
 
     public ProfessorDTO GetByUser(long userId) {
         ProfessorEntity entity = professorRepository.findByUserId(userId);
-        ProfessorDTO model = (ProfessorDTO) mapperService.toModel(entity);
+        ProfessorDTO model = (ProfessorDTO) mapperService.toDto(entity);
         return model;
     }
 }

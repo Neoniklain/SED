@@ -1,9 +1,9 @@
 package com.unesco.core.managers.account.studentManager;
 
 import com.unesco.core.managers.account.studentManager.interfaces.student.IStudentManager;
-import com.unesco.core.models.account.StudentDTO;
-import com.unesco.core.models.account.UserDTO;
-import com.unesco.core.models.shedule.GroupDTO;
+import com.unesco.core.dto.account.StudentDTO;
+import com.unesco.core.dto.account.UserDTO;
+import com.unesco.core.dto.shedule.GroupDTO;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 

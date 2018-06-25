@@ -1,8 +1,8 @@
 package com.unesco.core.services.schedule.departmentService;
 
 import com.unesco.core.entities.schedule.DepartmentEntity;
-import com.unesco.core.models.plan.DepartmentDTO;
-import com.unesco.core.models.additional.FilterQueryDTO;
+import com.unesco.core.dto.plan.DepartmentDTO;
+import com.unesco.core.dto.additional.FilterQueryDTO;
 import com.unesco.core.repositories.plan.DepartmentRepository;
 import com.unesco.core.services.mapperService.IMapperService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,7 +26,7 @@ public class DepartmentDataService implements IDepartmentDataService {
         List<DepartmentEntity> entitys = departmentRepository.findWithFilter(new PageRequest(start, rows == 0 ? 10 : rows), filter.getGlobalFilter());
         List<DepartmentDTO> result = new ArrayList<DepartmentDTO>();
         for (DepartmentEntity e: entitys) {
-            result.add((DepartmentDTO) mapperService.toModel(e));
+            result.add((DepartmentDTO) mapperService.toDto(e));
         }
         return result;
     }
@@ -36,7 +36,7 @@ public class DepartmentDataService implements IDepartmentDataService {
         List<DepartmentDTO> modelList = new ArrayList<>();
         Iterable<DepartmentEntity> entityList = departmentRepository.findAll();
         for (DepartmentEntity item: entityList) {
-            DepartmentDTO model = (DepartmentDTO) mapperService.toModel(item);
+            DepartmentDTO model = (DepartmentDTO) mapperService.toDto(item);
             modelList.add(model);
         }
         return modelList;
@@ -45,14 +45,14 @@ public class DepartmentDataService implements IDepartmentDataService {
     public DepartmentDTO Get(long id)
     {
         DepartmentEntity entity = departmentRepository.findOne(id);
-        DepartmentDTO model = (DepartmentDTO) mapperService.toModel(entity);
+        DepartmentDTO model = (DepartmentDTO) mapperService.toDto(entity);
         return model;
     }
 
     public DepartmentDTO GetByName(String name)
     {
         DepartmentEntity entity = departmentRepository.findByName(name);
-        DepartmentDTO model = (DepartmentDTO) mapperService.toModel(entity);
+        DepartmentDTO model = (DepartmentDTO) mapperService.toDto(entity);
         return model;
     }
 
@@ -65,7 +65,7 @@ public class DepartmentDataService implements IDepartmentDataService {
     {
         DepartmentEntity entity = (DepartmentEntity) mapperService.toEntity(department);
         DepartmentEntity model = departmentRepository.save(entity);
-        department = (DepartmentDTO) mapperService.toModel(model);
+        department = (DepartmentDTO) mapperService.toDto(model);
         return department;
     }
 }

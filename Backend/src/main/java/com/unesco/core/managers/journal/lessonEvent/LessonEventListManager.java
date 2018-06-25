@@ -1,8 +1,8 @@
 package com.unesco.core.managers.journal.lessonEvent;
 
 import com.unesco.core.managers.journal.lessonEvent.interfaces.lessonEventList.ILessonEventListManager;
-import com.unesco.core.models.journal.LessonEventDTO;
-import com.unesco.core.models.shedule.LessonDTO;
+import com.unesco.core.dto.journal.LessonEventDTO;
+import com.unesco.core.dto.shedule.LessonDTO;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 

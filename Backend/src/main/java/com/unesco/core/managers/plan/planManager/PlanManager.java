@@ -1,7 +1,7 @@
 package com.unesco.core.managers.plan.planManager;
 
 import com.unesco.core.managers.plan.planManager.interfaces.plan.IPlanManager;
-import com.unesco.core.models.plan.PlanDTO;
+import com.unesco.core.dto.plan.PlanDTO;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 

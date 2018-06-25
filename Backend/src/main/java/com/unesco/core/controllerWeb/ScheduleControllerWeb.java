@@ -1,8 +1,8 @@
 package com.unesco.core.controllerWeb;
 
 import com.unesco.core.controller.ScheduleController;
-import com.unesco.core.models.additional.ResponseStatusDTO;
-import com.unesco.core.models.shedule.PairDTO;
+import com.unesco.core.dto.additional.ResponseStatusDTO;
+import com.unesco.core.dto.shedule.PairDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 

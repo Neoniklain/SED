@@ -1,8 +1,8 @@
 package com.unesco.core.services.plan.planService;
 
 import com.unesco.core.entities.plan.PlanEntity;
-import com.unesco.core.models.plan.PlanDTO;
-import com.unesco.core.models.additional.FilterQueryDTO;
+import com.unesco.core.dto.plan.PlanDTO;
+import com.unesco.core.dto.additional.FilterQueryDTO;
 import com.unesco.core.repositories.plan.PlanRepository;
 import com.unesco.core.services.mapperService.IMapperService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,7 +26,7 @@ public class PlanDataService implements IPlanDataService {
         List<PlanEntity> entitys = planRepository.findWithFilter(new PageRequest(start, rows == 0 ? 10 : rows), filter.getGlobalFilter());
         List<PlanDTO> result = new ArrayList<PlanDTO>();
         for (PlanEntity e: entitys) {
-            result.add((PlanDTO) mapperService.toModel(e));
+            result.add((PlanDTO) mapperService.toDto(e));
         }
         return result;
     }
@@ -36,7 +36,7 @@ public class PlanDataService implements IPlanDataService {
         List<PlanDTO> modelList = new ArrayList<>();
         Iterable<PlanEntity> entityList = planRepository.findAll();
         for (PlanEntity item: entityList) {
-            PlanDTO model = (PlanDTO) mapperService.toModel(item);
+            PlanDTO model = (PlanDTO) mapperService.toDto(item);
             modelList.add(model);
         }
         return modelList;
@@ -45,7 +45,7 @@ public class PlanDataService implements IPlanDataService {
     public PlanDTO Get(long id)
     {
         PlanEntity entity = planRepository.findOne(id);
-        PlanDTO model = (PlanDTO) mapperService.toModel(entity);
+        PlanDTO model = (PlanDTO) mapperService.toDto(entity);
         return model;
     }
 
@@ -58,7 +58,7 @@ public class PlanDataService implements IPlanDataService {
     {
         PlanEntity entity = (PlanEntity) mapperService.toEntity(plan);
         PlanEntity model = planRepository.save(entity);
-        plan = (PlanDTO) mapperService.toModel(model);
+        plan = (PlanDTO) mapperService.toDto(model);
         return plan;
     }
 }

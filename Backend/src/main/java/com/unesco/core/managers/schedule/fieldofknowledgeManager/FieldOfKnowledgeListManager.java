@@ -1,7 +1,7 @@
 package com.unesco.core.managers.schedule.fieldofknowledgeManager;
 
 import com.unesco.core.managers.schedule.fieldofknowledgeManager.interfaces.fieldofknowledgeList.IFieldOfKnowledgeListManager;
-import com.unesco.core.models.shedule.FieldOfKnowledgeDTO;
+import com.unesco.core.dto.shedule.FieldOfKnowledgeDTO;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 

@@ -1,8 +1,8 @@
 package com.unesco.core.services.schedule.lessonService;
 
 import com.unesco.core.entities.schedule.LessonEntity;
-import com.unesco.core.models.additional.FilterQueryDTO;
-import com.unesco.core.models.shedule.LessonDTO;
+import com.unesco.core.dto.additional.FilterQueryDTO;
+import com.unesco.core.dto.shedule.LessonDTO;
 import com.unesco.core.repositories.LessonRepository;
 import com.unesco.core.services.account.professorService.IProfessorDataService;
 import com.unesco.core.services.mapperService.IMapperService;
@@ -29,7 +29,7 @@ public class LessonDataService implements ILessonDataService {
         List<LessonEntity> entitys = lessonRepository.findWithFilter(new PageRequest(start, rows == 0 ? 10 : rows), filter.getGlobalFilter());
         List<LessonDTO> result = new ArrayList<LessonDTO>();
         for (LessonEntity e: entitys) {
-            result.add((LessonDTO) mapperService.toModel(e));
+            result.add((LessonDTO) mapperService.toDto(e));
         }
         return result;
     }
@@ -39,7 +39,7 @@ public class LessonDataService implements ILessonDataService {
         List<LessonDTO> modelList = new ArrayList<>();
         Iterable<LessonEntity> entityList = lessonRepository.findAll();
         for (LessonEntity item: entityList) {
-            LessonDTO model = (LessonDTO) mapperService.toModel(item);
+            LessonDTO model = (LessonDTO) mapperService.toDto(item);
             modelList.add(model);
         }
         return modelList;
@@ -48,14 +48,14 @@ public class LessonDataService implements ILessonDataService {
     public LessonDTO Get(long id)
     {
         LessonEntity entity = lessonRepository.findOne(id);
-        LessonDTO model = (LessonDTO) mapperService.toModel(entity);
+        LessonDTO model = (LessonDTO) mapperService.toDto(entity);
         return model;
     }
 
     public LessonDTO GetDisciplineIdAndGroupIdAndProfessorId(long disciplineId, long groupId, long professorId)
     {
         LessonEntity entity = lessonRepository.findByDisciplineIdAndGroupIdAndProfessorId(disciplineId, groupId, professorId);
-        LessonDTO model = (LessonDTO) mapperService.toModel(entity);
+        LessonDTO model = (LessonDTO) mapperService.toDto(entity);
         return model;
     }
 
@@ -68,7 +68,7 @@ public class LessonDataService implements ILessonDataService {
     {
         LessonEntity entity = (LessonEntity) mapperService.toEntity(lesson);
         LessonEntity model = lessonRepository.save(entity);
-        lesson = (LessonDTO) mapperService.toModel(model);
+        lesson = (LessonDTO) mapperService.toDto(model);
         return lesson;
     }
 

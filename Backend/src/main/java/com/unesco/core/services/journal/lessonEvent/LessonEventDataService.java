@@ -1,7 +1,7 @@
 package com.unesco.core.services.journal.lessonEvent;
 
 import com.unesco.core.entities.journal.LessonEventEntity;
-import com.unesco.core.models.journal.LessonEventDTO;
+import com.unesco.core.dto.journal.LessonEventDTO;
 import com.unesco.core.repositories.account.ProfessorRepository;
 import com.unesco.core.repositories.journal.LessonEventRepository;
 import com.unesco.core.services.mapperService.IMapperService;
@@ -26,7 +26,7 @@ public class LessonEventDataService implements ILessonEventDataService {
         List<LessonEventDTO> modelList = new ArrayList<>();
         Iterable<LessonEventEntity> entityList = lessonEventRepository.findAll();
         for (LessonEventEntity item: entityList) {
-            LessonEventDTO model = (LessonEventDTO) mapperService.toModel(item);
+            LessonEventDTO model = (LessonEventDTO) mapperService.toDto(item);
             modelList.add(model);
         }
         return modelList;
@@ -35,7 +35,7 @@ public class LessonEventDataService implements ILessonEventDataService {
     public LessonEventDTO Get(long id)
     {
         LessonEventEntity entity = lessonEventRepository.findOne(id);
-        LessonEventDTO model = (LessonEventDTO) mapperService.toModel(entity);
+        LessonEventDTO model = (LessonEventDTO) mapperService.toDto(entity);
         return model;
     }
 
@@ -45,7 +45,7 @@ public class LessonEventDataService implements ILessonEventDataService {
         List<LessonEventDTO> modelList = new ArrayList<>();
         Iterable<LessonEventEntity> entityList = lessonEventRepository.findByLessonEntityId(lessonId);
         for (LessonEventEntity item: entityList) {
-            LessonEventDTO model = (LessonEventDTO) mapperService.toModel(item);
+            LessonEventDTO model = (LessonEventDTO) mapperService.toDto(item);
             modelList.add(model);
         }
         return modelList;
@@ -60,7 +60,7 @@ public class LessonEventDataService implements ILessonEventDataService {
     {
         LessonEventEntity entity = (LessonEventEntity) mapperService.toEntity(lessonEvent);
         entity = lessonEventRepository.save(entity);
-        lessonEvent = (LessonEventDTO) mapperService.toModel(entity);
+        lessonEvent = (LessonEventDTO) mapperService.toDto(entity);
         return lessonEvent;
     }
 }

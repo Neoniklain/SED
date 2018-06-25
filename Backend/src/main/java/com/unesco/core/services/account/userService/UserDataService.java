@@ -1,9 +1,9 @@
 package com.unesco.core.services.account.userService;
 
 import com.unesco.core.entities.account.UserEntity;
-import com.unesco.core.models.account.RoleDTO;
-import com.unesco.core.models.account.UserDTO;
-import com.unesco.core.models.additional.FilterQueryDTO;
+import com.unesco.core.dto.account.RoleDTO;
+import com.unesco.core.dto.account.UserDTO;
+import com.unesco.core.dto.additional.FilterQueryDTO;
 import com.unesco.core.repositories.account.UserRepository;
 import com.unesco.core.services.account.roleService.RoleDataService;
 import com.unesco.core.services.mapperService.IMapperService;
@@ -29,7 +29,7 @@ public class UserDataService implements IUserDataService {
         List<UserEntity> entitys = userRepository.findWithFilter(new PageRequest(start, rows == 0 ? 10 : rows), filter.getGlobalFilter());
         List<UserDTO> result = new ArrayList<UserDTO>();
         for (UserEntity e: entitys) {
-            result.add((UserDTO) mapperService.toModel(e));
+            result.add((UserDTO) mapperService.toDto(e));
         }
         return result;
     }
@@ -39,7 +39,7 @@ public class UserDataService implements IUserDataService {
         List<UserDTO> modelList = new ArrayList<>();
         Iterable<UserEntity> entityList = userRepository.findAll();
         for (UserEntity item: entityList) {
-            UserDTO model = (UserDTO) mapperService.toModel(item);
+            UserDTO model = (UserDTO) mapperService.toDto(item);
             modelList.add(model);
         }
         return modelList;
@@ -48,14 +48,14 @@ public class UserDataService implements IUserDataService {
     public UserDTO Get(long id)
     {
         UserEntity entity = userRepository.findOne(id);
-        UserDTO model = (UserDTO) mapperService.toModel(entity);
+        UserDTO model = (UserDTO) mapperService.toDto(entity);
         return model;
     }
 
     public UserDTO GetByUsername(String username)
     {
         UserEntity entity = userRepository.findByUsername(username);
-        UserDTO model = (UserDTO) mapperService.toModel(entity);
+        UserDTO model = (UserDTO) mapperService.toDto(entity);
         return model;
     }
 
@@ -78,7 +78,7 @@ public class UserDataService implements IUserDataService {
         UserEntity entity = (UserEntity) mapperService.toEntity(user);
         entity = userRepository.save(entity);
 
-        UserDTO model = (UserDTO) mapperService.toModel(entity);
+        UserDTO model = (UserDTO) mapperService.toDto(entity);
         return model;
     }
 

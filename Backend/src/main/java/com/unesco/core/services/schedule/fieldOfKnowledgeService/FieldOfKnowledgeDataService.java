@@ -1,8 +1,8 @@
 package com.unesco.core.services.schedule.fieldOfKnowledgeService;
 
 import com.unesco.core.entities.schedule.FieldOfKnowledgeEntity;
-import com.unesco.core.models.additional.FilterQueryDTO;
-import com.unesco.core.models.shedule.FieldOfKnowledgeDTO;
+import com.unesco.core.dto.additional.FilterQueryDTO;
+import com.unesco.core.dto.shedule.FieldOfKnowledgeDTO;
 import com.unesco.core.repositories.plan.FieldOfKnowledgeRepository;
 import com.unesco.core.services.mapperService.IMapperService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,7 +26,7 @@ public class FieldOfKnowledgeDataService implements IFieldOfKnowledgeDataService
         List<FieldOfKnowledgeEntity> entitys = fieldOfKnowledgeRepository.findWithFilter(new PageRequest(start, rows == 0 ? 10 : rows), filter.getGlobalFilter());
         List<FieldOfKnowledgeDTO> result = new ArrayList<FieldOfKnowledgeDTO>();
         for (FieldOfKnowledgeEntity e: entitys) {
-            result.add((FieldOfKnowledgeDTO) mapperService.toModel(e));
+            result.add((FieldOfKnowledgeDTO) mapperService.toDto(e));
         }
         return result;
     }
@@ -36,7 +36,7 @@ public class FieldOfKnowledgeDataService implements IFieldOfKnowledgeDataService
         List<FieldOfKnowledgeDTO> modelList = new ArrayList<>();
         Iterable<FieldOfKnowledgeEntity> entityList = fieldOfKnowledgeRepository.findAll();
         for (FieldOfKnowledgeEntity item: entityList) {
-            FieldOfKnowledgeDTO model = (FieldOfKnowledgeDTO) mapperService.toModel(item);
+            FieldOfKnowledgeDTO model = (FieldOfKnowledgeDTO) mapperService.toDto(item);
             modelList.add(model);
         }
         return modelList;
@@ -45,14 +45,14 @@ public class FieldOfKnowledgeDataService implements IFieldOfKnowledgeDataService
     public FieldOfKnowledgeDTO Get(long id)
     {
         FieldOfKnowledgeEntity entity = fieldOfKnowledgeRepository.findOne(id);
-        FieldOfKnowledgeDTO model = (FieldOfKnowledgeDTO) mapperService.toModel(entity);
+        FieldOfKnowledgeDTO model = (FieldOfKnowledgeDTO) mapperService.toDto(entity);
         return model;
     }
 
     public FieldOfKnowledgeDTO GetByName(String name)
     {
         FieldOfKnowledgeEntity entity = fieldOfKnowledgeRepository.findByName(name);
-        FieldOfKnowledgeDTO model = (FieldOfKnowledgeDTO) mapperService.toModel(entity);
+        FieldOfKnowledgeDTO model = (FieldOfKnowledgeDTO) mapperService.toDto(entity);
         return model;
     }
 
@@ -65,7 +65,7 @@ public class FieldOfKnowledgeDataService implements IFieldOfKnowledgeDataService
     {
         FieldOfKnowledgeEntity entity = (FieldOfKnowledgeEntity) mapperService.toEntity(fieldOfKnowledge);
         FieldOfKnowledgeEntity model = fieldOfKnowledgeRepository.save(entity);
-        fieldOfKnowledge = (FieldOfKnowledgeDTO) mapperService.toModel(model);
+        fieldOfKnowledge = (FieldOfKnowledgeDTO) mapperService.toDto(model);
         return fieldOfKnowledge;
     }
 }

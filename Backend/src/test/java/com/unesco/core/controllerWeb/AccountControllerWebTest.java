@@ -1,13 +1,13 @@
 package com.unesco.core.controllerWeb;
 
 import com.unesco.core.controller.AccountController;
-import com.unesco.core.models.account.RoleDTO;
-import com.unesco.core.models.account.UserDTO;
-import com.unesco.core.models.additional.ResponseStatusDTO;
-import com.unesco.core.models.enums.RoleType;
-import com.unesco.core.models.plan.DepartmentDTO;
-import com.unesco.core.models.shedule.GroupDTO;
-import com.unesco.core.models.shedule.InstituteDTO;
+import com.unesco.core.dto.account.RoleDTO;
+import com.unesco.core.dto.account.UserDTO;
+import com.unesco.core.dto.additional.ResponseStatusDTO;
+import com.unesco.core.dto.enums.RoleType;
+import com.unesco.core.dto.plan.DepartmentDTO;
+import com.unesco.core.dto.shedule.GroupDTO;
+import com.unesco.core.dto.shedule.InstituteDTO;
 import com.unesco.core.services.account.professorService.IProfessorDataService;
 import com.unesco.core.services.account.roleService.IRoleDataService;
 import com.unesco.core.services.account.studentService.IStudentDataService;

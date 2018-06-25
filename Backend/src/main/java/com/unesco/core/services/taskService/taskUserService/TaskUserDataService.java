@@ -2,8 +2,8 @@ package com.unesco.core.services.taskService.taskUserService;
 
 import com.unesco.core.entities.file.FileDescription;
 import com.unesco.core.entities.task.TaskUser;
-import com.unesco.core.models.file.FileDescriptionModel;
-import com.unesco.core.models.task.TaskUserModel;
+import com.unesco.core.dto.file.FileDescriptionModel;
+import com.unesco.core.dto.task.TaskUserModel;
 import com.unesco.core.repositories.task.TaskRepository;
 import com.unesco.core.services.mapperService.IMapperService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,7 +25,7 @@ public class TaskUserDataService implements ITaskUserDataService
    @Override
    public TaskUserModel Save(TaskUserModel taskModel) {
       TaskUser forSave = (TaskUser) _mapperService.toEntity(taskModel);
-      return (TaskUserModel) _mapperService.toModel(_taskRepository.save(forSave));
+      return (TaskUserModel) _mapperService.toDto(_taskRepository.save(forSave));
    }
 
    @Override
@@ -35,7 +35,7 @@ public class TaskUserDataService implements ITaskUserDataService
 
    @Override
    public TaskUserModel Get(long id) {
-      return (TaskUserModel) _mapperService.toModel(_taskRepository.findById(id));
+      return (TaskUserModel) _mapperService.toDto(_taskRepository.findById(id));
    }
 
    @Override
@@ -43,7 +43,7 @@ public class TaskUserDataService implements ITaskUserDataService
       List<TaskUserModel> result = new ArrayList<>();
       Iterable<TaskUser> entities = _taskRepository.findAll();
       for (TaskUser item:entities) {
-         result.add((TaskUserModel) _mapperService.toModel(item));
+         result.add((TaskUserModel) _mapperService.toDto(item));
       }
       return result;
    }
@@ -53,7 +53,7 @@ public class TaskUserDataService implements ITaskUserDataService
       Iterable<TaskUser> tasks = _taskRepository.findByTaskDescriptionId(id);
       List<TaskUserModel> result = new ArrayList<>();
       for (TaskUser item : tasks) {
-         result.add((TaskUserModel)_mapperService.toModel(item));
+         result.add((TaskUserModel)_mapperService.toDto(item));
       }
       return result;
    }
@@ -76,7 +76,7 @@ public class TaskUserDataService implements ITaskUserDataService
       Iterable<TaskUser> tasks = _taskRepository.findByExecutorId(id);
       List<TaskUserModel> result = new ArrayList<>();
       for (TaskUser item : tasks) {
-         result.add((TaskUserModel)_mapperService.toModel(item));
+         result.add((TaskUserModel)_mapperService.toDto(item));
       }
       return result;
    }

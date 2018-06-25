@@ -1,5 +1,20 @@
 package com.unesco.core.services.mapperService;
 
+import com.unesco.core.dto.account.ProfessorDTO;
+import com.unesco.core.dto.account.RoleDTO;
+import com.unesco.core.dto.account.StudentDTO;
+import com.unesco.core.dto.account.UserDTO;
+import com.unesco.core.dto.enums.TaskStatusType;
+import com.unesco.core.dto.file.FileByteCodeModel;
+import com.unesco.core.dto.file.FileDescriptionModel;
+import com.unesco.core.dto.journal.LessonEventDTO;
+import com.unesco.core.dto.journal.PointDTO;
+import com.unesco.core.dto.journal.PointTypeDTO;
+import com.unesco.core.dto.news.NewsDTO;
+import com.unesco.core.dto.plan.DepartmentDTO;
+import com.unesco.core.dto.shedule.*;
+import com.unesco.core.dto.task.TaskDescriptionModel;
+import com.unesco.core.dto.task.TaskUserModel;
 import com.unesco.core.entities.account.ProfessorEntity;
 import com.unesco.core.entities.account.RoleEntity;
 import com.unesco.core.entities.account.StudentEntity;
@@ -13,21 +28,6 @@ import com.unesco.core.entities.news.NewsEntity;
 import com.unesco.core.entities.schedule.*;
 import com.unesco.core.entities.task.TaskDescription;
 import com.unesco.core.entities.task.TaskUser;
-import com.unesco.core.models.account.ProfessorDTO;
-import com.unesco.core.models.account.RoleDTO;
-import com.unesco.core.models.account.StudentDTO;
-import com.unesco.core.models.account.UserDTO;
-import com.unesco.core.models.enums.TaskStatusType;
-import com.unesco.core.models.file.FileByteCodeModel;
-import com.unesco.core.models.file.FileDescriptionModel;
-import com.unesco.core.models.journal.LessonEventDTO;
-import com.unesco.core.models.journal.PointDTO;
-import com.unesco.core.models.journal.PointTypeDTO;
-import com.unesco.core.models.news.NewsDTO;
-import com.unesco.core.models.plan.DepartmentDTO;
-import com.unesco.core.models.shedule.*;
-import com.unesco.core.models.task.TaskDescriptionModel;
-import com.unesco.core.models.task.TaskUserModel;
 import com.unesco.core.repositories.account.ProfessorRepository;
 import com.unesco.core.repositories.account.StudentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -111,347 +111,369 @@ public class MapperService implements IMapperService {
         if (model instanceof FileDescriptionModel)
             return FileDescriptionToEntity((FileDescriptionModel) model);
 
+        if (model instanceof PairTypeDTO)
+            return PairTypeToEntity((PairTypeDTO) model);
+
         return new Exception("Not found " + model.getClass().toString() + " model class");
     }
 
-    public <T> Object toModel(T entity) {
+    public <T> Object toDto(T entity) {
 
         if (entity == null)
             return null;
 
         if (entity instanceof LessonEventEntity)
-            return LessonEventToModel((LessonEventEntity) entity);
+            return LessonEventToDto((LessonEventEntity) entity);
 
         if (entity instanceof PointEntity)
-            return PointToModel((PointEntity) entity);
+            return PointToDto((PointEntity) entity);
 
         if (entity instanceof PointTypeEntity)
-            return PointTypeToModel((PointTypeEntity) entity);
+            return PointTypeToDto((PointTypeEntity) entity);
 
         if (entity instanceof LessonEntity)
-            return LessonToModel((LessonEntity) entity);
+            return LessonToDto((LessonEntity) entity);
 
         if (entity instanceof ProfessorEntity)
-            return ProfessorToModel((ProfessorEntity) entity);
+            return ProfessorToDto((ProfessorEntity) entity);
 
         if (entity instanceof StudentEntity)
-            return StudentToModel((StudentEntity) entity);
+            return StudentToDto((StudentEntity) entity);
 
         if (entity instanceof PairEntity)
-            return PairToModel((PairEntity) entity);
+            return PairToDto((PairEntity) entity);
 
         if (entity instanceof RoleEntity)
-            return RoleToModel((RoleEntity) entity);
+            return RoleToDto((RoleEntity) entity);
 
         if (entity instanceof UserEntity)
-            return UserToModel((UserEntity) entity);
+            return UserToDto((UserEntity) entity);
 
         if (entity instanceof InstituteEntity)
-            return InstituteToModel((InstituteEntity) entity);
+            return InstituteToDto((InstituteEntity) entity);
 
         if (entity instanceof DepartmentEntity)
-            return DepartmentToModel((DepartmentEntity) entity);
+            return DepartmentToDto((DepartmentEntity) entity);
 
         if (entity instanceof GroupEntity)
-            return GroupToModel((GroupEntity) entity);
+            return GroupToDto((GroupEntity) entity);
 
         if (entity instanceof DisciplineEntity)
-            return DisciplineToModel((DisciplineEntity) entity);
+            return DisciplineToDto((DisciplineEntity) entity);
 
         if (entity instanceof FieldOfKnowledgeEntity)
-            return FieldOfKnowledgeToModel((FieldOfKnowledgeEntity) entity );
+            return FieldOfKnowledgeToDto((FieldOfKnowledgeEntity) entity );
 
         if (entity instanceof RoomEntity)
-            return RoomToModel((RoomEntity) entity);
+            return RoomToDto((RoomEntity) entity);
 
         if (entity instanceof TaskUser)
-            return TaskUserToModel((TaskUser) entity);
+            return TaskUserToDto((TaskUser) entity);
 
         if (entity instanceof NewsEntity)
-            return NewsToModel((NewsEntity) entity);
+            return NewsToDto((NewsEntity) entity);
 
         if (entity instanceof TaskDescription)
-            return TaskDescriptionToModel((TaskDescription) entity);
+            return TaskDescriptionToDto((TaskDescription) entity);
 
         if (entity instanceof FileByteCode)
-            return FileByteCodeToModel((FileByteCode) entity);
+            return FileByteCodeToDto((FileByteCode) entity);
 
         if (entity instanceof FileDescription)
-            return FileDescriptionToModel((FileDescription) entity);
+            return FileDescriptionToDto((FileDescription) entity);
 
+        if (entity instanceof PairTypeEntity)
+            return PairTypeToDto((PairTypeEntity) entity);
 
         return new Exception("Not found " + entity.getClass().toString() + " entity class");
     }
 
-    public PointDTO PointToModel(PointEntity Entity)
+    public PointDTO PointToDto(PointEntity Entity)
     {
-        PointDTO Model = new PointDTO();
-        Model.setId(Entity.getId());
-        Model.setStudent(StudentToModel(Entity.getStudentEntity()));
-        Model.setValue(Entity.getValue());
-        Model.setPair(PairToModel(Entity.getPairEntity()));
-        Model.setType(PointTypeToModel(Entity.getType()));
-        Model.setDate(Entity.getDate());
-        return Model;
+        PointDTO Dto = new PointDTO();
+        Dto.setId(Entity.getId());
+        Dto.setStudent(StudentToDto(Entity.getStudentEntity()));
+        Dto.setValue(Entity.getValue());
+        Dto.setPair(PairToDto(Entity.getPairEntity()));
+        Dto.setType(PointTypeToDto(Entity.getType()));
+        Dto.setDate(Entity.getDate());
+        return Dto;
     }
-    public PointEntity PointToEntity(PointDTO Model)
+    public PointEntity PointToEntity(PointDTO Dto)
     {
         PointEntity Entity = new PointEntity();
-        Entity.setId(Model.getId());
-        Entity.setStudentEntity(StudentToEntity(Model.getStudent()));
-        Entity.setValue(Model.getValue());
-        Entity.setPairEntity(PairToEntity(Model.getPair()));
-        Entity.setType(PointTypeToEntity(Model.getType()));
-        Entity.setDate(Model.getDate());
+        Entity.setId(Dto.getId());
+        Entity.setStudentEntity(StudentToEntity(Dto.getStudent()));
+        Entity.setValue(Dto.getValue());
+        Entity.setPairEntity(PairToEntity(Dto.getPair()));
+        Entity.setType(PointTypeToEntity(Dto.getType()));
+        Entity.setDate(Dto.getDate());
         return Entity;
     }
 
-    public LessonEventDTO LessonEventToModel(LessonEventEntity Entity)
+    public LessonEventDTO LessonEventToDto(LessonEventEntity Entity)
     {
-        LessonEventDTO Model = new LessonEventDTO();
-        Model.setId(Entity.getId());
+        LessonEventDTO Dto = new LessonEventDTO();
+        Dto.setId(Entity.getId());
         Date Dt = new Date((long)Entity.getDate().getTime());
-        Model.setDate(Dt);
-        Model.setComment(Entity.getComment());
-        Model.setLesson(LessonToModel(Entity.getLessonEntity()));
-        Model.setType(PointTypeToModel(Entity.getType()));
-        return Model;
+        Dto.setDate(Dt);
+        Dto.setComment(Entity.getComment());
+        Dto.setLesson(LessonToDto(Entity.getLessonEntity()));
+        Dto.setType(PointTypeToDto(Entity.getType()));
+        return Dto;
     }
-    public LessonEventEntity LessonEventToEntity(LessonEventDTO Model)
+    public LessonEventEntity LessonEventToEntity(LessonEventDTO Dto)
     {
         LessonEventEntity Entity = new LessonEventEntity();
-        Entity.setId(Model.getId());
-        Timestamp ts = new Timestamp(Model.getDate().getTime());
+        Entity.setId(Dto.getId());
+        Timestamp ts = new Timestamp(Dto.getDate().getTime());
         Entity.setDate(ts);
-        Entity.setComment(Model.getComment());
-        Entity.setLessonEntity(LessonToEntity(Model.getLesson()));
-        Entity.setType(PointTypeToEntity(Model.getType()));
+        Entity.setComment(Dto.getComment());
+        Entity.setLessonEntity(LessonToEntity(Dto.getLesson()));
+        Entity.setType(PointTypeToEntity(Dto.getType()));
         return Entity;
     }
 
-    public PointTypeDTO PointTypeToModel(PointTypeEntity Entity)
+    public PointTypeDTO PointTypeToDto(PointTypeEntity Entity)
     {
-        PointTypeDTO Model = new PointTypeDTO();
-        Model.setId(Entity.getId());
-        Model.setName(Entity.getName());
-        return Model;
+        PointTypeDTO Dto = new PointTypeDTO();
+        Dto.setId(Entity.getId());
+        Dto.setName(Entity.getName());
+        return Dto;
     }
-    public PointTypeEntity PointTypeToEntity(PointTypeDTO Model)
+    public PointTypeEntity PointTypeToEntity(PointTypeDTO Dto)
     {
         PointTypeEntity Entity = new PointTypeEntity();
-        Entity.setId(Model.getId());
-        Entity.setName(Model.getName());
+        Entity.setId(Dto.getId());
+        Entity.setName(Dto.getName());
         return Entity;
     }
 
-    public TaskDescriptionModel TaskDescriptionToModel(TaskDescription Entity) {
-        TaskDescriptionModel Model = new TaskDescriptionModel();
-        Model.setId(Entity.getId());
-        Model.setCreator(UserToModel(Entity.getCreator()));
-        Model.setUsers(new ArrayList<>());
-        Model.setDescription(Entity.getDescription());
-        Model.setName(Entity.getName());
-        Model.setStatus(Entity.getStatus());
-        Model.setStatusName(TaskStatusType.values()[Entity.getStatus()].name());
+    public TaskDescriptionModel TaskDescriptionToDto(TaskDescription Entity) {
+        TaskDescriptionModel Dto = new TaskDescriptionModel();
+        Dto.setId(Entity.getId());
+        Dto.setCreator(UserToDto(Entity.getCreator()));
+        Dto.setUsers(new ArrayList<>());
+        Dto.setDescription(Entity.getDescription());
+        Dto.setName(Entity.getName());
+        Dto.setStatus(Entity.getStatus());
+        Dto.setStatusName(TaskStatusType.values()[Entity.getStatus()].name());
         List<TaskUserModel> tasks = new ArrayList<>();
         /*for (Task t: Entity.getSubTasks()) {
-            tasks.add(TaskToModel(t));
+            tasks.add(TaskToDto(t));
         }*/
-        Model.setTaskUsers(tasks);
+        Dto.setTaskUsers(tasks);
         List<FileDescriptionModel> files = new ArrayList<>();
         for (FileDescription t: Entity.getFiles()) {
-            files.add(FileDescriptionToModel(t));
+            files.add(FileDescriptionToDto(t));
         }
-        Model.setFiles(files);
-        return Model;
+        Dto.setFiles(files);
+        return Dto;
     }
 
-    public TaskDescription TaskDescriptionToEntity(TaskDescriptionModel Model) {
+    public TaskDescription TaskDescriptionToEntity(TaskDescriptionModel Dto) {
         TaskDescription Entity = new TaskDescription();
-        Entity.setId(Model.getId());
-        Entity.setCreator(UserToEntity(Model.getCreator()));
-        Entity.setDescription(Model.getDescription());
-        Entity.setName(Model.getName());
+        Entity.setId(Dto.getId());
+        Entity.setCreator(UserToEntity(Dto.getCreator()));
+        Entity.setDescription(Dto.getDescription());
+        Entity.setName(Dto.getName());
         List<TaskUser> tasks = new ArrayList<>();
-        for (TaskUserModel t : Model.getTaskUsers()) {
+        for (TaskUserModel t : Dto.getTaskUsers()) {
             tasks.add(TaskUserToEntity(t));
         }
         Entity.setTaskUsers(tasks);
 
         Set<FileDescription> files = new HashSet<>();
-        for (FileDescriptionModel t : Model.getFiles()) {
+        for (FileDescriptionModel t : Dto.getFiles()) {
             files.add(FileDescriptionToEntity(t));
         }
         Entity.setFiles(files);
         return Entity;
     }
 
-    public TaskUserModel TaskUserToModel(TaskUser Entity) {
-        TaskUserModel Model = new TaskUserModel();
-        Model.setId(Entity.getId());
-        Model.setExecutor(UserToModel(Entity.getExecutor()));
-        Model.setResponse(Entity.getResponse());
-        Model.setStatus(Entity.getStatus());
-        Model.setStatusName(TaskStatusType.values()[Entity.getStatus()].name());
-        Model.setTaskDescriptionId(Entity.getTaskDescription().getId());
+    public TaskUserModel TaskUserToDto(TaskUser Entity) {
+        TaskUserModel Dto = new TaskUserModel();
+        Dto.setId(Entity.getId());
+        Dto.setExecutor(UserToDto(Entity.getExecutor()));
+        Dto.setResponse(Entity.getResponse());
+        Dto.setStatus(Entity.getStatus());
+        Dto.setStatusName(TaskStatusType.values()[Entity.getStatus()].name());
+        Dto.setTaskDescriptionId(Entity.getTaskDescription().getId());
         List<FileDescriptionModel> files = new ArrayList<>();
         for (FileDescription t: Entity.getFiles()) {
-            files.add(FileDescriptionToModel(t));
+            files.add(FileDescriptionToDto(t));
         }
-        Model.setFiles(files);
-        return Model;
+        Dto.setFiles(files);
+        return Dto;
     }
 
-    public TaskUser TaskUserToEntity(TaskUserModel Model) {
+    public TaskUser TaskUserToEntity(TaskUserModel Dto) {
         TaskUser Entity = new TaskUser();
-        Entity.setId(Model.getId());
-        Entity.setExecutor(UserToEntity(Model.getExecutor()));
-        Entity.setResponse(Model.getResponse());
-        Entity.setStatus(Model.getStatus());
+        Entity.setId(Dto.getId());
+        Entity.setExecutor(UserToEntity(Dto.getExecutor()));
+        Entity.setResponse(Dto.getResponse());
+        Entity.setStatus(Dto.getStatus());
         TaskDescription taskDescription = new TaskDescription();
-        taskDescription.setId(Model.getTaskDescriptionId());
+        taskDescription.setId(Dto.getTaskDescriptionId());
         Entity.setTaskDescription(taskDescription);
         Set<FileDescription> files = new HashSet<>();
-        for (FileDescriptionModel t : Model.getFiles()) {
+        for (FileDescriptionModel t : Dto.getFiles()) {
             files.add(FileDescriptionToEntity(t));
         }
         Entity.setFiles(files);
         return Entity;
     }
 
-    public NewsDTO NewsToModel(NewsEntity Entity)
+    public NewsDTO NewsToDto(NewsEntity Entity)
     {
-        NewsDTO Model = new NewsDTO();
-        Model.setId(Entity.getId());
-        Model.setAuthor(UserToModel(Entity.getAuthor()));
-        Model.setDate(Entity.getDate());
-        Model.setContent(Entity.getContent());
-        Model.setHeader(Entity.getHeader());
-        Model.setId(Entity.getId());
-        Model.setImage(new String(Entity.getImage(), StandardCharsets.UTF_8));
-        Model.setTags(Entity.getTags());
-        return Model;
+        NewsDTO Dto = new NewsDTO();
+        Dto.setId(Entity.getId());
+        Dto.setAuthor(UserToDto(Entity.getAuthor()));
+        Dto.setDate(Entity.getDate());
+        Dto.setContent(Entity.getContent());
+        Dto.setHeader(Entity.getHeader());
+        Dto.setId(Entity.getId());
+        Dto.setImage(new String(Entity.getImage(), StandardCharsets.UTF_8));
+        Dto.setTags(Entity.getTags());
+        return Dto;
     }
-    public NewsEntity NewsToEntity(NewsDTO Model)
+    public NewsEntity NewsToEntity(NewsDTO Dto)
     {
         NewsEntity Entity = new NewsEntity();
-        Entity.setId(Model.getId());
-        Entity.setAuthor(UserToEntity(Model.getAuthor()));
-        Entity.setDate(Model.getDate());
-        Entity.setContent(Model.getContent());
-        Entity.setHeader(Model.getHeader());
-        Entity.setId(Model.getId());
-        Entity.setImage(Model.getImage().getBytes());
-        Entity.setTags(Model.getTags());
+        Entity.setId(Dto.getId());
+        Entity.setAuthor(UserToEntity(Dto.getAuthor()));
+        Entity.setDate(Dto.getDate());
+        Entity.setContent(Dto.getContent());
+        Entity.setHeader(Dto.getHeader());
+        Entity.setId(Dto.getId());
+        Entity.setImage(Dto.getImage().getBytes());
+        Entity.setTags(Dto.getTags());
         return Entity;
     }
 
-    public ProfessorDTO ProfessorToModel(ProfessorEntity Entity)
+    public ProfessorDTO ProfessorToDto(ProfessorEntity Entity)
     {
-        ProfessorDTO Model = new ProfessorDTO();
-        Model.setId(Entity.getId());
-        Model.setUser(UserToModel(Entity.getUserEntity()));
-        Model.setDepartment((DepartmentDTO) toModel(Entity.getDepartmentEntity()));
-        return Model;
+        ProfessorDTO Dto = new ProfessorDTO();
+        Dto.setId(Entity.getId());
+        Dto.setUser(UserToDto(Entity.getUserEntity()));
+        Dto.setDepartment((DepartmentDTO) toDto(Entity.getDepartmentEntity()));
+        return Dto;
     }
-    public ProfessorEntity ProfessorToEntity(ProfessorDTO Model)
+    public ProfessorEntity ProfessorToEntity(ProfessorDTO Dto)
     {
         ProfessorEntity Entity = new ProfessorEntity();
-        Entity.setId(Model.getId());
-        Entity.setUserEntity(UserToEntity(Model.getUser()));
-        Entity.setDepartmentEntity((DepartmentEntity) toEntity(Model.getDepartment()));
+        Entity.setId(Dto.getId());
+        Entity.setUserEntity(UserToEntity(Dto.getUser()));
+        Entity.setDepartmentEntity((DepartmentEntity) toEntity(Dto.getDepartment()));
         return Entity;
     }
 
-    public StudentDTO StudentToModel(StudentEntity Entity)
+    public StudentDTO StudentToDto(StudentEntity Entity)
     {
-        StudentDTO Model = new StudentDTO();
-        Model.setId(Entity.getId());
-        Model.setUser(UserToModel(Entity.getUserEntity()));
-        Model.setGroup((GroupDTO) toModel(Entity.getGroupEntity()));
-        return Model;
+        StudentDTO Dto = new StudentDTO();
+        Dto.setId(Entity.getId());
+        Dto.setUser(UserToDto(Entity.getUserEntity()));
+        Dto.setGroup((GroupDTO) toDto(Entity.getGroupEntity()));
+        return Dto;
     }
-    public StudentEntity StudentToEntity(StudentDTO Model)
+    public StudentEntity StudentToEntity(StudentDTO Dto)
     {
         StudentEntity Entity = new StudentEntity();
-        Entity.setId(Model.getId());
-        Entity.setUserEntity(UserToEntity(Model.getUser()));
-        Entity.setGroupEntity((GroupEntity) toEntity(Model.getGroup()));
+        Entity.setId(Dto.getId());
+        Entity.setUserEntity(UserToEntity(Dto.getUser()));
+        Entity.setGroupEntity((GroupEntity) toEntity(Dto.getGroup()));
         return Entity;
     }
 
-    public RoomDTO RoomToModel(RoomEntity Entity)
+    public RoomDTO RoomToDto(RoomEntity Entity)
     {
-        RoomDTO Model = new RoomDTO();
-        Model.setId(Entity.getId());
-        Model.setRoom(Entity.getRoom());
-        return Model;
+        RoomDTO Dto = new RoomDTO();
+        Dto.setId(Entity.getId());
+        Dto.setRoom(Entity.getRoom());
+        return Dto;
     }
-    public RoomEntity RoomToEntity(RoomDTO Model)
+    public RoomEntity RoomToEntity(RoomDTO Dto)
     {
         RoomEntity Entity = new RoomEntity();
-        Entity.setId(Model.getId());
-        Entity.setRoom(Model.getRoom());
+        Entity.setId(Dto.getId());
+        Entity.setRoom(Dto.getRoom());
         return Entity;
     }
 
-    public LessonDTO LessonToModel(LessonEntity Entity)
+    public LessonDTO LessonToDto(LessonEntity Entity)
     {
-        LessonDTO Model = new LessonDTO();
-        Model.setId((int) Entity.getId());
-        Model.setDiscipline(DisciplineToModel(Entity.getDisciplineEntity()));
-        Model.setGroup(GroupToModel(Entity.getGroupEntity()));
-        Model.setProfessor(ProfessorToModel(Entity.getProfessorEntity()));
-        return Model;
+        LessonDTO Dto = new LessonDTO();
+        Dto.setId((int) Entity.getId());
+        Dto.setDiscipline(DisciplineToDto(Entity.getDisciplineEntity()));
+        Dto.setGroup(GroupToDto(Entity.getGroupEntity()));
+        Dto.setProfessor(ProfessorToDto(Entity.getProfessorEntity()));
+        return Dto;
     }
-    public LessonEntity LessonToEntity(LessonDTO Model)
+    public LessonEntity LessonToEntity(LessonDTO Dto)
     {
         LessonEntity Entity = new LessonEntity();
-        Entity.setId(Model.getId());
-        Entity.setDisciplineEntity(DisciplineToEntity(Model.getDiscipline()));
-        Entity.setGroupEntity(GroupToEntity(Model.getGroup()));
-        Entity.setProfessorEntity(ProfessorToEntity(Model.getProfessor()));
+        Entity.setId(Dto.getId());
+        Entity.setDisciplineEntity(DisciplineToEntity(Dto.getDiscipline()));
+        Entity.setGroupEntity(GroupToEntity(Dto.getGroup()));
+        Entity.setProfessorEntity(ProfessorToEntity(Dto.getProfessor()));
         return Entity;
     }
 
-    public PairDTO PairToModel(PairEntity Entity)
+    public PairDTO PairToDto(PairEntity Entity)
     {
-        PairDTO Model = new PairDTO();
-        Model.setId((int) Entity.getId());
-        Model.setPairNumber(Entity.getPairNumber());
-        Model.setWeektype(Entity.getWeektype());
-        Model.setDayofweek(Entity.getDayofweek());
-        Model.setLesson(LessonToModel(Entity.getLessonEntity()));
-        Model.setRoom(RoomToModel(Entity.getRoomEntity()));
-        return Model;
+        PairDTO Dto = new PairDTO();
+        Dto.setId((int) Entity.getId());
+        Dto.setPairNumber(Entity.getPairNumber());
+        Dto.setWeektype(Entity.getWeektype());
+        Dto.setDayofweek(Entity.getDayofweek());
+        Dto.setLesson(LessonToDto(Entity.getLessonEntity()));
+        Dto.setRoom(RoomToDto(Entity.getRoomEntity()));
+        Dto.setPairType(PairTypeToDto(Entity.getPairType()));
+        return Dto;
     }
-    public PairEntity PairToEntity(PairDTO Model)
+    public PairEntity PairToEntity(PairDTO Dto)
     {
         PairEntity Entity = new PairEntity();
-        Entity.setId((int) Model.getId());
-        Entity.setPairNumber(Model.getPairNumber());
-        Entity.setWeektype(Model.getWeektype());
-        Entity.setDayofweek(Model.getDayofweek());
-        Entity.setLessonEntity(LessonToEntity(Model.getLesson()));
-        Entity.setRoomEntity(RoomToEntity(Model.getRoom()));
+        Entity.setId((int) Dto.getId());
+        Entity.setPairNumber(Dto.getPairNumber());
+        Entity.setWeektype(Dto.getWeektype());
+        Entity.setDayofweek(Dto.getDayofweek());
+        Entity.setLessonEntity(LessonToEntity(Dto.getLesson()));
+        Entity.setRoomEntity(RoomToEntity(Dto.getRoom()));
+        Entity.setPairType(PairTypeToEntity(Dto.getPairType()));
+        return Entity;
+    }
+    
+    public PairTypeDTO PairTypeToDto(PairTypeEntity Entity)
+    {
+        PairTypeDTO Dto = new PairTypeDTO();
+        Dto.setId((int) Entity.getId());
+        Dto.setType(Entity.getType());
+        return Dto;
+    }
+    public PairTypeEntity PairTypeToEntity(PairTypeDTO Dto)
+    {
+        PairTypeEntity Entity = new PairTypeEntity();
+        Entity.setId((int) Dto.getId());
+        Entity.setType(Dto.getType());
         return Entity;
     }
 
-    public UserEntity UserToEntity(UserDTO Model)
+    public UserEntity UserToEntity(UserDTO Dto)
     {
         UserEntity Entity = new UserEntity();
 
-        Entity.setId(Model.getId());
-        Entity.setUsername(Model.getUsername());
-        Entity.setEmail(Model.getEmail());
-        Entity.setUserFIO(Model.getUserFIO());
-        Entity.setPassword(Model.getPassword());
+        Entity.setId(Dto.getId());
+        Entity.setUsername(Dto.getUsername());
+        Entity.setEmail(Dto.getEmail());
+        Entity.setUserFIO(Dto.getUserFIO());
+        Entity.setPassword(Dto.getPassword());
         byte[] photo = null;
-        if(Model.getPhoto() != null)
-            photo = Model.getPhoto().getBytes();
+        if(Dto.getPhoto() != null)
+            photo = Dto.getPhoto().getBytes();
         Entity.setPhoto(photo);
         Set<RoleEntity> roleEntities = new HashSet<RoleEntity>();
-        for (RoleDTO role: Model.getRoles()) {
+        for (RoleDTO role: Dto.getRoles()) {
             RoleEntity roleEntityEntity = (RoleEntity) toEntity(role);
             roleEntities.add(roleEntityEntity);
         }
@@ -459,150 +481,150 @@ public class MapperService implements IMapperService {
 
         return Entity;
     }
-    public UserDTO UserToModel(UserEntity Entity)
+    public UserDTO UserToDto(UserEntity Entity)
     {
-        UserDTO Model = new UserDTO();
+        UserDTO Dto = new UserDTO();
 
-        Model.setId(Entity.getId());
-        Model.setUsername(Entity.getUsername());
-        Model.setEmail(Entity.getEmail());
-        Model.setUserFIO(Entity.getUserFIO());
-        Model.setPassword(Entity.getPassword());
+        Dto.setId(Entity.getId());
+        Dto.setUsername(Entity.getUsername());
+        Dto.setEmail(Entity.getEmail());
+        Dto.setUserFIO(Entity.getUserFIO());
+        Dto.setPassword(Entity.getPassword());
         String photo = "";
         if(Entity.getPhoto() != null)
             photo = new String(Entity.getPhoto(), StandardCharsets.UTF_8);
-        Model.setPhoto(photo);
+        Dto.setPhoto(photo);
         List<RoleDTO> roles = new ArrayList<>();
         for (RoleEntity roleEntity : Entity.getRoleEntities()) {
-            RoleDTO roleDTO = (RoleDTO) toModel(roleEntity);
+            RoleDTO roleDTO = (RoleDTO) toDto(roleEntity);
             roles.add(roleDTO);
         }
-        Model.setRoles(roles);
-        return Model;
+        Dto.setRoles(roles);
+        return Dto;
     }
 
-    public RoleDTO RoleToModel(RoleEntity Entity)
+    public RoleDTO RoleToDto(RoleEntity Entity)
     {
-        RoleDTO Model = new RoleDTO();
-        Model.setId((int) Entity.getId());
-        Model.setRoleName(Entity.getRoleName());
-        return Model;
+        RoleDTO Dto = new RoleDTO();
+        Dto.setId((int) Entity.getId());
+        Dto.setRoleName(Entity.getRoleName());
+        return Dto;
     }
-    public RoleEntity RoleToEntity(RoleDTO Model)
+    public RoleEntity RoleToEntity(RoleDTO Dto)
     {
         RoleEntity Entity = new RoleEntity();
-        Entity.setId(Model.getId());
-        Entity.setRoleName(Model.getRoleName());
+        Entity.setId(Dto.getId());
+        Entity.setRoleName(Dto.getRoleName());
         return Entity;
     }
 
-    public InstituteDTO InstituteToModel(InstituteEntity Entity)
+    public InstituteDTO InstituteToDto(InstituteEntity Entity)
     {
-        InstituteDTO Model = new InstituteDTO();
+        InstituteDTO Dto = new InstituteDTO();
 
-        Model.setId(Entity.getId());
-        Model.setName(Entity.getName());
-        return Model;
+        Dto.setId(Entity.getId());
+        Dto.setName(Entity.getName());
+        return Dto;
     }
-    public InstituteEntity InstituteToEntity(InstituteDTO Model)
+    public InstituteEntity InstituteToEntity(InstituteDTO Dto)
     {
         InstituteEntity Entity = new InstituteEntity();
 
-        Entity.setId(Model.getId());
-        Entity.setName(Model.getName());
+        Entity.setId(Dto.getId());
+        Entity.setName(Dto.getName());
         return Entity;
     }
 
-    public DepartmentDTO DepartmentToModel(DepartmentEntity Entity)
+    public DepartmentDTO DepartmentToDto(DepartmentEntity Entity)
     {
-        DepartmentDTO Model = new DepartmentDTO();
+        DepartmentDTO Dto = new DepartmentDTO();
 
-        Model.setId(Entity.getId());
-        Model.setName(Entity.getName());
-        Model.setInstitute((InstituteDTO) toModel(Entity.getInstituteEntity()));
-        return Model;
+        Dto.setId(Entity.getId());
+        Dto.setName(Entity.getName());
+        Dto.setInstitute((InstituteDTO) toDto(Entity.getInstituteEntity()));
+        return Dto;
     }
-    public DepartmentEntity DepartmentToEntity(DepartmentDTO Model)
+    public DepartmentEntity DepartmentToEntity(DepartmentDTO Dto)
     {
         DepartmentEntity Entity = new DepartmentEntity();
-        Entity.setId(Model.getId());
-        Entity.setName(Model.getName());
-        Entity.setInstituteEntity((InstituteEntity) toEntity(Model.getInstitute()));
+        Entity.setId(Dto.getId());
+        Entity.setName(Dto.getName());
+        Entity.setInstituteEntity((InstituteEntity) toEntity(Dto.getInstitute()));
         return Entity;
     }
 
-    public GroupDTO GroupToModel(GroupEntity Entity)
+    public GroupDTO GroupToDto(GroupEntity Entity)
     {
-        GroupDTO Model = new GroupDTO();
+        GroupDTO Dto = new GroupDTO();
 
-        Model.setName(Entity.getName());
-        Model.setId(Entity.getId());
-        Model.setDepartment((DepartmentDTO) toModel(Entity.getDepartmentEntity()));
+        Dto.setName(Entity.getName());
+        Dto.setId(Entity.getId());
+        Dto.setDepartment((DepartmentDTO) toDto(Entity.getDepartmentEntity()));
 
-        return Model;
+        return Dto;
     }
-    public GroupEntity GroupToEntity(GroupDTO Model)
+    public GroupEntity GroupToEntity(GroupDTO Dto)
     {
 
         GroupEntity Entity = new GroupEntity();
 
-        Entity.setName(Model.getName());
-        Entity.setId(Model.getId());
-        Entity.setDepartmentEntity((DepartmentEntity) toEntity(Model.getDepartment()));
+        Entity.setName(Dto.getName());
+        Entity.setId(Dto.getId());
+        Entity.setDepartmentEntity((DepartmentEntity) toEntity(Dto.getDepartment()));
 
         return Entity;
     }
 
-    private DisciplineDTO DisciplineToModel(DisciplineEntity Entity)
+    private DisciplineDTO DisciplineToDto(DisciplineEntity Entity)
     {
-        DisciplineDTO Model = new DisciplineDTO();
+        DisciplineDTO Dto = new DisciplineDTO();
 
-        Model.setId((int) Entity.getId());
-        Model.setName(Entity.getName());
+        Dto.setId((int) Entity.getId());
+        Dto.setName(Entity.getName());
         if(Entity.getFieldOfKnowledgeEntity() != null)
-            Model.setFieldOfKnowledge((FieldOfKnowledgeDTO) toModel(Entity.getFieldOfKnowledgeEntity()));
+            Dto.setFieldOfKnowledge((FieldOfKnowledgeDTO) toDto(Entity.getFieldOfKnowledgeEntity()));
 
-        return Model;
+        return Dto;
     }
-    private DisciplineEntity DisciplineToEntity(DisciplineDTO Model)
+    private DisciplineEntity DisciplineToEntity(DisciplineDTO Dto)
     {
         DisciplineEntity Entity = new DisciplineEntity();
 
-        Entity.setId(Model.getId());
-        Entity.setName(Model.getName());
-        if (Model.getFieldOfKnowledge() != null) {
-            Entity.setFieldOfKnowledgeEntity((FieldOfKnowledgeEntity) toEntity(Model.getFieldOfKnowledge()));
+        Entity.setId(Dto.getId());
+        Entity.setName(Dto.getName());
+        if (Dto.getFieldOfKnowledge() != null) {
+            Entity.setFieldOfKnowledgeEntity((FieldOfKnowledgeEntity) toEntity(Dto.getFieldOfKnowledge()));
         }
 
         return Entity;
     }
 
-    private FieldOfKnowledgeDTO FieldOfKnowledgeToModel(FieldOfKnowledgeEntity Entity)
+    private FieldOfKnowledgeDTO FieldOfKnowledgeToDto(FieldOfKnowledgeEntity Entity)
     {
 
-        FieldOfKnowledgeDTO Model = new FieldOfKnowledgeDTO();
-        Model.setName(Entity.getName());
-        Model.setId(Entity.getId());
+        FieldOfKnowledgeDTO Dto = new FieldOfKnowledgeDTO();
+        Dto.setName(Entity.getName());
+        Dto.setId(Entity.getId());
 
-        return Model;
+        return Dto;
     }
-    private FieldOfKnowledgeEntity FieldOfKnowledgeToEntity(FieldOfKnowledgeDTO Model)
+    private FieldOfKnowledgeEntity FieldOfKnowledgeToEntity(FieldOfKnowledgeDTO Dto)
     {
 
         FieldOfKnowledgeEntity Entity = new FieldOfKnowledgeEntity();
 
-        Entity.setName(Model.getName());
-        Entity.setId(Model.getId());
+        Entity.setName(Dto.getName());
+        Entity.setId(Dto.getId());
 
         return Entity;
     }
 
-    private FileByteCodeModel FileByteCodeToModel(FileByteCode entity){
-        FileByteCodeModel Model = new FileByteCodeModel();
-        Model.setData(entity.getData());
-        Model.setFileDescription((FileDescriptionModel) toModel(entity.getFileDescription()));
-        Model.setId(entity.getId());
-        return Model;
+    private FileByteCodeModel FileByteCodeToDto(FileByteCode entity){
+        FileByteCodeModel Dto = new FileByteCodeModel();
+        Dto.setData(entity.getData());
+        Dto.setFileDescription((FileDescriptionModel) toDto(entity.getFileDescription()));
+        Dto.setId(entity.getId());
+        return Dto;
     }
 
     private FileByteCode FileByteCodeToEntity(FileByteCodeModel model) {
@@ -613,12 +635,12 @@ public class MapperService implements IMapperService {
         return Entity;
     }
 
-    private FileDescriptionModel FileDescriptionToModel(FileDescription entity){
-        FileDescriptionModel Model = new FileDescriptionModel();
-        Model.setFileName(entity.getFileName());
-        Model.setFileType(entity.getFileType());
-        Model.setId(entity.getId());
-        return Model;
+    private FileDescriptionModel FileDescriptionToDto(FileDescription entity){
+        FileDescriptionModel Dto = new FileDescriptionModel();
+        Dto.setFileName(entity.getFileName());
+        Dto.setFileType(entity.getFileType());
+        Dto.setId(entity.getId());
+        return Dto;
     }
 
     private FileDescription FileDescriptionToEntity(FileDescriptionModel model) {

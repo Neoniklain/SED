@@ -2,12 +2,12 @@ package com.unesco.core.managers.schedule.sheduleManager;
 
 import com.unesco.core.managers.schedule.pairManager.interfaces.pairList.IPairListManager;
 import com.unesco.core.managers.schedule.sheduleManager.interfaces.shedule.ISheduleManager;
-import com.unesco.core.models.SheduleDTO;
-import com.unesco.core.models.account.ProfessorDTO;
-import com.unesco.core.models.plan.DepartmentDTO;
-import com.unesco.core.models.shedule.DepartmentSheduleDTO;
-import com.unesco.core.models.shedule.GroupDTO;
-import com.unesco.core.models.shedule.PairDTO;
+import com.unesco.core.dto.SheduleDTO;
+import com.unesco.core.dto.account.ProfessorDTO;
+import com.unesco.core.dto.plan.DepartmentDTO;
+import com.unesco.core.dto.shedule.DepartmentSheduleDTO;
+import com.unesco.core.dto.shedule.GroupDTO;
+import com.unesco.core.dto.shedule.PairDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;

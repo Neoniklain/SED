@@ -2,8 +2,8 @@ package com.unesco.core.services.taskService.taskDescriptionService;
 
 import com.unesco.core.entities.file.FileDescription;
 import com.unesco.core.entities.task.TaskDescription;
-import com.unesco.core.models.file.FileDescriptionModel;
-import com.unesco.core.models.task.TaskDescriptionModel;
+import com.unesco.core.dto.file.FileDescriptionModel;
+import com.unesco.core.dto.task.TaskDescriptionModel;
 import com.unesco.core.repositories.task.TaskDescriptionRepository;
 import com.unesco.core.services.mapperService.MapperService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,7 +25,7 @@ public class TaskDescriptionDataService implements ITaskDescriptionDataService
    @Override
    public TaskDescriptionModel Save(TaskDescriptionModel taskDescriptionModel) {
       TaskDescription forSave = (TaskDescription) _mapperService.toEntity(taskDescriptionModel);
-      return (TaskDescriptionModel) _mapperService.toModel(_taskDescriptionRepository.save(forSave));
+      return (TaskDescriptionModel) _mapperService.toDto(_taskDescriptionRepository.save(forSave));
    }
 
    @Override
@@ -35,7 +35,7 @@ public class TaskDescriptionDataService implements ITaskDescriptionDataService
 
    @Override
    public TaskDescriptionModel Get(long id) {
-      return (TaskDescriptionModel) _mapperService.toModel(_taskDescriptionRepository.findById(id));
+      return (TaskDescriptionModel) _mapperService.toDto(_taskDescriptionRepository.findById(id));
    }
 
    @Override
@@ -43,7 +43,7 @@ public class TaskDescriptionDataService implements ITaskDescriptionDataService
       List<TaskDescriptionModel> result = new ArrayList<>();
       Iterable<TaskDescription> entities = _taskDescriptionRepository.findAll();
       for (TaskDescription item:entities) {
-         result.add((TaskDescriptionModel) _mapperService.toModel(item));
+         result.add((TaskDescriptionModel) _mapperService.toDto(item));
       }
       return result;
    }
@@ -53,7 +53,7 @@ public class TaskDescriptionDataService implements ITaskDescriptionDataService
       Iterable<TaskDescription> entities = _taskDescriptionRepository.findAllByCreatorId(id);
       List<TaskDescriptionModel> result = new ArrayList<>();
       for(TaskDescription item:entities){
-         result.add((TaskDescriptionModel) _mapperService.toModel(item));
+         result.add((TaskDescriptionModel) _mapperService.toDto(item));
       }
       return result;
    }

@@ -1,8 +1,8 @@
 package com.unesco.core.services.schedule.roomService;
 
 import com.unesco.core.entities.schedule.RoomEntity;
-import com.unesco.core.models.shedule.RoomDTO;
-import com.unesco.core.models.additional.FilterQueryDTO;
+import com.unesco.core.dto.shedule.RoomDTO;
+import com.unesco.core.dto.additional.FilterQueryDTO;
 import com.unesco.core.repositories.RoomRepository;
 import com.unesco.core.services.mapperService.IMapperService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,7 +26,7 @@ public class RoomDataService implements IRoomDataService {
         List<RoomEntity> entitys = roomRepository.findWithFilter(new PageRequest(start, rows == 0 ? 10 : rows), filter.getGlobalFilter());
         List<RoomDTO> result = new ArrayList<RoomDTO>();
         for (RoomEntity e: entitys) {
-            result.add((RoomDTO) mapperService.toModel(e));
+            result.add((RoomDTO) mapperService.toDto(e));
         }
         return result;
     }
@@ -36,7 +36,7 @@ public class RoomDataService implements IRoomDataService {
         List<RoomDTO> modelList = new ArrayList<>();
         Iterable<RoomEntity> entityList = roomRepository.findAll();
         for (RoomEntity item: entityList) {
-            RoomDTO model = (RoomDTO) mapperService.toModel(item);
+            RoomDTO model = (RoomDTO) mapperService.toDto(item);
             modelList.add(model);
         }
         return modelList;
@@ -45,14 +45,14 @@ public class RoomDataService implements IRoomDataService {
     public RoomDTO Get(long id)
     {
         RoomEntity entity = roomRepository.findOne(id);
-        RoomDTO model = (RoomDTO) mapperService.toModel(entity);
+        RoomDTO model = (RoomDTO) mapperService.toDto(entity);
         return model;
     }
 
     public RoomDTO GetByRoom(String room)
     {
         RoomEntity entity = roomRepository.findByRoom(room);
-        RoomDTO model = (RoomDTO) mapperService.toModel(entity);
+        RoomDTO model = (RoomDTO) mapperService.toDto(entity);
         return model;
     }
 
@@ -65,7 +65,7 @@ public class RoomDataService implements IRoomDataService {
     {
         RoomEntity entity = (RoomEntity) mapperService.toEntity(room);
         RoomEntity model = roomRepository.save(entity);
-        room = (RoomDTO) mapperService.toModel(model);
+        room = (RoomDTO) mapperService.toDto(model);
         return room;
     }
 }

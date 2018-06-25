@@ -1,8 +1,8 @@
 package com.unesco.core.services.account.roleService;
 
 import com.unesco.core.entities.account.RoleEntity;
-import com.unesco.core.models.account.RoleDTO;
-import com.unesco.core.models.additional.FilterQueryDTO;
+import com.unesco.core.dto.account.RoleDTO;
+import com.unesco.core.dto.additional.FilterQueryDTO;
 import com.unesco.core.repositories.account.RoleRepository;
 import com.unesco.core.services.mapperService.IMapperService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,7 +25,7 @@ public class RoleDataService implements IRoleDataService {
         List<RoleEntity> entitys = roleRepository.findWithFilter(new PageRequest(start, rows == 0 ? 10 : rows), filter.getGlobalFilter());
         List<RoleDTO> result = new ArrayList<RoleDTO>();
         for (RoleEntity e: entitys) {
-            result.add((RoleDTO) mapperService.toModel(e));
+            result.add((RoleDTO) mapperService.toDto(e));
         }
         return result;
     }
@@ -35,7 +35,7 @@ public class RoleDataService implements IRoleDataService {
         List<RoleDTO> modelList = new ArrayList<>();
         Iterable<RoleEntity> entityList = roleRepository.findAll();
         for (RoleEntity item: entityList) {
-            RoleDTO model = (RoleDTO) mapperService.toModel(item);
+            RoleDTO model = (RoleDTO) mapperService.toDto(item);
             modelList.add(model);
         }
         return modelList;
@@ -44,14 +44,14 @@ public class RoleDataService implements IRoleDataService {
     public RoleDTO Get(long id)
     {
         RoleEntity entity = roleRepository.findOne(id);
-        RoleDTO model = (RoleDTO) mapperService.toModel(entity);
+        RoleDTO model = (RoleDTO) mapperService.toDto(entity);
         return model;
     }
 
     public RoleDTO GetByName(String name)
     {
         RoleEntity entity = roleRepository.findByRole(name);
-        RoleDTO model = (RoleDTO) mapperService.toModel(entity);
+        RoleDTO model = (RoleDTO) mapperService.toDto(entity);
         return model;
     }
 
@@ -64,7 +64,7 @@ public class RoleDataService implements IRoleDataService {
     {
         RoleEntity entity = (RoleEntity) mapperService.toEntity(role);
         RoleEntity model = roleRepository.save(entity);
-        role = (RoleDTO) mapperService.toModel(model);
+        role = (RoleDTO) mapperService.toDto(model);
         return role;
     }
 

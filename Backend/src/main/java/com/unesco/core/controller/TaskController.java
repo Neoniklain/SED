@@ -1,10 +1,10 @@
 package com.unesco.core.controller;
 
 import com.unesco.core.managers.task.interfaces.ITaskService;
-import com.unesco.core.models.account.UserDTO;
-import com.unesco.core.models.additional.ResponseStatusDTO;
-import com.unesco.core.models.task.TaskDescriptionModel;
-import com.unesco.core.models.task.TaskUserModel;
+import com.unesco.core.dto.account.UserDTO;
+import com.unesco.core.dto.additional.ResponseStatusDTO;
+import com.unesco.core.dto.task.TaskDescriptionModel;
+import com.unesco.core.dto.task.TaskUserModel;
 import com.unesco.core.security.CustomUserDetailsService;
 import com.unesco.core.utils.StatusTypes;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -2,8 +2,8 @@ package com.unesco.core.controllerWeb;
 
 
 import com.unesco.core.controller.FileController;
-import com.unesco.core.models.additional.ResponseStatusDTO;
-import com.unesco.core.models.file.FileByteCodeModel;
+import com.unesco.core.dto.additional.ResponseStatusDTO;
+import com.unesco.core.dto.file.FileByteCodeModel;
 import com.unesco.core.utils.StatusTypes;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;

@@ -2,9 +2,9 @@ package com.unesco.core.controller;
 
 import com.unesco.core.managers.journal.journalManager.interfaces.journal.IJournalManager;
 import com.unesco.core.managers.journal.lessonEvent.interfaces.lessonEvent.ILessonEventManager;
-import com.unesco.core.models.additional.ResponseStatusDTO;
-import com.unesco.core.models.journal.JournalDTO;
-import com.unesco.core.models.journal.LessonEventDTO;
+import com.unesco.core.dto.additional.ResponseStatusDTO;
+import com.unesco.core.dto.journal.JournalDTO;
+import com.unesco.core.dto.journal.LessonEventDTO;
 import com.unesco.core.services.journal.journal.IJournalDataService;
 import com.unesco.core.services.journal.lessonEvent.ILessonEventDataService;
 import com.unesco.core.utils.StatusTypes;

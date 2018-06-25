@@ -1,8 +1,8 @@
 package com.unesco.core.managers.schedule.roomManager;
 
 import com.unesco.core.managers.schedule.roomManager.interfaces.room.IRoomManager;
-import com.unesco.core.models.additional.ResponseStatusDTO;
-import com.unesco.core.models.shedule.RoomDTO;
+import com.unesco.core.dto.additional.ResponseStatusDTO;
+import com.unesco.core.dto.shedule.RoomDTO;
 import com.unesco.core.services.schedule.roomService.IRoomDataService;
 import com.unesco.core.utils.StatusTypes;
 import org.springframework.beans.factory.annotation.Autowired;

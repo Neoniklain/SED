@@ -1,7 +1,7 @@
 package com.unesco.core.services.schedule.fieldOfKnowledgeService;
 
-import com.unesco.core.models.shedule.FieldOfKnowledgeDTO;
-import com.unesco.core.models.additional.FilterQueryDTO;
+import com.unesco.core.dto.shedule.FieldOfKnowledgeDTO;
+import com.unesco.core.dto.additional.FilterQueryDTO;
 import com.unesco.core.services.IDataService;
 
 import java.util.List;

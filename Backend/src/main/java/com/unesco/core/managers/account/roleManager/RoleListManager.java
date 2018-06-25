@@ -1,8 +1,8 @@
 package com.unesco.core.managers.account.roleManager;
 
 import com.unesco.core.managers.account.roleManager.interfaces.roleList.IRoleListManager;
-import com.unesco.core.models.account.RoleDTO;
-import com.unesco.core.models.enums.RoleType;
+import com.unesco.core.dto.account.RoleDTO;
+import com.unesco.core.dto.enums.RoleType;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 

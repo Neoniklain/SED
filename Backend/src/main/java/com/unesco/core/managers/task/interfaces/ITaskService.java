@@ -1,7 +1,7 @@
 package com.unesco.core.managers.task.interfaces;
 
-import com.unesco.core.models.task.TaskDescriptionModel;
-import com.unesco.core.models.task.TaskUserModel;
+import com.unesco.core.dto.task.TaskDescriptionModel;
+import com.unesco.core.dto.task.TaskUserModel;
 
 import java.util.List;
 

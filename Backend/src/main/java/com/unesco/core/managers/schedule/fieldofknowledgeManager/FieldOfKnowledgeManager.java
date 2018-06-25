@@ -1,8 +1,8 @@
 package com.unesco.core.managers.schedule.fieldofknowledgeManager;
 
 import com.unesco.core.managers.schedule.fieldofknowledgeManager.interfaces.fieldofknowledge.IFieldOfKnowledgeManager;
-import com.unesco.core.models.additional.ResponseStatusDTO;
-import com.unesco.core.models.shedule.FieldOfKnowledgeDTO;
+import com.unesco.core.dto.additional.ResponseStatusDTO;
+import com.unesco.core.dto.shedule.FieldOfKnowledgeDTO;
 import com.unesco.core.utils.StatusTypes;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;

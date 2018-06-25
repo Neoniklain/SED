@@ -1,7 +1,7 @@
 package com.unesco.core.managers.plan.semesterManager;
 
 import com.unesco.core.managers.plan.semesterManager.interfaces.semesterList.ISemesterListManager;
-import com.unesco.core.models.plan.SemesterDTO;
+import com.unesco.core.dto.plan.SemesterDTO;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 

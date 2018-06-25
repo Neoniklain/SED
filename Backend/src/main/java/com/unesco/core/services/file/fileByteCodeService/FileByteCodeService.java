@@ -1,7 +1,7 @@
 package com.unesco.core.services.file.fileByteCodeService;
 
 import com.unesco.core.entities.file.FileByteCode;
-import com.unesco.core.models.file.FileByteCodeModel;
+import com.unesco.core.dto.file.FileByteCodeModel;
 import com.unesco.core.repositories.file.FileByteCodeRepository;
 import com.unesco.core.services.mapperService.MapperService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +20,7 @@ public class FileByteCodeService implements IFileByteCodeService
    @Override
    public FileByteCodeModel Save(FileByteCodeModel fileDescriptionModel) {
       FileByteCode forSave = (FileByteCode) _mapperService.toEntity(fileDescriptionModel);
-      return (FileByteCodeModel) _mapperService.toModel(_fileByteCodeRepository.save(forSave));
+      return (FileByteCodeModel) _mapperService.toDto(_fileByteCodeRepository.save(forSave));
    }
 
    @Override
@@ -30,7 +30,7 @@ public class FileByteCodeService implements IFileByteCodeService
 
    @Override
    public FileByteCodeModel Get(long id) {
-      return (FileByteCodeModel) _mapperService.toModel(_fileByteCodeRepository.findOne(id));
+      return (FileByteCodeModel) _mapperService.toDto(_fileByteCodeRepository.findOne(id));
    }
 
    @Override
@@ -38,13 +38,13 @@ public class FileByteCodeService implements IFileByteCodeService
       List<FileByteCodeModel> result = new ArrayList<>();
       Iterable<FileByteCode> entities = _fileByteCodeRepository.findAll();
       for (FileByteCode item:entities) {
-         result.add((FileByteCodeModel) _mapperService.toModel(item));
+         result.add((FileByteCodeModel) _mapperService.toDto(item));
       }
       return result;
    }
 
    @Override
    public FileByteCodeModel GetByDescriptionId(long id) {
-      return (FileByteCodeModel) _mapperService.toModel(_fileByteCodeRepository.findByFileDescription_Id(id));
+      return (FileByteCodeModel) _mapperService.toDto(_fileByteCodeRepository.findByFileDescription_Id(id));
    }
 }

@@ -1,8 +1,8 @@
 package com.unesco.core.managers.schedule.pairManager;
 
 import com.unesco.core.managers.schedule.pairManager.interfaces.pair.IPairManager;
-import com.unesco.core.models.additional.ResponseStatusDTO;
-import com.unesco.core.models.shedule.PairDTO;
+import com.unesco.core.dto.additional.ResponseStatusDTO;
+import com.unesco.core.dto.shedule.PairDTO;
 import com.unesco.core.utils.StatusTypes;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;

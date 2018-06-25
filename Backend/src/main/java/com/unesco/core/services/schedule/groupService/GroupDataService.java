@@ -1,8 +1,8 @@
 package com.unesco.core.services.schedule.groupService;
 
 import com.unesco.core.entities.schedule.GroupEntity;
-import com.unesco.core.models.additional.FilterQueryDTO;
-import com.unesco.core.models.shedule.GroupDTO;
+import com.unesco.core.dto.additional.FilterQueryDTO;
+import com.unesco.core.dto.shedule.GroupDTO;
 import com.unesco.core.repositories.plan.GroupRepository;
 import com.unesco.core.services.mapperService.IMapperService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,7 +26,7 @@ public class GroupDataService implements IGroupDataService {
         List<GroupEntity> entitys = groupRepository.findWithFilter(new PageRequest(start, rows == 0 ? 10 : rows), filter.getGlobalFilter());
         List<GroupDTO> result = new ArrayList<GroupDTO>();
         for (GroupEntity e: entitys) {
-            result.add((GroupDTO) mapperService.toModel(e));
+            result.add((GroupDTO) mapperService.toDto(e));
         }
         return result;
     }
@@ -36,7 +36,7 @@ public class GroupDataService implements IGroupDataService {
         List<GroupDTO> modelList = new ArrayList<>();
         Iterable<GroupEntity> entityList = groupRepository.findAll();
         for (GroupEntity item: entityList) {
-            GroupDTO model = (GroupDTO) mapperService.toModel(item);
+            GroupDTO model = (GroupDTO) mapperService.toDto(item);
             modelList.add(model);
         }
         return modelList;
@@ -45,14 +45,14 @@ public class GroupDataService implements IGroupDataService {
     public GroupDTO Get(long id)
     {
         GroupEntity entity = groupRepository.findOne(id);
-        GroupDTO model = (GroupDTO) mapperService.toModel(entity);
+        GroupDTO model = (GroupDTO) mapperService.toDto(entity);
         return model;
     }
 
     public GroupDTO GetByName(String name)
     {
         GroupEntity entity = groupRepository.findByName(name);
-        GroupDTO model = (GroupDTO) mapperService.toModel(entity);
+        GroupDTO model = (GroupDTO) mapperService.toDto(entity);
         return model;
     }
 
@@ -65,7 +65,7 @@ public class GroupDataService implements IGroupDataService {
     {
         GroupEntity entity = (GroupEntity) mapperService.toEntity(group);
         GroupEntity model = groupRepository.save(entity);
-        group = (GroupDTO) mapperService.toModel(model);
+        group = (GroupDTO) mapperService.toDto(model);
         return group;
     }
 }

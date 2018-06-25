@@ -1,8 +1,8 @@
 package com.unesco.core.services.plan.semesterService;
 
 import com.unesco.core.entities.plan.SemesterEntity;
-import com.unesco.core.models.plan.SemesterDTO;
-import com.unesco.core.models.additional.FilterQueryDTO;
+import com.unesco.core.dto.plan.SemesterDTO;
+import com.unesco.core.dto.additional.FilterQueryDTO;
 import com.unesco.core.repositories.plan.SemesterRepository;
 import com.unesco.core.services.mapperService.IMapperService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,7 +26,7 @@ public class SemesterDataService implements ISemesterDataService {
         List<SemesterEntity> entitys = semesterRepository.findWithFilter(new PageRequest(start, rows == 0 ? 10 : rows), filter.getGlobalFilter());
         List<SemesterDTO> result = new ArrayList<SemesterDTO>();
         for (SemesterEntity e: entitys) {
-            result.add((SemesterDTO) mapperService.toModel(e));
+            result.add((SemesterDTO) mapperService.toDto(e));
         }
         return result;
     }
@@ -36,7 +36,7 @@ public class SemesterDataService implements ISemesterDataService {
         List<SemesterDTO> modelList = new ArrayList<>();
         Iterable<SemesterEntity> entityList = semesterRepository.findAll();
         for (SemesterEntity item: entityList) {
-            SemesterDTO model = (SemesterDTO) mapperService.toModel(item);
+            SemesterDTO model = (SemesterDTO) mapperService.toDto(item);
             modelList.add(model);
         }
         return modelList;
@@ -45,7 +45,7 @@ public class SemesterDataService implements ISemesterDataService {
     public SemesterDTO Get(long id)
     {
         SemesterEntity entity = semesterRepository.findOne(id);
-        SemesterDTO model = (SemesterDTO) mapperService.toModel(entity);
+        SemesterDTO model = (SemesterDTO) mapperService.toDto(entity);
         return model;
     }
 
@@ -58,7 +58,7 @@ public class SemesterDataService implements ISemesterDataService {
     {
         SemesterEntity entity = (SemesterEntity) mapperService.toEntity(semester);
         SemesterEntity model = semesterRepository.save(entity);
-        semester = (SemesterDTO) mapperService.toModel(model);
+        semester = (SemesterDTO) mapperService.toDto(model);
         return semester;
     }
 }

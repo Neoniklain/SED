@@ -1,7 +1,7 @@
 package com.unesco.core.managers.schedule.roomManager;
 
 import com.unesco.core.managers.schedule.roomManager.interfaces.roomList.IRoomListManager;
-import com.unesco.core.models.shedule.RoomDTO;
+import com.unesco.core.dto.shedule.RoomDTO;
 import com.unesco.core.services.schedule.roomService.IRoomDataService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;

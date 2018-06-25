@@ -1,8 +1,8 @@
 package com.unesco.core.managers.journal.journalManager.interfaces.journal;
 
 import com.unesco.core.managers.IValidateManager;
-import com.unesco.core.models.journal.JournalDTO;
-import com.unesco.core.models.journal.LessonEventDTO;
+import com.unesco.core.dto.journal.JournalDTO;
+import com.unesco.core.dto.journal.LessonEventDTO;
 
 import java.util.Date;
 import java.util.List;

@@ -1,6 +1,6 @@
 package com.unesco.core.services.journal.lessonEvent;
 
-import com.unesco.core.models.journal.LessonEventDTO;
+import com.unesco.core.dto.journal.LessonEventDTO;
 import com.unesco.core.services.IDataService;
 
 import java.util.List;

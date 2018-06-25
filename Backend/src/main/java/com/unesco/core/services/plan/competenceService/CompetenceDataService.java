@@ -1,7 +1,7 @@
 package com.unesco.core.services.plan.competenceService;
 
 import com.unesco.core.entities.plan.CompetenceEntity;
-import com.unesco.core.models.additional.FilterQueryDTO;
+import com.unesco.core.dto.additional.FilterQueryDTO;
 import com.unesco.core.repositories.plan.CompetenceRepository;
 import com.unesco.core.services.mapperService.IMapperService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,7 +22,7 @@ public class CompetenceDataService implements ICompetenceDataService {
         List<CompetenceEntity> entitys = competenceRepository.findWithFilter(new PageRequest(start, rows == 0 ? 10 : rows), filter.getGlobalFilter());
         List<CompetenceEntity> result = new ArrayList<CompetenceEntity>();
         for (CompetenceEntity e: entitys) {
-            result.add((CompetenceEntity) mapperService.toModel(e));
+            result.add((CompetenceEntity) mapperService.toDto(e));
         }
         return result;
     }
@@ -32,7 +32,7 @@ public class CompetenceDataService implements ICompetenceDataService {
         List<CompetenceEntity> modelList = new ArrayList<>();
         Iterable<CompetenceEntity> entityList = competenceRepository.findAll();
         for (CompetenceEntity item: entityList) {
-            CompetenceEntity model = (CompetenceEntity) mapperService.toModel(item);
+            CompetenceEntity model = (CompetenceEntity) mapperService.toDto(item);
             modelList.add(model);
         }
         return modelList;
@@ -41,7 +41,7 @@ public class CompetenceDataService implements ICompetenceDataService {
     public CompetenceEntity Get(long id)
     {
         CompetenceEntity entity = competenceRepository.findOne(id);
-        CompetenceEntity model = (CompetenceEntity) mapperService.toModel(entity);
+        CompetenceEntity model = (CompetenceEntity) mapperService.toDto(entity);
         return model;
     }
 
@@ -54,7 +54,7 @@ public class CompetenceDataService implements ICompetenceDataService {
     {
         CompetenceEntity entity = (CompetenceEntity) mapperService.toEntity(competenceEntity);
         CompetenceEntity model = competenceRepository.save(entity);
-        competenceEntity = (CompetenceEntity) mapperService.toModel(model);
+        competenceEntity = (CompetenceEntity) mapperService.toDto(model);
         return competenceEntity;
     }
 }

@@ -1,11 +1,11 @@
 package com.unesco.core.services.journal.journal;
 
-import com.unesco.core.models.account.StudentDTO;
-import com.unesco.core.models.journal.JournalDTO;
-import com.unesco.core.models.journal.PointDTO;
-import com.unesco.core.models.journal.PointTypeDTO;
-import com.unesco.core.models.shedule.LessonDTO;
-import com.unesco.core.models.shedule.PairDTO;
+import com.unesco.core.dto.account.StudentDTO;
+import com.unesco.core.dto.journal.JournalDTO;
+import com.unesco.core.dto.journal.PointDTO;
+import com.unesco.core.dto.journal.PointTypeDTO;
+import com.unesco.core.dto.shedule.LessonDTO;
+import com.unesco.core.dto.shedule.PairDTO;
 import com.unesco.core.services.account.studentService.IStudentDataService;
 import com.unesco.core.services.journal.point.IPointDataService;
 import com.unesco.core.services.journal.pointType.IPointTypeDataService;
