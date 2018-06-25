@@ -20,7 +20,9 @@
                 (mousemove)="onMouseMove($event)"
                 (mouseenter)="onMouseEnter($event, day, lessonTime.num, weektype)" (mouseleave)="onMouseLeave()">
             <div class="text-left" style="font-size: 10px;">{{pair.pairType.type}}</div>
-            <div style="padding-bottom: 7px; font-size: 14px;" class="text-center">{{pair.lesson.discipline.name}}</div>
+            <div style="padding-bottom: 7px; font-size: 14px;" class="text-center">
+              {{pair.lesson.discipline.name}} <span *ngIf="pair.optionally" style="font-size: 10px;">(по выбору)</span>
+            </div>
             <div [userCard]="pair.lesson.professor.user" style="padding-bottom: 7px; font-size: 11px;" class="text-right">{{pair.lesson.professor.user.userFIO}}</div>
             <div style="float: left; font-size: 12px;" class="text-left">{{pair.lesson.group.name}}</div>
             <div style="font-size: 12px;" class="text-right">{{pair.room.room}} каб.</div>
@@ -32,7 +34,10 @@
                 (mouseenter)="onMouseEnter($event, day, lessonTime.num, weektype)" (mouseleave)="onMouseLeave()">
             <div class="text-left" style="float: right;font-size: 10px;">{{pair.weektype}}</div>
             <div class="text-left" style="font-size: 10px;">{{pair.pairType.type}}</div>
-            <div style="padding-bottom: 7px; font-size: 14px;" class="text-center">{{pair.lesson.discipline.name}}</div>
+            <div style="padding-bottom: 7px; font-size: 14px;" class="text-center">
+              {{pair.lesson.discipline.name}}
+              <span *ngIf="pair.optionally" style="font-size: 10px;">(по выбору)</span>
+            </div>
             <div [userCard]="pair.lesson.professor.user" style="padding-bottom: 7px; font-size: 10px;" class="text-right">{{pair.lesson.professor.user.userFIO}}</div>
             <div style="float: left; font-size: 12px;" class="text-left">{{pair.lesson.group.name}}</div>
             <div style="font-size: 12px;" class="text-right">{{pair.room.room}} каб.</div>
@@ -44,7 +49,10 @@
                 (mouseenter)="onMouseEnter($event, day, lessonTime.num, weektype)" (mouseleave)="onMouseLeave()">
             <div class="text-left" style="float: right;font-size: 10px;">{{pair.weektype}}</div>
             <div class="text-left" style="font-size: 10px;">{{pair.pairType.type}}</div>
-            <div style="padding-bottom: 7px; font-size: 14px;" class="text-center">{{pair.lesson.discipline.name}}</div>
+            <div style="padding-bottom: 7px; font-size: 14px;" class="text-center">
+              {{pair.lesson.discipline.name}}
+              <span *ngIf="pair.optionally" style="font-size: 10px;">(по выбору)</span>
+            </div>
             <div [userCard]="pair.lesson.professor.user" style="padding-bottom: 7px; font-size: 10px;" class="text-right">{{pair.lesson.professor.user.userFIO}}</div>
             <div style="float: left; font-size: 12px;" class="text-left">{{pair.lesson.group.name}}</div>
             <div style="font-size: 12px;" class="text-right">{{pair.room.room}} каб.</div>

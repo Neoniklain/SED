@@ -90,6 +90,16 @@
             </div>
 
             <div class="row">
+                <div class="col-xs-6">
+                </div>
+                <div class="col-xs-6">
+                    <span>Предмет по выбору: </span>
+                    <p-toggleButton onLabel="Да" offLabel="Нет"
+                                    [(ngModel)]="newPair.optionally"></p-toggleButton>
+                </div>
+            </div>
+
+            <div class="row">
                 <div class="col-xs-12 text-center">
                     <button type="button" id="create-pair-button" class="btn btn-success " (click)="SavePair()">Сохранить изменения</button>
                 </div>

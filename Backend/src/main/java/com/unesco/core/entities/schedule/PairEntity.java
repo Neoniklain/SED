@@ -12,6 +12,7 @@ public class PairEntity {
     private int pairNumber;
     private String dayofweek;
     private String weektype;
+    private boolean optionally;
     @ManyToOne
     @JoinColumn(name = "pair_type_id", referencedColumnName = "id")
     private PairTypeEntity pairType;
@@ -30,6 +31,13 @@ public class PairEntity {
     }
     public void setId(long id) {
         this.id = id;
+    }
+
+    public boolean isOptionally() {
+        return optionally;
+    }
+    public void setOptionally(boolean optionally) {
+        this.optionally = optionally;
     }
 
     public PairTypeEntity getPairType() {

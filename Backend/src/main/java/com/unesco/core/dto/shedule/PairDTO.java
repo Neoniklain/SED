@@ -9,6 +9,7 @@ public class PairDTO {
     private String weektype;
     private RoomDTO room;
     private LessonDTO lesson;
+    private boolean optionally;
 
     public PairDTO() {
         this.lesson = new LessonDTO();
@@ -20,6 +21,13 @@ public class PairDTO {
     }
     public void setId(long id) {
         this.id = id;
+    }
+
+    public boolean isOptionally() {
+        return optionally;
+    }
+    public void setOptionally(boolean optionally) {
+        this.optionally = optionally;
     }
 
     public int getPairNumber() {

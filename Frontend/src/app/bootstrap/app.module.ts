@@ -51,7 +51,7 @@ import {
     DataTableModule,
     DropdownModule,
     MultiSelectModule,
-    PasswordModule
+    PasswordModule, ToggleButtonModule
 } from "primeng/primeng";
 import {AccountService} from "../services/accountService";
 import {AccessDeniedComponent} from "../components/account/accessDenied/accessDenied.component";
@@ -105,6 +105,7 @@ import {FileService} from "../services/file.service";
       PasswordModule,
       AutoCompleteModule,
       ConfirmDialogModule,
+      ToggleButtonModule,
       FileUploadModule
    ],
     entryComponents: [

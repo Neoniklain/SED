@@ -1,0 +1,1 @@
+alter table un_pair add column optionally boolean;

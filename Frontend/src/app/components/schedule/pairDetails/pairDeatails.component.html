@@ -1,6 +1,9 @@
 <div *ngIf="pair && !editable" class="pair-details" [ngStyle]="getStyle()">
     <div style="display: block"><b>Группа: </b>{{pair.lesson.group.name}}</div>
-    <div style="display: block"><b>Дисциплина: </b>{{pair.lesson.discipline.name}}</div>
+    <div style="display: block"><b>Дисциплина: </b>
+        {{pair.lesson.discipline.name}}
+        <span *ngIf="pair.optionally" style="font-size: 10px;">(по выбору)</span>
+    </div>
     <div style="display: block"><b>Периодичность: </b>{{pair.weektype}}</div>
     <div style="display: block"><b>Тип: </b>{{pair.pairType.type}}</div>
     <div style="display: block"><b>Преподаватель: </b><span [userCard]="pair.lesson.professor.user">{{pair.lesson.professor.user.userFIO}}</span></div>
@@ -95,7 +98,10 @@
         <div style="display: block"><b>Тип занятия: </b>{{pair.pairType.type}}</div>
         <div style="display: block"><b>Пероидичность: </b>{{pair.weektype}}</div>
         <div style="display: block"><b>Группа: </b>{{pair.lesson.group.name}}</div>
-        <div style="display: block"><b>Дисциплина: </b>{{pair.lesson.discipline.name}}</div>
+        <div style="display: block"><b>Дисциплина: </b>
+            {{pair.lesson.discipline.name}}
+            <span *ngIf="pair.optionally" style="font-size: 10px;">(по выбору)</span>
+        </div>
         <div style="display: block"><b>Кабинет: </b>{{pair.room.room}}</div>
     </span>
     <p-footer>

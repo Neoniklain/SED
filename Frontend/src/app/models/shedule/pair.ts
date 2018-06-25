@@ -10,6 +10,7 @@ export class Pair {
     public room: Room;
     public pairType: PairType;
     public lesson: Lesson;
+    public optionally: boolean;
 
     constructor() {
         this.id = 0;
@@ -19,5 +20,6 @@ export class Pair {
         this.lesson = new Lesson();
         this.pairType = new PairType();
         this.room = new Room();
+        this.optionally = false;
     }
 }

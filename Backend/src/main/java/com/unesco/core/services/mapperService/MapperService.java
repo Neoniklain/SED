@@ -428,6 +428,7 @@ public class MapperService implements IMapperService {
         Dto.setDayofweek(Entity.getDayofweek());
         Dto.setLesson(LessonToDto(Entity.getLesson()));
         Dto.setRoom(RoomToDto(Entity.getRoom()));
+        Dto.setOptionally(Entity.isOptionally());
         Dto.setPairType(PairTypeToDto(Entity.getPairType()));
         return Dto;
     }
@@ -440,6 +441,7 @@ public class MapperService implements IMapperService {
         Entity.setDayofweek(Dto.getDayofweek());
         Entity.setLesson(LessonToEntity(Dto.getLesson()));
         Entity.setRoom(RoomToEntity(Dto.getRoom()));
+        Entity.setOptionally(Dto.isOptionally());
         Entity.setPairType(PairTypeToEntity(Dto.getPairType()));
         return Entity;
     }
