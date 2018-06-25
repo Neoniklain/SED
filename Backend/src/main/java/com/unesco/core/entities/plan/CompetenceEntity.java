@@ -47,10 +47,10 @@ public class CompetenceEntity {
       this.description = description;
    }
 
-   public Set<PlanEntity> getPlanEntities() {
+   public Set<PlanEntity> getPlan() {
       return plan;
    }
-   public void setPlanEntities(Set<PlanEntity> planEntities) {
+   public void setPlan(Set<PlanEntity> planEntities) {
       this.plan = planEntities;
    }
 

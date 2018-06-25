@@ -1,12 +1,11 @@
 package com.unesco.core.services.schedule.pairService;
 
-import com.unesco.core.entities.schedule.LessonEntity;
-import com.unesco.core.entities.schedule.PairEntity;
 import com.unesco.core.dto.additional.FilterQueryDTO;
 import com.unesco.core.dto.shedule.LessonDTO;
 import com.unesco.core.dto.shedule.PairDTO;
+import com.unesco.core.entities.schedule.LessonEntity;
+import com.unesco.core.entities.schedule.PairEntity;
 import com.unesco.core.repositories.PairRepository;
-import com.unesco.core.repositories.account.ProfessorRepository;
 import com.unesco.core.services.mapperService.IMapperService;
 import com.unesco.core.services.schedule.lessonService.ILessonDataService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,8 +26,6 @@ public class PairDataService implements IPairDataService {
     private PairRepository pairRepository;
     @Autowired
     private ILessonDataService lessonDataService;
-    @Autowired
-    private ProfessorRepository professorRepository;
 
     public List<PairDTO> GetPage(FilterQueryDTO filter) {
         int rows = filter.getRows()>0? filter.getRows() : (int) pairRepository.count();
@@ -113,9 +110,9 @@ public class PairDataService implements IPairDataService {
         PairEntity entity = (PairEntity) mapperService.toEntity(pair);
 
         LessonDTO findLesson = lessonDataService.GetDisciplineIdAndGroupIdAndProfessorId(
-                entity.getLessonEntity().getDisciplineEntity().getId(),
-                entity.getLessonEntity().getGroupEntity().getId(),
-                entity.getLessonEntity().getProfessorEntity().getId());
+                entity.getLesson().getDiscipline().getId(),
+                entity.getLesson().getGroup().getId(),
+                entity.getLesson().getProfessor().getId());
 
         if(findLesson==null) {
             LessonDTO lesson = pair.getLesson();
@@ -124,7 +121,7 @@ public class PairDataService implements IPairDataService {
             findLesson = lessonDataService.Save(pair.getLesson());
         }
 
-        entity.setLessonEntity((LessonEntity) mapperService.toEntity(findLesson));
+        entity.setLesson((LessonEntity) mapperService.toEntity(findLesson));
 
         PairEntity model = pairRepository.save(entity);
         pair = (PairDTO) mapperService.toDto(model);
@@ -138,15 +135,15 @@ public class PairDataService implements IPairDataService {
 
         // Проверка занятий на переcечение для проподавателя
         allIntersections.addAll(pairRepository.findPairsByDayofweekAndPairNumberAndWeektypeAndProfessor
-                (entity.getDayofweek(), entity.getPairNumber(), entity.getWeektype(), entity.getLessonEntity().getProfessorEntity().getId()));
+                (entity.getDayofweek(), entity.getPairNumber(), entity.getWeektype(), entity.getLesson().getProfessor().getId()));
 
         // Проверка занятий на переcечение для аудиотрии
         allIntersections.addAll(pairRepository.findPairsByDayofweekAndPairNumberAndWeektypeAndRoom
-                (entity.getDayofweek(), entity.getPairNumber(), entity.getWeektype(), entity.getRoomEntity().getId()));
+                (entity.getDayofweek(), entity.getPairNumber(), entity.getWeektype(), entity.getRoom().getId()));
 
         // Проверка занятий на переcечение для группы
         allIntersections.addAll(pairRepository.findPairsByDayofweekAndPairNumberAndWeektypeAndGroup
-                (entity.getDayofweek(), entity.getPairNumber(), entity.getWeektype(), entity.getLessonEntity().getGroupEntity().getId()));
+                (entity.getDayofweek(), entity.getPairNumber(), entity.getWeektype(), entity.getLesson().getGroup().getId()));
 
         List<PairDTO> result = new ArrayList<>();
         for (PairEntity p: allIntersections) {

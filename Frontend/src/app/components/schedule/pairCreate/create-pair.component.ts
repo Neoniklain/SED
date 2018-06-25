@@ -14,6 +14,7 @@ import {PageResult} from "../../../models/admin/PageResult.model.list";
 import {NotificationService} from "../../../services/notification.service";
 import {DayOfWeek} from "../../../models/shedule/dayOfWeek.enum";
 import {WeekType} from "../../../models/shedule/weekType.enum";
+import {PairType} from "../../../models/shedule/pairType";
 
 @Component({
     selector: 'pair-create',
@@ -28,6 +29,7 @@ export class PairCreateComponent {
     public disciplines: Discipline[];
     public rooms: Room[];
     public groups: Group[];
+    public pairTypes: PairType[];
     public weektype;
     public dayofweek;
 
@@ -48,6 +50,8 @@ export class PairCreateComponent {
         this.GetRooms();
         this.groups = [];
         this.GetGroups();
+        this.pairTypes = [];
+        this.GetPairTypes();
         this.id = activateRoute.snapshot.params['id'];
         if (!isUndefined(this.id)) {
             this.GetPair(this.id);
@@ -80,6 +84,13 @@ export class PairCreateComponent {
         this.dictionaryService.GetRooms()
             .subscribe((res: PageResult) => {
                     this.rooms = res.content;
+                });
+    }
+
+    public GetPairTypes() {
+        this.dictionaryService.GetPairTypes()
+            .subscribe((res: PageResult) => {
+                    this.pairTypes = res.content;
                 });
     }
 

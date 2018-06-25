@@ -39,10 +39,10 @@ public class SemesterEntity {
       this.number = number;
    }
 
-   public PlanEntity getPlanEntity() {
+   public PlanEntity getPlan() {
       return plan;
    }
-   public void setPlanEntity(PlanEntity planEntity) {
+   public void setPlan(PlanEntity planEntity) {
       this.plan = planEntity;
    }
 

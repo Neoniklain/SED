@@ -92,14 +92,13 @@ public class ScheduleController {
         try {
             pairDataService.Save(pairManager.Get());
             result.addMessage("Занятие сохранено.");
-            return result;
         }
         catch (Exception e) {
             result.setStatus(StatusTypes.ERROR);
             result.addErrors("При создании занятия произошла ошибка");
             result.addErrors(e.getMessage());
-            return result;
         }
+        return result;
     }
 
 }

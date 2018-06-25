@@ -29,24 +29,24 @@ public class LessonEntity {
         this.id = id;
     }
 
-    public DisciplineEntity getDisciplineEntity() {
+    public DisciplineEntity getDiscipline() {
         return discipline;
     }
-    public void setDisciplineEntity(DisciplineEntity discipline) {
+    public void setDiscipline(DisciplineEntity discipline) {
         this.discipline = discipline;
     }
 
-    public ProfessorEntity getProfessorEntity() {
+    public ProfessorEntity getProfessor() {
         return professor;
     }
-    public void setProfessorEntity(ProfessorEntity professor) {
+    public void setProfessor(ProfessorEntity professor) {
         this.professor = professor;
     }
 
-    public GroupEntity getGroupEntity() {
+    public GroupEntity getGroup() {
         return group;
     }
-    public void setGroupEntity(GroupEntity group) {
+    public void setGroup(GroupEntity group) {
         this.group = group;
     }
 

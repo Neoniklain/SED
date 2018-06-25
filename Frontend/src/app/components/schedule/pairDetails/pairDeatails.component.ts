@@ -11,6 +11,7 @@ import {isUndefined} from "util";
 import {StatusType} from "../../../models/statusType.model";
 import {NotificationService} from "../../../services/notification.service";
 import {WeekType} from "../../../models/shedule/weekType.enum";
+import {PairType} from "../../../models/shedule/pairType";
 
 @Component({
     selector: 'pair-details',
@@ -24,7 +25,7 @@ export class PairDetailsComponent implements OnInit, OnChanges {
     @Input() pointY: number;
     @Input() editable: boolean = false;
     @Output() close = new EventEmitter<any>();
-    @Output() updatePair = new EventEmitter<any>();
+    @Output() updatePairs = new EventEmitter<any>();
 
     public findGroups: Array<Group>;
     public findDisciplines: Array<Discipline>;
@@ -33,6 +34,7 @@ export class PairDetailsComponent implements OnInit, OnChanges {
     public findRooms: Array<Room>;
     public pair: Pair;
     public showDeleteDialog: boolean = false;
+    public findPairTypes: Array<PairType>;
 
     constructor(private dictionaryService: DictionaryService,
                 private accountService: AccountService,
@@ -41,12 +43,14 @@ export class PairDetailsComponent implements OnInit, OnChanges {
     ) { }
 
     ngOnInit() {
+        console.log("p", this.pair);
         this.WeekTypes = WeekType;
     }
 
     ngOnChanges() {
         if (!isUndefined(this.editablePair)) this.pair = JSON.parse(JSON.stringify(this.editablePair));
         else this.pair = null;
+        console.log("p", this.pair);
     }
 
     getStyle() {
@@ -64,11 +68,12 @@ export class PairDetailsComponent implements OnInit, OnChanges {
         }
     }
 
-    updatePairs() {
+    AllUpdatePairs() {
+        console.log("this.pair", this.pair);
         this.pairService.Save(this.pair).subscribe(
             result => {
                 if (result.status === StatusType.OK.toString()) {
-                    this.updatePair.emit();
+                    this.updatePairs.emit();
                     this.closeDetails();
                 }
                 this.notification.FromStatus(result);
@@ -80,7 +85,7 @@ export class PairDetailsComponent implements OnInit, OnChanges {
         this.pairService.Delete(this.pair.id).subscribe(
             result => {
                 if (result.status === StatusType.OK.toString()) {
-                    this.updatePair.emit();
+                    this.updatePairs.emit();
                     this.closeDetails();
                 }
                 this.notification.FromStatus(result);
@@ -110,13 +115,16 @@ export class PairDetailsComponent implements OnInit, OnChanges {
             || week === WeekType.Все.toString()) {
                 this.pair.id = this.editablePair.id;
             } else {
-                this.pair.id = 0;
+                this.pair.id = this.editablePair.id;
             }
         }
         if (this.editablePair.id !== 0 && this.editablePair.weektype ===  week) {
             this.pair.id = this.editablePair.id;
         }
         this.pair.weektype = week;
+    }
+    public selectPairType(pairType: PairType) {
+        this.pair.pairType = pairType;
     }
 
     public checkOneEmpty() {
@@ -131,6 +139,9 @@ export class PairDetailsComponent implements OnInit, OnChanges {
         }
         if (this.pair.lesson.group == null) {
             this.pair.lesson.group = new Group();
+        }
+        if (this.pair.pairType == null) {
+            this.pair.pairType = new PairType();
         }
     }
 
@@ -161,6 +172,22 @@ export class PairDetailsComponent implements OnInit, OnChanges {
                     this.findDisciplines = temp;
                 else
                     this.findDisciplines = [];
+            }, error => console.error(error)
+        );
+    }
+    public searchPairTypes(event: any) {
+        let filter = {
+            globalFilter: event.query.substring(0, 60)
+        }
+        let temp: Array<PairType> = new Array();
+        this.dictionaryService.GetPairTypes(filter).subscribe(
+            result => {
+                temp = result.content;
+                console.log("temp", temp);
+                if (temp.length > 0)
+                    this.findPairTypes = temp;
+                else
+                    this.findPairTypes = [];
             }, error => console.error(error)
         );
     }

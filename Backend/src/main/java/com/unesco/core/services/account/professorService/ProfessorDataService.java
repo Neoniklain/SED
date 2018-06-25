@@ -72,8 +72,8 @@ public class ProfessorDataService implements IProfessorDataService {
     public ProfessorDTO Save(ProfessorDTO professor)
     {
         ProfessorEntity entity = (ProfessorEntity) mapperService.toEntity(professor);
-        UserEntity userEntity = (UserEntity) mapperService.toEntity(userDataService.GetByUsername(entity.getUserEntity().getUsername()));
-        entity.setUserEntity(userEntity);
+        UserEntity userEntity = (UserEntity) mapperService.toEntity(userDataService.GetByUsername(entity.getUser().getUsername()));
+        entity.setUser(userEntity);
         ProfessorEntity model = professorRepository.save(entity);
         professor = (ProfessorDTO) mapperService.toDto(model);
         return professor;

@@ -48,6 +48,17 @@ public class PointDataService implements IPointDataService {
         return modelList;
     }
 
+    public List<PointDTO> GetByLesson(long lessonId)
+    {
+        List<PointDTO> modelList = new ArrayList<>();
+        Iterable<PointEntity> entityList = pointRepository.findByLesson(lessonId);
+        for (PointEntity item: entityList) {
+            PointDTO model = (PointDTO) mapperService.toDto(item);
+            modelList.add(model);
+        }
+        return modelList;
+    }
+
     public PointDTO GetByStudentAndDateAndTypeAndPair(long studentId, Date date, long typeId, long pairId)
     {
         PointEntity entity = pointRepository.findByStudentIdAndDateAndTypeIdAndPairId(studentId, date, typeId, pairId);

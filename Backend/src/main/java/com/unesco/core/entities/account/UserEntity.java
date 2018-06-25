@@ -71,10 +71,10 @@ public class UserEntity {
         return email;
     }
 
-    public Set<RoleEntity> getRoleEntities() {
+    public Set<RoleEntity> getRole() {
         return roles;
     }
-    public void setRoleEntities(Set<RoleEntity> roles) {
+    public void setRole(Set<RoleEntity> roles) {
         this.roles = roles;
     }
 

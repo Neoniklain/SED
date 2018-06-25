@@ -1,5 +1,14 @@
 package com.unesco.core.controller;
 
+import com.unesco.core.dto.account.ProfessorDTO;
+import com.unesco.core.dto.account.RoleDTO;
+import com.unesco.core.dto.account.UserDTO;
+import com.unesco.core.dto.additional.FilterQueryDTO;
+import com.unesco.core.dto.additional.PageResultDTO;
+import com.unesco.core.dto.additional.ResponseStatusDTO;
+import com.unesco.core.dto.journal.PointTypeDTO;
+import com.unesco.core.dto.plan.DepartmentDTO;
+import com.unesco.core.dto.shedule.*;
 import com.unesco.core.managers.account.professorManager.interfaces.professorList.IProfessorListManager;
 import com.unesco.core.managers.account.roleManager.interfaces.role.IRoleManager;
 import com.unesco.core.managers.account.roleManager.interfaces.roleList.IRoleListManager;
@@ -16,15 +25,6 @@ import com.unesco.core.managers.schedule.instituteManager.interfaces.institute.I
 import com.unesco.core.managers.schedule.instituteManager.interfaces.instituteList.IInstituteListManager;
 import com.unesco.core.managers.schedule.roomManager.interfaces.room.IRoomManager;
 import com.unesco.core.managers.schedule.roomManager.interfaces.roomList.IRoomListManager;
-import com.unesco.core.dto.account.ProfessorDTO;
-import com.unesco.core.dto.account.RoleDTO;
-import com.unesco.core.dto.account.UserDTO;
-import com.unesco.core.dto.additional.FilterQueryDTO;
-import com.unesco.core.dto.additional.PageResultDTO;
-import com.unesco.core.dto.additional.ResponseStatusDTO;
-import com.unesco.core.dto.journal.PointTypeDTO;
-import com.unesco.core.dto.plan.DepartmentDTO;
-import com.unesco.core.dto.shedule.*;
 import com.unesco.core.services.account.professorService.IProfessorDataService;
 import com.unesco.core.services.account.roleService.IRoleDataService;
 import com.unesco.core.services.account.userService.IUserDataService;
@@ -34,6 +34,7 @@ import com.unesco.core.services.schedule.disciplineService.IDisciplineDataServic
 import com.unesco.core.services.schedule.fieldOfKnowledgeService.IFieldOfKnowledgeDataService;
 import com.unesco.core.services.schedule.groupService.IGroupDataService;
 import com.unesco.core.services.schedule.instituteService.IInstituteDataService;
+import com.unesco.core.services.schedule.pairTypeService.IPairTypeDataService;
 import com.unesco.core.services.schedule.roomService.IRoomDataService;
 import com.unesco.core.utils.StatusTypes;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -64,6 +65,8 @@ public class DictionaryController {
    private IProfessorDataService professorDataService;
    @Autowired
    private IPointTypeDataService pointTypeDataService;
+   @Autowired
+   private IPairTypeDataService pairTypeDataService;
 
    @Autowired
    private IDisciplineManager disciplineManager;
@@ -385,21 +388,11 @@ public class DictionaryController {
       PageResultDTO<PointTypeDTO> result = new PageResultDTO(pointTypeModels, pointTypeModels.size());
       return result;
    }
-   
-   public ResponseStatusDTO DeletePointType(long id) {
-      ResponseStatusDTO response = new ResponseStatusDTO();
-      response.setStatus(StatusTypes.OK);
-      try {
-         pointTypeDataService.Delete(id);
-         response.addMessage("Типа занятия удален.");
-      }
-      catch (Exception e) {
-         response.setStatus(StatusTypes.ERROR);
-         response.addMessage("Ошибка при удалении типа занятия.");
-         response.addMessage(e.getMessage());
-      }
-      return response;
 
+   public PageResultDTO<PairTypeDTO> GetPairTypeList(FilterQueryDTO filter) {
+      List<PairTypeDTO> pairTypeModels = pairTypeDataService.GetPage(filter);
+      PageResultDTO<PairTypeDTO> result = new PageResultDTO(pairTypeModels, pairTypeModels.size());
+      return result;
    }
 
 }

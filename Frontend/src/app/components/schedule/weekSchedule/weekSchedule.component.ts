@@ -2,6 +2,7 @@ import {Component, EventEmitter, Injectable, Input, OnInit, Output} from '@angul
 import {Pair} from "../../../models/shedule/pair";
 import {PairNumber, PairTime} from "../../../models/shedule/pairNumber.model";
 import {DayOfWeek} from "../../../models/shedule/dayOfWeek.enum";
+import {PairType} from "../../../models/shedule/pairType";
 
 @Component({
     selector: 'schedule-week',

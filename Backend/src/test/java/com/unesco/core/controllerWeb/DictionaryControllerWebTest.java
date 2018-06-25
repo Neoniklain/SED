@@ -18,7 +18,6 @@ import com.unesco.core.services.account.studentService.IStudentDataService;
 import com.unesco.core.services.account.userService.IUserDataService;
 import com.unesco.core.services.journal.lessonEvent.ILessonEventDataService;
 import com.unesco.core.services.journal.point.IPointDataService;
-import com.unesco.core.services.journal.pointType.IPointTypeDataService;
 import com.unesco.core.services.schedule.departmentService.IDepartmentDataService;
 import com.unesco.core.services.schedule.disciplineService.IDisciplineDataService;
 import com.unesco.core.services.schedule.fieldOfKnowledgeService.IFieldOfKnowledgeDataService;
@@ -26,6 +25,7 @@ import com.unesco.core.services.schedule.groupService.IGroupDataService;
 import com.unesco.core.services.schedule.instituteService.IInstituteDataService;
 import com.unesco.core.services.schedule.lessonService.ILessonDataService;
 import com.unesco.core.services.schedule.pairService.IPairDataService;
+import com.unesco.core.services.schedule.pairTypeService.IPairTypeDataService;
 import com.unesco.core.services.schedule.roomService.IRoomDataService;
 import com.unesco.core.utils.StatusTypes;
 import org.junit.After;
@@ -38,7 +38,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 @RunWith(SpringRunner.class)
@@ -78,7 +77,7 @@ public class DictionaryControllerWebTest extends Assert {
     @Autowired
     private ILessonEventDataService lessonEventDataService;
     @Autowired
-    private IPointTypeDataService pointTypeDataService;
+    private IPairTypeDataService pairTypeDataService;
 
     private InstituteDTO inst = new InstituteDTO();
     private DepartmentDTO dep = new DepartmentDTO();
@@ -150,45 +149,10 @@ public class DictionaryControllerWebTest extends Assert {
         roomDataService.Save(room);
         room = roomDataService.GetByRoom(room.getRoom());
 
-        // Создание урока
-        lesson.setDiscipline(dis);
-        lesson.setGroup(gr);
-        lesson.setProfessor(prof);
-        lessonDataService.Save(lesson);
-        lesson = lessonDataService.GetDisciplineIdAndGroupIdAndProfessorId(dis.getId(), gr.getId(), prof.getId());
-
-        // Создание События
-        lesev.setComment("test");
-        lesev.setDate(new Date());
-        lesev.setLesson(lesson);
-        lesev.setType(pointTypeDataService.GetAll().get(0));
-        lessonEventDataService.Save(lesev);
-        lesev = lessonEventDataService.GetByLesson(lesson.getId()).get(0);
-
-        // Создание пары
-        pair.setLesson(lesson);
-        pair.setDayofweek("Понедельник");
-        pair.setPairNumber(1);
-        pair.setRoom(room);
-        pair.setWeektype("Все");
-        pairDataService.Save(pair);
-        pair = pairDataService.GetAllByLesson(lesson.getId()).get(0);
-
     }
 
     @After
     public void tearDown() throws Exception {
-        // Удаление пары
-        if(pairDataService.Get(pair.getId())!=null)
-            pairDataService.Delete(pair.getId());
-        // Удаление события
-        for(LessonEventDTO ev: lessonEventDataService.GetByLesson(lesson.getId())) {
-            if(lessonEventDataService.Get(ev.getId())!=null)
-                lessonEventDataService.Delete(ev.getId());
-        }
-        // Удаление урока
-        if(lessonDataService.Get(lesson.getId())!=null)
-            lessonDataService.Delete(lesson.getId());
         // Удаление комнаты
         if(roomDataService.Get(room.getId())!=null)
             roomDataService.Delete(room.getId());
@@ -578,6 +542,21 @@ public class DictionaryControllerWebTest extends Assert {
         ResponseStatusDTO resp = new ResponseStatusDTO(StatusTypes.OK);
         try {
             dictionaryController.GetPointTypeList(filter);
+        } catch (Exception e) {
+            resp.setStatus(StatusTypes.ERROR);
+            resp.addErrors(e.getMessage());
+        }
+        System.out.println(resp.getErrors());
+        System.out.println(resp.getMessage());
+        System.out.println(resp.getWarnings());
+        assertEquals(resp.getStatus(), StatusTypes.OK);
+    }
+
+    @Test
+    public void getPairTypeList() {
+        ResponseStatusDTO resp = new ResponseStatusDTO(StatusTypes.OK);
+        try {
+            dictionaryController.GetPairTypeList(filter);
         } catch (Exception e) {
             resp.setStatus(StatusTypes.ERROR);
             resp.addErrors(e.getMessage());

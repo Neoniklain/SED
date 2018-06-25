@@ -38,10 +38,10 @@ public class LessonTypeEntity {
       this.hours = hours;
    }
 
-   public SemesterEntity getSemesterEntity() {
+   public SemesterEntity getSemester() {
       return semester;
    }
-   public void setSemesterEntity(SemesterEntity semesterEntity) {
+   public void setSemester(SemesterEntity semesterEntity) {
       this.semester = semesterEntity;
    }
 

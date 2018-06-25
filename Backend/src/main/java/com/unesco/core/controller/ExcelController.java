@@ -91,12 +91,12 @@ public class ExcelController {
 
                         // ↓ Получение значений для таблицы PlanDTO
                         PlanEntity planEntity = new PlanEntity();
-                        planEntity.setDisciplineEntity(disciplineEntity);
+                        planEntity.setDiscipline(disciplineEntity);
                         if(disciplineEntity == null){
                             System.out.println("Пары нет в БД");
-                            planEntity.setDisciplineEntity(new DisciplineEntity(name));
+                            planEntity.setDiscipline(new DisciplineEntity(name));
                         }
-                        planEntity.setDepartmentEntity(_DepartmentRepository.findByName(row.getCell(101).getStringCellValue()));
+                        planEntity.setDepartment(_DepartmentRepository.findByName(row.getCell(101).getStringCellValue()));
                         if(row.getCell(2).getStringCellValue().length()>0)
                         {
                             //Доделать получение индекса. Проблему получения смотри на 134 строке в excel файле.
@@ -128,11 +128,11 @@ public class ExcelController {
                             planEntity.setCourseWorkQuantity(Integer.parseInt(row.getCell(8).getStringCellValue()));
                         }*/
 
-                        if(_PlanRepository.findByDiscipline(planEntity.getDisciplineEntity())==null) {
+                        if(_PlanRepository.findByDiscipline(planEntity.getDiscipline())==null) {
                             //_PlanRepository.save(planEntity);
                             System.out.println("План добавлен для: " + name);
                         }
-                        //planEntity = _PlanRepository.findByDiscipline(planEntity.getDisciplineEntity());
+                        //planEntity = _PlanRepository.findByDiscipline(planEntity.getDiscipline());
 
                         // ↓ Получение значений для таблицы SemesterDTO
                         Integer offset = 0;
@@ -140,7 +140,7 @@ public class ExcelController {
                             SemesterEntity sem = new SemesterEntity();
 
                             //Нету поля "control_type" + пока не знаю как определять тип контроля. (Возможно с помощью итератора и значений в столбцах "формы контроля из excel")
-                            //sem.setPlanEntity(planEntity);
+                            //sem.setPlan(planEntity);
                             // _SemesterRepository.save(sem);
                             // sem = _SemesterRepository.findByPlanId(planEntity.getId());
 
@@ -152,19 +152,19 @@ public class ExcelController {
                                     LessonTypeEntity lection = new LessonTypeEntity();
                                     lection.setHours((int) Float.parseFloat(row.getCell(25 + offset).getStringCellValue()));
                                     lection.setName("Лекция");
-                                    lection.setSemesterEntity(sem);
+                                    lection.setSemester(sem);
                                     //_LessonTypeRepository.save(lection);
                                     //sem.setLection_hours((int) Float.parseFloat(row.getCell(25 + offset).getStringCellValue()));
-                                    System.out.println(planEntity.getDisciplineEntity().getName()+": Лекция");
+                                    System.out.println(planEntity.getDiscipline().getName()+": Лекция");
                                 }
                             } else if (row.getCell(25+ offset).getCellType() == 0) {
                                 LessonTypeEntity lection = new LessonTypeEntity();
                                 lection.setHours((int) row.getCell(25 + offset).getNumericCellValue());
                                 lection.setName("Лекция");
-                                lection.setSemesterEntity(sem);
+                                lection.setSemester(sem);
                                 //_LessonTypeRepository.save(lection);
                                 //sem.setLection_hours((int) row.getCell(25 + offset).getNumericCellValue());
-                                System.out.println(planEntity.getDisciplineEntity().getName()+": Лекция");
+                                System.out.println(planEntity.getDiscipline().getName()+": Лекция");
                             } else System.out.println("Incorrect type of item for setLection_hours");
 
 //------------------------------------------------------------------------------------------------------------------------------------------------
@@ -174,19 +174,19 @@ public class ExcelController {
                                     LessonTypeEntity lection = new LessonTypeEntity();
                                     lection.setHours((int) Float.parseFloat(row.getCell(26 + offset).getStringCellValue()));
                                     lection.setName("Лабораторная");
-                                    lection.setSemesterEntity(sem);
+                                    lection.setSemester(sem);
                                     //_LessonTypeRepository.save(lection);
                                     //sem.setLaboratory_hours((int) Float.parseFloat(row.getCell(26 + offset).getStringCellValue()));
-                                    System.out.println(planEntity.getDisciplineEntity().getName()+": Лабораторная");
+                                    System.out.println(planEntity.getDiscipline().getName()+": Лабораторная");
                                 }
                             } else if (row.getCell(26+ offset).getCellType() == 0) {
                                 LessonTypeEntity lection = new LessonTypeEntity();
                                 lection.setHours((int) row.getCell(26 + offset).getNumericCellValue());
                                 lection.setName("Лабораторная");
-                                lection.setSemesterEntity(sem);
+                                lection.setSemester(sem);
                                 //_LessonTypeRepository.save(lection);
                                 //sem.setLaboratory_hours((int) row.getCell(26 + offset).getNumericCellValue());
-                                System.out.println(planEntity.getDisciplineEntity().getName()+": Лабораторная");
+                                System.out.println(planEntity.getDiscipline().getName()+": Лабораторная");
                             } else System.out.println("Incorrect type of item for setLaboratory_hours");
 
 //------------------------------------------------------------------------------------------------------------------------------------------------
@@ -196,19 +196,19 @@ public class ExcelController {
                                     LessonTypeEntity lection = new LessonTypeEntity();
                                     lection.setHours((int) Float.parseFloat(row.getCell(27 + offset).getStringCellValue()));
                                     lection.setName("Практика");
-                                    lection.setSemesterEntity(sem);
+                                    lection.setSemester(sem);
                                     //_LessonTypeRepository.save(lection);
                                     //sem.setPractice_hours((int) Float.parseFloat(row.getCell(27 + offset).getStringCellValue()));
-                                    System.out.println(planEntity.getDisciplineEntity().getName()+": Практика");
+                                    System.out.println(planEntity.getDiscipline().getName()+": Практика");
                                 }
                             } else if (row.getCell(27+ offset).getCellType() == 0) {
                                 LessonTypeEntity lection = new LessonTypeEntity();
                                 lection.setHours((int) row.getCell(27 + offset).getNumericCellValue());
                                 lection.setName("Практика");
-                                lection.setSemesterEntity(sem);
+                                lection.setSemester(sem);
                                 //_LessonTypeRepository.save(lection);
                                 //sem.setPractice_hours((int) row.getCell(27 + offset).getNumericCellValue());
-                                System.out.println(planEntity.getDisciplineEntity().getName()+": Практика");
+                                System.out.println(planEntity.getDiscipline().getName()+": Практика");
                             } else System.out.println("Incorrect type of item for setPractice_hours");
 
 //------------------------------------------------------------------------------------------------------------------------------------------------
@@ -218,19 +218,19 @@ public class ExcelController {
                                     LessonTypeEntity lection = new LessonTypeEntity();
                                     lection.setHours((int) Float.parseFloat(row.getCell(28 + offset).getStringCellValue()));
                                     lection.setName("СРС");
-                                    lection.setSemesterEntity(sem);
+                                    lection.setSemester(sem);
                                     //_LessonTypeRepository.save(lection);
                                     //sem.setSRS_hours((int) Float.parseFloat(row.getCell(28 + offset).getStringCellValue()));
-                                    System.out.println(planEntity.getDisciplineEntity().getName()+": СРС");
+                                    System.out.println(planEntity.getDiscipline().getName()+": СРС");
                                 }
                             } else if (row.getCell(28+ offset).getCellType() == 0) {
                                 LessonTypeEntity lection = new LessonTypeEntity();
                                 lection.setHours((int) row.getCell(28 + offset).getNumericCellValue());
                                 lection.setName("СРС");
-                                lection.setSemesterEntity(sem);
+                                lection.setSemester(sem);
                                 //_LessonTypeRepository.save(lection);
                                 //sem.setSRS_hours((int) row.getCell(28 + offset).getNumericCellValue());
-                                System.out.println(planEntity.getDisciplineEntity().getName()+": СРС");
+                                System.out.println(planEntity.getDiscipline().getName()+": СРС");
                             } else System.out.println("Incorrect type of item for setSRS_hours");
 
 //------------------------------------------------------------------------------------------------------------------------------------------------
@@ -240,19 +240,19 @@ public class ExcelController {
                                     LessonTypeEntity lection = new LessonTypeEntity();
                                     lection.setHours((int) Float.parseFloat(row.getCell(29 + offset).getStringCellValue()));
                                     lection.setName("Контроль");
-                                    lection.setSemesterEntity(sem);
+                                    lection.setSemester(sem);
                                     //_LessonTypeRepository.save(lection);
                                     //sem.setControl_hours((int) Float.parseFloat(row.getCell(29 + offset).getStringCellValue()));
-                                    System.out.println(planEntity.getDisciplineEntity().getName()+": Контроль");
+                                    System.out.println(planEntity.getDiscipline().getName()+": Контроль");
                                 }
                             } else if (row.getCell(29+ offset).getCellType() == 0) {
                                 LessonTypeEntity lection = new LessonTypeEntity();
                                 lection.setHours((int) row.getCell(29 + offset).getNumericCellValue());
                                 lection.setName("Контроль");
-                                lection.setSemesterEntity(sem);
+                                lection.setSemester(sem);
                                 //_LessonTypeRepository.save(lection);
                                 //sem.setControl_hours((int) row.getCell(29 + offset).getNumericCellValue());
-                                System.out.println(planEntity.getDisciplineEntity().getName()+": Контроль");
+                                System.out.println(planEntity.getDiscipline().getName()+": Контроль");
                             } else System.out.println("Incorrect type of item for setControl_hours");
 
 //------------------------------------------------------------------------------------------------------------------------------------------------
@@ -262,19 +262,19 @@ public class ExcelController {
                                     LessonTypeEntity lection = new LessonTypeEntity();
                                     lection.setHours((int) Float.parseFloat(row.getCell(30 + offset).getStringCellValue()));
                                     lection.setName("ЗЕТ");
-                                    lection.setSemesterEntity(sem);
+                                    lection.setSemester(sem);
                                     //_LessonTypeRepository.save(lection);
                                     //sem.setZET_hours((int) Float.parseFloat(row.getCell(30 + offset).getStringCellValue()));
-                                    System.out.println(planEntity.getDisciplineEntity().getName()+": ЗЕТ");
+                                    System.out.println(planEntity.getDiscipline().getName()+": ЗЕТ");
                                 }
                             } else if (row.getCell(30+ offset).getCellType() == 0) {
                                 LessonTypeEntity lection = new LessonTypeEntity();
                                 lection.setHours((int) row.getCell(30 + offset).getNumericCellValue());
                                 lection.setName("ЗЕТ");
-                                lection.setSemesterEntity(sem);
+                                lection.setSemester(sem);
                                 //_LessonTypeRepository.save(lection);
                                 //sem.setZET_hours((int) row.getCell(30 + offset).getNumericCellValue());
-                                System.out.println(planEntity.getDisciplineEntity().getName()+": ЗЕТ");
+                                System.out.println(planEntity.getDiscipline().getName()+": ЗЕТ");
                             } else System.out.println("Incorrect type of item for setZET_hours");
 
 //------------------------------------------------------------------------------------------------------------------------------------------------

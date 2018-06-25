@@ -9,6 +9,7 @@ import java.util.List;
 public interface IPointDataService extends IDataService<PointDTO> {
 
     List<PointDTO> GetByStudentAndPair(long studentId, long lessonId);
+    List<PointDTO> GetByLesson(long lessonId);
     PointDTO GetByStudentAndDateAndTypeAndPair(long studentId, Date date, long typeId, long pairId);
 
 }

@@ -192,9 +192,9 @@ public class MapperService implements IMapperService {
     {
         PointDTO Dto = new PointDTO();
         Dto.setId(Entity.getId());
-        Dto.setStudent(StudentToDto(Entity.getStudentEntity()));
+        Dto.setStudent(StudentToDto(Entity.getStudent()));
         Dto.setValue(Entity.getValue());
-        Dto.setPair(PairToDto(Entity.getPairEntity()));
+        Dto.setPair(PairToDto(Entity.getPair()));
         Dto.setType(PointTypeToDto(Entity.getType()));
         Dto.setDate(Entity.getDate());
         return Dto;
@@ -203,9 +203,9 @@ public class MapperService implements IMapperService {
     {
         PointEntity Entity = new PointEntity();
         Entity.setId(Dto.getId());
-        Entity.setStudentEntity(StudentToEntity(Dto.getStudent()));
+        Entity.setStudent(StudentToEntity(Dto.getStudent()));
         Entity.setValue(Dto.getValue());
-        Entity.setPairEntity(PairToEntity(Dto.getPair()));
+        Entity.setPair(PairToEntity(Dto.getPair()));
         Entity.setType(PointTypeToEntity(Dto.getType()));
         Entity.setDate(Dto.getDate());
         return Entity;
@@ -218,7 +218,7 @@ public class MapperService implements IMapperService {
         Date Dt = new Date((long)Entity.getDate().getTime());
         Dto.setDate(Dt);
         Dto.setComment(Entity.getComment());
-        Dto.setLesson(LessonToDto(Entity.getLessonEntity()));
+        Dto.setLesson(LessonToDto(Entity.getLesson()));
         Dto.setType(PointTypeToDto(Entity.getType()));
         return Dto;
     }
@@ -229,7 +229,7 @@ public class MapperService implements IMapperService {
         Timestamp ts = new Timestamp(Dto.getDate().getTime());
         Entity.setDate(ts);
         Entity.setComment(Dto.getComment());
-        Entity.setLessonEntity(LessonToEntity(Dto.getLesson()));
+        Entity.setLesson(LessonToEntity(Dto.getLesson()));
         Entity.setType(PointTypeToEntity(Dto.getType()));
         return Entity;
     }
@@ -355,16 +355,16 @@ public class MapperService implements IMapperService {
     {
         ProfessorDTO Dto = new ProfessorDTO();
         Dto.setId(Entity.getId());
-        Dto.setUser(UserToDto(Entity.getUserEntity()));
-        Dto.setDepartment((DepartmentDTO) toDto(Entity.getDepartmentEntity()));
+        Dto.setUser(UserToDto(Entity.getUser()));
+        Dto.setDepartment((DepartmentDTO) toDto(Entity.getDepartment()));
         return Dto;
     }
     public ProfessorEntity ProfessorToEntity(ProfessorDTO Dto)
     {
         ProfessorEntity Entity = new ProfessorEntity();
         Entity.setId(Dto.getId());
-        Entity.setUserEntity(UserToEntity(Dto.getUser()));
-        Entity.setDepartmentEntity((DepartmentEntity) toEntity(Dto.getDepartment()));
+        Entity.setUser(UserToEntity(Dto.getUser()));
+        Entity.setDepartment((DepartmentEntity) toEntity(Dto.getDepartment()));
         return Entity;
     }
 
@@ -372,16 +372,16 @@ public class MapperService implements IMapperService {
     {
         StudentDTO Dto = new StudentDTO();
         Dto.setId(Entity.getId());
-        Dto.setUser(UserToDto(Entity.getUserEntity()));
-        Dto.setGroup((GroupDTO) toDto(Entity.getGroupEntity()));
+        Dto.setUser(UserToDto(Entity.getUser()));
+        Dto.setGroup((GroupDTO) toDto(Entity.getGroup()));
         return Dto;
     }
     public StudentEntity StudentToEntity(StudentDTO Dto)
     {
         StudentEntity Entity = new StudentEntity();
         Entity.setId(Dto.getId());
-        Entity.setUserEntity(UserToEntity(Dto.getUser()));
-        Entity.setGroupEntity((GroupEntity) toEntity(Dto.getGroup()));
+        Entity.setUser(UserToEntity(Dto.getUser()));
+        Entity.setGroup((GroupEntity) toEntity(Dto.getGroup()));
         return Entity;
     }
 
@@ -404,18 +404,18 @@ public class MapperService implements IMapperService {
     {
         LessonDTO Dto = new LessonDTO();
         Dto.setId((int) Entity.getId());
-        Dto.setDiscipline(DisciplineToDto(Entity.getDisciplineEntity()));
-        Dto.setGroup(GroupToDto(Entity.getGroupEntity()));
-        Dto.setProfessor(ProfessorToDto(Entity.getProfessorEntity()));
+        Dto.setDiscipline(DisciplineToDto(Entity.getDiscipline()));
+        Dto.setGroup(GroupToDto(Entity.getGroup()));
+        Dto.setProfessor(ProfessorToDto(Entity.getProfessor()));
         return Dto;
     }
     public LessonEntity LessonToEntity(LessonDTO Dto)
     {
         LessonEntity Entity = new LessonEntity();
         Entity.setId(Dto.getId());
-        Entity.setDisciplineEntity(DisciplineToEntity(Dto.getDiscipline()));
-        Entity.setGroupEntity(GroupToEntity(Dto.getGroup()));
-        Entity.setProfessorEntity(ProfessorToEntity(Dto.getProfessor()));
+        Entity.setDiscipline(DisciplineToEntity(Dto.getDiscipline()));
+        Entity.setGroup(GroupToEntity(Dto.getGroup()));
+        Entity.setProfessor(ProfessorToEntity(Dto.getProfessor()));
         return Entity;
     }
 
@@ -426,8 +426,8 @@ public class MapperService implements IMapperService {
         Dto.setPairNumber(Entity.getPairNumber());
         Dto.setWeektype(Entity.getWeektype());
         Dto.setDayofweek(Entity.getDayofweek());
-        Dto.setLesson(LessonToDto(Entity.getLessonEntity()));
-        Dto.setRoom(RoomToDto(Entity.getRoomEntity()));
+        Dto.setLesson(LessonToDto(Entity.getLesson()));
+        Dto.setRoom(RoomToDto(Entity.getRoom()));
         Dto.setPairType(PairTypeToDto(Entity.getPairType()));
         return Dto;
     }
@@ -438,8 +438,8 @@ public class MapperService implements IMapperService {
         Entity.setPairNumber(Dto.getPairNumber());
         Entity.setWeektype(Dto.getWeektype());
         Entity.setDayofweek(Dto.getDayofweek());
-        Entity.setLessonEntity(LessonToEntity(Dto.getLesson()));
-        Entity.setRoomEntity(RoomToEntity(Dto.getRoom()));
+        Entity.setLesson(LessonToEntity(Dto.getLesson()));
+        Entity.setRoom(RoomToEntity(Dto.getRoom()));
         Entity.setPairType(PairTypeToEntity(Dto.getPairType()));
         return Entity;
     }
@@ -447,14 +447,14 @@ public class MapperService implements IMapperService {
     public PairTypeDTO PairTypeToDto(PairTypeEntity Entity)
     {
         PairTypeDTO Dto = new PairTypeDTO();
-        Dto.setId((int) Entity.getId());
+        Dto.setId(Entity.getId());
         Dto.setType(Entity.getType());
         return Dto;
     }
     public PairTypeEntity PairTypeToEntity(PairTypeDTO Dto)
     {
         PairTypeEntity Entity = new PairTypeEntity();
-        Entity.setId((int) Dto.getId());
+        Entity.setId(Dto.getId());
         Entity.setType(Dto.getType());
         return Entity;
     }
@@ -477,7 +477,7 @@ public class MapperService implements IMapperService {
             RoleEntity roleEntityEntity = (RoleEntity) toEntity(role);
             roleEntities.add(roleEntityEntity);
         }
-        Entity.setRoleEntities(roleEntities);
+        Entity.setRole(roleEntities);
 
         return Entity;
     }
@@ -495,7 +495,7 @@ public class MapperService implements IMapperService {
             photo = new String(Entity.getPhoto(), StandardCharsets.UTF_8);
         Dto.setPhoto(photo);
         List<RoleDTO> roles = new ArrayList<>();
-        for (RoleEntity roleEntity : Entity.getRoleEntities()) {
+        for (RoleEntity roleEntity : Entity.getRole()) {
             RoleDTO roleDTO = (RoleDTO) toDto(roleEntity);
             roles.add(roleDTO);
         }
@@ -541,7 +541,7 @@ public class MapperService implements IMapperService {
 
         Dto.setId(Entity.getId());
         Dto.setName(Entity.getName());
-        Dto.setInstitute((InstituteDTO) toDto(Entity.getInstituteEntity()));
+        Dto.setInstitute((InstituteDTO) toDto(Entity.getInstitute()));
         return Dto;
     }
     public DepartmentEntity DepartmentToEntity(DepartmentDTO Dto)
@@ -549,7 +549,7 @@ public class MapperService implements IMapperService {
         DepartmentEntity Entity = new DepartmentEntity();
         Entity.setId(Dto.getId());
         Entity.setName(Dto.getName());
-        Entity.setInstituteEntity((InstituteEntity) toEntity(Dto.getInstitute()));
+        Entity.setInstitute((InstituteEntity) toEntity(Dto.getInstitute()));
         return Entity;
     }
 
@@ -559,7 +559,7 @@ public class MapperService implements IMapperService {
 
         Dto.setName(Entity.getName());
         Dto.setId(Entity.getId());
-        Dto.setDepartment((DepartmentDTO) toDto(Entity.getDepartmentEntity()));
+        Dto.setDepartment((DepartmentDTO) toDto(Entity.getDepartment()));
 
         return Dto;
     }
@@ -570,7 +570,7 @@ public class MapperService implements IMapperService {
 
         Entity.setName(Dto.getName());
         Entity.setId(Dto.getId());
-        Entity.setDepartmentEntity((DepartmentEntity) toEntity(Dto.getDepartment()));
+        Entity.setDepartment((DepartmentEntity) toEntity(Dto.getDepartment()));
 
         return Entity;
     }
@@ -581,8 +581,8 @@ public class MapperService implements IMapperService {
 
         Dto.setId((int) Entity.getId());
         Dto.setName(Entity.getName());
-        if(Entity.getFieldOfKnowledgeEntity() != null)
-            Dto.setFieldOfKnowledge((FieldOfKnowledgeDTO) toDto(Entity.getFieldOfKnowledgeEntity()));
+        if(Entity.getFieldOfKnowledge() != null)
+            Dto.setFieldOfKnowledge((FieldOfKnowledgeDTO) toDto(Entity.getFieldOfKnowledge()));
 
         return Dto;
     }
@@ -593,7 +593,7 @@ public class MapperService implements IMapperService {
         Entity.setId(Dto.getId());
         Entity.setName(Dto.getName());
         if (Dto.getFieldOfKnowledge() != null) {
-            Entity.setFieldOfKnowledgeEntity((FieldOfKnowledgeEntity) toEntity(Dto.getFieldOfKnowledge()));
+            Entity.setFieldOfKnowledge((FieldOfKnowledgeEntity) toEntity(Dto.getFieldOfKnowledge()));
         }
 
         return Entity;

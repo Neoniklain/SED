@@ -30,7 +30,7 @@ public class CustomUserDetails implements UserDetails {
         this.password = userEntity.getPassword();
         this.email = userEntity.getEmail();
         this.photo = userEntity.getPhoto() != null ? new String(userEntity.getPhoto(), StandardCharsets.UTF_8) : "";
-        this.roleEntities = new ArrayList<RoleEntity>(userEntity.getRoleEntities());
+        this.roleEntities = new ArrayList<RoleEntity>(userEntity.getRole());
     }
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

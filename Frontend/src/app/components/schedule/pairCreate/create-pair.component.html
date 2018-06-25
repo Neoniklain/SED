@@ -73,9 +73,17 @@
             <div class="row">
                 <div class="col-xs-6">
                     <div class="input-group input-group-md">
-                        <span class="input-group-addon">Тип: </span>
+                        <span class="input-group-addon">Периодичность: </span>
                         <select class="form-control"  [(ngModel)]="newPair.weektype" id="weektype" name="weektypelist">
                             <option *ngFor="let week of weektype | enumStringKeys" id="week" name="weektype" [ngValue]="week">{{week}}</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-xs-6">
+                    <div class="input-group input-group-md">
+                        <span class="input-group-addon">Тип занятия: </span>
+                        <select class="form-control"  [(ngModel)]="newPair.pairType" id="pairType" name="weektypelist">
+                            <option *ngFor="let type of pairTypes" id="type" name="weektype" [ngValue]="type">{{type.type}}</option>
                         </select>
                     </div>
                 </div>

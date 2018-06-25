@@ -126,4 +126,9 @@ public class DictionaryControllerWeb {
       return dictionaryController.GetPointTypeList(filter);
    }
 
+   @RequestMapping(method = RequestMethod.POST, value = "pairTypes")
+   public PageResultDTO<PairTypeDTO> GetPairTypeList(@RequestBody FilterQueryDTO filter) {
+      return dictionaryController.GetPairTypeList(filter);
+   }
+
 }

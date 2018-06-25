@@ -56,10 +56,10 @@ public class LessonEventEntity {
         this.type = type;
     }
 
-    public LessonEntity getLessonEntity() {
+    public LessonEntity getLesson() {
         return lessonEntity;
     }
-    public void setLessonEntity(LessonEntity lessonEntity) {
+    public void setLesson(LessonEntity lessonEntity) {
         this.lessonEntity = lessonEntity;
     }
 

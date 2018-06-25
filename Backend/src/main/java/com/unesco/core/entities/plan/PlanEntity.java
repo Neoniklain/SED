@@ -38,17 +38,17 @@ public class PlanEntity {
       this.id = id;
    }
 
-   public DisciplineEntity getDisciplineEntity() {
+   public DisciplineEntity getDiscipline() {
       return discipline;
    }
-   public void setDisciplineEntity(DisciplineEntity disciplineEntity) {
+   public void setDiscipline(DisciplineEntity disciplineEntity) {
       this.discipline = disciplineEntity;
    }
 
-   public DepartmentEntity getDepartmentEntity() {
+   public DepartmentEntity getDepartment() {
       return department;
    }
-   public void setDepartmentEntity(DepartmentEntity departmentEntity) {
+   public void setDepartment(DepartmentEntity departmentEntity) {
       this.department = departmentEntity;
    }
 
@@ -59,10 +59,10 @@ public class PlanEntity {
       this.index = index;
    }
 
-   public Set<CompetenceEntity> getCompetenceEntity() {
+   public Set<CompetenceEntity> getCompetence() {
       return competence;
    }
-   public void setCompetenceEntity(Set<CompetenceEntity> competenceEntity) {
+   public void setCompetence(Set<CompetenceEntity> competenceEntity) {
       this.competence = competenceEntity;
    }
 
@@ -70,10 +70,10 @@ public class PlanEntity {
    /** Поле семестра */
    private Set<SemesterEntity> semesterEntities;
 
-   public Set<SemesterEntity> getSemesterEntities() {
+   public Set<SemesterEntity> getSemester() {
       return semesterEntities;
    }
-   public void setSemesterEntities(Set<SemesterEntity> semesterEntities) {
+   public void setSemester(Set<SemesterEntity> semesterEntities) {
       this.semesterEntities = semesterEntities;
    }
 }

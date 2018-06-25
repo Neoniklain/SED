@@ -15,6 +15,9 @@ public interface PointRepository extends CrudRepository<PointEntity, Long> {
     List<PointEntity> findByStudentIdAndPairId(@Param("studentId") long studentId,
                                                @Param("pairId") long pairId);
 
+    @Query("SELECT p FROM PointEntity p where p.pair.lesson.id = :lessonId")
+    List<PointEntity> findByLesson(@Param("lessonId") long lessonId);
+
     @Query("SELECT p FROM PointEntity p where p.student.user.id = :studentId AND" +
             " p.type.id = :typeId AND " +
             " p.pair.id = :pairId AND " +

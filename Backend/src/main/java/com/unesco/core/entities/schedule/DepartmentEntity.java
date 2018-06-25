@@ -38,11 +38,11 @@ public class DepartmentEntity {
         this.name = name;
     }
 
-    public InstituteEntity getInstituteEntity() {
+    public InstituteEntity getInstitute() {
         return institute;
     }
 
-    public void setInstituteEntity(InstituteEntity instituteEntity) {
+    public void setInstitute(InstituteEntity instituteEntity) {
         this.institute = instituteEntity;
     }
 

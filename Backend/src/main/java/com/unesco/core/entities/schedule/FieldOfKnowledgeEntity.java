@@ -33,10 +33,10 @@ public class FieldOfKnowledgeEntity {
       this.name = name;
    }
 
-   public Set<DisciplineEntity> getDisciplineEntity() {
+   public Set<DisciplineEntity> getDiscipline() {
       return discipline;
    }
-   public void setDisciplineEntity(Set<DisciplineEntity> discipline) {
+   public void setDiscipline(Set<DisciplineEntity> discipline) {
       this.discipline = discipline;
    }
 }

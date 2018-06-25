@@ -51,6 +51,11 @@ export class DictionaryService {
       return this.http.post(ApiRouteConstants.Dictonary.Page.Groups, this.initFilter(filterQuery), {params: params })
           .catch(this.handleError.handle);
     }
+    public GetPairTypes(filterQuery?: LazyLoadEvent): Observable<PageResult> {
+      let params = new HttpParams();
+      return this.http.post(ApiRouteConstants.Dictonary.Page.PairTypes, this.initFilter(filterQuery), {params: params })
+          .catch(this.handleError.handle);
+    }
     public GetRoles(filterQuery?: LazyLoadEvent): Observable<PageResult> {
       let params = new HttpParams();
       return this.http.post(ApiRouteConstants.Dictonary.Page.Roles, this.initFilter(filterQuery), {params: params })

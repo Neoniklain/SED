@@ -27,17 +27,17 @@ public class StudentEntity {
         this.id = id;
     }
 
-    public UserEntity getUserEntity() {
+    public UserEntity getUser() {
         return user;
     }
-    public void setUserEntity(UserEntity userEntity) {
+    public void setUser(UserEntity userEntity) {
         this.user = userEntity;
     }
 
-    public GroupEntity getGroupEntity() {
+    public GroupEntity getGroup() {
         return group;
     }
-    public void setGroupEntity(GroupEntity groupEntity) {
+    public void setGroup(GroupEntity groupEntity) {
         this.group = groupEntity;
     }
 }

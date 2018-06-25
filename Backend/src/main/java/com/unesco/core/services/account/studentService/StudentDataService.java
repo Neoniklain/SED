@@ -69,8 +69,8 @@ public class StudentDataService implements IStudentDataService {
     public StudentDTO Save(StudentDTO student)
     {
         StudentEntity entity = (StudentEntity) mapperService.toEntity(student);
-        UserEntity userEntity = (UserEntity) mapperService.toEntity(userDataService.GetByUsername(entity.getUserEntity().getUsername()));
-        entity.setUserEntity(userEntity);
+        UserEntity userEntity = (UserEntity) mapperService.toEntity(userDataService.GetByUsername(entity.getUser().getUsername()));
+        entity.setUser(userEntity);
         StudentEntity model = studentRepository.save(entity);
         student = (StudentDTO) mapperService.toDto(model);
         return student;

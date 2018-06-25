@@ -29,10 +29,10 @@ public class GroupEntity {
       this.name = name;
    }
 
-   public DepartmentEntity getDepartmentEntity() {
+   public DepartmentEntity getDepartment() {
       return department;
    }
-   public void setDepartmentEntity(DepartmentEntity department) {
+   public void setDepartment(DepartmentEntity department) {
       this.department = department;
    }
 }

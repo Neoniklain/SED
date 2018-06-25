@@ -58,17 +58,17 @@ public class PointEntity {
         this.type = type;
     }
 
-    public StudentEntity getStudentEntity() {
+    public StudentEntity getStudent() {
         return student;
     }
-    public void setStudentEntity(StudentEntity studentEntity) {
+    public void setStudent(StudentEntity studentEntity) {
         this.student = studentEntity;
     }
 
-    public PairEntity getPairEntity() {
+    public PairEntity getPair() {
         return pair;
     }
-    public void setPairEntity(PairEntity pairEntity) {
+    public void setPair(PairEntity pairEntity) {
         this.pair = pairEntity;
     }
 

@@ -28,17 +28,17 @@ public class ProfessorEntity {
         this.id = id;
     }
 
-    public UserEntity getUserEntity() {
+    public UserEntity getUser() {
         return user;
     }
-    public void setUserEntity(UserEntity userEntity) {
+    public void setUser(UserEntity userEntity) {
         this.user = userEntity;
     }
 
-    public DepartmentEntity getDepartmentEntity() {
+    public DepartmentEntity getDepartment() {
         return department;
     }
-    public void setDepartmentEntity(DepartmentEntity departmentEntity) {
+    public void setDepartment(DepartmentEntity departmentEntity) {
         this.department = departmentEntity;
     }
 }

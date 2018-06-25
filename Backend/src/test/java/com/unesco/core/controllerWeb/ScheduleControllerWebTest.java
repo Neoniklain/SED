@@ -26,6 +26,7 @@ import com.unesco.core.services.schedule.groupService.IGroupDataService;
 import com.unesco.core.services.schedule.instituteService.IInstituteDataService;
 import com.unesco.core.services.schedule.lessonService.ILessonDataService;
 import com.unesco.core.services.schedule.pairService.IPairDataService;
+import com.unesco.core.services.schedule.pairTypeService.IPairTypeDataService;
 import com.unesco.core.services.schedule.roomService.IRoomDataService;
 import com.unesco.core.utils.StatusTypes;
 import org.junit.After;
@@ -81,6 +82,8 @@ public class ScheduleControllerWebTest extends Assert {
     private ILessonEventDataService lessonEventDataService;
     @Autowired
     private IPointTypeDataService pointTypeDataService;
+    @Autowired
+    private IPairTypeDataService pairTypeDataService;
 
     private InstituteDTO inst = new InstituteDTO();
     private DepartmentDTO dep = new DepartmentDTO();
@@ -94,6 +97,7 @@ public class ScheduleControllerWebTest extends Assert {
     private LessonDTO lesson = new LessonDTO();
     private PairDTO pair = new PairDTO();
     private LessonEventDTO lesev = new LessonEventDTO();
+    private PairTypeDTO pairType = new PairTypeDTO();
 
     @Before
     public void setUp() throws Exception {
@@ -161,11 +165,18 @@ public class ScheduleControllerWebTest extends Assert {
         lessonEventDataService.Save(lesev);
         lesev = lessonEventDataService.GetByLesson(lesson.getId()).get(0);
 
+
+        // Создание типа пары
+        pairType.setType(Math.random()+"");
+        pairTypeDataService.Save(pairType);
+        pairType = pairTypeDataService.GetByType(pairType.getType());
+
         // Создание пары
         pair.setLesson(lesson);
         pair.setDayofweek("Понедельник");
         pair.setPairNumber(1);
         pair.setRoom(room);
+        pair.setPairType(pairType);
         pair.setWeektype("Все");
         pairDataService.Save(pair);
         pair = pairDataService.GetAllByLesson(lesson.getId()).get(0);
@@ -177,6 +188,9 @@ public class ScheduleControllerWebTest extends Assert {
         // Удаление пары
         if(pairDataService.Get(pair.getId())!=null)
             pairDataService.Delete(pair.getId());
+        // Удаление типа пары
+        if(pairTypeDataService.Get(pairType.getId())!=null)
+            pairTypeDataService.Delete(pairType.getId());
         // Удаление события
         for(LessonEventDTO ev: lessonEventDataService.GetByLesson(lesson.getId())) {
             lessonEventDataService.Delete(ev.getId());

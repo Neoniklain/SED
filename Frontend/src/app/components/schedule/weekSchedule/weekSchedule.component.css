@@ -57,17 +57,18 @@ input {
 }
 
 .odd {
-  background: #0007ff1f;
+  background: rgba(0, 7, 255, 0.08);
 }
 
 .even {
-  background: #ff00002b;
+  background: #ff000017;
 }
 
 .pair {
   padding: 5px;
   cursor: pointer;
   display: inline-block;
+  width: 100%;
 }
 
 input:hover,input:focus {

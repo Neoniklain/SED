@@ -36,10 +36,10 @@ public class DisciplineEntity {
         this.name = name;
     }
 
-    public FieldOfKnowledgeEntity getFieldOfKnowledgeEntity() {
+    public FieldOfKnowledgeEntity getFieldOfKnowledge() {
         return fieldOfKnowledge;
     }
-    public void setFieldOfKnowledgeEntity(FieldOfKnowledgeEntity fieldOfKnowledge) {
+    public void setFieldOfKnowledge(FieldOfKnowledgeEntity fieldOfKnowledge) {
         this.fieldOfKnowledge = fieldOfKnowledge;
     }
 
@@ -47,10 +47,10 @@ public class DisciplineEntity {
     /** Поле набор планов */
     private Set<PlanEntity> plan;
 
-    public Set<PlanEntity> getPlanEntity() {
+    public Set<PlanEntity> getPlan() {
         return plan;
     }
-    public void setPlanEntity(Set<PlanEntity> plan) {
+    public void setPlan(Set<PlanEntity> plan) {
         this.plan = plan;
     }
 

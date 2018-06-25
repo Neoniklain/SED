@@ -60,17 +60,17 @@ public class PairEntity {
         this.weektype = weektype;
     }
 
-    public RoomEntity getRoomEntity() {
+    public RoomEntity getRoom() {
         return room;
     }
-    public void setRoomEntity(RoomEntity room) {
+    public void setRoom(RoomEntity room) {
         this.room = room;
     }
 
-    public LessonEntity getLessonEntity() {
+    public LessonEntity getLesson() {
         return lesson;
     }
-    public void setLessonEntity(LessonEntity lesson) {
+    public void setLesson(LessonEntity lesson) {
         this.lesson = lesson;
     }
 
