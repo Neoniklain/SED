@@ -13,6 +13,7 @@ import {NotificationService} from "../../../services/notification.service";
 import {WeekType} from "../../../models/shedule/weekType.enum";
 import {PairType} from "../../../models/shedule/pairType";
 import {PageResult} from "../../../models/admin/PageResult.model.list";
+import {User} from "../../../models/account/user.model";
 
 @Component({
     selector: 'pair-details',
@@ -114,6 +115,8 @@ export class PairDetailsComponent implements OnInit, OnChanges {
     }
     public selectProfessor(professor: Professor) {
         this.pair.lesson.professor = professor;
+        console.log("professor", professor);
+        console.log("this.pair.lesson.professor", this.pair.lesson.professor);
     }
     public selectRoom(room: Room) {
         this.pair.room = room;
@@ -137,11 +140,15 @@ export class PairDetailsComponent implements OnInit, OnChanges {
     }
     */
     public checkOneEmpty() {
+        console.log("this.pair", this.pair);
         if (this.pair.lesson.discipline == null) {
             this.pair.lesson.discipline = new Discipline();
         }
         if (this.pair.lesson.professor == null) {
             this.pair.lesson.professor = new Professor();
+        }
+        if (this.pair.lesson.professor.user == null) {
+            this.pair.lesson.professor.user = new User();
         }
         if (this.pair.room == null) {
             this.pair.room = new Room();
@@ -209,8 +216,9 @@ export class PairDetailsComponent implements OnInit, OnChanges {
         this.dictionaryService.GetProfessors(filter).subscribe(
             result => {
                 temp = result.content;
-                if (temp.length > 0)
+                if (temp.length > 0) {
                     this.findProfessors = temp;
+                }
                 else
                     this.findProfessors = [];
             }, error => console.error(error)

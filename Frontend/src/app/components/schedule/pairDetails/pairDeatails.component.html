@@ -47,10 +47,10 @@
     <div class="form-group row">
         <label for="professor" class="col-sm-5 col-form-label">Преподаватель</label>
         <div class="col-sm-7">
-            <p-autoComplete [inputStyle]="{'width':'100%'}" id="professor" [(ngModel)]="pair.lesson.professor.user"
+            <p-autoComplete [inputStyle]="{'width':'100%'}" id="professor" [(ngModel)]="pair.lesson.professor"
                             (onSelect)="selectProfessor($event)" (ngModelChange)="checkOneEmpty()"
                             [suggestions]="findProfessors" (completeMethod)="searchProfessors($event)"
-                            [multiple]="false" field="userFIO" [emptyMessage]="'Не найдено.'"
+                            [multiple]="false" field="user.userFIO" [emptyMessage]="'Не найдено.'"
                             [forceSelection]="true"></p-autoComplete>
         </div>
     </div>
@@ -64,6 +64,14 @@
                     [autoWidth]="false"
                     [(ngModel)]="pair.pairType"
                     optionLabel="type"></p-dropdown>
+        </div>
+    </div>
+
+    <div class="form-group row">
+        <label for="professor" class="col-sm-5 col-form-label">По выбору</label>
+        <div class="col-sm-7">
+            <p-toggleButton onLabel="Да" offLabel="Нет"
+                            [(ngModel)]="pair.optionally"></p-toggleButton>
         </div>
     </div>
 

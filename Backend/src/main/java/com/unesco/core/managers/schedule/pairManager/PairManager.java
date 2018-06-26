@@ -46,8 +46,11 @@ public class PairManager implements IPairManager {
                 boolean roomEq = pair.getRoom().getId() == p.getRoom().getId();
                 boolean weektypeEq = pair.getWeektype().equals(p.getWeektype());
 
-                if(profEq && groupEq && (weektypeEq || (pair.getWeektype().equals("Все"))
-                    || (p.getWeektype().equals("Все"))) )
+                if(profEq && groupEq
+                    && (weektypeEq
+                        || (pair.getWeektype().equals("Все"))
+                        || (p.getWeektype().equals("Все"))
+                    ))
                 {
                     messages.add(" В это время у "+p.getLesson().getProfessor().getUser().getUserFIO()
                             +" и "+p.getLesson().getGroup().getName()+" уже назначено занятие ");
@@ -71,10 +74,43 @@ public class PairManager implements IPairManager {
                 }
 
                 if(groupEq && (weektypeEq || (pair.getWeektype().equals("Все"))
-                        || (p.getWeektype().equals("Все"))))
+                        || (p.getWeektype().equals("Все")))
+                        && !pair.isOptionally()
+                        && !p.isOptionally())
                 {
                     messages.add("У группы "+p.getLesson().getGroup().getName()
                             +" уже назначено занятие в это время у преподавателя "+p.getLesson().getProfessor().getUser().getUserFIO());
+                    break;
+                }
+
+                if(groupEq && (weektypeEq || (pair.getWeektype().equals("Все"))
+                        || (p.getWeektype().equals("Все")))
+                        && (pair.isOptionally()
+                        && !p.isOptionally()))
+                {
+                    messages.add("У группы "+p.getLesson().getGroup().getName()
+                            +" уже назначено занятие в это время у преподавателя "+p.getLesson().getProfessor().getUser().getUserFIO());
+                    break;
+                }
+
+                if(groupEq && (weektypeEq || (pair.getWeektype().equals("Все"))
+                        || (p.getWeektype().equals("Все")))
+                        && (pair.isOptionally()
+                        && p.isOptionally()
+                        && pairsForValidate.stream().anyMatch(
+                                o -> (o.getWeektype() == pair.getWeektype()
+                                || (pair.getWeektype().equals("Все"))
+                                || (p.getWeektype().equals("Все")))
+                                && pair.getDayofweek().equals(o.getDayofweek())
+                                && pair.getPairNumber() == o.getPairNumber()
+                                && o.isOptionally()
+                                && o != p
+                                && o.getId() != pair.getId()
+                            )
+                        )
+                )
+                {
+                    messages.add("В один день не может быть больше двух занятий по выбору");
                     break;
                 }
             }
