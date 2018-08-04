@@ -84,7 +84,7 @@ export class LessonСonfiguratorComponent implements OnInit {
     disableUnusedDays() {
         this.journalService.GetJournalDates(this.pair.lesson.id).subscribe(
             result => {
-                this.dates = result.data;
+                this.dates = result.data.dates;
                 this.allDisabledDates = [];
                 for (let date of this.dates) {
                     let temp = new Date(this.datePipe.transform(date, "yyyy-MM-ddTHH:mm:ss"));
@@ -96,19 +96,18 @@ export class LessonСonfiguratorComponent implements OnInit {
         );
     }
 
-
     getPointsType() {
         this.dictionaryService.GetPointTypes()
             .subscribe( result => {
                 this.eventTypes = result.content;
                 let deleteItem = this.eventTypes.findIndex(i => i.name === "Посещение");
                 this.eventTypes.splice(deleteItem, 1);
-
+                this.model.type = this.eventTypes[0];
             });
     }
 
     Save() {
-        console.log("saved model:", this.model);
+        console.log("this.model", this.model);
         this.journalService.SaveEvent(this.model).subscribe(
             result => {
                 if (result.status === StatusType.OK.toString()) {
@@ -141,6 +140,7 @@ export class LessonСonfiguratorComponent implements OnInit {
         this.editMode = false;
         this.model = new LessonEvent();
         this.model.lesson = this.pair.lesson;
+        this.model.type = this.eventTypes[0];
     }
 
 }

@@ -140,29 +140,33 @@ public class PairManager implements IPairManager {
             responseStatusDTO.setStatus(StatusTypes.ERROR);
             responseStatusDTO.addErrors("Не указанна группа");
         }
-        if (pair.getLesson().getDiscipline() == null || pair.getLesson().getDiscipline().getId() == 0) {
+        if (pair.getLesson() == null || pair.getLesson().getDiscipline() == null || pair.getLesson().getDiscipline().getId() == 0) {
             responseStatusDTO.setStatus(StatusTypes.ERROR);
             responseStatusDTO.addErrors("Не указанна дисциплина");
         }
-        if (pair.getLesson().getProfessor() == null || pair.getLesson().getProfessor().getId() == 0) {
+        if (pair.getLesson().getProfessor() == null || pair.getLesson().getProfessor() == null || pair.getLesson().getProfessor().getId() == 0) {
             responseStatusDTO.setStatus(StatusTypes.ERROR);
             responseStatusDTO.addErrors("Не указан преподаватель");
         }
-        if (pair.getWeektype().equals("")) {
+        if (pair.getWeektype() == null || pair.getWeektype().equals("")) {
             responseStatusDTO.setStatus(StatusTypes.ERROR);
             responseStatusDTO.addErrors("Не указана переодичность");
         }
-        if (pair.getDayofweek().equals("")) {
+        if (pair.getDayofweek() == null || pair.getDayofweek().equals("")) {
             responseStatusDTO.setStatus(StatusTypes.ERROR);
             responseStatusDTO.addErrors("Не указан день недели");
         }
-        if (pair.getRoom() == null || pair.getRoom().getId() == 0) {
+        if (pair.getRoom() == null || pair.getRoom() == null || pair.getRoom().getId() == 0) {
             responseStatusDTO.setStatus(StatusTypes.ERROR);
             responseStatusDTO.addErrors("Не указана аудитория");
         }
         if (pair.getPairNumber() == 0) {
             responseStatusDTO.setStatus(StatusTypes.ERROR);
-            responseStatusDTO.addErrors("Не указана аудитория");
+            responseStatusDTO.addErrors("Не указан номер занятия");
+        }
+        if (pair.getPairType().getType() == "") {
+            responseStatusDTO.setStatus(StatusTypes.ERROR);
+            responseStatusDTO.addErrors("Не указан тип занятия");
         }
         return responseStatusDTO;
     }

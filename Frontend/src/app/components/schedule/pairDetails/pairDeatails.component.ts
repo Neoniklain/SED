@@ -29,14 +29,15 @@ export class PairDetailsComponent implements OnInit, OnChanges {
     @Output() close = new EventEmitter<any>();
     @Output() updatePairs = new EventEmitter<any>();
 
-    public findGroups: Array<Group>;
-    public findDisciplines: Array<Discipline>;
-    public WeekTypes;
-    public findProfessors: Array<Professor>;
-    public findRooms: Array<Room>;
-    public pair: Pair;
-    public showDeleteDialog: boolean = false;
+    public pair: Pair = new Pair();
+
+    public findGroups: Array<Group> = new Array<Group>();
+    public findDisciplines: Array<Discipline> = new Array<Discipline>();
+    public findProfessors: Array<Professor> = new Array<Professor>();
+    public findRooms: Array<Room> = new Array<Room>();
     public findPairTypes: Array<PairType> = new Array<PairType>();
+    public showDeleteDialog: boolean = false;
+    public WeekTypes = WeekType;
 
     constructor(private dictionaryService: DictionaryService,
                 private accountService: AccountService,
@@ -45,15 +46,12 @@ export class PairDetailsComponent implements OnInit, OnChanges {
     ) { }
 
     ngOnInit() {
-        console.log("p", this.pair);
-        this.WeekTypes = WeekType;
         this.GetPairTypes();
     }
 
     ngOnChanges() {
         if (!isUndefined(this.editablePair)) this.pair = JSON.parse(JSON.stringify(this.editablePair));
         else this.pair = null;
-        console.log("p", this.pair);
     }
 
     getStyle() {
@@ -72,7 +70,7 @@ export class PairDetailsComponent implements OnInit, OnChanges {
     }
 
     AllUpdatePairs() {
-        console.log("this.pair", this.pair);
+        this.checkOnEmpty();
         this.pairService.Save(this.pair).subscribe(
             result => {
                 if (result.status === StatusType.OK.toString()) {
@@ -115,8 +113,6 @@ export class PairDetailsComponent implements OnInit, OnChanges {
     }
     public selectProfessor(professor: Professor) {
         this.pair.lesson.professor = professor;
-        console.log("professor", professor);
-        console.log("this.pair.lesson.professor", this.pair.lesson.professor);
     }
     public selectRoom(room: Room) {
         this.pair.room = room;
@@ -135,12 +131,14 @@ export class PairDetailsComponent implements OnInit, OnChanges {
         }
         this.pair.weektype = week;
     }
-    /* selectPairType(pairType: PairType) {
+    selectPairType(pairType: PairType) {
         this.pair.pairType = pairType;
     }
-    */
-    public checkOneEmpty() {
-        console.log("this.pair", this.pair);
+
+    public checkOnEmpty() {
+        if (isUndefined(this.pair) || this.pair == null) {
+            this.pair = new Pair();
+        }
         if (this.pair.lesson.discipline == null) {
             this.pair.lesson.discipline = new Discipline();
         }
@@ -156,8 +154,11 @@ export class PairDetailsComponent implements OnInit, OnChanges {
         if (this.pair.lesson.group == null) {
             this.pair.lesson.group = new Group();
         }
-        if (this.pair.pairType == null) {
-            this.pair.pairType = new PairType();
+        if (this.pair.pairType == null || this.pair.pairType.type === "") {
+            if (this.findPairTypes)
+                this.pair.pairType = this.findPairTypes[0];
+            else
+                this.pair.pairType = new PairType();
         }
     }
 

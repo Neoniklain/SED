@@ -92,12 +92,8 @@ module.exports = function(env) {
     ]);
 
   if (env == 'prod' || env == 'test') {
-    config.entry.site = [
-      './src/app/main-aot.ts'
-    ];
-
     config.plugins = config.plugins.concat([
-      new webpack.optimize.UglifyJsPlugin({output: {comments: false}})
+      new webpack.HotModuleReplacementPlugin()
     ]);
   }
 

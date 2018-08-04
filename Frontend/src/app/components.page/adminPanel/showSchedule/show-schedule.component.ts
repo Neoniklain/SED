@@ -81,9 +81,9 @@ export class ShowScheduleComponent implements OnInit {
     }
 
     public getProfessorPair(professor) {
-        this.currentProfessor = professor.value;
         this.pairList = null;
         this.showLoader = true;
+        console.log("this.currentProfessor", this.currentProfessor);
         this.pairService.GetPeofessorPair(this.currentProfessor.id).subscribe(
             result =>  {
                 this.templatePair = new Pair();

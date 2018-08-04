@@ -27,9 +27,6 @@ public class ScheduleController {
 
     @Autowired
     private IDepartmentDataService departmentDataService;
-    @Autowired
-    private ILessonDataService lessonDataService;
-
 
     @Autowired
     private IProfessorDataService professorDataService;

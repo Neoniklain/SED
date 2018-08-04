@@ -16,7 +16,7 @@
         <label for="group" class="col-sm-5 col-form-label">Группа</label>
         <div class="col-sm-7">
             <p-autoComplete [inputStyle]="{'width':'100%'}" id="group" [(ngModel)]="pair.lesson.group"
-                            (onSelect)="selectGroup($event)" (ngModelChange)="checkOneEmpty()"
+                            (onSelect)="selectGroup($event)" (ngModelChange)="checkOnEmpty()"
                             [suggestions]="findGroups" (completeMethod)="searchGroups($event)"
                             [multiple]="false" field="name" [emptyMessage]="'Не найдено.'"
                             [forceSelection]="true"></p-autoComplete>
@@ -27,7 +27,7 @@
         <label for="discipline" class="col-sm-5 col-form-label">Дисциплина</label>
         <div class="col-sm-7">
             <p-autoComplete [inputStyle]="{'width':'100%'}" id="discipline" [(ngModel)]="pair.lesson.discipline"
-                            (onSelect)="selectDiscipline($event)" (ngModelChange)="checkOneEmpty()"
+                            (onSelect)="selectDiscipline($event)" (ngModelChange)="checkOnEmpty()"
                             [suggestions]="findDisciplines" (completeMethod)="searchDisciplines($event)"
                             [multiple]="false" field="name" [emptyMessage]="'Не найдено.'"
                             [forceSelection]="true" ></p-autoComplete>
@@ -47,10 +47,14 @@
     <div class="form-group row">
         <label for="professor" class="col-sm-5 col-form-label">Преподаватель</label>
         <div class="col-sm-7">
-            <p-autoComplete [inputStyle]="{'width':'100%'}" id="professor" [(ngModel)]="pair.lesson.professor"
-                            (onSelect)="selectProfessor($event)" (ngModelChange)="checkOneEmpty()"
-                            [suggestions]="findProfessors" (completeMethod)="searchProfessors($event)"
-                            [multiple]="false" field="user.userFIO" [emptyMessage]="'Не найдено.'"
+            <p-autoComplete [inputStyle]="{'width':'100%'}" id="professor"
+                            [(ngModel)]="pair.lesson.professor"
+                            (onSelect)="selectProfessor($event)"
+                            (ngModelChange)="checkOnEmpty()"
+                            [suggestions]="findProfessors"
+                            (completeMethod)="searchProfessors($event)"
+                            [multiple]="false" field="user.userFIO"
+                            [emptyMessage]="'Не найдено.'"
                             [forceSelection]="true"></p-autoComplete>
         </div>
     </div>
@@ -60,9 +64,10 @@
         <div class="col-sm-7">
             <p-dropdown
                     [style]="{'width':'100%'}"
+                    (ngModelChange)="checkOnEmpty()"
+                    [(ngModel)]="pair.pairType"
                     [options]="findPairTypes"
                     [autoWidth]="false"
-                    [(ngModel)]="pair.pairType"
                     optionLabel="type"></p-dropdown>
         </div>
     </div>
@@ -79,7 +84,7 @@
         <label for="room" class="col-sm-5 col-form-label">Кабинет</label>
         <div class="col-sm-7">
             <p-autoComplete [inputStyle]="{'width':'100%'}" id="room" [(ngModel)]="pair.room"
-                            (onSelect)="selectRoom($event)" (ngModelChange)="checkOneEmpty()"
+                            (onSelect)="selectRoom($event)" (ngModelChange)="checkOnEmpty()"
                             [suggestions]="findRooms" (completeMethod)="searchRooms($event)"
                             [multiple]="false" field="room" [emptyMessage]="'Не найдено.'"
                             [forceSelection]="true"></p-autoComplete>

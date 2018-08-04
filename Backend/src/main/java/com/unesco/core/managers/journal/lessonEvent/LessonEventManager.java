@@ -33,7 +33,7 @@ public class LessonEventManager implements ILessonEventManager {
     public ResponseStatusDTO Validate() {
         ResponseStatusDTO responseStatusDTO = new ResponseStatusDTO();
         responseStatusDTO.setStatus(StatusTypes.OK);
-        if (lessonEvent.getType().getName().equals("")) {
+        if (lessonEvent.getType() == null || lessonEvent.getType().getName().equals("")) {
             responseStatusDTO.setStatus(StatusTypes.ERROR);
             responseStatusDTO.addErrors("Не указан тип события");
         }
@@ -41,7 +41,7 @@ public class LessonEventManager implements ILessonEventManager {
             responseStatusDTO.setStatus(StatusTypes.ERROR);
             responseStatusDTO.addErrors("Не указана дата события");
         }
-        if (lessonEvent.getLesson().getId() == 0) {
+        if (lessonEvent.getLesson() == null || lessonEvent.getLesson().getId() == 0) {
             responseStatusDTO.setStatus(StatusTypes.ERROR);
             responseStatusDTO.addErrors("Не указан урок");
         }
