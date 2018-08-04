@@ -21,16 +21,12 @@ import {GlobalHttpOptions} from "../http/globalHttpOptions";
 import {ServiceHttpInterceptor} from "../http/serviceHttpInterceptor";
 // components
 import {AppComponent} from "./app.component";
-import {AccountComponent} from "../components/account/account/account.component";
-import {NewsDispatcherComponent} from "../components/account/account/news-dispatcher/news-dispatcher.component";
-import {LogInComponent} from "../components/account/authentification/login/login.component";
 import {SingleNewsComponent} from "../components/news/single-news/single-news.component";
 import {EditorSingleNewsComponent} from "../components/news/editor-single-news/editor-single-news.component";
 import {EditorListNewsComponent} from "../components/news/editor-list-news/editor-list-news.component";
 import {ListNewsComponent} from "../components/news/list-news/list-news.component";
 import {NotFoundComponent} from "../components/notfound/notfound.component";
 import {TaskDescListComponent} from "../components/task/taskList/taskDescList.component";
-import {UserAddComponent} from "../components/adminPanel/userAdd/userAdd";
 import {PairCreateComponent} from "../components/schedule/pairCreate/create-pair.component";
 // services
 import {NewsService} from "../services/news.service";
@@ -40,7 +36,7 @@ import {PairService} from "../services/pair.service";
 import {PluginService} from "../services/plugin.service";
 // guards
 import {AuthGuard} from "../guards/auth.guard";
-import {HeaderComponent} from "../components/header/header";
+import {HeaderComponent} from "../components/shared/header/header";
 import {DialogModule} from "primeng/components/dialog/dialog";
 import {GrowlModule} from "primeng/components/growl/growl";
 import {ConfirmDialogModule} from "primeng/components/confirmdialog/confirmdialog";
@@ -54,20 +50,14 @@ import {
     PasswordModule, ToggleButtonModule
 } from "primeng/primeng";
 import {AccountService} from "../services/accountService";
-import {AccessDeniedComponent} from "../components/account/accessDenied/accessDenied.component";
-import {AdminPanelComponent} from "../components/adminPanel/adminPanel";
+import {AccessDeniedComponent} from "../components/shared/accessDenied/accessDenied.component";
 import {HasRoleDirective} from "../directive/hasRole.dirictive";
 import {Globals} from "../globals";
-import {DictionaryTableComponent} from "../components/adminPanel/dictionaryTable/dictionaryTable.component";
 import {DictionaryService} from "../services/dictionary.service";
-import {ParserXmlComponent} from "../components/adminPanel/parserXml/parserXml.component";
-import {JournalComponent} from "../components/journal/journal.component";
 import {JournalService} from "../services/journal.service";
-import {DictionaryTableAddComponent} from "../components/adminPanel/dictionaryTable/added/dictionaryTableAdd.component";
 import {LoaderComponent} from "../components/shared/loader/loader";
 import {UtilsService} from "../services/utils.service";
 import {WeekScheduleComponent} from "../components/schedule/weekSchedule/weekSchedule.component";
-import {ShowScheduleComponent} from "../components/adminPanel/showSchedule/show-schedule.component";
 import {DepartmentScheduleComponent} from "../components/schedule/departmentSchedule/departmentShedule.component";
 import {PairDetailsComponent} from "../components/schedule/pairDetails/pairDeatails.component";
 import {NewTaskDescComponent} from "../components/task/newTask/newTaskDesc.component";
@@ -75,14 +65,24 @@ import {WorkTaskComponent} from "../components/task/workTask/workTask.component"
 import {EnumStringKeysPipe} from "../pipes/enum.string.keys";
 import {NotificationService} from "../services/notification.service";
 import {HandelErrorService} from "../services/handelError.service";
-import {JournalPageComponent} from "../components/account/account/journal-page/journal-page.component";
-import {LessonConfiguratorPageComponent} from "../components/account/account/lesson-configurator-page/lesson-configurator-page.component";
-import {LessonСonfiguratorComponent} from "../components/journal/lesson-configurator/lesson-configurator.component";
 import {InputTextModule} from "primeng/components/inputtext/inputtext";
-import {SettingsPageComponent} from "../components/account/account/settings-page/settings-page.component";
 import {ProfileComponent} from "../components/shared/profile/profile";
 import {ProfileDirective} from "../directive/profile.dirictive";
 import {FileService} from "../services/file.service";
+import {ShowScheduleComponent} from "../components.page/adminPanel/showSchedule/show-schedule.component";
+import {JournalComponent} from "../components.page/journal/journal.component";
+import {DictionaryTableAddComponent} from "../components.page/adminPanel/dictionaryTable/added/dictionaryTableAdd.component";
+import {ParserXmlComponent} from "../components.page/adminPanel/parserXml/parserXml.component";
+import {DictionaryTableComponent} from "../components.page/adminPanel/dictionaryTable/dictionaryTable.component";
+import {AdminPanelComponent} from "../components.page/adminPanel/adminPanel";
+import {SettingsPageComponent} from "../components.page/account/settings-page/settings-page.component";
+import {LessonConfiguratorPageComponent} from "../components.page/account/lesson-configurator-page/lesson-configurator-page.component";
+import {JournalPageComponent} from "../components.page/account/journal-page/journal-page.component";
+import {LessonСonfiguratorComponent} from "../components.page/journal/lesson-configurator/lesson-configurator.component";
+import {AccountComponent} from "../components.page/account/account.component";
+import {NewsDispatcherComponent} from "../components.page/account/news-dispatcher/news-dispatcher.component";
+import {LogInComponent} from "../components.page/login/login.component";
+import {UserAddComponent} from "../components.page/adminPanel/userAdd/userAdd";
 
 @NgModule({
    imports: [

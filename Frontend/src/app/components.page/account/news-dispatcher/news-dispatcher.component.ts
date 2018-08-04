@@ -1,7 +1,7 @@
 import { Component, Input } from '@angular/core';
-import { News } from "../../../../models/news/news.model";
-import { NewsService } from "../../../../services/news.service";
-import { RouteConstants } from "../../../../bootstrap/app.route.constants";
+import { News } from "../../../models/news/news.model";
+import { NewsService } from "../../../services/news.service";
+import { RouteConstants } from "../../../bootstrap/app.route.constants";
 
 @Component({
   selector: 'news-dispatcher-page',

@@ -76,6 +76,6 @@ export class EditorSingleNewsComponent  {
   }
 
   public GetBack() {
-      setTimeout(() => { this.router.navigate([RouteConstants.News.EditList]); }, 1500);
+      setTimeout(() => { this.router.navigate([RouteConstants.Account]); }, 1500);
   }
 }

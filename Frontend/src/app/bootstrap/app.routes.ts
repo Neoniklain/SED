@@ -4,14 +4,13 @@ import {RouteConstants} from "./app.route.constants";
 
 import {AuthGuard} from "../guards/auth.guard";
 import {ListNewsComponent} from "../components/news/list-news/list-news.component";
-import {AccountComponent} from "../components/account/account/account.component";
-import {LogInComponent} from "../components/account/authentification/login/login.component";
 import {EditorListNewsComponent} from "../components/news/editor-list-news/editor-list-news.component";
 import {EditorSingleNewsComponent} from "../components/news/editor-single-news/editor-single-news.component";
-import {AccessDeniedComponent} from "../components/account/accessDenied/accessDenied.component";
-import {AdminPanelComponent} from "../components/adminPanel/adminPanel";
+import {AccessDeniedComponent} from "../components/shared/accessDenied/accessDenied.component";
 import {Roles} from "../models/account/role.model";
-import {JournalComponent} from "../components/journal/journal.component";
+import {AdminPanelComponent} from "../components.page/adminPanel/adminPanel";
+import {LogInComponent} from "../components.page/login/login.component";
+import {AccountComponent} from "../components.page/account/account.component";
 
 export const routes: Routes = [
    {

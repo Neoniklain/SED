@@ -1,8 +1,8 @@
 import {Component, Injectable, OnInit} from '@angular/core';
 import {Router} from "@angular/router";
-import {User} from "../../../models/account/user.model";
-import {AuthenticationService} from "../../../services/authService";
-import {Roles} from "../../../models/account/role.model";
+import {User} from "../../models/account/user.model";
+import {AuthenticationService} from "../../services/authService";
+import {Roles} from "../../models/account/role.model";
 
 @Component({
   selector: 'account-page',

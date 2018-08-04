@@ -1,14 +1,14 @@
 import {Component, Injectable, OnInit} from '@angular/core';
 import {Router} from "@angular/router";
-import {Pair} from "../../../../models/shedule/pair";
-import {Journal} from "../../../../models/journal/journal.model";
-import {User} from "../../../../models/account/user.model";
-import {AuthenticationService} from "../../../../services/authService";
-import {JournalService} from "../../../../services/journal.service";
-import {PairService} from "../../../../services/pair.service";
-import {NotificationService} from "../../../../services/notification.service";
-import {AccountService} from "../../../../services/accountService";
-import {Professor} from "../../../../models/account/professor";
+import {Pair} from "../../../models/shedule/pair";
+import {Journal} from "../../../models/journal/journal.model";
+import {User} from "../../../models/account/user.model";
+import {AuthenticationService} from "../../../services/authService";
+import {JournalService} from "../../../services/journal.service";
+import {PairService} from "../../../services/pair.service";
+import {NotificationService} from "../../../services/notification.service";
+import {AccountService} from "../../../services/accountService";
+import {Professor} from "../../../models/account/professor";
 
 @Component({
     selector: 'journal-page',
