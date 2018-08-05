@@ -10,7 +10,7 @@ import {HandelErrorService} from "./handelError.service";
 import {ResponseStatus} from "../models/additional/responseStatus";
 
 @Injectable()
-export class PairService {
+export class ScheduleService {
 
     constructor(private http: HttpClient,
                 private router: Router,
@@ -19,39 +19,58 @@ export class PairService {
 
     public Get(id: number): Observable<ResponseStatus> {
         let params: HttpParams = new HttpParams();
-        return this.http.get(ApiRouteConstants.Pair.Get.replace(":id", id.toString()))
+        return this.http.get(ApiRouteConstants.Schedule.Get.replace(":id", id.toString()))
             .catch(this.handleError.handle);
     }
 
 
     public Save(pair: Pair): Observable<ResponseStatus> {
         let params = new HttpParams();
-        return this.http.post(ApiRouteConstants.Pair.Save, pair, {params: params })
+        return this.http.post(ApiRouteConstants.Schedule.Save, pair, {params: params })
             .catch(this.handleError.handle);
     }
 
     public Delete(id: number): Observable<ResponseStatus> {
-        return this.http.delete(ApiRouteConstants.Pair.Delete.replace(":id", id.toString())).catch(this.handleError.handle);
+        return this.http.delete(ApiRouteConstants.Schedule.Delete.replace(":id", id.toString())).catch(this.handleError.handle);
     }
 
     GetPeofessorPair(professorId: number): Observable<ResponseStatus> {
-        return this.http.get(ApiRouteConstants.Pair.Proffesor.replace(":id", professorId.toString()))
+        return this.http.get(ApiRouteConstants.Schedule.ProffesorPairs.replace(":id", professorId.toString()))
             .catch(this.handleError.handle);
     }
 
     GetLessonPair(lessonId: number): Observable<ResponseStatus> {
-        return this.http.get(ApiRouteConstants.Pair.Lesson.replace(":id", lessonId.toString()))
+        return this.http.get(ApiRouteConstants.Schedule.LessonPairs.replace(":id", lessonId.toString()))
             .catch(this.handleError.handle);
     }
 
 
     GetDepartmentPair(departmentId: number): Observable<ResponseStatus> {
-        return this.http.get(ApiRouteConstants.Pair.Department.replace(":id", departmentId.toString()))
+        return this.http.get(ApiRouteConstants.Schedule.DepartmentPairs.replace(":id", departmentId.toString()))
             .catch(this.handleError.handle);
     }
 
     GetGroupPair(groupId: number): Observable<ResponseStatus> {
-        return this.http.get(ApiRouteConstants.Pair.Group.replace(":id", groupId.toString()))
+        return this.http.get(ApiRouteConstants.Schedule.GroupPairs.replace(":id", groupId.toString()))
             .catch(this.handleError.handle);
     }
+
+    GetProfessorLessons(professorId: number): Observable<ResponseStatus> {
+        return this.http.get(ApiRouteConstants.Schedule.ProffesorLessons.replace(":id", professorId.toString()))
+            .catch(this.handleError.handle);
+    }
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+

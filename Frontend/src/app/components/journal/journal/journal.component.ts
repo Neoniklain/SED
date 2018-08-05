@@ -1,13 +1,13 @@
 import {Component, Injectable, Input, OnChanges, OnInit} from '@angular/core';
-import {AuthenticationService} from "../../services/authService";
-import {JournalService} from "../../services/journal.service";
-import {Journal, JournalCell, PointType} from "../../models/journal/journal.model";
-import {PairService} from "../../services/pair.service";
-import {Pair} from "../../models/shedule/pair";
-import {NotificationService} from "../../services/notification.service";
+import {AuthenticationService} from "../../../services/authService";
+import {JournalService} from "../../../services/journal.service";
+import {Journal, JournalCell, PointType} from "../../../models/journal/journal.model";
+import {ScheduleService} from "../../../services/schedule.service";
+import {Pair} from "../../../models/shedule/pair";
+import {NotificationService} from "../../../services/notification.service";
 import {isUndefined} from "util";
 import {DatePipe} from "@angular/common";
-import {PairNumber} from "../../models/shedule/pairNumber.model";
+import {PairNumber} from "../../../models/shedule/pairNumber.model";
 
 @Component({
     selector: 'journal',
@@ -26,54 +26,49 @@ export class JournalComponent implements OnInit {
 
     constructor(private authenticationService: AuthenticationService,
                 private journalService: JournalService,
-                private pairService: PairService,
+                private ScheduleService: ScheduleService,
                 private notificationService: NotificationService) {
     }
 
     ngOnInit(): void {
-        this.currentDay = new Date(this.datePipe.transform(Date.now(), "yyyy-MM-ddTHH:mm:ss"));
-        this.currentMonth = (Number.parseInt(this.datePipe.transform(Date.now(), 'M')) - 1).toString();
         if (this.journal != null && !isUndefined(this.journal))
             this.sortHeader();
+        this.currentDay = new Date(this.datePipe.transform(Date.now(), "yyyy-MM-ddTHH:mm:ss"));
+        if (this.monthHeader
+            .map( x => x.date.getMonth())
+            .indexOf(this.currentDay.getMonth()) !== -1) {
+            this.currentMonth = (Number.parseInt(this.datePipe.transform(Date.now(), 'M')) - 1).toString();
+        } else {
+            this.currentMonth = (this.monthHeader.map( x => x.date.getMonth())[0]).toString();
+        }
     }
 
     nextMonth() {
-        let checkMonth = Number.parseInt(this.currentMonth) + 1;
-        for (let date of this.journal.dates) {
-            let checkDay = (Number.parseInt(this.datePipe.transform(date, 'M')) - 1).toString();
-            if (checkDay === checkMonth.toString()) {
-                this.currentMonth = checkMonth.toString();
-                return true;
+        let currentMonth = Number.parseInt(this.currentMonth);
+        for (let month of this.monthHeader.map(x => x.date.getMonth())) {
+            if (month > currentMonth) {
+                this.currentMonth = month.toString();
+                break;
             }
         }
-        return true;
     }
 
     backMonth() {
-        let checkMonth = Number.parseInt(this.currentMonth) - 1;
-        for (let date of this.journal.dates) {
-            let checkDay = (Number.parseInt(this.datePipe.transform(date, 'M')) - 1).toString();
-            if (checkDay === checkMonth.toString()) {
-                this.currentMonth = checkMonth.toString();
-                return true;
+        let currentMonth = Number.parseInt(this.currentMonth);
+        for (let month of this.monthHeader.sort(this.sortBigToSmallDate).map(x => x.date.getMonth())) {
+            if (month < currentMonth) {
+                this.currentMonth = month.toString();
+                break;
             }
         }
-        return false;
+        this.monthHeader.sort(this.sortSmallToBigDate);
     }
 
     sortHeader() {
         this.header = [];
         this.monthHeader = [];
-
-        for (let d of this.journal.dates) {
-            let temp = new Date(this.datePipe.transform(d, "yyyy-MM-ddTHH:mm:ss"));
-            d = temp;
-        }
-
-        for (let cell of this.journal.journalCell) {
-            let temp = new Date(this.datePipe.transform(cell.date, "yyyy-MM-ddTHH:mm:ss"));
-            cell.date = temp;
-        }
+        this.journal.dates.forEach(x => x = this.createDate(x));
+        this.journal.journalCell.forEach(x => x.date = this.createDate(x.date));
 
         this.journal.journalCell.sort(
             function (a, b) {
@@ -99,17 +94,9 @@ export class JournalComponent implements OnInit {
         // Создание заголовка дат
         this.setHeaderDates();
 
-        this.header.sort(
-            function (a, b) {
-                if (a.date < b.date)
-                    return -1;
-                if (a.date > b.date)
-                    return 1;
-                return 0;
-            }
-        );
-        // Создание заголовка месяцов
+        this.header.sort(this.sortSmallToBigDate);
 
+        // Создание заголовка месяцов
         for (let headDate of this.header) {
             let existMonthHeader = false;
             for (let head of this.monthHeader) {
@@ -127,26 +114,17 @@ export class JournalComponent implements OnInit {
             }
         }
 
-        this.monthHeader.sort(
-            function (a, b) {
-                if (a.date < b.date)
-                    return -1;
-                if (a.date > b.date)
-                    return 1;
-                return 0;
-            }
-        );
+        this.monthHeader.sort(this.sortSmallToBigDate);
 
     }
 
     setHeaderDates() {
         for (let date of this.journal.dates) {
             let temp: JournalHeader = new JournalHeader();
-            let tempDate = new Date(this.datePipe.transform(date, "yyyy-MM-ddTHH:mm:ss"));
-            temp.date = tempDate;
-            for (let cell of this.findCellsForDay(tempDate)) {
+            temp.date = this.createDate(date);
+            for (let cell of this.findCellsForDay(temp.date)) {
                 if (cell.student.id === this.journal.students[0].id
-                    && this.eqDate(cell.date, tempDate)) {
+                    && this.eqDate(cell.date, temp.date)) {
                     temp.types.push(new JournalHeaderType(cell.type, cell.pair));
                 }
             }
@@ -215,6 +193,24 @@ export class JournalComponent implements OnInit {
             return true;
         }
         return false;
+    }
+
+    sortSmallToBigDate(a, b) {
+        if (a.date < b.date)
+            return -1;
+        if (a.date > b.date)
+            return 1;
+        return 0;
+    }
+    sortBigToSmallDate(a, b) {
+        if (a.date > b.date)
+            return -1;
+        if (a.date < b.date)
+            return 1;
+        return 0;
+    }
+    createDate(date: Date): Date {
+        return new Date(this.datePipe.transform(date, "yyyy-MM-ddTHH:mm:ss"));
     }
 
 }

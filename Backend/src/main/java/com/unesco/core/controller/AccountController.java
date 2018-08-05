@@ -61,7 +61,10 @@ public class AccountController {
     private IGroupManager groupManager;
 
     public ResponseStatusDTO GetRoles(UserDTO user) {
-        return new ResponseStatusDTO(StatusTypes.OK, user.getRoles());
+        if(user != null)
+            return new ResponseStatusDTO(StatusTypes.OK, user.getRoles());
+        else
+            return new ResponseStatusDTO(StatusTypes.OK);
     }
 
     public ResponseStatusDTO Registration(UserDTO user) {

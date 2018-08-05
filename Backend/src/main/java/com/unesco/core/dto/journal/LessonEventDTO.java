@@ -6,13 +6,10 @@ import java.util.Date;
 
 public class LessonEventDTO implements Cloneable {
     private long id;
-
     private Date date;
-
     private String comment;
-
     private PointTypeDTO type;
-
+    private int maxValue;
     private LessonDTO lesson;
 
     public long getId() {
@@ -41,6 +38,13 @@ public class LessonEventDTO implements Cloneable {
     }
     public void setType(PointTypeDTO type) {
         this.type = type;
+    }
+
+    public int getMaxValue() {
+        return maxValue;
+    }
+    public void setMaxValue(int maxValue) {
+        this.maxValue = maxValue;
     }
 
     public LessonDTO getLesson() {

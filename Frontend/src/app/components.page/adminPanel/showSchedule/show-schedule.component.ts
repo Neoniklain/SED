@@ -6,7 +6,7 @@ import {Router} from "@angular/router";
 import {DictionaryService} from "../../../services/dictionary.service";
 import {AccountService} from "../../../services/accountService";
 import {PageResult} from "../../../models/admin/PageResult.model.list";
-import {PairService} from "../../../services/pair.service";
+import {ScheduleService} from "../../../services/schedule.service";
 import {Pair} from "../../../models/shedule/pair";
 import {Department} from "../../../models/shedule/department";
 import {DepartmentShedule} from "../../../models/shedule/departmentShedule";
@@ -38,7 +38,7 @@ export class ShowScheduleComponent implements OnInit {
 
     constructor(private notification: NotificationService,
                 private router: Router,
-                private pairService: PairService,
+                private ScheduleService: ScheduleService,
                 private dictionaryService: DictionaryService,
                 private accountService: AccountService,
                 ) {
@@ -84,7 +84,7 @@ export class ShowScheduleComponent implements OnInit {
         this.pairList = null;
         this.showLoader = true;
         console.log("this.currentProfessor", this.currentProfessor);
-        this.pairService.GetPeofessorPair(this.currentProfessor.id).subscribe(
+        this.ScheduleService.GetPeofessorPair(this.currentProfessor.id).subscribe(
             result =>  {
                 this.templatePair = new Pair();
                 this.templatePair.lesson.professor = this.currentProfessor;
@@ -97,7 +97,7 @@ export class ShowScheduleComponent implements OnInit {
         this.currentGroup = group;
         this.pairList = null;
         this.showLoader = true;
-        this.pairService.GetGroupPair(group.id).subscribe(
+        this.ScheduleService.GetGroupPair(group.id).subscribe(
             result =>  {
                 this.templatePair = new Pair();
                 this.templatePair.lesson.group = this.currentGroup;
@@ -111,7 +111,7 @@ export class ShowScheduleComponent implements OnInit {
         this.currentDepartment = department;
         this.departmentSchedule = null;
         this.showLoader = true;
-        this.pairService.GetDepartmentPair(department.id).subscribe(
+        this.ScheduleService.GetDepartmentPair(department.id).subscribe(
             result =>  {
                 this.departmentSchedule = result.data.lines;
                 this.update();

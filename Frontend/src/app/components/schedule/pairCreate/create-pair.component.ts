@@ -1,7 +1,7 @@
 import {Component} from "@angular/core";
 import {Pair} from "../../../models/shedule/pair";
 import {MessageService} from "primeng/components/common/messageservice";
-import {PairService} from "../../../services/pair.service";
+import {ScheduleService} from "../../../services/schedule.service";
 import {ActivatedRoute} from "@angular/router";
 import {isUndefined} from "util";
 import {Professor} from "../../../models/account/professor";
@@ -33,7 +33,7 @@ export class PairCreateComponent {
     public weektype;
     public dayofweek;
 
-    constructor(private pairService: PairService,
+    constructor(private ScheduleService: ScheduleService,
                 private accountService: AccountService,
                 private dictionaryService: DictionaryService,
                 private activateRoute: ActivatedRoute,
@@ -60,7 +60,7 @@ export class PairCreateComponent {
     }
 
     public GetPair(id: number) {
-        this.pairService.Get(id)
+        this.ScheduleService.Get(id)
             .subscribe((res) => {
                     this.newPair = res.data;
                 });
@@ -104,7 +104,7 @@ export class PairCreateComponent {
 
     public SavePair() {
         console.log("this.newPair", this.newPair);
-        this.pairService.Save(this.newPair).subscribe(
+        this.ScheduleService.Save(this.newPair).subscribe(
             res => {
                 this.notification.FromStatus(res);
             }

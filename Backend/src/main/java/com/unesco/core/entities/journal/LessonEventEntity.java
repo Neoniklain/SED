@@ -26,6 +26,8 @@ public class LessonEventEntity {
 
     private String comment;
 
+    private int maxValue;
+
     @ManyToOne
     @JoinColumn(name = "point_type_id", referencedColumnName = "id")
     private PointTypeEntity type;
@@ -41,6 +43,12 @@ public class LessonEventEntity {
         this.id = id;
     }
 
+    public int getMaxValue() {
+        return maxValue;
+    }
+    public void setMaxValue(int maxValue) {
+        this.maxValue = maxValue;
+    }
 
     public String getComment() {
         return comment;

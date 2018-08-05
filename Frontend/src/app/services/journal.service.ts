@@ -9,6 +9,7 @@ import {Journal} from "../models/journal/journal.model";
 import {HandelErrorService} from "./handelError.service";
 import {ResponseStatus} from "../models/additional/responseStatus";
 import {LessonEvent} from "../models/journal/lessonEvent.model";
+import {VisitationConfig} from "../models/journal/visitationConfig.model";
 
 @Injectable()
 export class JournalService {
@@ -52,6 +53,18 @@ export class JournalService {
     public SaveEvent(event: LessonEvent): Observable<ResponseStatus> {
         let params = new HttpParams();
         return this.http.post(ApiRouteConstants.Journal.EventSave, event, {params: params })
+            .catch(this.handleError.handle);
+    }
+
+    public SaveVisitation(config: VisitationConfig): Observable<ResponseStatus> {
+        let params = new HttpParams();
+        return this.http.post(ApiRouteConstants.Journal.VisitationConfigSave, config, {params: params })
+            .catch(this.handleError.handle);
+    }
+
+    public GetVisitation(lessonId): Observable<ResponseStatus> {
+        return this.http.get(ApiRouteConstants.Journal.VisitationConfigGet
+            .replace(":lessonId", lessonId))
             .catch(this.handleError.handle);
     }
 

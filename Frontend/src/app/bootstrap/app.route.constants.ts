@@ -61,15 +61,16 @@ export const ApiRouteConstants = {
       ChangePassword: "account/changePassword",
       ChangePhoto: "account/changePhoto"
    },
-    Pair: {
+    Schedule: {
         All: "pairs",
         Save: "shedule/pair/save",
         Delete: "shedule/pair/:id",
         Get: "shedule/pair/{id}",
-        Proffesor: "shedule/professor/:id/pairs",
-        Department: "shedule/department/:id/pairs",
-        Lesson: "shedule/lesson/:id/pairs",
-        Group: "shedule/group/:id/pairs",
+        ProffesorPairs: "shedule/professor/:id/pairs",
+        DepartmentPairs: "shedule/department/:id/pairs",
+        LessonPairs: "shedule/lesson/:id/pairs",
+        GroupPairs: "shedule/group/:id/pairs",
+        ProffesorLessons: "shedule/professor/:id/lessons",
    },
    News: {
       All: "news/all",
@@ -93,6 +94,8 @@ export const ApiRouteConstants = {
       Save: "journal/save",
       Events: "journal/event/lesson/:lessonId",
       EventSave: "journal/event/save",
+      VisitationConfigSave: "journal/visitation/saveConfig",
+      VisitationConfigGet: "journal/visitation/lesson/:lessonId",
       EventDelete: "journal/event/delete/:id"
    },
    Excel:

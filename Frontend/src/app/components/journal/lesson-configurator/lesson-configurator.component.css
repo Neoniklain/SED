@@ -17,3 +17,7 @@
 .table>tbody>tr>td {
     vertical-align: baseline;
 }
+
+h4 {
+    padding-bottom: 1em;
+}

@@ -6,7 +6,7 @@ import {Discipline} from "../../../models/shedule/discipline";
 import {Professor} from "../../../models/account/professor";
 import {AccountService} from "../../../services/accountService";
 import {Room} from "../../../models/shedule/room.model";
-import {PairService} from "../../../services/pair.service";
+import {ScheduleService} from "../../../services/schedule.service";
 import {isUndefined} from "util";
 import {StatusType} from "../../../models/statusType.model";
 import {NotificationService} from "../../../services/notification.service";
@@ -42,7 +42,7 @@ export class PairDetailsComponent implements OnInit, OnChanges {
     constructor(private dictionaryService: DictionaryService,
                 private accountService: AccountService,
                 private notification: NotificationService,
-                private pairService: PairService,
+                private ScheduleService: ScheduleService,
     ) { }
 
     ngOnInit() {
@@ -71,7 +71,7 @@ export class PairDetailsComponent implements OnInit, OnChanges {
 
     AllUpdatePairs() {
         this.checkOnEmpty();
-        this.pairService.Save(this.pair).subscribe(
+        this.ScheduleService.Save(this.pair).subscribe(
             result => {
                 if (result.status === StatusType.OK.toString()) {
                     this.updatePairs.emit();
@@ -83,7 +83,7 @@ export class PairDetailsComponent implements OnInit, OnChanges {
     }
 
     deletePair() {
-        this.pairService.Delete(this.pair.id).subscribe(
+        this.ScheduleService.Delete(this.pair.id).subscribe(
             result => {
                 if (result.status === StatusType.OK.toString()) {
                     this.updatePairs.emit();

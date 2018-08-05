@@ -1,10 +1,10 @@
 package com.unesco.core.controller;
 
+import com.unesco.core.dto.additional.ResponseStatusDTO;
+import com.unesco.core.dto.shedule.PairDTO;
 import com.unesco.core.managers.schedule.pairManager.interfaces.pair.IPairManager;
 import com.unesco.core.managers.schedule.sheduleDepartmentManager.sheduleDepartment.ISheduleDepartmentManager;
 import com.unesco.core.managers.schedule.sheduleManager.interfaces.shedule.ISheduleManager;
-import com.unesco.core.dto.additional.ResponseStatusDTO;
-import com.unesco.core.dto.shedule.PairDTO;
 import com.unesco.core.services.account.professorService.IProfessorDataService;
 import com.unesco.core.services.schedule.departmentService.IDepartmentDataService;
 import com.unesco.core.services.schedule.groupService.IGroupDataService;
@@ -13,7 +13,7 @@ import com.unesco.core.services.schedule.pairService.IPairDataService;
 import com.unesco.core.utils.StatusTypes;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.RequestBody;
 
 @Service
 public class ScheduleController {
@@ -34,6 +34,8 @@ public class ScheduleController {
     private IGroupDataService groupDataService;
     @Autowired
     private IPairDataService pairDataService;
+    @Autowired
+    private ILessonDataService lessonDataService;
 
     public ResponseStatusDTO getDepartmentPairs(long departmentId) {
 
@@ -76,6 +78,9 @@ public class ScheduleController {
         return new ResponseStatusDTO(StatusTypes.OK, pairDataService.GetAllByLesson(lessonId));
     }
 
+    public ResponseStatusDTO getLessonsForProfessor(long professorId) {
+        return new ResponseStatusDTO(StatusTypes.OK, lessonDataService.GetByProfessorId(professorId));
+    }
 
     public ResponseStatusDTO savePair(@RequestBody PairDTO pairModel) {
         pairManager.Init(pairModel);

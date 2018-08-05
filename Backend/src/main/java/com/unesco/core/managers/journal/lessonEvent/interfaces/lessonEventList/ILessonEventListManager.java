@@ -6,4 +6,5 @@ import com.unesco.core.dto.shedule.LessonDTO;
 
 public interface ILessonEventListManager extends IListManager<LessonEventDTO> {
     void ApplayFilter(LessonDTO lesson);
+    void RemoveWithoutDates();
 }

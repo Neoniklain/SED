@@ -43,6 +43,10 @@ public class ScheduleControllerWeb {
         return sheduleController.getLessonPairs(lessonId);
     }
 
+    @RequestMapping("/professor/{professorId}/lessons")
+    public ResponseStatusDTO GetByProfessorId(@PathVariable("professorId") long professorId) {
+        return sheduleController.getLessonsForProfessor(professorId);
+    }
 
     @RequestMapping("/pair/save")
     public ResponseStatusDTO savePair(@RequestBody PairDTO pairModel) {

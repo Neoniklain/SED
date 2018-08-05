@@ -1,10 +1,9 @@
 package com.unesco.core.services.schedule.lessonService;
 
-import com.unesco.core.entities.schedule.LessonEntity;
 import com.unesco.core.dto.additional.FilterQueryDTO;
 import com.unesco.core.dto.shedule.LessonDTO;
+import com.unesco.core.entities.schedule.LessonEntity;
 import com.unesco.core.repositories.LessonRepository;
-import com.unesco.core.services.account.professorService.IProfessorDataService;
 import com.unesco.core.services.mapperService.IMapperService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
@@ -20,8 +19,6 @@ public class LessonDataService implements ILessonDataService {
     private IMapperService mapperService;
     @Autowired
     private LessonRepository lessonRepository;
-    @Autowired
-    private IProfessorDataService professorDataService;
 
     public List<LessonDTO> GetPage(FilterQueryDTO filter) {
         int rows = filter.getRows()>0? filter.getRows() : (int) lessonRepository.count();
@@ -57,6 +54,17 @@ public class LessonDataService implements ILessonDataService {
         LessonEntity entity = lessonRepository.findByDisciplineIdAndGroupIdAndProfessorId(disciplineId, groupId, professorId);
         LessonDTO model = (LessonDTO) mapperService.toDto(entity);
         return model;
+    }
+
+    public List<LessonDTO> GetByProfessorId(long professorId)
+    {
+        List<LessonDTO> modelList = new ArrayList<>();
+        List<LessonEntity> entityList = lessonRepository.findByProfessorId(professorId);
+        for (LessonEntity item: entityList) {
+            LessonDTO model = (LessonDTO) mapperService.toDto(item);
+            modelList.add(model);
+        }
+        return modelList;
     }
 
     public void Delete(long id)

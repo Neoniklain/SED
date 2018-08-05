@@ -1,0 +1,16 @@
+<div *ngIf="lesson"
+     [ngClass]="{'lesson': clickable,
+                'lesson-WithoutHover': !clickable}"
+     class="lesson"
+     (click)="onClick(lesson)"
+     [style.cursor]="clickable ? 'pointer' : 'auto'">
+    <div class="lesson-discipline">
+        {{lesson.discipline.name}}
+    </div>
+    <div class="lesson-professor">
+        {{lesson.professor.user.userFIO}}
+    </div>
+    <div class="lesson-group">
+        {{lesson.group.name}}
+    </div>
+</div>

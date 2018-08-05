@@ -40,19 +40,19 @@ public class PointTypeDataService implements IPointTypeDataService {
         pointTypeRepository.delete(id);
     }
 
-    public PointTypeDTO Save(PointTypeDTO pointType)
+    public PointTypeDTO Save(PointTypeDTO model)
     {
-        PointTypeEntity entity = (PointTypeEntity) mapperService.toEntity(pointType);
+        PointTypeEntity entity = (PointTypeEntity) mapperService.toEntity(model);
         entity = pointTypeRepository.save(entity);
-        pointType = (PointTypeDTO) mapperService.toDto(entity);
-        return pointType;
+        model = (PointTypeDTO) mapperService.toDto(entity);
+        return model;
     }
 
     public PointTypeDTO FindByName(String name)
     {
         PointTypeEntity entity = pointTypeRepository.findByName(name);
-        PointTypeDTO pointType = (PointTypeDTO) mapperService.toDto(entity);
-        return pointType;
+        PointTypeDTO model = (PointTypeDTO) mapperService.toDto(entity);
+        return model;
     }
 
 }

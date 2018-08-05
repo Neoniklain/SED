@@ -17,4 +17,6 @@ public interface LessonRepository extends CrudRepository<LessonEntity, Long>, Cr
     LessonEntity findByDisciplineIdAndGroupIdAndProfessorId(
             long disciplineId, long groupId, long professorId);
 
+    List<LessonEntity> findByProfessorId(long professorId);
+
 }

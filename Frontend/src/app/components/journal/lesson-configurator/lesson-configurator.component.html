@@ -1,0 +1,199 @@
+<div class="container" style="width: 100%">
+    <div class="row">
+        <div class="col-md-4">
+            <div class="header-lesson text-center">
+                <h3>Список событий</h3>
+            </div>
+            <div class="event-list">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <td>Тип</td>
+                            <td style="text-align: center;">Дата</td>
+                            <td style="text-align: center;">Балл</td>
+                            <td style="text-align: center;">%</td>
+                            <td></td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    <ng-container *ngFor="let event of events">
+                        <tr>
+                            <td valign="bottom">{{event.type.name}}</td>
+                            <td valign="bottom" style="text-align: center;">{{ event.date ? (event.date | date: 'dd.MM') : '-'}}</td>
+                            <td valign="bottom" style="text-align: center;">{{event.maxValue ? event.maxValue : '-'}}</td>
+                            <td valign="bottom" style="text-align: center;">{{ (event.maxValue / getSumm() * 100).toFixed(1)}}%</td>
+
+                            <td style="text-align: right;">
+                                <button (click)="Edit(event)" class="btn btn-warning btn-sm">
+                                    <i class="fa fa-pencil" aria-hidden="true"></i>
+                                </button>
+                                <button (click)="Remove(event.id)" class="btn btn-danger btn-sm">
+                                    <i class="fa fa-times" aria-hidden="true"></i>
+                                </button>
+                            </td>
+                        </tr>
+                    </ng-container>
+                    <tr>
+                        <td valign="bottom">Посещение</td>
+                        <td valign="bottom" style="text-align: center;">-</td>
+                        <td valign="bottom" style="text-align: center;">{{getSummForVisitation()}}</td>
+                        <td valign="bottom" style="text-align: center;">{{ (getSummForVisitation() / getSumm() * 100).toFixed(1)}}%</td>
+                        <td>
+                        </td>
+                    </tr>
+                    <tr class="success">
+                        <td valign="bottom">Сумарно баллов</td>
+                        <td valign="bottom"></td>
+                        <td valign="bottom" style="text-align: center;">{{getSumm()}}</td>
+                        <td valign="bottom"></td>
+                        <td>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="col-md-8">
+            <div class="header-lesson text-center">
+                <h3 *ngIf="!editMode">Создание события</h3>
+                <h3 *ngIf="editMode">Редактирование события</h3>
+            </div>
+            <div class="edit-event">
+
+                <div class="row">
+                    <div class="col-sm-6 event-field">
+                        <label for="event" class="col-sm-5 col-form-label">Тип события</label>
+                        <div class="col-sm-7" id="event">
+                            <p-dropdown
+                                    [options]="eventTypes"
+                                    [style]="{'width':'100%'}"
+                                    [(ngModel)]="model.type"
+                                    optionLabel="name"></p-dropdown>
+                        </div>
+                    </div>
+
+                    <div class="col-sm-6 event-field">
+                        <label for="coment" class="col-sm-5 col-form-label">Комментарий</label>
+                        <div class="col-sm-7" id="coment">
+                            <input style="width:100%"
+                                   placeholder="Коментарий"
+                                   type="text"
+                                   pInputText
+                                   [(ngModel)]="model.comment"/>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-sm-6 event-field">
+                        <label for="date" class="col-sm-5 col-form-label">Дата</label>
+                        <div class="col-sm-7" id="date">
+                            <p-calendar [inputStyle]="{'width':'100%'}"
+                                        [style]="{'width':'100%'}"
+                                        dateFormat="dd.mm.yy"
+                                        [disabledDates]="disabledDates"
+                                        (onMonthChange)="updateDisabledDates($event)"
+                                        readonlyInput="true"
+                                        placeholder="Дата события"
+                                        [(ngModel)]="model.date"
+                                        [locale]="ru"></p-calendar>
+                        </div>
+                    </div>
+
+                    <div class="col-sm-6 event-field">
+                        <label for="date" class="col-sm-5 col-form-label">Балл</label>
+                        <div class="col-sm-7">
+                            <input style="width:100%"
+                                   placeholder="Баллов за событие"
+                                   type="number"
+                                   pInputText
+                                   [(ngModel)]="model.maxValue"/>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-sm-12 event-field text-right">
+                        <button *ngIf="editMode" class="btn btn-danger" (click)="CancelEdit()">Отмена</button>
+                        <button *ngIf="editMode" class="btn btn-success" (click)="Save()">Обновить</button>
+                        <button *ngIf="!editMode" class="btn btn-success" (click)="Save()">Создать</button>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="header-lesson text-left">
+                <h5>
+                    <p-checkbox [(ngModel)]="editVisitable" binary="true"></p-checkbox>
+                    Настроить посещаемость
+                </h5>
+            </div>
+            <div *ngIf="editVisitable" class="header-lesson text-center">
+                <h3>Настройка ведения посещаемости</h3>
+            </div>
+            <div *ngIf="editVisitable" class="edit-event">
+
+                <div class="row">
+                    <div class="col-md-6 event-field">
+                        <label for="date" class="col-sm-9 col-form-label">Каждый день</label>
+                        <div class="col-sm-3">
+                            <p-toggleButton
+                                    onLabel="Да" offLabel="Нет"
+                                    (onChange)="changeVisiationAutoGenerated()"
+                                    [(ngModel)]="visitationConfig.autoGenerated"></p-toggleButton>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6 event-field">
+                        <label for="date" class="col-sm-6 col-form-label">Баллов за посещение</label>
+                        <div class="col-sm-3">
+                            <input style="width:100%"
+                                   placeholder="Максимум баллов за одно посещение"
+                                   type="number"
+                                   pInputText
+                                   [(ngModel)]="visitationConfig.value"/>
+                        </div>
+                    </div>
+                </div>
+
+                <div *ngIf="!visitationConfig.autoGenerated" class="row">
+                    <div class="col-md-12">
+                        <h4>Отмечать посещаемость только в указаные дни:</h4>
+                        <span *ngFor="let visit of this.dataVisitation">
+                            <p-toggleButton
+                                    onLabel="{{visit.date | date: 'dd.MM'}}" offLabel="{{visit.date | date: 'dd.MM'}}"
+                                    [(ngModel)]="visit.active"
+                            ></p-toggleButton>
+                        </span>
+                    </div>
+                </div>
+
+
+                <div class="col-sm-12 event-field text-right">
+                    <button class="btn btn-success" (click)="SaveVisitation()">Сохранить</button>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

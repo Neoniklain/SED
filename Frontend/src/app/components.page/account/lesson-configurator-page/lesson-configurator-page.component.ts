@@ -4,9 +4,10 @@ import {Journal} from "../../../models/journal/journal.model";
 import {User} from "../../../models/account/user.model";
 import {AuthenticationService} from "../../../services/authService";
 import {JournalService} from "../../../services/journal.service";
-import {PairService} from "../../../services/pair.service";
+import {ScheduleService} from "../../../services/schedule.service";
 import {AccountService} from "../../../services/accountService";
 import {Professor} from "../../../models/account/professor";
+import {Lesson} from "../../../models/shedule/lesson";
 
 @Component({
     selector: 'lesson-configurator-page',
@@ -18,14 +19,14 @@ export class LessonConfiguratorPageComponent implements OnInit {
 
     public user: User;
     public professor: Professor;
-    public selectPair: Pair;
-    public pairs: Array<Pair> = new Array<Pair>();
+    public selectLesson: Lesson;
+    public lessons: Array<Lesson> = new Array<Lesson>();
     public showLoader: boolean = false;
 
 
     constructor(private authenticationService: AuthenticationService,
                 private accountService: AccountService,
-                private pairService: PairService) {
+                private ScheduleService: ScheduleService) {
         this.user = new User();
         this.authenticationService.getUser().subscribe(
             res => {
@@ -34,10 +35,10 @@ export class LessonConfiguratorPageComponent implements OnInit {
                 this.accountService.GetProfessorByUser(this.user.id).subscribe(
                     resultProf => {
                         this.professor = resultProf.data;
-                            this.pairService.GetPeofessorPair(this.professor.id).subscribe(
+                            this.ScheduleService.GetProfessorLessons(this.professor.id).subscribe(
                             result => {
                                 this.showLoader = false;
-                                this.pairs = result.data;
+                                this.lessons = result.data;
                             }
                         );
                     }
@@ -46,16 +47,16 @@ export class LessonConfiguratorPageComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        this.selectPair = null;
+        this.selectLesson = null;
     }
 
-    onClick(pair: Pair) {
-        if (pair.id !== 0)
-            this.selectPair = pair;
+    onClick(lesson: Lesson) {
+        if (lesson.id !== 0)
+            this.selectLesson = lesson;
     }
 
     back() {
-        this.selectPair = null;
+        this.selectLesson = null;
     }
 
 }

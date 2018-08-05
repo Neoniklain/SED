@@ -1,0 +1,1 @@
+alter table un_lesson_event add column max_value int;

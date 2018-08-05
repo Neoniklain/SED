@@ -1,0 +1,30 @@
+<div class="container lesson-container">
+    <div *ngFor="let lesson of lessons; let i = index">
+        <div *ngIf="i % 4 == 0" class="flex-row row">
+            <div class="col-md-3">
+                <lesson-details
+                    [lesson]="lesson"
+                    (clickOnLesson)="onClick($event)">
+                </lesson-details>
+            </div>
+            <div class="col-md-3">
+                <lesson-details
+                        [lesson]="lessons[i+1]"
+                        (clickOnLesson)="onClick($event)">
+                </lesson-details>
+            </div>
+            <div class="col-md-3">
+                <lesson-details
+                        [lesson]="lessons[i+2]"
+                        (clickOnLesson)="onClick($event)">
+                </lesson-details>
+            </div>
+            <div class="col-md-3">
+                <lesson-details
+                        [lesson]="lessons[i+3]"
+                        (clickOnLesson)="onClick($event)">
+                </lesson-details>
+            </div>
+        </div>
+    </div>
+</div>

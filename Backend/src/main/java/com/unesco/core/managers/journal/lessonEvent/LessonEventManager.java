@@ -37,10 +37,6 @@ public class LessonEventManager implements ILessonEventManager {
             responseStatusDTO.setStatus(StatusTypes.ERROR);
             responseStatusDTO.addErrors("Не указан тип события");
         }
-        if (lessonEvent.getDate() == null) {
-            responseStatusDTO.setStatus(StatusTypes.ERROR);
-            responseStatusDTO.addErrors("Не указана дата события");
-        }
         if (lessonEvent.getLesson() == null || lessonEvent.getLesson().getId() == 0) {
             responseStatusDTO.setStatus(StatusTypes.ERROR);
             responseStatusDTO.addErrors("Не указан урок");

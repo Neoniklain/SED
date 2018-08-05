@@ -6,6 +6,7 @@ export class LessonEvent {
     public id: number;
     public date: Date;
     public type: PointType;
+    public maxValue: number;
     public lesson: Lesson;
     public comment: string;
 

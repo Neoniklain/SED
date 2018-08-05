@@ -1,0 +1,18 @@
+.lesson-container {
+    width: 100%;
+}
+
+.flex-row.row {
+    display: flex;
+    flex-wrap: wrap;
+}
+.flex-row.row > [class*='col-'] {
+    display: flex;
+    flex-direction: column;
+}
+.flex-row.row:after,
+.flex-row.row:before {
+    display: flex;
+}
+
+

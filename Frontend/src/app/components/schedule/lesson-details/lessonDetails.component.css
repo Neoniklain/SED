@@ -1,0 +1,65 @@
+.lesson-WithoutHover {
+    border: 1px solid rgba(128, 128, 128, 0.4);
+    padding: 1em;
+    transition: all 0.1s;
+    height: 100%;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-flex-direction: column;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.lesson {
+    border: 1px solid rgba(128, 128, 128, 0.4);
+    padding: 1em;
+    transition: all 0.1s;
+    height: 100%;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-flex-direction: column;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.lesson:hover {
+    background: rgba(0, 0, 0, 0.02);
+    box-shadow: 9px 8px 18px -9px;
+}
+
+.lesson-discipline {
+    text-align: center;
+    font-size: 19px;
+    color: #757373;
+    display: flex;
+    flex: 1;
+    align-items: center;
+    justify-content: center;
+}
+
+.lesson:hover .lesson-discipline {
+    color: black;
+}
+
+.lesson-professor {
+    text-align: left;
+    float: left;
+    font-size: 15px;
+    color: #757373;
+}
+
+.lesson:hover .lesson-professor {
+    color: black;
+}
+
+.lesson-group {
+    text-align: right;
+    font-size: 14px;
+    color: #757373;
+}
+
+.lesson:hover .lesson-group {
+    color: black;
+}
+
+

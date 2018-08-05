@@ -5,8 +5,8 @@ import com.unesco.core.dto.shedule.GroupDTO;
 public class StudentDTO {
 
     private long id;
-    public GroupDTO group;
-    public UserDTO user;
+    private GroupDTO group;
+    private UserDTO user;
 
     public StudentDTO() {}
 

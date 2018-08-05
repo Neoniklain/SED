@@ -4,6 +4,7 @@ import com.unesco.core.controller.JournalController;
 import com.unesco.core.dto.additional.ResponseStatusDTO;
 import com.unesco.core.dto.journal.JournalDTO;
 import com.unesco.core.dto.journal.LessonEventDTO;
+import com.unesco.core.dto.journal.VisitationConfigDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -26,7 +27,7 @@ public class JournalControllerWeb {
 
     @RequestMapping("/dates/{lessonId}")
     public ResponseStatusDTO GetDates(@PathVariable("lessonId") long lessonId) {
-        return journalController.GetJournal(lessonId);
+        return journalController.GetDates(lessonId);
     }
 
     @RequestMapping("/save")
@@ -42,6 +43,16 @@ public class JournalControllerWeb {
     @RequestMapping("/event/save")
     public ResponseStatusDTO SaveEvent(@RequestBody LessonEventDTO event) {
         return journalController.SaveEvent(event);
+    }
+
+    @RequestMapping("/visitation/saveConfig")
+    public ResponseStatusDTO SaveVisitationConfig(@RequestBody VisitationConfigDTO configDTO) {
+        return journalController.SaveVisitationConfig(configDTO);
+    }
+
+    @RequestMapping("/visitation/lesson/{lessonId}")
+    public ResponseStatusDTO GetVisitationConfig(@PathVariable("lessonId") long lessonId) {
+        return journalController.GetVisitationConfig(lessonId);
     }
 
     @RequestMapping("/event/delete/{id}")
