@@ -8,6 +8,7 @@ export class TaskDescription {
   public taskUsers: TaskUser[];
   public users: User[];
   public description: string;
+  public toWhom: number;
   public status: number;
   public statusName: string;
   public files: FileDescription[];

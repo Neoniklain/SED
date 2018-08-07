@@ -86,6 +86,7 @@ export const ApiRouteConstants = {
       Get: "task/get/:id",
       Delete: "task/delete/:id",
       AnswerTask: "task/answer",
+      ChangeStatus: "task/changeStatus",
       AddFile: "task/addfile"
    },
    Journal: {

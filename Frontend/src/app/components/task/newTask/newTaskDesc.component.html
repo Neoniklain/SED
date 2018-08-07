@@ -7,10 +7,20 @@
         <p>Введите название задачи:</p>
         <input type="text" class="form-control" id="headerCreate" name="header" placeholder="Название задчи"
                                 [(ngModel)]="localTD.name"/>
-        <p style="margin: 10px 0;">Введите ФИО пользователя:</p>
-        <p-autoComplete [(ngModel)]="localTD.users" [suggestions]="_foundedUsers" (completeMethod)="searchUser($event)" styleClass="w-100"
-                        [minLength]="3" placeholder="Введите ФИО" field="userFIO" [multiple]="true">
-        </p-autoComplete>
+        <p style="margin: 10px 0;">Кому: </p>
+        <p-selectButton [options]="listOfToWhom" [(ngModel)]="toWhom" optionLabel="name"></p-selectButton>
+        <div *ngIf="toWhom.value == 0">
+
+        </div>
+        <div *ngIf="toWhom.value == 1">
+            <p style="margin: 10px 0;">Введите ФИО пользователя:</p>
+            <p-autoComplete [(ngModel)]="localTD.users" [suggestions]="_foundedUsers" (completeMethod)="searchUser($event)" styleClass="w-100"
+                            [minLength]="3" placeholder="Введите ФИО" field="userFIO" [multiple]="true">
+            </p-autoComplete>
+        </div>
+        <div *ngIf="toWhom.value == 2">
+
+        </div>
         <p style="margin: 10px 0;">Прикрепление фалов</p>
         <!--<p-fileUpload name="files[]" [chooseLabel]="'Выбрать файл'" [cancelLabel]="'Очистить'" [showUploadButton]="false"
                       multiple="multiple" maxFileSize="{{maxFileSize}}"

@@ -26,8 +26,10 @@ export class NewTaskDescComponent {
     public _show: boolean = false;
     public _isCreate: boolean = true;
     public _title: string = '';
+    public toWhom: any;
+    public listOfToWhom: any[];
     // ↓ Это нужно для работы enum во вью.
-    TaskStatusType = TaskStatusType;
+    public TaskStatusType = TaskStatusType;
 
     // возвращаем результат
     @Output() onCreateNew: EventEmitter<any> = new EventEmitter();
@@ -50,6 +52,11 @@ export class NewTaskDescComponent {
             ]
         };
         this._uploader = new FileUploader(this._fileOptions);
+        this.listOfToWhom = [];
+        this.listOfToWhom.push({name: "Всем", value: 0});
+        this.listOfToWhom.push({name: "Выбрать пользователей", value: 1});
+        this.toWhom = this.listOfToWhom[0];
+        //this.listOfToWhom.push({name: "Выбрать роль", value: 2});
     }
 
     public showDialog(td?: TaskDescription) {
@@ -69,6 +76,7 @@ export class NewTaskDescComponent {
 
     public CreateTask() {
         if (this._isCreate) {
+            this.localTD.toWhom = this.toWhom.value;
             this.taskService.Create(this.localTD).subscribe((res) => {
                     this._show = false;
                     if (this._uploader.queue.length > 0) {
@@ -120,5 +128,6 @@ export class NewTaskDescComponent {
 
     public downloadFile(item: FileDescription){
         this.fileService.downloadFile(item.id);
+        console.log('download file (сообщение из "Component")');
     }
 }

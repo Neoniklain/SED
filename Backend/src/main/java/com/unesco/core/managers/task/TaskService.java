@@ -58,16 +58,29 @@ public class TaskService implements ITaskService
 
    @Override
    public TaskDescriptionModel createNewTaskDescription(TaskDescriptionModel td){
+      if(td.getToWhom() == 0){
+         td.setUsers(_userService.GetAll());
+
+      }
+      if(td.getToWhom() == 1){
+         if(td.getUsers().size() == 0)
+            return null;
+      }
       TaskDescriptionModel saved = _taskDescriptionDataService.Save(td);
       List<TaskUserModel> ltu = new ArrayList<>();
       for(UserDTO user:td.getUsers()){
-         TaskUserModel newTUM = new TaskUserModel();
-         newTUM.setResponse("");
-         newTUM.setStatus(TaskStatusType.Processed.ordinal());
-         newTUM.setExecutor(user);
-         newTUM.setStatusName(TaskStatusType.Processed.name());
-         newTUM.setTaskDescriptionId(saved.getId());
-         ltu.add(_taskUserDataService.Save(newTUM));
+         if(user.getId() != td.getCreator().getId()){
+            TaskUserModel newTUM = new TaskUserModel();
+            newTUM.setResponse("");
+            newTUM.setStatus(TaskStatusType.Processed.ordinal());
+            newTUM.setExecutor(user);
+            newTUM.setStatusName(TaskStatusType.Processed.name());
+            newTUM.setTaskDescriptionId(saved.getId());
+            ltu.add(_taskUserDataService.Save(newTUM));
+         }
+         else{
+            System.out.println("Нельзя назначить задачу самому себе.");
+         }
       }
       saved.setTaskUsers(ltu);
       System.out.println("Задача добавлена.");
@@ -96,7 +109,14 @@ public class TaskService implements ITaskService
    }
 
    @Override
-   public void changeStatusTaskUser(TaskUserModel item) {
+   public void changeStatusTaskUser(long tu_id, int status_id) {
+      TaskUserModel TU = _taskUserDataService.Get(tu_id);
+      TU.setStatus(status_id);
+      _taskUserDataService.UpdateTaskUser(TU);
+   }
+
+   @Override
+   public void answerTaskUser(TaskUserModel item) {
       _taskUserDataService.UpdateTaskUser(item);
       List<TaskUserModel> tums = _taskUserDataService.GetTaskUserByTaskDescription(item.getTaskDescriptionId());
       int closedCount = 0;

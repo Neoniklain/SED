@@ -52,17 +52,31 @@ public class TaskController {
 
     public ResponseStatusDTO Create(TaskDescriptionModel newTask) {
         newTask.setCreator(new UserDTO(_CustomUserDetailsService.getUserDetails()));
-        ResponseStatusDTO result = new ResponseStatusDTO(StatusTypes.OK);
-        result.addMessage("Задача создана");
+        ResponseStatusDTO result = new ResponseStatusDTO();
         result.setData(_TaskDataService.createNewTaskDescription(newTask));
+        if(result.getData() == null){
+            result.setStatus(StatusTypes.ERROR);
+            result.addErrors("Ошибка создания задачи");
+        }
+        else{
+            result.setStatus(StatusTypes.OK);
+            result.addMessage("Задача создана");
+        }
         return result;
     }
 
     public ResponseStatusDTO Answer(TaskUserModel item) {
-        _TaskDataService.changeStatusTaskUser(item);
+        _TaskDataService.answerTaskUser(item);
         ResponseStatusDTO result = new ResponseStatusDTO(StatusTypes.OK);
         result.addMessage("Ответ отправлен");
         result.setData(item);
+        return result;
+    }
+
+    public ResponseStatusDTO СhangeStatus(long tu_id, int status_id) {
+        _TaskDataService.changeStatusTaskUser(tu_id, status_id);
+        ResponseStatusDTO result = new ResponseStatusDTO(StatusTypes.OK);
+        result.addMessage("Статус изменён");
         return result;
     }
 

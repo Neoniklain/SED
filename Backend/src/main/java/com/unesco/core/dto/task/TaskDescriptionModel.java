@@ -15,6 +15,7 @@ public class TaskDescriptionModel {
     private List<UserDTO> users;
     private String description;
     private int status;
+    private int toWhom;
     private String statusName;
     private List<FileDescriptionModel> files;
 
@@ -27,6 +28,7 @@ public class TaskDescriptionModel {
         this.taskUsers = new ArrayList<>();
         this.users = new ArrayList<>();
         this.status = 0;
+        this.toWhom = -1;
         this.statusName = "";
         this.files = new ArrayList<>();
     }
@@ -101,5 +103,13 @@ public class TaskDescriptionModel {
 
     public void setFiles(List<FileDescriptionModel> files) {
         this.files = files;
+    }
+
+    public int getToWhom() {
+        return toWhom;
+    }
+
+    public void setToWhom(int toWhom) {
+        this.toWhom = toWhom;
     }
 }

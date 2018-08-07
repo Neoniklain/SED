@@ -31,6 +31,11 @@ public class TaskControllerWeb {
         return _taskController.Answer(item);
     }
 
+    @RequestMapping(value = "/changeStatus/{tu_id}/{status_id}")
+    public ResponseStatusDTO СhangeStatus(@PathVariable("tu_id") long tu_id, @PathVariable("status_id") int status_id) {
+        return _taskController.СhangeStatus(tu_id, status_id);
+    }
+
     @RequestMapping(value = "/get/{id}")
     public ResponseStatusDTO Get(@PathVariable("id") long id) {
         return _taskController.Get(id);

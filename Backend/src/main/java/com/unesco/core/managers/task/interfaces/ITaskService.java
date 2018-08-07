@@ -56,10 +56,17 @@ public interface ITaskService {
    void deleteTaskDescription(long id);
 
    /**
-    * Сохраняет ответ на задачу от пользователя.
+    * Изменить статус
+    * @param tu_id id задачи пользователя
+    * @param status_id id статуса
+    */
+   void changeStatusTaskUser(long tu_id, int status_id);
+
+   /**
+    * Ответ на задачу
     * @param item модель ответа на задачи
     */
-   void changeStatusTaskUser(TaskUserModel item);
+   void answerTaskUser(TaskUserModel item);
 
    /**
     * Возвращает модель описания задачи для указанного id.

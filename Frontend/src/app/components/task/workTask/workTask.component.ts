@@ -59,7 +59,14 @@ export class WorkTaskComponent {
         this._title = "Выполнение задачи";
         this.localTD = td;
         this._task = task;
-
+        if(this._task.status == TaskStatusType.Processed) {
+            this.taskService.ChangeStatus(this._task.id, TaskStatusType.Viewed).subscribe((res) => {
+                //this.notificationService.FromStatus(res);
+                this._task.status = TaskStatusType.Viewed;
+            }, (error) => {
+                console.error(error);
+            });
+        }
         console.log("Получаем файлы для браузера");
         this.fileService.getFilesForTD(this.localTD.id.toString())
             .subscribe((res) => {
@@ -68,7 +75,6 @@ export class WorkTaskComponent {
             }, (error) => {
                 console.error(error);
             });
-
         this._show = true;
     }
 

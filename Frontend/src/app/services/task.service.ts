@@ -47,4 +47,10 @@ export class  TaskService {
         return this.http.post(ApiRouteConstants.Task.AnswerTask, item, {params: params })
             .catch(this.handleError.handle);
     }
+
+    public ChangeStatus(tu_id: number, status_id: number) : Observable<ResponseStatus> {
+        let params = new HttpParams();
+        return this.http.post(ApiRouteConstants.Task.ChangeStatus + "/" + tu_id + "/" + status_id, null, {params: params })
+            .catch(this.handleError.handle);
+    }
 }
