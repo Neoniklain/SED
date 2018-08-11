@@ -1,12 +1,12 @@
 package com.unesco.core.controller;
 
-import com.unesco.core.managers.news.newsManager.interfaces.news.INewsManager;
-import com.unesco.core.managers.news.newsManager.interfaces.newsList.INewsListManager;
 import com.unesco.core.dto.account.UserDTO;
 import com.unesco.core.dto.additional.ResponseStatusDTO;
 import com.unesco.core.dto.news.NewsDTO;
-import com.unesco.core.services.account.userService.IUserDataService;
-import com.unesco.core.services.news.newsService.INewsDataService;
+import com.unesco.core.managers.news.newsManager.interfaces.news.INewsManager;
+import com.unesco.core.managers.news.newsManager.interfaces.newsList.INewsListManager;
+import com.unesco.core.services.dataService.newsService.INewsDataService;
+import com.unesco.core.services.ruleService.IAccessСontrolService;
 import com.unesco.core.utils.StatusTypes;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,32 +19,32 @@ public class NewsController {
     @Autowired
     private INewsDataService newsDataService;
     @Autowired
-    private IUserDataService userDataService;
-    @Autowired
     private INewsManager newsManager;
     @Autowired
     private INewsListManager newsListManager;
+    @Autowired
+    private IAccessСontrolService accessСontrolService;
 
-    public ResponseStatusDTO GetAllNews() {
-        newsListManager.Init(newsDataService.GetAll());
+    public ResponseStatusDTO getAllNews() {
+        newsListManager.init(newsDataService.getAll());
         newsListManager.SortDesc();
-        return new ResponseStatusDTO(StatusTypes.OK, newsListManager.GetAll());
+        return new ResponseStatusDTO(StatusTypes.OK, newsListManager.getAll());
     }
 
-    public ResponseStatusDTO GetLast() {
-        newsListManager.Init(newsDataService.GetAll());
+    public ResponseStatusDTO getLast() {
+        newsListManager.init(newsDataService.getAll());
         newsListManager.SortDesc();
         return new ResponseStatusDTO(StatusTypes.OK, newsListManager.GetLast());
     }
 
-    public ResponseStatusDTO Get(long id) {
-        newsManager.Init(newsDataService.Get(id));
-        return new ResponseStatusDTO(StatusTypes.OK, newsManager.Get());
+    public ResponseStatusDTO get(long id) {
+        newsManager.init(newsDataService.get(id));
+        return new ResponseStatusDTO(StatusTypes.OK, newsManager.get());
     }
 
-    public ResponseStatusDTO Delete(long id) {
+    public ResponseStatusDTO delete(long id) {
         try {
-            newsDataService.Delete(id);
+            newsDataService.delete(id);
             return new ResponseStatusDTO(StatusTypes.OK);
         }
         catch (Exception e) {
@@ -52,15 +52,15 @@ public class NewsController {
         }
     }
 
-    public ResponseStatusDTO Save(UserDTO user, NewsDTO news) {
+    public ResponseStatusDTO save(UserDTO user, NewsDTO news) {
         Date day = new Date();
         news.setDate(day);
         news.setAuthor(user);
-        newsManager.Init(news);
-        ResponseStatusDTO result = newsManager.Validate();
+        newsManager.init(news);
+        ResponseStatusDTO result = newsManager.validate();
         if(result.getStatus() != StatusTypes.OK) return result;
         try {
-            newsDataService.Save(news);
+            newsDataService.save(news);
             return new ResponseStatusDTO(StatusTypes.OK);
         }
         catch (Exception e) {

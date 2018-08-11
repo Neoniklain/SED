@@ -19,7 +19,7 @@ public class ExcelControllerWeb {
     protected ExcelController excelController;
 
     @RequestMapping(value = "/ParseStudyPlan")
-    public ResponseStatusDTO ParseStudyPlan(@RequestParam("file") MultipartFile file) throws IOException {
-        return excelController.ParseStudyPlan(file);
+    public ResponseStatusDTO parseStudyPlan(@RequestParam("file") MultipartFile file) throws IOException {
+        return excelController.parseStudyPlan(file);
     }
 }

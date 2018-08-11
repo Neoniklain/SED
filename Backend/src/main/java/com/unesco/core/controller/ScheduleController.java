@@ -5,11 +5,11 @@ import com.unesco.core.dto.shedule.PairDTO;
 import com.unesco.core.managers.schedule.pairManager.interfaces.pair.IPairManager;
 import com.unesco.core.managers.schedule.sheduleDepartmentManager.sheduleDepartment.ISheduleDepartmentManager;
 import com.unesco.core.managers.schedule.sheduleManager.interfaces.shedule.ISheduleManager;
-import com.unesco.core.services.account.professorService.IProfessorDataService;
-import com.unesco.core.services.schedule.departmentService.IDepartmentDataService;
-import com.unesco.core.services.schedule.groupService.IGroupDataService;
-import com.unesco.core.services.schedule.lessonService.ILessonDataService;
-import com.unesco.core.services.schedule.pairService.IPairDataService;
+import com.unesco.core.services.dataService.account.professorService.IProfessorDataService;
+import com.unesco.core.services.dataService.schedule.departmentService.IDepartmentDataService;
+import com.unesco.core.services.dataService.schedule.groupService.IGroupDataService;
+import com.unesco.core.services.dataService.schedule.lessonService.ILessonDataService;
+import com.unesco.core.services.dataService.schedule.pairService.IPairDataService;
 import com.unesco.core.utils.StatusTypes;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -39,29 +39,29 @@ public class ScheduleController {
 
     public ResponseStatusDTO getDepartmentPairs(long departmentId) {
 
-        sheduleDepartmentManager.Init(pairDataService.GetAllByDepartament(departmentId),
-                professorDataService.GetAllByDepartament(departmentId),
-                departmentDataService.Get(departmentId));
+        sheduleDepartmentManager.init(pairDataService.getAllByDepartament(departmentId),
+                professorDataService.getAllByDepartament(departmentId),
+                departmentDataService.get(departmentId));
 
-        return new ResponseStatusDTO(StatusTypes.OK, sheduleDepartmentManager.Get());
+        return new ResponseStatusDTO(StatusTypes.OK, sheduleDepartmentManager.get());
     }
 
     public ResponseStatusDTO getGroupPairs(long groupId) {
 
-        sheduleManager.Init(pairDataService.GetAllByGroup(groupId),
-                groupDataService.Get(groupId));
+        sheduleManager.init(pairDataService.getAllByGroup(groupId),
+                groupDataService.get(groupId));
 
-        return new ResponseStatusDTO(StatusTypes.OK, sheduleManager.Get());
+        return new ResponseStatusDTO(StatusTypes.OK, sheduleManager.get());
     }
 
     public ResponseStatusDTO getPair(long pairId) {
-        return new ResponseStatusDTO(StatusTypes.OK, pairDataService.Get(pairId));
+        return new ResponseStatusDTO(StatusTypes.OK, pairDataService.get(pairId));
     }
 
     public ResponseStatusDTO deletePair(long pairId) {
         ResponseStatusDTO res = new ResponseStatusDTO(StatusTypes.OK);
         try {
-            pairDataService.Delete(pairId);
+            pairDataService.delete(pairId);
             res.addMessage("Занятие удалено.");
             return res;
         }
@@ -71,28 +71,28 @@ public class ScheduleController {
     }
 
     public ResponseStatusDTO getProfessorPairs(long professorId) {
-        return new ResponseStatusDTO(StatusTypes.OK, pairDataService.GetAllByProfessor(professorId));
+        return new ResponseStatusDTO(StatusTypes.OK, pairDataService.getAllByProfessor(professorId));
     }
 
     public ResponseStatusDTO getLessonPairs(long lessonId) {
-        return new ResponseStatusDTO(StatusTypes.OK, pairDataService.GetAllByLesson(lessonId));
+        return new ResponseStatusDTO(StatusTypes.OK, pairDataService.getAllByLesson(lessonId));
     }
 
     public ResponseStatusDTO getLessonsForProfessor(long professorId) {
-        return new ResponseStatusDTO(StatusTypes.OK, lessonDataService.GetByProfessorId(professorId));
+        return new ResponseStatusDTO(StatusTypes.OK, lessonDataService.getByProfessorId(professorId));
     }
 
     public ResponseStatusDTO savePair(@RequestBody PairDTO pairModel) {
-        pairManager.Init(pairModel);
+        pairManager.init(pairModel);
         
-        ResponseStatusDTO result = pairManager.Validate();
+        ResponseStatusDTO result = pairManager.validate();
         if(result.getStatus() != StatusTypes.OK) return result;
 
-        result = pairManager.CheckIntersection(pairDataService.GetAll());
+        result = pairManager.CheckIntersection(pairDataService.getAll());
         if(result.getStatus() != StatusTypes.OK) return result;
 
         try {
-            pairDataService.Save(pairManager.Get());
+            pairDataService.save(pairManager.get());
             result.addMessage("Занятие сохранено.");
         }
         catch (Exception e) {

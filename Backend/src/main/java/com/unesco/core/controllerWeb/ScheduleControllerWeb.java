@@ -44,7 +44,7 @@ public class ScheduleControllerWeb {
     }
 
     @RequestMapping("/professor/{professorId}/lessons")
-    public ResponseStatusDTO GetByProfessorId(@PathVariable("professorId") long professorId) {
+    public ResponseStatusDTO getByProfessorId(@PathVariable("professorId") long professorId) {
         return sheduleController.getLessonsForProfessor(professorId);
     }
 

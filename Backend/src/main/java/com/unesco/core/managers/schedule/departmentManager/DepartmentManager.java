@@ -3,7 +3,7 @@ package com.unesco.core.managers.schedule.departmentManager;
 import com.unesco.core.managers.schedule.departmentManager.interfaces.department.IDepartmentManager;
 import com.unesco.core.dto.additional.ResponseStatusDTO;
 import com.unesco.core.dto.plan.DepartmentDTO;
-import com.unesco.core.services.schedule.departmentService.IDepartmentDataService;
+import com.unesco.core.services.dataService.schedule.departmentService.IDepartmentDataService;
 import com.unesco.core.utils.StatusTypes;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
@@ -22,15 +22,15 @@ public class DepartmentManager implements IDepartmentManager {
         department = new DepartmentDTO();
     }
 
-    public void Init(DepartmentDTO Department) {
+    public void init(DepartmentDTO Department) {
         department = Department;
     }
 
-    public DepartmentDTO Get() {
+    public DepartmentDTO get() {
         return department;
     }
 
-    public ResponseStatusDTO Validate() {
+    public ResponseStatusDTO validate() {
         ResponseStatusDTO responseStatusDTO = new ResponseStatusDTO();
         responseStatusDTO.setStatus(StatusTypes.OK);
         if (department.getName().equals("")) {

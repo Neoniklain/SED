@@ -18,11 +18,11 @@ public class SemesterListManager implements ISemesterListManager {
         semesterList = new ArrayList<>();
     }
 
-    public void Init(List<SemesterDTO> SemesterList) {
+    public void init(List<SemesterDTO> SemesterList) {
         semesterList = SemesterList;
     }
 
-    public List<SemesterDTO> GetAll() {
+    public List<SemesterDTO> getAll() {
         return semesterList;
     }
 

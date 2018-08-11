@@ -20,11 +20,11 @@ public class InstituteListManager implements IInstituteListManager {
 
     //Base
 
-    public void Init(List<InstituteDTO> InstituteList) {
+    public void init(List<InstituteDTO> InstituteList) {
         instituteList = InstituteList;
     }
 
-    public List<InstituteDTO> GetAll() {
+    public List<InstituteDTO> getAll() {
         return instituteList;
     }
 }

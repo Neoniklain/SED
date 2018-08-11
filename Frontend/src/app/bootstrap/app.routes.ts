@@ -48,7 +48,7 @@ export const routes: Routes = [
       path: RouteConstants.Account.Lk,
       component: AccountComponent,
       canActivate: [AuthGuard],
-      data: {expectedRoles: [Roles.Professor, Roles.Administrator], title: "Личный кабинет"}
+      data: {expectedRoles: [Roles.Professor, Roles.Administrator, Roles.Engineer, Roles.Student], title: "Личный кабинет"}
    },
    {
       path: RouteConstants.Account.AccessDenied,

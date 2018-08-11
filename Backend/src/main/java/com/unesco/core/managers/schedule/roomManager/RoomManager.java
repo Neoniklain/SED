@@ -3,7 +3,7 @@ package com.unesco.core.managers.schedule.roomManager;
 import com.unesco.core.managers.schedule.roomManager.interfaces.room.IRoomManager;
 import com.unesco.core.dto.additional.ResponseStatusDTO;
 import com.unesco.core.dto.shedule.RoomDTO;
-import com.unesco.core.services.schedule.roomService.IRoomDataService;
+import com.unesco.core.services.dataService.schedule.roomService.IRoomDataService;
 import com.unesco.core.utils.StatusTypes;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
@@ -22,15 +22,15 @@ public class RoomManager implements IRoomManager {
         room = new RoomDTO();
     }
 
-    public void Init(RoomDTO Room) {
+    public void init(RoomDTO Room) {
         room = Room;
     }
 
-    public RoomDTO Get() {
+    public RoomDTO get() {
         return room;
     }
 
-    public ResponseStatusDTO Validate() {
+    public ResponseStatusDTO validate() {
         ResponseStatusDTO responseStatusDTO = new ResponseStatusDTO();
         responseStatusDTO.setStatus(StatusTypes.OK);
         if (room.getRoom().equals("")) {

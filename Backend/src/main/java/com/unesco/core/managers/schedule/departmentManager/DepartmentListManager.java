@@ -2,7 +2,7 @@ package com.unesco.core.managers.schedule.departmentManager;
 
 import com.unesco.core.managers.schedule.departmentManager.interfaces.departmentList.IDepartmentListManager;
 import com.unesco.core.dto.plan.DepartmentDTO;
-import com.unesco.core.services.schedule.departmentService.IDepartmentDataService;
+import com.unesco.core.services.dataService.schedule.departmentService.IDepartmentDataService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
@@ -23,11 +23,11 @@ public class DepartmentListManager implements IDepartmentListManager {
         departmentList = new ArrayList<>();
     }
 
-    public void Init(List<DepartmentDTO> DepartmentList) {
+    public void init(List<DepartmentDTO> DepartmentList) {
         departmentList = DepartmentList;
     }
 
-    public List<DepartmentDTO> GetAll() {
+    public List<DepartmentDTO> getAll() {
         return departmentList;
     }
 }

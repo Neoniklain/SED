@@ -20,11 +20,11 @@ public class FieldOfKnowledgeListManager implements IFieldOfKnowledgeListManager
 
     //Base
 
-    public void Init(List<FieldOfKnowledgeDTO> FieldOfKnowledgeList) {
+    public void init(List<FieldOfKnowledgeDTO> FieldOfKnowledgeList) {
         fieldofknowledgeList = FieldOfKnowledgeList;
     }
 
-    public List<FieldOfKnowledgeDTO> GetAll() {
+    public List<FieldOfKnowledgeDTO> getAll() {
         return fieldofknowledgeList;
     }
 

@@ -3,7 +3,7 @@ package com.unesco.core.managers.plan.competenceManager;
 
 import com.unesco.core.entities.plan.CompetenceEntity;
 import com.unesco.core.managers.plan.competenceManager.interfaces.competence.ICompetenceManager;
-import com.unesco.core.services.plan.competenceService.ICompetenceDataService;
+import com.unesco.core.services.dataService.plan.competenceService.ICompetenceDataService;
 import org.springframework.beans.factory.annotation.Autowired;
 
 public class CompetenceManager implements ICompetenceManager {
@@ -17,11 +17,11 @@ public class CompetenceManager implements ICompetenceManager {
         competenceEntity = new CompetenceEntity();
     }
 
-    public void Init(CompetenceEntity Professor) {
+    public void init(CompetenceEntity Professor) {
         competenceEntity = Professor;
     }
 
-    public CompetenceEntity Get() {
+    public CompetenceEntity get() {
         return competenceEntity;
     }
 }

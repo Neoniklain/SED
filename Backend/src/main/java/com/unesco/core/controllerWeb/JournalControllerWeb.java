@@ -21,42 +21,42 @@ public class JournalControllerWeb {
     private JournalController journalController;
 
     @GetMapping("/{lessonId}")
-    public ResponseStatusDTO GetJournal(@PathVariable("lessonId") long lessonId) {
-        return journalController.GetJournal(lessonId);
+    public ResponseStatusDTO getJournal(@PathVariable("lessonId") long lessonId) {
+        return journalController.getJournal(lessonId);
     }
 
     @RequestMapping("/dates/{lessonId}")
-    public ResponseStatusDTO GetDates(@PathVariable("lessonId") long lessonId) {
-        return journalController.GetDates(lessonId);
+    public ResponseStatusDTO getDates(@PathVariable("lessonId") long lessonId) {
+        return journalController.getDates(lessonId);
     }
 
     @RequestMapping("/save")
-    public ResponseStatusDTO SaveJournal(@RequestBody JournalDTO journal) {
-        return journalController.SaveJournal(journal);
+    public ResponseStatusDTO saveJournal(@RequestBody JournalDTO journal) {
+        return journalController.saveJournal(journal);
     }
 
     @RequestMapping("/event/lesson/{lessonId}")
-    public ResponseStatusDTO GetEvents(@PathVariable("lessonId") long lessonId) {
-        return journalController.GetEvents(lessonId);
+    public ResponseStatusDTO getEvents(@PathVariable("lessonId") long lessonId) {
+        return journalController.getEvents(lessonId);
     }
 
     @RequestMapping("/event/save")
-    public ResponseStatusDTO SaveEvent(@RequestBody LessonEventDTO event) {
-        return journalController.SaveEvent(event);
+    public ResponseStatusDTO saveEvent(@RequestBody LessonEventDTO event) {
+        return journalController.saveEvent(event);
     }
 
     @RequestMapping("/visitation/saveConfig")
-    public ResponseStatusDTO SaveVisitationConfig(@RequestBody VisitationConfigDTO configDTO) {
-        return journalController.SaveVisitationConfig(configDTO);
+    public ResponseStatusDTO saveVisitationConfig(@RequestBody VisitationConfigDTO configDTO) {
+        return journalController.saveVisitationConfig(configDTO);
     }
 
     @RequestMapping("/visitation/lesson/{lessonId}")
-    public ResponseStatusDTO GetVisitationConfig(@PathVariable("lessonId") long lessonId) {
-        return journalController.GetVisitationConfig(lessonId);
+    public ResponseStatusDTO getVisitationConfig(@PathVariable("lessonId") long lessonId) {
+        return journalController.getVisitationConfig(lessonId);
     }
 
     @RequestMapping("/event/delete/{id}")
-    public ResponseStatusDTO DeleteEvent(@PathVariable("id") long id) {
-        return journalController.DeleteEvent(id);
+    public ResponseStatusDTO deleteEvent(@PathVariable("id") long id) {
+        return journalController.deleteEvent(id);
     }
 }

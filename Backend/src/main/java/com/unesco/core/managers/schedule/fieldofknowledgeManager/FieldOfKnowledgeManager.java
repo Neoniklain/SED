@@ -17,15 +17,15 @@ public class FieldOfKnowledgeManager implements IFieldOfKnowledgeManager {
         fieldofknowledge = new FieldOfKnowledgeDTO();
     }
 
-    public void Init(FieldOfKnowledgeDTO FieldOfKnowledge) {
+    public void init(FieldOfKnowledgeDTO FieldOfKnowledge) {
         fieldofknowledge = FieldOfKnowledge;
     }
 
-    public FieldOfKnowledgeDTO Get() {
+    public FieldOfKnowledgeDTO get() {
         return fieldofknowledge;
     }
 
-    public ResponseStatusDTO Validate() {
+    public ResponseStatusDTO validate() {
         ResponseStatusDTO responseStatusDTO = new ResponseStatusDTO();
         responseStatusDTO.setStatus(StatusTypes.OK);
         if (fieldofknowledge.getName().equals("")) {

@@ -3,7 +3,9 @@ package com.unesco.core.utils;
 public enum StatusTypes {
 
     OK("Ok"),
-    ERROR("Error")
+    ERROR("Error"),
+    NOT_FOUND("Not found"),
+    ACCESS_DENIED("Access denied"),
     ;
 
     private final String text;

@@ -18,11 +18,11 @@ public class PlanListManager implements IPlanListManager {
         planList = new ArrayList<>();
     }
 
-    public void Init(List<PlanDTO> PlanList) {
+    public void init(List<PlanDTO> PlanList) {
         planList = PlanList;
     }
 
-    public List<PlanDTO> GetAll() {
+    public List<PlanDTO> getAll() {
         return planList;
     }
 }

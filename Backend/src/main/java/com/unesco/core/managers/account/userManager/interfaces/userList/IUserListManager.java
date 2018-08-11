@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface IUserListManager extends IListManager<UserDTO> {
 
-    void Init(List<UserDTO> User);
+    void init(List<UserDTO> User);
     void CleanPassField();
     List<UserDTO> GetByFio(String fio);
     UserDTO GetByUsername(String username);

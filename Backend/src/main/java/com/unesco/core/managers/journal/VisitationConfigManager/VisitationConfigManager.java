@@ -21,7 +21,7 @@ public class VisitationConfigManager implements IVisitationConfigManager {
         visitConfig = new VisitationConfigDTO();
     }
 
-    public void Init(VisitationConfigDTO config)
+    public void init(VisitationConfigDTO config)
     {
         this.visitConfig = config;
     }
@@ -31,7 +31,7 @@ public class VisitationConfigManager implements IVisitationConfigManager {
         return  visitConfig.getDates();
     }
 
-    public ResponseStatusDTO Validate() {
+    public ResponseStatusDTO validate() {
 
         ResponseStatusDTO responseStatusDTO = new ResponseStatusDTO();
         responseStatusDTO.setStatus(StatusTypes.OK);
@@ -55,7 +55,7 @@ public class VisitationConfigManager implements IVisitationConfigManager {
         visitConfig.setLesson(lesson);
     }
 
-    public VisitationConfigDTO Get() {
+    public VisitationConfigDTO get() {
         if(visitConfig == null)
         {
             SetDeafaultConfig();

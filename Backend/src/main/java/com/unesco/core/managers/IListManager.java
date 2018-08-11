@@ -4,7 +4,7 @@ import java.util.List;
 
 public interface IListManager<T> {
 
-    void Init(List<T> t);
-    List<T> GetAll();
+    void init(List<T> t);
+    List<T> getAll();
 
 }

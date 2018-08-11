@@ -2,7 +2,7 @@ package com.unesco.core.managers.schedule.roomManager;
 
 import com.unesco.core.managers.schedule.roomManager.interfaces.roomList.IRoomListManager;
 import com.unesco.core.dto.shedule.RoomDTO;
-import com.unesco.core.services.schedule.roomService.IRoomDataService;
+import com.unesco.core.services.dataService.schedule.roomService.IRoomDataService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
@@ -23,11 +23,11 @@ public class RoomListManager implements IRoomListManager {
         roomList = new ArrayList<>();
     }
 
-    public void Init(List<RoomDTO> RoomList) {
+    public void init(List<RoomDTO> RoomList) {
         roomList = RoomList;
     }
 
-    public List<RoomDTO> GetAll() {
+    public List<RoomDTO> getAll() {
         return roomList;
     }
 }

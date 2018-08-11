@@ -17,15 +17,15 @@ public class InstituteManager implements IInstituteManager {
         institute = new InstituteDTO();
     }
 
-    public void Init(InstituteDTO Institute) {
+    public void init(InstituteDTO Institute) {
         institute = Institute;
     }
 
-    public InstituteDTO Get() {
+    public InstituteDTO get() {
         return institute;
     }
 
-    public ResponseStatusDTO Validate() {
+    public ResponseStatusDTO validate() {
         ResponseStatusDTO responseStatusDTO = new ResponseStatusDTO();
         responseStatusDTO.setStatus(StatusTypes.OK);
         if (institute.getName().equals("")) {

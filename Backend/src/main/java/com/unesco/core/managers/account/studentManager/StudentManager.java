@@ -17,11 +17,11 @@ public class StudentManager implements IStudentManager {
         student = new StudentDTO();
     }
 
-    public void Init(StudentDTO Student) {
+    public void init(StudentDTO Student) {
         student = Student;
     }
 
-    public StudentDTO Get() {
+    public StudentDTO get() {
         return student;
     }
 

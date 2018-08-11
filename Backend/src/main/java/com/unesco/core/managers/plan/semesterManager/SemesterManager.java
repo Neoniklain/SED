@@ -15,11 +15,11 @@ public class SemesterManager implements ISemesterManager {
         semester = new SemesterDTO();
     }
 
-    public void Init(SemesterDTO Semester) {
+    public void init(SemesterDTO Semester) {
         semester = Semester;
     }
 
-    public SemesterDTO Get() {
+    public SemesterDTO get() {
         return semester;
     }
 

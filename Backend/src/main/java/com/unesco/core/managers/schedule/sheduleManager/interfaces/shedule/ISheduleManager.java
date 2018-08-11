@@ -9,9 +9,9 @@ import com.unesco.core.dto.shedule.PairDTO;
 import java.util.List;
 
 public interface ISheduleManager {
-    void Init(List<PairDTO> pairList, ProfessorDTO professor);
-    void Init(List<PairDTO> pairList, DepartmentDTO department);
-    void Init(List<PairDTO> pairList, GroupDTO groupModel);
+    void init(List<PairDTO> pairList, ProfessorDTO professor);
+    void init(List<PairDTO> pairList, DepartmentDTO department);
+    void init(List<PairDTO> pairList, GroupDTO groupModel);
 
-    SheduleDTO Get();
+    SheduleDTO get();
 }

@@ -9,7 +9,7 @@ import java.util.List;
 
 public interface ISheduleDepartmentManager {
 
-    void Init(List<PairDTO> pairList, List<ProfessorDTO> professorList, DepartmentDTO department);
+    void init(List<PairDTO> pairList, List<ProfessorDTO> professorList, DepartmentDTO department);
 
-    DepartmentSheduleDTO Get();
+    DepartmentSheduleDTO get();
 }

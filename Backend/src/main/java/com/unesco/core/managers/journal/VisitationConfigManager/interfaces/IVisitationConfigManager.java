@@ -10,9 +10,9 @@ import java.util.List;
 
 public interface IVisitationConfigManager extends IValidateManager {
 
-    void Init(VisitationConfigDTO config);
+    void init(VisitationConfigDTO config);
     List<Date> GetDates();
-    VisitationConfigDTO Get();
+    VisitationConfigDTO get();
     void SetDeafaultConfig();
     void SetLesson(LessonDTO lesson);
 }

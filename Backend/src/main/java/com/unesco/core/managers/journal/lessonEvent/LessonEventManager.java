@@ -3,7 +3,7 @@ package com.unesco.core.managers.journal.lessonEvent;
 import com.unesco.core.managers.journal.lessonEvent.interfaces.lessonEvent.ILessonEventManager;
 import com.unesco.core.dto.additional.ResponseStatusDTO;
 import com.unesco.core.dto.journal.LessonEventDTO;
-import com.unesco.core.services.journal.lessonEvent.ILessonEventDataService;
+import com.unesco.core.services.dataService.journal.lessonEvent.ILessonEventDataService;
 import com.unesco.core.utils.StatusTypes;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
@@ -22,15 +22,15 @@ public class LessonEventManager implements ILessonEventManager {
         lessonEvent = new LessonEventDTO();
     }
 
-    public void Init(LessonEventDTO Professor) {
+    public void init(LessonEventDTO Professor) {
         lessonEvent = Professor;
     }
 
-    public LessonEventDTO Get() {
+    public LessonEventDTO get() {
         return lessonEvent;
     }
 
-    public ResponseStatusDTO Validate() {
+    public ResponseStatusDTO validate() {
         ResponseStatusDTO responseStatusDTO = new ResponseStatusDTO();
         responseStatusDTO.setStatus(StatusTypes.OK);
         if (lessonEvent.getType() == null || lessonEvent.getType().getName().equals("")) {

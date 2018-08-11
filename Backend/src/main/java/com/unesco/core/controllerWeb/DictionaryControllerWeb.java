@@ -22,113 +22,113 @@ public class DictionaryControllerWeb {
    private DictionaryController dictionaryController;
 
    @RequestMapping(method = RequestMethod.POST, value = "professor")
-   public PageResultDTO<ProfessorDTO> GetProfessorList(@RequestBody FilterQueryDTO filter) {
-      return dictionaryController.GetProfessorList(filter);
+   public PageResultDTO<ProfessorDTO> getProfessorList(@RequestBody FilterQueryDTO filter) {
+      return dictionaryController.getProfessorList(filter);
    }
    @RequestMapping(method = RequestMethod.POST, value = "user")
-   public PageResultDTO<UserDTO> GetUserList(@RequestBody FilterQueryDTO filter) {
-      return dictionaryController.GetUserList(filter);
+   public PageResultDTO<UserDTO> getUserList(@RequestBody FilterQueryDTO filter) {
+      return dictionaryController.getUserList(filter);
    }
 
    @RequestMapping(method = RequestMethod.POST, value = "room")
-   public PageResultDTO<RoomDTO> GetRoomList(@RequestBody FilterQueryDTO filter) {
-      return dictionaryController.GetRoomList(filter);
+   public PageResultDTO<RoomDTO> getRoomList(@RequestBody FilterQueryDTO filter) {
+      return dictionaryController.getRoomList(filter);
    }
    @RequestMapping(method = RequestMethod.PUT, value = "room")
-   public ResponseStatusDTO AddRoom(@RequestBody RoomDTO room) {
-      return dictionaryController.AddRoom(room);
+   public ResponseStatusDTO addRoom(@RequestBody RoomDTO room) {
+      return dictionaryController.addRoom(room);
    }
    @RequestMapping(method = RequestMethod.DELETE, value = "room/{id}")
-   public ResponseStatusDTO DeleteRoom(@PathVariable("id") long id) {
-      return dictionaryController.DeleteRoom(id);
+   public ResponseStatusDTO deleteRoom(@PathVariable("id") long id) {
+      return dictionaryController.deleteRoom(id);
    }
 
    @RequestMapping(method = RequestMethod.POST, value = "fieldOfKnowledge")
-   public PageResultDTO<FieldOfKnowledgeDTO> GetFieldOfKnowledgeList(@RequestBody FilterQueryDTO filter) {
-      return dictionaryController.GetFieldOfKnowledgeList(filter);
+   public PageResultDTO<FieldOfKnowledgeDTO> getFieldOfKnowledgeList(@RequestBody FilterQueryDTO filter) {
+      return dictionaryController.getFieldOfKnowledgeList(filter);
    }
    @RequestMapping(method = RequestMethod.PUT, value = "fieldOfKnowledge")
-   public ResponseStatusDTO AddFieldOfKnowledge(@RequestBody FieldOfKnowledgeDTO fieldOfKnowledge) {
-      return dictionaryController.AddFieldOfKnowledge(fieldOfKnowledge);
+   public ResponseStatusDTO addFieldOfKnowledge(@RequestBody FieldOfKnowledgeDTO fieldOfKnowledge) {
+      return dictionaryController.addFieldOfKnowledge(fieldOfKnowledge);
    }
    @RequestMapping(method = RequestMethod.DELETE, value = "fieldOfKnowledge/{id}")
-   public ResponseStatusDTO DeleteFieldOfKnowledge(@PathVariable("id") long id) {
-      return dictionaryController.DeleteFieldOfKnowledge(id);
+   public ResponseStatusDTO deleteFieldOfKnowledge(@PathVariable("id") long id) {
+      return dictionaryController.deleteFieldOfKnowledge(id);
    }
 
    @RequestMapping(method = RequestMethod.POST, value = "role")
-   public PageResultDTO<RoleDTO> GetRoleList(@RequestBody FilterQueryDTO filter) {
-      return dictionaryController.GetRoleList(filter);
+   public PageResultDTO<RoleDTO> getRoleList(@RequestBody FilterQueryDTO filter) {
+      return dictionaryController.getRoleList(filter);
    }
    @RequestMapping(method = RequestMethod.PUT, value = "role")
-   public ResponseStatusDTO AddRole(@RequestBody RoleDTO role) {
-      return dictionaryController.AddRole(role);
+   public ResponseStatusDTO addRole(@RequestBody RoleDTO role) {
+      return dictionaryController.addRole(role);
    }
    @RequestMapping(method = RequestMethod.DELETE, value = "role/{id}")
-   public ResponseStatusDTO DeleteRole(@PathVariable("id") long id) {
-      return dictionaryController.DeleteRole(id);
+   public ResponseStatusDTO deleteRole(@PathVariable("id") long id) {
+      return dictionaryController.deleteRole(id);
    }
 
    @RequestMapping(method = RequestMethod.POST, value = "group")
-   public PageResultDTO<GroupDTO> GetGroupList(@RequestBody FilterQueryDTO filter) {
-      return dictionaryController.GetGroupList(filter);
+   public PageResultDTO<GroupDTO> getGroupList(@RequestBody FilterQueryDTO filter) {
+      return dictionaryController.getGroupList(filter);
    }
    @RequestMapping(method = RequestMethod.PUT, value = "group")
-   public ResponseStatusDTO AddGroup(@RequestBody GroupDTO group) {
-      return dictionaryController.AddGroup(group);
+   public ResponseStatusDTO addGroup(@RequestBody GroupDTO group) {
+      return dictionaryController.addGroup(group);
    }
    @RequestMapping(method = RequestMethod.DELETE, value = "group/{id}")
-   public ResponseStatusDTO DeleteGroup(@PathVariable("id") long id) {
-      return dictionaryController.DeleteGroup(id);
+   public ResponseStatusDTO deleteGroup(@PathVariable("id") long id) {
+      return dictionaryController.deleteGroup(id);
    }
 
    @RequestMapping(method = RequestMethod.POST, value = "department")
-   public PageResultDTO<DepartmentDTO> GetDepartmentList(@RequestBody FilterQueryDTO filter) {
-      return dictionaryController.GetDepartmentList(filter);
+   public PageResultDTO<DepartmentDTO> getDepartmentList(@RequestBody FilterQueryDTO filter) {
+      return dictionaryController.getDepartmentList(filter);
    }
    @RequestMapping(method = RequestMethod.PUT, value = "department")
-   public ResponseStatusDTO AddDepartment(@RequestBody DepartmentDTO department) {
-      return dictionaryController.AddDepartment(department);
+   public ResponseStatusDTO addDepartment(@RequestBody DepartmentDTO department) {
+      return dictionaryController.addDepartment(department);
    }
    @RequestMapping(method = RequestMethod.DELETE, value = "department/{id}")
-   public ResponseStatusDTO DeleteDepartment(@PathVariable("id") long id) {
-      return dictionaryController.DeleteDepartment(id);
+   public ResponseStatusDTO deleteDepartment(@PathVariable("id") long id) {
+      return dictionaryController.deleteDepartment(id);
    }
 
    @RequestMapping(method = RequestMethod.POST, value = "institute")
-   public PageResultDTO<InstituteDTO> GetInstituteList(@RequestBody FilterQueryDTO filter) {
-      return dictionaryController.GetInstituteList(filter);
+   public PageResultDTO<InstituteDTO> getInstituteList(@RequestBody FilterQueryDTO filter) {
+      return dictionaryController.getInstituteList(filter);
    }
    @RequestMapping(method = RequestMethod.PUT, value = "institute")
-   public ResponseStatusDTO AddInstitute(@RequestBody InstituteDTO institute) {
-      return dictionaryController.AddInstitute(institute);
+   public ResponseStatusDTO addInstitute(@RequestBody InstituteDTO institute) {
+      return dictionaryController.addInstitute(institute);
    }
    @RequestMapping(method = RequestMethod.DELETE, value = "institute/{id}")
-   public ResponseStatusDTO DeleteInstitute(@PathVariable("id") long id) {
-      return dictionaryController.DeleteInstitute(id);
+   public ResponseStatusDTO deleteInstitute(@PathVariable("id") long id) {
+      return dictionaryController.deleteInstitute(id);
    }
 
    @RequestMapping(method = RequestMethod.POST, value = "discipline")
-   public PageResultDTO<DisciplineDTO> GetDisciplineList(@RequestBody FilterQueryDTO filter) {
-      return dictionaryController.GetDisciplineList(filter);
+   public PageResultDTO<DisciplineDTO> getDisciplineList(@RequestBody FilterQueryDTO filter) {
+      return dictionaryController.getDisciplineList(filter);
 }
    @RequestMapping(method = RequestMethod.PUT, value = "discipline")
-   public ResponseStatusDTO AddDiscipline(@RequestBody DisciplineDTO discipline) {
-      return dictionaryController.AddDiscipline(discipline);
+   public ResponseStatusDTO addDiscipline(@RequestBody DisciplineDTO discipline) {
+      return dictionaryController.addDiscipline(discipline);
    }
    @RequestMapping(method = RequestMethod.DELETE, value = "discipline/{id}")
-   public ResponseStatusDTO DeleteDiscipline(@PathVariable("id") long id) {
-      return dictionaryController.DeleteDiscipline(id);
+   public ResponseStatusDTO deleteDiscipline(@PathVariable("id") long id) {
+      return dictionaryController.deleteDiscipline(id);
    }
 
    @RequestMapping(method = RequestMethod.POST, value = "pointType")
-   public PageResultDTO<PointTypeDTO> GetPointTypeList(@RequestBody FilterQueryDTO filter) {
-      return dictionaryController.GetPointTypeList(filter);
+   public PageResultDTO<PointTypeDTO> getPointTypeList(@RequestBody FilterQueryDTO filter) {
+      return dictionaryController.getPointTypeList(filter);
    }
 
    @RequestMapping(method = RequestMethod.POST, value = "pairTypes")
-   public PageResultDTO<PairTypeDTO> GetPairTypeList(@RequestBody FilterQueryDTO filter) {
-      return dictionaryController.GetPairTypeList(filter);
+   public PageResultDTO<PairTypeDTO> getPairTypeList(@RequestBody FilterQueryDTO filter) {
+      return dictionaryController.getPairTypeList(filter);
    }
 
 }

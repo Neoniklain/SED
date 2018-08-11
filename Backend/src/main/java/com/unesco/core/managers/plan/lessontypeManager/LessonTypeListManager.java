@@ -18,11 +18,11 @@ public class LessonTypeListManager implements ILessonTypeListManager {
         lessontypeList = new ArrayList<>();
     }
 
-    public void Init(List<LessonTypeDTO> LessonTypeList) {
+    public void init(List<LessonTypeDTO> LessonTypeList) {
         lessontypeList = LessonTypeList;
     }
 
-    public List<LessonTypeDTO> GetAll() {
+    public List<LessonTypeDTO> getAll() {
         return lessontypeList;
     }
 }

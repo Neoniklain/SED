@@ -3,7 +3,6 @@ package com.unesco.core.controllerWeb;
 import com.unesco.core.controller.AccountController;
 import com.unesco.core.dto.account.UserDTO;
 import com.unesco.core.dto.additional.ResponseStatusDTO;
-import com.unesco.core.security.CustomUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.web.bind.annotation.*;
@@ -16,57 +15,51 @@ import org.springframework.web.context.WebApplicationContext;
 public class AccountControllerWeb {
 
     @Autowired
-    private CustomUserDetailsService _CustomUserDetailsService;
-    @Autowired
     private AccountController accountController;
 
     @GetMapping("/role")
-    public ResponseStatusDTO GetRoles() {
-        UserDTO user = new UserDTO(_CustomUserDetailsService.getUserDetails());
-        return accountController.GetRoles(user);
+    public ResponseStatusDTO getRoles() {
+        return accountController.getRoles();
     }
 
     @RequestMapping("/registration")
-    public ResponseStatusDTO Registration(@RequestBody UserDTO user) {
-        return accountController.Registration(user);
+    public ResponseStatusDTO registration(@RequestBody UserDTO user) {
+        return accountController.registration(user);
     }
 
     @GetMapping("/user")
-    public ResponseStatusDTO GetUser() {
-        UserDTO user = new UserDTO(_CustomUserDetailsService.getUserDetails());
-        return accountController.GetUser(user);
+    public ResponseStatusDTO getUser() {
+        return accountController.getUser();
     }
 
     @RequestMapping("/changePassword")
-    public ResponseStatusDTO ChangePassword(@RequestBody Pass pass) {
-        UserDTO user = new UserDTO(_CustomUserDetailsService.getUserDetails());
-        return accountController.ChangePassword(user, pass.newPass, pass.oldPass);
+    public ResponseStatusDTO changePassword(@RequestBody Pass pass) {
+        return accountController.changePassword(pass.newPass, pass.oldPass);
     }
 
     @RequestMapping("/changePhoto")
-    public ResponseStatusDTO ChangePhoto(@RequestBody String photo) {
-        UserDTO user = new UserDTO(_CustomUserDetailsService.getUserDetails());
-        return accountController.ChangePhoto(user, photo);
+    public ResponseStatusDTO changePhoto(@RequestBody String photo) {
+        return accountController.changePhoto(photo);
     }
 
     @RequestMapping(value = "/FindUsersByFIO/{req}")
-    public ResponseStatusDTO FindUsersByFIO(@PathVariable("req") String req) {
-        return accountController.FindUsersByFIO(req);
+    public ResponseStatusDTO findUsersByFIO(@PathVariable("req") String req) {
+        return accountController.findUsersByFIO(req);
     }
 
     @GetMapping("/professors")
-    public ResponseStatusDTO GetProfessors() {
-        return accountController.GetProfessors();
+    public ResponseStatusDTO getProfessors() {
+        return accountController.getProfessors();
     }
 
     @GetMapping("/professorByUser/{userId}")
-    public ResponseStatusDTO GetProfessorByUser(@PathVariable("userId") long userId) {
-        return accountController.GetProfessorByUser(userId);
+    public ResponseStatusDTO getProfessorByUser(@PathVariable("userId") long userId) {
+        return accountController.getProfessorByUser(userId);
     }
 
     @GetMapping("/studentByUser/{userId}")
-    public ResponseStatusDTO GetStudentByUser(@PathVariable("userId") long userId) {
-        return accountController.GetStudentByUser(userId);
+    public ResponseStatusDTO getStudentByUser(@PathVariable("userId") long userId) {
+        return accountController.getStudentByUser(userId);
     }
 
     @RequestMapping(value = "/professor/{userId}/setDepartment/{departmentId}")
@@ -75,8 +68,8 @@ public class AccountControllerWeb {
     }
 
     @RequestMapping(value = "/FindUserByUsername/{req}")
-    public ResponseStatusDTO FindUserByUsername(@PathVariable("req") String req) {
-        return accountController.FindUserByUsername(req);
+    public ResponseStatusDTO findUserByUsername(@PathVariable("req") String req) {
+        return accountController.findUserByUsername(req);
     }
 
     @RequestMapping(value = "/student/{userId}/setGroup/{groupId}")

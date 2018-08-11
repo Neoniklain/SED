@@ -4,7 +4,7 @@ import com.unesco.core.controller.NewsController;
 import com.unesco.core.dto.account.UserDTO;
 import com.unesco.core.dto.additional.ResponseStatusDTO;
 import com.unesco.core.dto.news.NewsDTO;
-import com.unesco.core.security.CustomUserDetailsService;
+import com.unesco.core.services.userService.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -20,31 +20,31 @@ public class NewsControllerWeb {
     @Autowired
     private NewsController newsController;
     @Autowired
-    private CustomUserDetailsService _CustomUserDetailsService;
+    private IUserService userService;
 
     @GetMapping("/all")
-    public ResponseStatusDTO GetAllNews() {
-        return newsController.GetAllNews();
+    public ResponseStatusDTO getAllNews() {
+        return newsController.getAllNews();
     }
 
     @GetMapping("/last")
-    public ResponseStatusDTO GetLast() {
-        return newsController.GetLast();
+    public ResponseStatusDTO getLast() {
+        return newsController.getLast();
     }
 
     @RequestMapping(value = "/get/{id}")
-    public ResponseStatusDTO Get(@PathVariable("id") long id) {
-        return newsController.Get(id);
+    public ResponseStatusDTO get(@PathVariable("id") long id) {
+        return newsController.get(id);
     }
 
     @RequestMapping(value = "/delete/{id}")
-    public ResponseStatusDTO Delete(@PathVariable("id") long id) {
-        return newsController.Delete(id);
+    public ResponseStatusDTO delete(@PathVariable("id") long id) {
+        return newsController.delete(id);
     }
 
     @RequestMapping(value = "/save")
-    public ResponseStatusDTO Save(@RequestBody NewsDTO news) {
-        UserDTO user = new UserDTO(_CustomUserDetailsService.getUserDetails());
-        return newsController.Save(user, news);
+    public ResponseStatusDTO save(@RequestBody NewsDTO news) {
+        UserDTO user = userService.getCurrentUser();
+        return newsController.save(user, news);
     }
 }

@@ -15,11 +15,11 @@ public class LessonTypeManager implements ILessonTypeManager {
         lessontype = new LessonTypeDTO();
     }
 
-    public void Init(LessonTypeDTO LessonType) {
+    public void init(LessonTypeDTO LessonType) {
         lessontype = LessonType;
     }
 
-    public LessonTypeDTO Get() {
+    public LessonTypeDTO get() {
         return lessontype;
     }
 

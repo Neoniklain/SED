@@ -11,9 +11,9 @@ import java.util.List;
 
 public interface IJournalManager extends IValidateManager {
 
-    void Init(JournalDTO journal, List<LessonEventDTO> lessonEvents, VisitationConfigDTO visitConfig);
+    void init(JournalDTO journal, List<LessonEventDTO> lessonEvents, VisitationConfigDTO visitConfig);
     void CreateJournal();
     List<Date> GetDates();
 
-    JournalDTO Get();
+    JournalDTO get();
 }

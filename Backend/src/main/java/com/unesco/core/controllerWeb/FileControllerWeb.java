@@ -24,32 +24,32 @@ public class FileControllerWeb {
     FileController _fileController;
 
     @RequestMapping(value = "/getFilesForTD/{id}")
-    public ResponseStatusDTO GetFilesForTD(@PathVariable("id") long id) {
-        return _fileController.GetFilesForTD(id);
+    public ResponseStatusDTO getFilesForTD(@PathVariable("id") long id) {
+        return _fileController.getFilesForTD(id);
     }
 
     @RequestMapping(value = "/addFileForTD/{id}")
-    public ResponseStatusDTO AddFileForTD(@PathVariable("id") long id, @RequestParam("file") MultipartFile file) {
-        return _fileController.AddFileForTD(id,file);
+    public ResponseStatusDTO addFileForTD(@PathVariable("id") long id, @RequestParam("file") MultipartFile file) {
+        return _fileController.addFileForTD(id,file);
     }
 
     @RequestMapping(value = "/getFilesForTU/{id}")
-    public ResponseStatusDTO GetFilesForTU(@PathVariable("id") long id) {
-        return _fileController.GetFilesForTU(id);
+    public ResponseStatusDTO getFilesForTU(@PathVariable("id") long id) {
+        return _fileController.getFilesForTU(id);
     }
 
     @RequestMapping(value = "/addFileForTU/{id}")
-    public ResponseStatusDTO AddFileForTU(@PathVariable("id") long id, @RequestParam("file") MultipartFile file) {
-        return _fileController.AddFileForTU(id,file);
+    public ResponseStatusDTO addFileForTU(@PathVariable("id") long id, @RequestParam("file") MultipartFile file) {
+        return _fileController.addFileForTU(id,file);
     }
 
     @RequestMapping(value = "/download/{id}")
-    public ResponseStatusDTO Download(@PathVariable("id") long id, HttpServletRequest request, HttpServletResponse response) throws IOException
+    public ResponseStatusDTO download(@PathVariable("id") long id, HttpServletRequest request, HttpServletResponse response) throws IOException
     {
         ResponseStatusDTO result = new ResponseStatusDTO(StatusTypes.OK);
         try
         {
-            FileByteCodeModel myFile = _fileController.Download(id);
+            FileByteCodeModel myFile = _fileController.download(id);
             byte[] file = myFile.getData();
             response.reset();
             response.setHeader("Content-disposition","attachment; filename="+myFile.getFileDescription().getFileName());

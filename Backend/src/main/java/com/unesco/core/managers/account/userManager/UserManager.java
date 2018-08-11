@@ -36,11 +36,11 @@ public class UserManager implements IUserManager {
         user = new UserDTO();
     }
 
-    public void Init(UserDTO User) {
+    public void init(UserDTO User) {
         user = User;
     }
 
-    public UserDTO Get() {
+    public UserDTO get() {
         return user;
     }
 
@@ -54,7 +54,7 @@ public class UserManager implements IUserManager {
 
     public void Create(UserDTO User, List<RoleDTO> roleList)
     {
-        roleListManager.Init(roleList);
+        roleListManager.init(roleList);
         user.setEmail(User.getEmail());
         user.setUserFIO(User.getUserFIO());
         user.setUsername(User.getUsername());
@@ -122,7 +122,7 @@ public class UserManager implements IUserManager {
         return responseStatusDTO;
     }
 
-    public ResponseStatusDTO Validate() {
+    public ResponseStatusDTO validate() {
         ResponseStatusDTO responseStatusDTO = new ResponseStatusDTO();
         responseStatusDTO.setStatus(StatusTypes.OK);
         if (user.getRoles().size() == 0) {

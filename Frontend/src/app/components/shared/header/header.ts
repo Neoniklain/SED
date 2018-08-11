@@ -42,7 +42,9 @@ export class HeaderComponent implements OnInit {
            res => {
                if (res.status === StatusType.OK.toString()) {
                    this.user = res.data;
-                   this.globals.user = res.data;
+                   if (this.user.photo === "")
+                       this.user.photo = "images/anon-user.jpg";
+                   this.globals.user = this.user;
                } else {
                    this.user = null;
                    this.globals.user = null;

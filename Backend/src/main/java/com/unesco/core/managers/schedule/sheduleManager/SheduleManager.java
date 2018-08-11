@@ -29,25 +29,25 @@ public class SheduleManager implements ISheduleManager {
         shedule = new SheduleDTO();
     }
 
-    public void Init(List<PairDTO> pairList, ProfessorDTO professor) {
-        pairListManager.Init(pairList);
+    public void init(List<PairDTO> pairList, ProfessorDTO professor) {
+        pairListManager.init(pairList);
         pairListManager.ApplayFilter(professor);
-        shedule.setPairs(pairListManager.GetAll());
+        shedule.setPairs(pairListManager.getAll());
     }
 
-    public void Init(List<PairDTO> pairList, DepartmentDTO department) {
-        pairListManager.Init(pairList);
+    public void init(List<PairDTO> pairList, DepartmentDTO department) {
+        pairListManager.init(pairList);
         pairListManager.ApplayFilter(department);
-        shedule.setPairs(pairListManager.GetAll());
+        shedule.setPairs(pairListManager.getAll());
     }
 
-    public void Init(List<PairDTO> pairList, GroupDTO groupModel) {
-        pairListManager.Init(pairList);
+    public void init(List<PairDTO> pairList, GroupDTO groupModel) {
+        pairListManager.init(pairList);
         pairListManager.ApplayFilter(groupModel);
-        shedule.setPairs(pairListManager.GetAll());
+        shedule.setPairs(pairListManager.getAll());
     }
 
-    public SheduleDTO Get() {
+    public SheduleDTO get() {
         return shedule;
     }
 

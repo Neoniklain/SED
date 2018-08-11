@@ -24,11 +24,11 @@ public class PairListManager implements IPairListManager {
 
     //Base
 
-    public void Init(List<PairDTO> PairList) {
+    public void init(List<PairDTO> PairList) {
         pairList = PairList;
     }
 
-    public List<PairDTO> GetAll() {
+    public List<PairDTO> getAll() {
         return pairList;
     }
 

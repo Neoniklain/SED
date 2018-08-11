@@ -27,9 +27,9 @@ public class SheduleDepartmentManager implements ISheduleDepartmentManager {
         departmentShedule = new DepartmentSheduleDTO();
     }
 
-    public void Init(List<PairDTO> pairList, List<ProfessorDTO> professorList, DepartmentDTO department) {
+    public void init(List<PairDTO> pairList, List<ProfessorDTO> professorList, DepartmentDTO department) {
 
-        pairListManager.Init(pairList);
+        pairListManager.init(pairList);
         pairListManager.ApplayFilter(department);
 
         List<SheduleProfessorLineDTO> line = new ArrayList<>();
@@ -45,7 +45,7 @@ public class SheduleDepartmentManager implements ISheduleDepartmentManager {
         departmentShedule.setLines(line);
     }
 
-    public DepartmentSheduleDTO Get() {
+    public DepartmentSheduleDTO get() {
         return departmentShedule;
     }
 

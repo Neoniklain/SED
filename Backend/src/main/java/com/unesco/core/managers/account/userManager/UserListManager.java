@@ -18,7 +18,7 @@ public class UserListManager implements IUserListManager {
         userList = new ArrayList<>();
     }
 
-    public void Init(List<UserDTO> UserList) {
+    public void init(List<UserDTO> UserList) {
         userList = UserList;
     }
 
@@ -28,7 +28,7 @@ public class UserListManager implements IUserListManager {
         }
     }
 
-    public List<UserDTO> GetAll() {
+    public List<UserDTO> getAll() {
         return userList;
     }
 

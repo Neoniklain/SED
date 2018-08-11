@@ -15,11 +15,11 @@ public class PlanManager implements IPlanManager {
         plan = new PlanDTO();
     }
 
-    public void Init(PlanDTO Plan) {
+    public void init(PlanDTO Plan) {
         plan = Plan;
     }
 
-    public PlanDTO Get() {
+    public PlanDTO get() {
         return plan;
     }
 

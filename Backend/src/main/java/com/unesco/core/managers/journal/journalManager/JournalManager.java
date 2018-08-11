@@ -35,7 +35,7 @@ public class JournalManager implements IJournalManager {
         journal = new JournalDTO();
     }
 
-    public void Init(JournalDTO journal, List<LessonEventDTO> lessonEvents, VisitationConfigDTO visitConfig)
+    public void init(JournalDTO journal, List<LessonEventDTO> lessonEvents, VisitationConfigDTO visitConfig)
     {
         this.journal = journal;
         this.lessonEvents = lessonEvents;
@@ -112,10 +112,10 @@ public class JournalManager implements IJournalManager {
             lastDate = date;
         }
 
-        lessonEventListManager.Init(lessonEvents);
+        lessonEventListManager.init(lessonEvents);
         lessonEventListManager.ApplayFilter(this.journal.getLesson());
         lessonEventListManager.RemoveWithoutDates();
-        List<LessonEventDTO> LessonEvents = lessonEventListManager.GetAll();
+        List<LessonEventDTO> LessonEvents = lessonEventListManager.getAll();
         // Добавить даты событий если их нет
         List<Date> dates = journal.getDates();
         dates.addAll(LessonEvents.stream().map(o -> o.getDate()).collect(Collectors.toList()));
@@ -151,7 +151,7 @@ public class JournalManager implements IJournalManager {
         return  journal.getDates();
     }
 
-    public ResponseStatusDTO Validate() {
+    public ResponseStatusDTO validate() {
         ResponseStatusDTO responseStatusDTO = new ResponseStatusDTO();
         responseStatusDTO.setStatus(StatusTypes.OK);
         DateFormat df = new SimpleDateFormat("dd.MM.yyyy");
@@ -180,7 +180,7 @@ public class JournalManager implements IJournalManager {
         return responseStatusDTO;
     }
 
-    public JournalDTO Get() {
+    public JournalDTO get() {
         return journal;
     }
 

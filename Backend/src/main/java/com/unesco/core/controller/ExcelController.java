@@ -29,12 +29,8 @@ public class ExcelController {
     private CompetenceRepository _CompetenceRepository;
     @Autowired
     private PlanRepository _PlanRepository;
-    @Autowired
-    private SemesterRepository _SemesterRepository;
-    @Autowired
-    private LessonTypeRepository _LessonTypeRepository;
 
-    public ResponseStatusDTO ParseStudyPlan(MultipartFile file) throws IOException {
+    public ResponseStatusDTO parseStudyPlan(MultipartFile file) throws IOException {
         HSSFWorkbook myExcelBook = new HSSFWorkbook(file.getInputStream());
         HSSFSheet myExcelSheet = myExcelBook.getSheet("План");
         Iterator<Row> rowIterator = myExcelSheet.iterator();

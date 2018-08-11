@@ -15,11 +15,11 @@ public class CompetenceListManager implements ICompetenceListManager {
         competenceEntityList = new ArrayList<>();
     }
 
-    public void Init(List<CompetenceEntity> competenceist) {
+    public void init(List<CompetenceEntity> competenceist) {
         competenceEntityList = competenceist;
     }
 
-    public List<CompetenceEntity> GetAll() {
+    public List<CompetenceEntity> getAll() {
         return competenceEntityList;
     }
 

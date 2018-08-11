@@ -2,7 +2,7 @@ package com.unesco.core.managers.account.professorManager;
 
 import com.unesco.core.managers.account.professorManager.interfaces.professorList.IProfessorListManager;
 import com.unesco.core.dto.account.ProfessorDTO;
-import com.unesco.core.services.account.professorService.IProfessorDataService;
+import com.unesco.core.services.dataService.account.professorService.IProfessorDataService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
@@ -23,11 +23,11 @@ public class ProfessorListManager implements IProfessorListManager {
         professorList = new ArrayList<>();
     }
 
-    public void Init(List<ProfessorDTO> ProfessorList) {
+    public void init(List<ProfessorDTO> ProfessorList) {
         professorList = ProfessorList;
     }
 
-    public List<ProfessorDTO> GetAll() {
+    public List<ProfessorDTO> getAll() {
         return professorList;
     }
 }

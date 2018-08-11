@@ -1,5 +1,10 @@
 package com.unesco.core.controller;
 
+import com.unesco.core.dto.account.ProfessorDTO;
+import com.unesco.core.dto.account.StudentDTO;
+import com.unesco.core.dto.account.UserDTO;
+import com.unesco.core.dto.additional.ResponseStatusDTO;
+import com.unesco.core.dto.enums.RoleType;
 import com.unesco.core.managers.account.professorManager.interfaces.professor.IProfessorManager;
 import com.unesco.core.managers.account.professorManager.interfaces.professorList.IProfessorListManager;
 import com.unesco.core.managers.account.roleManager.interfaces.roleList.IRoleListManager;
@@ -8,17 +13,13 @@ import com.unesco.core.managers.account.userManager.interfaces.user.IUserManager
 import com.unesco.core.managers.account.userManager.interfaces.userList.IUserListManager;
 import com.unesco.core.managers.schedule.departmentManager.interfaces.department.IDepartmentManager;
 import com.unesco.core.managers.schedule.groupManager.interfaces.group.IGroupManager;
-import com.unesco.core.dto.account.ProfessorDTO;
-import com.unesco.core.dto.account.StudentDTO;
-import com.unesco.core.dto.account.UserDTO;
-import com.unesco.core.dto.additional.ResponseStatusDTO;
-import com.unesco.core.dto.enums.RoleType;
-import com.unesco.core.services.account.professorService.IProfessorDataService;
-import com.unesco.core.services.account.roleService.IRoleDataService;
-import com.unesco.core.services.account.studentService.IStudentDataService;
-import com.unesco.core.services.account.userService.IUserDataService;
-import com.unesco.core.services.schedule.departmentService.IDepartmentDataService;
-import com.unesco.core.services.schedule.groupService.IGroupDataService;
+import com.unesco.core.services.dataService.account.professorService.IProfessorDataService;
+import com.unesco.core.services.dataService.account.roleService.IRoleDataService;
+import com.unesco.core.services.dataService.account.studentService.IStudentDataService;
+import com.unesco.core.services.dataService.account.userService.IUserDataService;
+import com.unesco.core.services.dataService.schedule.departmentService.IDepartmentDataService;
+import com.unesco.core.services.dataService.schedule.groupService.IGroupDataService;
+import com.unesco.core.services.userService.IUserService;
 import com.unesco.core.utils.StatusTypes;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -60,32 +61,34 @@ public class AccountController {
     @Autowired
     private IGroupManager groupManager;
 
-    public ResponseStatusDTO GetRoles(UserDTO user) {
+    @Autowired
+    private IUserService userService;
+
+    public ResponseStatusDTO getRoles() {
+        UserDTO user = userService.getCurrentUser();
         if(user != null)
             return new ResponseStatusDTO(StatusTypes.OK, user.getRoles());
         else
             return new ResponseStatusDTO(StatusTypes.OK);
     }
 
-    public ResponseStatusDTO Registration(UserDTO user) {
-        userManager.Create(user, roleDataService.GetAll());
-        ResponseStatusDTO res = userManager.Validate();
+    public ResponseStatusDTO registration(UserDTO user) {
+        userManager.Create(user, roleDataService.getAll());
+        ResponseStatusDTO res = userManager.validate();
         if(res.getStatus() != StatusTypes.OK) return res;
         try {
-            UserDTO userSaved = userDataService.Save(userManager.Get());
+            UserDTO userSaved = userDataService.save(userManager.get());
 
-            roleListManager.Init(userSaved.getRoles());
+            roleListManager.init(userSaved.getRoles());
 
             if (roleListManager.ContainRole(RoleType.PROFESSOR))
             {
                 professorManager.Create(userSaved);
-                ProfessorDTO professor = professorDataService.Save(professorManager.Get());
             }
 
             if (roleListManager.ContainRole(RoleType.STUDENT))
             {
                 studentManager.Create(userSaved);
-                StudentDTO student = studentDataService.Save(studentManager.Get());
             }
             res.setData(userSaved);
             res.addMessage("Пользователь добавлен");
@@ -96,17 +99,19 @@ public class AccountController {
         return res;
     }
 
-    public ResponseStatusDTO GetUser(UserDTO user) {
+    public ResponseStatusDTO getUser() {
+        UserDTO user = userService.getCurrentUser();
         return new ResponseStatusDTO(StatusTypes.OK, user);
     }
 
-    public ResponseStatusDTO ChangePassword(UserDTO user, String newPass, String oldPass) {
-        userManager.Init(user);
+    public ResponseStatusDTO changePassword(String newPass, String oldPass) {
+        UserDTO user = userService.getCurrentUser();
+        userManager.init(user);
         ResponseStatusDTO response = userManager.ChangePassword(newPass, oldPass);
         if (response.getStatus() == StatusTypes.ERROR) return response;
 
         try {
-            userDataService.Save(userManager.Get());
+            userDataService.save(userManager.get());
             response.addMessage("Пароль изменен.");
         } catch (Exception e) {
             response.setStatus(StatusTypes.ERROR);
@@ -115,13 +120,14 @@ public class AccountController {
         return response;
     }
 
-    public ResponseStatusDTO ChangePhoto(UserDTO user, String photo) {
-        userManager.Init(user);
+    public ResponseStatusDTO changePhoto(String photo) {
+        UserDTO user = userService.getCurrentUser();
+        userManager.init(user);
         ResponseStatusDTO response = userManager.ChangePhoto(photo);
         if (response.getStatus() == StatusTypes.ERROR) return response;
 
         try {
-            userDataService.Save(userManager.Get());
+            userDataService.save(userManager.get());
             response.addMessage("Фотография изменена.");
         } catch (Exception e) {
             response.setStatus(StatusTypes.ERROR);
@@ -130,34 +136,34 @@ public class AccountController {
         return response;
     }
 
-    public ResponseStatusDTO FindUsersByFIO(String req) {
-        userListManager.Init(userDataService.GetAll());
+    public ResponseStatusDTO findUsersByFIO(String req) {
+        userListManager.init(userDataService.getAll());
         return new ResponseStatusDTO(StatusTypes.OK, userListManager.GetByFio(req));
     }
 
-    public ResponseStatusDTO GetProfessors() {
-        professorListManager.Init(professorDataService.GetAll());
-        return new ResponseStatusDTO(StatusTypes.OK, professorListManager.GetAll());
+    public ResponseStatusDTO getProfessors() {
+        professorListManager.init(professorDataService.getAll());
+        return new ResponseStatusDTO(StatusTypes.OK, professorListManager.getAll());
     }
 
-    public ResponseStatusDTO GetProfessorByUser(long userId) {
-        professorManager.Init(professorDataService.GetByUser(userId));
-        return new ResponseStatusDTO(StatusTypes.OK, professorManager.Get());
+    public ResponseStatusDTO getProfessorByUser(long userId) {
+        professorManager.init(professorDataService.getByUser(userId));
+        return new ResponseStatusDTO(StatusTypes.OK, professorManager.get());
     }
 
-    public ResponseStatusDTO GetStudentByUser(long userId) {
-        studentManager.Init(studentDataService.GetByUser(userId));
-        return new ResponseStatusDTO(StatusTypes.OK, studentManager.Get());
+    public ResponseStatusDTO getStudentByUser(long userId) {
+        studentManager.init(studentDataService.getByUser(userId));
+        return new ResponseStatusDTO(StatusTypes.OK, studentManager.get());
     }
 
     public ResponseStatusDTO setProfessorDepartment(long userId, long departmentId) {
         ResponseStatusDTO res = new ResponseStatusDTO();
         try {
-            professorManager.Init(professorDataService.GetByUser(userId));
-            departmentManager.Init(departmentDataService.Get(departmentId));
-            professorManager.SetDepartment(departmentManager.Get());
+            professorManager.init(professorDataService.getByUser(userId));
+            departmentManager.init(departmentDataService.get(departmentId));
+            professorManager.SetDepartment(departmentManager.get());
             res.setStatus(StatusTypes.OK);
-            ProfessorDTO professor = professorDataService.Save(professorManager.Get());
+            ProfessorDTO professor = professorDataService.save(professorManager.get());
             res.setData(professor);
             res.addMessage("Кафедра для преподавателя установленна");
         }
@@ -169,19 +175,19 @@ public class AccountController {
         return res;
     }
 
-    public ResponseStatusDTO FindUserByUsername(String req) {
-        userListManager.Init(userDataService.GetAll());
+    public ResponseStatusDTO findUserByUsername(String req) {
+        userListManager.init(userDataService.getAll());
         return new ResponseStatusDTO(StatusTypes.OK, userListManager.GetByUsername(req));
     }
 
     public ResponseStatusDTO setStudentGroup(long userId, long groupId) {
-        studentManager.Init(studentDataService.GetByUser(userId));
-        groupManager.Init(groupDataService.Get(groupId));
-        studentManager.SetGroup(groupManager.Get());
+        studentManager.init(studentDataService.getByUser(userId));
+        groupManager.init(groupDataService.get(groupId));
+        studentManager.SetGroup(groupManager.get());
         ResponseStatusDTO res = new ResponseStatusDTO();
         res.setStatus(StatusTypes.OK);
         try {
-            StudentDTO stident = studentDataService.Save(studentManager.Get());
+            StudentDTO stident = studentDataService.save(studentManager.get());
             res.setData(stident);
             res.addMessage("Группа для студента установленна");
             return res;

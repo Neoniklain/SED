@@ -19,11 +19,11 @@ public class LessonEventListManager implements ILessonEventListManager {
         lessonEventList = new ArrayList<>();
     }
 
-    public void Init(List<LessonEventDTO> LessonEventList) {
+    public void init(List<LessonEventDTO> LessonEventList) {
         lessonEventList = LessonEventList;
     }
 
-    public List<LessonEventDTO> GetAll() {
+    public List<LessonEventDTO> getAll() {
         return lessonEventList;
     }
 

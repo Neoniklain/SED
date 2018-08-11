@@ -8,9 +8,9 @@ import com.unesco.core.managers.journal.VisitationConfigManager.interfaces.IVisi
 import com.unesco.core.managers.journal.journalManager.interfaces.journal.IJournalManager;
 import com.unesco.core.managers.journal.lessonEvent.interfaces.lessonEvent.ILessonEventManager;
 import com.unesco.core.managers.journal.lessonEvent.interfaces.lessonEventList.ILessonEventListManager;
-import com.unesco.core.services.journal.journal.IJournalDataService;
-import com.unesco.core.services.journal.lessonEvent.ILessonEventDataService;
-import com.unesco.core.services.journal.visitation.IVisitationConfigDataService;
+import com.unesco.core.services.dataService.journal.journal.IJournalDataService;
+import com.unesco.core.services.dataService.journal.lessonEvent.ILessonEventDataService;
+import com.unesco.core.services.dataService.journal.visitation.IVisitationConfigDataService;
 import com.unesco.core.utils.StatusTypes;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -36,51 +36,51 @@ public class JournalController {
     @Autowired
     private IVisitationConfigManager visitationConfigManager;
 
-    public ResponseStatusDTO GetJournal(long lessonId) {
+    public ResponseStatusDTO getJournal(long lessonId) {
 
-        JournalDTO journal = journalDataService.Get(lessonId);
+        JournalDTO journal = journalDataService.get(lessonId);
 
-        VisitationConfigDTO visitConfig = visitationConfigDataService.GetByLesson(lessonId);
-        visitationConfigManager.Init(visitConfig);
+        VisitationConfigDTO visitConfig = visitationConfigDataService.getByLesson(lessonId);
+        visitationConfigManager.init(visitConfig);
 
-        List<LessonEventDTO> lessonEvents = lessonEventDataService.GetAll();
-        lessonEventListManager.Init(lessonEvents);
+        List<LessonEventDTO> lessonEvents = lessonEventDataService.getAll();
+        lessonEventListManager.init(lessonEvents);
 
-        journalManager.Init(journal, lessonEventListManager.GetAll(), visitationConfigManager.Get());
+        journalManager.init(journal, lessonEventListManager.getAll(), visitationConfigManager.get());
         journalManager.CreateJournal();
 
-        return new ResponseStatusDTO(StatusTypes.OK, journalManager.Get());
+        return new ResponseStatusDTO(StatusTypes.OK, journalManager.get());
     }
 
     /**
      * На данный момент метод не верен.
      * Должен возвращать даты исходя из семестра.
-     * Сейчас даты заданы в коде метода GET.
+     * Сейчас даты заданы в коде метода get.
      * @param lessonId ID занятия
      * @return ResponseStatusDTO
      */
-    public ResponseStatusDTO GetDates(long lessonId) {
-        JournalDTO journal = journalDataService.Get(lessonId);
+    public ResponseStatusDTO getDates(long lessonId) {
+        JournalDTO journal = journalDataService.get(lessonId);
         journal.setDates(journal.getDates().stream().sorted().collect(Collectors.toList()));
         return new ResponseStatusDTO(StatusTypes.OK, journal.getDates());
     }
 
-    public ResponseStatusDTO SaveJournal(JournalDTO journal) {
+    public ResponseStatusDTO saveJournal(JournalDTO journal) {
 
-        VisitationConfigDTO visitConfig = visitationConfigDataService.GetByLesson(journal.getLesson().getId());
-        visitationConfigManager.Init(visitConfig);
+        VisitationConfigDTO visitConfig = visitationConfigDataService.getByLesson(journal.getLesson().getId());
+        visitationConfigManager.init(visitConfig);
 
-        List<LessonEventDTO> lessonEvents = lessonEventDataService.GetAll();
-        lessonEventListManager.Init(lessonEvents);
+        List<LessonEventDTO> lessonEvents = lessonEventDataService.getAll();
+        lessonEventListManager.init(lessonEvents);
 
-        journalManager.Init(journal, lessonEventListManager.GetAll(), visitationConfigManager.Get());
+        journalManager.init(journal, lessonEventListManager.getAll(), visitationConfigManager.get());
 
-        ResponseStatusDTO result = journalManager.Validate();
+        ResponseStatusDTO result = journalManager.validate();
         if(result.getStatus() == StatusTypes.ERROR) return result;
 
         try {
             result.setStatus(StatusTypes.OK);
-            journalDataService.Save(journalManager.Get());
+            journalDataService.save(journalManager.get());
             result.addMessage("Журнал сохранен.");
             return result;
         }
@@ -93,20 +93,20 @@ public class JournalController {
         }
     }
 
-    public ResponseStatusDTO GetEvents(long lessonId) {
+    public ResponseStatusDTO getEvents(long lessonId) {
 
-        lessonEventListManager.Init(lessonEventDataService.GetByLesson(lessonId));
+        lessonEventListManager.init(lessonEventDataService.getByLesson(lessonId));
 
-        return new ResponseStatusDTO(StatusTypes.OK, lessonEventListManager.GetAll());
+        return new ResponseStatusDTO(StatusTypes.OK, lessonEventListManager.getAll());
     }
 
-    public ResponseStatusDTO SaveEvent(LessonEventDTO event) {
-        lessonEventManager.Init(event);
-        ResponseStatusDTO result = lessonEventManager.Validate();
+    public ResponseStatusDTO saveEvent(LessonEventDTO event) {
+        lessonEventManager.init(event);
+        ResponseStatusDTO result = lessonEventManager.validate();
 
         if(result.getStatus() == StatusTypes.ERROR) return result;
         try {
-            lessonEventDataService.Save(lessonEventManager.Get());
+            lessonEventDataService.save(lessonEventManager.get());
             result.setStatus(StatusTypes.OK);
             result.addMessage("Событие сохранено.");
             return result;
@@ -120,11 +120,11 @@ public class JournalController {
         }
     }
 
-    public ResponseStatusDTO DeleteEvent(long id) {
+    public ResponseStatusDTO deleteEvent(long id) {
         ResponseStatusDTO result = new ResponseStatusDTO();
         try {
             result.setStatus(StatusTypes.OK);
-            lessonEventDataService.Delete(id);
+            lessonEventDataService.delete(id);
             result.addMessage("Событие удалено.");
             return result;
         }
@@ -137,13 +137,13 @@ public class JournalController {
         }
     }
 
-    public ResponseStatusDTO SaveVisitationConfig(VisitationConfigDTO visit) {
-        visitationConfigManager.Init(visit);
-        ResponseStatusDTO result = visitationConfigManager.Validate();
+    public ResponseStatusDTO saveVisitationConfig(VisitationConfigDTO visit) {
+        visitationConfigManager.init(visit);
+        ResponseStatusDTO result = visitationConfigManager.validate();
 
         if(result.getStatus() == StatusTypes.ERROR) return result;
         try {
-            visitationConfigDataService.Save(visitationConfigManager.Get());
+            visitationConfigDataService.save(visitationConfigManager.get());
             result.setStatus(StatusTypes.OK);
             result.addMessage("Настройки посещаемости сохранены.");
             return result;
@@ -157,9 +157,9 @@ public class JournalController {
         }
     }
 
-    public ResponseStatusDTO GetVisitationConfig(long lessonId) {
+    public ResponseStatusDTO getVisitationConfig(long lessonId) {
 
-        VisitationConfigDTO visitationConfig = visitationConfigDataService.GetByLesson(lessonId);
+        VisitationConfigDTO visitationConfig = visitationConfigDataService.getByLesson(lessonId);
 
         if (visitationConfig == null) {
             return new ResponseStatusDTO(StatusTypes.OK);

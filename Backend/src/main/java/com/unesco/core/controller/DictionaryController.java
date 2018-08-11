@@ -25,17 +25,17 @@ import com.unesco.core.managers.schedule.instituteManager.interfaces.institute.I
 import com.unesco.core.managers.schedule.instituteManager.interfaces.instituteList.IInstituteListManager;
 import com.unesco.core.managers.schedule.roomManager.interfaces.room.IRoomManager;
 import com.unesco.core.managers.schedule.roomManager.interfaces.roomList.IRoomListManager;
-import com.unesco.core.services.account.professorService.IProfessorDataService;
-import com.unesco.core.services.account.roleService.IRoleDataService;
-import com.unesco.core.services.account.userService.IUserDataService;
-import com.unesco.core.services.journal.pointType.IPointTypeDataService;
-import com.unesco.core.services.schedule.departmentService.IDepartmentDataService;
-import com.unesco.core.services.schedule.disciplineService.IDisciplineDataService;
-import com.unesco.core.services.schedule.fieldOfKnowledgeService.IFieldOfKnowledgeDataService;
-import com.unesco.core.services.schedule.groupService.IGroupDataService;
-import com.unesco.core.services.schedule.instituteService.IInstituteDataService;
-import com.unesco.core.services.schedule.pairTypeService.IPairTypeDataService;
-import com.unesco.core.services.schedule.roomService.IRoomDataService;
+import com.unesco.core.services.dataService.account.professorService.IProfessorDataService;
+import com.unesco.core.services.dataService.account.roleService.IRoleDataService;
+import com.unesco.core.services.dataService.account.userService.IUserDataService;
+import com.unesco.core.services.dataService.journal.pointType.IPointTypeDataService;
+import com.unesco.core.services.dataService.schedule.departmentService.IDepartmentDataService;
+import com.unesco.core.services.dataService.schedule.disciplineService.IDisciplineDataService;
+import com.unesco.core.services.dataService.schedule.fieldOfKnowledgeService.IFieldOfKnowledgeDataService;
+import com.unesco.core.services.dataService.schedule.groupService.IGroupDataService;
+import com.unesco.core.services.dataService.schedule.instituteService.IInstituteDataService;
+import com.unesco.core.services.dataService.schedule.pairTypeService.IPairTypeDataService;
+import com.unesco.core.services.dataService.schedule.roomService.IRoomDataService;
 import com.unesco.core.utils.StatusTypes;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -108,28 +108,28 @@ public class DictionaryController {
    @Autowired
    private IProfessorListManager professorListManager;
 
-   public PageResultDTO<ProfessorDTO> GetProfessorList(FilterQueryDTO filter) {
-      professorListManager.Init(professorDataService.GetPage(filter));
-      PageResultDTO<ProfessorDTO> result = new PageResultDTO(professorListManager.GetAll(), professorListManager.GetAll().size());
+   public PageResultDTO<ProfessorDTO> getProfessorList(FilterQueryDTO filter) {
+      professorListManager.init(professorDataService.getPage(filter));
+      PageResultDTO<ProfessorDTO> result = new PageResultDTO(professorListManager.getAll(), professorListManager.getAll().size());
       return result;
    }
-   public PageResultDTO<UserDTO> GetUserList(FilterQueryDTO filter) {
-      userListManager.Init(userDataService.GetPage(filter));
-      PageResultDTO<UserDTO> result = new PageResultDTO(userListManager.GetAll(), userListManager.GetAll().size());
+   public PageResultDTO<UserDTO> getUserList(FilterQueryDTO filter) {
+      userListManager.init(userDataService.getPage(filter));
+      PageResultDTO<UserDTO> result = new PageResultDTO(userListManager.getAll(), userListManager.getAll().size());
       return result;
    }
 
-   public PageResultDTO<RoomDTO> GetRoomList(FilterQueryDTO filter) {
-      roomListManager.Init(roomDataService.GetPage(filter));
-      PageResultDTO<RoomDTO> result = new PageResultDTO(roomListManager.GetAll(), roomListManager.GetAll().size());
+   public PageResultDTO<RoomDTO> getRoomList(FilterQueryDTO filter) {
+      roomListManager.init(roomDataService.getPage(filter));
+      PageResultDTO<RoomDTO> result = new PageResultDTO(roomListManager.getAll(), roomListManager.getAll().size());
       return result;
    }
-   public ResponseStatusDTO AddRoom(RoomDTO room) {
-      roomManager.Init(room);
-      ResponseStatusDTO response = roomManager.Validate();
+   public ResponseStatusDTO addRoom(RoomDTO room) {
+      roomManager.init(room);
+      ResponseStatusDTO response = roomManager.validate();
       if(response.getStatus() != StatusTypes.OK) return response;
       try {
-         roomDataService.Save(roomManager.Get());
+         roomDataService.save(roomManager.get());
          response.addMessage("Кабинет сохранен.");
       }
       catch (Exception e) {
@@ -139,34 +139,34 @@ public class DictionaryController {
       }
       return response;
    }
-   public ResponseStatusDTO DeleteRoom(long id) {
-      roomManager.Init(roomDataService.Get(id));
+   public ResponseStatusDTO deleteRoom(long id) {
+      roomManager.init(roomDataService.get(id));
       ResponseStatusDTO response = new ResponseStatusDTO();
       response.setStatus(StatusTypes.OK);
       try {
-         roomDataService.Delete(id);
+         roomDataService.delete(id);
          response.addMessage("Кабинет удален.");
       }
       catch (Exception e) {
          response.setStatus(StatusTypes.ERROR);
-         response.addMessage("Оошибка при удаленни кабинета.");
+         response.addMessage("Ошибка при удаленни кабинета.");
          response.addMessage(e.getMessage());
       }
       return response;
    }
 
-   public PageResultDTO<FieldOfKnowledgeDTO> GetFieldOfKnowledgeList(FilterQueryDTO filter) {
-      fieldOfKnowledgeListManager.Init(fieldOfKnowledgeDataService.GetPage(filter));
-      PageResultDTO<FieldOfKnowledgeDTO> result = new PageResultDTO(fieldOfKnowledgeListManager.GetAll(), fieldOfKnowledgeListManager.GetAll().size());
+   public PageResultDTO<FieldOfKnowledgeDTO> getFieldOfKnowledgeList(FilterQueryDTO filter) {
+      fieldOfKnowledgeListManager.init(fieldOfKnowledgeDataService.getPage(filter));
+      PageResultDTO<FieldOfKnowledgeDTO> result = new PageResultDTO(fieldOfKnowledgeListManager.getAll(), fieldOfKnowledgeListManager.getAll().size());
       return result;
    }
    
-   public ResponseStatusDTO AddFieldOfKnowledge(FieldOfKnowledgeDTO fieldOfKnowledge) {
-      fieldOfKnowledgeManager.Init(fieldOfKnowledge);
-      ResponseStatusDTO response = fieldOfKnowledgeManager.Validate();
+   public ResponseStatusDTO addFieldOfKnowledge(FieldOfKnowledgeDTO fieldOfKnowledge) {
+      fieldOfKnowledgeManager.init(fieldOfKnowledge);
+      ResponseStatusDTO response = fieldOfKnowledgeManager.validate();
       if(response.getStatus() != StatusTypes.OK) return response;
       try {
-         fieldOfKnowledgeDataService.Save(fieldOfKnowledgeManager.Get());
+         fieldOfKnowledgeDataService.save(fieldOfKnowledgeManager.get());
          response.addMessage("Раздел знаний сохранен.");
       }
       catch (Exception e) {
@@ -177,12 +177,12 @@ public class DictionaryController {
       return response;
    }
    
-   public ResponseStatusDTO DeleteFieldOfKnowledge(long id) {
-      fieldOfKnowledgeManager.Init(fieldOfKnowledgeDataService.Get(id));
+   public ResponseStatusDTO deleteFieldOfKnowledge(long id) {
+      fieldOfKnowledgeManager.init(fieldOfKnowledgeDataService.get(id));
       ResponseStatusDTO response = new ResponseStatusDTO();
       response.setStatus(StatusTypes.OK);
       try {
-         fieldOfKnowledgeDataService.Delete(id);
+         fieldOfKnowledgeDataService.delete(id);
          response.addMessage("Раздел знаний удален.");
       }
       catch (Exception e) {
@@ -193,18 +193,18 @@ public class DictionaryController {
       return response;
    }
 
-   public PageResultDTO<RoleDTO> GetRoleList(FilterQueryDTO filter) {
-      roleListManager.Init(roleDataService.GetPage(filter));
-      PageResultDTO<RoleDTO> result = new PageResultDTO(roleListManager.GetAll(), roleListManager.GetAll().size());
+   public PageResultDTO<RoleDTO> getRoleList(FilterQueryDTO filter) {
+      roleListManager.init(roleDataService.getPage(filter));
+      PageResultDTO<RoleDTO> result = new PageResultDTO(roleListManager.getAll(), roleListManager.getAll().size());
       return result;
    }
    
-   public ResponseStatusDTO AddRole(RoleDTO role) {
-      roleManager.Init(role);
-      ResponseStatusDTO response = roleManager.Validate();
+   public ResponseStatusDTO addRole(RoleDTO role) {
+      roleManager.init(role);
+      ResponseStatusDTO response = roleManager.validate();
       if(response.getStatus() != StatusTypes.OK) return response;
       try {
-         roleDataService.Save(roleManager.Get());
+         roleDataService.save(roleManager.get());
          response.addMessage("Роль сохранена.");
       }
       catch (Exception e) {
@@ -215,12 +215,12 @@ public class DictionaryController {
       return response;
    }
    
-   public ResponseStatusDTO DeleteRole(long id) {
-      roleManager.Init(roleDataService.Get(id));
+   public ResponseStatusDTO deleteRole(long id) {
+      roleManager.init(roleDataService.get(id));
       ResponseStatusDTO response = new ResponseStatusDTO();
       response.setStatus(StatusTypes.OK);
       try {
-         roleDataService.Delete(id);
+         roleDataService.delete(id);
          response.addMessage("Роль удалена.");
       }
       catch (Exception e) {
@@ -231,18 +231,18 @@ public class DictionaryController {
       return response;
    }
 
-   public PageResultDTO<GroupDTO> GetGroupList(FilterQueryDTO filter) {
-      groupListManager.Init(groupDataService.GetPage(filter));
-      PageResultDTO<GroupDTO> result = new PageResultDTO(groupListManager.GetAll(), groupListManager.GetAll().size());
+   public PageResultDTO<GroupDTO> getGroupList(FilterQueryDTO filter) {
+      groupListManager.init(groupDataService.getPage(filter));
+      PageResultDTO<GroupDTO> result = new PageResultDTO(groupListManager.getAll(), groupListManager.getAll().size());
       return result;
    }
    
-   public ResponseStatusDTO AddGroup(GroupDTO group) {
-      groupManager.Init(group);
-      ResponseStatusDTO response = groupManager.Validate();
+   public ResponseStatusDTO addGroup(GroupDTO group) {
+      groupManager.init(group);
+      ResponseStatusDTO response = groupManager.validate();
       if(response.getStatus() != StatusTypes.OK) return response;
       try {
-         groupDataService.Save(groupManager.Get());
+         groupDataService.save(groupManager.get());
          response.addMessage("Группа сохранена.");
       }
       catch (Exception e) {
@@ -253,12 +253,12 @@ public class DictionaryController {
       return response;
    }
    
-   public ResponseStatusDTO DeleteGroup(long id) {
-      groupManager.Init(groupDataService.Get(id));
+   public ResponseStatusDTO deleteGroup(long id) {
+      groupManager.init(groupDataService.get(id));
       ResponseStatusDTO response = new ResponseStatusDTO();
       response.setStatus(StatusTypes.OK);
       try {
-         groupDataService.Delete(id);
+         groupDataService.delete(id);
          response.addMessage("Группа удалена.");
       }
       catch (Exception e) {
@@ -269,18 +269,18 @@ public class DictionaryController {
       return response;
    }
 
-   public PageResultDTO<DepartmentDTO> GetDepartmentList(FilterQueryDTO filter) {
-      departmentListManager.Init(departmentDataService.GetPage(filter));
-      PageResultDTO<DepartmentDTO> result = new PageResultDTO(departmentListManager.GetAll(), departmentListManager.GetAll().size());
+   public PageResultDTO<DepartmentDTO> getDepartmentList(FilterQueryDTO filter) {
+      departmentListManager.init(departmentDataService.getPage(filter));
+      PageResultDTO<DepartmentDTO> result = new PageResultDTO(departmentListManager.getAll(), departmentListManager.getAll().size());
       return result;
    }
    
-   public ResponseStatusDTO AddDepartment(DepartmentDTO department) {
-      departmentManager.Init(department);
-      ResponseStatusDTO response = departmentManager.Validate();
+   public ResponseStatusDTO addDepartment(DepartmentDTO department) {
+      departmentManager.init(department);
+      ResponseStatusDTO response = departmentManager.validate();
       if(response.getStatus() != StatusTypes.OK) return response;
       try {
-         departmentDataService.Save(departmentManager.Get());
+         departmentDataService.save(departmentManager.get());
          response.addMessage("Кафедра сохранена.");
       }
       catch (Exception e) {
@@ -291,12 +291,12 @@ public class DictionaryController {
       return response;
    }
    
-   public ResponseStatusDTO DeleteDepartment(long id) {
-      departmentManager.Init(departmentDataService.Get(id));
+   public ResponseStatusDTO deleteDepartment(long id) {
+      departmentManager.init(departmentDataService.get(id));
       ResponseStatusDTO response = new ResponseStatusDTO();
       response.setStatus(StatusTypes.OK);
       try {
-         departmentDataService.Delete(id);
+         departmentDataService.delete(id);
          response.addMessage("Кафедра удалена.");
       }
       catch (Exception e) {
@@ -307,18 +307,18 @@ public class DictionaryController {
       return response;
    }
 
-   public PageResultDTO<InstituteDTO> GetInstituteList(FilterQueryDTO filter) {
-      instituteListManager.Init(instituteDataService.GetPage(filter));
-      PageResultDTO<InstituteDTO> result = new PageResultDTO(instituteListManager.GetAll(), instituteListManager.GetAll().size());
+   public PageResultDTO<InstituteDTO> getInstituteList(FilterQueryDTO filter) {
+      instituteListManager.init(instituteDataService.getPage(filter));
+      PageResultDTO<InstituteDTO> result = new PageResultDTO(instituteListManager.getAll(), instituteListManager.getAll().size());
       return result;
    }
 
-   public ResponseStatusDTO AddInstitute(InstituteDTO institute) {
-      instituteManager.Init(institute);
-      ResponseStatusDTO response = instituteManager.Validate();
+   public ResponseStatusDTO addInstitute(InstituteDTO institute) {
+      instituteManager.init(institute);
+      ResponseStatusDTO response = instituteManager.validate();
       if(response.getStatus() != StatusTypes.OK) return response;
       try {
-         instituteDataService.Save(instituteManager.Get());
+         instituteDataService.save(instituteManager.get());
          response.addMessage("Институт сохранен.");
       }
       catch (Exception e) {
@@ -329,12 +329,12 @@ public class DictionaryController {
       return response;
    }
 
-   public ResponseStatusDTO DeleteInstitute(long id) {
-      instituteManager.Init(instituteDataService.Get(id));
+   public ResponseStatusDTO deleteInstitute(long id) {
+      instituteManager.init(instituteDataService.get(id));
       ResponseStatusDTO response = new ResponseStatusDTO();
       response.setStatus(StatusTypes.OK);
       try {
-         instituteDataService.Delete(id);
+         instituteDataService.delete(id);
          response.addMessage("Институт удален.");
       }
       catch (Exception e) {
@@ -345,18 +345,18 @@ public class DictionaryController {
       return response;
    }
 
-   public PageResultDTO<DisciplineDTO> GetDisciplineList(FilterQueryDTO filter) {
-      disciplineListManager.Init(disciplineDataService.GetPage(filter));
-      PageResultDTO<DisciplineDTO> result = new PageResultDTO(disciplineListManager.GetAll(), disciplineListManager.GetAll().size());
+   public PageResultDTO<DisciplineDTO> getDisciplineList(FilterQueryDTO filter) {
+      disciplineListManager.init(disciplineDataService.getPage(filter));
+      PageResultDTO<DisciplineDTO> result = new PageResultDTO(disciplineListManager.getAll(), disciplineListManager.getAll().size());
       return result;
    }
    
-   public ResponseStatusDTO AddDiscipline(DisciplineDTO discipline) {
-      disciplineManager.Init(discipline);
-      ResponseStatusDTO response = disciplineManager.Validate();
+   public ResponseStatusDTO addDiscipline(DisciplineDTO discipline) {
+      disciplineManager.init(discipline);
+      ResponseStatusDTO response = disciplineManager.validate();
       if(response.getStatus() != StatusTypes.OK) return response;
       try {
-         disciplineDataService.Save(disciplineManager.Get());
+         disciplineDataService.save(disciplineManager.get());
          response.addMessage("Дисциплна сохранена.");
       }
       catch (Exception e) {
@@ -367,12 +367,12 @@ public class DictionaryController {
       return response;
    }
    
-   public ResponseStatusDTO DeleteDiscipline(long id) {
-      disciplineManager.Init(disciplineDataService.Get(id));
+   public ResponseStatusDTO deleteDiscipline(long id) {
+      disciplineManager.init(disciplineDataService.get(id));
       ResponseStatusDTO response = new ResponseStatusDTO();
       response.setStatus(StatusTypes.OK);
       try {
-         disciplineDataService.Delete(id);
+         disciplineDataService.delete(id);
          response.addMessage("Дисциплна удалена.");
       }
       catch (Exception e) {
@@ -383,14 +383,14 @@ public class DictionaryController {
       return response;
    }
 
-   public PageResultDTO<PointTypeDTO> GetPointTypeList(FilterQueryDTO filter) {
-      List<PointTypeDTO> pointTypeModels = pointTypeDataService.GetAll();
+   public PageResultDTO<PointTypeDTO> getPointTypeList(FilterQueryDTO filter) {
+      List<PointTypeDTO> pointTypeModels = pointTypeDataService.getAll();
       PageResultDTO<PointTypeDTO> result = new PageResultDTO(pointTypeModels, pointTypeModels.size());
       return result;
    }
 
-   public PageResultDTO<PairTypeDTO> GetPairTypeList(FilterQueryDTO filter) {
-      List<PairTypeDTO> pairTypeModels = pairTypeDataService.GetPage(filter);
+   public PageResultDTO<PairTypeDTO> getPairTypeList(FilterQueryDTO filter) {
+      List<PairTypeDTO> pairTypeModels = pairTypeDataService.getPage(filter);
       PageResultDTO<PairTypeDTO> result = new PageResultDTO(pairTypeModels, pairTypeModels.size());
       return result;
    }

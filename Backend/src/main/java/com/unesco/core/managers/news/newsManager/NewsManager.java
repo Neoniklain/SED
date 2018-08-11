@@ -15,15 +15,15 @@ public class NewsManager implements INewsManager {
         news = new NewsDTO();
     }
 
-    public void Init(NewsDTO model) {
+    public void init(NewsDTO model) {
         news = model;
     }
 
-    public NewsDTO Get() {
+    public NewsDTO get() {
         return news;
     }
 
-    public ResponseStatusDTO Validate() {
+    public ResponseStatusDTO validate() {
         ResponseStatusDTO responseStatusDTO = new ResponseStatusDTO();
         responseStatusDTO.setStatus(StatusTypes.OK);
         if (news.getDate() == null) {

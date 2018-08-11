@@ -17,15 +17,15 @@ public class DisciplineManager implements IDisciplineManager {
         discipline = new DisciplineDTO();
     }
 
-    public void Init(DisciplineDTO Discipline) {
+    public void init(DisciplineDTO Discipline) {
         discipline = Discipline;
     }
 
-    public DisciplineDTO Get() {
+    public DisciplineDTO get() {
         return discipline;
     }
 
-    public ResponseStatusDTO Validate() {
+    public ResponseStatusDTO validate() {
         ResponseStatusDTO responseStatusDTO = new ResponseStatusDTO();
         responseStatusDTO.setStatus(StatusTypes.OK);
         if (discipline.getName().equals("")) {

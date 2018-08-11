@@ -18,11 +18,11 @@ public class NewsListManager implements INewsListManager {
         newsList = new ArrayList<>();
     }
 
-    public void Init(List<NewsDTO> NewsList) {
+    public void init(List<NewsDTO> NewsList) {
         newsList = NewsList;
     }
 
-    public List<NewsDTO> GetAll() {
+    public List<NewsDTO> getAll() {
         return newsList;
     }
 

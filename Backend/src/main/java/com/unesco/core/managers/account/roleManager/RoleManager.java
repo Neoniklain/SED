@@ -17,15 +17,15 @@ public class RoleManager implements IRoleManager {
         role = new RoleDTO();
     }
 
-    public void Init(RoleDTO Professor) {
+    public void init(RoleDTO Professor) {
         role = Professor;
     }
 
-    public RoleDTO Get() {
+    public RoleDTO get() {
         return role;
     }
 
-    public ResponseStatusDTO Validate() {
+    public ResponseStatusDTO validate() {
         ResponseStatusDTO responseStatusDTO = new ResponseStatusDTO();
         responseStatusDTO.setStatus(StatusTypes.OK);
         if (role.getRoleName().equals("")) {

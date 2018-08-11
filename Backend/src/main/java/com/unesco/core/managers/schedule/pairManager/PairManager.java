@@ -125,15 +125,15 @@ public class PairManager implements IPairManager {
         return result;
     }
 
-    public void Init(PairDTO Pair) {
+    public void init(PairDTO Pair) {
         pair = Pair;
     }
 
-    public PairDTO Get() {
+    public PairDTO get() {
         return pair;
     }
 
-    public ResponseStatusDTO Validate() {
+    public ResponseStatusDTO validate() {
         ResponseStatusDTO responseStatusDTO = new ResponseStatusDTO();
         responseStatusDTO.setStatus(StatusTypes.OK);
         if (pair.getLesson().getGroup() == null || pair.getLesson().getGroup().getId() == 0) {

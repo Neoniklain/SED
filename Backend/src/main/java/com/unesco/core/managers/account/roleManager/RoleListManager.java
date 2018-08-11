@@ -19,11 +19,11 @@ public class RoleListManager implements IRoleListManager {
         roleList = new ArrayList<>();
     }
 
-    public void Init(List<RoleDTO> RoleList) {
+    public void init(List<RoleDTO> RoleList) {
         roleList = RoleList;
     }
 
-    public List<RoleDTO> GetAll() {
+    public List<RoleDTO> getAll() {
         return roleList;
     }
 
