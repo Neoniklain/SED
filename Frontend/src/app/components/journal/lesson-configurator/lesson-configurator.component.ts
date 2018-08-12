@@ -13,6 +13,7 @@ import {Lesson} from "../../../models/shedule/lesson";
 import {VisitationConfig} from "../../../models/journal/visitationConfig.model";
 import {ResponseStatus} from "../../../models/additional/responseStatus";
 import {Observable} from "rxjs/Observable";
+import {Dictionary} from "../../../models/admin/dictionary.model";
 
 @Component({
     selector: 'lesson-configurator',
@@ -126,7 +127,7 @@ export class LessonСonfiguratorComponent implements OnInit {
     }
 
     getPointsType() {
-        this.dictionaryService.GetPointTypes()
+        this.dictionaryService.Get(Dictionary.pointTypes)
             .subscribe( result => {
                 this.eventTypes = result.content;
                 let deleteItem = this.eventTypes.findIndex(i => i.name === "Посещение");

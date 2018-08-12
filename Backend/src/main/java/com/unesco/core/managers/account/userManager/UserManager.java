@@ -8,7 +8,7 @@ import com.unesco.core.dto.account.RoleDTO;
 import com.unesco.core.dto.account.UserDTO;
 import com.unesco.core.dto.additional.ResponseStatusDTO;
 import com.unesco.core.dto.enums.RoleType;
-import com.unesco.core.utils.StatusTypes;
+import com.unesco.core.dto.enums.StatusTypes;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.security.crypto.password.PasswordEncoder;

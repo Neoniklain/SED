@@ -14,6 +14,7 @@ import {WeekType} from "../../../models/shedule/weekType.enum";
 import {PairType} from "../../../models/shedule/pairType";
 import {PageResult} from "../../../models/admin/PageResult.model.list";
 import {User} from "../../../models/account/user.model";
+import {Dictionary} from "../../../models/admin/dictionary.model";
 
 @Component({
     selector: 'pair-details',
@@ -99,7 +100,7 @@ export class PairDetailsComponent implements OnInit, OnChanges {
     }
 
     public GetPairTypes() {
-        this.dictionaryService.GetPairTypes()
+        this.dictionaryService.Get(Dictionary.pairTypes)
             .subscribe((res: PageResult) => {
                 this.findPairTypes = res.content;
             });
@@ -167,7 +168,7 @@ export class PairDetailsComponent implements OnInit, OnChanges {
             globalFilter: event.query.substring(0, 60)
         }
         let temp: Array<Group> = new Array();
-        this.dictionaryService.GetGroups(filter).subscribe(
+        this.dictionaryService.Get(Dictionary.groups, filter).subscribe(
             result => {
                 temp = result.content;
                 if (temp.length > 0)
@@ -182,7 +183,7 @@ export class PairDetailsComponent implements OnInit, OnChanges {
             globalFilter: event.query.substring(0, 60)
         }
         let temp: Array<Discipline> = new Array();
-        this.dictionaryService.GetDisciplines(filter).subscribe(
+        this.dictionaryService.Get(Dictionary.disciplines, filter).subscribe(
             result => {
                 temp = result.content;
                 if (temp.length > 0)
@@ -192,29 +193,13 @@ export class PairDetailsComponent implements OnInit, OnChanges {
             }, error => console.error(error)
         );
     }
-    /*public searchPairTypes(event: any) {
-        let filter = {
-            globalFilter: event.query.substring(0, 60)
-        }
-        let temp: Array<PairType> = new Array();
-        this.dictionaryService.GetPairTypes(filter).subscribe(
-            result => {
-                temp = result.content;
-                console.log("temp", temp);
-                if (temp.length > 0)
-                    this.findPairTypes = temp;
-                else
-                    this.findPairTypes = [];
-            }, error => console.error(error)
-        );
-    }*/
 
     public searchProfessors(event: any) {
         let filter = {
             globalFilter: event.query.substring(0, 60)
         };
         let temp: Array<Professor> = new Array();
-        this.dictionaryService.GetProfessors(filter).subscribe(
+        this.dictionaryService.Get(Dictionary.professors, filter).subscribe(
             result => {
                 temp = result.content;
                 if (temp.length > 0) {
@@ -230,7 +215,7 @@ export class PairDetailsComponent implements OnInit, OnChanges {
             globalFilter: event.query.substring(0, 60)
         };
         let temp: Array<Room> = new Array();
-        this.dictionaryService.GetRooms(filter).subscribe(
+        this.dictionaryService.Get(Dictionary.rooms, filter).subscribe(
             result => {
                 temp = result.content;
                 if (temp.length > 0)

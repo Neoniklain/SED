@@ -1,6 +1,7 @@
 package com.unesco.core.controllerWeb;
 
 import com.unesco.core.controller.AccountController;
+import com.unesco.core.dto.UserAccessRightDTO;
 import com.unesco.core.dto.account.UserDTO;
 import com.unesco.core.dto.additional.ResponseStatusDTO;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +21,11 @@ public class AccountControllerWeb {
     @GetMapping("/role")
     public ResponseStatusDTO getRoles() {
         return accountController.getRoles();
+    }
+
+    @GetMapping("/userAccessRight")
+    public ResponseStatusDTO getCurrentUserAccessRight() {
+        return accountController.getCurrentUserAccessRight();
     }
 
     @RequestMapping("/registration")
@@ -75,6 +81,16 @@ public class AccountControllerWeb {
     @RequestMapping(value = "/student/{userId}/setGroup/{groupId}")
     public ResponseStatusDTO setStudentGroup(@PathVariable("userId") long userId, @PathVariable("groupId") long groupId) {
         return accountController.setStudentGroup(userId, groupId);
+    }
+
+    @RequestMapping(value = "/user/{userId}/getAccessRight")
+    public ResponseStatusDTO getUserAccessRight(@PathVariable("userId") long userId) {
+        return accountController.getUserAccessRight(userId);
+    }
+
+    @RequestMapping(value = "/user/{userId}/saveAccessRight")
+    public ResponseStatusDTO saveUserAccessRight(@RequestBody UserAccessRightDTO acceses) {
+        return accountController.saveUserAccessRight(acceses);
     }
 
     private class Pass {

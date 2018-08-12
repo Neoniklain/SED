@@ -36,8 +36,7 @@ export const routes: Routes = [
    {
       path: RouteConstants.News.Create,
       component: EditorSingleNewsComponent,
-      canActivate: [AuthGuard],
-      data: {expectedRoles: [Roles.Administrator], title: "Создание статьи"}
+      data: {title: "Создание статьи"}
    },
    {
       path: RouteConstants.Account.Login,

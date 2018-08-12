@@ -2,12 +2,14 @@ package com.unesco.core.controller;
 
 import com.unesco.core.dto.account.UserDTO;
 import com.unesco.core.dto.additional.ResponseStatusDTO;
+import com.unesco.core.dto.enums.AccessRightType;
 import com.unesco.core.dto.news.NewsDTO;
 import com.unesco.core.managers.news.newsManager.interfaces.news.INewsManager;
 import com.unesco.core.managers.news.newsManager.interfaces.newsList.INewsListManager;
 import com.unesco.core.services.dataService.newsService.INewsDataService;
-import com.unesco.core.services.ruleService.IAccessСontrolService;
-import com.unesco.core.utils.StatusTypes;
+import com.unesco.core.services.accessControlService.IAccessСontrolService;
+import com.unesco.core.dto.enums.StatusTypes;
+import com.unesco.core.services.userService.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -22,8 +24,11 @@ public class NewsController {
     private INewsManager newsManager;
     @Autowired
     private INewsListManager newsListManager;
+
     @Autowired
     private IAccessСontrolService accessСontrolService;
+    @Autowired
+    private IUserService userService;
 
     public ResponseStatusDTO getAllNews() {
         newsListManager.init(newsDataService.getAll());

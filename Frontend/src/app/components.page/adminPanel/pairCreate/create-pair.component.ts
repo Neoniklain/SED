@@ -15,6 +15,7 @@ import {NotificationService} from "../../../services/notification.service";
 import {DayOfWeek} from "../../../models/shedule/dayOfWeek.enum";
 import {WeekType} from "../../../models/shedule/weekType.enum";
 import {PairType} from "../../../models/shedule/pairType";
+import {Dictionary} from "../../../models/admin/dictionary.model";
 
 @Component({
     selector: 'pair-create',
@@ -74,28 +75,28 @@ export class PairCreateComponent {
     }
 
     public GetDisciplines() {
-        this.dictionaryService.GetDisciplines()
+        this.dictionaryService.Get(Dictionary.disciplines)
             .subscribe((res: PageResult) => {
                     this.disciplines = res.content;
                 });
     }
 
     public GetRooms() {
-        this.dictionaryService.GetRooms()
+        this.dictionaryService.Get(Dictionary.rooms)
             .subscribe((res: PageResult) => {
                     this.rooms = res.content;
                 });
     }
 
     public GetPairTypes() {
-        this.dictionaryService.GetPairTypes()
+        this.dictionaryService.Get(Dictionary.pairTypes)
             .subscribe((res: PageResult) => {
                     this.pairTypes = res.content;
                 });
     }
 
     public GetGroups() {
-        this.dictionaryService.GetGroups()
+        this.dictionaryService.Get(Dictionary.groups)
             .subscribe((res: PageResult) => {
                     this.groups = res.content;
                 });

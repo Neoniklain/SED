@@ -1,10 +1,13 @@
 package com.unesco.core.controller;
 
+import com.unesco.core.dto.UserAccessRightDTO;
 import com.unesco.core.dto.account.ProfessorDTO;
 import com.unesco.core.dto.account.StudentDTO;
 import com.unesco.core.dto.account.UserDTO;
 import com.unesco.core.dto.additional.ResponseStatusDTO;
 import com.unesco.core.dto.enums.RoleType;
+import com.unesco.core.dto.enums.StatusTypes;
+import com.unesco.core.managers.account.accessRightManager.interfaces.IAccessRightManager;
 import com.unesco.core.managers.account.professorManager.interfaces.professor.IProfessorManager;
 import com.unesco.core.managers.account.professorManager.interfaces.professorList.IProfessorListManager;
 import com.unesco.core.managers.account.roleManager.interfaces.roleList.IRoleListManager;
@@ -13,14 +16,15 @@ import com.unesco.core.managers.account.userManager.interfaces.user.IUserManager
 import com.unesco.core.managers.account.userManager.interfaces.userList.IUserListManager;
 import com.unesco.core.managers.schedule.departmentManager.interfaces.department.IDepartmentManager;
 import com.unesco.core.managers.schedule.groupManager.interfaces.group.IGroupManager;
+import com.unesco.core.services.dataService.account.accessRightService.IAccessRightDataService;
 import com.unesco.core.services.dataService.account.professorService.IProfessorDataService;
 import com.unesco.core.services.dataService.account.roleService.IRoleDataService;
 import com.unesco.core.services.dataService.account.studentService.IStudentDataService;
+import com.unesco.core.services.dataService.account.userAccessRight.IUserAccessRightDataService;
 import com.unesco.core.services.dataService.account.userService.IUserDataService;
 import com.unesco.core.services.dataService.schedule.departmentService.IDepartmentDataService;
 import com.unesco.core.services.dataService.schedule.groupService.IGroupDataService;
 import com.unesco.core.services.userService.IUserService;
-import com.unesco.core.utils.StatusTypes;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -62,6 +66,15 @@ public class AccountController {
     private IGroupManager groupManager;
 
     @Autowired
+    private IUserAccessRightDataService userAccessRightDataService;
+
+    @Autowired
+    private IAccessRightManager accessRightManager;
+
+    @Autowired
+    private IAccessRightDataService accessRightDataService;
+
+    @Autowired
     private IUserService userService;
 
     public ResponseStatusDTO getRoles() {
@@ -70,6 +83,21 @@ public class AccountController {
             return new ResponseStatusDTO(StatusTypes.OK, user.getRoles());
         else
             return new ResponseStatusDTO(StatusTypes.OK);
+    }
+
+    public ResponseStatusDTO getCurrentUserAccessRight() {
+        ResponseStatusDTO res = new ResponseStatusDTO();
+        try {
+            accessRightManager.init(userAccessRightDataService.get(userService.getCurrentUser().getId()), accessRightDataService.getAll());
+            res.setStatus(StatusTypes.OK);
+            res.setData(accessRightManager.get());
+            return res;
+        }
+        catch (Exception e) {
+            res.setStatus(StatusTypes.ERROR);
+            res.addErrors(e.getMessage());
+            return res;
+        }
     }
 
     public ResponseStatusDTO registration(UserDTO user) {
@@ -195,6 +223,40 @@ public class AccountController {
         catch (Exception e) {
             res.setStatus(StatusTypes.ERROR);
             res.addErrors("Группа для студента не установленна");
+            res.addErrors(e.getMessage());
+            return res;
+        }
+    }
+
+    public ResponseStatusDTO getUserAccessRight(long userId) {
+        ResponseStatusDTO res = new ResponseStatusDTO();
+        try {
+            accessRightManager.init(userAccessRightDataService.get(userId), accessRightDataService.getAll());
+            res.setStatus(StatusTypes.OK);
+            res.setData(accessRightManager.get());
+            return res;
+        }
+        catch (Exception e) {
+            res.setStatus(StatusTypes.ERROR);
+            res.addErrors(e.getMessage());
+            return res;
+        }
+    }
+
+    public ResponseStatusDTO saveUserAccessRight(UserAccessRightDTO acceses) {
+        ResponseStatusDTO res = new ResponseStatusDTO();
+        accessRightManager.init(acceses, accessRightDataService.getAll());
+        res = accessRightManager.validate();
+        if(res.getStatus() == StatusTypes.ERROR) return res;
+        try {
+            userAccessRightDataService.save(acceses);
+            res.setStatus(StatusTypes.OK);
+            res.addMessage("Настройки доступа сохранены.");
+            res.setData(accessRightManager.get());
+            return res;
+        }
+        catch (Exception e) {
+            res.setStatus(StatusTypes.ERROR);
             res.addErrors(e.getMessage());
             return res;
         }

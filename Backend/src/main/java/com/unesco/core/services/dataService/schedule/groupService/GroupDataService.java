@@ -1,5 +1,6 @@
 package com.unesco.core.services.dataService.schedule.groupService;
 
+import com.unesco.core.dto.additional.PageResultDTO;
 import com.unesco.core.entities.schedule.GroupEntity;
 import com.unesco.core.dto.additional.FilterQueryDTO;
 import com.unesco.core.dto.shedule.GroupDTO;
@@ -20,7 +21,7 @@ public class GroupDataService implements IGroupDataService {
     @Autowired
     private GroupRepository groupRepository;
 
-    public List<GroupDTO> getPage(FilterQueryDTO filter) {
+    public PageResultDTO<GroupDTO> getPage(FilterQueryDTO filter) {
         int rows = filter.getRows()>0? filter.getRows() : (int) groupRepository.count();
         int start = rows>0 ? filter.getFirst()/rows: 1;
         List<GroupEntity> entitys = groupRepository.findWithFilter(new PageRequest(start, rows == 0 ? 10 : rows), filter.getGlobalFilter());
@@ -28,7 +29,7 @@ public class GroupDataService implements IGroupDataService {
         for (GroupEntity e: entitys) {
             result.add((GroupDTO) mapperService.toDto(e));
         }
-        return result;
+        return new PageResultDTO(result, groupRepository.count());
     }
 
     public List<GroupDTO> getAll()

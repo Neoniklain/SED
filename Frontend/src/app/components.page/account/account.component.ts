@@ -3,6 +3,7 @@ import {Router} from "@angular/router";
 import {User} from "../../models/account/user.model";
 import {AuthenticationService} from "../../services/authService";
 import {Roles} from "../../models/account/role.model";
+import {AccessRightType} from "../../models/account/access";
 
 @Component({
   selector: 'account-page',
@@ -11,29 +12,30 @@ import {Roles} from "../../models/account/role.model";
 })
 @Injectable()
 export class AccountComponent implements OnInit {
-
-  public user: User;
-  public menuName: string;
-  public Roles;
+    public user: User;
+    public menuName: string;
+    public AccessRightType;
+    public Roles;
 
     constructor(private authenticationService: AuthenticationService,
-              private router: Router) {
-    this.user = new User();
-    this.authenticationService.getUser().subscribe(
-        res => {
-          this.user = res.data;
-            if (this.user.photo === "")
-                this.user.photo = "images/anon-user.jpg";
-        });
-  }
+                private router: Router) {
+        this.user = new User();
+        this.authenticationService.getUser().subscribe(
+          res => {
+            this.user = res.data;
+              if (this.user.photo === "")
+                  this.user.photo = "images/anon-user.jpg";
+          });
+     }
 
-  ngOnInit(): void {
-    this.Roles = Roles;
-    this.menuName = "news-dispatcher-page";
-  }
+    ngOnInit(): void {
+        this.AccessRightType = AccessRightType;
+        this.Roles = Roles;
+        this.menuName = "news-dispatcher-page";
+    }
 
-  menuToole(menuName) {
-    this.menuName = menuName;
-  }
+    menuToole(menuName) {
+      this.menuName = menuName;
+    }
 
 }

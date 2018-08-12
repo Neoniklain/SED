@@ -8,6 +8,7 @@
          <ul class="nav navbar-nav">
             <li><a (click)="menuToogle='downloadPlan'"><i class="fa fa-download"></i> Загрузить план</a></li>
             <li><a (click)="menuToogle='createUser'"><i class="fa fa-user-plus"></i> Создать пользователя</a></li>
+            <li><a (click)="menuToogle='accessControl'"><i class="fa fa-unlock-alt"></i> Управление правами доступа</a></li>
             <li><a (click)="menuToogle='showShedule'"><i class="fa fa-calendar"></i> Просмотр расписания</a></li>
             <li><a (click)="menuToogle='createPair'"><i class="fa fa-calendar-plus-o"></i> Добавить занятие</a></li>
             <li class="dropdown">
@@ -29,17 +30,15 @@
    </nav>
 </div>
 
-<div class="container">
+<div class="main-header container">
    <div class="row">
       <div class="col-md-2">
       </div>
       <div class="col-md-10">
          <div [ngSwitch]="true" class="row">
 
-            <dictionary-table *ngSwitchCase="isDictionary()"
-               [type]="menuToogle"
-               [model]="currentModel"
-               (loadData)="updateDictionary($event)"></dictionary-table>
+            <dictionary *ngSwitchCase="isDictionary()"
+               [type]="menuToogle"></dictionary>
 
             <parser-xml *ngSwitchCase="menuToogle == 'downloadPlan'"></parser-xml>
 
@@ -48,6 +47,8 @@
             <pair-create *ngSwitchCase="menuToogle == 'createPair'"></pair-create>
 
             <list-professors-page *ngSwitchCase="menuToogle == 'showShedule'"></list-professors-page>
+
+            <access-control *ngSwitchCase="menuToogle == 'accessControl'"></access-control>
 
          </div>
       </div>

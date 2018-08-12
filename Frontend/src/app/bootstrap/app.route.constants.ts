@@ -51,13 +51,16 @@ export const ApiRouteConstants = {
       SetProfessorDepartment: "account/professor/:userId/setDepartment/:departmentId",
       SetStudentGroup: "account/student/:userId/setGroup/:groupId",
       GetProfessorByUser: "account/professorByUser/:userId",
-      GetStudentByUser: "/studentByUser/:userId"
+      GetStudentByUser: "/studentByUser/:userId",
+      GetUserAccessRight: "account/user/:userId/getAccessRight",
+      SaveUserAccessRight: "account/user/:userId/saveAccessRight"
    },
    Authentication: {
       Login: "account/login",
       Registration: "account/registration",
       Role: "account/role",
       User: "account/user",
+      UserAccessRight: "account/userAccessRight",
       ChangePassword: "account/changePassword",
       ChangePhoto: "account/changePhoto"
    },

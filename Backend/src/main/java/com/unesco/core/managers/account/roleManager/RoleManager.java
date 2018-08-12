@@ -3,7 +3,7 @@ package com.unesco.core.managers.account.roleManager;
 import com.unesco.core.managers.account.roleManager.interfaces.role.IRoleManager;
 import com.unesco.core.dto.account.RoleDTO;
 import com.unesco.core.dto.additional.ResponseStatusDTO;
-import com.unesco.core.utils.StatusTypes;
+import com.unesco.core.dto.enums.StatusTypes;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 

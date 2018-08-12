@@ -4,7 +4,7 @@ import com.unesco.core.managers.schedule.groupManager.interfaces.group.IGroupMan
 import com.unesco.core.dto.additional.ResponseStatusDTO;
 import com.unesco.core.dto.shedule.GroupDTO;
 import com.unesco.core.services.dataService.schedule.groupService.IGroupDataService;
-import com.unesco.core.utils.StatusTypes;
+import com.unesco.core.dto.enums.StatusTypes;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;

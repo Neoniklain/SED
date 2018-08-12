@@ -1,5 +1,6 @@
 package com.unesco.core.services.dataService.schedule.roomService;
 
+import com.unesco.core.dto.additional.PageResultDTO;
 import com.unesco.core.entities.schedule.RoomEntity;
 import com.unesco.core.dto.shedule.RoomDTO;
 import com.unesco.core.dto.additional.FilterQueryDTO;
@@ -20,7 +21,7 @@ public class RoomDataService implements IRoomDataService {
     @Autowired
     private RoomRepository roomRepository;
 
-    public List<RoomDTO> getPage(FilterQueryDTO filter) {
+    public PageResultDTO<RoomDTO> getPage(FilterQueryDTO filter) {
         int rows = filter.getRows()>0? filter.getRows() : (int) roomRepository.count();
         int start = rows>0 ? filter.getFirst()/rows: 1;
         List<RoomEntity> entitys = roomRepository.findWithFilter(new PageRequest(start, rows == 0 ? 10 : rows), filter.getGlobalFilter());
@@ -28,7 +29,7 @@ public class RoomDataService implements IRoomDataService {
         for (RoomEntity e: entitys) {
             result.add((RoomDTO) mapperService.toDto(e));
         }
-        return result;
+        return new PageResultDTO(result, roomRepository.count());
     }
 
     public List<RoomDTO> getAll()

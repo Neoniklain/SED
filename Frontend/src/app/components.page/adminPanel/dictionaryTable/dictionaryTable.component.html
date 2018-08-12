@@ -2,7 +2,7 @@
    <h1>{{Dictionary[type] | translate}}</h1>
 </div>
 
-<div *ngIf="data" class="main-header col-md-12">
+<div class="main-header col-md-12">
    <details *ngIf="type != Dictionary.users" class="panel panel-default panel-inverse">
       <summary class="panel-heading">
          <h3 *ngIf="!editMode">Добавить</h3>
@@ -11,12 +11,11 @@
       <div class="panel-body">
          <dictionary-table-add
             [type]="type"
-            (loadData)="onLoadData()"
+            (updateTable)="updateTable()"
             (canelEditable)="canelEditableModel()"
             [model]="model"
-            [editableModel]="editableModel"
             [editMode]="editMode"
-            [deleteModel]="deleteModel">
+            [deleteMode]="deleteMode">
          </dictionary-table-add>
       </div>
    </details>
@@ -25,51 +24,13 @@
          <h3>Список</h3>
       </div>
       <div class="panel-body">
-         <div class="find-place text-left">
-            <span>Найти </span>
-            <input #gb type="text" placeholder="Текст поиска">
-         </div>
-         <div class=" text-center">
-            <p-dataTable
-                    [value]="data.content"
-                    [lazy]="true"
-                    [rows]="10"
-                    [paginator]="true"
-                    [rowsPerPageOptions]="[5,10,15]"
-                    [totalRecords]="data.totalNumber"
-                    (onLazyLoad)="loadLazy($event)"
-                    [globalFilter]="gb">
-               <p-column *ngFor="let field of columnsName"
-                         field="{{field}}"
-                         header="{{field | translate}}">
-                  <ng-template let-col let-fields="rowData" let-ri="rowIndex" pTemplate="body">
-                     <ng-template [ngIf]="!isArray(fields[field]) && !itIsObject(fields[field])">
-                        <span>{{fields[field]}}</span>
-                     </ng-template>
-                     <ng-template [ngIf]="isArray(fields[field])">
-                        <ng-template ngFor let-item [ngForOf]="fields[field]">
-                           <span *ngFor="let itemField of getKeys(item)">
-                              {{item[itemField]}}
-                           </span>
-                        </ng-template>
-                     </ng-template>
-                     <ng-template [ngIf]="itIsObject(fields[field]) && !isArray(fields[field])">
-                        <span *ngFor="let itemField of getKeys(fields[field])">
-                           {{fields[field][itemField]}}
-                        </span>
-                     </ng-template>
-                  </ng-template>
-               </p-column>
-               <p-column
-                   field=""
-                   header="Действия">
-                  <ng-template let-item let-col let-fields="rowData" let-ri="rowIndex" pTemplate="body">
-                     <button (click)="edit(fields)" class="btn btn-success btn-sm"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></button>
-                     <button (click)="delete(fields)" class="btn btn-danger btn-sm"><i class="fa fa-times" aria-hidden="true"></i></button>
-                  </ng-template>
-               </p-column>
-            </p-dataTable>
-         </div>
+         <dictionary-table [editable]="true"
+                           [updateTable]="updateTableTrigger"
+                           (tableUpdated)="tableUpdated()"
+                           (clickOnEdit)="edit($event)"
+                           (clickOnDelete)="delete($event)"
+                           [type]="type">
+         </dictionary-table>
       </div>
    </div>
 </div>

@@ -1,5 +1,6 @@
 package com.unesco.core.services.dataService.mapperService;
 
+import com.unesco.core.dto.AccessRightDTO;
 import com.unesco.core.dto.account.ProfessorDTO;
 import com.unesco.core.dto.account.RoleDTO;
 import com.unesco.core.dto.account.StudentDTO;
@@ -16,10 +17,7 @@ import com.unesco.core.dto.plan.DepartmentDTO;
 import com.unesco.core.dto.shedule.*;
 import com.unesco.core.dto.task.TaskDescriptionModel;
 import com.unesco.core.dto.task.TaskUserModel;
-import com.unesco.core.entities.account.ProfessorEntity;
-import com.unesco.core.entities.account.RoleEntity;
-import com.unesco.core.entities.account.StudentEntity;
-import com.unesco.core.entities.account.UserEntity;
+import com.unesco.core.entities.account.*;
 import com.unesco.core.entities.file.FileByteCode;
 import com.unesco.core.entities.file.FileDescription;
 import com.unesco.core.entities.journal.LessonEventEntity;
@@ -110,6 +108,9 @@ public class MapperService implements IMapperService {
         if (model instanceof VisitationConfigDTO)
             return visitationConfigToEntity((VisitationConfigDTO) model);
 
+        if (model instanceof AccessRightDTO)
+            return accessRightToEntity((AccessRightDTO) model);
+
         return new Exception("Not found " + model.getClass().toString() + " model class");
     }
 
@@ -184,7 +185,31 @@ public class MapperService implements IMapperService {
         if (entity instanceof VisitationConfigEntity)
             return visitationConfigToDTO((VisitationConfigEntity) entity);
 
+        if (entity instanceof AccessRightEntity)
+            return accessRightToDTO((AccessRightEntity) entity);
+
         return new Exception("Not found " + entity.getClass().toString() + " entity class");
+    }
+
+    public AccessRightEntity accessRightToEntity(AccessRightDTO Dto) {
+        if (Dto == null) return null;
+        AccessRightEntity Entity = new AccessRightEntity();
+
+        Entity.setId(Dto.getId());
+        Entity.setName(Dto.getName());
+        Entity.setHeader(Dto.getHeader());
+        Entity.setCaption(Dto.getCaption());
+        return Entity;
+    }
+    public AccessRightDTO accessRightToDTO(AccessRightEntity Entity) {
+        if (Entity == null) return null;
+        AccessRightDTO Dto = new AccessRightDTO();
+
+        Dto.setId((int) Entity.getId());
+        Dto.setName(Entity.getName());
+        Dto.setHeader(Entity.getHeader());
+        Dto.setCaption(Entity.getCaption());
+        return Dto;
     }
 
     public VisitationConfigEntity visitationConfigToEntity(VisitationConfigDTO Dto) {
@@ -199,7 +224,6 @@ public class MapperService implements IMapperService {
         return Entity;
 
     }
-
     public VisitationConfigDTO visitationConfigToDTO(VisitationConfigEntity Entity) {
         if (Entity == null) return null;
         VisitationConfigDTO Dto = new VisitationConfigDTO();

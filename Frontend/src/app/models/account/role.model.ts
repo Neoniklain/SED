@@ -8,11 +8,11 @@ export class Role {
     }
 }
 
-export const Roles = {
-    Administrator: "ADMIN",
-    Engineer: "ENGINEER",
-    Professor: "PROFESSOR",
-    Student: "STUDENT",
-    Anonim: "ANONIM",
-    Authorized: "AUTHORIZED"
+export enum Roles {
+    Administrator = <any>"ADMIN",
+    Engineer = <any>"ENGINEER",
+    Professor = <any>"PROFESSOR",
+    Student = <any>"STUDENT",
+    Anonim = <any>"ANONIM",
+    Authorized = <any>"AUTHORIZED"
 }

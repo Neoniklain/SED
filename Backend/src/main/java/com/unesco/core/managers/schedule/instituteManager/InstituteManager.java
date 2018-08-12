@@ -3,7 +3,7 @@ package com.unesco.core.managers.schedule.instituteManager;
 import com.unesco.core.managers.schedule.instituteManager.interfaces.institute.IInstituteManager;
 import com.unesco.core.dto.additional.ResponseStatusDTO;
 import com.unesco.core.dto.shedule.InstituteDTO;
-import com.unesco.core.utils.StatusTypes;
+import com.unesco.core.dto.enums.StatusTypes;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 

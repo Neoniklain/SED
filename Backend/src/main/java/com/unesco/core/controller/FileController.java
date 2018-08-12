@@ -8,7 +8,7 @@ import com.unesco.core.dto.task.TaskDescriptionModel;
 import com.unesco.core.dto.task.TaskUserModel;
 import com.unesco.core.services.dataService.file.fileByteCodeService.IFileByteCodeService;
 import com.unesco.core.services.dataService.file.fileDescriptionService.IFileDescriptionService;
-import com.unesco.core.utils.StatusTypes;
+import com.unesco.core.dto.enums.StatusTypes;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;

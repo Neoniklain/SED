@@ -22,13 +22,13 @@
       <div class="head">
         <div class="panel panel-default panel-inverse">
           <div class="list-group">
-            <a *hasRole="Roles.Administrator" style="cursor: pointer;" (click)="menuToole('news-dispatcher-page')"
+            <a *hasAccessRight="[AccessRightType.CREATE_OR_UPDATE_NEWS]" style="cursor: pointer;" (click)="menuToole('news-dispatcher-page')"
                class="list-group-item">Управление новостями</a>
-            <a *hasRole="[Roles.Professor, Roles.Administrator]" style="cursor: pointer;" (click)="menuToole('tasks-list')"
+            <a *hasAccessRight="[AccessRightType.VIEW_TASK]" style="cursor: pointer;" (click)="menuToole('tasks-list')"
                class="list-group-item">Управление задачами</a>
-            <a *hasRole="[Roles.Professor]" style="cursor: pointer;" (click)="menuToole('journal-page')"
+            <a *hasAccessRight="[AccessRightType.EDIT_JOURNAL]" style="cursor: pointer;" (click)="menuToole('journal-page')"
                class="list-group-item">Заполнение журнала</a>
-            <a *hasRole="[Roles.Professor]" style="cursor: pointer;" (click)="menuToole('lesson-configurator')"
+            <a *hasAccessRight="[AccessRightType.EDIT_LESSONS]" style="cursor: pointer;" (click)="menuToole('lesson-configurator')"
                class="list-group-item">Настройка занятий</a>
             <a style="cursor: pointer;" (click)="menuToole('settings-page')"
                class="list-group-item">Профиль</a>

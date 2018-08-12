@@ -15,6 +15,8 @@ import {Department} from "../models/shedule/department";
 import {Institute} from "../models/shedule/institute";
 import {Room} from "../models/shedule/room.model";
 import {HandelErrorService} from "./handelError.service";
+import {Dictionary} from "../models/admin/dictionary.model";
+import {StatusType} from "../models/statusType.model";
 
 @Injectable()
 export class DictionaryService {
@@ -26,116 +28,67 @@ export class DictionaryService {
     ) {
     }
 
-    public GetUsers(filterQuery?: LazyLoadEvent): Observable<PageResult> {
-       let params = new HttpParams();
-        return this.http.post(ApiRouteConstants.Dictonary.Page.Users, this.initFilter(filterQuery), {params: params })
-            .catch(this.handleError.handle);
-    }
-    public GetDisciplines(filterQuery?: LazyLoadEvent): Observable<PageResult> {
-      let params = new HttpParams();
-      return this.http.post(ApiRouteConstants.Dictonary.Page.Disciplines, this.initFilter(filterQuery), { params: params })
-          .catch(this.handleError.handle);
-    }
-    public GetInstitutes(filterQuery?: LazyLoadEvent): Observable<PageResult> {
-      let params = new HttpParams();
-      return this.http.post(ApiRouteConstants.Dictonary.Page.Institutes, this.initFilter(filterQuery), {params: params })
-          .catch(this.handleError.handle);
-    }
-    public GetDepartments(filterQuery?: LazyLoadEvent): Observable<PageResult> {
-      let params = new HttpParams();
-      return this.http.post(ApiRouteConstants.Dictonary.Page.Departments, this.initFilter(filterQuery), {params: params })
-          .catch(this.handleError.handle);
-    }
-    public GetGroups(filterQuery?: LazyLoadEvent): Observable<PageResult> {
-      let params = new HttpParams();
-      return this.http.post(ApiRouteConstants.Dictonary.Page.Groups, this.initFilter(filterQuery), {params: params })
-          .catch(this.handleError.handle);
-    }
-    public GetPairTypes(filterQuery?: LazyLoadEvent): Observable<PageResult> {
-      let params = new HttpParams();
-      return this.http.post(ApiRouteConstants.Dictonary.Page.PairTypes, this.initFilter(filterQuery), {params: params })
-          .catch(this.handleError.handle);
-    }
-    public GetRoles(filterQuery?: LazyLoadEvent): Observable<PageResult> {
-      let params = new HttpParams();
-      return this.http.post(ApiRouteConstants.Dictonary.Page.Roles, this.initFilter(filterQuery), {params: params })
-          .catch(this.handleError.handle);
-    }
-    public GetProfessors(filterQuery?: LazyLoadEvent): Observable<PageResult> {
-      let params = new HttpParams();
-      return this.http.post(ApiRouteConstants.Dictonary.Page.Professors, this.initFilter(filterQuery), {params: params })
-          .catch(this.handleError.handle);
-    }
-    public GetFieldOfKnowladge(filterQuery?: LazyLoadEvent): Observable<PageResult> {
-      let params = new HttpParams();
-      return this.http.post(ApiRouteConstants.Dictonary.Page.FieldOfKnowlage, this.initFilter(filterQuery), {params: params })
-          .catch(this.handleError.handle);
-    }
-    public GetRooms(filterQuery?: LazyLoadEvent): Observable<PageResult> {
+    public Get(type: Dictionary, filterQuery?: LazyLoadEvent): Observable<PageResult> {
         let params = new HttpParams();
-        return this.http.post(ApiRouteConstants.Dictonary.Page.Rooms, this.initFilter(filterQuery), {params: params })
+        let url = this.GetUrl(type);
+        return this.http.post(url, this.initFilter(filterQuery), {params: params })
             .catch(this.handleError.handle);
     }
 
-    public GetPointTypes(filterQuery?: LazyLoadEvent): Observable<PageResult> {
+    public AddOrUpdate(type: Dictionary, object: any): Observable<ResponseStatus> {
         let params = new HttpParams();
-        return this.http.post(ApiRouteConstants.Dictonary.Page.PointType, this.initFilter(filterQuery), {params: params })
+        let url = this.GetUrl(type);
+        return this.http.put(url, object, {params: params })
             .catch(this.handleError.handle);
     }
 
-    public AddOrUpdateDiscipline(discipline: Discipline): Observable<ResponseStatus> {
-      let params = new HttpParams();
-      return this.http.put(ApiRouteConstants.Dictonary.Page.Disciplines, discipline, {params: params })
-          .catch(this.handleError.handle);
-    }
-    public AddOrUpdateInstitute(institute: Institute): Observable<ResponseStatus> {
-        let params = new HttpParams();
-        return this.http.put(ApiRouteConstants.Dictonary.Page.Institutes, institute, {params: params })
-            .catch(this.handleError.handle);
-    }
-    public AddOrUpdateDepartment(department: Department): Observable<ResponseStatus> {
-        let params = new HttpParams();
-        return this.http.put(ApiRouteConstants.Dictonary.Page.Departments, department, {params: params })
-            .catch(this.handleError.handle);
-    }
-    public AddOrUpdateGroups(groups: Group): Observable<ResponseStatus> {
-        let params = new HttpParams();
-        return this.http.put(ApiRouteConstants.Dictonary.Page.Groups, groups, {params: params })
-            .catch(this.handleError.handle);
-    }
-    public AddOrUpdateRoom(room: Room): Observable<ResponseStatus> {
-        let params = new HttpParams();
-        return this.http.put(ApiRouteConstants.Dictonary.Page.Rooms, room, {params: params })
+    public Delete(type: Dictionary, id: number): Observable<ResponseStatus> {
+        let url = this.GetUrl(type);
+        return this.http.delete(url + "/" + id)
             .catch(this.handleError.handle);
     }
 
-    public DeleteDiscipline(id: number): Observable<ResponseStatus> {
-      return this.http.delete(ApiRouteConstants.Dictonary.Page.Disciplines + "/" + id)
-          .catch(this.handleError.handle);
-    }
-    public DeleteInstitute(id: number): Observable<ResponseStatus> {
-        return this.http.delete(ApiRouteConstants.Dictonary.Page.Institutes + "/" + id)
-            .catch(this.handleError.handle);
-    }
-    public DeleteDepartment(id: number): Observable<ResponseStatus> {
-        return this.http.delete(ApiRouteConstants.Dictonary.Page.Departments + "/" + id)
-            .catch(this.handleError.handle);
-    }
-    public DeleteGroup(id: number): Observable<ResponseStatus> {
-        return this.http.delete(ApiRouteConstants.Dictonary.Page.Groups + "/" + id)
-            .catch(this.handleError.handle);
-    }
-    public DeleteRole(id: number): Observable<ResponseStatus> {
-        return this.http.delete(ApiRouteConstants.Dictonary.Page.Roles + "/" + id)
-            .catch(this.handleError.handle);
-    }
-    public DeleteRoom(id: number): Observable<ResponseStatus> {
-        return this.http.delete(ApiRouteConstants.Dictonary.Page.Rooms + "/" + id)
-            .catch(this.handleError.handle);
-    }
-    public DeleteFieldOfKnowladge(id: number): Observable<ResponseStatus> {
-        return this.http.delete(ApiRouteConstants.Dictonary.Page.FieldOfKnowlage + "/" + id)
-            .catch(this.handleError.handle);
+    private GetUrl(type: Dictionary): string {
+        let url: string = "";
+        switch (type.toString()) {
+            case Dictionary.users.toString():
+                url = ApiRouteConstants.Dictonary.Page.Users;
+                break;
+            case Dictionary.disciplines.toString():
+                url = ApiRouteConstants.Dictonary.Page.Disciplines;
+                break;
+            case Dictionary.groups.toString():
+                url = ApiRouteConstants.Dictonary.Page.Groups;
+                break;
+            case Dictionary.institutes.toString():
+                url = ApiRouteConstants.Dictonary.Page.Institutes;
+                break;
+            case Dictionary.departments.toString():
+                url = ApiRouteConstants.Dictonary.Page.Departments;
+                break;
+            case Dictionary.rooms.toString():
+                url = ApiRouteConstants.Dictonary.Page.Rooms;
+                break;
+            case Dictionary.pairTypes.toString():
+                url = ApiRouteConstants.Dictonary.Page.PairTypes;
+                break;
+            case Dictionary.roles.toString():
+                url = ApiRouteConstants.Dictonary.Page.Roles;
+                break;
+            case Dictionary.professors.toString():
+                url = ApiRouteConstants.Dictonary.Page.Professors;
+                break;
+            case Dictionary.fieldOfKnowladge.toString():
+                url = ApiRouteConstants.Dictonary.Page.FieldOfKnowlage;
+                break;
+            case Dictionary.pointTypes.toString():
+                url = ApiRouteConstants.Dictonary.Page.PointType;
+                break;
+            default:
+                url = "";
+                break;
+        }
+        return url;
     }
 
     private initFilter(filterQuery?: LazyLoadEvent) {

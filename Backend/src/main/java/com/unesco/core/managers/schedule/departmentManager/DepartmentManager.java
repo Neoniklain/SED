@@ -4,7 +4,7 @@ import com.unesco.core.managers.schedule.departmentManager.interfaces.department
 import com.unesco.core.dto.additional.ResponseStatusDTO;
 import com.unesco.core.dto.plan.DepartmentDTO;
 import com.unesco.core.services.dataService.schedule.departmentService.IDepartmentDataService;
-import com.unesco.core.utils.StatusTypes;
+import com.unesco.core.dto.enums.StatusTypes;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;

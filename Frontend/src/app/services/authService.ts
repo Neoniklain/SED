@@ -43,6 +43,11 @@ export class AuthenticationService {
             .catch(this.handleError.handle);
     }
 
+    getUserAccessRight(): Observable<ResponseStatus> {
+        return this.http.get(ApiRouteConstants.Authentication.UserAccessRight)
+            .catch(this.handleError.handle);
+    }
+
     changePass(newPass: string, oldPass: string): Observable<ResponseStatus> {
         return this.http.post(ApiRouteConstants.Authentication.ChangePassword
             , {"newPass": newPass, "oldPass": oldPass});

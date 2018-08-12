@@ -26,7 +26,6 @@ import {EnumKeysPipe} from "../pipes/enum.keys";
 import {DialogModule} from "primeng/components/dialog/dialog";
 import {GrowlModule} from "primeng/components/growl/growl";
 import {ConfirmDialogModule} from "primeng/components/confirmdialog/confirmdialog";
-import {HasRoleDirective} from "../directive/hasRole.dirictive";
 import {Globals} from "../globals";
 import {ProfileDirective} from "../directive/profile.dirictive";
 import {InputTextModule} from "primeng/components/inputtext/inputtext";
@@ -60,7 +59,7 @@ import {EditorListNewsComponent} from "../components/news/editor-list-news/edito
 import {ListNewsComponent} from "../components/news/list-news/list-news.component";
 import {NotFoundComponent} from "../components/notfound/notfound.component";
 import {TaskDescListComponent} from "../components/task/taskList/taskDescList.component";
-import {PairCreateComponent} from "../components/schedule/pairCreate/create-pair.component";
+import {PairCreateComponent} from "../components.page/adminPanel/pairCreate/create-pair.component";
 import {HeaderComponent} from "../components/shared/header/header";
 import {AccessDeniedComponent} from "../components/shared/accessDenied/accessDenied.component";
 import {LoaderComponent} from "../components/shared/loader/loader";
@@ -73,7 +72,7 @@ import {ShowScheduleComponent} from "../components.page/adminPanel/showSchedule/
 import {JournalComponent} from "../components/journal/journal/journal.component";
 import {DictionaryTableAddComponent} from "../components.page/adminPanel/dictionaryTable/added/dictionaryTableAdd.component";
 import {ParserXmlComponent} from "../components.page/adminPanel/parserXml/parserXml.component";
-import {DictionaryTableComponent} from "../components.page/adminPanel/dictionaryTable/dictionaryTable.component";
+import {DictionaryComponent} from "../components.page/adminPanel/dictionaryTable/dictionaryTable.component";
 import {AdminPanelComponent} from "../components.page/adminPanel/adminPanel";
 import {SettingsPageComponent} from "../components.page/account/settings-page/settings-page.component";
 import {LessonConfiguratorPageComponent} from "../components.page/account/lesson-configurator-page/lesson-configurator-page.component";
@@ -86,6 +85,10 @@ import {UserAddComponent} from "../components.page/adminPanel/userAdd/userAdd";
 import {LessonListComponent} from "../components/schedule/lessonsList/lessonsList.component";
 import {ProfileComponent} from "../components/shared/profile/profile";
 import {LessonDetailsComponent} from "../components/schedule/lesson-details/lessonDetails.component";
+import {AccessControlComponent} from "../components.page/adminPanel/accessControl/accessControl.component";
+import {DictionaryTableComponent} from "../components/shared/dictionaryTable/dictionaryTable.component";
+import {HasAccessRightDirective} from "../directive/hasAccessRight.dirictive";
+import {HasRoleDirective} from "../directive/hasRole.dirictive";
 
 @NgModule({
    imports: [
@@ -141,14 +144,17 @@ import {LessonDetailsComponent} from "../components/schedule/lesson-details/less
       EnumStringKeysPipe,
       FileSelectDirective,
       ProfileDirective,
-      DictionaryTableComponent,
+      DictionaryComponent,
       ParserXmlComponent,
       WeekScheduleComponent,
       DictionaryTableAddComponent,
       LoaderComponent,
       JournalComponent,
       LessonСonfiguratorComponent,
+       DictionaryTableComponent,
+      AccessControlComponent,
       DepartmentScheduleComponent,
+      HasAccessRightDirective,
       HasRoleDirective,
       ShowScheduleComponent,
       PairCreateComponent,

@@ -7,20 +7,21 @@ import {PageResult} from "../../../models/admin/PageResult.model.list";
 import {DictionaryService} from "../../../services/dictionary.service";
 
 @Component({
-selector: 'dictionary-table',
+selector: 'dictionary',
 templateUrl: "./dictionaryTable.component.html",
 styleUrls: ["./dictionaryTable.component.css"],
 })
 
-export class DictionaryTableComponent implements OnInit, OnChanges {
+export class DictionaryComponent implements OnInit, OnChanges {
 
-    @Input() model: any;
-    @Input() type;
+    @Input() type: Dictionary;
 
     public columnsName: string[];
-    public editableModel;
+    public model;
     public deleteModel;
+    public updateTableTrigger: boolean = false;
     public editMode: boolean = false;
+    public deleteMode: boolean = false;
     public Dictionary;
     public data: PageResult;
     public event: LazyLoadEvent;
@@ -30,72 +31,34 @@ export class DictionaryTableComponent implements OnInit, OnChanges {
 
     ngOnInit(): void {
       this.Dictionary = Dictionary;
-      this.getData();
     }
 
     ngOnChanges(): void {
-      this.editableModel = null;
-      this.deleteModel = null;
-      this.getData();
+      this.model = null;
     }
 
-    // Получить данные
-    getData(event?) {
-      this.columnsName = Object.keys(this.model);
-       switch (this.type.toString()) {
-           case Dictionary.users.toString():
-               this.dictionaryService.GetUsers(event).subscribe(result => { this.data = result; });
-               break;
-           case Dictionary.disciplines.toString():
-               this.dictionaryService.GetDisciplines(event).subscribe(result => { this.data = result; });
-               break;
-           case Dictionary.institutes.toString():
-               this.dictionaryService.GetInstitutes(event).subscribe(result => { this.data = result; });
-               break;
-           case Dictionary.departments.toString():
-               this.dictionaryService.GetDepartments(event).subscribe(result => { this.data = result; });
-               break;
-           case Dictionary.groups.toString():
-               this.dictionaryService.GetGroups(event).subscribe(result => { this.data = result; });
-               break;
-           case Dictionary.rooms.toString():
-               this.dictionaryService.GetRooms(event).subscribe(result => { this.data = result; });
-               break;
-       }
-    }
     // Редактирование модели
     edit(item) {
-        this.editableModel = item;
+        this.model = item;
         this.editMode = true;
     }
     // Удаление модели
     delete(item) {
-      this.deleteModel = item;
-    }
-    // Завершение редактировния модели
-    canelEditableModel() {
-        this.editableModel = null;
-        this.editMode = false;
-        this.getData(this.event);
+        this.model = item;
+        this.deleteMode = true;
     }
 
-    isArray(obj: any ) {
-      return Array.isArray(obj);
+    // Завершение редактировния модели
+    canelEditableModel() {
+        this.model = null;
+        this.editMode = false;
+        this.deleteMode = false;
     }
-    itIsObject(obj: any ) {
-      return isObject(obj);
+
+    updateTable() {
+        this.updateTableTrigger = true;
     }
-    getKeys(obj: any ) {
-      return Object.keys(obj);
+    tableUpdated() {
+        this.updateTableTrigger = false;
     }
-    dateis(obj: any) {
-      isDate(obj);
-    }
-    loadLazy(event: LazyLoadEvent) {
-        this.event = event;
-        this.getData(event);
-    }
-    onLoadData() {
-      this.getData(this.event);
-}
 }

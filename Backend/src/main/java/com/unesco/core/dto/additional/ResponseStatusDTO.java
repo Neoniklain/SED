@@ -1,6 +1,6 @@
 package com.unesco.core.dto.additional;
 
-import com.unesco.core.utils.StatusTypes;
+import com.unesco.core.dto.enums.StatusTypes;
 
 import java.util.ArrayList;
 import java.util.List;

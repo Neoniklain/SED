@@ -1,6 +1,7 @@
 import {Injectable} from "@angular/core";
 import {ToastrService} from "ngx-toastr";
 import {ResponseStatus} from "../models/additional/responseStatus";
+import {StatusType} from "../models/statusType.model";
 
 @Injectable()
 export class NotificationService {
@@ -23,9 +24,14 @@ export class NotificationService {
     }
 
     public FromStatus(responseStatus: ResponseStatus) {
+        if (responseStatus.status === StatusType.ACCESS_DENIED.toString()) {
+            this.Error("Доступ запрещен.");
+        }
 
-        // this.messageService.add({severity: 'success', summary: 'Успешно.', detail: 'Новость успешно удалена.'});
-        // this.messageService.add({severity: 'error', summary: 'Ошибка.', detail: mes});
+        if (responseStatus.status === StatusType.NOT_FOUND.toString()) {
+            this.Error("Не найдено.");
+        }
+
         for (let msg of responseStatus.errors) {
             this.Error(msg);
         }

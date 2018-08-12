@@ -1,5 +1,6 @@
 package com.unesco.core.services.dataService.schedule.fieldOfKnowledgeService;
 
+import com.unesco.core.dto.additional.PageResultDTO;
 import com.unesco.core.entities.schedule.FieldOfKnowledgeEntity;
 import com.unesco.core.dto.additional.FilterQueryDTO;
 import com.unesco.core.dto.shedule.FieldOfKnowledgeDTO;
@@ -20,7 +21,7 @@ public class FieldOfKnowledgeDataService implements IFieldOfKnowledgeDataService
     @Autowired
     private FieldOfKnowledgeRepository fieldOfKnowledgeRepository;
 
-    public List<FieldOfKnowledgeDTO> getPage(FilterQueryDTO filter) {
+    public PageResultDTO<FieldOfKnowledgeDTO> getPage(FilterQueryDTO filter) {
         int rows = filter.getRows()>0? filter.getRows() : (int) fieldOfKnowledgeRepository.count();
         int start = rows>0 ? filter.getFirst()/rows: 1;
         List<FieldOfKnowledgeEntity> entitys = fieldOfKnowledgeRepository.findWithFilter(new PageRequest(start, rows == 0 ? 10 : rows), filter.getGlobalFilter());
@@ -28,7 +29,7 @@ public class FieldOfKnowledgeDataService implements IFieldOfKnowledgeDataService
         for (FieldOfKnowledgeEntity e: entitys) {
             result.add((FieldOfKnowledgeDTO) mapperService.toDto(e));
         }
-        return result;
+        return new PageResultDTO(result, fieldOfKnowledgeRepository.count());
     }
 
     public List<FieldOfKnowledgeDTO> getAll()

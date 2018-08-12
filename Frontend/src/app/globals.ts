@@ -4,6 +4,7 @@ import {Observable} from "rxjs/Observable";
 import {Observer} from "rxjs/Observer";
 import {BehaviorSubject} from "rxjs/BehaviorSubject";
 import {User} from "./models/account/user.model";
+import {UserAccessRight} from "./models/account/access";
 
 Injectable();
 export class Globals {
@@ -12,8 +13,11 @@ export class Globals {
 
    private _user: BehaviorSubject<User> = new BehaviorSubject(new User);
 
+   private _accessRight: BehaviorSubject<UserAccessRight> = new BehaviorSubject(new UserAccessRight);
+
    public getRole = this._role.asObservable();
    public getUser = this._user.asObservable();
+   public getAccessRight = this._accessRight.asObservable();
 
    set role(value: Role[]) {
       this._role.next(value);
@@ -21,6 +25,10 @@ export class Globals {
 
     set user(value: User) {
         this._user.next(value);
+    }
+
+    set accessRight(value: UserAccessRight) {
+        this._accessRight.next(value);
     }
 
 }

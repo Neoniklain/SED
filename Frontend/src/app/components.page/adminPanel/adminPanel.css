@@ -1,6 +1,9 @@
 ﻿.sidebar-form {
     padding: 7px 15px 13px 15px;
 }
+.main-header {
+    padding-top: 3em;
+}
 @media (max-width: 768px) {
     .sidebar-nav {
         display: none;

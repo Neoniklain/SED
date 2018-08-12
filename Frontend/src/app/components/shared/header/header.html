@@ -16,12 +16,12 @@
                 <li id="nav-manu-main"><a [routerLink]="['/']"><i class="fa fa-home" aria-hidden="true"></i> Главная</a></li>
             </ul>
 
-            <form *hasRole="[Roles.Anonim]" class="navbar-form navbar-right" role="search">
+            <form *ngIf="this.user==null" class="navbar-form navbar-right" role="search">
                 <a [routerLink]="[RouteConstants.Account.Login]" class="btn btn-default"><i class="fa fa-sign-out" aria-hidden="true"></i> Вход</a>
             </form>
 
             <div class="navbar-right" role="search">
-                <ul *hasRole="[Roles.Authorized]" class="nav navbar-nav margin-zero-topbot">
+                <ul *ngIf="this.user!=null" class="nav navbar-nav margin-zero-topbot">
                     <li class="dropdown">
                         <a class="dropdown-toggle" data-toggle="dropdown" href="#">
                             <i class="fa fa-user-o"></i> {{user.userFIO}}
@@ -29,7 +29,7 @@
                         </a>
                         <ul class="dropdown-menu">
                             <li><a [routerLink]="[RouteConstants.Account.Lk]"><i class="fa fa-address-card-o" aria-hidden="true"></i> Личный кабинет</a></li>
-                            <li *hasRole="[Roles.Administrator]"><a [routerLink]="[RouteConstants.Admin.All]"><i class="fa fa-lock" aria-hidden="true"></i> Админка</a></li>
+                            <li *hasRole="[Roles.Administrator]"><a [routerLink]="[RouteConstants.Admin.All]"><i class="fa fa-lock" aria-hidden="true"></i> Админ. меню</a></li>
                             <li><a (click)="logout()"><i class="fa fa-sign-out" aria-hidden="true"></i> Выход</a></li>
                         </ul>
                     </li>

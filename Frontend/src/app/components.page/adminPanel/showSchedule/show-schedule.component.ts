@@ -12,6 +12,7 @@ import {Department} from "../../../models/shedule/department";
 import {DepartmentShedule} from "../../../models/shedule/departmentShedule";
 import {ResponseStatus} from "../../../models/additional/responseStatus";
 import {NotificationService} from "../../../services/notification.service";
+import {Dictionary} from "../../../models/admin/dictionary.model";
 
 @Component({
     selector: 'list-professors-page',
@@ -68,13 +69,13 @@ export class ShowScheduleComponent implements OnInit {
                 });
     }
     public GetGroups() {
-        this.dictionaryService.GetGroups()
+        this.dictionaryService.Get(Dictionary.groups)
             .subscribe((res: PageResult) => {
                     this.groups = res.content;
                 });
     }
     public GetDepartments() {
-        this.dictionaryService.GetDepartments()
+        this.dictionaryService.Get(Dictionary.departments)
             .subscribe((res: PageResult) => {
                     this.department = res.content;
                 });

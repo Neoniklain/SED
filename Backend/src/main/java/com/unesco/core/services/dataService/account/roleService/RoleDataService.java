@@ -1,5 +1,6 @@
 package com.unesco.core.services.dataService.account.roleService;
 
+import com.unesco.core.dto.additional.PageResultDTO;
 import com.unesco.core.entities.account.RoleEntity;
 import com.unesco.core.dto.account.RoleDTO;
 import com.unesco.core.dto.additional.FilterQueryDTO;
@@ -19,7 +20,7 @@ public class RoleDataService implements IRoleDataService {
     @Autowired
     private RoleRepository roleRepository;
 
-    public List<RoleDTO> getPage(FilterQueryDTO filter) {
+    public PageResultDTO<RoleDTO> getPage(FilterQueryDTO filter) {
         int rows = filter.getRows()>0? filter.getRows() : (int) roleRepository.count();
         int start = rows>0 ? filter.getFirst()/rows: 1;
         List<RoleEntity> entitys = roleRepository.findWithFilter(new PageRequest(start, rows == 0 ? 10 : rows), filter.getGlobalFilter());
@@ -27,7 +28,7 @@ public class RoleDataService implements IRoleDataService {
         for (RoleEntity e: entitys) {
             result.add((RoleDTO) mapperService.toDto(e));
         }
-        return result;
+        return new PageResultDTO(result, roleRepository.count());
     }
 
     public List<RoleDTO> getAll()

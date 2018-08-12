@@ -36,30 +36,6 @@ export class AdminPanelComponent implements OnInit {
 
    setMenuToogle(toogle: string) {
       this.menuToogle = toogle;
-      this.updateDictionary();
-   }
-
-   updateDictionary(event?: LazyLoadEvent) {
-      switch (this.menuToogle.toString()) {
-         case Dictionary.users.toString():
-            this.currentModel = new User();
-         break;
-         case Dictionary.disciplines.toString():
-             this.currentModel = new Discipline();
-         break;
-         case Dictionary.institutes.toString():
-             this.currentModel = new Institute();
-            break;
-         case Dictionary.departments.toString():
-             this.currentModel = new Department();
-            break;
-         case Dictionary.groups.toString():
-             this.currentModel = new Group();
-            break;
-          case Dictionary.rooms.toString():
-              this.currentModel = new Room();
-              break;
-      }
    }
 
    isDictionary() {

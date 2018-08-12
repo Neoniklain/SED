@@ -13,6 +13,7 @@ import {AccountService} from "../../../services/accountService";
 import {ResponseStatus} from "../../../models/additional/responseStatus";
 import {StatusType} from "../../../models/statusType.model";
 import {NotificationService} from "../../../services/notification.service";
+import {Dictionary} from "../../../models/admin/dictionary.model";
 
 @Component({
     selector: 'user-add',
@@ -41,7 +42,7 @@ export class UserAddComponent implements OnInit {
     ngOnInit() {
         this.Roles = Roles;
         this.model = new UserCreate();
-        this.dictionaryService.GetRoles().subscribe(result => { this.roles = result.content; });
+        this.dictionaryService.Get(Dictionary.roles).subscribe(result => { this.roles = result.content; });
     }
 
     AddOrUpdate() {
@@ -81,12 +82,12 @@ export class UserAddComponent implements OnInit {
     }
 
     setRole() {
-        if (this.model.roles.find(x => x.roleName === Roles.Professor)) {
-            this.dictionaryService.GetDepartments().subscribe(result => {
+        if (this.model.roles.find(x => x.roleName === Roles.Professor.toString())) {
+            this.dictionaryService.Get(Dictionary.departments).subscribe(result => {
                 this.departments = result.content; });
         }
-        if (this.model.roles.find(x => x.roleName === Roles.Student)) {
-            this.dictionaryService.GetGroups().subscribe(result => {
+        if (this.model.roles.find(x => x.roleName === Roles.Student.toString())) {
+            this.dictionaryService.Get(Dictionary.groups).subscribe(result => {
                 this.groups = result.content; });
         }
     }

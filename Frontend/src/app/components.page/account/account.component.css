@@ -1,22 +1,28 @@
+.user-info {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
 .user-info .user-img img{
-  width: auto !important;
   height: 100%;
-  margin: 0 auto !important;
+  flex: auto;
 }
 .user-img
 {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
   float: left;
-  height: 2.8em;
-  width: 2.8em;
+  height: 3em;
   overflow: hidden;
-  border-radius: 50%;
+  border-radius: 8px;
   margin: 0 auto;
   text-align: center;
 }
 
 .user-desc
 {
-  padding-left: 3.4em;
+  padding-left: 10px;
 }
 
 .user-desc p

@@ -7,9 +7,6 @@ CREATE TABLE un_visitation_config (
     lesson_id bigint
 );
 
-ALTER TABLE public.visitation_config_sequence_gen
-  OWNER TO postgres;
-
 CREATE TABLE visitation_config_entity_dates (
     visitation_config_entity_id bigint NOT NULL,
     dates timestamp without time zone

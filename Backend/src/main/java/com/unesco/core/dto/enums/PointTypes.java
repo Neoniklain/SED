@@ -1,4 +1,4 @@
-package com.unesco.core.utils;
+package com.unesco.core.dto.enums;
 
 public enum PointTypes {
 

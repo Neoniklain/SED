@@ -5,6 +5,7 @@ import {ApiRouteConstants, RouteConstants} from "../bootstrap/app.route.constant
 import {Professor} from "../models/account/professor";
 import {ResponseStatus} from "../models/additional/responseStatus";
 import {HandelErrorService} from "./handelError.service";
+import {UserAccessRight} from "../models/account/access";
 
  
 @Injectable()
@@ -54,6 +55,17 @@ export class AccountService {
     public GetStudentByUser(userId): Observable<ResponseStatus> {
         return this.http.get(ApiRouteConstants.Account.GetStudentByUser
             .replace(":userId", userId.toString()))
+            .catch(this.handleError.handle);
+    }
+
+    public GetUserAccessRight(userId): Observable<ResponseStatus> {
+        return this.http.get(ApiRouteConstants.Account.GetUserAccessRight
+            .replace(":userId", userId.toString()))
+            .catch(this.handleError.handle);
+    }
+
+    public SaveUserAccessRight(acceses: UserAccessRight): Observable<ResponseStatus> {
+        return this.http.post(ApiRouteConstants.Account.SaveUserAccessRight, acceses)
             .catch(this.handleError.handle);
     }
 }

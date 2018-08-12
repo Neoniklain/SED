@@ -1,16 +1,21 @@
 package com.unesco.core.controller;
 
+import com.unesco.core.dto.account.UserDTO;
 import com.unesco.core.dto.additional.ResponseStatusDTO;
+import com.unesco.core.dto.enums.AccessRightType;
+import com.unesco.core.dto.enums.RoleType;
+import com.unesco.core.dto.enums.StatusTypes;
 import com.unesco.core.dto.shedule.PairDTO;
 import com.unesco.core.managers.schedule.pairManager.interfaces.pair.IPairManager;
 import com.unesco.core.managers.schedule.sheduleDepartmentManager.sheduleDepartment.ISheduleDepartmentManager;
 import com.unesco.core.managers.schedule.sheduleManager.interfaces.shedule.ISheduleManager;
+import com.unesco.core.services.accessControlService.IAccessСontrolService;
 import com.unesco.core.services.dataService.account.professorService.IProfessorDataService;
 import com.unesco.core.services.dataService.schedule.departmentService.IDepartmentDataService;
 import com.unesco.core.services.dataService.schedule.groupService.IGroupDataService;
 import com.unesco.core.services.dataService.schedule.lessonService.ILessonDataService;
 import com.unesco.core.services.dataService.schedule.pairService.IPairDataService;
-import com.unesco.core.utils.StatusTypes;
+import com.unesco.core.services.userService.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -37,8 +42,13 @@ public class ScheduleController {
     @Autowired
     private ILessonDataService lessonDataService;
 
-    public ResponseStatusDTO getDepartmentPairs(long departmentId) {
 
+    @Autowired
+    private IAccessСontrolService accessСontrolService;
+    @Autowired
+    private IUserService userService;
+
+    public ResponseStatusDTO getDepartmentPairs(long departmentId) {
         sheduleDepartmentManager.init(pairDataService.getAllByDepartament(departmentId),
                 professorDataService.getAllByDepartament(departmentId),
                 departmentDataService.get(departmentId));
@@ -47,7 +57,6 @@ public class ScheduleController {
     }
 
     public ResponseStatusDTO getGroupPairs(long groupId) {
-
         sheduleManager.init(pairDataService.getAllByGroup(groupId),
                 groupDataService.get(groupId));
 

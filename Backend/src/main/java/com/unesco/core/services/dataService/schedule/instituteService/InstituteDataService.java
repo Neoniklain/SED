@@ -1,5 +1,6 @@
 package com.unesco.core.services.dataService.schedule.instituteService;
 
+import com.unesco.core.dto.additional.PageResultDTO;
 import com.unesco.core.entities.schedule.InstituteEntity;
 import com.unesco.core.dto.additional.FilterQueryDTO;
 import com.unesco.core.dto.shedule.InstituteDTO;
@@ -20,7 +21,7 @@ public class InstituteDataService implements IInstituteDataService {
     @Autowired
     private InstituteRepository instituteRepository;
 
-    public List<InstituteDTO> getPage(FilterQueryDTO filter) {
+    public PageResultDTO<InstituteDTO> getPage(FilterQueryDTO filter) {
         int rows = filter.getRows()>0? filter.getRows() : (int) instituteRepository.count();
         int start = rows>0 ? filter.getFirst()/rows: 1;
         List<InstituteEntity> entitys = instituteRepository.findWithFilter(new PageRequest(start, rows == 0 ? 10 : rows), filter.getGlobalFilter());
@@ -28,7 +29,7 @@ public class InstituteDataService implements IInstituteDataService {
         for (InstituteEntity e: entitys) {
             result.add((InstituteDTO) mapperService.toDto(e));
         }
-        return result;
+        return new PageResultDTO(result, instituteRepository.count());
     }
 
     public List<InstituteDTO> getAll()

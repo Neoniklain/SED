@@ -1,5 +1,6 @@
 package com.unesco.core.services.dataService.schedule.disciplineService;
 
+import com.unesco.core.dto.additional.PageResultDTO;
 import com.unesco.core.entities.schedule.DisciplineEntity;
 import com.unesco.core.dto.additional.FilterQueryDTO;
 import com.unesco.core.dto.shedule.DisciplineDTO;
@@ -20,7 +21,7 @@ public class DisciplineDataService implements IDisciplineDataService {
     @Autowired
     private DisciplineRepository disciplineRepository;
 
-    public List<DisciplineDTO> getPage(FilterQueryDTO filter) {
+    public PageResultDTO<DisciplineDTO> getPage(FilterQueryDTO filter) {
         int rows = filter.getRows()>0? filter.getRows() : (int) disciplineRepository.count();
         int start = rows>0 ? filter.getFirst()/rows: 1;
         List<DisciplineEntity> entitys = disciplineRepository.findWithFilter(new PageRequest(start, rows == 0 ? 10 : rows), filter.getGlobalFilter());
@@ -28,7 +29,7 @@ public class DisciplineDataService implements IDisciplineDataService {
         for (DisciplineEntity e: entitys) {
             result.add((DisciplineDTO) mapperService.toDto(e));
         }
-        return result;
+        return new PageResultDTO(result, disciplineRepository.count());
     }
 
     public List<DisciplineDTO> getAll()

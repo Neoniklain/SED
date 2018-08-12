@@ -6,25 +6,17 @@ import com.unesco.core.dto.account.UserDTO;
 import com.unesco.core.dto.additional.FilterQueryDTO;
 import com.unesco.core.dto.additional.PageResultDTO;
 import com.unesco.core.dto.additional.ResponseStatusDTO;
+import com.unesco.core.dto.enums.StatusTypes;
 import com.unesco.core.dto.journal.PointTypeDTO;
 import com.unesco.core.dto.plan.DepartmentDTO;
 import com.unesco.core.dto.shedule.*;
-import com.unesco.core.managers.account.professorManager.interfaces.professorList.IProfessorListManager;
 import com.unesco.core.managers.account.roleManager.interfaces.role.IRoleManager;
-import com.unesco.core.managers.account.roleManager.interfaces.roleList.IRoleListManager;
-import com.unesco.core.managers.account.userManager.interfaces.userList.IUserListManager;
 import com.unesco.core.managers.schedule.departmentManager.interfaces.department.IDepartmentManager;
-import com.unesco.core.managers.schedule.departmentManager.interfaces.departmentList.IDepartmentListManager;
 import com.unesco.core.managers.schedule.disciplineManager.interfaces.discipline.IDisciplineManager;
-import com.unesco.core.managers.schedule.disciplineManager.interfaces.disciplineList.IDisciplineListManager;
 import com.unesco.core.managers.schedule.fieldofknowledgeManager.interfaces.fieldofknowledge.IFieldOfKnowledgeManager;
-import com.unesco.core.managers.schedule.fieldofknowledgeManager.interfaces.fieldofknowledgeList.IFieldOfKnowledgeListManager;
 import com.unesco.core.managers.schedule.groupManager.interfaces.group.IGroupManager;
-import com.unesco.core.managers.schedule.groupManager.interfaces.groupList.IGroupListManager;
 import com.unesco.core.managers.schedule.instituteManager.interfaces.institute.IInstituteManager;
-import com.unesco.core.managers.schedule.instituteManager.interfaces.instituteList.IInstituteListManager;
 import com.unesco.core.managers.schedule.roomManager.interfaces.room.IRoomManager;
-import com.unesco.core.managers.schedule.roomManager.interfaces.roomList.IRoomListManager;
 import com.unesco.core.services.dataService.account.professorService.IProfessorDataService;
 import com.unesco.core.services.dataService.account.roleService.IRoleDataService;
 import com.unesco.core.services.dataService.account.userService.IUserDataService;
@@ -36,7 +28,6 @@ import com.unesco.core.services.dataService.schedule.groupService.IGroupDataServ
 import com.unesco.core.services.dataService.schedule.instituteService.IInstituteDataService;
 import com.unesco.core.services.dataService.schedule.pairTypeService.IPairTypeDataService;
 import com.unesco.core.services.dataService.schedule.roomService.IRoomDataService;
-import com.unesco.core.utils.StatusTypes;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -70,59 +61,34 @@ public class DictionaryController {
 
    @Autowired
    private IDisciplineManager disciplineManager;
-   @Autowired
-   private IDisciplineListManager disciplineListManager;
-
-   @Autowired
-   private IUserListManager userListManager;
 
    @Autowired
    private IInstituteManager instituteManager;
-   @Autowired
-   private IInstituteListManager instituteListManager;
 
    @Autowired
    private IDepartmentManager departmentManager;
-   @Autowired
-   private IDepartmentListManager departmentListManager;
 
    @Autowired
    private IGroupManager groupManager;
-   @Autowired
-   private IGroupListManager groupListManager;
 
    @Autowired
    private IRoleManager roleManager;
-   @Autowired
-   private IRoleListManager roleListManager;
 
    @Autowired
    private IFieldOfKnowledgeManager fieldOfKnowledgeManager;
-   @Autowired
-   private IFieldOfKnowledgeListManager fieldOfKnowledgeListManager;
 
    @Autowired
    private IRoomManager roomManager;
-   @Autowired
-   private IRoomListManager roomListManager;
-   @Autowired
-   private IProfessorListManager professorListManager;
 
    public PageResultDTO<ProfessorDTO> getProfessorList(FilterQueryDTO filter) {
-      professorListManager.init(professorDataService.getPage(filter));
-      PageResultDTO<ProfessorDTO> result = new PageResultDTO(professorListManager.getAll(), professorListManager.getAll().size());
-      return result;
+      return professorDataService.getPage(filter);
    }
    public PageResultDTO<UserDTO> getUserList(FilterQueryDTO filter) {
-      userListManager.init(userDataService.getPage(filter));
-      PageResultDTO<UserDTO> result = new PageResultDTO(userListManager.getAll(), userListManager.getAll().size());
-      return result;
+      return userDataService.getPage(filter);
    }
 
    public PageResultDTO<RoomDTO> getRoomList(FilterQueryDTO filter) {
-      roomListManager.init(roomDataService.getPage(filter));
-      PageResultDTO<RoomDTO> result = new PageResultDTO(roomListManager.getAll(), roomListManager.getAll().size());
-      return result;
+      return roomDataService.getPage(filter);
    }
    public ResponseStatusDTO addRoom(RoomDTO room) {
       roomManager.init(room);
@@ -156,9 +122,7 @@ public class DictionaryController {
    }
 
    public PageResultDTO<FieldOfKnowledgeDTO> getFieldOfKnowledgeList(FilterQueryDTO filter) {
-      fieldOfKnowledgeListManager.init(fieldOfKnowledgeDataService.getPage(filter));
-      PageResultDTO<FieldOfKnowledgeDTO> result = new PageResultDTO(fieldOfKnowledgeListManager.getAll(), fieldOfKnowledgeListManager.getAll().size());
-      return result;
+      return fieldOfKnowledgeDataService.getPage(filter);
    }
    
    public ResponseStatusDTO addFieldOfKnowledge(FieldOfKnowledgeDTO fieldOfKnowledge) {
@@ -194,9 +158,7 @@ public class DictionaryController {
    }
 
    public PageResultDTO<RoleDTO> getRoleList(FilterQueryDTO filter) {
-      roleListManager.init(roleDataService.getPage(filter));
-      PageResultDTO<RoleDTO> result = new PageResultDTO(roleListManager.getAll(), roleListManager.getAll().size());
-      return result;
+      return roleDataService.getPage(filter);
    }
    
    public ResponseStatusDTO addRole(RoleDTO role) {
@@ -232,9 +194,7 @@ public class DictionaryController {
    }
 
    public PageResultDTO<GroupDTO> getGroupList(FilterQueryDTO filter) {
-      groupListManager.init(groupDataService.getPage(filter));
-      PageResultDTO<GroupDTO> result = new PageResultDTO(groupListManager.getAll(), groupListManager.getAll().size());
-      return result;
+      return groupDataService.getPage(filter);
    }
    
    public ResponseStatusDTO addGroup(GroupDTO group) {
@@ -270,9 +230,7 @@ public class DictionaryController {
    }
 
    public PageResultDTO<DepartmentDTO> getDepartmentList(FilterQueryDTO filter) {
-      departmentListManager.init(departmentDataService.getPage(filter));
-      PageResultDTO<DepartmentDTO> result = new PageResultDTO(departmentListManager.getAll(), departmentListManager.getAll().size());
-      return result;
+      return departmentDataService.getPage(filter);
    }
    
    public ResponseStatusDTO addDepartment(DepartmentDTO department) {
@@ -308,9 +266,7 @@ public class DictionaryController {
    }
 
    public PageResultDTO<InstituteDTO> getInstituteList(FilterQueryDTO filter) {
-      instituteListManager.init(instituteDataService.getPage(filter));
-      PageResultDTO<InstituteDTO> result = new PageResultDTO(instituteListManager.getAll(), instituteListManager.getAll().size());
-      return result;
+      return instituteDataService.getPage(filter);
    }
 
    public ResponseStatusDTO addInstitute(InstituteDTO institute) {
@@ -346,9 +302,7 @@ public class DictionaryController {
    }
 
    public PageResultDTO<DisciplineDTO> getDisciplineList(FilterQueryDTO filter) {
-      disciplineListManager.init(disciplineDataService.getPage(filter));
-      PageResultDTO<DisciplineDTO> result = new PageResultDTO(disciplineListManager.getAll(), disciplineListManager.getAll().size());
-      return result;
+      return disciplineDataService.getPage(filter);
    }
    
    public ResponseStatusDTO addDiscipline(DisciplineDTO discipline) {

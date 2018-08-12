@@ -7,7 +7,7 @@ import com.unesco.core.entities.schedule.DepartmentEntity;
 import com.unesco.core.entities.schedule.DisciplineEntity;
 import com.unesco.core.dto.additional.ResponseStatusDTO;
 import com.unesco.core.repositories.plan.*;
-import com.unesco.core.utils.StatusTypes;
+import com.unesco.core.dto.enums.StatusTypes;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.Row;

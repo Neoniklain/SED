@@ -1,0 +1,36 @@
+﻿.wrapper {
+    content: '';
+    width: 100%;
+    padding-top: 5em;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.access-control-header {
+    padding: 0 1em;
+}
+
+.access-control-content {
+    padding: 0 1em;
+}
+
+.access-row {
+    padding-bottom: 1em;
+}
+
+.flex-row.row {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+}
+.flex-row.row > [class*='col-'] {
+    display: flex;
+    flex-direction: column;
+}
+.flex-row.row:after,
+.flex-row.row:before {
+    display: flex;
+}

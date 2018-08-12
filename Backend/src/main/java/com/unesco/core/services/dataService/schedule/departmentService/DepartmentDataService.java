@@ -1,5 +1,6 @@
 package com.unesco.core.services.dataService.schedule.departmentService;
 
+import com.unesco.core.dto.additional.PageResultDTO;
 import com.unesco.core.entities.schedule.DepartmentEntity;
 import com.unesco.core.dto.plan.DepartmentDTO;
 import com.unesco.core.dto.additional.FilterQueryDTO;
@@ -20,7 +21,7 @@ public class DepartmentDataService implements IDepartmentDataService {
     @Autowired
     private DepartmentRepository departmentRepository;
 
-    public List<DepartmentDTO> getPage(FilterQueryDTO filter) {
+    public PageResultDTO<DepartmentDTO> getPage(FilterQueryDTO filter) {
         int rows = filter.getRows()>0? filter.getRows() : (int) departmentRepository.count();
         int start = rows>0 ? filter.getFirst()/rows: 1;
         List<DepartmentEntity> entitys = departmentRepository.findWithFilter(new PageRequest(start, rows == 0 ? 10 : rows), filter.getGlobalFilter());
@@ -28,7 +29,7 @@ public class DepartmentDataService implements IDepartmentDataService {
         for (DepartmentEntity e: entitys) {
             result.add((DepartmentDTO) mapperService.toDto(e));
         }
-        return result;
+        return new PageResultDTO(result, departmentRepository.count());
     }
 
     public List<DepartmentDTO> getAll()

@@ -4,7 +4,7 @@ import com.unesco.core.managers.journal.lessonEvent.interfaces.lessonEvent.ILess
 import com.unesco.core.dto.additional.ResponseStatusDTO;
 import com.unesco.core.dto.journal.LessonEventDTO;
 import com.unesco.core.services.dataService.journal.lessonEvent.ILessonEventDataService;
-import com.unesco.core.utils.StatusTypes;
+import com.unesco.core.dto.enums.StatusTypes;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;

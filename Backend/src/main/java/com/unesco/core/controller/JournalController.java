@@ -1,6 +1,9 @@
 package com.unesco.core.controller;
 
+import com.unesco.core.dto.account.UserDTO;
 import com.unesco.core.dto.additional.ResponseStatusDTO;
+import com.unesco.core.dto.enums.AccessRightType;
+import com.unesco.core.dto.enums.StatusTypes;
 import com.unesco.core.dto.journal.JournalDTO;
 import com.unesco.core.dto.journal.LessonEventDTO;
 import com.unesco.core.dto.journal.VisitationConfigDTO;
@@ -8,10 +11,11 @@ import com.unesco.core.managers.journal.VisitationConfigManager.interfaces.IVisi
 import com.unesco.core.managers.journal.journalManager.interfaces.journal.IJournalManager;
 import com.unesco.core.managers.journal.lessonEvent.interfaces.lessonEvent.ILessonEventManager;
 import com.unesco.core.managers.journal.lessonEvent.interfaces.lessonEventList.ILessonEventListManager;
+import com.unesco.core.services.accessControlService.IAccessСontrolService;
 import com.unesco.core.services.dataService.journal.journal.IJournalDataService;
 import com.unesco.core.services.dataService.journal.lessonEvent.ILessonEventDataService;
 import com.unesco.core.services.dataService.journal.visitation.IVisitationConfigDataService;
-import com.unesco.core.utils.StatusTypes;
+import com.unesco.core.services.userService.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -35,6 +39,11 @@ public class JournalController {
     private ILessonEventDataService lessonEventDataService;
     @Autowired
     private IVisitationConfigManager visitationConfigManager;
+
+    @Autowired
+    private IAccessСontrolService accessСontrolService;
+    @Autowired
+    private IUserService userService;
 
     public ResponseStatusDTO getJournal(long lessonId) {
 
@@ -158,7 +167,6 @@ public class JournalController {
     }
 
     public ResponseStatusDTO getVisitationConfig(long lessonId) {
-
         VisitationConfigDTO visitationConfig = visitationConfigDataService.getByLesson(lessonId);
 
         if (visitationConfig == null) {

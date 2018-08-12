@@ -1,5 +1,6 @@
 package com.unesco.core.services.dataService.account.studentService;
 
+import com.unesco.core.dto.additional.PageResultDTO;
 import com.unesco.core.entities.account.StudentEntity;
 import com.unesco.core.entities.account.UserEntity;
 import com.unesco.core.dto.account.StudentDTO;
@@ -23,7 +24,7 @@ public class StudentDataService implements IStudentDataService {
     @Autowired
     private IUserDataService userDataService;
 
-    public List<StudentDTO> getPage(FilterQueryDTO filter) {
+    public PageResultDTO<StudentDTO> getPage(FilterQueryDTO filter) {
         int rows = filter.getRows()>0? filter.getRows() : (int) studentRepository.count();
         int start = rows>0 ? filter.getFirst()/rows: 1;
         List<StudentEntity> entitys = studentRepository.findWithFilter(new PageRequest(start, rows == 0 ? 10 : rows), filter.getGlobalFilter());
@@ -31,7 +32,7 @@ public class StudentDataService implements IStudentDataService {
         for (StudentEntity e: entitys) {
             result.add((StudentDTO) mapperService.toDto(e));
         }
-        return result;
+        return new PageResultDTO(result, studentRepository.count());
     }
 
     public List<StudentDTO> getAll()
