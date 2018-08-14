@@ -1,12 +1,15 @@
 package com.unesco.core.services.dataService.schedule.fieldOfKnowledgeService;
 
-import com.unesco.core.dto.additional.PageResultDTO;
-import com.unesco.core.entities.schedule.FieldOfKnowledgeEntity;
 import com.unesco.core.dto.additional.FilterQueryDTO;
+import com.unesco.core.dto.additional.PageResultDTO;
+import com.unesco.core.dto.additional.ResponseStatusDTO;
+import com.unesco.core.dto.enums.StatusTypes;
 import com.unesco.core.dto.shedule.FieldOfKnowledgeDTO;
+import com.unesco.core.entities.schedule.FieldOfKnowledgeEntity;
 import com.unesco.core.repositories.plan.FieldOfKnowledgeRepository;
 import com.unesco.core.services.dataService.mapperService.IMapperService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
@@ -57,16 +60,33 @@ public class FieldOfKnowledgeDataService implements IFieldOfKnowledgeDataService
         return model;
     }
 
-    public void delete(long id)
+    public ResponseStatusDTO<FieldOfKnowledgeDTO> delete(long id)
     {
-        fieldOfKnowledgeRepository.delete(id);
+        ResponseStatusDTO<FieldOfKnowledgeDTO> result = new ResponseStatusDTO<>(StatusTypes.OK);
+        try {
+            fieldOfKnowledgeRepository.delete(id);
+        } catch (Exception e) {
+            result.setStatus(StatusTypes.ERROR);
+            if(e instanceof DataIntegrityViolationException)
+                result.addErrors("Удаление не удалось. У объекта есть зависимости.");
+            result.addErrors("Удаление не удалось");
+            return result;
+        }
+        return result;
     }
 
-    public FieldOfKnowledgeDTO save(FieldOfKnowledgeDTO fieldOfKnowledge)
+    public ResponseStatusDTO<FieldOfKnowledgeDTO> save(FieldOfKnowledgeDTO fieldOfKnowledge)
     {
         FieldOfKnowledgeEntity entity = (FieldOfKnowledgeEntity) mapperService.toEntity(fieldOfKnowledge);
-        FieldOfKnowledgeEntity model = fieldOfKnowledgeRepository.save(entity);
-        fieldOfKnowledge = (FieldOfKnowledgeDTO) mapperService.toDto(model);
-        return fieldOfKnowledge;
+        ResponseStatusDTO<FieldOfKnowledgeDTO> result = new ResponseStatusDTO<>(StatusTypes.OK);
+        try {
+            entity = fieldOfKnowledgeRepository.save(entity);
+        } catch (Exception e) {
+            result.setStatus(StatusTypes.ERROR);
+            result.addErrors(e.getMessage());
+            return result;
+        }
+        result.setData((FieldOfKnowledgeDTO) mapperService.toDto(entity));
+        return result;
     }
 }

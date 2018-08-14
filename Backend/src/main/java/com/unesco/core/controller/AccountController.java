@@ -103,20 +103,28 @@ public class AccountController {
     public ResponseStatusDTO registration(UserDTO user) {
         userManager.Create(user, roleDataService.getAll());
         ResponseStatusDTO res = userManager.validate();
-        if(res.getStatus() != StatusTypes.OK) return res;
+        if(res.getStatus() == StatusTypes.ERROR) return res;
         try {
-            UserDTO userSaved = userDataService.save(userManager.get());
+            ResponseStatusDTO<UserDTO> saveUserStatus = userDataService.save(userManager.get());
+            if(saveUserStatus.getStatus() == StatusTypes.ERROR) return saveUserStatus;
+            UserDTO userSaved = saveUserStatus.getData();
 
             roleListManager.init(userSaved.getRoles());
 
             if (roleListManager.ContainRole(RoleType.PROFESSOR))
             {
-                professorManager.Create(userSaved);
+                professorManager.init(new ProfessorDTO());
+                professorManager.create(userSaved);
+                ResponseStatusDTO<ProfessorDTO> saveProfessorStatus = professorDataService.save(professorManager.get());
+                if (saveProfessorStatus.getStatus() == StatusTypes.ERROR) return saveProfessorStatus;
             }
 
             if (roleListManager.ContainRole(RoleType.STUDENT))
             {
-                studentManager.Create(userSaved);
+                studentManager.init(new StudentDTO());
+                studentManager.create(userSaved);
+                ResponseStatusDTO<StudentDTO> saveStudentStatus = studentDataService.save(studentManager.get());
+                if (saveStudentStatus.getStatus() == StatusTypes.ERROR) return saveStudentStatus;
             }
             res.setData(userSaved);
             res.addMessage("Пользователь добавлен");
@@ -189,9 +197,12 @@ public class AccountController {
         try {
             professorManager.init(professorDataService.getByUser(userId));
             departmentManager.init(departmentDataService.get(departmentId));
-            professorManager.SetDepartment(departmentManager.get());
+            professorManager.setDepartment(departmentManager.get());
             res.setStatus(StatusTypes.OK);
-            ProfessorDTO professor = professorDataService.save(professorManager.get());
+            ResponseStatusDTO<ProfessorDTO> saveProfessorStatus = professorDataService.save(professorManager.get());
+            if (saveProfessorStatus.getStatus() == StatusTypes.ERROR) return saveProfessorStatus;
+            ProfessorDTO professor = saveProfessorStatus.getData();
+
             res.setData(professor);
             res.addMessage("Кафедра для преподавателя установленна");
         }
@@ -211,12 +222,14 @@ public class AccountController {
     public ResponseStatusDTO setStudentGroup(long userId, long groupId) {
         studentManager.init(studentDataService.getByUser(userId));
         groupManager.init(groupDataService.get(groupId));
-        studentManager.SetGroup(groupManager.get());
+        studentManager.setGroup(groupManager.get());
         ResponseStatusDTO res = new ResponseStatusDTO();
         res.setStatus(StatusTypes.OK);
         try {
-            StudentDTO stident = studentDataService.save(studentManager.get());
-            res.setData(stident);
+            ResponseStatusDTO<StudentDTO> saveStudentStatus = studentDataService.save(studentManager.get());
+            if (saveStudentStatus.getStatus() == StatusTypes.ERROR) return saveStudentStatus;
+            StudentDTO student = saveStudentStatus.getData();
+            res.setData(student);
             res.addMessage("Группа для студента установленна");
             return res;
         }

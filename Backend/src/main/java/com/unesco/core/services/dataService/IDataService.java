@@ -1,5 +1,7 @@
 package com.unesco.core.services.dataService;
 
+import com.unesco.core.dto.additional.ResponseStatusDTO;
+
 import java.util.List;
 
 public interface IDataService<T> {
@@ -8,12 +10,13 @@ public interface IDataService<T> {
      * @param t сохраняемая сущность
      * @return
      */
-    T save(T t);
+    ResponseStatusDTO<T> save(T t);
+
     /**
      * Удаляет сущность из базы данных
      * @param id id удаляемой сущности
      */
-    void delete(long id);
+    ResponseStatusDTO<T> delete(long id);
 
     /**
      * Получает сущность из базы данных

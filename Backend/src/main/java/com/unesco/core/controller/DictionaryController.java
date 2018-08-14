@@ -10,6 +10,7 @@ import com.unesco.core.dto.enums.StatusTypes;
 import com.unesco.core.dto.journal.PointTypeDTO;
 import com.unesco.core.dto.plan.DepartmentDTO;
 import com.unesco.core.dto.shedule.*;
+import com.unesco.core.managers.IManager;
 import com.unesco.core.managers.account.roleManager.interfaces.role.IRoleManager;
 import com.unesco.core.managers.schedule.departmentManager.interfaces.department.IDepartmentManager;
 import com.unesco.core.managers.schedule.disciplineManager.interfaces.discipline.IDisciplineManager;
@@ -17,6 +18,7 @@ import com.unesco.core.managers.schedule.fieldofknowledgeManager.interfaces.fiel
 import com.unesco.core.managers.schedule.groupManager.interfaces.group.IGroupManager;
 import com.unesco.core.managers.schedule.instituteManager.interfaces.institute.IInstituteManager;
 import com.unesco.core.managers.schedule.roomManager.interfaces.room.IRoomManager;
+import com.unesco.core.services.dataService.IDataService;
 import com.unesco.core.services.dataService.account.professorService.IProfessorDataService;
 import com.unesco.core.services.dataService.account.roleService.IRoleDataService;
 import com.unesco.core.services.dataService.account.userService.IUserDataService;
@@ -91,262 +93,104 @@ public class DictionaryController {
       return roomDataService.getPage(filter);
    }
    public ResponseStatusDTO addRoom(RoomDTO room) {
-      roomManager.init(room);
-      ResponseStatusDTO response = roomManager.validate();
-      if(response.getStatus() != StatusTypes.OK) return response;
-      try {
-         roomDataService.save(roomManager.get());
-         response.addMessage("Кабинет сохранен.");
-      }
-      catch (Exception e) {
-         response.setStatus(StatusTypes.ERROR);
-         response.addMessage("Ошибка при сохранении кабинета.");
-         response.addMessage(e.getMessage());
-      }
-      return response;
+      return add(roomManager, roomDataService, room);
    }
    public ResponseStatusDTO deleteRoom(long id) {
-      roomManager.init(roomDataService.get(id));
-      ResponseStatusDTO response = new ResponseStatusDTO();
-      response.setStatus(StatusTypes.OK);
-      try {
-         roomDataService.delete(id);
-         response.addMessage("Кабинет удален.");
-      }
-      catch (Exception e) {
-         response.setStatus(StatusTypes.ERROR);
-         response.addMessage("Ошибка при удаленни кабинета.");
-         response.addMessage(e.getMessage());
-      }
-      return response;
+      return delete(roomManager, roomDataService, id);
    }
 
    public PageResultDTO<FieldOfKnowledgeDTO> getFieldOfKnowledgeList(FilterQueryDTO filter) {
       return fieldOfKnowledgeDataService.getPage(filter);
    }
-   
    public ResponseStatusDTO addFieldOfKnowledge(FieldOfKnowledgeDTO fieldOfKnowledge) {
-      fieldOfKnowledgeManager.init(fieldOfKnowledge);
-      ResponseStatusDTO response = fieldOfKnowledgeManager.validate();
-      if(response.getStatus() != StatusTypes.OK) return response;
-      try {
-         fieldOfKnowledgeDataService.save(fieldOfKnowledgeManager.get());
-         response.addMessage("Раздел знаний сохранен.");
-      }
-      catch (Exception e) {
-         response.setStatus(StatusTypes.ERROR);
-         response.addMessage("Ошибка при сохранении раздела знаний.");
-         response.addMessage(e.getMessage());
-      }
-      return response;
+      return add(fieldOfKnowledgeManager, fieldOfKnowledgeDataService, fieldOfKnowledge);
    }
-   
    public ResponseStatusDTO deleteFieldOfKnowledge(long id) {
-      fieldOfKnowledgeManager.init(fieldOfKnowledgeDataService.get(id));
-      ResponseStatusDTO response = new ResponseStatusDTO();
-      response.setStatus(StatusTypes.OK);
-      try {
-         fieldOfKnowledgeDataService.delete(id);
-         response.addMessage("Раздел знаний удален.");
-      }
-      catch (Exception e) {
-         response.setStatus(StatusTypes.ERROR);
-         response.addMessage("Ошибка при удалении раздела знаний.");
-         response.addMessage(e.getMessage());
-      }
-      return response;
+      return delete(fieldOfKnowledgeManager, fieldOfKnowledgeDataService, id);
    }
 
    public PageResultDTO<RoleDTO> getRoleList(FilterQueryDTO filter) {
       return roleDataService.getPage(filter);
    }
-   
    public ResponseStatusDTO addRole(RoleDTO role) {
-      roleManager.init(role);
-      ResponseStatusDTO response = roleManager.validate();
-      if(response.getStatus() != StatusTypes.OK) return response;
-      try {
-         roleDataService.save(roleManager.get());
-         response.addMessage("Роль сохранена.");
-      }
-      catch (Exception e) {
-         response.setStatus(StatusTypes.ERROR);
-         response.addMessage("Ошибка при сохранении роли.");
-         response.addMessage(e.getMessage());
-      }
-      return response;
+      return add(roleManager, roleDataService, role);
    }
-   
    public ResponseStatusDTO deleteRole(long id) {
-      roleManager.init(roleDataService.get(id));
-      ResponseStatusDTO response = new ResponseStatusDTO();
-      response.setStatus(StatusTypes.OK);
-      try {
-         roleDataService.delete(id);
-         response.addMessage("Роль удалена.");
-      }
-      catch (Exception e) {
-         response.setStatus(StatusTypes.ERROR);
-         response.addMessage("Ошибка при удалении роли.");
-         response.addMessage(e.getMessage());
-      }
-      return response;
+      return delete(roleManager, roleDataService, id);
    }
 
    public PageResultDTO<GroupDTO> getGroupList(FilterQueryDTO filter) {
       return groupDataService.getPage(filter);
    }
-   
    public ResponseStatusDTO addGroup(GroupDTO group) {
-      groupManager.init(group);
-      ResponseStatusDTO response = groupManager.validate();
-      if(response.getStatus() != StatusTypes.OK) return response;
-      try {
-         groupDataService.save(groupManager.get());
-         response.addMessage("Группа сохранена.");
-      }
-      catch (Exception e) {
-         response.setStatus(StatusTypes.ERROR);
-         response.addMessage("Ошибка при сохранении группы.");
-         response.addMessage(e.getMessage());
-      }
-      return response;
+      return add(groupManager, groupDataService, group);
    }
-   
    public ResponseStatusDTO deleteGroup(long id) {
-      groupManager.init(groupDataService.get(id));
-      ResponseStatusDTO response = new ResponseStatusDTO();
-      response.setStatus(StatusTypes.OK);
-      try {
-         groupDataService.delete(id);
-         response.addMessage("Группа удалена.");
-      }
-      catch (Exception e) {
-         response.setStatus(StatusTypes.ERROR);
-         response.addMessage("Ошибка при удалении группы.");
-         response.addMessage(e.getMessage());
-      }
-      return response;
+      return delete(groupManager, groupDataService, id);
    }
 
    public PageResultDTO<DepartmentDTO> getDepartmentList(FilterQueryDTO filter) {
       return departmentDataService.getPage(filter);
    }
-   
    public ResponseStatusDTO addDepartment(DepartmentDTO department) {
-      departmentManager.init(department);
-      ResponseStatusDTO response = departmentManager.validate();
-      if(response.getStatus() != StatusTypes.OK) return response;
-      try {
-         departmentDataService.save(departmentManager.get());
-         response.addMessage("Кафедра сохранена.");
-      }
-      catch (Exception e) {
-         response.setStatus(StatusTypes.ERROR);
-         response.addMessage("Ошибка при сохранении кафедры.");
-         response.addMessage(e.getMessage());
-      }
-      return response;
+      return add(departmentManager, departmentDataService, department);
    }
-   
    public ResponseStatusDTO deleteDepartment(long id) {
-      departmentManager.init(departmentDataService.get(id));
-      ResponseStatusDTO response = new ResponseStatusDTO();
-      response.setStatus(StatusTypes.OK);
-      try {
-         departmentDataService.delete(id);
-         response.addMessage("Кафедра удалена.");
-      }
-      catch (Exception e) {
-         response.setStatus(StatusTypes.ERROR);
-         response.addMessage("Ошибка при удалении кафедры.");
-         response.addMessage(e.getMessage());
-      }
-      return response;
+      return delete(departmentManager, departmentDataService, id);
    }
 
    public PageResultDTO<InstituteDTO> getInstituteList(FilterQueryDTO filter) {
       return instituteDataService.getPage(filter);
    }
-
    public ResponseStatusDTO addInstitute(InstituteDTO institute) {
-      instituteManager.init(institute);
-      ResponseStatusDTO response = instituteManager.validate();
-      if(response.getStatus() != StatusTypes.OK) return response;
-      try {
-         instituteDataService.save(instituteManager.get());
-         response.addMessage("Институт сохранен.");
-      }
-      catch (Exception e) {
-         response.setStatus(StatusTypes.ERROR);
-         response.addMessage("Ошибка при сохранении института.");
-         response.addMessage(e.getMessage());
-      }
-      return response;
+      return add(instituteManager, instituteDataService, institute);
    }
-
    public ResponseStatusDTO deleteInstitute(long id) {
-      instituteManager.init(instituteDataService.get(id));
-      ResponseStatusDTO response = new ResponseStatusDTO();
-      response.setStatus(StatusTypes.OK);
-      try {
-         instituteDataService.delete(id);
-         response.addMessage("Институт удален.");
-      }
-      catch (Exception e) {
-         response.setStatus(StatusTypes.ERROR);
-         response.addMessage("Ошибка при удалении института .");
-         response.addMessage(e.getMessage());
-      }
-      return response;
+      return delete(instituteManager, instituteDataService, id);
    }
 
    public PageResultDTO<DisciplineDTO> getDisciplineList(FilterQueryDTO filter) {
       return disciplineDataService.getPage(filter);
    }
-   
    public ResponseStatusDTO addDiscipline(DisciplineDTO discipline) {
-      disciplineManager.init(discipline);
-      ResponseStatusDTO response = disciplineManager.validate();
-      if(response.getStatus() != StatusTypes.OK) return response;
-      try {
-         disciplineDataService.save(disciplineManager.get());
-         response.addMessage("Дисциплна сохранена.");
-      }
-      catch (Exception e) {
-         response.setStatus(StatusTypes.ERROR);
-         response.addMessage("Ошибка при сохранении дисциплны.");
-         response.addMessage(e.getMessage());
-      }
-      return response;
+      return add(disciplineManager, disciplineDataService, discipline);
    }
-   
    public ResponseStatusDTO deleteDiscipline(long id) {
-      disciplineManager.init(disciplineDataService.get(id));
-      ResponseStatusDTO response = new ResponseStatusDTO();
-      response.setStatus(StatusTypes.OK);
-      try {
-         disciplineDataService.delete(id);
-         response.addMessage("Дисциплна удалена.");
-      }
-      catch (Exception e) {
-         response.setStatus(StatusTypes.ERROR);
-         response.addMessage("Ошибка при удалении дисциплины.");
-         response.addMessage(e.getMessage());
-      }
-      return response;
+      return delete(disciplineManager, disciplineDataService, id);
    }
+
 
    public PageResultDTO<PointTypeDTO> getPointTypeList(FilterQueryDTO filter) {
       List<PointTypeDTO> pointTypeModels = pointTypeDataService.getAll();
       PageResultDTO<PointTypeDTO> result = new PageResultDTO(pointTypeModels, pointTypeModels.size());
       return result;
    }
-
    public PageResultDTO<PairTypeDTO> getPairTypeList(FilterQueryDTO filter) {
       List<PairTypeDTO> pairTypeModels = pairTypeDataService.getPage(filter);
       PageResultDTO<PairTypeDTO> result = new PageResultDTO(pairTypeModels, pairTypeModels.size());
       return result;
+   }
+
+   private <T> ResponseStatusDTO add(IManager<T> manager, IDataService<T> dataService, T model) {
+      manager.init(model);
+      ResponseStatusDTO response = manager.validate();
+      if(response.getStatus() != StatusTypes.OK) return response;
+      response = dataService.save(manager.get());
+      if(response.getStatus() != StatusTypes.OK) return response;
+      response.setStatus(StatusTypes.OK);
+      response.addMessage("Успешно сохранено.");
+      return response;
+   }
+
+   private <T> ResponseStatusDTO delete(IManager<T> manager, IDataService<T> dataService, long id) {
+      manager.init(dataService.get(id));
+      ResponseStatusDTO response = new ResponseStatusDTO();
+      response.setStatus(StatusTypes.OK);
+      response = dataService.delete(id);
+      if(response.getStatus() != StatusTypes.OK) return response;
+      response.setStatus(StatusTypes.OK);
+      response.addMessage("Успешно удалено.");
+      return response;
    }
 
 }

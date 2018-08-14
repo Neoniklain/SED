@@ -1,11 +1,14 @@
 package com.unesco.core.services.dataService.plan.semesterService;
 
-import com.unesco.core.entities.plan.SemesterEntity;
-import com.unesco.core.dto.plan.SemesterDTO;
 import com.unesco.core.dto.additional.FilterQueryDTO;
+import com.unesco.core.dto.additional.ResponseStatusDTO;
+import com.unesco.core.dto.enums.StatusTypes;
+import com.unesco.core.dto.plan.SemesterDTO;
+import com.unesco.core.entities.plan.SemesterEntity;
 import com.unesco.core.repositories.plan.SemesterRepository;
 import com.unesco.core.services.dataService.mapperService.IMapperService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
@@ -49,16 +52,33 @@ public class SemesterDataService implements ISemesterDataService {
         return model;
     }
 
-    public void delete(long id)
+    public ResponseStatusDTO<SemesterDTO> delete(long id)
     {
-        semesterRepository.delete(id);
+        ResponseStatusDTO<SemesterDTO> result = new ResponseStatusDTO<>(StatusTypes.OK);
+        try {
+            semesterRepository.delete(id);
+        } catch (Exception e) {
+            result.setStatus(StatusTypes.ERROR);
+            if(e instanceof DataIntegrityViolationException)
+                result.addErrors("Удаление не удалось. У объекта есть зависимости.");
+            result.addErrors("Удаление не удалось");
+            return result;
+        }
+        return result;
     }
 
-    public SemesterDTO save(SemesterDTO semester)
+    public ResponseStatusDTO<SemesterDTO> save(SemesterDTO semester)
     {
         SemesterEntity entity = (SemesterEntity) mapperService.toEntity(semester);
-        SemesterEntity model = semesterRepository.save(entity);
-        semester = (SemesterDTO) mapperService.toDto(model);
-        return semester;
+        ResponseStatusDTO<SemesterDTO> result = new ResponseStatusDTO<>(StatusTypes.OK);
+        try {
+            entity = semesterRepository.save(entity);
+        } catch (Exception e) {
+            result.setStatus(StatusTypes.ERROR);
+            result.addErrors(e.getMessage());
+            return result;
+        }
+        result.setData((SemesterDTO) mapperService.toDto(entity));
+        return result;
     }
 }

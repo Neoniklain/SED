@@ -26,24 +26,23 @@ public class FileController {
     private ITaskService _taskService;
 
     public ResponseStatusDTO addFileForTD(long id, MultipartFile file) {
-        try
+
+        FileDescriptionModel FD = new FileDescriptionModel();
+        FileByteCodeModel FBC = new FileByteCodeModel();
+        TaskDescriptionModel item =  _taskService.getTaskDescriptionById(id);
+
+        FD.setFileName(file.getOriginalFilename());
+        FD.setFileType(file.getContentType());
+        ResponseStatusDTO<FileDescriptionModel> saveFD = _fileDescriptionService.save(FD);
+        if(saveFD.getStatus() == StatusTypes.ERROR)
         {
-            FileDescriptionModel FD = new FileDescriptionModel();
-            FileByteCodeModel FBC = new FileByteCodeModel();
-            TaskDescriptionModel item =  _taskService.getTaskDescriptionById(id);
+            saveFD.addErrors("Ошибка добавления файла");
+            return saveFD;
+        }
+        FD = saveFD.getData();
 
-            FD.setFileName(file.getOriginalFilename());
-            FD.setFileType(file.getContentType());
-            FD = _fileDescriptionService.save(FD);
-
+        try {
             FBC.setData(file.getBytes());
-            FBC.setFileDescription(FD);
-            FBC = _fileByteCodeService.save(FBC);
-
-            List<FileDescriptionModel> files = item.getFiles();
-            files.add(FD);
-            item.setFiles(files);
-            _taskService.updateTaskDescription(item);
         }
         catch (IOException e)
         {
@@ -51,30 +50,43 @@ public class FileController {
             ResponseStatusDTO result = new ResponseStatusDTO(StatusTypes.ERROR);
             result.addErrors("Ошибка добавления файла");
         }
+
+        FBC.setFileDescription(FD);
+        ResponseStatusDTO<FileByteCodeModel> saveFBC = _fileByteCodeService.save(FBC);
+        if(saveFBC.getStatus() == StatusTypes.ERROR)
+        {
+            saveFBC.addErrors("Ошибка добавления файла");
+            return saveFBC;
+        }
+
+        List<FileDescriptionModel> files = item.getFiles();
+        files.add(FD);
+        item.setFiles(files);
+        _taskService.updateTaskDescription(item);
+
         ResponseStatusDTO result = new ResponseStatusDTO(StatusTypes.OK);
         result.addMessage("Файл добавлен");
         return result;
     }
 
     public ResponseStatusDTO addFileForTU(long id, MultipartFile file) {
-        try
+
+        FileDescriptionModel FD = new FileDescriptionModel();
+        FileByteCodeModel FBC = new FileByteCodeModel();
+        TaskUserModel item =  _taskService.getTaskUserById(id);
+
+        FD.setFileName(file.getOriginalFilename());
+        FD.setFileType(file.getContentType());
+        ResponseStatusDTO<FileDescriptionModel> saveFD = _fileDescriptionService.save(FD);
+        if(saveFD.getStatus() == StatusTypes.ERROR)
         {
-            FileDescriptionModel FD = new FileDescriptionModel();
-            FileByteCodeModel FBC = new FileByteCodeModel();
-            TaskUserModel item =  _taskService.getTaskUserById(id);
+            saveFD.addErrors("Ошибка добавления файла");
+            return saveFD;
+        }
+        FD = saveFD.getData();
 
-            FD.setFileName(file.getOriginalFilename());
-            FD.setFileType(file.getContentType());
-            FD = _fileDescriptionService.save(FD);
-
+        try {
             FBC.setData(file.getBytes());
-            FBC.setFileDescription(FD);
-            FBC = _fileByteCodeService.save(FBC);
-
-            List<FileDescriptionModel> files = item.getFiles();
-            files.add(FD);
-            item.setFiles(files);
-            _taskService.updateTaskUser(item);
         }
         catch (IOException e)
         {
@@ -82,6 +94,20 @@ public class FileController {
             ResponseStatusDTO result = new ResponseStatusDTO(StatusTypes.ERROR);
             result.addErrors("Ошибка добавления файла");
         }
+
+        FBC.setFileDescription(FD);
+        ResponseStatusDTO<FileByteCodeModel> saveFBC = _fileByteCodeService.save(FBC);
+        if(saveFBC.getStatus() == StatusTypes.ERROR)
+        {
+            saveFBC.addErrors("Ошибка добавления файла");
+            return saveFBC;
+        }
+
+        List<FileDescriptionModel> files = item.getFiles();
+        files.add(FD);
+        item.setFiles(files);
+        _taskService.updateTaskUser(item);
+
         ResponseStatusDTO result = new ResponseStatusDTO(StatusTypes.OK);
         result.addMessage("Файл добавлен");
         return result;

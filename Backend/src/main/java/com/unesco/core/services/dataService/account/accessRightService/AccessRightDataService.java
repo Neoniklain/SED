@@ -2,11 +2,14 @@ package com.unesco.core.services.dataService.account.accessRightService;
 
 import com.unesco.core.dto.AccessRightDTO;
 import com.unesco.core.dto.additional.FilterQueryDTO;
+import com.unesco.core.dto.additional.ResponseStatusDTO;
 import com.unesco.core.dto.enums.AccessRightType;
+import com.unesco.core.dto.enums.StatusTypes;
 import com.unesco.core.entities.account.AccessRightEntity;
 import com.unesco.core.repositories.account.AccessRightRepository;
 import com.unesco.core.services.dataService.mapperService.IMapperService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
@@ -56,17 +59,35 @@ public class AccessRightDataService implements IAccessRightDataService {
         return model;
     }
 
-    public void delete(long id)
+    public ResponseStatusDTO<AccessRightDTO> delete(long id)
     {
-        accessRightRepository.delete(id);
+        ResponseStatusDTO<AccessRightDTO> result = new ResponseStatusDTO<>(StatusTypes.OK);
+        try {
+            accessRightRepository.delete(id);
+        } catch (Exception e) {
+            result.setStatus(StatusTypes.ERROR);
+            if(e instanceof DataIntegrityViolationException)
+                result.addErrors("Удаление не удалось. У объекта есть зависимости.");
+            result.addErrors("Удаление не удалось");
+            return result;
+        }
+        return result;
     }
 
-    public AccessRightDTO save(AccessRightDTO accessRight)
+    public ResponseStatusDTO<AccessRightDTO> save(AccessRightDTO accessRight)
     {
         AccessRightEntity entity = (AccessRightEntity) mapperService.toEntity(accessRight);
-        AccessRightEntity model = accessRightRepository.save(entity);
-        accessRight = (AccessRightDTO) mapperService.toDto(model);
-        return accessRight;
+        ResponseStatusDTO<AccessRightDTO> result = new ResponseStatusDTO<>(StatusTypes.OK);
+        AccessRightEntity model;
+        try {
+            model = accessRightRepository.save(entity);
+        } catch (Exception e) {
+            result.setStatus(StatusTypes.ERROR);
+            result.addErrors(e.getMessage());
+            return result;
+        }
+        result.setData((AccessRightDTO) mapperService.toDto(model));
+        return result;
     }
 
 }

@@ -1,12 +1,15 @@
 package com.unesco.core.services.dataService.schedule.instituteService;
 
-import com.unesco.core.dto.additional.PageResultDTO;
-import com.unesco.core.entities.schedule.InstituteEntity;
 import com.unesco.core.dto.additional.FilterQueryDTO;
+import com.unesco.core.dto.additional.PageResultDTO;
+import com.unesco.core.dto.additional.ResponseStatusDTO;
+import com.unesco.core.dto.enums.StatusTypes;
 import com.unesco.core.dto.shedule.InstituteDTO;
+import com.unesco.core.entities.schedule.InstituteEntity;
 import com.unesco.core.repositories.plan.InstituteRepository;
 import com.unesco.core.services.dataService.mapperService.IMapperService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
@@ -57,16 +60,33 @@ public class InstituteDataService implements IInstituteDataService {
         return model;
     }
 
-    public void delete(long id)
+    public ResponseStatusDTO<InstituteDTO> delete(long id)
     {
-        instituteRepository.delete(id);
+        ResponseStatusDTO<InstituteDTO> result = new ResponseStatusDTO<>(StatusTypes.OK);
+        try {
+            instituteRepository.delete(id);
+        } catch (Exception e) {
+            result.setStatus(StatusTypes.ERROR);
+            if(e instanceof DataIntegrityViolationException)
+                result.addErrors("Удаление не удалось. У объекта есть зависимости.");
+            result.addErrors("Удаление не удалось");
+            return result;
+        }
+        return result;
     }
 
-    public InstituteDTO save(InstituteDTO institute)
+    public ResponseStatusDTO<InstituteDTO> save(InstituteDTO institute)
     {
         InstituteEntity entity = (InstituteEntity) mapperService.toEntity(institute);
-        InstituteEntity model = instituteRepository.save(entity);
-        institute = (InstituteDTO) mapperService.toDto(model);
-        return institute;
+        ResponseStatusDTO<InstituteDTO> result = new ResponseStatusDTO<>(StatusTypes.OK);
+        try {
+            entity = instituteRepository.save(entity);
+        } catch (Exception e) {
+            result.setStatus(StatusTypes.ERROR);
+            result.addErrors(e.getMessage());
+            return result;
+        }
+        result.setData((InstituteDTO) mapperService.toDto(entity));
+        return result;
     }
 }

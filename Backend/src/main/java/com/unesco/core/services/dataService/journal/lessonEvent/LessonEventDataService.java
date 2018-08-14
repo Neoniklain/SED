@@ -1,11 +1,13 @@
 package com.unesco.core.services.dataService.journal.lessonEvent;
 
-import com.unesco.core.entities.journal.LessonEventEntity;
+import com.unesco.core.dto.additional.ResponseStatusDTO;
+import com.unesco.core.dto.enums.StatusTypes;
 import com.unesco.core.dto.journal.LessonEventDTO;
-import com.unesco.core.repositories.account.ProfessorRepository;
+import com.unesco.core.entities.journal.LessonEventEntity;
 import com.unesco.core.repositories.journal.LessonEventRepository;
 import com.unesco.core.services.dataService.mapperService.IMapperService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -49,16 +51,33 @@ public class LessonEventDataService implements ILessonEventDataService {
         return modelList;
     }
 
-    public void delete(long id)
+    public ResponseStatusDTO<LessonEventDTO> delete(long id)
     {
-        lessonEventRepository.delete(id);
+        ResponseStatusDTO<LessonEventDTO> result = new ResponseStatusDTO<>(StatusTypes.OK);
+        try {
+            lessonEventRepository.delete(id);
+        } catch (Exception e) {
+            result.setStatus(StatusTypes.ERROR);
+            if(e instanceof DataIntegrityViolationException)
+                result.addErrors("Удаление не удалось. У объекта есть зависимости.");
+            result.addErrors("Удаление не удалось");
+            return result;
+        }
+        return result;
     }
 
-    public LessonEventDTO save(LessonEventDTO lessonEvent)
+    public ResponseStatusDTO<LessonEventDTO> save(LessonEventDTO lessonEvent)
     {
         LessonEventEntity entity = (LessonEventEntity) mapperService.toEntity(lessonEvent);
-        entity = lessonEventRepository.save(entity);
-        lessonEvent = (LessonEventDTO) mapperService.toDto(entity);
-        return lessonEvent;
+        ResponseStatusDTO<LessonEventDTO> result = new ResponseStatusDTO<>(StatusTypes.OK);
+        try {
+            entity = lessonEventRepository.save(entity);
+        } catch (Exception e) {
+            result.setStatus(StatusTypes.ERROR);
+            result.addErrors(e.getMessage());
+            return result;
+        }
+        result.setData((LessonEventDTO) mapperService.toDto(entity));
+        return result;
     }
 }

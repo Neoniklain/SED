@@ -1,5 +1,7 @@
 package com.unesco.core.managers.plan.planManager;
 
+import com.unesco.core.dto.additional.ResponseStatusDTO;
+import com.unesco.core.dto.enums.StatusTypes;
 import com.unesco.core.managers.plan.planManager.interfaces.plan.IPlanManager;
 import com.unesco.core.dto.plan.PlanDTO;
 import org.springframework.context.annotation.Scope;
@@ -23,4 +25,9 @@ public class PlanManager implements IPlanManager {
         return plan;
     }
 
+    @Override
+    public ResponseStatusDTO validate() {
+        ResponseStatusDTO result = new ResponseStatusDTO(StatusTypes.OK);
+        return result;
+    }
 }

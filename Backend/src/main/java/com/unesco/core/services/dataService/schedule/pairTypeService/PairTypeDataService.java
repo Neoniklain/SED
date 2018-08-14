@@ -1,11 +1,14 @@
 package com.unesco.core.services.dataService.schedule.pairTypeService;
 
 import com.unesco.core.dto.additional.FilterQueryDTO;
+import com.unesco.core.dto.additional.ResponseStatusDTO;
+import com.unesco.core.dto.enums.StatusTypes;
 import com.unesco.core.dto.shedule.PairTypeDTO;
 import com.unesco.core.entities.schedule.PairTypeEntity;
 import com.unesco.core.repositories.PairTypeRepository;
 import com.unesco.core.services.dataService.mapperService.IMapperService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
@@ -56,17 +59,34 @@ public class PairTypeDataService implements IPairTypeDataService {
         return model;
     }
 
-    public void delete(long id)
+    public ResponseStatusDTO<PairTypeDTO> delete(long id)
     {
-        pairTypeRepository.delete(id);
+        ResponseStatusDTO<PairTypeDTO> result = new ResponseStatusDTO<>(StatusTypes.OK);
+        try {
+            pairTypeRepository.delete(id);
+        } catch (Exception e) {
+            result.setStatus(StatusTypes.ERROR);
+            if(e instanceof DataIntegrityViolationException)
+                result.addErrors("Удаление не удалось. У объекта есть зависимости.");
+            result.addErrors("Удаление не удалось");
+            return result;
+        }
+        return result;
     }
 
-    public PairTypeDTO save(PairTypeDTO pairType)
+    public ResponseStatusDTO<PairTypeDTO> save(PairTypeDTO pairType)
     {
         PairTypeEntity entity = (PairTypeEntity) mapperService.toEntity(pairType);
-        PairTypeEntity model = pairTypeRepository.save(entity);
-        pairType = (PairTypeDTO) mapperService.toDto(model);
-        return pairType;
+        ResponseStatusDTO<PairTypeDTO> result = new ResponseStatusDTO<>(StatusTypes.OK);
+        try {
+            entity = pairTypeRepository.save(entity);
+        } catch (Exception e) {
+            result.setStatus(StatusTypes.ERROR);
+            result.addErrors(e.getMessage());
+            return result;
+        }
+        result.setData((PairTypeDTO) mapperService.toDto(entity));
+        return result;
     }
 
 }

@@ -7,6 +7,6 @@ import com.unesco.core.dto.shedule.GroupDTO;
 
 public interface IStudentManager extends IManager<StudentDTO> {
 
-    void SetGroup(GroupDTO group);
-    void Create(UserDTO user);
+    void setGroup(GroupDTO group);
+    void create(UserDTO user);
 }

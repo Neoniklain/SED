@@ -5,6 +5,7 @@ import {MessageService} from "primeng/components/common/messageservice";
 import {AuthenticationService} from "../../services/authService";
 import {NgForm} from "@angular/forms";
 import {Globals} from "../../globals";
+import {StatusType} from "../../models/statusType.model";
 
 @Component({
    selector: 'login-page',
@@ -46,7 +47,15 @@ export class LogInComponent {
                  this.authenticationService.getUser().subscribe(
                      res => {
                          this.globals.user = res.data;
-                     });
+                    }
+                 );
+                 this.authenticationService.getUserAccessRight().subscribe(
+                     res => {
+                         if (res.status === StatusType.OK.toString()) {
+                             this.globals.accessRight = res.data;
+                         }
+                     }
+                 );
              }
           },
           err => {

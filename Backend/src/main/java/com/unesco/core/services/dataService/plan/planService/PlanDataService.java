@@ -1,11 +1,14 @@
 package com.unesco.core.services.dataService.plan.planService;
 
-import com.unesco.core.entities.plan.PlanEntity;
-import com.unesco.core.dto.plan.PlanDTO;
 import com.unesco.core.dto.additional.FilterQueryDTO;
+import com.unesco.core.dto.additional.ResponseStatusDTO;
+import com.unesco.core.dto.enums.StatusTypes;
+import com.unesco.core.dto.plan.PlanDTO;
+import com.unesco.core.entities.plan.PlanEntity;
 import com.unesco.core.repositories.plan.PlanRepository;
 import com.unesco.core.services.dataService.mapperService.IMapperService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
@@ -49,16 +52,33 @@ public class PlanDataService implements IPlanDataService {
         return model;
     }
 
-    public void delete(long id)
+    public ResponseStatusDTO<PlanDTO> delete(long id)
     {
-        planRepository.delete(id);
+        ResponseStatusDTO<PlanDTO> result = new ResponseStatusDTO<>(StatusTypes.OK);
+        try {
+            planRepository.delete(id);
+        } catch (Exception e) {
+            result.setStatus(StatusTypes.ERROR);
+            if(e instanceof DataIntegrityViolationException)
+                result.addErrors("Удаление не удалось. У объекта есть зависимости.");
+            result.addErrors("Удаление не удалось");
+            return result;
+        }
+        return result;
     }
 
-    public PlanDTO save(PlanDTO plan)
+    public ResponseStatusDTO<PlanDTO> save(PlanDTO plan)
     {
         PlanEntity entity = (PlanEntity) mapperService.toEntity(plan);
-        PlanEntity model = planRepository.save(entity);
-        plan = (PlanDTO) mapperService.toDto(model);
-        return plan;
+        ResponseStatusDTO<PlanDTO> result = new ResponseStatusDTO<>(StatusTypes.OK);
+        try {
+            entity = planRepository.save(entity);
+        } catch (Exception e) {
+            result.setStatus(StatusTypes.ERROR);
+            result.addErrors(e.getMessage());
+            return result;
+        }
+        result.setData((PlanDTO) mapperService.toDto(entity));
+        return result;
     }
 }

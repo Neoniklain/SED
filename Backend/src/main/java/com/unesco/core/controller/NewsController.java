@@ -2,15 +2,15 @@ package com.unesco.core.controller;
 
 import com.unesco.core.dto.account.UserDTO;
 import com.unesco.core.dto.additional.ResponseStatusDTO;
-import com.unesco.core.dto.enums.AccessRightType;
+import com.unesco.core.dto.enums.StatusTypes;
 import com.unesco.core.dto.news.NewsDTO;
 import com.unesco.core.managers.news.newsManager.interfaces.news.INewsManager;
 import com.unesco.core.managers.news.newsManager.interfaces.newsList.INewsListManager;
-import com.unesco.core.services.dataService.newsService.INewsDataService;
 import com.unesco.core.services.accessControlService.IAccessСontrolService;
-import com.unesco.core.dto.enums.StatusTypes;
+import com.unesco.core.services.dataService.newsService.INewsDataService;
 import com.unesco.core.services.userService.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
@@ -53,7 +53,11 @@ public class NewsController {
             return new ResponseStatusDTO(StatusTypes.OK);
         }
         catch (Exception e) {
-            return new ResponseStatusDTO(StatusTypes.ERROR, e.getMessage());
+            ResponseStatusDTO result = new ResponseStatusDTO(StatusTypes.ERROR);
+            if(e instanceof DataIntegrityViolationException)
+                result.addErrors("Удаление не удалось. У объекта есть зависимости.");
+            result.addErrors("Удаление не удалось");
+            return result;
         }
     }
 

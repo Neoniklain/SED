@@ -1,14 +1,17 @@
 package com.unesco.core.services.dataService.account.studentService;
 
-import com.unesco.core.dto.additional.PageResultDTO;
-import com.unesco.core.entities.account.StudentEntity;
-import com.unesco.core.entities.account.UserEntity;
 import com.unesco.core.dto.account.StudentDTO;
 import com.unesco.core.dto.additional.FilterQueryDTO;
+import com.unesco.core.dto.additional.PageResultDTO;
+import com.unesco.core.dto.additional.ResponseStatusDTO;
+import com.unesco.core.dto.enums.StatusTypes;
+import com.unesco.core.entities.account.StudentEntity;
+import com.unesco.core.entities.account.UserEntity;
 import com.unesco.core.repositories.account.StudentRepository;
 import com.unesco.core.services.dataService.account.userService.IUserDataService;
 import com.unesco.core.services.dataService.mapperService.IMapperService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
@@ -53,9 +56,19 @@ public class StudentDataService implements IStudentDataService {
         return model;
     }
 
-    public void delete(long id)
+    public ResponseStatusDTO<StudentDTO> delete(long id)
     {
-        studentRepository.delete(id);
+        ResponseStatusDTO<StudentDTO> result = new ResponseStatusDTO<>(StatusTypes.OK);
+        try {
+            studentRepository.delete(id);
+        } catch (Exception e) {
+            result.setStatus(StatusTypes.ERROR);
+            if(e instanceof DataIntegrityViolationException)
+                result.addErrors("Удаление не удалось. У объекта есть зависимости.");
+            result.addErrors("Удаление не удалось");
+            return result;
+        }
+        return result;
     }
 
     public List<StudentDTO> getByGroup(long groupId) {
@@ -67,14 +80,22 @@ public class StudentDataService implements IStudentDataService {
         }
         return modelList;
     }
-    public StudentDTO save(StudentDTO student)
+    public ResponseStatusDTO<StudentDTO> save(StudentDTO student)
     {
         StudentEntity entity = (StudentEntity) mapperService.toEntity(student);
         UserEntity userEntity = (UserEntity) mapperService.toEntity(userDataService.getByUsername(entity.getUser().getUsername()));
         entity.setUser(userEntity);
-        StudentEntity model = studentRepository.save(entity);
-        student = (StudentDTO) mapperService.toDto(model);
-        return student;
+        ResponseStatusDTO<StudentDTO> result = new ResponseStatusDTO<>(StatusTypes.OK);
+        StudentEntity model;
+        try {
+            model = studentRepository.save(entity);
+        } catch (Exception e) {
+            result.setStatus(StatusTypes.ERROR);
+            result.addErrors(e.getMessage());
+            return result;
+        }
+        result.setData((StudentDTO) mapperService.toDto(model));
+        return result;
     }
 
     public StudentDTO getByUser(long userId) {

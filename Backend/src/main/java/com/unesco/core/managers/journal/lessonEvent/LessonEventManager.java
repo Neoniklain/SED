@@ -41,6 +41,10 @@ public class LessonEventManager implements ILessonEventManager {
             responseStatusDTO.setStatus(StatusTypes.ERROR);
             responseStatusDTO.addErrors("Не указан урок");
         }
+        if (lessonEvent.getMaxValue() < 0) {
+            responseStatusDTO.setStatus(StatusTypes.ERROR);
+            responseStatusDTO.addErrors("Не dверное значение балла.");
+        }
         return responseStatusDTO;
     }
 }

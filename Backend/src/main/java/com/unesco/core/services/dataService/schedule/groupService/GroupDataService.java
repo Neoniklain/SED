@@ -1,12 +1,15 @@
 package com.unesco.core.services.dataService.schedule.groupService;
 
-import com.unesco.core.dto.additional.PageResultDTO;
-import com.unesco.core.entities.schedule.GroupEntity;
 import com.unesco.core.dto.additional.FilterQueryDTO;
+import com.unesco.core.dto.additional.PageResultDTO;
+import com.unesco.core.dto.additional.ResponseStatusDTO;
+import com.unesco.core.dto.enums.StatusTypes;
 import com.unesco.core.dto.shedule.GroupDTO;
+import com.unesco.core.entities.schedule.GroupEntity;
 import com.unesco.core.repositories.plan.GroupRepository;
 import com.unesco.core.services.dataService.mapperService.IMapperService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
@@ -57,16 +60,33 @@ public class GroupDataService implements IGroupDataService {
         return model;
     }
 
-    public void delete(long id)
+    public ResponseStatusDTO<GroupDTO> delete(long id)
     {
-        groupRepository.delete(id);
+        ResponseStatusDTO<GroupDTO> result = new ResponseStatusDTO<>(StatusTypes.OK);
+        try {
+            groupRepository.delete(id);
+        } catch (Exception e) {
+            result.setStatus(StatusTypes.ERROR);
+            if(e instanceof DataIntegrityViolationException)
+                result.addErrors("Удаление не удалось. У объекта есть зависимости.");
+            result.addErrors("Удаление не удалось");
+            return result;
+        }
+        return result;
     }
 
-    public GroupDTO save(GroupDTO group)
+    public ResponseStatusDTO<GroupDTO> save(GroupDTO group)
     {
         GroupEntity entity = (GroupEntity) mapperService.toEntity(group);
-        GroupEntity model = groupRepository.save(entity);
-        group = (GroupDTO) mapperService.toDto(model);
-        return group;
+        ResponseStatusDTO<GroupDTO> result = new ResponseStatusDTO<>(StatusTypes.OK);
+        try {
+            entity = groupRepository.save(entity);
+        } catch (Exception e) {
+            result.setStatus(StatusTypes.ERROR);
+            result.addErrors(e.getMessage());
+            return result;
+        }
+        result.setData((GroupDTO) mapperService.toDto(entity));
+        return result;
     }
 }

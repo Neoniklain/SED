@@ -1,10 +1,13 @@
 package com.unesco.core.services.dataService.journal.point;
 
-import com.unesco.core.entities.journal.PointEntity;
+import com.unesco.core.dto.additional.ResponseStatusDTO;
+import com.unesco.core.dto.enums.StatusTypes;
 import com.unesco.core.dto.journal.PointDTO;
+import com.unesco.core.entities.journal.PointEntity;
 import com.unesco.core.repositories.journal.PointRepository;
 import com.unesco.core.services.dataService.mapperService.IMapperService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -66,17 +69,34 @@ public class PointDataService implements IPointDataService {
         return model;
     }
 
-    public void delete(long id)
+    public ResponseStatusDTO<PointDTO> delete(long id)
     {
-        pointRepository.delete(id);
+        ResponseStatusDTO<PointDTO> result = new ResponseStatusDTO<>(StatusTypes.OK);
+        try {
+            pointRepository.delete(id);
+        } catch (Exception e) {
+            result.setStatus(StatusTypes.ERROR);
+            if(e instanceof DataIntegrityViolationException)
+                result.addErrors("Удаление не удалось. У объекта есть зависимости.");
+            result.addErrors("Удаление не удалось");
+            return result;
+        }
+        return result;
     }
 
-    public PointDTO save(PointDTO point)
+    public ResponseStatusDTO<PointDTO> save(PointDTO point)
     {
         PointEntity entity = (PointEntity) mapperService.toEntity(point);
-        entity = pointRepository.save(entity);
-        point = (PointDTO) mapperService.toDto(entity);
-        return point;
+        ResponseStatusDTO<PointDTO> result = new ResponseStatusDTO<>(StatusTypes.OK);
+        try {
+            entity = pointRepository.save(entity);
+        } catch (Exception e) {
+            result.setStatus(StatusTypes.ERROR);
+            result.addErrors(e.getMessage());
+            return result;
+        }
+        result.setData((PointDTO) mapperService.toDto(entity));
+        return result;
     }
 
 }

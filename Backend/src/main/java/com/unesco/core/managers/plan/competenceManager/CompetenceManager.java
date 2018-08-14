@@ -1,6 +1,8 @@
 package com.unesco.core.managers.plan.competenceManager;
 
 
+import com.unesco.core.dto.additional.ResponseStatusDTO;
+import com.unesco.core.dto.enums.StatusTypes;
 import com.unesco.core.entities.plan.CompetenceEntity;
 import com.unesco.core.managers.plan.competenceManager.interfaces.competence.ICompetenceManager;
 import com.unesco.core.services.dataService.plan.competenceService.ICompetenceDataService;
@@ -23,5 +25,11 @@ public class CompetenceManager implements ICompetenceManager {
 
     public CompetenceEntity get() {
         return competenceEntity;
+    }
+
+    @Override
+    public ResponseStatusDTO validate() {
+        ResponseStatusDTO result = new ResponseStatusDTO(StatusTypes.OK);
+        return result;
     }
 }

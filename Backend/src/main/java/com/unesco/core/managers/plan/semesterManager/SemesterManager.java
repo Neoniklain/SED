@@ -1,5 +1,7 @@
 package com.unesco.core.managers.plan.semesterManager;
 
+import com.unesco.core.dto.additional.ResponseStatusDTO;
+import com.unesco.core.dto.enums.StatusTypes;
 import com.unesco.core.managers.plan.semesterManager.interfaces.semester.ISemesterManager;
 import com.unesco.core.dto.plan.SemesterDTO;
 import org.springframework.context.annotation.Scope;
@@ -23,4 +25,9 @@ public class SemesterManager implements ISemesterManager {
         return semester;
     }
 
+    @Override
+    public ResponseStatusDTO validate() {
+        ResponseStatusDTO result = new ResponseStatusDTO(StatusTypes.OK);
+        return result;
+    }
 }

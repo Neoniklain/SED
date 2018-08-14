@@ -1,6 +1,8 @@
 package com.unesco.core.services.dataService.journal.journal;
 
 import com.unesco.core.dto.account.StudentDTO;
+import com.unesco.core.dto.additional.ResponseStatusDTO;
+import com.unesco.core.dto.enums.StatusTypes;
 import com.unesco.core.dto.journal.JournalDTO;
 import com.unesco.core.dto.journal.PointDTO;
 import com.unesco.core.dto.journal.PointTypeDTO;
@@ -122,9 +124,11 @@ public class JournalDataService implements IJournalDataService {
         return model;
     }
 
-    public JournalDTO save(JournalDTO journal)
+    public ResponseStatusDTO<JournalDTO> save(JournalDTO journal)
     {
-        List<PointDTO> result = new ArrayList<>();
+        List<PointDTO> points = new ArrayList<>();
+
+        ResponseStatusDTO<JournalDTO> result = new ResponseStatusDTO<>(StatusTypes.OK);
 
         for (PointDTO point : journal.getJournalCell() ) {
 
@@ -149,17 +153,28 @@ public class JournalDataService implements IJournalDataService {
                 }
             }
             if(point.getValue() != 0) {
-                result.add(pointDataService.save(point));
+                ResponseStatusDTO<PointDTO> savePointStatus = pointDataService.save(point);
+                if(savePointStatus.getStatus() == StatusTypes.ERROR) {
+                    result.setStatus(StatusTypes.ERROR);
+                    result.setMessage(savePointStatus.getMessage());
+                    return result;
+                }
+                points.add(savePointStatus.getData());
                 continue;
             }
             if(point.getValue() == 0 && point.getId() != 0) {
-                pointDataService.delete(point.getId());
+                ResponseStatusDTO<PointDTO> deletePointStatus = pointDataService.delete(point.getId());
+                if (deletePointStatus.getStatus() == StatusTypes.ERROR){
+                    result.setStatus(StatusTypes.ERROR);
+                    result.setMessage(deletePointStatus.getMessage());
+                    return result;
+                }
                 continue;
             }
-
         }
-        journal.setJournalCell(result);
-        return journal;
+        journal.setJournalCell(points);
+        result.setData(journal);
+        return result;
     }
 
     private Date getZeroTimeDate(Date fecha) {

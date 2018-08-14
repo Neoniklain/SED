@@ -30,14 +30,14 @@ export class HasAccessRightDirective implements OnInit, OnChanges {
    }
 
     checkAccess() {
-        if (!isUndefined(this.hasAccessRight)) {
-            let acces = false;
+        if (!isUndefined(this.hasAccessRight) && this.hasAccessRight != null && !isUndefined(this.accessRight) && this.accessRight != null) {
+            let access = false;
             for (let row of this.accessRight.rights) {
                 if (row.right.name === this.hasAccessRight.toString()) {
-                    acces = row.allow;
+                    access = row.allow;
                 }
             }
-            if (acces) {
+            if (access) {
                 this.viewContainerRef.createEmbeddedView(this.template);
             } else {
                 this.viewContainerRef.clear();

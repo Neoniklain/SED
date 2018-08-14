@@ -1,12 +1,15 @@
 package com.unesco.core.services.dataService.schedule.disciplineService;
 
-import com.unesco.core.dto.additional.PageResultDTO;
-import com.unesco.core.entities.schedule.DisciplineEntity;
 import com.unesco.core.dto.additional.FilterQueryDTO;
+import com.unesco.core.dto.additional.PageResultDTO;
+import com.unesco.core.dto.additional.ResponseStatusDTO;
+import com.unesco.core.dto.enums.StatusTypes;
 import com.unesco.core.dto.shedule.DisciplineDTO;
+import com.unesco.core.entities.schedule.DisciplineEntity;
 import com.unesco.core.repositories.plan.DisciplineRepository;
 import com.unesco.core.services.dataService.mapperService.IMapperService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
@@ -57,17 +60,35 @@ public class DisciplineDataService implements IDisciplineDataService {
         return model;
     }
 
-    public void delete(long id)
+    public ResponseStatusDTO<DisciplineDTO> delete(long id)
     {
-        disciplineRepository.delete(id);
+        ResponseStatusDTO<DisciplineDTO> result = new ResponseStatusDTO<>(StatusTypes.OK);
+        try {
+            disciplineRepository.delete(id);
+        } catch (Exception e) {
+            result.setStatus(StatusTypes.ERROR);
+            if(e instanceof DataIntegrityViolationException)
+                result.addErrors("Удаление не удалось. У объекта есть зависимости.");
+            result.addErrors("Удаление не удалось");
+            return result;
+        }
+        return result;
     }
 
-    public DisciplineDTO save(DisciplineDTO discipline)
+    public ResponseStatusDTO<DisciplineDTO> save(DisciplineDTO discipline)
     {
         DisciplineEntity entity = (DisciplineEntity) mapperService.toEntity(discipline);
-        DisciplineEntity model = disciplineRepository.save(entity);
-        discipline = (DisciplineDTO) mapperService.toDto(model);
-        return discipline;
+        ResponseStatusDTO<DisciplineDTO> result = new ResponseStatusDTO<>(StatusTypes.OK);
+        DisciplineEntity model;
+        try {
+            model = disciplineRepository.save(entity);
+        } catch (Exception e) {
+            result.setStatus(StatusTypes.ERROR);
+            result.addErrors(e.getMessage());
+            return result;
+        }
+        result.setData((DisciplineDTO) mapperService.toDto(model));
+        return result;
     }
 
 }

@@ -1,14 +1,17 @@
 package com.unesco.core.services.dataService.account.userService;
 
-import com.unesco.core.dto.additional.PageResultDTO;
-import com.unesco.core.entities.account.UserEntity;
 import com.unesco.core.dto.account.RoleDTO;
 import com.unesco.core.dto.account.UserDTO;
 import com.unesco.core.dto.additional.FilterQueryDTO;
+import com.unesco.core.dto.additional.PageResultDTO;
+import com.unesco.core.dto.additional.ResponseStatusDTO;
+import com.unesco.core.dto.enums.StatusTypes;
+import com.unesco.core.entities.account.UserEntity;
 import com.unesco.core.repositories.account.UserRepository;
 import com.unesco.core.services.dataService.account.roleService.RoleDataService;
 import com.unesco.core.services.dataService.mapperService.IMapperService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
@@ -60,12 +63,22 @@ public class UserDataService implements IUserDataService {
         return model;
     }
 
-    public void delete(long id)
+    public ResponseStatusDTO<UserDTO> delete(long id)
     {
-        userRepository.delete(id);
+        ResponseStatusDTO<UserDTO> result = new ResponseStatusDTO<>(StatusTypes.OK);
+        try {
+            userRepository.delete(id);
+        } catch (Exception e) {
+            result.setStatus(StatusTypes.ERROR);
+            if(e instanceof DataIntegrityViolationException)
+                result.addErrors("Удаление не удалось. У объекта есть зависимости.");
+            result.addErrors("Удаление не удалось");
+            return result;
+        }
+        return result;
     }
 
-    public UserDTO save(UserDTO user)
+    public ResponseStatusDTO<UserDTO> save(UserDTO user)
     {
         List<RoleDTO> roles = new ArrayList<>();
         for (RoleDTO role:  user.getRoles()) {
@@ -76,11 +89,20 @@ public class UserDataService implements IUserDataService {
         }
         user.setRoles(roles);
 
-        UserEntity entity = (UserEntity) mapperService.toEntity(user);
-        entity = userRepository.save(entity);
+        ResponseStatusDTO<UserDTO> result = new ResponseStatusDTO<>(StatusTypes.OK);
 
-        UserDTO model = (UserDTO) mapperService.toDto(entity);
-        return model;
+        UserEntity entity = (UserEntity) mapperService.toEntity(user);
+        try {
+            entity = userRepository.save(entity);
+        } catch (Exception e) {
+            e.getMessage();
+            result.setStatus(StatusTypes.ERROR);
+            result.addErrors(e.getMessage());
+            return result;
+        }
+        result.setData((UserDTO) mapperService.toDto(entity));
+        return result;
+
     }
 
 }

@@ -1,5 +1,7 @@
 package com.unesco.core.managers.account.studentManager;
 
+import com.unesco.core.dto.additional.ResponseStatusDTO;
+import com.unesco.core.dto.enums.StatusTypes;
 import com.unesco.core.managers.account.studentManager.interfaces.student.IStudentManager;
 import com.unesco.core.dto.account.StudentDTO;
 import com.unesco.core.dto.account.UserDTO;
@@ -25,15 +27,20 @@ public class StudentManager implements IStudentManager {
         return student;
     }
 
-    public void SetGroup(GroupDTO group)
+    public void setGroup(GroupDTO group)
     {
         student.setGroup(group);
     }
 
-    public void Create(UserDTO user) {
+    public void create(UserDTO user) {
         student.setId(0);
         student.setUser(user);
         student.setGroup(null);
     }
 
+    @Override
+    public ResponseStatusDTO validate() {
+        ResponseStatusDTO result = new ResponseStatusDTO(StatusTypes.OK);
+        return result;
+    }
 }

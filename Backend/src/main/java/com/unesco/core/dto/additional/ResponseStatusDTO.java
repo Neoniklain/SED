@@ -5,10 +5,10 @@ import com.unesco.core.dto.enums.StatusTypes;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ResponseStatusDTO {
+public class ResponseStatusDTO<E> {
 
     private StatusTypes status;
-    private Object data;
+    private E data;
     private List<String> warnings;
     private List<String> message;
     private List<String> errors;
@@ -26,7 +26,7 @@ public class ResponseStatusDTO {
         errors = new ArrayList<>();
     }
 
-    public ResponseStatusDTO(StatusTypes stat, Object dataObject) {
+    public ResponseStatusDTO(StatusTypes stat, E dataObject) {
         status = stat;
         data = dataObject;
         warnings = new ArrayList<>();
@@ -42,10 +42,10 @@ public class ResponseStatusDTO {
         errors.add(error);
     }
 
-    public Object getData() {
+    public E getData() {
         return data;
     }
-    public void setData(Object data) {
+    public void setData(E data) {
         this.data = data;
     }
 

@@ -2,25 +2,25 @@ import {Injectable} from "@angular/core";
 import {ToastrService} from "ngx-toastr";
 import {ResponseStatus} from "../models/additional/responseStatus";
 import {StatusType} from "../models/statusType.model";
+import {MessageService} from "primeng/api";
 
 @Injectable()
 export class NotificationService {
 
-    constructor(private toastr: ToastrService/*,
-                private messageService: MessageService*/) {
+    constructor(/*private toastr: ToastrService,*/
+                private messageService: MessageService) {
     }
 
     public Success(messsage: string, title?: string) {
-        this.toastr.success(messsage, title ? title : "Успешно.");
+        this.messageService.add({severity: 'success', summary: title ? title : "Успешно.", detail: messsage});
     }
 
     public Error(messsage: string, title?: string) {
-        this.toastr.error(messsage, title ? title : "Ошибка!");
-        console.error(messsage);
+        this.messageService.add({severity: 'error', summary: title ? title : "Успешно.", detail: messsage});
     }
 
     public Warning(messsage: string, title?: string) {
-        this.toastr.warning(messsage, title ? title : "Внимание!");
+        this.messageService.add({severity: 'warn', summary: title ? title : "Успешно.", detail: messsage});
     }
 
     public FromStatus(responseStatus: ResponseStatus) {

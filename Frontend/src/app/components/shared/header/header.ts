@@ -69,6 +69,8 @@ export class HeaderComponent implements OnInit {
       localStorage.removeItem("token");
       this.user = new User();
       this.globals.role = [];
+      this.globals.user = new User();
+      this.globals.accessRight = new UserAccessRight();
       this.router.navigate(['/news']);
     }
 

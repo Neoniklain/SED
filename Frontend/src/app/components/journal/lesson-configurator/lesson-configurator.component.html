@@ -107,6 +107,7 @@
                             <input style="width:100%"
                                    placeholder="Баллов за событие"
                                    type="number"
+                                   min="0"
                                    pInputText
                                    [(ngModel)]="model.maxValue"/>
                         </div>
@@ -151,6 +152,7 @@
                             <input style="width:100%"
                                    placeholder="Максимум баллов за одно посещение"
                                    type="number"
+                                   min="0"
                                    pInputText
                                    [(ngModel)]="visitationConfig.value"/>
                         </div>

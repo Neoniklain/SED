@@ -60,7 +60,7 @@ public class TaskService implements ITaskService
          if(td.getUsers().size() == 0)
             return null;
       }
-      TaskDescriptionModel saved = _taskDescriptionDataService.save(td);
+      TaskDescriptionModel saved = _taskDescriptionDataService.save(td).getData();
       List<TaskUserModel> ltu = new ArrayList<>();
       for(UserDTO user:td.getUsers()){
          if(user.getId() != td.getCreator().getId()){
@@ -70,7 +70,7 @@ public class TaskService implements ITaskService
             newTUM.setExecutor(user);
             newTUM.setStatusName(TaskStatusType.Processed.name());
             newTUM.setTaskDescriptionId(saved.getId());
-            ltu.add(_taskUserDataService.save(newTUM));
+            ltu.add(_taskUserDataService.save(newTUM).getData());
          }
          else{
             System.out.println("Нельзя назначить задачу самому себе.");

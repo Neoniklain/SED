@@ -9,6 +9,7 @@ import {ScheduleService} from "../../../services/schedule.service";
 import {NotificationService} from "../../../services/notification.service";
 import {AccountService} from "../../../services/accountService";
 import {Professor} from "../../../models/account/professor";
+import {StatusType} from "../../../models/statusType.model";
 
 @Component({
     selector: 'journal-page',
@@ -36,12 +37,14 @@ export class JournalPageComponent implements OnInit {
                 this.accountService.GetProfessorByUser(this.user.id).subscribe(
                     resultProf => {
                         this.professor = resultProf.data;
+                        if (this.professor !== null) {
                             this.ScheduleService.GetPeofessorPair(this.professor.id).subscribe(
-                            result => {
-                                this.showLoader = false;
-                                this.pairs = result.data;
-                            }
-                        );
+                                result => {
+                                    this.showLoader = false;
+                                    this.pairs = result.data;
+                                }
+                            );
+                        }
                     }
                 );
             });

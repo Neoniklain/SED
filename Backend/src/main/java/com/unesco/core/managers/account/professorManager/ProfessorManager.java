@@ -1,5 +1,7 @@
 package com.unesco.core.managers.account.professorManager;
 
+import com.unesco.core.dto.additional.ResponseStatusDTO;
+import com.unesco.core.dto.enums.StatusTypes;
 import com.unesco.core.managers.account.professorManager.interfaces.professor.IProfessorManager;
 import com.unesco.core.dto.account.ProfessorDTO;
 import com.unesco.core.dto.account.UserDTO;
@@ -30,16 +32,21 @@ public class ProfessorManager implements IProfessorManager {
         return professor;
     }
 
-    public void SetDepartment(DepartmentDTO department)
+    public void setDepartment(DepartmentDTO department)
     {
         professor.setDepartment(department);
     }
 
-    public void Create(UserDTO user) {
+    public void create(UserDTO user) {
 
         professor.setId(0);
         professor.setUser(user);
         professor.setDepartment(null);
     }
 
+    @Override
+    public ResponseStatusDTO validate() {
+        ResponseStatusDTO result = new ResponseStatusDTO(StatusTypes.OK);
+        return result;
+    }
 }

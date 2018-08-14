@@ -6,6 +6,6 @@ import com.unesco.core.dto.account.UserDTO;
 import com.unesco.core.dto.plan.DepartmentDTO;
 
 public interface IProfessorManager extends IManager<ProfessorDTO> {
-    void SetDepartment(DepartmentDTO department);
-    void Create(UserDTO user);
+    void setDepartment(DepartmentDTO department);
+    void create(UserDTO user);
 }

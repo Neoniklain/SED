@@ -89,6 +89,7 @@ import {AccessControlComponent} from "../components.page/adminPanel/accessContro
 import {DictionaryTableComponent} from "../components/shared/dictionaryTable/dictionaryTable.component";
 import {HasAccessRightDirective} from "../directive/hasAccessRight.dirictive";
 import {HasRoleDirective} from "../directive/hasRole.dirictive";
+import {ToastModule} from "primeng/toast";
 
 @NgModule({
    imports: [

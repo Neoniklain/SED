@@ -1,11 +1,14 @@
 package com.unesco.core.services.dataService.schedule.lessonService;
 
 import com.unesco.core.dto.additional.FilterQueryDTO;
+import com.unesco.core.dto.additional.ResponseStatusDTO;
+import com.unesco.core.dto.enums.StatusTypes;
 import com.unesco.core.dto.shedule.LessonDTO;
 import com.unesco.core.entities.schedule.LessonEntity;
 import com.unesco.core.repositories.LessonRepository;
 import com.unesco.core.services.dataService.mapperService.IMapperService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
@@ -67,17 +70,37 @@ public class LessonDataService implements ILessonDataService {
         return modelList;
     }
 
-    public void delete(long id)
+    public ResponseStatusDTO<LessonDTO> delete(long id)
     {
-        lessonRepository.delete(id);
+        ResponseStatusDTO<LessonDTO> result = new ResponseStatusDTO<>(StatusTypes.OK);
+        try {
+            lessonRepository.delete(id);
+        } catch (Exception e) {
+            result.setStatus(StatusTypes.ERROR);
+            if(e instanceof DataIntegrityViolationException)
+                result.addErrors("Удаление не удалось. У объекта есть зависимости.");
+            result.addErrors("Удаление не удалось");
+            return result;
+        }
+        return result;
     }
 
-    public LessonDTO save(LessonDTO lesson)
+    public ResponseStatusDTO<LessonDTO> save(LessonDTO lesson)
     {
         LessonEntity entity = (LessonEntity) mapperService.toEntity(lesson);
-        LessonEntity model = lessonRepository.save(entity);
-        lesson = (LessonDTO) mapperService.toDto(model);
-        return lesson;
+        ResponseStatusDTO<LessonDTO> result = new ResponseStatusDTO<>(StatusTypes.OK);
+        LessonEntity model;
+        try {
+            model = lessonRepository.save(entity);
+        } catch (Exception e) {
+            result.setStatus(StatusTypes.ERROR);
+            if(e instanceof DataIntegrityViolationException)
+                result.addErrors("Удаление не удалось. У объекта есть зависимости.");
+            result.addErrors("Удаление не удалось");
+            return result;
+        }
+        result.setData((LessonDTO) mapperService.toDto(model));
+        return result;
     }
 
 }

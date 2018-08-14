@@ -1,6 +1,8 @@
 package com.unesco.core.services.dataService.schedule.pairService;
 
 import com.unesco.core.dto.additional.FilterQueryDTO;
+import com.unesco.core.dto.additional.ResponseStatusDTO;
+import com.unesco.core.dto.enums.StatusTypes;
 import com.unesco.core.dto.shedule.LessonDTO;
 import com.unesco.core.dto.shedule.PairDTO;
 import com.unesco.core.entities.schedule.LessonEntity;
@@ -9,6 +11,7 @@ import com.unesco.core.repositories.PairRepository;
 import com.unesco.core.services.dataService.mapperService.IMapperService;
 import com.unesco.core.services.dataService.schedule.lessonService.ILessonDataService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
@@ -100,14 +103,25 @@ public class PairDataService implements IPairDataService {
         return model;
     }
 
-    public void delete(long id)
+    public ResponseStatusDTO<PairDTO> delete(long id)
     {
-        pairRepository.delete(id);
+        ResponseStatusDTO<PairDTO> result = new ResponseStatusDTO<>(StatusTypes.OK);
+        try {
+            pairRepository.delete(id);
+        } catch (Exception e) {
+            result.setStatus(StatusTypes.ERROR);
+            if(e instanceof DataIntegrityViolationException)
+                result.addErrors("Удаление не удалось. У объекта есть зависимости.");
+            result.addErrors("Удаление не удалось");
+            return result;
+        }
+        return result;
     }
 
-    public PairDTO save(PairDTO pair)
+    public ResponseStatusDTO<PairDTO> save(PairDTO pair)
     {
         PairEntity entity = (PairEntity) mapperService.toEntity(pair);
+        ResponseStatusDTO<PairDTO> result = new ResponseStatusDTO<>(StatusTypes.OK);
 
         LessonDTO findLesson = lessonDataService.getDisciplineIdAndGroupIdAndProfessorId(
                 entity.getLesson().getDiscipline().getId(),
@@ -118,14 +132,26 @@ public class PairDataService implements IPairDataService {
             LessonDTO lesson = pair.getLesson();
             lesson.setId(0);
             pair.setLesson(lesson);
-            findLesson = lessonDataService.save(pair.getLesson());
+            ResponseStatusDTO<LessonDTO> saveLessonStatus = lessonDataService.save(pair.getLesson());
+            if (saveLessonStatus.getStatus() == StatusTypes.ERROR)
+            {
+                result.setMessage(saveLessonStatus.getMessage());
+                return result;
+            }
+            findLesson = saveLessonStatus.getData();
         }
 
         entity.setLesson((LessonEntity) mapperService.toEntity(findLesson));
 
-        PairEntity model = pairRepository.save(entity);
-        pair = (PairDTO) mapperService.toDto(model);
-        return pair;
+        try {
+            entity = pairRepository.save(entity);
+        } catch (Exception e) {
+            result.setStatus(StatusTypes.ERROR);
+            result.addErrors(e.getMessage());
+            return result;
+        }
+        result.setData((PairDTO) mapperService.toDto(entity));
+        return result;
     }
 
     public List<PairDTO> findIntersections(PairDTO pairModel) {

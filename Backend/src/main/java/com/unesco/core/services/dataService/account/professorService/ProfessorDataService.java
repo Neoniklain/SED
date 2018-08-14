@@ -1,14 +1,17 @@
 package com.unesco.core.services.dataService.account.professorService;
 
-import com.unesco.core.dto.additional.PageResultDTO;
-import com.unesco.core.entities.account.ProfessorEntity;
-import com.unesco.core.entities.account.UserEntity;
 import com.unesco.core.dto.account.ProfessorDTO;
 import com.unesco.core.dto.additional.FilterQueryDTO;
+import com.unesco.core.dto.additional.PageResultDTO;
+import com.unesco.core.dto.additional.ResponseStatusDTO;
+import com.unesco.core.dto.enums.StatusTypes;
+import com.unesco.core.entities.account.ProfessorEntity;
+import com.unesco.core.entities.account.UserEntity;
 import com.unesco.core.repositories.account.ProfessorRepository;
 import com.unesco.core.services.dataService.account.userService.IUserDataService;
 import com.unesco.core.services.dataService.mapperService.IMapperService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
@@ -64,20 +67,36 @@ public class ProfessorDataService implements IProfessorDataService {
         return model;
     }
 
-    public void delete(long id)
+    public ResponseStatusDTO<ProfessorDTO> delete(long id)
     {
-        ProfessorEntity entity = professorRepository.findOne(id);
-        professorRepository.delete(entity.getId());
+        ResponseStatusDTO<ProfessorDTO> result = new ResponseStatusDTO<>(StatusTypes.OK);
+        try {
+            professorRepository.delete(id);
+        } catch (Exception e) {
+            result.setStatus(StatusTypes.ERROR);
+            if(e instanceof DataIntegrityViolationException)
+                result.addErrors("Удаление не удалось. У объекта есть зависимости.");
+            result.addErrors("Удаление не удалось");
+            return result;
+        }
+        return result;
     }
 
-    public ProfessorDTO save(ProfessorDTO professor)
+    public ResponseStatusDTO<ProfessorDTO> save(ProfessorDTO professor)
     {
         ProfessorEntity entity = (ProfessorEntity) mapperService.toEntity(professor);
         UserEntity userEntity = (UserEntity) mapperService.toEntity(userDataService.getByUsername(entity.getUser().getUsername()));
         entity.setUser(userEntity);
-        ProfessorEntity model = professorRepository.save(entity);
-        professor = (ProfessorDTO) mapperService.toDto(model);
-        return professor;
+        ResponseStatusDTO<ProfessorDTO> result = new ResponseStatusDTO<>(StatusTypes.OK);
+        try {
+            entity = professorRepository.save(entity);
+        } catch (Exception e) {
+            result.setStatus(StatusTypes.ERROR);
+            result.addErrors(e.getMessage());
+            return result;
+        }
+        result.setData((ProfessorDTO) mapperService.toDto(entity));
+        return result;
     }
 
     public ProfessorDTO getByUser(long userId) {
