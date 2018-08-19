@@ -8,15 +8,20 @@ html, body {
 }
 
 @font-face {
+    font-family: Souvenir;
     src: url(/fonts/Souvenir.ttf);
 }
 
 h1,h2,h3,h4,h5,h6{
     padding: 0;
     margin: 0;
+    font-family: Franklin-Gothic-Bold;
     color: #3d3d3d;
 }
 
+p{
+    font-family: Souvenir;
+}
 @media (min-width: 1400px)
 {
     .container,
@@ -136,4 +141,69 @@ body {
 }
 .wid100 .ui-autocomplete-multiple-container .ui-autocomplete-input-token input{
     width: 100% !important;
+}
+
+/*--------------------------------------------------------------------------*/
+
+/*Стилизация кнопок*/
+
+.btn-warning, .btn-warning:focus {
+    background-color: #fff;
+    border-color: #af8d0b45;
+    color: #000000;
+    outline: none;
+}
+
+.btn-warning:hover {
+    border-color: #af8d0b45;
+    background-color: #fff;
+    color: #000000;
+}
+
+.btn-warning:active, .btn-warning:active:hover  {
+    background-color: #fff;
+    border-color: #cccccc;
+    color: #000000;
+    box-shadow: inset 1px 1px 12px -2px #af8d0b;
+    outline: none;
+}
+
+.btn-danger, .btn-danger:focus  {
+    background-color: #fff;
+    border-color: #af1a2245;
+    color: #000000;
+    outline: none;
+}
+.btn-danger:hover {
+    background-color: #fff;
+    border-color: #af1a2245;
+    color: #000000;
+}
+.btn-danger:active, .btn-danger:active:hover  {
+    background-color: #fff;
+    border-color: #cccccc;
+    color: #000000;
+    box-shadow: inset 1px 1px 12px -2px #af1a22;
+    outline: none;
+}
+
+.btn-success, .btn-success:focus {
+    background-color: #fff;
+    border-color: #44af4845;
+    color: #000000;
+    outline: none;
+}
+
+.btn-success:hover {
+    border-color: #44af4845;
+    background-color: #fff;
+    color: #000000;
+}
+
+.btn-success:active, .btn-success:active:hover  {
+    background-color: #fff;
+    border-color: #cccccc;
+    color: #000000;
+    box-shadow: inset 1px 1px 12px -2px #44af48;
+    outline: none;
 }
