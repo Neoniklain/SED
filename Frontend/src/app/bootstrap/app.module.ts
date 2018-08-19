@@ -15,7 +15,7 @@ import {
     CalendarModule,
     ConfirmationService,
     DataTableModule,
-    DropdownModule,
+    DropdownModule, InputSwitchModule,
     MultiSelectModule,
     PasswordModule, SelectButtonModule, ToggleButtonModule
 } from "primeng/primeng";
@@ -107,6 +107,7 @@ import {ToastModule} from "primeng/toast";
       GrowlModule,
       DataTableModule,
       SelectButtonModule,
+      InputSwitchModule,
       CheckboxModule,
       CalendarModule,
       DropdownModule,

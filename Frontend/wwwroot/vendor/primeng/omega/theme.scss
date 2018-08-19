@@ -9,8 +9,8 @@ $disabledOpacity: 0.35;
 
 //Header
 $headerBorderWidth: 1px;
-$headerBorderColor: #606d7b;
-$headerBgColor: #606d7b;
+$headerBorderColor: #2c3e50;
+$headerBgColor: #2c3e50;
 $headerTextColor: #ffffff;
 $headerFontWeight: 500;
 $headerIconTextColor: #ffffff;
@@ -23,23 +23,23 @@ $contentTextColor: #414550;
 
 //Default State
 $stateDefaultBorderWidth: 1px;
-$stateDefaultBorderColor: #2c3e50;
-$stateDefaultBgColor: #2c3e50;
+$stateDefaultBorderColor: #606d7b;
+$stateDefaultBgColor: #606d7b;
 $stateDefaultTextColor: #ffffff;
 
 //Active State
-$stateActiveBorderColor: #c95864;
-$stateActiveBgColor: #c95864;
+$stateActiveBorderColor: #58ad58;
+$stateActiveBgColor: #5cb85c;
 $stateActiveTextColor: #ffffff;
 
 //Highlight State
-$stateHighlightBorderColor: #c95864;
-$stateHighlightBgColor: #c95864;
+$stateHighlightBorderColor: #58ad58;
+$stateHighlightBgColor: #5cb85c;
 $stateHighlightTextColor: #ffffff;
 
 //Focus State
-$stateFocusBorderColor: #606d7b;
-$stateFocusBgColor: #606d7b;
+$stateFocusBorderColor: #408040;
+$stateFocusBgColor: #448844;
 $stateFocusTextColor: #081c22;
 
 //Error State
@@ -59,3 +59,7 @@ $invalidInputBorderColor: #ec4e4e;
 $inputGroupTextColor: #ffffff;
 
 @import '../_theme';
+
+.ui-datepicker td>span, .ui-datepicker td>a {
+	color: $inputGroupTextColor;
+}

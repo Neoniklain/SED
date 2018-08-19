@@ -1,15 +1,12 @@
 package com.unesco.core.controller;
 
-import com.unesco.core.dto.account.UserDTO;
 import com.unesco.core.dto.additional.ResponseStatusDTO;
-import com.unesco.core.dto.enums.AccessRightType;
-import com.unesco.core.dto.enums.RoleType;
 import com.unesco.core.dto.enums.StatusTypes;
 import com.unesco.core.dto.shedule.PairDTO;
 import com.unesco.core.managers.schedule.pairManager.interfaces.pair.IPairManager;
 import com.unesco.core.managers.schedule.sheduleDepartmentManager.sheduleDepartment.ISheduleDepartmentManager;
 import com.unesco.core.managers.schedule.sheduleManager.interfaces.shedule.ISheduleManager;
-import com.unesco.core.services.accessControlService.IAccessСontrolService;
+import com.unesco.core.services.accessControlService.IAccessControlService;
 import com.unesco.core.services.dataService.account.professorService.IProfessorDataService;
 import com.unesco.core.services.dataService.schedule.departmentService.IDepartmentDataService;
 import com.unesco.core.services.dataService.schedule.groupService.IGroupDataService;
@@ -44,7 +41,7 @@ public class ScheduleController {
 
 
     @Autowired
-    private IAccessСontrolService accessСontrolService;
+    private IAccessControlService accessСontrolService;
     @Autowired
     private IUserService userService;
 

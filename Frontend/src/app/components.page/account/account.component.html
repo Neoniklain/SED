@@ -1,7 +1,7 @@
 <div class="container container-block">
   <div class="row">
 
-    <div class="col-md-2">
+    <div *ngIf="viewMenu" class="col-md-2">
 
       <div class="panel panel-default">
         <div class="panel-body">
@@ -37,14 +37,14 @@
       </div>
     </div>
 
-    <div class="col-md-10">
+    <div  [ngClass]="{'col-md-10': viewMenu, 'col-md-12': !viewMenu}" class="col-md-10">
       <div class="head" [ngSwitch]="menuName">
         <div class="panel panel-default panel-inverse">
           <div class="panel-body">
             <news-dispatcher-page *ngSwitchCase="'news-dispatcher-page'"></news-dispatcher-page>
             <task-list *ngSwitchCase="'tasks-list'"></task-list>
-            <journal-page *ngSwitchCase="'journal-page'"></journal-page>
-            <lesson-configurator-page *ngSwitchCase="'lesson-configurator'"></lesson-configurator-page>
+            <journal-page (toogleViewMenu)="toogleViewMenu()" *ngSwitchCase="'journal-page'"></journal-page>
+            <lesson-configurator-page (toogleViewMenu)="toogleViewMenu()" *ngSwitchCase="'lesson-configurator'"></lesson-configurator-page>
             <settings-page *ngSwitchCase="'settings-page'"></settings-page>
           </div>
         </div>

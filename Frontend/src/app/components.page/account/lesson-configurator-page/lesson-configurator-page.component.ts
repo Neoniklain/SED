@@ -1,9 +1,6 @@
-import {Component, Injectable, OnInit} from '@angular/core';
-import {Pair} from "../../../models/shedule/pair";
-import {Journal} from "../../../models/journal/journal.model";
+import {Component, EventEmitter, Injectable, OnInit, Output} from '@angular/core';
 import {User} from "../../../models/account/user.model";
 import {AuthenticationService} from "../../../services/authService";
-import {JournalService} from "../../../services/journal.service";
 import {ScheduleService} from "../../../services/schedule.service";
 import {AccountService} from "../../../services/accountService";
 import {Professor} from "../../../models/account/professor";
@@ -17,6 +14,7 @@ import {Lesson} from "../../../models/shedule/lesson";
 @Injectable()
 export class LessonConfiguratorPageComponent implements OnInit {
 
+    @Output() toogleViewMenu: EventEmitter<any> = new EventEmitter();
     public user: User;
     public professor: Professor;
     public selectLesson: Lesson;
@@ -51,12 +49,15 @@ export class LessonConfiguratorPageComponent implements OnInit {
     }
 
     onClick(lesson: Lesson) {
-        if (lesson.id !== 0)
+        if (lesson.id !== 0) {
             this.selectLesson = lesson;
+            this.toogleViewMenu.emit();
+        }
     }
 
     back() {
         this.selectLesson = null;
+        this.toogleViewMenu.emit();
     }
 
 }

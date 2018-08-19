@@ -1,5 +1,5 @@
 <div class="col-sm-12 text-right journal">
-    <table>
+    <table class="table">
         <colgroup>
             <col span="1" style="width: 25%;">
         </colgroup>
@@ -44,9 +44,10 @@
             <ng-container *ngFor="let head of header">
                 <ng-container *ngFor="let type of head.types">
                     <ng-container *ngIf="inMonthPeriodDate(head.date)">
-                        <td style="font-size: 9px" [title]="type.type.name"
+                        <td [ngSwitch]="type.type.name" style="font-size: 9px" [title]="type.type.name"
                             [ngClass]="{today: isPairNow(type.pair)}">
-                            <i class="fa fa-circle" aria-hidden="true"></i>
+                            <span *ngSwitchCase="'Посещение'"><i class="fa fa-sign-in" aria-hidden="true"></i></span>
+                            <span *ngSwitchDefault><i class="fa fa-circle" aria-hidden="true"></i></span>
                         </td>
                     </ng-container>
                 </ng-container>
@@ -67,6 +68,8 @@
         </tbody>
     </table>
 </div>
+
+
 
 <div class="col-sm-12 text-right">
     <button (click)="save()" class="btn btn-info btn-success">Сохранить</button>

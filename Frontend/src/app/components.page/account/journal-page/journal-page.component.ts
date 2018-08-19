@@ -1,4 +1,4 @@
-import {Component, Injectable, OnInit} from '@angular/core';
+import {Component, EventEmitter, Injectable, OnInit, Output} from '@angular/core';
 import {Router} from "@angular/router";
 import {Pair} from "../../../models/shedule/pair";
 import {Journal} from "../../../models/journal/journal.model";
@@ -19,6 +19,7 @@ import {StatusType} from "../../../models/statusType.model";
 @Injectable()
 export class JournalPageComponent implements OnInit {
 
+    @Output() toogleViewMenu: EventEmitter<any> = new EventEmitter();
     public user: User;
     public professor: Professor;
     public journal: Journal;
@@ -59,6 +60,7 @@ export class JournalPageComponent implements OnInit {
                 result => {
                     this.journal = result.data;
                     this.showLoader = false;
+                    this.toogleViewMenu.emit();
                 }, error => console.error(error)
             );
         }
@@ -66,6 +68,7 @@ export class JournalPageComponent implements OnInit {
 
     back() {
         this.journal = null;
+        this.toogleViewMenu.emit();
     }
 
 }

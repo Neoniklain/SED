@@ -8,20 +8,15 @@ html, body {
 }
 
 @font-face {
-    font-family: Souvenir;
     src: url(/fonts/Souvenir.ttf);
 }
 
 h1,h2,h3,h4,h5,h6{
     padding: 0;
     margin: 0;
-    font-family: Franklin-Gothic-Bold;
     color: #3d3d3d;
 }
 
-p{
-    font-family: Souvenir;
-}
 @media (min-width: 1400px)
 {
     .container,

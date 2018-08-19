@@ -6,7 +6,7 @@ import com.unesco.core.dto.enums.StatusTypes;
 import com.unesco.core.dto.news.NewsDTO;
 import com.unesco.core.managers.news.newsManager.interfaces.news.INewsManager;
 import com.unesco.core.managers.news.newsManager.interfaces.newsList.INewsListManager;
-import com.unesco.core.services.accessControlService.IAccessСontrolService;
+import com.unesco.core.services.accessControlService.IAccessControlService;
 import com.unesco.core.services.dataService.newsService.INewsDataService;
 import com.unesco.core.services.userService.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,7 +26,7 @@ public class NewsController {
     private INewsListManager newsListManager;
 
     @Autowired
-    private IAccessСontrolService accessСontrolService;
+    private IAccessControlService accessСontrolService;
     @Autowired
     private IUserService userService;
 

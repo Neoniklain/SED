@@ -1,8 +1,6 @@
 package com.unesco.core.controller;
 
-import com.unesco.core.dto.account.UserDTO;
 import com.unesco.core.dto.additional.ResponseStatusDTO;
-import com.unesco.core.dto.enums.AccessRightType;
 import com.unesco.core.dto.enums.StatusTypes;
 import com.unesco.core.dto.journal.JournalDTO;
 import com.unesco.core.dto.journal.LessonEventDTO;
@@ -11,7 +9,7 @@ import com.unesco.core.managers.journal.VisitationConfigManager.interfaces.IVisi
 import com.unesco.core.managers.journal.journalManager.interfaces.journal.IJournalManager;
 import com.unesco.core.managers.journal.lessonEvent.interfaces.lessonEvent.ILessonEventManager;
 import com.unesco.core.managers.journal.lessonEvent.interfaces.lessonEventList.ILessonEventListManager;
-import com.unesco.core.services.accessControlService.IAccessСontrolService;
+import com.unesco.core.services.accessControlService.IAccessControlService;
 import com.unesco.core.services.dataService.journal.journal.IJournalDataService;
 import com.unesco.core.services.dataService.journal.lessonEvent.ILessonEventDataService;
 import com.unesco.core.services.dataService.journal.visitation.IVisitationConfigDataService;
@@ -41,7 +39,7 @@ public class JournalController {
     private IVisitationConfigManager visitationConfigManager;
 
     @Autowired
-    private IAccessСontrolService accessСontrolService;
+    private IAccessControlService accessСontrolService;
     @Autowired
     private IUserService userService;
 

@@ -16,6 +16,7 @@ export class AccountComponent implements OnInit {
     public menuName: string;
     public AccessRightType;
     public Roles;
+    public viewMenu: boolean = true;
 
     constructor(private authenticationService: AuthenticationService,
                 private router: Router) {
@@ -32,6 +33,10 @@ export class AccountComponent implements OnInit {
         this.AccessRightType = AccessRightType;
         this.Roles = Roles;
         this.menuName = "news-dispatcher-page";
+    }
+
+    toogleViewMenu() {
+        this.viewMenu = !this.viewMenu;
     }
 
     menuToole(menuName) {
