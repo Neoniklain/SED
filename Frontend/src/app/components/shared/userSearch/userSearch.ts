@@ -65,6 +65,10 @@ export class UserSearchComponent implements OnInit {
        this.result.push(user);
     }
 
+    removeUser(user: User) {
+        this.result.splice(this.result.indexOf(user), 1);
+    }
+
     public Edit() {
         this.Clear();
         this.editable = true;

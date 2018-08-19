@@ -8,7 +8,22 @@
         </p-autoComplete>
         <div *ngIf="result != null">
             <p style="margin: 10px 0;">Выбранные пользователи:</p>
-            <dictionary-table *ngIf="result.length > 0" [type]="Dictionary.users" ></dictionary-table>
+            <table *ngIf="result.length > 0" class="table">
+                <thead>
+                    <td>#</td>
+                    <td>Имя</td>
+                    <td>E-mail</td>
+                    <td></td>
+                </thead>
+                <tr *ngFor="let r of result; let i = index">
+                    <td>{{i}}</td>
+                    <td>{{r.userFIO}}</td>
+                    <td>{{r.email}}</td>
+                    <td>
+                        <button *ngIf="editable" (click)="removeUser(r)" class="btn btn-danger btn-sm"><i class="fa fa-times"></i></button>
+                    </td>
+                </tr>
+            </table>
         </div>
     </div>
     <p style="margin: 10px 0;">
