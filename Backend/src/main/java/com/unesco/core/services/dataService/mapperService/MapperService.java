@@ -314,6 +314,7 @@ public class MapperService implements IMapperService {
     public TaskDescriptionModel taskDescriptionToDto(TaskDescription Entity) {
         if (Entity == null) return null;
         TaskDescriptionModel Dto = new TaskDescriptionModel();
+        Dto.setType(Entity.getType());
         Dto.setId(Entity.getId());
         Dto.setCreator(userToDto(Entity.getCreator()));
         Dto.setUsers(new ArrayList<>());
@@ -337,6 +338,7 @@ public class MapperService implements IMapperService {
     public TaskDescription taskDescriptionToEntity(TaskDescriptionModel Dto) {
         if (Dto == null) return null;
         TaskDescription Entity = new TaskDescription();
+        Entity.setType(Dto.getType());
         Entity.setId(Dto.getId());
         Entity.setCreator(userToEntity(Dto.getCreator()));
         Entity.setDescription(Dto.getDescription());

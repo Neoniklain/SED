@@ -32,7 +32,7 @@
                <div class=" flex-row row access-row" *ngFor="let access of acceses.rights">
                   <div class="text-right col-md-6">
                      <span *ngIf="access.right.header != ''">{{access.right.header}}</span>
-                     <span *ngIf="access.right.header == ''">{{access.right.name}}</span>
+                     <span *ngIf="access.right.header == '' || access.right.header == null">{{access.right.name}}</span>
                   </div>
                   <div class="text-left col-md-6">
                      <p-toggleButton onLabel="Есть доступ" offLabel="Нет доступа" [(ngModel)]="access.allow"></p-toggleButton>

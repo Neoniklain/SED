@@ -34,6 +34,7 @@ public class TaskDescription {
     private Set<FileDescription> files;
 
     private int status;
+    private int type;
     private String description;
 
     public long getId() {
@@ -90,5 +91,13 @@ public class TaskDescription {
 
     public void setFiles(Set<FileDescription> files) {
         this.files = files;
+    }
+
+    public int getType() {
+        return type;
+    }
+
+    public void setType(int type) {
+        this.type = type;
     }
 }

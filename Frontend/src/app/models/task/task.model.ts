@@ -8,7 +8,7 @@ export class TaskDescription {
   public taskUsers: TaskUser[];
   public users: User[];
   public description: string;
-  public toWhom: number;
+  public type: number;
   public status: number;
   public statusName: string;
   public files: FileDescription[];
@@ -16,6 +16,7 @@ export class TaskDescription {
     this.name = "";
     this.creator = new User();
     this.users = [];
+    this.type = -1;
     this.status = 0;
     this.statusName = "";
     this.description = "";
@@ -38,14 +39,30 @@ export class TaskUser {
     }
 }
 
-export enum TaskStatusType{
+export enum TaskStatusType {
+    // В процессе
     Processed = 0,
+    // Отклонено
     Denied = 1,
+    // Завершено
     Completed = 2,
+    // Проверено
     Checked = 3,
+    // Просмотрено (вероятно то же самое, что и Проверено)
     Viewed = 4,
+    // Отправить на доработку
     SentToRevision = 5,
+    // Отправить на проверку
     SentToReview = 6
+}
+
+export enum TaskType {
+    // Без уведомления
+    Info = 0,
+    // С уведомлением о прочтении
+    Notice = 1,
+    // С ответом
+    Answer = 2
 }
 
 /*export class TaskStatusList {

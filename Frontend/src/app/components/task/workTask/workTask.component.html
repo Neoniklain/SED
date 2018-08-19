@@ -1,5 +1,5 @@
 <p-dialog header="{{_title}}" [(visible)]="_show" modal="modal" [width]="450"
-          [responsive]="true" [resizable]="true" [draggable]="true">
+          [responsive]="true" [resizable]="true" [draggable]="true" [closable]="true">
     <div style="height: 260px;">
         <div class="row" style="margin: 10px -15px;">
             <div class="col-md-6">
@@ -18,57 +18,59 @@
             </div>
         </div>
         <div *ngIf="files.length>0" class="row" style="margin: 10px 0;">
-            <div>Файлы авторы задачи</div>
+            <div>Файлы автора задачи</div>
             <div>
                 <button *ngFor="let file of files" (click)="downloadFile(file)" type="button" class="btn btn-primary btn-sm" title="Скачать {{file.fileName}}">
                     <i class="fa fa-floppy-o" aria-hidden="true"></i>
                 </button>
             </div>
         </div>
-        <hr>
-        <p>Ответ</p>
-        <input type="text" class="form-control" placeholder="Ответ"
-               [(ngModel)]="_task.response" [disabled]="!_editable"/>
-        <!--<p-fileUpload name="files[]" [chooseLabel]="'Выбрать файл'" [cancelLabel]="'Очистить'" [showUploadButton]="false"
-                      multiple="multiple" maxFileSize="{{maxFileSize}}"
-                      (onSelect)="onSelectFile($event)" (onRemove)="onRemoveFile($event)" (onClear)="onClearFiles()">
-        </p-fileUpload>-->
-        <span>
-            <p style="margin: 10px 0;">Прикрепление фалов</p>
-            <input type="file" ng2FileSelect [uploader]="_uploader" />
-            <p>Всего файлов: {{ _uploader?.queue?.length }}</p>
-            <table [hidden]="!_uploader.queue.length" class="table">
-                <thead>
-                <tr>
-                    <th>Файл</th>
-                    <th *ngIf="_uploader.isHTML5">Размер</th>
-                    <th><i class="fa fa-wrench" aria-hidden="true" title="Действия"></i> Действия</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr *ngFor="let item of _uploader.queue">
-                    <td class="file-name-wrap">{{ item?.file?.name }}</td>
-                    <td *ngIf="_uploader.isHTML5" nowrap>{{ item?.file?.size/1024/1024 | number:'.3' }} MB</td>
-                    <td class="text-center">
-                        <button (click)="item.remove()" type="button" class="btn btn-danger btn-sm" title="Удалить файл">
-                            <i class="fa fa-times" aria-hidden="true"></i>
-                        </button>
-                    </td>
-                </tr>
-                </tbody>
-            </table>
-        </span>
-        <span *ngIf="(_task.files.length>0)">
-            <p style="margin: 10px 0;">Ваши файлы</p>
-            <div>
-                <button *ngFor="let file of _task.files" (click)="downloadFile(file)" type="button" class="btn btn-primary btn-sm" title="Скачать {{file.fileName}}">
-                    <i class="fa fa-floppy-o" aria-hidden="true"></i>
-                </button>
-            </div>
-        </span>
+        <div *ngIf="localTD.type == TaskTypes.Answer">
+            <hr>
+            <p>Ответ</p>
+            <input type="text" class="form-control" placeholder="Ответ"
+                   [(ngModel)]="_task.response" [disabled]="!_editable"/>
+            <!--<p-fileUpload name="files[]" [chooseLabel]="'Выбрать файл'" [cancelLabel]="'Очистить'" [showUploadButton]="false"
+                          multiple="multiple" maxFileSize="{{maxFileSize}}"
+                          (onSelect)="onSelectFile($event)" (onRemove)="onRemoveFile($event)" (onClear)="onClearFiles()">
+            </p-fileUpload>-->
+            <span>
+                <p style="margin: 10px 0;">Прикрепление фалов</p>
+                <input type="file" ng2FileSelect [uploader]="_uploader" />
+                <p>Всего файлов: {{ _uploader?.queue?.length }}</p>
+                <table [hidden]="!_uploader.queue.length" class="table">
+                    <thead>
+                    <tr>
+                        <th>Файл</th>
+                        <th *ngIf="_uploader.isHTML5">Размер</th>
+                        <th><i class="fa fa-wrench" aria-hidden="true" title="Действия"></i> Действия</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr *ngFor="let item of _uploader.queue">
+                        <td class="file-name-wrap">{{ item?.file?.name }}</td>
+                        <td *ngIf="_uploader.isHTML5" nowrap>{{ item?.file?.size/1024/1024 | number:'.3' }} MB</td>
+                        <td class="text-center">
+                            <button (click)="item.remove()" type="button" class="btn btn-danger btn-sm" title="Удалить файл">
+                                <i class="fa fa-times" aria-hidden="true"></i>
+                            </button>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </span>
+            <span *ngIf="(_task.files.length>0)">
+                <p style="margin: 10px 0;">Ваши файлы</p>
+                <div>
+                    <button *ngFor="let file of _task.files" (click)="downloadFile(file)" type="button" class="btn btn-primary btn-sm" title="Скачать {{file.fileName}}">
+                        <i class="fa fa-floppy-o" aria-hidden="true"></i>
+                    </button>
+                </div>
+            </span>
+        </div>
     </div>
     <p-footer>
-        <button type="button" [disabled]="!_editable" (click)="AnswerTask()" class="btn btn-success" title="Отправить решение на проверку">
+        <button type="button" *ngIf="localTD.type == TaskTypes.Answer" [disabled]="!_editable" (click)="AnswerTask()" class="btn btn-success" title="Отправить решение на проверку">
             <i class="fa fa-check" aria-hidden="true"></i>Ок
         </button>
     </p-footer>
