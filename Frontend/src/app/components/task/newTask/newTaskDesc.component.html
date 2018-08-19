@@ -1,5 +1,5 @@
 <p-dialog [(visible)]="_show" modal="modal" [width]="600" [minHeight]="500"
-          [responsive]="true" [resizable]="true" [draggable]="true">
+          [responsive]="true" [resizable]="true" [draggable]="true" [closable]="true">
     <p-header>
         {{_title}}
     </p-header>
@@ -7,20 +7,9 @@
         <p>Введите название задачи:</p>
         <input type="text" class="form-control" id="headerCreate" name="header" placeholder="Название задчи"
                                 [(ngModel)]="localTD.name"/>
-        <p style="margin: 10px 0;">Кому: </p>
-        <p-selectButton [options]="listOfToWhom" [(ngModel)]="toWhom" optionLabel="name"></p-selectButton>
-        <div *ngIf="toWhom.value == 0">
-
-        </div>
-        <div *ngIf="toWhom.value == 1">
-            <p style="margin: 10px 0;">Введите ФИО пользователя:</p>
-            <p-autoComplete [(ngModel)]="localTD.users" [suggestions]="_foundedUsers" (completeMethod)="searchUser($event)" styleClass="w-100"
-                            [minLength]="3" placeholder="Введите ФИО" field="userFIO" [multiple]="true">
-            </p-autoComplete>
-        </div>
-        <div *ngIf="toWhom.value == 2">
-
-        </div>
+        <p style="margin: 10px 0;">Тип задачи: </p>
+        <p-selectButton [options]="listOfTypes" [(ngModel)]="taskType" optionLabel="name"></p-selectButton>
+        <user-search-form [isModal]="false" (onReturn)="setUsers($event)"></user-search-form>
         <p style="margin: 10px 0;">Прикрепление фалов</p>
         <!--<p-fileUpload name="files[]" [chooseLabel]="'Выбрать файл'" [cancelLabel]="'Очистить'" [showUploadButton]="false"
                       multiple="multiple" maxFileSize="{{maxFileSize}}"
@@ -98,6 +87,8 @@
         </div>
     </div>
     <p-footer>
-        <button type="button" pButton icon="fa-check" (click)="CreateTask()" label="Ок"></button>
+        <button *ngIf="_isCreate" type="button" (click)="CreateTask()">
+            <i class="fa fa-check" aria-hidden="true"></i>Создать
+        </button>
     </p-footer>
 </p-dialog>

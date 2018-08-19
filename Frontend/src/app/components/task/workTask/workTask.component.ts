@@ -1,5 +1,5 @@
 import {Component, EventEmitter, Output} from '@angular/core';
-import {TaskDescription, TaskUser, TaskStatusType} from "../../../models/task/task.model";
+import {TaskDescription, TaskUser, TaskStatusType, TaskType} from "../../../models/task/task.model";
 import {TaskService} from "../../../services/task.service";
 import {AccountService} from "../../../services/accountService";
 import {User} from "../../../models/account/user.model";
@@ -24,6 +24,7 @@ export class WorkTaskComponent {
     public files: FileDescription[];
     public _uploader: FileUploader;
     public _fileOptions: FileUploaderOptions;
+    public TaskTypes = TaskType;
 
     constructor(private taskService: TaskService,
                 private accountService: AccountService,
@@ -59,9 +60,16 @@ export class WorkTaskComponent {
         this._title = "Выполнение задачи";
         this.localTD = td;
         this._task = task;
-        if(this._task.status == TaskStatusType.Processed) {
-            this.taskService.ChangeStatus(this._task.id, TaskStatusType.Viewed).subscribe((res) => {
-                //this.notificationService.FromStatus(res);
+        if (this._task.status == TaskStatusType.Processed) {
+            let Type;
+            if (this.localTD.type == this.TaskTypes.Notice) {
+                Type = TaskStatusType.Completed;
+            }
+            else {
+                Type = TaskStatusType.Viewed;
+            }
+            this.taskService.ChangeStatus(this._task.id, Type).subscribe((res) => {
+                // this.notificationService.FromStatus(res);
                 this._task.status = TaskStatusType.Viewed;
             }, (error) => {
                 console.error(error);

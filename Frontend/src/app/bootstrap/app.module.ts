@@ -90,6 +90,7 @@ import {DictionaryTableComponent} from "../components/shared/dictionaryTable/dic
 import {HasAccessRightDirective} from "../directive/hasAccessRight.dirictive";
 import {HasRoleDirective} from "../directive/hasRole.dirictive";
 import {ToastModule} from "primeng/toast";
+import {UserSearchComponent} from "../components/shared/userSearch/userSearch";
 
 @NgModule({
    imports: [
@@ -162,7 +163,8 @@ import {ToastModule} from "primeng/toast";
       PairCreateComponent,
       PairDetailsComponent,
       LessonListComponent,
-      LessonDetailsComponent
+      LessonDetailsComponent,
+       UserSearchComponent
    ],
    providers: [
       {provide: RequestOptions, useClass: GlobalHttpOptions},

@@ -2,6 +2,7 @@ package com.unesco.core.managers.task;
 
 import com.unesco.core.dto.account.UserDTO;
 import com.unesco.core.dto.enums.TaskStatusType;
+import com.unesco.core.dto.enums.TaskType;
 import com.unesco.core.dto.task.TaskDescriptionModel;
 import com.unesco.core.dto.task.TaskUserModel;
 import com.unesco.core.managers.task.interfaces.ITaskService;
@@ -52,13 +53,16 @@ public class TaskService implements ITaskService
 
    @Override
    public TaskDescriptionModel createNewTaskDescription(TaskDescriptionModel td){
-      if(td.getToWhom() == 0){
-         td.setUsers(_userService.getAll());
-
+      if(td.getUsers().size() == 0)
+         return null;
+      TaskStatusType taskStatusType;
+      if(td.getType() == TaskType.Info.ordinal())
+      {
+         taskStatusType = TaskStatusType.Completed;
       }
-      if(td.getToWhom() == 1){
-         if(td.getUsers().size() == 0)
-            return null;
+      else
+      {
+         taskStatusType = TaskStatusType.Processed;
       }
       TaskDescriptionModel saved = _taskDescriptionDataService.save(td).getData();
       List<TaskUserModel> ltu = new ArrayList<>();
@@ -66,9 +70,9 @@ public class TaskService implements ITaskService
          if(user.getId() != td.getCreator().getId()){
             TaskUserModel newTUM = new TaskUserModel();
             newTUM.setResponse("");
-            newTUM.setStatus(TaskStatusType.Processed.ordinal());
+            newTUM.setStatus(taskStatusType.ordinal());
             newTUM.setExecutor(user);
-            newTUM.setStatusName(TaskStatusType.Processed.name());
+            newTUM.setStatusName(taskStatusType.name());
             newTUM.setTaskDescriptionId(saved.getId());
             ltu.add(_taskUserDataService.save(newTUM).getData());
          }

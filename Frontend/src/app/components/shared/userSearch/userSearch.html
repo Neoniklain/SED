@@ -1,0 +1,22 @@
+﻿<div class="user-search-form" style="margin-top: 10px;">
+    <p-selectButton [options]="listOfTypes" [(ngModel)]="Type" optionLabel="name" [disabled]="!editable"></p-selectButton>
+    <div *ngIf="Type.value == 1">
+        <p style="margin: 10px 0;">Введите ФИО пользователя:</p>
+        <p-autoComplete [(ngModel)]="lastSelected" [suggestions]="_foundedUsers" (completeMethod)="searchUserByFIO($event)" styleClass="w-100"
+                        [minLength]="3" placeholder="Введите ФИО" field="userFIO" (onSelect)="AddUser($event)" [multiple]="false"
+                        [disabled]="!editable">
+        </p-autoComplete>
+        <div *ngIf="result != null">
+            <p style="margin: 10px 0;">Выбранные пользователи:</p>
+            <dictionary-table *ngIf="result.length > 0" [type]="Dictionary.users" ></dictionary-table>
+        </div>
+    </div>
+    <p style="margin: 10px 0;">
+        <button *ngIf="editable" type="button" (click)="returnResult()">
+            <i class="fa fa-check" aria-hidden="true"></i>Подтвердить
+        </button>
+        <button *ngIf="!editable" type="button" (click)="Edit()">
+            <i class="fa fa-pencil" aria-hidden="true"></i>Изменить
+        </button>
+    </p>
+</div>
