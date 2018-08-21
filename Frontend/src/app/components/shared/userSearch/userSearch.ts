@@ -18,6 +18,8 @@ export class UserSearchComponent implements OnInit {
     onReturn: EventEmitter<any> = new EventEmitter();
     @Input()
     isModal: boolean = false;
+    @Input()
+    disabled: boolean = false;
     public result: User[];
     public _foundedUsers: User[];
     public listOfTypes: any[];
@@ -82,7 +84,6 @@ export class UserSearchComponent implements OnInit {
                 .subscribe(
                     res => {
                         this.result = res.content;
-                        console.log(this.result);
                         this.onReturn.emit(this.result);
                         this.editable = false;
                     }

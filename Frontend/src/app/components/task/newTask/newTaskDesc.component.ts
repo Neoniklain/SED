@@ -74,8 +74,7 @@ export class NewTaskDescComponent {
     }
 
     public CreateTask() {
-        console.log(this.localTD);
-        /*if (this._isCreate) {
+        if (this._isCreate) {
             if (this.localTD.users.length > 0) {
                 this.localTD.type = this.taskType.value;
                 this.taskService.Create(this.localTD).subscribe((res) => {
@@ -103,7 +102,7 @@ export class NewTaskDescComponent {
                 (error: any) => {
                     console.error("Ошибка" + error);
                 });
-        }*/
+        }
     }
 
     public ChangeStatus(item: TaskUser, status: number) {
@@ -121,8 +120,7 @@ export class NewTaskDescComponent {
         this.localTD.users = users;
     }
 
-    public downloadFile(item: FileDescription){
+    public downloadFile(item: FileDescription) {
         this.fileService.downloadFile(item.id);
-        console.log('download file (сообщение из "Component")');
     }
 }

@@ -30,7 +30,7 @@
             <td class="text-center" id="buttons">
                <span *ngIf="item.status != TaskStatusType.Completed">
                   <button *ngIf="user.id == item.creator.id" (click)="showDialogEditTaskDescription(item)" class="btn btn-warning" title="Редактировать/Просмотреть задачу">
-                     <i class="fa fa-pencil" aria-hidden="true"></i>
+                     <i class="fa fa-eye" aria-hidden="true"></i>
                   </button>
                   <button *ngIf="(isMyTask(item))" (click)="showDialogTaskWork(item)" class="btn btn-success" title="Открыть окно для отправки решения">
                      <i class="fa fa-check" aria-hidden="true"></i>

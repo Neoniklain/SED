@@ -1,10 +1,10 @@
 ﻿<div class="user-search-form" style="margin-top: 10px;">
-    <p-selectButton [options]="listOfTypes" [(ngModel)]="Type" optionLabel="name" [disabled]="!editable"></p-selectButton>
+    <p-selectButton [options]="listOfTypes" [(ngModel)]="Type" optionLabel="name" [disabled]="!editable || disabled"></p-selectButton>
     <div *ngIf="Type.value == 1">
         <p style="margin: 10px 0;">Введите ФИО пользователя:</p>
         <p-autoComplete [(ngModel)]="lastSelected" [suggestions]="_foundedUsers" (completeMethod)="searchUserByFIO($event)" styleClass="w-100"
                         [minLength]="3" placeholder="Введите ФИО" field="userFIO" (onSelect)="AddUser($event)" [multiple]="false"
-                        [disabled]="!editable">
+                        [disabled]="!editable || disabled">
         </p-autoComplete>
         <div *ngIf="result != null">
             <p style="margin: 10px 0;">Выбранные пользователи:</p>
@@ -16,7 +16,7 @@
                     <td></td>
                 </thead>
                 <tr *ngFor="let r of result; let i = index">
-                    <td>{{i}}</td>
+                    <td>{{i+1}}</td>
                     <td>{{r.userFIO}}</td>
                     <td>{{r.email}}</td>
                     <td>

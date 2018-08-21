@@ -6,16 +6,12 @@
     <div style="height: 400px;">
         <p>Введите название задачи:</p>
         <input type="text" class="form-control" id="headerCreate" name="header" placeholder="Название задчи"
-                                [(ngModel)]="localTD.name"/>
+                                [(ngModel)]="localTD.name" [disabled]="!_isCreate"/>
         <p style="margin: 10px 0;">Тип задачи: </p>
-        <p-selectButton [options]="listOfTypes" [(ngModel)]="taskType" optionLabel="name"></p-selectButton>
-        <user-search-form [isModal]="false" (onReturn)="setUsers($event)"></user-search-form>
-        <p style="margin: 10px 0;">Прикрепление фалов</p>
-        <!--<p-fileUpload name="files[]" [chooseLabel]="'Выбрать файл'" [cancelLabel]="'Очистить'" [showUploadButton]="false"
-                      multiple="multiple" maxFileSize="{{maxFileSize}}"
-                      (onSelect)="onSelectFile($event)" (onRemove)="onRemoveFile($event)" (onClear)="onClearFiles()">
-        </p-fileUpload>-->
+        <p-selectButton [options]="listOfTypes" [(ngModel)]="taskType" optionLabel="name" [disabled]="!_isCreate"></p-selectButton>
+        <user-search-form [isModal]="false" (onReturn)="setUsers($event)" *ngIf="_isCreate"></user-search-form>
         <span *ngIf="_isCreate">
+            <p style="margin: 10px 0;">Прикрепление файлов:</p>
             <input type="file" ng2FileSelect [uploader]="_uploader" />
             <p>Всего файлов: {{ _uploader?.queue?.length }}</p>
             <table [hidden]="!_uploader.queue.length" class="table">
@@ -40,14 +36,17 @@
             </table>
         </span>
         <span *ngIf="(!_isCreate)&&(localTD.files.length>0)">
+            <p style="margin: 10px 0;">Прикрепленные файлы:</p>
             <div>
-                <button *ngFor="let file of localTD.files" (click)="downloadFile(file)" type="button" class="btn btn-primary btn-sm" title="Скачать {{file.fileName}}">
+                <button *ngFor="let file of localTD.files" (click)="downloadFile(file)" type="button"
+                        class="btn btn-primary btn-sm" title="Скачать {{file.fileName}}">
                     <i class="fa fa-floppy-o" aria-hidden="true"></i>
                 </button>
             </div>
         </span>
         <p style="margin: 10px 0;">Введите описание задачи:</p>
-        <textarea [(ngModel)]="localTD.description" rows="3" cols="50" pInputTextarea autoResize="autoResize" style="width: 100%;"></textarea>
+        <textarea [(ngModel)]="localTD.description" rows="3" cols="50" pInputTextarea
+                  autoResize="autoResize" style="width: 100%;" [disabled]="!_isCreate"></textarea>
         <div *ngIf="!_isCreate">
             <table class="table table-news">
                 <thead class="thead-inverse">
@@ -87,8 +86,11 @@
         </div>
     </div>
     <p-footer>
-        <button *ngIf="_isCreate" type="button" (click)="CreateTask()">
+        <button *ngIf="_isCreate" type="button" (click)="CreateTask()" class="btn btn-primary">
             <i class="fa fa-check" aria-hidden="true"></i>Создать
+        </button>
+        <button type="button" (click)="_show = false" class="btn btn-default">
+            Закрыть
         </button>
     </p-footer>
 </p-dialog>
