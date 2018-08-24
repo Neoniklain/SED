@@ -12,7 +12,7 @@ import {StatusType} from "../../../models/statusType.model";
 export class SettingsPageComponent implements OnInit {
 
     public user: User;
-    public showLoader: boolean = false;
+    public showLoader: boolean = true;
     public passwordOld: string = "";
     public passwordNew: string = "";
     public passwordConfirm: string = "";
@@ -26,7 +26,6 @@ export class SettingsPageComponent implements OnInit {
 
     ngOnInit(): void {
         this.user = new User();
-        this.showLoader = true;
         this.authenticationService.getUser().subscribe(
             res => {
                 this.user = res.data;

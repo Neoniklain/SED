@@ -10,7 +10,7 @@
                <div class="panel-heading"><h3><i class="fa fa-newspaper-o" aria-hidden="true"></i> Новости</h3>
                </div>
 
-               <div class="panel-body news">
+               <div *ngIf="!loader" class="panel-body news">
                   <div *ngFor="let item of _listOfNews">
                      <single-news [item]="item"></single-news>
                      <hr>
@@ -30,6 +30,8 @@
                      </div>
                   </div>
                </div>
+
+               <data-loader [show]="loader" [margin]="9"></data-loader>
 
             </div>
          </div>

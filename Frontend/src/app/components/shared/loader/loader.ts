@@ -9,6 +9,7 @@
 export class LoaderComponent implements OnInit {
 
    @Input() show = false;
+   @Input() margin: number = 0;
 
    constructor() {}
 

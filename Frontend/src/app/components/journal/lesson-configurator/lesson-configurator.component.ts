@@ -38,6 +38,8 @@ export class LessonСonfiguratorComponent implements OnInit {
     public editMode: boolean = false;
     public editVisitable: boolean = false;
 
+    public loadingEventList: boolean = true;
+
     constructor(private utilsService: UtilsService,
                 private ScheduleService: ScheduleService,
                 private journalService: JournalService,
@@ -86,6 +88,7 @@ export class LessonСonfiguratorComponent implements OnInit {
     getEvents() {
         this.journalService.GetEvents(this.lesson.id)
             .subscribe( result => {
+                this.loadingEventList = false;
                 this.events = result.data;
             });
     }

@@ -10,6 +10,7 @@ import {NewsService} from "../../../services/news.service";
 export class ListNewsComponent  {
 
 public _listOfNews: News[];
+public loader: boolean = true;
 
   constructor(private newsService: NewsService) {
     this._listOfNews = [];
@@ -19,6 +20,7 @@ public _listOfNews: News[];
   public GetNews() {
     this.newsService.GetAll()
       .subscribe((res) => {
+          this.loader = false;
           this._listOfNews = res.data;
         });
   }

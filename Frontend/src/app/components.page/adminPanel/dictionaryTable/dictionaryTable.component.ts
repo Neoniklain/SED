@@ -26,6 +26,8 @@ export class DictionaryComponent implements OnInit, OnChanges {
     public data: PageResult;
     public event: LazyLoadEvent;
 
+    public loading: boolean = false;
+
     constructor(private router: Router,
                private dictionaryService: DictionaryService) { }
 
@@ -56,9 +58,11 @@ export class DictionaryComponent implements OnInit, OnChanges {
     }
 
     updateTable() {
+        this.loading = false;
         this.updateTableTrigger = true;
     }
     tableUpdated() {
+        this.loading = false;
         this.updateTableTrigger = false;
     }
 }

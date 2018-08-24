@@ -4,7 +4,7 @@
             <div class="header-lesson text-center">
                 <h3>Список событий</h3>
             </div>
-            <div class="event-list">
+            <div *ngIf="!loadingEventList" class="event-list">
                 <table class="table">
                     <thead>
                         <tr>
@@ -52,6 +52,7 @@
                     </tbody>
                 </table>
             </div>
+            <data-loader [show]="loadingEventList" [margin]="9"></data-loader>
         </div>
 
         <div class="col-md-8">
@@ -131,10 +132,11 @@
                     Настроить посещаемость
                 </h5>
             </div>
+
             <div class="row">
                 <div *ngIf="editVisitable" class="header-lesson text-center col-md-12">
-                <h3>Настройка ведения посещаемости</h3>
-            </div>
+                    <h3>Настройка ведения посещаемости</h3>
+                </div>
             </div>
 
             <div class="row">

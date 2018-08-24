@@ -32,7 +32,9 @@ export class DictionaryTableComponent implements OnInit, OnChanges {
     @Output() clickOnDelete = new EventEmitter();
 
     @Input() clickableRow: boolean;
-    @Output() clickOnRow = new EventEmitter();
+    @Output() clickOnRow = new EventEmitter()
+
+    @Input() loading: boolean = true;
 
     public model: any;
 
@@ -54,6 +56,7 @@ export class DictionaryTableComponent implements OnInit, OnChanges {
     }
 
     updateModel() {
+        this.loading = true;
         switch (this.type.toString()) {
             case Dictionary.users.toString():
                 this.model = new User();
@@ -80,6 +83,7 @@ export class DictionaryTableComponent implements OnInit, OnChanges {
     getData(event?) {
         this.columnsName = Object.keys(this.model);
         this.dictionaryService.Get(this.type, event).subscribe(result => {
+            this.loading = false;
             this.data = result;
             this.updateTable = false;
             this.tableUpdated.emit();
