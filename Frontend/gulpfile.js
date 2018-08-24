@@ -63,7 +63,6 @@ gulp.task('restore:pleasewait', function () {
     gulp.src([
         'node_modules/please-wait/build/**/*.css',
         'node_modules/please-wait/build/**/*.min.js',
-        'node_modules/spinkit/css/*.css',
     ]).pipe(gulp.dest(vendor + 'please-wait'));
 });
 

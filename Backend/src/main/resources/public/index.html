@@ -25,9 +25,12 @@
     <script type="text/javascript" src="/vendor/please-wait/please-wait.min.js"></script>
     <script type="text/javascript">
         window.loading_screen = pleaseWait({
-            logo: '/images/unesco.png',
-            backgroundColor: '#ccc',
-            loadingHtml: "<div class='sk-three-bounce'><div class='sk-child sk-bounce1'></div><div class='sk-child sk-bounce2'></div><div class='sk-child sk-bounce3'></div></div>"
+            logo: '',
+            backgroundColor: 'white',
+            loadingHtml: "<div class=\"conteiner_loader\">\n" +
+            "\t\t<img src=\"../images/unesco.svg\">\n" +
+            "\t\t<div class=\"round1\"></div>\n" +
+            "\t</div>"
         });
     </script>
     <script type="text/javascript" src="/js/polyfills.js"></script>
