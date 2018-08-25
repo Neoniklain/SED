@@ -9,6 +9,7 @@ public class GroupEntity {
    @SequenceGenerator(name = "groupSequenceGen", sequenceName = "groupSequenceGen", allocationSize = 1)
    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "groupSequenceGen")
    private long id;
+   @Column(unique=true)
    private String name;
    @ManyToOne
    @JoinColumn(name = "department_id", referencedColumnName = "id")

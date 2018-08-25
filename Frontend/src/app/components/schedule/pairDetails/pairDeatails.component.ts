@@ -86,10 +86,8 @@ export class PairDetailsComponent implements OnInit, OnChanges {
     deletePair() {
         this.ScheduleService.Delete(this.pair.id).subscribe(
             result => {
-                if (result.status === StatusType.OK.toString()) {
-                    this.updatePairs.emit();
-                    this.closeDetails();
-                }
+                this.updatePairs.emit();
+                this.closeDetails();
                 this.notification.FromStatus(result);
             }
         );

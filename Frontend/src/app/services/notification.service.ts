@@ -16,11 +16,11 @@ export class NotificationService {
     }
 
     public Error(messsage: string, title?: string) {
-        this.messageService.add({severity: 'error', summary: title ? title : "Успешно.", detail: messsage});
+        this.messageService.add({severity: 'error', summary: title ? title : "Ошибка.", detail: messsage});
     }
 
     public Warning(messsage: string, title?: string) {
-        this.messageService.add({severity: 'warn', summary: title ? title : "Успешно.", detail: messsage});
+        this.messageService.add({severity: 'warn', summary: title ? title : "Внимание.", detail: messsage});
     }
 
     public FromStatus(responseStatus: ResponseStatus) {

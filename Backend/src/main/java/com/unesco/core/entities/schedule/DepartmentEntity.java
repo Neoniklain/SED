@@ -16,6 +16,7 @@ public class DepartmentEntity {
     /**
      * Поле название
      */
+    @Column(unique=true)
     private String name;
     @ManyToOne
     @JoinColumn(name = "institute_id", referencedColumnName = "id")

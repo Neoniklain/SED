@@ -3,9 +3,11 @@ package com.unesco.core.services.dataService.schedule.lessonService;
 import com.unesco.core.dto.additional.FilterQueryDTO;
 import com.unesco.core.dto.additional.ResponseStatusDTO;
 import com.unesco.core.dto.enums.StatusTypes;
+import com.unesco.core.dto.journal.VisitationConfigDTO;
 import com.unesco.core.dto.shedule.LessonDTO;
 import com.unesco.core.entities.schedule.LessonEntity;
 import com.unesco.core.repositories.LessonRepository;
+import com.unesco.core.services.dataService.journal.visitation.VisitationConfigDataService;
 import com.unesco.core.services.dataService.mapperService.IMapperService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -22,6 +24,8 @@ public class LessonDataService implements ILessonDataService {
     private IMapperService mapperService;
     @Autowired
     private LessonRepository lessonRepository;
+    @Autowired
+    private VisitationConfigDataService visitationConfigDataService;
 
     public List<LessonDTO> getPage(FilterQueryDTO filter) {
         int rows = filter.getRows()>0? filter.getRows() : (int) lessonRepository.count();
@@ -73,6 +77,10 @@ public class LessonDataService implements ILessonDataService {
     public ResponseStatusDTO<LessonDTO> delete(long id)
     {
         ResponseStatusDTO<LessonDTO> result = new ResponseStatusDTO<>(StatusTypes.OK);
+        VisitationConfigDTO byLesson = visitationConfigDataService.getByLesson(id);
+        if (byLesson != null)
+            visitationConfigDataService.delete(byLesson.getId());
+
         try {
             lessonRepository.delete(id);
         } catch (Exception e) {

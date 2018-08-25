@@ -84,7 +84,10 @@ public class DisciplineDataService implements IDisciplineDataService {
             model = disciplineRepository.save(entity);
         } catch (Exception e) {
             result.setStatus(StatusTypes.ERROR);
-            result.addErrors(e.getMessage());
+            if(e instanceof DataIntegrityViolationException)
+                result.addErrors("Данная дисциплина уже существует.");
+            else
+                result.addErrors("Ошибка добавления.");
             return result;
         }
         result.setData((DisciplineDTO) mapperService.toDto(model));

@@ -66,14 +66,11 @@ public class ScheduleController {
 
     public ResponseStatusDTO deletePair(long pairId) {
         ResponseStatusDTO res = new ResponseStatusDTO(StatusTypes.OK);
-        try {
-            pairDataService.delete(pairId);
-            res.addMessage("Занятие удалено.");
+        res = pairDataService.delete(pairId);
+        if(res.getStatus() == StatusTypes.ERROR)
             return res;
-        }
-        catch (Exception e) {
-            return new ResponseStatusDTO(StatusTypes.ERROR, e.getMessage());
-        }
+        res.addMessage("Занятие удалено.");
+        return res;
     }
 
     public ResponseStatusDTO getProfessorPairs(long professorId) {

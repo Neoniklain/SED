@@ -13,6 +13,11 @@ import {DepartmentShedule} from "../../../models/shedule/departmentShedule";
 import {ResponseStatus} from "../../../models/additional/responseStatus";
 import {NotificationService} from "../../../services/notification.service";
 import {Dictionary} from "../../../models/admin/dictionary.model";
+import {User} from "../../../models/account/user.model";
+import {PairType} from "../../../models/shedule/pairType";
+import {Discipline} from "../../../models/shedule/discipline";
+import {isUndefined} from "util";
+import {Room} from "../../../models/shedule/room.model";
 
 @Component({
     selector: 'list-professors-page',
@@ -24,7 +29,7 @@ export class ShowScheduleComponent implements OnInit {
 
     public profs: Array<Professor> = new Array();
     public groups: Array<Group> = new Array();
-    public department: Array<Department> = new Array();
+    public departments: Array<Department> = new Array();
     public RouteConstants = RouteConstants;
     public menuToggle: string = "professor";
     public pairList: Array<Pair> = null;
@@ -46,45 +51,73 @@ export class ShowScheduleComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.GetProfs();
-        this.GetGroups();
-        this.GetDepartments();
     }
 
     public update() {
         switch (this.menuToggle) {
             case "professor":
-                this.getProfessorPair(this.currentProfessor);
+                this.getProfessorPair();
                 break;
             case "group":
-                this.getGroupPair(this.currentGroup);
+                this.getGroupPair();
                 break;
         }
     }
 
-    public GetProfs() {
-        this.accountService.GetProfessors()
-            .subscribe((res: ResponseStatus) => {
-                    this.profs = res.data;
-                });
+    public GetProfessors(event: any) {
+        let filter = {
+            globalFilter: event.query.substring(0, 60)
+        };
+        let temp: Array<Professor> = new Array();
+        this.dictionaryService.Get(Dictionary.professors, filter).subscribe(
+            result => {
+                console.log("result", result);
+                temp = result.content;
+                if (temp.length > 0) {
+                    this.profs = temp;
+                }
+                else {
+                    this.profs = [];
+                }
+            }, error => console.error(error)
+        );
     }
-    public GetGroups() {
-        this.dictionaryService.Get(Dictionary.groups)
-            .subscribe((res: PageResult) => {
-                    this.groups = res.content;
-                });
+    public GetGroups(event: any) {
+        let filter = {
+            globalFilter: event.query.substring(0, 60)
+        }
+        let temp: Array<Group> = new Array();
+        this.dictionaryService.Get(Dictionary.groups, filter).subscribe(
+            result => {
+                temp = result.content;
+                if (temp.length > 0)
+                    this.groups = temp;
+                else
+                    this.groups = [];
+            }, error => console.error(error)
+        );
     }
-    public GetDepartments() {
-        this.dictionaryService.Get(Dictionary.departments)
-            .subscribe((res: PageResult) => {
-                    this.department = res.content;
-                });
+    public GetDepartments(event: any) {
+        let filter = {
+            globalFilter: event.query.substring(0, 60)
+        }
+        let temp: Array<Department> = new Array();
+        this.dictionaryService.Get(Dictionary.departments, filter).subscribe(
+            result => {
+                temp = result.content;
+                if (temp.length > 0)
+                    this.departments = temp;
+                else
+                    this.departments = [];
+            }, error => console.error(error)
+        );
     }
 
-    public getProfessorPair(professor) {
+    public getProfessorPair() {
+        if (this.currentProfessor == null && this.currentProfessor.id == 0)
+            return;
         this.pairList = null;
         this.showLoader = true;
-        console.log("this.currentProfessor", this.currentProfessor);
         this.ScheduleService.GetPeofessorPair(this.currentProfessor.id).subscribe(
             result =>  {
                 this.templatePair = new Pair();
@@ -94,11 +127,12 @@ export class ShowScheduleComponent implements OnInit {
             }
         );
     }
-    public getGroupPair(group: Group) {
-        this.currentGroup = group;
+    public getGroupPair() {
+        if (this.currentGroup == null && this.currentGroup.id == 0)
+            return;
         this.pairList = null;
         this.showLoader = true;
-        this.ScheduleService.GetGroupPair(group.id).subscribe(
+        this.ScheduleService.GetGroupPair(this.currentGroup.id).subscribe(
             result =>  {
                 this.templatePair = new Pair();
                 this.templatePair.lesson.group = this.currentGroup;
@@ -108,11 +142,12 @@ export class ShowScheduleComponent implements OnInit {
         );
     }
 
-    public getDepartmentPair(department: Department) {
-        this.currentDepartment = department;
+    public getDepartmentPair() {
+        if (this.currentDepartment == null && this.currentDepartment.id == 0)
+            return
         this.departmentSchedule = null;
         this.showLoader = true;
-        this.ScheduleService.GetDepartmentPair(department.id).subscribe(
+        this.ScheduleService.GetDepartmentPair(this.currentDepartment.id).subscribe(
             result =>  {
                 this.departmentSchedule = result.data.lines;
                 this.update();

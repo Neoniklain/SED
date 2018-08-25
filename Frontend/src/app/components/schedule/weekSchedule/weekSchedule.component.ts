@@ -49,8 +49,9 @@ export class WeekScheduleComponent implements OnInit {
         pair.weektype = weektype;
         for (let p of this.pairs) {
             if (p.dayofweek === day && p.pairNumber === lessonTime
-                && (p.weektype === weektype || !weektype))
+                && p.weektype === weektype) {
                 pair = p;
+            }
         }
         this.clickPair.emit(pair);
         if (this.editable) {

@@ -21,6 +21,8 @@ export class TaskDescListComponent {
     // ↓ Нужно для работы на view
     TaskStatusType = TaskStatusType;
 
+    public loading: boolean = true;
+
     @ViewChild(NewTaskDescComponent)
     newTaskDescDialog: NewTaskDescComponent;
 
@@ -67,6 +69,7 @@ export class TaskDescListComponent {
 
    public getTaskDescList() {
       this.taskService.GetList().subscribe((res) => {
+              this.loading = false;
               this.taskDescList = res.data;
               this.checkStatusTaskDescription(this.taskDescList);
           },

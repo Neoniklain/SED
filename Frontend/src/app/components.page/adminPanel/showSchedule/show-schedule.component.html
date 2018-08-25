@@ -21,28 +21,21 @@
 
                 <div *ngSwitchCase="'professor'">
                     <div class="row">
-                        <div class="col-md-3 text-left">
-                            <p-dropdown
-                                    (onChange)="getProfessorPair()"
-                                    [style]="{'width':'100%'}"
-                                    [(ngModel)]="currentProfessor"
-                                    [options]="profs"
-                                    [autoWidth]="false"
-                                    placeholder="Выберете преподавателя"
-                                    optionLabel="user.userFIO">
-                                <ng-template let-item pTemplate="currentProfessor">
-                                    <span style="vertical-align:middle">{{item.user.userFIO}}</span>
-                                </ng-template>
-                                <ng-template let-prof pTemplate="item">
-                                    <div class="ui-helper-clearfix" style="position: relative;height:25px;">
-                                        <div class="user-img">
-                                            <img [src]="prof.value.user.photo" alt="">
-                                        </div>
-                                        <div style="font-size:14px;float:right;margin-top:4px">{{prof.value.user.userFIO}}</div> </div>
-                                </ng-template>
-                            </p-dropdown>
+                        <div class="col-md-5 text-left">
+                            <p-autoComplete [size]="40"
+                                            id="professor"
+                                            [(ngModel)]="currentProfessor"
+                                            [dropdown]="true"
+                                            (onSelect)="GetProfessors($event)"
+                                            [suggestions]="profs"
+                                            (ngModelChange)="getProfessorPair()"
+                                            [placeholder]="'Начните вводить имя'"
+                                            (completeMethod)="GetProfessors($event)"
+                                            [multiple]="false" field="user.userFIO"
+                                            [emptyMessage]="'Ничего не найдено.'"
+                                            [forceSelection]="true"></p-autoComplete>
                         </div>
-                        <div class="col-md-6 text-center">
+                        <div class="col-md-4 text-center">
                            <h3 *ngIf="currentProfessor"><span [userCard]="currentProfessor.user">{{currentProfessor.user.userFIO}}</span></h3>
                         </div>
                         <div class="col-md-3">
@@ -61,17 +54,22 @@
 
                 <div *ngSwitchCase="'group'">
                     <div class="row">
-                        <div class="col-md-3 text-left">
-                            <div class="dropdown">
-                                <button class="btn btn-dark dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><h4>Выберете группу <i class="fa fa-caret-down" aria-hidden="true"></i></h4></button>
-                                <div class="dropdown-menu dropdown-elegant">
-                                    <li *ngFor="let item of groups">
-                                        <a class="dropdown-item" (click)="getGroupPair(item)">{{item.name}}</a>
-                                    </li>
-                                </div>
-                            </div>
+                        <div class="col-md-5 text-left">
+                            <p-autoComplete [size]="40"
+                                            id="groups"
+                                            [(ngModel)]="currentGroup"
+                                            [dropdown]="true"
+                                            (onSelect)="GetGroups($event)"
+                                            [suggestions]="groups"
+                                            (ngModelChange)="getGroupPair()"
+                                            [placeholder]="'Начните вводить название'"
+                                            (completeMethod)="GetGroups($event)"
+                                            [multiple]="false"
+                                            field="name"
+                                            [emptyMessage]="'Ничего не найдено.'"
+                                            [forceSelection]="true"></p-autoComplete>
                         </div>
-                        <div class="col-md-6 text-center">
+                        <div class="col-md-4 text-center">
                             <h3 *ngIf="currentGroup">{{currentGroup.name}}</h3>
                         </div>
                         <div class="col-md-3">
@@ -90,17 +88,23 @@
 
                 <div *ngSwitchCase="'department'">
                     <div class="row">
-                        <div class="col-md-3 text-left">
-                            <div class="dropdown">
-                                <button class="btn btn-dark dropdown-toggle" type="button" id="dropdownMenu3" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><h4>Выберете кафедру <i class="fa fa-caret-down" aria-hidden="true"></i></h4></button>
-                                <div class="dropdown-menu dropdown-elegant">
-                                    <li *ngFor="let item of department">
-                                        <a class="dropdown-item" (click)="getDepartmentPair(item)">{{item.name}}</a>
-                                    </li>
-                                </div>
-                            </div>
+                        <div class="col-md-5 text-left">
+                            <p-autoComplete [size]="40"
+                                            id="department"
+                                            [(ngModel)]="currentDepartment"
+                                            [dropdown]="true"
+                                            (onSelect)="GetDepartments($event)"
+                                            [suggestions]="departments"
+                                            (ngModelChange)="getDepartmentPair()"
+                                            [placeholder]="'Начните вводить название'"
+                                            (completeMethod)="GetDepartments($event)"
+                                            [multiple]="false"
+                                            field="name"
+                                            [emptyMessage]="'Ничего не найдено.'"
+                                            [forceSelection]="true"></p-autoComplete>
+
                         </div>
-                        <div class="col-md-6 text-center">
+                        <div class="col-md-4 text-center">
                             <h3 *ngIf="currentDepartment">{{currentDepartment.name}}</h3>
                         </div>
                         <div class="col-md-3">

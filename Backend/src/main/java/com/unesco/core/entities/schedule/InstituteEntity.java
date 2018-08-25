@@ -9,6 +9,7 @@ public class InstituteEntity {
    @SequenceGenerator(name = "instituteSequenceGen", sequenceName = "instituteSequenceGen", allocationSize = 1)
    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "instituteSequenceGen")
    private long id;
+   @Column(unique=true)
    private String name;
 //   @OneToMany(cascade = CascadeType.ALL, mappedBy = "institute")
 //   /** Поле набор кафедр */

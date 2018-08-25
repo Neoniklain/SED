@@ -17,6 +17,11 @@ import {Room} from "../models/shedule/room.model";
 import {HandelErrorService} from "./handelError.service";
 import {Dictionary} from "../models/admin/dictionary.model";
 import {StatusType} from "../models/statusType.model";
+import {PairType} from "../models/shedule/pairType";
+import {Role} from "../models/account/role.model";
+import {Professor} from "../models/account/professor";
+import {FieldOfKnowledge} from "../models/shedule/fieldOfKnowledge";
+import {PointType} from "../models/journal/journal.model";
 
 @Injectable()
 export class DictionaryService {
@@ -32,7 +37,14 @@ export class DictionaryService {
         let params = new HttpParams();
         let url = this.GetUrl(type);
         return this.http.post(url, this.initFilter(filterQuery), {params: params })
-            .catch(this.handleError.handle);
+            .catch(this.handleError.handle).map(
+                result => {
+                    let model = this.CreateInstance(type);
+                    model = result.content;
+                    result.content = model;
+                    return result;
+                }
+            );
     }
 
     public AddOrUpdate(type: Dictionary, object: any): Observable<ResponseStatus> {
@@ -46,6 +58,49 @@ export class DictionaryService {
         let url = this.GetUrl(type);
         return this.http.delete(url + "/" + id)
             .catch(this.handleError.handle);
+    }
+
+    private CreateInstance(type: Dictionary): string {
+        let model;
+        switch (type.toString()) {
+            case Dictionary.users.toString():
+                model = new Array<User>();
+                break;
+            case Dictionary.disciplines.toString():
+                model = new Array<Discipline>();
+                break;
+            case Dictionary.groups.toString():
+                model = new Array<Group>();
+                break;
+            case Dictionary.institutes.toString():
+                model = new Array<Institute>();
+                break;
+            case Dictionary.departments.toString():
+                model = new Array<Department>();
+                break;
+            case Dictionary.rooms.toString():
+                model = new Array<Room>();
+                break;
+            case Dictionary.pairTypes.toString():
+                model = new Array<PairType>();
+                break;
+            case Dictionary.roles.toString():
+                model = new Array<Role>();
+                break;
+            case Dictionary.professors.toString():
+                model = new Array<Professor>();
+                break;
+            case Dictionary.fieldOfKnowladge.toString():
+                model = new Array<FieldOfKnowledge>();
+                break;
+            case Dictionary.pointTypes.toString():
+                model = new Array<PointType>();
+                break;
+            default:
+                model = new Array();
+                break;
+        }
+        return model;
     }
 
     private GetUrl(type: Dictionary): string {

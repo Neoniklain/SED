@@ -106,15 +106,18 @@ public class PairDataService implements IPairDataService {
     public ResponseStatusDTO<PairDTO> delete(long id)
     {
         ResponseStatusDTO<PairDTO> result = new ResponseStatusDTO<>(StatusTypes.OK);
+        PairDTO pairDTO = get(id);
         try {
             pairRepository.delete(id);
         } catch (Exception e) {
             result.setStatus(StatusTypes.ERROR);
             if(e instanceof DataIntegrityViolationException)
                 result.addErrors("Удаление не удалось. У объекта есть зависимости.");
-            result.addErrors("Удаление не удалось");
+            else
+                result.addErrors("Удаление не удалось");
             return result;
         }
+        lessonDataService.delete(pairDTO.getLesson().getId());
         return result;
     }
 

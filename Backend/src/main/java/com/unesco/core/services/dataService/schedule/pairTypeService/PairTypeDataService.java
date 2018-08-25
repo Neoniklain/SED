@@ -82,7 +82,10 @@ public class PairTypeDataService implements IPairTypeDataService {
             entity = pairTypeRepository.save(entity);
         } catch (Exception e) {
             result.setStatus(StatusTypes.ERROR);
-            result.addErrors(e.getMessage());
+            if(e instanceof DataIntegrityViolationException)
+                result.addErrors("Данный институт уже существует.");
+            else
+                result.addErrors("Ошибка добавления.");
             return result;
         }
         result.setData((PairTypeDTO) mapperService.toDto(entity));

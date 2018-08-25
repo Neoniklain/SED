@@ -82,8 +82,11 @@ public class FieldOfKnowledgeDataService implements IFieldOfKnowledgeDataService
         try {
             entity = fieldOfKnowledgeRepository.save(entity);
         } catch (Exception e) {
+            if(e instanceof DataIntegrityViolationException)
+                result.addErrors("Данный раздел знаний уже существует.");
+            else
+                result.addErrors("Ошибка добавления.");
             result.setStatus(StatusTypes.ERROR);
-            result.addErrors(e.getMessage());
             return result;
         }
         result.setData((FieldOfKnowledgeDTO) mapperService.toDto(entity));

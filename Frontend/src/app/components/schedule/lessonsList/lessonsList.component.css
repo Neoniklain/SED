@@ -15,4 +15,15 @@
     display: flex;
 }
 
+.pairs-not-found h1 {
+    color: inherit;
+}
+
+.pairs-not-found {
+    text-align: center;
+    padding: 8em 0;
+    font-style: italic;
+    color: #7d7d7d;
+}
+
 

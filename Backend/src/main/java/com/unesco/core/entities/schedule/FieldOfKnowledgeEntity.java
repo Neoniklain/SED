@@ -14,6 +14,7 @@ public class FieldOfKnowledgeEntity {
    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "fieldOfKnowledgeSequenceGen")
    private long id;
    /** Поле название */
+   @Column(unique=true)
    private String name;
    @OneToMany(cascade = CascadeType.ALL, mappedBy = "fieldOfKnowledge")
    /** Поле дисциплин */

@@ -12,24 +12,32 @@
       <div>{{lessonTime.getTime().start | date: 'H:mm'}} - {{lessonTime.getTime().end | date: 'H:mm'}}</div>
     </td>
     <td width="13%" *ngFor="let day of days" (click)="onClick($event, day, lessonTime.num)">
-      <span *ngFor="let pair of pairs">
-        <span *ngIf="pair.dayofweek === day && pair.pairNumber === lessonTime.num" height="100%">
+      <div *ngFor="let pair of pairs">
+        <div *ngIf="pair.dayofweek === day && pair.pairNumber === lessonTime.num" height="100%">
 
           <span class="pair" *ngIf="pair.weektype =='Все'"
-                (click)="onClick($event, day, lessonTime.num, pair.weektype); $event.stopPropagation();"
+                (click)="$event.stopPropagation();"
                 (mousemove)="onMouseMove($event)"
                 (mouseenter)="onMouseEnter($event, day, lessonTime.num, weektype)" (mouseleave)="onMouseLeave()">
             <div class="text-left" style="font-size: 10px;">{{pair.pairType.type}}</div>
             <div style="padding-bottom: 7px; font-size: 14px;" class="text-center">
               {{pair.lesson.discipline.name}} <span *ngIf="pair.optionally" style="font-size: 10px;">(по выбору)</span>
             </div>
-            <div [userCard]="pair.lesson.professor.user" style="padding-bottom: 7px; font-size: 11px;" class="text-right">{{pair.lesson.professor.user.userFIO}}</div>
+            <div style="padding-bottom: 7px; font-size: 11px;" class="text-right">{{pair.lesson.professor.user.userFIO}}</div>
             <div style="float: left; font-size: 12px;" class="text-left">{{pair.lesson.group.name}}</div>
             <div style="font-size: 12px;" class="text-right">{{pair.room.room}} каб.</div>
+
+            <span class="pair-create" (click)="onClick($event, day, lessonTime.num); $event.stopPropagation();">
+              <i class="fa fa-plus"></i>
+            </span>
+            <span class="pair-edit" (click)="onClick($event, day, lessonTime.num, pair.weektype); $event.stopPropagation();">
+              <i class="fa fa-pencil" aria-hidden="true"></i>
+            </span>
+
           </span>
 
           <span class="pair even" *ngIf="pair.weektype =='Чет'"
-                (click)="onClick($event, day, lessonTime.num, pair.weektype); $event.stopPropagation();"
+                (click)="$event.stopPropagation();"
                 (mousemove)="onMouseMove($event)"
                 (mouseenter)="onMouseEnter($event, day, lessonTime.num, weektype)" (mouseleave)="onMouseLeave()">
             <div class="text-left" style="float: right;font-size: 10px;">{{pair.weektype}}</div>
@@ -38,13 +46,20 @@
               {{pair.lesson.discipline.name}}
               <span *ngIf="pair.optionally" style="font-size: 10px;">(по выбору)</span>
             </div>
-            <div [userCard]="pair.lesson.professor.user" style="padding-bottom: 7px; font-size: 10px;" class="text-right">{{pair.lesson.professor.user.userFIO}}</div>
+            <div style="padding-bottom: 7px; font-size: 10px;" class="text-right">{{pair.lesson.professor.user.userFIO}}</div>
             <div style="float: left; font-size: 12px;" class="text-left">{{pair.lesson.group.name}}</div>
             <div style="font-size: 12px;" class="text-right">{{pair.room.room}} каб.</div>
+
+            <span class="pair-create" (click)="onClick($event, day, lessonTime.num); $event.stopPropagation();">
+              <i class="fa fa-plus"></i>
+            </span>
+            <span class="pair-edit" (click)="onClick($event, day, lessonTime.num, pair.weektype); $event.stopPropagation();">
+              <i class="fa fa-pencil" aria-hidden="true"></i>
+            </span>
           </span>
 
           <span class="pair odd" *ngIf="pair.weektype =='Нечет'"
-                (click)="onClick($event, day, lessonTime.num, pair.weektype); $event.stopPropagation();"
+                (click)="$event.stopPropagation();"
                 (mousemove)="onMouseMove($event)"
                 (mouseenter)="onMouseEnter($event, day, lessonTime.num, weektype)" (mouseleave)="onMouseLeave()">
             <div class="text-left" style="float: right;font-size: 10px;">{{pair.weektype}}</div>
@@ -53,13 +68,20 @@
               {{pair.lesson.discipline.name}}
               <span *ngIf="pair.optionally" style="font-size: 10px;">(по выбору)</span>
             </div>
-            <div [userCard]="pair.lesson.professor.user" style="padding-bottom: 7px; font-size: 10px;" class="text-right">{{pair.lesson.professor.user.userFIO}}</div>
+            <div style="padding-bottom: 7px; font-size: 10px;" class="text-right">{{pair.lesson.professor.user.userFIO}}</div>
             <div style="float: left; font-size: 12px;" class="text-left">{{pair.lesson.group.name}}</div>
             <div style="font-size: 12px;" class="text-right">{{pair.room.room}} каб.</div>
+
+            <span class="pair-create" (click)="onClick($event, day, lessonTime.num); $event.stopPropagation();">
+              <i class="fa fa-plus"></i>
+            </span>
+            <span class="pair-edit" (click)="onClick($event, day, lessonTime.num, pair.weektype); $event.stopPropagation();">
+              <i class="fa fa-pencil" aria-hidden="true"></i>
+            </span>
           </span>
 
-        </span>
-      </span>
+        </div>
+      </div>
     </td>
   </tr>
 </table>

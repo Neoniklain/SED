@@ -87,7 +87,7 @@ td {
 
 .thead-black
 {
-  background: black;
+  background: #606d7b;
   color: white;
 }
 
@@ -101,6 +101,53 @@ td input {
   margin: 0;
   vertical-align: middle;
   background: #e2e2e2;
+}
+.pair-edit {
+  display: none;
+}
+.pair-create {
+  display: none;
+}
+
+.pair:hover .pair-edit {
+  background: rgba(255, 255, 255, 0.78);
+  padding: 1px 5px;
+  font-size: 14px;
+  border-radius: 50%;
+  display: inline-block;
+  border: 1px solid;
+  position: absolute;
+  margin-top: -25px;
+  margin-left: -30px;
+  border-color: rgb(174, 175, 54);
+  color: rgba(98, 99, 31, 0.78);
+}
+
+.pair:hover .pair-edit:hover {
+  background: rgba(255, 255, 255, 1);
+  color: rgba(98, 99, 31, 1);
+  box-shadow: 2px 2px 15px -1px;
+}
+
+.pair:hover .pair-create {
+  background: rgba(255, 255, 255, 0.78);
+  padding: 1px 5px;
+  font-size: 14px;
+  border-radius: 50%;
+  display: inline-block;
+  border: 1px solid;
+  position: absolute;
+  margin-top: -25px;
+  margin-left: -60px;
+  border-color: rgb(68, 175, 72);
+  color: rgba(23, 78, 25, 0.78);
+}
+
+.pair:hover .pair-create:hover {
+  background: rgba(255, 255, 255, 1);
+  color: rgba(23, 78, 25, 1);
+  box-shadow: 2px 2px 15px -1px;
+
 }
 
 .pairs-not-found h1 {

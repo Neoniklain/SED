@@ -10,7 +10,7 @@ public class RoomEntity {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "roomSequenceGen")
     private long id;
 
-    @Column(name = "room")
+    @Column(unique=true)
     private String room;
 
     public long getId() {

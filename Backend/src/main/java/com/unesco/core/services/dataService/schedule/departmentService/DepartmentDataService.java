@@ -82,8 +82,11 @@ public class DepartmentDataService implements IDepartmentDataService {
         try {
             entity = departmentRepository.save(entity);
         } catch (Exception e) {
+            if(e instanceof DataIntegrityViolationException)
+                result.addErrors("Данная кафедра уже существует.");
+            else
+                result.addErrors("Ошибка добавления.");
             result.setStatus(StatusTypes.ERROR);
-            result.addErrors(e.getMessage());
             return result;
         }
         result.setData((DepartmentDTO) mapperService.toDto(entity));

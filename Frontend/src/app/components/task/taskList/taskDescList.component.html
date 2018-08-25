@@ -6,7 +6,7 @@
       <button (click)="showDialogNewTaskDescription()" type="button" class="btn btn-success">Добавить задачу</button>
    </div>
 </div>
-<div *ngIf="taskDescList.length > 0">
+<div *ngIf="taskDescList.length > 0 && !loading">
    <div class="header-panel-body">
       <h3>Список задач</h3>
    </div>
@@ -45,5 +45,6 @@
       </table>
    </div>
 </div>
+<data-loader [show]="loading" [margin]="9"></data-loader>
 <work-task></work-task>
 <new-task-desc (onCreateNew)="onCreateNew($event)"></new-task-desc>

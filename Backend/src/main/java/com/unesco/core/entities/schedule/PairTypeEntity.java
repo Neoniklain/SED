@@ -9,6 +9,7 @@ public class PairTypeEntity {
     @SequenceGenerator(name = "pairTypeSequenceGen", sequenceName = "pairTypeSequenceGen", allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "pairTypeSequenceGen")
     private long id;
+    @Column(unique=true)
     private String type;
 
     public long getId() {

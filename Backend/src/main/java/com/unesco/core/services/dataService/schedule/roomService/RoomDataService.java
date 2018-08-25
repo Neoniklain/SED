@@ -83,8 +83,11 @@ public class RoomDataService implements IRoomDataService {
         try {
             entity = roomRepository.save(entity);
         } catch (Exception e) {
+            if(e instanceof DataIntegrityViolationException)
+                result.addErrors("Данная аудитория уже существует.");
+            else
+                result.addErrors("Ошибка добавления.");
             result.setStatus(StatusTypes.ERROR);
-            result.addErrors(e.getMessage());
             return result;
         }
         result.setData((RoomDTO) mapperService.toDto(entity));

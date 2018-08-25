@@ -82,8 +82,11 @@ public class GroupDataService implements IGroupDataService {
         try {
             entity = groupRepository.save(entity);
         } catch (Exception e) {
+            if(e instanceof DataIntegrityViolationException)
+                result.addErrors("Данная группа уже существует.");
+            else
+                result.addErrors("Ошибка добавления.");
             result.setStatus(StatusTypes.ERROR);
-            result.addErrors(e.getMessage());
             return result;
         }
         result.setData((GroupDTO) mapperService.toDto(entity));
