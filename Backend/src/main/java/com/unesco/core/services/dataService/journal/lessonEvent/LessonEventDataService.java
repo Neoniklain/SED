@@ -5,7 +5,7 @@ import com.unesco.core.dto.enums.StatusTypes;
 import com.unesco.core.dto.journal.LessonEventDTO;
 import com.unesco.core.entities.journal.LessonEventEntity;
 import com.unesco.core.repositories.journal.LessonEventRepository;
-import com.unesco.core.services.dataService.mapperService.IMapperService;
+import com.unesco.core.services.mapperService.IMapperService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;

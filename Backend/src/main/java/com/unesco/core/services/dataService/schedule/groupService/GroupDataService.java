@@ -7,7 +7,7 @@ import com.unesco.core.dto.enums.StatusTypes;
 import com.unesco.core.dto.shedule.GroupDTO;
 import com.unesco.core.entities.schedule.GroupEntity;
 import com.unesco.core.repositories.plan.GroupRepository;
-import com.unesco.core.services.dataService.mapperService.IMapperService;
+import com.unesco.core.services.mapperService.IMapperService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.PageRequest;

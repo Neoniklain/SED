@@ -6,7 +6,7 @@ import com.unesco.core.dto.enums.StatusTypes;
 import com.unesco.core.dto.news.NewsDTO;
 import com.unesco.core.entities.news.NewsEntity;
 import com.unesco.core.repositories.news.NewsRepository;
-import com.unesco.core.services.dataService.mapperService.IMapperService;
+import com.unesco.core.services.mapperService.IMapperService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.PageRequest;

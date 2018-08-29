@@ -1,3 +1,10 @@
+<div class="legend">
+  <span><div class="legend-item even"></div> - Четное</span>
+  <span><div class="legend-item odd"></div> - Нечетное</span>
+  <span><div class="legend-item subgroup-1"></div> - Подгруппа 1</span>
+  <span><div class="legend-item subgroup-2"></div> - Подгруппа 2</span>
+</div>
+
 <table class="table table-bordered" *ngIf="pairs.length > 0 || editable" id="temp">
   <thead class="thead-black">
   <tr>
@@ -14,68 +21,42 @@
     <td width="13%" *ngFor="let day of days" (click)="onClick($event, day, lessonTime.num)">
       <div *ngFor="let pair of pairs">
         <div *ngIf="pair.dayofweek === day && pair.pairNumber === lessonTime.num" height="100%">
-
-          <span class="pair" *ngIf="pair.weektype =='Все'"
+          <span [ngClass]="{
+                          'pair': true,
+                          'even': pair.weektype =='Чет' && pair.subgroup == 0,
+                          'odd': pair.weektype =='Нечет' && pair.subgroup == 0,
+                          'subgroup-1': pair.subgroup == 1 && pair.weektype =='Все',
+                          'subgroup-2': pair.subgroup == 2 && pair.weektype =='Все',
+                          'odd-subgroup-1': pair.subgroup == 1 && pair.weektype =='Нечет',
+                          'odd-subgroup-2': pair.subgroup == 2 && pair.weektype =='Нечет',
+                          'even-subgroup-1': pair.subgroup == 1 && pair.weektype =='Чет',
+                          'even-subgroup-2': pair.subgroup == 2 && pair.weektype =='Чет'
+                            }"
                 (click)="$event.stopPropagation();"
                 (mousemove)="onMouseMove($event)"
                 (mouseenter)="onMouseEnter($event, day, lessonTime.num, weektype)" (mouseleave)="onMouseLeave()">
-            <div class="text-left" style="font-size: 10px;">{{pair.pairType.type}}</div>
-            <div style="padding-bottom: 7px; font-size: 14px;" class="text-center">
-              {{pair.lesson.discipline.name}} <span *ngIf="pair.optionally" style="font-size: 10px;">(по выбору)</span>
-            </div>
-            <div style="padding-bottom: 7px; font-size: 11px;" class="text-right">{{pair.lesson.professor.user.userFIO}}</div>
-            <div style="float: left; font-size: 12px;" class="text-left">{{pair.lesson.group.name}}</div>
-            <div style="font-size: 12px;" class="text-right">{{pair.room.room}} каб.</div>
-
-            <span class="pair-create" (click)="onClick($event, day, lessonTime.num); $event.stopPropagation();">
-              <i class="fa fa-plus"></i>
-            </span>
-            <span class="pair-edit" (click)="onClick($event, day, lessonTime.num, pair.weektype); $event.stopPropagation();">
-              <i class="fa fa-pencil" aria-hidden="true"></i>
-            </span>
-
-          </span>
-
-          <span class="pair even" *ngIf="pair.weektype =='Чет'"
-                (click)="$event.stopPropagation();"
-                (mousemove)="onMouseMove($event)"
-                (mouseenter)="onMouseEnter($event, day, lessonTime.num, weektype)" (mouseleave)="onMouseLeave()">
-            <div class="text-left" style="float: right;font-size: 10px;">{{pair.weektype}}</div>
+            <div *ngIf="pair.weektype !='Все'" class="text-left" style="float: right;font-size: 10px;">{{pair.weektype}}</div>
             <div class="text-left" style="font-size: 10px;">{{pair.pairType.type}}</div>
             <div style="padding-bottom: 7px; font-size: 14px;" class="text-center">
               {{pair.lesson.discipline.name}}
               <span *ngIf="pair.optionally" style="font-size: 10px;">(по выбору)</span>
+              <span *ngIf="pair.subgroup != 0" style="font-size: 10px;">(подгруппа {{pair.subgroup}})</span>
             </div>
             <div style="padding-bottom: 7px; font-size: 10px;" class="text-right">{{pair.lesson.professor.user.userFIO}}</div>
-            <div style="float: left; font-size: 12px;" class="text-left">{{pair.lesson.group.name}}</div>
-            <div style="font-size: 12px;" class="text-right">{{pair.room.room}} каб.</div>
-
-            <span class="pair-create" (click)="onClick($event, day, lessonTime.num); $event.stopPropagation();">
-              <i class="fa fa-plus"></i>
-            </span>
-            <span class="pair-edit" (click)="onClick($event, day, lessonTime.num, pair.weektype); $event.stopPropagation();">
-              <i class="fa fa-pencil" aria-hidden="true"></i>
-            </span>
-          </span>
-
-          <span class="pair odd" *ngIf="pair.weektype =='Нечет'"
-                (click)="$event.stopPropagation();"
-                (mousemove)="onMouseMove($event)"
-                (mouseenter)="onMouseEnter($event, day, lessonTime.num, weektype)" (mouseleave)="onMouseLeave()">
-            <div class="text-left" style="float: right;font-size: 10px;">{{pair.weektype}}</div>
-            <div class="text-left" style="font-size: 10px;">{{pair.pairType.type}}</div>
-            <div style="padding-bottom: 7px; font-size: 14px;" class="text-center">
-              {{pair.lesson.discipline.name}}
-              <span *ngIf="pair.optionally" style="font-size: 10px;">(по выбору)</span>
+            <div style="float: left; font-size: 12px;" class="text-left">
+              <span>{{pair.lesson.group.name}}</span>
             </div>
-            <div style="padding-bottom: 7px; font-size: 10px;" class="text-right">{{pair.lesson.professor.user.userFIO}}</div>
-            <div style="float: left; font-size: 12px;" class="text-left">{{pair.lesson.group.name}}</div>
-            <div style="font-size: 12px;" class="text-right">{{pair.room.room}} каб.</div>
+            <div style="font-size: 12px;" class="text-right">{{pair.room.room}}</div>
 
-            <span class="pair-create" (click)="onClick($event, day, lessonTime.num); $event.stopPropagation();">
+            <span class="pair-create" title="Создать занятие"
+                  (click)="onClick($event, day, lessonTime.num); $event.stopPropagation();"
+                  (mousemove)="onMouseMove($event)">
               <i class="fa fa-plus"></i>
             </span>
-            <span class="pair-edit" (click)="onClick($event, day, lessonTime.num, pair.weektype); $event.stopPropagation();">
+            <span class="pair-edit" title="Редактировать занятие"
+                  (click)="onClick($event, day, lessonTime.num, pair.weektype); $event.stopPropagation();"
+                  (mousemove)="onMouseMove($event)"
+                  (mouseenter)="onMouseEnter($event, day, lessonTime.num, weektype)">
               <i class="fa fa-pencil" aria-hidden="true"></i>
             </span>
           </span>

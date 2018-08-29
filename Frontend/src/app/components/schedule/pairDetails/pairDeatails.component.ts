@@ -1,4 +1,14 @@
-import {Component, EventEmitter, Input, OnChanges, OnInit, Output} from "@angular/core";
+import {
+    Component,
+    ElementRef,
+    EventEmitter,
+    HostListener,
+    Input,
+    OnChanges,
+    OnInit,
+    Output,
+    ViewChild
+} from "@angular/core";
 import {Pair} from "../../../models/shedule/pair";
 import {Group} from "../../../models/shedule/group";
 import {DictionaryService} from "../../../services/dictionary.service";
@@ -39,6 +49,14 @@ export class PairDetailsComponent implements OnInit, OnChanges {
     public findPairTypes: Array<PairType> = new Array<PairType>();
     public showDeleteDialog: boolean = false;
     public WeekTypes = WeekType;
+    public SubGroups = [];
+    public curSubGroup;
+    public windowXOffset: number;
+    public windowYOffset: number;
+    public windowWidth: number;
+    public windowHeight: number;
+
+    @ViewChild('pairDetails') pairDetailsView: ElementRef;
 
     constructor(private dictionaryService: DictionaryService,
                 private accountService: AccountService,
@@ -48,20 +66,68 @@ export class PairDetailsComponent implements OnInit, OnChanges {
 
     ngOnInit() {
         this.GetPairTypes();
+        this.SubGroups = [
+            {
+                name: "Первая",
+                value: 1
+            },
+            {
+                name: "Вторая",
+                value: 2
+            }
+        ];
+        this.windowXOffset = window.pageXOffset;
+        this.windowYOffset = window.pageYOffset;
+        this.windowWidth = window.innerWidth;
+        this.windowHeight = window.innerHeight;
     }
 
     ngOnChanges() {
-        if (!isUndefined(this.editablePair)) this.pair = JSON.parse(JSON.stringify(this.editablePair));
+        if (!isUndefined(this.editablePair)) {
+            this.pair = JSON.parse(JSON.stringify(this.editablePair));
+            if (this.pair!=null)
+                this.curSubGroup = this.SubGroups.find(x => x.value == this.pair.subgroup);
+        }
         else this.pair = null;
+    }
+
+    @HostListener('window:scroll', ['$event'])
+    onChangeOffset(event) {
+        this.windowXOffset = window.pageXOffset;
+        this.windowYOffset = window.pageYOffset;
+    }
+
+    @HostListener('window:resize', ['$event'])
+    onResize(event) {
+        this.windowWidth = window.innerWidth;
+        this.windowHeight = window.innerHeight;
     }
 
     getStyle() {
         let style;
         if (this.pointX && this.pointY) {
+
+            let changedPointY = this.pointY;
+            let changedPointX = this.pointX;
+
+            if (!isUndefined(this.pairDetailsView)) {
+                let widthDetails = this.pairDetailsView.nativeElement.offsetWidth;
+                let heightDetails = this.pairDetailsView.nativeElement.offsetHeight;
+
+                if ( (this.pointY + heightDetails + 5) >  this.windowHeight + this.windowYOffset) {
+                    changedPointY = this.pointY - heightDetails;
+                    console.log("Не вошел по высоте");
+                }
+
+                if ( (this.pointX + widthDetails + 5) >  this.windowWidth + this.windowXOffset) {
+                    changedPointX = this.pointX - widthDetails;
+                }
+            }
+
             style = {
-                "position": 'absolute',
-                "left": (this.pointX + 10) + 'px',
-                "top": this.pointY + 'px'
+                "position": 'fixed',
+                "left": changedPointX - this.windowXOffset + 'px',
+                "top": changedPointY - this.windowYOffset + 'px'
             };
             return style;
         } else {
@@ -222,6 +288,14 @@ export class PairDetailsComponent implements OnInit, OnChanges {
                     this.findRooms = [];
             }, error => console.error(error)
         );
+    }
+
+    changeSubGroup(event) {
+        if (this.pair.subgroup == event.value.value) {
+            this.curSubGroup = null;
+            this.pair.subgroup = 0;
+        } else
+            this.pair.subgroup = event.value.value;
     }
 
 }

@@ -7,7 +7,7 @@ import com.unesco.core.dto.enums.AccessRightType;
 import com.unesco.core.dto.enums.StatusTypes;
 import com.unesco.core.entities.account.AccessRightEntity;
 import com.unesco.core.repositories.account.AccessRightRepository;
-import com.unesco.core.services.dataService.mapperService.IMapperService;
+import com.unesco.core.services.mapperService.IMapperService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.PageRequest;

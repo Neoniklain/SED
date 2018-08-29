@@ -9,10 +9,31 @@ public class PairEntity {
     @SequenceGenerator(name = "pairSequenceGen", sequenceName = "pairSequenceGen", allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "pairSequenceGen")
     private long id;
+    /**
+     * Номер занятия
+     */
     private int pairNumber;
+    /**
+     * День недели
+     */
     private String dayofweek;
+    /**
+     * Тип недели
+     * Чет, Нечет, Все
+     */
     private String weektype;
+    /**
+     * Занятие по выбору
+     */
     private boolean optionally;
+    /**
+     * Потоковое занятие
+     */
+    private boolean flow;
+    /**
+    * Номер подгруппы
+    */
+    private int subgroup;
     @ManyToOne
     @JoinColumn(name = "pair_type_id", referencedColumnName = "id")
     private PairTypeEntity pairType;
@@ -80,6 +101,20 @@ public class PairEntity {
     }
     public void setLesson(LessonEntity lesson) {
         this.lesson = lesson;
+    }
+
+    public int getSubgroup() {
+        return subgroup;
+    }
+    public void setSubgroup(int subgroup) {
+        this.subgroup = subgroup;
+    }
+
+    public boolean isFlow() {
+        return flow;
+    }
+    public void setFlow(boolean flow) {
+        this.flow = flow;
     }
 
 }

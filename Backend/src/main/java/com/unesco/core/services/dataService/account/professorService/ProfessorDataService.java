@@ -9,7 +9,7 @@ import com.unesco.core.entities.account.ProfessorEntity;
 import com.unesco.core.entities.account.UserEntity;
 import com.unesco.core.repositories.account.ProfessorRepository;
 import com.unesco.core.services.dataService.account.userService.IUserDataService;
-import com.unesco.core.services.dataService.mapperService.IMapperService;
+import com.unesco.core.services.mapperService.IMapperService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.PageRequest;

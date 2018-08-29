@@ -8,10 +8,28 @@
     <div style="display: block"><b>Тип: </b>{{pair.pairType.type}}</div>
     <div style="display: block"><b>Преподаватель: </b><span [userCard]="pair.lesson.professor.user">{{pair.lesson.professor.user.userFIO}}</span></div>
     <div style="display: block"><b>Кабинет: </b>{{pair.room.room}}</div>
+    <div style="display: block"><b>Потоковое: </b><span *ngIf="pair.flow">Да</span><span *ngIf="!pair.flow">Нет</span></div>
+    <div *ngIf="pair.subgroup!=0" style="display: block"><b>Подгруппа: </b>{{pair.subgroup}}</div>
 </div>
 
-<div *ngIf="pair && editable" class="pair-details" [ngStyle]="getStyle()">
-    <span class="close-button" (click)="closeDetails()">X</span>
+<div *ngIf="pair && editable" class="pair-details" #pairDetails [ngStyle]="getStyle()">
+    <span class="close-button" (click)="closeDetails()"><span>X</span></span>
+
+    <div class="form-group row">
+        <label for="professor" class="col-sm-5 col-form-label">Преподаватель</label>
+        <div class="col-sm-7">
+            <p-autoComplete [inputStyle]="{'width':'100%'}" id="professor"
+                            [(ngModel)]="pair.lesson.professor"
+                            (onSelect)="selectProfessor($event)"
+                            (ngModelChange)="checkOnEmpty()"
+                            [suggestions]="findProfessors"
+                            (completeMethod)="searchProfessors($event)"
+                            [multiple]="false" field="user.userFIO"
+                            [emptyMessage]="'Не найдено.'"
+                            [forceSelection]="true"></p-autoComplete>
+        </div>
+    </div>
+
     <div class="form-group row">
         <label for="group" class="col-sm-5 col-form-label">Группа</label>
         <div class="col-sm-7">
@@ -35,26 +53,12 @@
     </div>
 
     <div class="form-group row">
-        <label class="col-sm-5 col-form-label">Периодичность</label>
+        <label for="room" class="col-sm-5 col-form-label">Кабинет</label>
         <div class="col-sm-7">
-            <span *ngFor="let week of WeekTypes | enumStringKeys"><input type="radio"
-                   class="form-check-input" (click)="selectWeekType(week)"
-                   name="WeekType" [value]="week"
-                   [(ngModel)]="pair.weektype">{{week}} </span>
-        </div>
-    </div>
-
-    <div class="form-group row">
-        <label for="professor" class="col-sm-5 col-form-label">Преподаватель</label>
-        <div class="col-sm-7">
-            <p-autoComplete [inputStyle]="{'width':'100%'}" id="professor"
-                            [(ngModel)]="pair.lesson.professor"
-                            (onSelect)="selectProfessor($event)"
-                            (ngModelChange)="checkOnEmpty()"
-                            [suggestions]="findProfessors"
-                            (completeMethod)="searchProfessors($event)"
-                            [multiple]="false" field="user.userFIO"
-                            [emptyMessage]="'Не найдено.'"
+            <p-autoComplete [inputStyle]="{'width':'100%'}" id="room" [(ngModel)]="pair.room"
+                            (onSelect)="selectRoom($event)" (ngModelChange)="checkOnEmpty()"
+                            [suggestions]="findRooms" (completeMethod)="searchRooms($event)"
+                            [multiple]="false" field="room" [emptyMessage]="'Не найдено.'"
                             [forceSelection]="true"></p-autoComplete>
         </div>
     </div>
@@ -73,23 +77,43 @@
     </div>
 
     <div class="form-group row">
-        <label for="professor" class="col-sm-5 col-form-label">По выбору</label>
+        <label class="col-sm-5 col-form-label">Периодичность</label>
         <div class="col-sm-7">
-            <p-toggleButton onLabel="Да" offLabel="Нет"
-                            [(ngModel)]="pair.optionally"></p-toggleButton>
+            <span *ngFor="let week of WeekTypes | enumStringKeys"><input type="radio"
+                                                                         class="form-check-input" (click)="selectWeekType(week)"
+                                                                         name="WeekType" [value]="week"
+                                                                         [(ngModel)]="pair.weektype">{{week}} </span>
         </div>
     </div>
 
     <div class="form-group row">
-        <label for="room" class="col-sm-5 col-form-label">Кабинет</label>
+        <label for="professor" class="col-sm-5 col-form-label">Подгруппа</label>
         <div class="col-sm-7">
-            <p-autoComplete [inputStyle]="{'width':'100%'}" id="room" [(ngModel)]="pair.room"
-                            (onSelect)="selectRoom($event)" (ngModelChange)="checkOnEmpty()"
-                            [suggestions]="findRooms" (completeMethod)="searchRooms($event)"
-                            [multiple]="false" field="room" [emptyMessage]="'Не найдено.'"
-                            [forceSelection]="true"></p-autoComplete>
+            <p-selectButton [options]="SubGroups"
+                            [(ngModel)]="curSubGroup"
+                            optionLabel="name"
+                            (onChange)="changeSubGroup($event)"
+                            [dataKey]="value"></p-selectButton>
         </div>
     </div>
+
+    <div class="form-group row">
+        <div class="col-sm-6 text-right">
+            <p-toggleButton [(ngModel)]="pair.optionally"
+                            onLabel="По выбору"
+                            offLabel="Не по выбору"
+                            onIcon="pi pi-check"
+                            offIcon="pi pi-times"></p-toggleButton>
+        </div>
+        <div class="col-sm-6 text-left">
+            <p-toggleButton [(ngModel)]="pair.flow"
+                            onLabel="Потоковое"
+                            offLabel="Не потоковое"
+                            onIcon="pi pi-check"
+                            offIcon="pi pi-times"></p-toggleButton>
+        </div>
+    </div>
+
 
     <div class="form-group row">
         <div *ngIf="editablePair.id != 0" class="col-sm-6 text-left">

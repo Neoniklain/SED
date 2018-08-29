@@ -61,8 +61,33 @@ input {
 }
 
 .even {
-  background: #ff000017;
+  background: rgba(255, 0, 0, 0.09);
 }
+
+.subgroup-1 {
+  background: #bcffbf;
+}
+
+.subgroup-2 {
+  background: #aafff6;
+}
+
+.odd-subgroup-1 {
+  background: linear-gradient(#e0e0f7, #bcffbf);
+}
+
+.even-subgroup-1 {
+  background: linear-gradient(#ffe8e8, #bcffbf);
+}
+
+.odd-subgroup-2 {
+  background: linear-gradient(#e0e0f7, #aafff6);
+}
+
+.even-subgroup-2 {
+  background: linear-gradient(#ffe8e8, #aafff6);
+}
+
 
 .pair {
   padding: 5px;
@@ -159,4 +184,21 @@ td input {
   padding: 8em 0;
   font-style: italic;
   color: #7d7d7d;
+}
+
+.legend-item {
+  display: inline-block;
+  width: 12px;
+  height: 12px;
+  border: 1px solid #a7a6a6;
+}
+
+.legend {
+  text-align: right;
+  padding: 1em 0;
+}
+
+.legend span {
+  font-size: 13px;
+  color: #4e4e4e;
 }

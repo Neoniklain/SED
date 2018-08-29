@@ -10,6 +10,14 @@ public class PairDTO {
     private RoomDTO room;
     private LessonDTO lesson;
     private boolean optionally;
+    /**
+     * Потоковое занятие
+     */
+    private boolean flow;
+    /**
+     * Номер подгруппы
+     */
+    private int subgroup;
 
     public PairDTO() {
         this.lesson = new LessonDTO();
@@ -72,4 +80,17 @@ public class PairDTO {
         this.lesson = lesson;
     }
 
+    public int getSubgroup() {
+        return subgroup;
+    }
+    public void setSubgroup(int subgroup) {
+        this.subgroup = subgroup;
+    }
+
+    public boolean isFlow() {
+        return flow;
+    }
+    public void setFlow(boolean flow) {
+        this.flow = flow;
+    }
 }

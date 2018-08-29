@@ -11,7 +11,7 @@ import com.unesco.core.entities.account.UserToAccessRightEntity;
 import com.unesco.core.repositories.account.AccessRightRepository;
 import com.unesco.core.repositories.account.UserRepository;
 import com.unesco.core.repositories.account.UserToAccessRightRepository;
-import com.unesco.core.services.dataService.mapperService.IMapperService;
+import com.unesco.core.services.mapperService.IMapperService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

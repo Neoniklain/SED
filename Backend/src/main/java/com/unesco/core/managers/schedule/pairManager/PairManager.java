@@ -1,5 +1,6 @@
 package com.unesco.core.managers.schedule.pairManager;
 
+import com.unesco.core.dto.shedule.GroupDTO;
 import com.unesco.core.managers.schedule.pairManager.interfaces.pair.IPairManager;
 import com.unesco.core.dto.additional.ResponseStatusDTO;
 import com.unesco.core.dto.shedule.PairDTO;
@@ -30,7 +31,8 @@ public class PairManager implements IPairManager {
             return result;
         }
 
-        List<String> messages = new ArrayList<>();
+        List<String> errors = new ArrayList<>();
+        List<String> warnings = new ArrayList<>();
 
         for (PairDTO p: pairsForValidate) {
 
@@ -45,55 +47,97 @@ public class PairManager implements IPairManager {
                 boolean groupEq = pair.getLesson().getGroup().getId() == p.getLesson().getGroup().getId();
                 boolean roomEq = pair.getRoom().getId() == p.getRoom().getId();
                 boolean weektypeEq = pair.getWeektype().equals(p.getWeektype());
+                boolean subGroupEq = pair.getSubgroup() == p.getSubgroup();
+                boolean disciplineEq = pair.getLesson().getDiscipline().getId() == p.getLesson().getDiscipline().getId();
 
-                if(profEq && groupEq
-                    && (weektypeEq
-                        || (pair.getWeektype().equals("Все"))
-                        || (p.getWeektype().equals("Все"))
-                    ))
+                if (pair.isOptionally() && pair.getSubgroup() != 0) {
+                    errors.add("Нельзя создать занятие по выбору и разделенное на подгруппы одновременно.");
+                    break;
+                }
+
+                if (profEq && groupEq && subGroupEq
+                        && (weektypeEq
+                            || (pair.getWeektype().equals("Все"))
+                            || (p.getWeektype().equals("Все"))
+                        )
+                    )
                 {
-                    messages.add(" В это время у "+p.getLesson().getProfessor().getUser().getUserFIO()
+                    errors.add(" В это время у "+p.getLesson().getProfessor().getUser().getUserFIO()
                             +" и "+p.getLesson().getGroup().getName()+" уже назначено занятие ");
                     break;
                 }
 
-                if(roomEq && (weektypeEq || (pair.getWeektype().equals("Все"))
-                        || (p.getWeektype().equals("Все"))))
+                if(profEq && groupEq && subGroupEq && pair.isFlow() && p.isFlow()) {
+                    if (!disciplineEq) {
+                        errors.add("У потоковых дисциплин должен быть одинаковый предмет ("+p.getLesson().getDiscipline().getName()+").");
+                        break;
+                    }
+                    if (!roomEq) {
+                        errors.add("У потоковых дисциплин должна быть одинаковая аудитория ("+p.getRoom().getRoom()+").");
+                        break;
+                    }
+                    if (!weektypeEq) {
+                        errors.add("У потоковых дисциплин должна быть одинаковая переодичность ("+p.getWeektype()+").");
+                        break;
+                    }
+                }
+
+                if (profEq
+                        && ((!p.isFlow() && pair.isFlow()) || (p.isFlow() && !pair.isFlow()) || (!p.isFlow() && !pair.isFlow()))
+                        && (weektypeEq
+                        || (pair.getWeektype().equals("Все"))
+                        || (p.getWeektype().equals("Все"))
+                )
+                        )
                 {
-                    messages.add("В аудитории "+p.getRoom().getRoom()
+                    if(p.isFlow())
+                        warnings.add("Конфликтующее занятие является потоковым. Возможно вы забыли указать опцию 'Потоковый'?");
+
+                    errors.add("Для преподавателя "+p.getLesson().getProfessor().getUser().getUserFIO()
+                            +" уже назначено занятие в это время у"
+                            +p.getLesson().getGroup().getName());
+
+                    break;
+                }
+
+                if (roomEq 
+                        && ((!p.isFlow() && pair.isFlow()) || (p.isFlow() && !pair.isFlow()) || (!p.isFlow() && !pair.isFlow()))
+                        && (weektypeEq
+                            || (pair.getWeektype().equals("Все"))
+                            || (p.getWeektype().equals("Все"))
+                        )
+                    )
+                {
+                    errors.add("В аудитории "+p.getRoom().getRoom()
                             +" уже назначено занятие в это время у преподавателя "+p.getLesson().getProfessor().getUser().getUserFIO());
                     break;
                 }
 
-                if(profEq && (weektypeEq || (pair.getWeektype().equals("Все"))
-                        || (p.getWeektype().equals("Все"))))
-                {
-                    messages.add("Для преподавателя "+p.getLesson().getProfessor().getUser().getUserFIO()
-                            +" уже назначено занятие в это время у группы "+p.getLesson().getGroup().getName());
-                    break;
-                }
-
-                if(groupEq && (weektypeEq || (pair.getWeektype().equals("Все"))
-                        || (p.getWeektype().equals("Все")))
+                if (groupEq && subGroupEq
+                        && (weektypeEq
+                            || (pair.getWeektype().equals("Все"))
+                            || (p.getWeektype().equals("Все"))
+                        )
                         && !pair.isOptionally()
                         && !p.isOptionally())
                 {
-                    messages.add("У группы "+p.getLesson().getGroup().getName()
-                            +" уже назначено занятие в это время у преподавателя "+p.getLesson().getProfessor().getUser().getUserFIO());
+                    errors.add("У "+p.getLesson().getGroup().getName()+" уже назначено занятие в это время у преподавателя "+p.getLesson().getProfessor().getUser().getUserFIO());
                     break;
                 }
 
-                if(groupEq && (weektypeEq || (pair.getWeektype().equals("Все"))
-                        || (p.getWeektype().equals("Все")))
+                if (groupEq && subGroupEq
+                        && (weektypeEq
+                            || (pair.getWeektype().equals("Все"))
+                            || (p.getWeektype().equals("Все"))
+                        )
                         && (pair.isOptionally()
                         && !p.isOptionally()))
                 {
-                    messages.add("У группы "+p.getLesson().getGroup().getName()
-                            +" уже назначено занятие в это время у преподавателя "+p.getLesson().getProfessor().getUser().getUserFIO());
+                    errors.add("У "+p.getLesson().getGroup().getName()+" уже назначено занятие в это время у преподавателя "+p.getLesson().getProfessor().getUser().getUserFIO());
                     break;
                 }
 
-                if(groupEq && (weektypeEq || (pair.getWeektype().equals("Все"))
+                if (groupEq && (weektypeEq || (pair.getWeektype().equals("Все"))
                         || (p.getWeektype().equals("Все")))
                         && (pair.isOptionally()
                         && p.isOptionally()
@@ -110,16 +154,17 @@ public class PairManager implements IPairManager {
                         )
                 )
                 {
-                    messages.add("В один день не может быть больше двух занятий по выбору");
+                    errors.add("В один день не может быть больше двух занятий по выбору");
                     break;
                 }
             }
         }
 
-        if(messages.size()>0)
+        if(errors.size()>0)
         {
             result.setStatus(StatusTypes.ERROR);
-            result.setErrors(messages);
+            result.setErrors(errors);
+            result.setWarnings(warnings);
         }
 
         return result;
@@ -136,7 +181,7 @@ public class PairManager implements IPairManager {
     public ResponseStatusDTO validate() {
         ResponseStatusDTO responseStatusDTO = new ResponseStatusDTO();
         responseStatusDTO.setStatus(StatusTypes.OK);
-        if (pair.getLesson().getGroup() == null || pair.getLesson().getGroup().getId() == 0) {
+        if (pair.getLesson().getGroup() == null) {
             responseStatusDTO.setStatus(StatusTypes.ERROR);
             responseStatusDTO.addErrors("Не указанна группа");
         }

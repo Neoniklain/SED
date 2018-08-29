@@ -11,10 +11,15 @@
     position: absolute;
     top: -7px;
     right: -8px;
-    border: 1px solid #0006;
+    border: 1px solid #ddd;
     background: white;
-    padding: 1px 7px;
-    border-radius: 50%;
+    padding: 1px 6px;
+    border-radius: 20%;
     cursor: pointer;
-    font-size: 13px;
+    font-size: 10px;
+    transition: .5s;
+}
+
+.close-button:hover {
+    border: 1px solid #3d3d3d
 }

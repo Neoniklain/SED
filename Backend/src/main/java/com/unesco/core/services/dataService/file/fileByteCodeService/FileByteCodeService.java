@@ -5,7 +5,7 @@ import com.unesco.core.dto.enums.StatusTypes;
 import com.unesco.core.dto.file.FileByteCodeModel;
 import com.unesco.core.entities.file.FileByteCode;
 import com.unesco.core.repositories.file.FileByteCodeRepository;
-import com.unesco.core.services.dataService.mapperService.MapperService;
+import com.unesco.core.services.mapperService.MapperService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;

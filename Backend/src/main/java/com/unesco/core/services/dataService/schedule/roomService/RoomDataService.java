@@ -7,7 +7,7 @@ import com.unesco.core.dto.enums.StatusTypes;
 import com.unesco.core.dto.shedule.RoomDTO;
 import com.unesco.core.entities.schedule.RoomEntity;
 import com.unesco.core.repositories.RoomRepository;
-import com.unesco.core.services.dataService.mapperService.IMapperService;
+import com.unesco.core.services.mapperService.IMapperService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.dao.DataIntegrityViolationException;

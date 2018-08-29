@@ -9,7 +9,7 @@ spring:
     #url: jdbc:postgresql://ictkem.ru:3254/ict?currentSchema=public
     #username: ict
     #password: 123456
-    url: jdbc:postgresql://localhost:5432/unesco
+    url: jdbc:postgresql://localhost:5432/unesco?currentSchema=public
     username: postgres
     password: postgres
     driverClassName: org.postgresql.Driver

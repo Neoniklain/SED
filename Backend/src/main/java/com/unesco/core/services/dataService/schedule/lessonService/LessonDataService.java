@@ -8,7 +8,7 @@ import com.unesco.core.dto.shedule.LessonDTO;
 import com.unesco.core.entities.schedule.LessonEntity;
 import com.unesco.core.repositories.LessonRepository;
 import com.unesco.core.services.dataService.journal.visitation.VisitationConfigDataService;
-import com.unesco.core.services.dataService.mapperService.IMapperService;
+import com.unesco.core.services.mapperService.IMapperService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.PageRequest;

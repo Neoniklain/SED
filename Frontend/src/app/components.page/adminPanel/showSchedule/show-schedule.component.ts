@@ -5,19 +5,13 @@ import {Group} from "../../../models/shedule/group";
 import {Router} from "@angular/router";
 import {DictionaryService} from "../../../services/dictionary.service";
 import {AccountService} from "../../../services/accountService";
-import {PageResult} from "../../../models/admin/PageResult.model.list";
 import {ScheduleService} from "../../../services/schedule.service";
 import {Pair} from "../../../models/shedule/pair";
 import {Department} from "../../../models/shedule/department";
 import {DepartmentShedule} from "../../../models/shedule/departmentShedule";
-import {ResponseStatus} from "../../../models/additional/responseStatus";
 import {NotificationService} from "../../../services/notification.service";
 import {Dictionary} from "../../../models/admin/dictionary.model";
-import {User} from "../../../models/account/user.model";
-import {PairType} from "../../../models/shedule/pairType";
-import {Discipline} from "../../../models/shedule/discipline";
 import {isUndefined} from "util";
-import {Room} from "../../../models/shedule/room.model";
 
 @Component({
     selector: 'list-professors-page',
@@ -65,9 +59,12 @@ export class ShowScheduleComponent implements OnInit {
     }
 
     public GetProfessors(event: any) {
-        let filter = {
-            globalFilter: event.query.substring(0, 60)
-        };
+        let filter;
+        if (!isUndefined(event.query)) {
+            filter = {
+                globalFilter: event.query.substring(0, 60)
+            };
+        }
         let temp: Array<Professor> = new Array();
         this.dictionaryService.Get(Dictionary.professors, filter).subscribe(
             result => {
@@ -83,8 +80,11 @@ export class ShowScheduleComponent implements OnInit {
         );
     }
     public GetGroups(event: any) {
-        let filter = {
-            globalFilter: event.query.substring(0, 60)
+        let filter;
+        if (!isUndefined(event.query)) {
+            filter = {
+                globalFilter: event.query.substring(0, 60)
+            };
         }
         let temp: Array<Group> = new Array();
         this.dictionaryService.Get(Dictionary.groups, filter).subscribe(
@@ -98,8 +98,11 @@ export class ShowScheduleComponent implements OnInit {
         );
     }
     public GetDepartments(event: any) {
-        let filter = {
-            globalFilter: event.query.substring(0, 60)
+        let filter;
+        if (!isUndefined(event.query)) {
+            filter = {
+                globalFilter: event.query.substring(0, 60)
+            };
         }
         let temp: Array<Department> = new Array();
         this.dictionaryService.Get(Dictionary.departments, filter).subscribe(
