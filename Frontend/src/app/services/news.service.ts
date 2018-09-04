@@ -7,6 +7,7 @@ import { News } from "../models/news/news.model";
 import 'rxjs/add/operator/catch';
 import {HandelErrorService} from "./handelError.service";
 import {ResponseStatus} from "../models/additional/responseStatus";
+import {catchError, map} from "rxjs/operators";
 
 @Injectable()
 export class NewsService {
@@ -21,31 +22,45 @@ export class NewsService {
 
     public GetAll(): Observable<ResponseStatus> {
         return this.http.get(ApiRouteConstants.News.All)
-            .catch(this.handleError.handle);
+            .pipe(
+                map((res: ResponseStatus) => res),
+                catchError(e => this.handleError.handle(e))
+            );
     }
 
     public Get(id: number): Observable<ResponseStatus> {
         let params: HttpParams = new HttpParams();
         return this.http.get(ApiRouteConstants.News.Get.replace(":id", id.toString()))
-            .catch(this.handleError.handle);
+            .pipe(
+                map((res: ResponseStatus) => res),
+                catchError(e => this.handleError.handle(e))
+            );
     }
 
     public Delete(id: number): Observable<ResponseStatus> {
         let params = new HttpParams();
         return this.http.post(ApiRouteConstants.News.Delete.replace(":id", id.toString()), null, {
-            responseType: "text",
             params: params
-        }).catch(this.handleError.handle);
+        }).pipe(
+            map((res: ResponseStatus) => res),
+            catchError(e => this.handleError.handle(e))
+        );
     }
 
     public GetLast(): Observable<ResponseStatus> {
         return this.http.get(ApiRouteConstants.News.Last)
-            .catch(this.handleError.handle);
+            .pipe(
+                map((res: ResponseStatus) => res),
+                catchError(e => this.handleError.handle(e))
+            );
     }
 
     public Save(news: News): Observable<ResponseStatus> {
         let params = new HttpParams();
         return this.http.post(ApiRouteConstants.News.Save, news, {params: params })
-            .catch(this.handleError.handle);
+            .pipe(
+                map((res: ResponseStatus) => res),
+                catchError(e => this.handleError.handle(e))
+            );
     }
 }

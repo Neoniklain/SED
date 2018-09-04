@@ -1,14 +1,13 @@
 import {Injectable} from '@angular/core';
-import {HttpClient, HttpErrorResponse, HttpParams} from '@angular/common/http';
+import {HttpClient, HttpParams} from '@angular/common/http';
 import {Observable} from 'rxjs/Observable';
 import {Router} from "@angular/router";
 import {ApiRouteConstants, RouteConstants} from "../bootstrap/app.route.constants";
 import {ErrorResponse} from "../models/additional/errorResponse";
 import {LogInUser, User} from "../models/account/user.model";
-import {Role} from "../models/account/role.model";
 import {ResponseStatus} from "../models/additional/responseStatus";
 import {HandelErrorService} from "./handelError.service";
-import {RequestOptions} from "@angular/http";
+import {catchError, map} from "rxjs/operators";
 
 export const TOKEN_NAME: string = 'token';
  
@@ -30,32 +29,52 @@ export class AuthenticationService {
     register(user): Observable<ResponseStatus> {
         let params = new HttpParams();
         return this.http.post(ApiRouteConstants.Authentication.Registration, user, {params: params })
-            .catch(this.handleError.handle);
+            .pipe(
+                map((res: ResponseStatus) => res),
+                catchError(e => this.handleError.handle(e))
+            );
     }
 
     getRole(): Observable<ResponseStatus> {
         return this.http.get(ApiRouteConstants.Authentication.Role)
-            .catch(this.handleError.handle);
+            .pipe(
+                map((res: ResponseStatus) => res),
+                catchError(e => this.handleError.handle(e))
+            );
     }
 
     getUser(): Observable<ResponseStatus> {
         return this.http.get(ApiRouteConstants.Authentication.User)
-            .catch(this.handleError.handle);
+            .pipe(
+                map((res: ResponseStatus) => res),
+                catchError(e => this.handleError.handle(e))
+            );
     }
 
     getUserAccessRight(): Observable<ResponseStatus> {
         return this.http.get(ApiRouteConstants.Authentication.UserAccessRight)
-            .catch(this.handleError.handle);
+            .pipe(
+                map((res: ResponseStatus) => res),
+                catchError(e => this.handleError.handle(e))
+            );
     }
 
     changePass(newPass: string, oldPass: string): Observable<ResponseStatus> {
         return this.http.post(ApiRouteConstants.Authentication.ChangePassword
-            , {"newPass": newPass, "oldPass": oldPass});
+            , {"newPass": newPass, "oldPass": oldPass})
+            .pipe(
+                map((res: ResponseStatus) => res),
+                catchError(e => this.handleError.handle(e))
+            );
     }
 
     changePhoto(photo: string): Observable<ResponseStatus> {
         return this.http.post(ApiRouteConstants.Authentication.ChangePhoto
-            , photo);
+            , photo)
+            .pipe(
+                map((res: ResponseStatus) => res),
+                catchError(e => this.handleError.handle(e))
+            );
     }
 
     logout() {

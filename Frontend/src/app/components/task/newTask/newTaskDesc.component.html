@@ -12,7 +12,7 @@
         <user-search-form [isModal]="false" (onReturn)="setUsers($event)" *ngIf="_isCreate"></user-search-form>
         <span *ngIf="_isCreate">
             <p style="margin: 10px 0;">Прикрепление файлов:</p>
-            <input type="file" ng2FileSelect [uploader]="_uploader" />
+            <input type="file" ng2FileSelect []="_uploader" />
             <p>Всего файлов: {{ _uploader?.queue?.length }}</p>
             <table [hidden]="!_uploader.queue.length" class="table">
                 <thead>

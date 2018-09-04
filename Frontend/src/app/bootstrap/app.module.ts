@@ -6,31 +6,29 @@ import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {HttpModule, RequestOptions} from "@angular/http";
 import {FormsModule} from "@angular/forms";
 import {TranslationModule, TranslationService} from "angular-l10n";
-import {ToastrModule} from "ngx-toastr";
-import {Ng2AutoCompleteModule} from "ng2-auto-complete";
-import {AutoCompleteModule} from 'primeng/components/autocomplete/autocomplete';
-import {FileSelectDirective} from 'ng2-file-upload';
-import {FileUploadModule} from 'primeng/components/fileupload/fileupload';
-import {
-    CalendarModule,
-    ConfirmationService,
-    DataTableModule,
-    DropdownModule, InputSwitchModule,
-    MultiSelectModule,
-    PasswordModule, SelectButtonModule, ToggleButtonModule
-} from "primeng/primeng";
 // custom
 import {routing} from "./app.routes";
 import {LowerCaseUrlSerializer} from "../providers/router";
 import {EnumKeysPipe} from "../pipes/enum.keys";
-import {DialogModule} from "primeng/components/dialog/dialog";
-import {GrowlModule} from "primeng/components/growl/growl";
-import {ConfirmDialogModule} from "primeng/components/confirmdialog/confirmdialog";
 import {Globals} from "../globals";
 import {ProfileDirective} from "../directive/profile.dirictive";
-import {InputTextModule} from "primeng/components/inputtext/inputtext";
 import {EnumStringKeysPipe} from "../pipes/enum.string.keys";
-import {CheckboxModule} from 'primeng/checkbox';
+import {CheckboxModule} from 'primeng/primeng';
+import {ConfirmDialogModule} from 'primeng/primeng';
+import {InputTextModule} from 'primeng/primeng';
+import {DialogModule} from 'primeng/primeng';
+import {GrowlModule} from 'primeng/primeng';
+import {AutoCompleteModule} from 'primeng/primeng';
+import {CalendarModule} from 'primeng/primeng';
+import {DataTableModule} from 'primeng/primeng';
+import {DragDropModule} from 'primeng/primeng';
+import {DropdownModule} from 'primeng/primeng';
+import {InputSwitchModule} from 'primeng/primeng';
+import {PasswordModule} from 'primeng/primeng';
+import {SelectButtonModule} from 'primeng/primeng';
+import {ToggleButtonModule} from 'primeng/primeng';
+import {ConfirmationService} from 'primeng/primeng';
+import {MessageService} from 'primeng/primeng';
 // http
 import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
 import {GlobalHttpOptions} from "../http/globalHttpOptions";
@@ -42,7 +40,6 @@ import {AuthenticationService} from "../services/authService";
 import {ScheduleService} from "../services/schedule.service";
 import {PluginService} from "../services/plugin.service";
 import {AccountService} from "../services/accountService";
-import {MessageService} from "primeng/components/common/messageservice";
 import {DictionaryService} from "../services/dictionary.service";
 import {JournalService} from "../services/journal.service";
 import {UtilsService} from "../services/utils.service";
@@ -89,25 +86,24 @@ import {AccessControlComponent} from "../components.page/adminPanel/accessContro
 import {DictionaryTableComponent} from "../components/shared/dictionaryTable/dictionaryTable.component";
 import {HasAccessRightDirective} from "../directive/hasAccessRight.dirictive";
 import {HasRoleDirective} from "../directive/hasRole.dirictive";
-import {ToastModule} from "primeng/toast";
 import {UserSearchComponent} from "../components/shared/userSearch/userSearch";
+import {FileUploadModule} from "ng2-file-upload";
 
 @NgModule({
    imports: [
       CommonModule,
       BrowserAnimationsModule,
-      ToastrModule.forRoot({preventDuplicates: true}),
       BrowserModule,
       FormsModule,
       HttpModule,
       HttpClientModule,
-      Ng2AutoCompleteModule,
       routing,
       TranslationModule.forRoot(),
       DialogModule,
       GrowlModule,
       DataTableModule,
       SelectButtonModule,
+      DragDropModule,
       InputSwitchModule,
       CheckboxModule,
       CalendarModule,
@@ -145,7 +141,6 @@ import {UserSearchComponent} from "../components/shared/userSearch/userSearch";
       AccessDeniedComponent,
       EnumKeysPipe,
       EnumStringKeysPipe,
-      FileSelectDirective,
       ProfileDirective,
       DictionaryComponent,
       ParserXmlComponent,
@@ -164,13 +159,13 @@ import {UserSearchComponent} from "../components/shared/userSearch/userSearch";
       PairDetailsComponent,
       LessonListComponent,
       LessonDetailsComponent,
-       UserSearchComponent
+      UserSearchComponent
    ],
    providers: [
       {provide: RequestOptions, useClass: GlobalHttpOptions},
       {provide: UrlSerializer, useClass: LowerCaseUrlSerializer},
       {provide: HTTP_INTERCEPTORS, useClass: ServiceHttpInterceptor, multi: true},
-      { provide: LOCALE_ID, useValue: 'ru-RU' },
+      { provide: LOCALE_ID, useValue: 'en-US' },
       TranslationService,
       AuthenticationService,
       NotificationService,

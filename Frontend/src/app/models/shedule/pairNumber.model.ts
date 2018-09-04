@@ -46,6 +46,12 @@ export class PairNumber {
                 end.setHours(18);
                 end.setMinutes(50);
                 return new PairTime(start, end);
+            case 7:
+                start.setHours(19);
+                start.setMinutes(0);
+                end.setHours(20);
+                end.setMinutes(35);
+                return new PairTime(start, end);
         }
 
         return null;

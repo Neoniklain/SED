@@ -1,10 +1,9 @@
 package com.unesco.core.managers.schedule.pairManager;
 
-import com.unesco.core.dto.shedule.GroupDTO;
-import com.unesco.core.managers.schedule.pairManager.interfaces.pair.IPairManager;
 import com.unesco.core.dto.additional.ResponseStatusDTO;
-import com.unesco.core.dto.shedule.PairDTO;
 import com.unesco.core.dto.enums.StatusTypes;
+import com.unesco.core.dto.shedule.PairDTO;
+import com.unesco.core.managers.schedule.pairManager.interfaces.pair.IPairManager;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
@@ -47,7 +46,9 @@ public class PairManager implements IPairManager {
                 boolean groupEq = pair.getLesson().getGroup().getId() == p.getLesson().getGroup().getId();
                 boolean roomEq = pair.getRoom().getId() == p.getRoom().getId();
                 boolean weektypeEq = pair.getWeektype().equals(p.getWeektype());
-                boolean subGroupEq = pair.getSubgroup() == p.getSubgroup();
+                boolean subGroupEq = (pair.getSubgroup() == p.getSubgroup()
+                                        || (pair.getSubgroup() == 0 && p.getSubgroup()!=0)
+                                        || (pair.getSubgroup() != 0 && p.getSubgroup()==0));
                 boolean disciplineEq = pair.getLesson().getDiscipline().getId() == p.getLesson().getDiscipline().getId();
 
                 if (pair.isOptionally() && pair.getSubgroup() != 0) {
@@ -55,7 +56,8 @@ public class PairManager implements IPairManager {
                     break;
                 }
 
-                if (profEq && groupEq && subGroupEq
+                if (profEq && groupEq
+                        && subGroupEq
                         && (weektypeEq
                             || (pair.getWeektype().equals("Все"))
                             || (p.getWeektype().equals("Все"))

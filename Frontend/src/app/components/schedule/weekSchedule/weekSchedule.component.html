@@ -8,7 +8,7 @@
 <table class="table table-bordered" *ngIf="pairs.length > 0 || editable" id="temp">
   <thead class="thead-black">
   <tr>
-    <td></td>
+    <td ></td>
     <td *ngFor="let day of days">
       {{day}}
     </td>
@@ -18,10 +18,17 @@
     <td valign="middle" class="lesson-time" width="9%">
       <div>{{lessonTime.getTime().start | date: 'H:mm'}} - {{lessonTime.getTime().end | date: 'H:mm'}}</div>
     </td>
-    <td width="13%" *ngFor="let day of days" (click)="onClick($event, day, lessonTime.num)">
+    <td pDroppable="pnl" [pDroppableDisabled]="!editable" (onDrop)="drop($event, lessonTime, day)"
+        (onDragEnter)="dragEnter($event)"
+        (onDragLeave)="dragLeave($event)"
+        width="13%" *ngFor="let day of days" (click)="onClick($event, day, lessonTime.num)">
       <div *ngFor="let pair of pairs">
         <div *ngIf="pair.dayofweek === day && pair.pairNumber === lessonTime.num" height="100%">
-          <span [ngClass]="{
+          <span pDraggable="pnl"
+                [pDraggableDisabled]="!editable"
+                (onDragStart)="dragStart($event,pair)"
+                (onDragEnd)="dragEnd($event)"
+                    [ngClass]="{
                           'pair': true,
                           'even': pair.weektype =='Чет' && pair.subgroup == 0,
                           'odd': pair.weektype =='Нечет' && pair.subgroup == 0,
@@ -37,7 +44,7 @@
                 (mouseenter)="onMouseEnter($event, day, lessonTime.num, weektype)" (mouseleave)="onMouseLeave()">
             <div *ngIf="pair.weektype !='Все'" class="text-left" style="float: right;font-size: 10px;">{{pair.weektype}}</div>
             <div class="text-left" style="font-size: 10px;">{{pair.pairType.type}}</div>
-            <div style="padding-bottom: 7px; font-size: 14px;" class="text-center">
+            <div style="padding-bottom: 7px; font-size: 12px;" class="text-center">
               {{pair.lesson.discipline.name}}
               <span *ngIf="pair.optionally" style="font-size: 10px;">(по выбору)</span>
               <span *ngIf="pair.subgroup != 0" style="font-size: 10px;">(подгруппа {{pair.subgroup}})</span>
@@ -79,3 +86,14 @@
         [pointY]="Y"
         [editablePair]="currentPair">
 </pair-details>
+
+<p-dialog *ngIf="movedPair" header="Перемещение занятия" [(visible)]="showDeleteDialog" modal="modal" [responsive]="true" [width]="350" [minWidth]="200">
+    <span>Вы действительно хотите передвинуть занятие на:
+        <div style="display: block"><b>День недели: </b>{{movedPair.dayofweek}}</div>
+        <div style="display: block"><b>Номер занятия: </b>{{movedPair.pairNumber}}</div>
+    </span>
+    <p-footer>
+        <button type="button" pButton icon="fa-check" (click)="movePair()" label="Да"></button>
+        <button type="button" pButton icon="fa-close" (click)="showDeleteDialog=false" label="Нет"></button>
+    </p-footer>
+</p-dialog>

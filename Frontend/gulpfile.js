@@ -28,18 +28,26 @@ gulp.task('tslint', () => {
         .pipe(tslint.report());
 });
 
-gulp.task("build:test", shell.task('npm run build:test'));
-gulp.task("build:prod", shell.task('npm run build:prod'));
-gulp.task("build:dev", shell.task('npm run build:dev'));
+gulp.task("build:test", ['build:restore'], shell.task('npm run build:test'));
+gulp.task("build:prod", ['build:restore'], shell.task('npm run build:prod'));
+gulp.task("build:dev", ['build:restore'], shell.task('npm run build:dev'));
 gulp.task("watch:dev", ['restore'], shell.task('npm run watch:dev'));
 
 gulp.task('restore', [
     'restore:bootstrap',
-    'restore:dragula',
     'restore:pleasewait',
-    'restore:toastr',
-    'restore:fabric',
+    'restore:primeng',
 ]);
+
+gulp.task('build:restore', [
+    'restore:primeng',
+]);
+
+gulp.task('restore:primeng', function () {
+    gulp.src([
+        'node_modules/primeng/**',,
+    ]).pipe(gulp.dest('./src/app/aot/node_modules/primeng'));
+});
 
 gulp.task('restore:bootstrap', function () {
     gulp.src([
@@ -53,27 +61,10 @@ gulp.task('restore:bootstrap', function () {
     ]).pipe(gulp.dest(vendor + 'bootstrap'));
 });
 
-gulp.task('restore:dragula', function () {
-    gulp.src([
-        'node_modules/dragula/dist/**/*.min.css',
-    ]).pipe(gulp.dest(vendor + 'dragula'));
-});
 
 gulp.task('restore:pleasewait', function () {
     gulp.src([
         'node_modules/please-wait/build/**/*.css',
         'node_modules/please-wait/build/**/*.min.js',
     ]).pipe(gulp.dest(vendor + 'please-wait'));
-});
-
-gulp.task('restore:toastr', function () {
-    gulp.src([
-        'node_modules/ngx-toastr/*.css',
-    ]).pipe(gulp.dest(vendor + 'toastr'));
-});
-
-gulp.task('restore:fabric', function () {
-    gulp.src([
-        'node_modules/fabric/dist/*.js',
-    ]).pipe(gulp.dest(vendor + 'fabric'));
 });

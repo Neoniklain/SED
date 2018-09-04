@@ -1,7 +1,5 @@
 ﻿import {Component, OnChanges, OnInit} from "@angular/core";
 import {Router} from "@angular/router";
-import {FileUploaderOptions, FileUploader} from "ng2-file-upload";
-import {AuthenticationService} from "../../../services/authService";
 import {User} from "../../../models/account/user.model";
 import {Dictionary} from "../../../models/admin/dictionary.model";
 import {AccountService} from "../../../services/accountService";

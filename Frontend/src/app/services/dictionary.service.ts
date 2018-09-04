@@ -22,6 +22,7 @@ import {Role} from "../models/account/role.model";
 import {Professor} from "../models/account/professor";
 import {FieldOfKnowledge} from "../models/shedule/fieldOfKnowledge";
 import {PointType} from "../models/journal/journal.model";
+import {catchError, map} from "rxjs/operators";
 
 @Injectable()
 export class DictionaryService {
@@ -37,13 +38,14 @@ export class DictionaryService {
         let params = new HttpParams();
         let url = this.GetUrl(type);
         return this.http.post(url, this.initFilter(filterQuery), {params: params })
-            .catch(this.handleError.handle).map(
-                result => {
+            .pipe(
+                map((res: PageResult) => {
                     let model = this.CreateInstance(type);
-                    model = result.content;
-                    result.content = model;
-                    return result;
-                }
+                    model = res.content;
+                    res.content = model;
+                    return res;
+                }),
+                catchError(e => this.handleError.handle(e))
             );
     }
 
@@ -51,16 +53,22 @@ export class DictionaryService {
         let params = new HttpParams();
         let url = this.GetUrl(type);
         return this.http.put(url, object, {params: params })
-            .catch(this.handleError.handle);
+            .pipe(
+                map((res: ResponseStatus) => res),
+                catchError(e => this.handleError.handle(e))
+            );
     }
 
     public Delete(type: Dictionary, id: number): Observable<ResponseStatus> {
         let url = this.GetUrl(type);
         return this.http.delete(url + "/" + id)
-            .catch(this.handleError.handle);
+            .pipe(
+                map((res: ResponseStatus) => res),
+                catchError(e => this.handleError.handle(e))
+            );
     }
 
-    private CreateInstance(type: Dictionary): string {
+    private CreateInstance(type: Dictionary): any {
         let model;
         switch (type.toString()) {
             case Dictionary.users.toString():

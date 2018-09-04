@@ -202,3 +202,11 @@ td input {
   font-size: 13px;
   color: #4e4e4e;
 }
+
+.dropped-element {
+  box-shadow: inset 0px 0px 5px #3d3d3d;
+}
+
+.dragged-element {
+  box-shadow: 1px 1px 7px 5px #3d3d3d;
+}

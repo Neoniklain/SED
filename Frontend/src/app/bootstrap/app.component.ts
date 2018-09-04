@@ -1,6 +1,6 @@
 ﻿import { Component, OnInit } from "@angular/core";
 import {Title} from "@angular/platform-browser";
-import { Router, NavigationEnd, ActivatedRoute } from "@angular/router";
+import { Router, ActivatedRoute } from "@angular/router";
 import { LocaleService, TranslationService } from "angular-l10n";
 import { LANG_RU_TRANS } from "../translate/lang-ru";
 

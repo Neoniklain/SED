@@ -5,7 +5,7 @@
     "lib": ["es2015", "dom"],
     "module": "es2015",
     "moduleResolution": "node",
-    "outDir": "./src/app/aot/Scripts/src/app",
+    "outDir": "./src/app/aot",
     "sourceMap": true,
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,

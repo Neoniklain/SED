@@ -4,13 +4,11 @@ import {isUndefined} from "util";
 import {Dictionary} from "../../../../models/admin/dictionary.model";
 import {DictionaryService} from "../../../../services/dictionary.service";
 import {Discipline} from "../../../../models/shedule/discipline";
-import {User, UserCreate} from "../../../../models/account/user.model";
-import {AuthenticationService} from "../../../../services/authService";
+import {User} from "../../../../models/account/user.model";
 import {Group} from "../../../../models/shedule/group";
 import {FieldOfKnowledge} from "../../../../models/shedule/fieldOfKnowledge";
 import {Institute} from "../../../../models/shedule/institute";
 import {Department} from "../../../../models/shedule/department";
-import {ToastrService} from "ngx-toastr";
 import {Room} from "../../../../models/shedule/room.model";
 import {StatusType} from "../../../../models/statusType.model";
 import {NotificationService} from "../../../../services/notification.service";
@@ -40,9 +38,7 @@ export class DictionaryTableAddComponent implements OnInit, OnChanges {
 
     constructor(private notification: NotificationService,
                 private router: Router,
-                private dictionaryService: DictionaryService,
-                private authenticationService: AuthenticationService,
-                private toastr: ToastrService) { }
+                private dictionaryService: DictionaryService) { }
 
     ngOnInit() {
         this.Dictionary = Dictionary;
@@ -146,14 +142,6 @@ export class DictionaryTableAddComponent implements OnInit, OnChanges {
                 this.dictionaryService.Get(Dictionary.departments).subscribe(result => { this.departments = result.content; });
                 break;
         }
-    }
-
-    showMessage(type, text) {
-        if (type === 'success')
-            this.toastr.success(text, "Успешно");
-
-        if (type === 'error')
-            this.toastr.error(text, "Ошибка");
     }
 
 }

@@ -1,17 +1,17 @@
-﻿import { HttpInterceptor, HttpHandler, HttpEvent, HttpRequest, HttpHeaders } from '@angular/common/http';
+﻿import { HttpInterceptor, HttpHandler, HttpEvent, HttpRequest } from '@angular/common/http';
 
-import { ToastrService } from 'ngx-toastr';
 import { Injectable } from '@angular/core';
 import { Observable } from "rxjs/Rx";
 import { TOKEN_NAME } from '../services/authService';
 import { Router } from "@angular/router";
-import { RouteConstants, BaseApiUrl, ApiRouteConstants } from "../bootstrap/app.route.constants";
+import { RouteConstants, BaseApiUrl } from "../bootstrap/app.route.constants";
+import {NotificationService} from "../services/notification.service";
 
 
 @Injectable()
 export class ServiceHttpInterceptor implements HttpInterceptor {
     constructor(private router: Router,
-      private toastr: ToastrService,
+      private notificationService: NotificationService,
       ) {};
     intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
         const token = localStorage.getItem(TOKEN_NAME);
@@ -31,7 +31,7 @@ export class ServiceHttpInterceptor implements HttpInterceptor {
           }
           else if (err.status !== 400) {
             console.error(err);
-            this.toastr.error("Не удалось выполнить запрос. Повторите попытку позже.", "Ошибка выполнения");
+            this.notificationService.Error("Не удалось выполнить запрос. Повторите попытку позже.", "Ошибка выполнения");
           }
           return Observable.throw(err);
         });

@@ -1,16 +1,13 @@
 import {Component, OnInit} from "@angular/core";
 import {AuthenticationService} from "../../../services/authService";
 import {UserCreate} from "../../../models/account/user.model";
-import {ToastrService} from "ngx-toastr";
 import {Role} from "../../../models/account/role.model";
 import {DictionaryService} from "../../../services/dictionary.service";
 import {UtilsService} from "../../../services/utils.service";
 import {Group} from "../../../models/shedule/group";
 import {Department} from "../../../models/shedule/department";
 import {Roles} from "../../../models/account/role.model";
-import {Professor} from "../../../models/account/professor";
 import {AccountService} from "../../../services/accountService";
-import {ResponseStatus} from "../../../models/additional/responseStatus";
 import {StatusType} from "../../../models/statusType.model";
 import {NotificationService} from "../../../services/notification.service";
 import {Dictionary} from "../../../models/admin/dictionary.model";
@@ -100,9 +97,10 @@ export class UserAddComponent implements OnInit {
     }
 
     createRandomUser() {
-        this.model.username = this.utilsService.getNickname();
-        this.model.userFIO = this.utilsService.getFIO();
-        this.model.email = this.model.username + "@mail.ru";
-        this.model.password = this.utilsService.generatePassword(8);
+        if (this.model.userFIO && this.model.userFIO != "") {
+            this.model.username = this.utilsService.getNickname(this.model.userFIO);
+            this.model.email = this.model.username + "@mail.ru";
+            this.model.password = this.utilsService.generatePassword(8);
+        }
     }
 }

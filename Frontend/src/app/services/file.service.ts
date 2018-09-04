@@ -5,6 +5,7 @@ import {HttpClient} from "@angular/common/http";
 import {ApiRouteConstants, BaseApiUrl} from "../bootstrap/app.route.constants";
 import {HandelErrorService} from "./handelError.service";
 import {ResponseStatus} from "../models/additional/responseStatus";
+import {catchError, map} from "rxjs/operators";
 
 @Injectable()
 export class  FileService {
@@ -14,11 +15,19 @@ export class  FileService {
     }
 
     public getFilesForTD(tdId: string): Observable<ResponseStatus> {
-        return this.http.get(ApiRouteConstants.File.GetFilesForTD + tdId);
+        return this.http.get(ApiRouteConstants.File.GetFilesForTD + tdId)
+            .pipe(
+                map((res: ResponseStatus) => res),
+                catchError(e => this.handleError.handle(e))
+            );
     }
 
     public getFilesForTU(tuId: string): Observable<ResponseStatus> {
-        return this.http.get(ApiRouteConstants.File.GetFilesForTU + tuId);
+        return this.http.get(ApiRouteConstants.File.GetFilesForTU + tuId)
+            .pipe(
+                map((res: ResponseStatus) => res),
+                catchError(e => this.handleError.handle(e))
+            );
     }
 
     // грузим файл из базы

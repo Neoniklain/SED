@@ -10,6 +10,7 @@ import {HandelErrorService} from "./handelError.service";
 import {ResponseStatus} from "../models/additional/responseStatus";
 import {LessonEvent} from "../models/journal/lessonEvent.model";
 import {VisitationConfig} from "../models/journal/visitationConfig.model";
+import {catchError, map} from "rxjs/operators";
 
 @Injectable()
 export class JournalService {
@@ -23,54 +24,81 @@ export class JournalService {
 
    public GetAll(): Observable<ResponseStatus> {
       return this.http.get(ApiRouteConstants.Journal.All)
-          .catch(this.handleError.handle);
+          .pipe(
+              map((res: ResponseStatus) => res),
+              catchError(e => this.handleError.handle(e))
+          );
    }
 
     public GetJournal(lessonId): Observable<ResponseStatus> {
         return this.http.get(ApiRouteConstants.Journal.All
             .replace(":lessonId", lessonId))
-            .catch(this.handleError.handle);
+            .pipe(
+                map((res: ResponseStatus) => res),
+                catchError(e => this.handleError.handle(e))
+            );
     }
 
     public GetJournalDates(lessonId): Observable<ResponseStatus> {
         return this.http.get(ApiRouteConstants.Journal.Dates
             .replace(":lessonId", lessonId))
-            .catch(this.handleError.handle);
+            .pipe(
+                map((res: ResponseStatus) => res),
+                catchError(e => this.handleError.handle(e))
+            );
     }
 
     public GetEvents(lessonId): Observable<ResponseStatus> {
         return this.http.get(ApiRouteConstants.Journal.Events
             .replace(":lessonId", lessonId))
-            .catch(this.handleError.handle);
+            .pipe(
+                map((res: ResponseStatus) => res),
+                catchError(e => this.handleError.handle(e))
+            );
     }
 
     public Save(journal): Observable<ResponseStatus> {
         let params = new HttpParams();
         return this.http.post(ApiRouteConstants.Journal.Save, journal, {params: params })
-            .catch(this.handleError.handle);
+            .pipe(
+                map((res: ResponseStatus) => res),
+                catchError(e => this.handleError.handle(e))
+            );
     }
 
     public SaveEvent(event: LessonEvent): Observable<ResponseStatus> {
         let params = new HttpParams();
         return this.http.post(ApiRouteConstants.Journal.EventSave, event, {params: params })
-            .catch(this.handleError.handle);
+            .pipe(
+                map((res: ResponseStatus) => res),
+                catchError(e => this.handleError.handle(e))
+            );
     }
 
     public SaveVisitation(config: VisitationConfig): Observable<ResponseStatus> {
         let params = new HttpParams();
         return this.http.post(ApiRouteConstants.Journal.VisitationConfigSave, config, {params: params })
-            .catch(this.handleError.handle);
+            .pipe(
+                map((res: ResponseStatus) => res),
+                catchError(e => this.handleError.handle(e))
+            );
     }
 
     public GetVisitation(lessonId): Observable<ResponseStatus> {
         return this.http.get(ApiRouteConstants.Journal.VisitationConfigGet
             .replace(":lessonId", lessonId))
-            .catch(this.handleError.handle);
+            .pipe(
+                map((res: ResponseStatus) => res),
+                catchError(e => this.handleError.handle(e))
+            );
     }
 
     public EventDelete(id: number): Observable<ResponseStatus> {
         return this.http.get(ApiRouteConstants.Journal.EventDelete
             .replace(":id", id.toString()))
-            .catch(this.handleError.handle);
+            .pipe(
+                map((res: ResponseStatus) => res),
+                catchError(e => this.handleError.handle(e))
+            );
     }
 }

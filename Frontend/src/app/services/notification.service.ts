@@ -1,5 +1,4 @@
 import {Injectable} from "@angular/core";
-import {ToastrService} from "ngx-toastr";
 import {ResponseStatus} from "../models/additional/responseStatus";
 import {StatusType} from "../models/statusType.model";
 import {MessageService} from "primeng/api";
@@ -7,8 +6,7 @@ import {MessageService} from "primeng/api";
 @Injectable()
 export class NotificationService {
 
-    constructor(/*private toastr: ToastrService,*/
-                private messageService: MessageService) {
+    constructor(private messageService: MessageService) {
     }
 
     public Success(messsage: string, title?: string) {
