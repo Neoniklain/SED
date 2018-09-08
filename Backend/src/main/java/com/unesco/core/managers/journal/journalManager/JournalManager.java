@@ -1,23 +1,24 @@
 package com.unesco.core.managers.journal.journalManager;
 
+import com.unesco.core.dto.account.RoleDTO;
 import com.unesco.core.dto.account.StudentDTO;
+import com.unesco.core.dto.account.UserDTO;
 import com.unesco.core.dto.additional.ResponseStatusDTO;
+import com.unesco.core.dto.enums.PointTypes;
+import com.unesco.core.dto.enums.RoleType;
+import com.unesco.core.dto.enums.StatusTypes;
 import com.unesco.core.dto.journal.*;
+import com.unesco.core.dto.shedule.GroupDTO;
 import com.unesco.core.dto.shedule.PairDTO;
 import com.unesco.core.managers.journal.journalManager.interfaces.journal.IJournalManager;
 import com.unesco.core.managers.journal.lessonEvent.interfaces.lessonEventList.ILessonEventListManager;
-import com.unesco.core.dto.enums.PointTypes;
-import com.unesco.core.dto.enums.StatusTypes;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Component
@@ -55,6 +56,21 @@ public class JournalManager implements IJournalManager {
 
         int weekNumber = 0;
         Date lastDate = journal.getDates().get(0);
+
+        // !!! Тестовое условие, удалить.
+        if (journal.getStudents().size() == 0) {
+            StudentDTO testStud = new StudentDTO();
+            UserDTO testUser = new UserDTO();
+            testUser.setRoles(Collections.singletonList(new RoleDTO() {{
+                setRoleName(RoleType.STUDENT.toString());
+            }}));
+            testUser.setUserFIO("Testing");
+            testUser.setUsername("Testing");
+            testStud.setUser(testUser);
+            testStud.setGroup(new GroupDTO() {{setName("test");}});
+            journal.setStudents( new ArrayList<StudentDTO>() {{ add(testStud); }});
+        }
+
         for (Date date : journal.getDates()) {
 
             // Для определения четности
@@ -68,11 +84,11 @@ public class JournalManager implements IJournalManager {
 
             for (StudentDTO student : journal.getStudents()) {
                 for (PairDTO pair : journal.getPairs()) {
-
-
                     List<PointDTO> find = this.journal.getJournalCell().stream().
                             filter(o -> o.getStudent().getUser().getId() == student.getUser().getId()
-                                    && o.getDate().compareTo(date) == 0
+                                    && o.getDate().getYear() == date.getYear()
+                                    && o.getDate().getMonth() == date.getMonth()
+                                    && o.getDate().getDay() == date.getDay()
                                     && o.getType().getName().equals(PointTypes.Visitation.toString())
                                     && o.getPair().getId() == pair.getId()
                             )
@@ -82,14 +98,12 @@ public class JournalManager implements IJournalManager {
                     c.setTime(date);
                     int dayOfWeek = c.get(Calendar.DAY_OF_WEEK);
                     boolean pairEqDay = translateDay(dayOfWeek).equals(pair.getDayofweek());
-
                     if (find.size() == 0 && pairEqDay) {
-
                         if(!pair.getWeektype().equals("Все")
                             && (
-                                (pair.getWeektype().equals("Чет") && weekNumber % 2 != 0
+                                (pair.getWeektype().equals("Чет") && weekNumber % 2 == 0
                                 ||
-                                pair.getWeektype().equals("Нечет") && weekNumber % 2 == 0)
+                                pair.getWeektype().equals("Нечет") && weekNumber % 2 != 0)
                                 && journal.getPairs().stream().anyMatch(o -> o.getWeektype().equals("Все"))
                                 )
                         ) {
@@ -106,7 +120,6 @@ public class JournalManager implements IJournalManager {
                         point.setPair(pair);
                         points.add(point);
                     }
-
                 }
             }
             lastDate = date;
@@ -116,17 +129,15 @@ public class JournalManager implements IJournalManager {
         lessonEventListManager.ApplayFilter(this.journal.getLesson());
         lessonEventListManager.RemoveWithoutDates();
         List<LessonEventDTO> LessonEvents = lessonEventListManager.getAll();
-        // Добавить даты событий если их нет
-        List<Date> dates = journal.getDates();
-        dates.addAll(LessonEvents.stream().map(o -> o.getDate()).collect(Collectors.toList()));
-        journal.setDates(dates);
         // Сортировка дат
         journal.setDates(journal.getDates().stream().distinct().sorted().collect(Collectors.toList()));
 
         for (StudentDTO student : journal.getStudents()) {
             for (LessonEventDTO currentLessonEvent : LessonEvents) {
                 if( !this.journal.getJournalCell().stream().anyMatch(
-                        o -> o.getDate().compareTo(currentLessonEvent.getDate()) == 0
+                        o -> o.getDate().getYear() == currentLessonEvent.getDate().getYear()
+                        && o.getDate().getMonth() == currentLessonEvent.getDate().getMonth()
+                        && o.getDate().getDay() == currentLessonEvent.getDate().getDay()
                         && o.getType().getId() == currentLessonEvent.getType().getId()
                 )) {
                     PointDTO pointLessonEvent = new PointDTO();

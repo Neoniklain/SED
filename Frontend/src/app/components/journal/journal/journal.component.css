@@ -91,3 +91,13 @@ td input {
   color: #003535;
 }
 
+.students-not-found h1 {
+  color: inherit;
+}
+
+.students-not-found {
+  text-align: center;
+  padding: 8em 0;
+  font-style: italic;
+  color: #7d7d7d;
+}

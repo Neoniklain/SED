@@ -43,12 +43,12 @@ export class DepartmentScheduleComponent implements OnInit {
 
     onMouseMove(event: MouseEvent) {
         this.X = event.layerX;
-        this.Y = event.layerY;
+        this.Y = event.layerY - 20;
     }
 
     onMouseEnter(event: MouseEvent, pair) {
         this.X = event.layerX;
-        this.Y = event.layerY;
+        this.Y = event.layerY - 20;
         if (this.showDetailOnHover == true)
             this.currentPair = pair;
     }

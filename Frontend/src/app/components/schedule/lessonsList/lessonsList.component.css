@@ -5,6 +5,7 @@
 .flex-row.row {
     display: flex;
     flex-wrap: wrap;
+    padding-bottom: 2em;
 }
 .flex-row.row > [class*='col-'] {
     display: flex;

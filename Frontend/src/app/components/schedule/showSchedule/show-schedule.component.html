@@ -1,7 +1,7 @@
 <div class="main-header col-md-12">
     <div class="panel panel-default panel-inverse">
         <div class="panel-heading">
-            <h3>Просмотр расписания</h3>
+            <h3><i class="fa fa-calendar" aria-hidden="true"></i> Просмотр расписания</h3>
         </div>
         <div class="panel-body">
 
@@ -43,7 +43,7 @@
                     </div>
                     <schedule-week *ngIf="pairList"
                                    (updatePair)="update()"
-                                   [editable]="true"
+                                   [editable]="editable"
                                    [templatePair]="templatePair"
                                    [pairs]="pairList"></schedule-week>
                     <div *ngIf="!pairList" class="select-item">
@@ -77,7 +77,7 @@
                     </div>
                     <schedule-week *ngIf="pairList"
                                    (updatePair)="update()"
-                                   [editable]="true"
+                                   [editable]="editable"
                                    [templatePair]="templatePair"
                                    [pairs]="pairList"></schedule-week>
                     <div *ngIf="!pairList" class="select-item">

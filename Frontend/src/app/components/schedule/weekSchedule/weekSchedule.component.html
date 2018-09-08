@@ -1,8 +1,16 @@
-<div class="legend">
-  <span><div class="legend-item even"></div> - Четное</span>
-  <span><div class="legend-item odd"></div> - Нечетное</span>
-  <span><div class="legend-item subgroup-1"></div> - Подгруппа 1</span>
-  <span><div class="legend-item subgroup-2"></div> - Подгруппа 2</span>
+<div class="row" *ngIf="pairs.length > 0 || editable">
+  <div class="col-md-6 text-left">
+    <p-selectButton [options]="types" [(ngModel)]="selectedType"></p-selectButton>
+  </div>
+
+  <div class="col-md-6 text-right">
+    <div class="legend">
+      <span><div class="legend-item even"></div> - Четное </span>
+      <span><div class="legend-item odd"></div> - Нечетное </span>
+      <span><div class="legend-item subgroup-1"></div> - Подгруппа 1 </span>
+      <span><div class="legend-item subgroup-2"></div> - Подгруппа 2 </span>
+    </div>
+  </div>
 </div>
 
 <table class="table table-bordered" *ngIf="pairs.length > 0 || editable" id="temp">
@@ -23,7 +31,7 @@
         (onDragLeave)="dragLeave($event)"
         width="13%" *ngFor="let day of days" (click)="onClick($event, day, lessonTime.num)">
       <div *ngFor="let pair of pairs">
-        <div *ngIf="pair.dayofweek === day && pair.pairNumber === lessonTime.num" height="100%">
+        <div *ngIf="(pair.weektype == selectedType || pair.weektype == 'Все' || selectedType == 'Все') && pair.dayofweek === day && pair.pairNumber === lessonTime.num" height="100%">
           <span pDraggable="pnl"
                 [pDraggableDisabled]="!editable"
                 (onDragStart)="dragStart($event,pair)"
@@ -39,7 +47,7 @@
                           'even-subgroup-1': pair.subgroup == 1 && pair.weektype =='Чет',
                           'even-subgroup-2': pair.subgroup == 2 && pair.weektype =='Чет'
                             }"
-                (click)="$event.stopPropagation();"
+                (click)="editable ? $event.stopPropagation() : clickPair.emit(pair);"
                 (mousemove)="onMouseMove($event)"
                 (mouseenter)="onMouseEnter($event, day, lessonTime.num, weektype)" (mouseleave)="onMouseLeave()">
             <div *ngIf="pair.weektype !='Все'" class="text-left" style="float: right;font-size: 10px;">{{pair.weektype}}</div>
@@ -55,12 +63,12 @@
             </div>
             <div style="font-size: 12px;" class="text-right">{{pair.room.room}}</div>
 
-            <span class="pair-create" title="Создать занятие"
+            <span *ngIf="editable" class="pair-create" title="Создать занятие"
                   (click)="onClick($event, day, lessonTime.num); $event.stopPropagation();"
                   (mousemove)="onMouseMove($event)">
               <i class="fa fa-plus"></i>
             </span>
-            <span class="pair-edit" title="Редактировать занятие"
+            <span *ngIf="editable" class="pair-edit" title="Редактировать занятие"
                   (click)="onClick($event, day, lessonTime.num, pair.weektype); $event.stopPropagation();"
                   (mousemove)="onMouseMove($event)"
                   (mouseenter)="onMouseEnter($event, day, lessonTime.num, weektype)">

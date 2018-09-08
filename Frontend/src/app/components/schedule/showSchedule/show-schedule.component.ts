@@ -1,4 +1,4 @@
-import {Component, OnInit} from "@angular/core";
+import {Component, Input, OnInit} from "@angular/core";
 import {Professor} from "../../../models/account/professor";
 import {RouteConstants} from "../../../bootstrap/app.route.constants";
 import {Group} from "../../../models/shedule/group";
@@ -14,13 +14,14 @@ import {Dictionary} from "../../../models/admin/dictionary.model";
 import {isUndefined} from "util";
 
 @Component({
-    selector: 'list-professors-page',
+    selector: 'schedule-page',
     templateUrl: './show-schedule.component.html',
     styleUrls: ["./show-schedule.component.css"]
 })
 
 export class ShowScheduleComponent implements OnInit {
 
+    @Input() editable: boolean = false;
     public profs: Array<Professor> = new Array();
     public groups: Array<Group> = new Array();
     public departments: Array<Department> = new Array();

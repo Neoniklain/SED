@@ -1,7 +1,7 @@
 <script src="${request.contextPath}/js/news.js"></script>
 
 <div class="header">
-  <h1><i class="fa fa-university" aria-hidden="true"></i> КемГУ Кафедра Юнеско</h1>
+  <h1>КемГУ Кафедра "ЮНЕСКО"</h1>
   <p>Информационный кафедральный портал.</p>
 </div>
 
@@ -43,7 +43,7 @@
             </div>
             <div class="row ">
                 <div class="col-xs-12 col-md-12">
-                  <textarea name="content" class="form-control" rows="10" id="content" path="content" [(ngModel)]="newNews.content"></textarea>
+                  <p-editor [(ngModel)]="newNews.content" [style]="{'height':'320px'}"></p-editor>
                 </div>
                 <div class="col-xs-12 col-md-12">
                   <button type="button" id="create-news-button" class="btn btn-success " (click)="SaveNews()">Сохранить изменения</button>

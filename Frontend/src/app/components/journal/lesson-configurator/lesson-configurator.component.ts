@@ -33,7 +33,7 @@ export class LessonСonfiguratorComponent implements OnInit {
     public ru;
     public allDisabledDates: Array<Date>;
     public disabledDates: Array<Date>;
-    public datePipe = new DatePipe("ru");
+    public datePipe = new DatePipe("en");
 
     public editMode: boolean = false;
     public editVisitable: boolean = false;
@@ -140,6 +140,11 @@ export class LessonСonfiguratorComponent implements OnInit {
     }
 
     Save() {
+        this.model.date.setHours(20);
+        console.log("save", this.model);
+        console.log("save getHours", this.model.date.getHours());
+        console.log("save getUTCHours", this.model.date.getUTCHours());
+        console.log("save -", this.model.date.getUTCHours() - this.model.date.getHours());
         this.journalService.SaveEvent(this.model).subscribe(
             result => {
                 if (result.status === StatusType.OK.toString()) {

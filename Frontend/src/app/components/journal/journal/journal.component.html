@@ -1,4 +1,4 @@
-<div class="col-sm-12 text-right journal">
+<div *ngIf="journal.students.length > 0" class="col-sm-12 text-right journal">
     <table class="table">
         <colgroup>
             <col span="1" style="width: 25%;">
@@ -8,8 +8,7 @@
             <td></td>
             <ng-container *ngFor="let month of monthHeader">
                 <ng-container *ngIf="inMonthPeriodDate(month.date)">
-                    <td
-                        [attr.colspan]="month.dateLen"
+                    <td [attr.colspan]="month.dateLen"
                         [ngClass]="{today: isCurrentMonth(month.date)}">
                         <div class="col-sm-3 text-left">
                             <span class="nav-button" (click)="backMonth()">
@@ -17,7 +16,7 @@
                             </span>
                         </div>
                         <div class="col-sm-6 text-center">
-                            {{month.date | date: 'MMMM'}}
+                            {{(month.date | date: 'MMM')[0].toUpperCase() + (month.date | date: 'MMM').slice(1)}}
                         </div>
                         <div class="col-sm-3 text-right">
                             <span class="nav-button" (click)="nextMonth()">
@@ -44,7 +43,7 @@
             <ng-container *ngFor="let head of header">
                 <ng-container *ngFor="let type of head.types">
                     <ng-container *ngIf="inMonthPeriodDate(head.date)">
-                        <td [ngSwitch]="type.type.name" style="font-size: 9px" [title]="type.type.name"
+                        <td [ngSwitch]="type.type.name" style="font-size: 14px" [title]="type.type.name"
                             [ngClass]="{today: isPairNow(type.pair)}">
                             <span *ngSwitchCase="'Посещение'"><i class="fa fa-sign-in" aria-hidden="true"></i></span>
                             <span *ngSwitchDefault><i class="fa fa-circle" aria-hidden="true"></i></span>
@@ -60,17 +59,20 @@
                 <ng-container *ngFor="let cell of journal.journalCell">
                     <ng-container *ngIf="inMonthPeriodDate(cell.date)">
                         <td [ngClass]="{displayNo: cell.student.user.userFIO!=student.user.userFIO, todayCell: isPairNow(cell.pair)}">
-                            <input (click)="clearField(cell)" (blur)="cancelField(cell)" [(ngModel)]="cell.value" type="text">
+                            <input [disabled]="cell.student.user.userFIO == 'Testing'" (click)="clearField(cell)" (blur)="cancelField(cell)" [(ngModel)]="cell.value" type="text">
                         </td>
                     </ng-container>
                 </ng-container>
             </tr>
         </tbody>
     </table>
+
+    <div class="col-sm-12 text-right">
+        <button (click)="save()" class="btn btn-info btn-success">Сохранить</button>
+    </div>
 </div>
 
 
-
-<div class="col-sm-12 text-right">
-    <button (click)="save()" class="btn btn-info btn-success">Сохранить</button>
+<div *ngIf="journal.students.length == 0" class="students-not-found">
+    <h1>Студенты для группы не заданы.</h1>
 </div>

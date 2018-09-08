@@ -8,6 +8,7 @@ import {AuthenticationService} from "../../../services/authService";
 import {Router} from "@angular/router";
 import {WorkTaskComponent} from "../workTask/workTask.component";
 import {NotificationService} from "../../../services/notification.service";
+import {AccessRightType} from "../../../models/account/access";
 
 @Component({
    selector: 'task-list',
@@ -20,6 +21,7 @@ export class TaskDescListComponent {
     public user: User;
     // ↓ Нужно для работы на view
     TaskStatusType = TaskStatusType;
+    AccessRightType = AccessRightType;
 
     public loading: boolean = true;
 
@@ -38,7 +40,7 @@ export class TaskDescListComponent {
    ngOnInit(): void {
       this.getTaskDescList();
        this.user = new User();
-       //this.statuses = new TaskStatusList();
+       // this.statuses = new TaskStatusList();
        this.authService.getUser().subscribe(
            res => {
                this.user = res.data;
@@ -51,17 +53,15 @@ export class TaskDescListComponent {
 
    public isMyTask(item: TaskDescription): boolean {
        let localUser = this.user;
-       var result = item.taskUsers.filter(function(v) {
+       let result = item.taskUsers.filter(function(v) {
            return v.executor.id === localUser.id;
        })[0];
 
-       if(result != null){
+       if (result != null) {
            if ((result.status == TaskStatusType.Processed) ||
                (result.status == TaskStatusType.SentToRevision) ||
                (result.status == TaskStatusType.Viewed))
-           {
                return true;
-           }
        }
 
        return false;
@@ -79,11 +79,11 @@ export class TaskDescListComponent {
    }
 
    public showDialogNewTaskDescription() {
-      this.newTaskDescDialog.showDialog();
+      this.newTaskDescDialog.setAttributeshowDialog();
    }
 
     public showDialogEditTaskDescription(td: TaskDescription) {
-        this.newTaskDescDialog.showDialog(td);
+        this.newTaskDescDialog.setAttributeshowDialog(td);
     }
 
     public deleteTaskDescription(id: number) {
@@ -105,7 +105,7 @@ export class TaskDescListComponent {
        let myTask = td.taskUsers.filter(function(v) {
             return v.executor.id === userId;
         })[0];
-       if(myTask != null){
+       if (myTask != null) {
            this.workTaskDialog.showDialog(td, myTask);
        }
     }

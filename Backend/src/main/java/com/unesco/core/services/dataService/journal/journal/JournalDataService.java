@@ -47,8 +47,8 @@ public class JournalDataService implements IJournalDataService {
 
         for (PairDTO pair: pairs) {
 
-            starDate.set(2018,5,1);
-            endDate.set(2018,8,28);
+            starDate.set(2018,8,1);
+            endDate.set(2018,11,28);
 
             switch (pair.getDayofweek()) {
                 case "Понедельник":

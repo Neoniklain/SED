@@ -58,7 +58,7 @@ export class NewTaskDescComponent {
         this.taskType = this.listOfTypes[0];
     }
 
-    public showDialog(td?: TaskDescription) {
+    public setAttributeshowDialog(td?: TaskDescription) {
         this.localTD = new TaskDescription();
         this._isCreate = true;
         this._uploader = new FileUploader(this._fileOptions);

@@ -1,4 +1,4 @@
-﻿import {CommonModule} from "@angular/common";
+﻿import {CommonModule, registerLocaleData} from "@angular/common";
 import {LOCALE_ID, NgModule} from "@angular/core";
 import {UrlSerializer} from "@angular/router";
 import {BrowserModule} from "@angular/platform-browser";
@@ -6,6 +6,7 @@ import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {HttpModule, RequestOptions} from "@angular/http";
 import {FormsModule} from "@angular/forms";
 import {TranslationModule, TranslationService} from "angular-l10n";
+import localeRu from '@angular/common/locales/ru';
 // custom
 import {routing} from "./app.routes";
 import {LowerCaseUrlSerializer} from "../providers/router";
@@ -13,7 +14,7 @@ import {EnumKeysPipe} from "../pipes/enum.keys";
 import {Globals} from "../globals";
 import {ProfileDirective} from "../directive/profile.dirictive";
 import {EnumStringKeysPipe} from "../pipes/enum.string.keys";
-import {CheckboxModule} from 'primeng/primeng';
+import {CheckboxModule, EditorModule} from 'primeng/primeng';
 import {ConfirmDialogModule} from 'primeng/primeng';
 import {InputTextModule} from 'primeng/primeng';
 import {DialogModule} from 'primeng/primeng';
@@ -65,7 +66,7 @@ import {DepartmentScheduleComponent} from "../components/schedule/departmentSche
 import {PairDetailsComponent} from "../components/schedule/pairDetails/pairDeatails.component";
 import {NewTaskDescComponent} from "../components/task/newTask/newTaskDesc.component";
 import {WorkTaskComponent} from "../components/task/workTask/workTask.component";
-import {ShowScheduleComponent} from "../components.page/adminPanel/showSchedule/show-schedule.component";
+import {ShowScheduleComponent} from "../components/schedule/showSchedule/show-schedule.component";
 import {JournalComponent} from "../components/journal/journal/journal.component";
 import {DictionaryTableAddComponent} from "../components.page/adminPanel/dictionaryTable/added/dictionaryTableAdd.component";
 import {ParserXmlComponent} from "../components.page/adminPanel/parserXml/parserXml.component";
@@ -88,105 +89,110 @@ import {HasAccessRightDirective} from "../directive/hasAccessRight.dirictive";
 import {HasRoleDirective} from "../directive/hasRole.dirictive";
 import {UserSearchComponent} from "../components/shared/userSearch/userSearch";
 import {FileUploadModule} from "ng2-file-upload";
+import {ScheduleComponent} from "../components.page/schedule/schedule.component";
+
+registerLocaleData(localeRu);
 
 @NgModule({
-   imports: [
-      CommonModule,
-      BrowserAnimationsModule,
-      BrowserModule,
-      FormsModule,
-      HttpModule,
-      HttpClientModule,
-      routing,
-      TranslationModule.forRoot(),
-      DialogModule,
-      GrowlModule,
-      DataTableModule,
-      SelectButtonModule,
-      DragDropModule,
-      InputSwitchModule,
-      CheckboxModule,
-      CalendarModule,
-      DropdownModule,
-      InputTextModule,
-      PasswordModule,
-      AutoCompleteModule,
-      ConfirmDialogModule,
-      ToggleButtonModule,
-      FileUploadModule
-   ],
+    imports: [
+        CommonModule,
+        BrowserAnimationsModule,
+        BrowserModule,
+        FormsModule,
+        HttpModule,
+        HttpClientModule,
+        routing,
+        TranslationModule.forRoot(),
+        DialogModule,
+        GrowlModule,
+        DataTableModule,
+        SelectButtonModule,
+        DragDropModule,
+        InputSwitchModule,
+        CheckboxModule,
+        CalendarModule,
+        DropdownModule,
+        InputTextModule,
+        PasswordModule,
+        AutoCompleteModule,
+        ConfirmDialogModule,
+        ToggleButtonModule,
+        EditorModule,
+        FileUploadModule
+    ],
     entryComponents: [
         ProfileComponent
     ],
-   declarations: [
-      AppComponent,
-      AccountComponent,
-      NewsDispatcherComponent,
-      TaskDescListComponent,
-      NewTaskDescComponent,
-      WorkTaskComponent,
-      ProfileComponent,
-      LogInComponent,
-      JournalPageComponent,
-      LessonConfiguratorPageComponent,
-      SingleNewsComponent,
-      ListNewsComponent,
-      SettingsPageComponent,
-      UserAddComponent,
-      HeaderComponent,
-      EditorSingleNewsComponent,
-      EditorListNewsComponent,
-      AdminPanelComponent,
-      NotFoundComponent,
-      AccessDeniedComponent,
-      EnumKeysPipe,
-      EnumStringKeysPipe,
-      ProfileDirective,
-      DictionaryComponent,
-      ParserXmlComponent,
-      WeekScheduleComponent,
-      DictionaryTableAddComponent,
-      LoaderComponent,
-      JournalComponent,
-      LessonСonfiguratorComponent,
-       DictionaryTableComponent,
-      AccessControlComponent,
-      DepartmentScheduleComponent,
-      HasAccessRightDirective,
-      HasRoleDirective,
-      ShowScheduleComponent,
-      PairCreateComponent,
-      PairDetailsComponent,
-      LessonListComponent,
-      LessonDetailsComponent,
-      UserSearchComponent
-   ],
-   providers: [
-      {provide: RequestOptions, useClass: GlobalHttpOptions},
-      {provide: UrlSerializer, useClass: LowerCaseUrlSerializer},
-      {provide: HTTP_INTERCEPTORS, useClass: ServiceHttpInterceptor, multi: true},
-      { provide: LOCALE_ID, useValue: 'en-US' },
-      TranslationService,
-      AuthenticationService,
-      NotificationService,
-      HandelErrorService,
-      TaskService,
-      NewsService,
-      MessageService,
-      AccountService,
-      UtilsService,
-      DictionaryService,
-      ConfirmationService,
-      JournalService,
-      AuthGuard,
-      Globals,
-      ScheduleService,
-      PluginService,
-      FileService
-   ],
-   bootstrap: [
-      AppComponent
-   ]
+    declarations: [
+        AppComponent,
+        AccountComponent,
+        NewsDispatcherComponent,
+        TaskDescListComponent,
+        NewTaskDescComponent,
+        WorkTaskComponent,
+        ProfileComponent,
+        LogInComponent,
+        JournalPageComponent,
+        LessonConfiguratorPageComponent,
+        SingleNewsComponent,
+        ListNewsComponent,
+        SettingsPageComponent,
+        UserAddComponent,
+        HeaderComponent,
+        EditorSingleNewsComponent,
+        EditorListNewsComponent,
+        AdminPanelComponent,
+        NotFoundComponent,
+        AccessDeniedComponent,
+        EnumKeysPipe,
+        EnumStringKeysPipe,
+        ProfileDirective,
+        DictionaryComponent,
+        ParserXmlComponent,
+        WeekScheduleComponent,
+        DictionaryTableAddComponent,
+        LoaderComponent,
+        JournalComponent,
+        LessonСonfiguratorComponent,
+        DictionaryTableComponent,
+        AccessControlComponent,
+        DepartmentScheduleComponent,
+        HasAccessRightDirective,
+        HasRoleDirective,
+        ShowScheduleComponent,
+        PairCreateComponent,
+        PairDetailsComponent,
+        LessonListComponent,
+        LessonDetailsComponent,
+        ScheduleComponent,
+        UserSearchComponent
+    ],
+    providers: [
+        {provide: RequestOptions, useClass: GlobalHttpOptions},
+        {provide: UrlSerializer, useClass: LowerCaseUrlSerializer},
+        {provide: HTTP_INTERCEPTORS, useClass: ServiceHttpInterceptor, multi: true},
+        { provide: LOCALE_ID, useValue: 'ru-RU' },
+        TranslationService,
+        AuthenticationService,
+        NotificationService,
+        HandelErrorService,
+        TaskService,
+        NewsService,
+        MessageService,
+        AccountService,
+        UtilsService,
+        DictionaryService,
+        ConfirmationService,
+        JournalService,
+        AuthGuard,
+        Globals,
+        ScheduleService,
+        PluginService,
+        FileService
+    ],
+    bootstrap: [
+        AppComponent
+    ]
 })
 
 export class AppModule {

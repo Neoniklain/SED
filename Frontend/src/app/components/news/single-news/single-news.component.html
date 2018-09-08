@@ -1,11 +1,11 @@
 <div class="row">
-  <div class="col-xs-12 col-md-4">
+  <div *ngIf="item.image != ''" class="col-xs-12 col-md-4">
     <div class="news-image">
       <img src="{{item.image}}" alt="{{item.header}}" title="{{item.header}}">
     </div>
   </div>
-  <div class="col-xs-12 col-md-8">
-    <div class="news-header">
+  <div [ngClass]="{'col-xs-12': true, 'col-md-8': item.image != '', 'col-md-12': item.image == ''}">
+    <div class="news-header" [ngStyle]="{'margin-left': item.image != '' ? '' : '1em'}">
       <h2><a href="#">{{item.header}}</a></h2>
         <!--<profile [user]="item.author"></profile>-->
       <span><i class="fa fa-calendar" aria-hidden="true"></i>
@@ -19,8 +19,7 @@
       </span>
       <hr class="hr_header">
     </div>
-    <div class="news-content">
-      <p>{{item.content}}</p>
+    <div class="news-content ql-editor" [innerHTML]="item.content">
     </div>
   </div>
 </div>

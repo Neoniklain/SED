@@ -26,9 +26,9 @@
                class="list-group-item">Управление новостями</a>
             <a *hasAccessRight="[AccessRightType.VIEW_TASK]" style="cursor: pointer;" (click)="menuToole('tasks-list')"
                class="list-group-item">Управление задачами</a>
-            <a *hasAccessRight="[AccessRightType.EDIT_JOURNAL]" style="cursor: pointer;" (click)="menuToole('journal-page')"
+            <a *hasRole="[Roles.Professor]" style="cursor: pointer;" (click)="menuToole('journal-page')"
                class="list-group-item">Заполнение журнала</a>
-            <a *hasAccessRight="[AccessRightType.EDIT_LESSONS]" style="cursor: pointer;" (click)="menuToole('lesson-configurator')"
+            <a *hasRole="[Roles.Professor]" style="cursor: pointer;" (click)="menuToole('lesson-configurator')"
                class="list-group-item">Настройка занятий</a>
             <a style="cursor: pointer;" (click)="menuToole('settings-page')"
                class="list-group-item">Профиль</a>

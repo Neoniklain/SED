@@ -18,8 +18,8 @@ import {PairNumber} from "../../../models/shedule/pairNumber.model";
 export class JournalComponent implements OnInit {
 
     @Input() journal: Journal;
-    public header: Array<JournalHeader> = new Array<JournalHeader>();
-    public monthHeader: Array<MonthHeader> = new Array<MonthHeader>();
+    public header: Array<JournalHeader> = [];
+    public monthHeader: Array<MonthHeader> = [];
     public currentMonth: string;
     public currentDay: Date;
     public datePipe = new DatePipe("ru");
@@ -133,7 +133,7 @@ export class JournalComponent implements OnInit {
     }
 
     findCellsForDay(date: Date): Array<JournalCell> {
-        let cells = new Array<JournalCell>();
+        let cells = [];
         for (let cell of this.journal.journalCell) {
             if (this.eqDate(cell.date, date)) {
                 cells.push(cell);

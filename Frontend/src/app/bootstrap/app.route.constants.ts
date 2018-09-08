@@ -1,4 +1,5 @@
 ﻿import {appSettings} from './app.environment';
+import {ScheduleComponent} from "../components.page/schedule/schedule.component";
 
 export const BaseApiUrl = appSettings.BaseApiUrl;
 
@@ -9,6 +10,9 @@ export const RouteConstants = {
       Create: "news/create",
       Edit: "news/:id/edit",
       EditList: "news/editList"
+   },
+    Schedule: {
+      All: "schedule",
    },
    Account: {
       Lk: "account",

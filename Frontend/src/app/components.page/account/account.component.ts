@@ -15,7 +15,7 @@ export class AccountComponent implements OnInit {
     public user: User;
     public menuName: string;
     public AccessRightType;
-    public Roles;
+    public Roles = Roles;
     public viewMenu: boolean = true;
 
     constructor(private authenticationService: AuthenticationService,
@@ -31,7 +31,6 @@ export class AccountComponent implements OnInit {
 
     ngOnInit(): void {
         this.AccessRightType = AccessRightType;
-        this.Roles = Roles;
         this.menuName = "news-dispatcher-page";
     }
 

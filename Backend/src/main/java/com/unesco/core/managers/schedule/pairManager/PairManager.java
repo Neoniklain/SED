@@ -69,7 +69,10 @@ public class PairManager implements IPairManager {
                     break;
                 }
 
-                if(profEq && groupEq && subGroupEq && pair.isFlow() && p.isFlow()) {
+                if(profEq && groupEq && subGroupEq && pair.isFlow() && p.isFlow()
+                        && (weektypeEq
+                        || (pair.getWeektype().equals("Все"))
+                        || (p.getWeektype().equals("Все")))) {
                     if (!disciplineEq) {
                         errors.add("У потоковых дисциплин должен быть одинаковый предмет ("+p.getLesson().getDiscipline().getName()+").");
                         break;

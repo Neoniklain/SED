@@ -1,16 +1,14 @@
-import {Component, ViewChild} from '@angular/core';
-import {Router} from '@angular/router';
-import {LogInUser, User} from "../../models/account/user.model";
-import {MessageService} from "primeng/components/common/messageservice";
-import {AuthenticationService} from "../../services/authService";
-import {NgForm} from "@angular/forms";
-import {Globals} from "../../globals";
+import { Component} from '@angular/core';
+import { Router} from '@angular/router';
+import { LogInUser, User} from "../../models/account/user.model";
+import { MessageService} from "primeng/components/common/messageservice";
+import { AuthenticationService} from "../../services/authService";
+import { NgForm} from "@angular/forms";
+import { Globals} from "../../globals";
 
 @Component({
-   selector: 'schedule-page',
    templateUrl: './schedule.component.html',
-   styleUrls: ['./schedule.component.css']/*,
-    providers: [HeaderComponent]*/
+   styleUrls: ['./schedule.component.css']
 })
 
 export class ScheduleComponent {

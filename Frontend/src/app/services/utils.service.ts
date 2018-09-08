@@ -86,7 +86,7 @@ export class UtilsService {
             'Э': 'E',
             'Ю': 'Yu',
             'Я': 'Ya',
-            ' ': ' '
+            ' ': ''
         };
         let name = "";
         for (let s of FIO) {

@@ -46,7 +46,7 @@
 
             <pair-create *ngSwitchCase="menuToogle == 'createPair'"></pair-create>
 
-            <list-professors-page *ngSwitchCase="menuToogle == 'showShedule'"></list-professors-page>
+            <schedule-page [editable]="true" *ngSwitchCase="menuToogle == 'showShedule'"></schedule-page>
 
             <access-control *ngSwitchCase="menuToogle == 'accessControl'"></access-control>
 

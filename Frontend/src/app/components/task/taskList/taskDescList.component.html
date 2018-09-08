@@ -1,7 +1,7 @@
 <div class="header-panel-body">
    <h3>Действия</h3>
 </div>
-<div class="news-action-buttons">
+<div *hasAccessRight="[AccessRightType.CREATE_TASK]" class="news-action-buttons">
    <div class="btn-group" role="group" aria-label="Basic example">
       <button (click)="showDialogNewTaskDescription()" type="button" class="btn btn-success">Добавить задачу</button>
    </div>
@@ -35,9 +35,11 @@
                   <button *ngIf="(isMyTask(item))" (click)="showDialogTaskWork(item)" class="btn btn-success" title="Открыть окно для отправки решения">
                      <i class="fa fa-check" aria-hidden="true"></i>
                   </button>
+                  <span *hasAccessRight="[AccessRightType.CREATE_TASK]">
                   <button *ngIf="user.id == item.creator.id" (click)="deleteTaskDescription(item.id)" class="btn btn-danger" title="Удалить задачу">
                      <i class="fa fa-times" aria-hidden="true"></i>
                   </button>
+                  </span>
                </span>
             </td>
          </tr>

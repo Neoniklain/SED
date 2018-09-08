@@ -11,6 +11,7 @@ import {Roles} from "../models/account/role.model";
 import {AdminPanelComponent} from "../components.page/adminPanel/adminPanel";
 import {LogInComponent} from "../components.page/login/login.component";
 import {AccountComponent} from "../components.page/account/account.component";
+import {ScheduleComponent} from "../components.page/schedule/schedule.component";
 
 export const routes: Routes = [
    {
@@ -22,6 +23,11 @@ export const routes: Routes = [
       path: RouteConstants.News.All,
       component: ListNewsComponent,
       data: {title: "Главная"}
+   },
+   {
+      path: RouteConstants.Schedule.All,
+      component: ScheduleComponent,
+      data: {title: "Расписание"}
    },
    {
       path: RouteConstants.News.Edit,

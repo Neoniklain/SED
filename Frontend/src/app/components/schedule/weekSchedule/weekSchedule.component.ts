@@ -8,6 +8,7 @@ import {isUndefined} from "util";
 import {ScheduleService} from "../../../services/schedule.service";
 import {StatusType} from "../../../models/statusType.model";
 import {NotificationService} from "../../../services/notification.service";
+import {SelectItem} from "primeng/api";
 
 @Component({
     selector: 'schedule-week',
@@ -34,6 +35,9 @@ export class WeekScheduleComponent implements OnInit {
     public X: number;
     public Y: number;
 
+    public types: SelectItem[];
+    public selectedType: string;
+
     constructor(
         private notification: NotificationService,
         private scheduleService: ScheduleService) { }
@@ -47,6 +51,12 @@ export class WeekScheduleComponent implements OnInit {
         this.lessonsTime.push(new PairNumber(6));
         this.lessonsTime.push(new PairNumber(7));
         if (!this.templatePair) this.templatePair = new Pair();
+        this.selectedType = 'Все';
+        this.types = [
+            {label: 'Все', value: 'Все'},
+            {label: 'Нечетные', value: 'Нечет'},
+            {label: 'Четные', value: 'Чет'}
+        ];
 
         // TODO: Возможно в будущем придется объединять потоковые занятия.
         /* if (!this.editable) {
@@ -84,7 +94,6 @@ export class WeekScheduleComponent implements OnInit {
                 pair = p;
             }
         }
-        this.clickPair.emit(pair);
         if (this.editable) {
             this.X = event.pageX;
             this.Y = event.pageY;

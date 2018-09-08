@@ -4,6 +4,7 @@
     padding: 1em 2em;
     border-radius: 5px;
     background: white;
+    transition: 0.2s all;
 }
 
 .close-button {

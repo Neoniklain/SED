@@ -23,7 +23,7 @@ export class JournalPageComponent implements OnInit {
     public user: User;
     public professor: Professor;
     public journal: Journal;
-    public pairs: Array<Pair> = new Array<Pair>();
+    public pairs: Array<Pair> = [];
     public showLoader: boolean = false;
 
     constructor(private authenticationService: AuthenticationService,
@@ -58,6 +58,7 @@ export class JournalPageComponent implements OnInit {
             this.showLoader = true;
             this.journalService.GetJournal(pair.lesson.id).subscribe(
                 result => {
+                    console.log("this.journal", result.data);
                     this.journal = result.data;
                     this.showLoader = false;
                     this.toogleViewMenu.emit();
