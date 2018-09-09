@@ -1,5 +1,6 @@
 import { Injectable } from "@angular/core";
 import 'rxjs/add/operator/catch';
+import {isUndefined} from "util";
 
 @Injectable()
 export class UtilsService {
@@ -90,7 +91,7 @@ export class UtilsService {
         };
         let name = "";
         for (let s of FIO) {
-            name += str[s];
+            name += !isUndefined(str[s]) ? str[s] : s;
         }
         return name;
     }
