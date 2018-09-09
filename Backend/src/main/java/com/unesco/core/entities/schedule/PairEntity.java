@@ -9,31 +9,22 @@ public class PairEntity {
     @SequenceGenerator(name = "pairSequenceGen", sequenceName = "pairSequenceGen", allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "pairSequenceGen")
     private long id;
-    /**
-     * Номер занятия
-     */
+    /** Номер занятия */
     private int pairNumber;
-    /**
-     * День недели
-     */
+    /**  День недели */
     private String dayofweek;
     /**
      * Тип недели
      * Чет, Нечет, Все
      */
     private String weektype;
-    /**
-     * Занятие по выбору
-     */
+    /** Занятие по выбору */
     private boolean optionally;
-    /**
-     * Потоковое занятие
-     */
+    /** Потоковое занятие */
     private boolean flow;
-    /**
-    * Номер подгруппы
-    */
+    /** Номер подгруппы */
     private int subgroup;
+
     @ManyToOne
     @JoinColumn(name = "pair_type_id", referencedColumnName = "id")
     private PairTypeEntity pairType;

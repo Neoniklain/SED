@@ -167,7 +167,7 @@ public class PairManager implements IPairManager {
 
         if(errors.size()>0)
         {
-            result.setStatus(StatusTypes.ERROR);
+            result.setStatus(StatusTypes.WARNING);
             result.setErrors(errors);
             result.setWarnings(warnings);
         }

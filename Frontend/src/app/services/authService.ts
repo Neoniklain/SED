@@ -8,16 +8,17 @@ import {LogInUser, User} from "../models/account/user.model";
 import {ResponseStatus} from "../models/additional/responseStatus";
 import {HandelErrorService} from "./handelError.service";
 import {catchError, map} from "rxjs/operators";
+import {UserAccessRight} from "../models/account/access";
+import {Globals} from "../globals";
 
 export const TOKEN_NAME: string = 'token';
  
 @Injectable()
 export class AuthenticationService {
 
-    public isAuthenticated: boolean = false;
-
     constructor(private http: HttpClient,
                 private router: Router,
+                private globals: Globals,
                 private handleError: HandelErrorService) {
     }
 
@@ -79,8 +80,14 @@ export class AuthenticationService {
 
     logout() {
         localStorage.removeItem(TOKEN_NAME);
-        this.isAuthenticated = false;
-        this.router.navigate([ApiRouteConstants.Authentication.Login]);
+        this.globals.role = [];
+        this.globals.user = new User();
+        this.globals.accessRight = new UserAccessRight();
+        this.router.navigate([ApiRouteConstants.News.All]);
+    }
+
+    removeToken() {
+        localStorage.removeItem(TOKEN_NAME);
     }
 
     getToken(): string {
@@ -89,7 +96,6 @@ export class AuthenticationService {
 
     setToken(token: string): void {
         localStorage.setItem(TOKEN_NAME, token);
-        this.isAuthenticated = true;
     }
 
     redirectToLogin(redirect?: string) {

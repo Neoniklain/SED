@@ -2,16 +2,15 @@
 
 import { Injectable } from '@angular/core';
 import { Observable } from "rxjs/Rx";
-import { TOKEN_NAME } from '../services/authService';
+import {AuthenticationService, TOKEN_NAME} from '../services/authService';
 import { Router } from "@angular/router";
 import { RouteConstants, BaseApiUrl } from "../bootstrap/app.route.constants";
-import {NotificationService} from "../services/notification.service";
 
 
 @Injectable()
 export class ServiceHttpInterceptor implements HttpInterceptor {
     constructor(private router: Router,
-      private notificationService: NotificationService,
+      private authService: AuthenticationService,
       ) {};
     intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
         const token = localStorage.getItem(TOKEN_NAME);
@@ -26,12 +25,8 @@ export class ServiceHttpInterceptor implements HttpInterceptor {
         });
 
         return next.handle(req).catch(err => {
-          if (err.status === 401 || err.status === 403) {
-              this.router.navigate([RouteConstants.Account.Login]);
-          }
-          else if (err.status !== 400) {
-            console.error(err);
-            this.notificationService.Error("Не удалось выполнить запрос. Повторите попытку позже.", "Ошибка выполнения");
+          if (err.status === 403) {
+              this.authService.removeToken();
           }
           return Observable.throw(err);
         });

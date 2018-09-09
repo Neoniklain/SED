@@ -49,8 +49,31 @@ public class ScheduleControllerWeb {
     }
 
     @RequestMapping("/pair/save")
-    public ResponseStatusDTO savePair(@RequestBody PairDTO pairModel) {
-        return sheduleController.savePair(pairModel);
+    public ResponseStatusDTO savePair(@RequestBody PairParameters param) {
+        return sheduleController.savePair(param.getPairModel(), param.isSkipWarnings());
+    }
+}
+
+class PairParameters {
+    private PairDTO pairModel;
+    private boolean skipWarnings;
+
+    public PairParameters() {
+        this.pairModel = new PairDTO();
     }
 
+    public PairDTO getPairModel() {
+        return pairModel;
+    }
+    public void setPairModel(PairDTO pairModel) {
+        this.pairModel = pairModel;
+    }
+
+    public boolean isSkipWarnings() {
+        return skipWarnings;
+    }
+    public void setSkipWarnings(boolean skipWarnings) {
+        this.skipWarnings = skipWarnings;
+    }
 }
+

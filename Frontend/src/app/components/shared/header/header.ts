@@ -8,7 +8,6 @@ import {Globals} from "../../../globals";
 import {RouteConstants} from "../../../bootstrap/app.route.constants";
 import {User} from "../../../models/account/user.model";
 import {StatusType} from "../../../models/statusType.model";
-import {AccountService} from "../../../services/accountService";
 import {AccessRightType, UserAccessRight} from "../../../models/account/access";
 
 @Component({
@@ -22,8 +21,8 @@ export class HeaderComponent implements OnInit {
     public RouteConstants = RouteConstants;
     public AccessRightType = AccessRightType;
     public Roles = Roles;
-    public user: User;
-    public userAccessRight: UserAccessRight;
+    public user: User = new User();
+    public userAccessRight: UserAccessRight = new UserAccessRight();
     public msgs: Message[] = [];
 
     constructor(private router: Router,
@@ -31,47 +30,40 @@ export class HeaderComponent implements OnInit {
                private authService: AuthenticationService) { }
 
     ngOnInit() {
-      this.authService.getRole().subscribe(
-          result => {
-             this.globals.role = result.data;
-          }
-      );
+        if (this.authService.getToken() && this.authService.getToken() != "") {
+            this.authService.getRole().subscribe(
+                result => {
+                    this.globals.role = result.data;
 
-      this.user = new User();
+                    this.authService.getUser().subscribe(
+                    res => {
+                       if (res.status === StatusType.OK.toString()) {
+                           this.user = res.data;
+                           if (this.user.photo === "") this.user.photo = "images/anon-user.jpg";
+                           this.globals.user = this.user;
+                       } else {
+                           this.user = new User();
+                           this.userAccessRight = new UserAccessRight();
+                       }
+                    });
 
-      this.authService.getUser().subscribe(
-           res => {
-               if (res.status === StatusType.OK.toString()) {
-                   this.user = res.data;
-                   if (this.user.photo === "")
-                       this.user.photo = "images/anon-user.jpg";
-                   this.globals.user = this.user;
-               } else {
-                   this.user = null;
-                   this.globals.user = null;
-               }
-           });
+                    this.authService.getUserAccessRight().subscribe(
+                    res => {
+                            if (res.status === StatusType.OK.toString()) {
+                            this.userAccessRight = res.data;
+                            this.globals.accessRight = this.userAccessRight;
+                        }
+                    });
 
-        this.authService.getUserAccessRight().subscribe(
-            res => {
-                if (res.status === StatusType.OK.toString()) {
-                  this.userAccessRight = res.data;
-                  this.globals.accessRight = this.userAccessRight;
-              }
-          });
-
-        this.globals.getUser.subscribe( result => {
-        this.user = result;
-        });
+                }
+            );
+        }
+        this.globals.getUser.subscribe( result => this.user = result );
+        this.globals.getAccessRight.subscribe( result => this.userAccessRight = result );
     }
 
     logout() {
-      localStorage.removeItem("token");
-      this.user = new User();
-      this.globals.role = [];
-      this.globals.user = new User();
-      this.globals.accessRight = new UserAccessRight();
-      this.router.navigate(['/news']);
+        this.authService.logout();
     }
 
 }

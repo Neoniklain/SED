@@ -46,11 +46,9 @@ import {LazyLoadEvent} from "primeng/api";
                 private router: Router,
                 private ScheduleService: ScheduleService,
                 private dictionaryService: DictionaryService,
-    ) {
-    }
+    ) { }
 
-    ngOnInit() {
-    }
+    ngOnInit() { }
 
     public update() {
         switch (this.menuToggle) {

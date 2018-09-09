@@ -4,6 +4,7 @@ public enum StatusTypes {
 
     OK("Ok"),
     ERROR("Error"),
+    WARNING("Warning"),
     NOT_FOUND("Not found"),
     ACCESS_DENIED("Access denied"),
     ;

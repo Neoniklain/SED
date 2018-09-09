@@ -48,6 +48,7 @@ export class PairDetailsComponent implements OnInit, OnChanges {
     public findRooms: Array<Room> = new Array<Room>();
     public findPairTypes: Array<PairType> = new Array<PairType>();
     public showDeleteDialog: boolean = false;
+    public showIgnoreWarnings: boolean = false;
     public WeekTypes = WeekType;
     public SubGroups = [];
     public curSubGroup;
@@ -89,16 +90,17 @@ export class PairDetailsComponent implements OnInit, OnChanges {
                 this.curSubGroup = this.SubGroups.find(x => x.value == this.pair.subgroup);
         }
         else this.pair = null;
+        this.showIgnoreWarnings = false;
     }
 
     @HostListener('window:scroll', ['$event'])
-    onChangeOffset(event) {
+    onChangeOffset() {
         this.windowXOffset = window.pageXOffset;
         this.windowYOffset = window.pageYOffset;
     }
 
     @HostListener('window:resize', ['$event'])
-    onResize(event) {
+    onResize() {
         this.windowWidth = window.innerWidth;
         this.windowHeight = window.innerHeight;
     }
@@ -136,13 +138,17 @@ export class PairDetailsComponent implements OnInit, OnChanges {
         }
     }
 
-    AllUpdatePairs() {
-        this.checkOnEmpty();
-        this.ScheduleService.Save(this.pair).subscribe(
+    AllUpdatePairs(skipWarnings?: boolean) {
+        this.checkOnEmpty(true);
+        this.ScheduleService.Save(this.pair, skipWarnings).subscribe(
             result => {
                 if (result.status === StatusType.OK.toString()) {
                     this.updatePairs.emit();
                     this.closeDetails();
+                }
+                if (result.status === StatusType.WARNING.toString()) {
+                    console.log("res1111");
+                    this.showIgnoreWarnings = true;
                 }
                 this.notification.FromStatus(result);
             }
@@ -161,6 +167,7 @@ export class PairDetailsComponent implements OnInit, OnChanges {
 
     public closeDetails() {
         this.close.emit();
+        this.showIgnoreWarnings = false;
     }
 
     public GetPairTypes() {
@@ -196,11 +203,12 @@ export class PairDetailsComponent implements OnInit, OnChanges {
         }
         this.pair.weektype = week;
     }
-    selectPairType(pairType: PairType) {
+    public selectPairType(pairType: PairType) {
         this.pair.pairType = pairType;
     }
 
-    public checkOnEmpty() {
+    public checkOnEmpty(beforeSave?: boolean) {
+        if (!beforeSave) this.showIgnoreWarnings = false;
         if (isUndefined(this.pair) || this.pair == null) {
             this.pair = new Pair();
         }

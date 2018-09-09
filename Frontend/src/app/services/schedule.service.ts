@@ -18,7 +18,6 @@ export class ScheduleService {
     }
 
     public Get(id: number): Observable<ResponseStatus> {
-        let params: HttpParams = new HttpParams();
         return this.http.get(ApiRouteConstants.Schedule.Get.replace(":id", id.toString()))
             .pipe(
                 map((res: ResponseStatus) => res),
@@ -27,9 +26,9 @@ export class ScheduleService {
     }
 
 
-    public Save(pair: Pair): Observable<ResponseStatus> {
+    public Save(pair: Pair, skipWarnings?: boolean): Observable<ResponseStatus> {
         let params = new HttpParams();
-        return this.http.post(ApiRouteConstants.Schedule.Save, pair, {params: params })
+        return this.http.post(ApiRouteConstants.Schedule.Save, {pairModel: pair, skipWarnings: skipWarnings ? skipWarnings : false}, {params: params })
             .pipe(
                 map((res: ResponseStatus) => res),
                 catchError(e => this.handleError.handle(e))
@@ -86,7 +85,6 @@ export class ScheduleService {
     }
 
 }
-
 
 
 

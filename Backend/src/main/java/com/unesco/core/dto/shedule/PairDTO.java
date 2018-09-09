@@ -93,4 +93,5 @@ public class PairDTO {
     public void setFlow(boolean flow) {
         this.flow = flow;
     }
+
 }
