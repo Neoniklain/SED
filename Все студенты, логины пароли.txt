@@ -1,0 +1,3600 @@
+        accountController.setStudentGroup(((UserDTO) accountController.registration(new UserDTO() {{
+            setUsername("alekseevyav1ed");
+            setEmail("alekseevyav1ed@mail.ru");
+            setUserFIO("Алексеев Ярослав Вячеславович");
+            setPassword("3884e52e");
+            setRoles(new ArrayList<RoleDTO>() {{
+                add(studentRole);
+            }});
+            setPhoto("");
+        }}).getData()).getId(),  5);
+        accountController.setStudentGroup(((UserDTO) accountController.registration(new UserDTO() {{
+            setUsername("bolshakovss51d");
+            setEmail("bolshakovss51d@mail.ru");
+            setUserFIO("Большаков Сергей Сергеевич");
+            setPassword("36fe3016");
+            setRoles(new ArrayList<RoleDTO>() {{
+                add(studentRole);
+            }});
+            setPhoto("");
+        }}).getData()).getId(), 5);
+        accountController.setStudentGroup(((UserDTO) accountController.registration(new UserDTO() {{
+            setUsername("gerasimenokimb69");
+            setEmail("gerasimenokimb69@mail.ru");
+            setUserFIO("Герасименок Илья Максимович");
+            setPassword("4eb174eb");
+            setRoles(new ArrayList<RoleDTO>() {{
+                add(studentRole);
+            }});
+            setPhoto("");
+        }}).getData()).getId(), 5);
+        accountController.setStudentGroup(((UserDTO) accountController.registration(new UserDTO() {{
+            setUsername("groshevvm36d");
+            setEmail("groshevvm36d@mail.ru");
+            setUserFIO("Грошев Валерий Михайлович");
+            setPassword("90a1f2b3");
+            setRoles(new ArrayList<RoleDTO>() {{
+                add(studentRole);
+            }});
+            setPhoto("");
+        }}).getData()).getId(), 5);
+        accountController.setStudentGroup(((UserDTO) accountController.registration(new UserDTO() {{
+            setUsername("gulyaevaaa2c5");
+            setEmail("gulyaevaaa2c5@mail.ru");
+            setUserFIO("Гуляева Анна Алексеевна");
+            setPassword("4a2c60ec");
+            setRoles(new ArrayList<RoleDTO>() {{
+                add(studentRole);
+            }});
+            setPhoto("");
+        }}).getData()).getId(), 5);
+        accountController.setStudentGroup(((UserDTO) accountController.registration(new UserDTO() {{
+            setUsername("dejkunnvda9");
+            setEmail("dejkunnvda9@mail.ru");
+            setUserFIO("Дейкун Нелли Вячеславовна");
+            setPassword("3779f6c5");
+            setRoles(new ArrayList<RoleDTO>() {{
+                add(studentRole);
+            }});
+            setPhoto("");
+        }}).getData()).getId(), 5);
+        accountController.setStudentGroup(((UserDTO) accountController.registration(new UserDTO() {{
+            setUsername("dementevar7f7");
+            setEmail("dementevar7f7@mail.ru");
+            setUserFIO("Дементьев Александр Русланович");
+            setPassword("7ed69f2f");
+            setRoles(new ArrayList<RoleDTO>() {{
+                add(studentRole);
+            }});
+            setPhoto("");
+        }}).getData()).getId(), 5);
+        accountController.setStudentGroup(((UserDTO) accountController.registration(new UserDTO() {{
+            setUsername("dornev708");
+            setEmail("dornev708@mail.ru");
+            setUserFIO("Дорн Екатерина Викторовна");
+            setPassword("35219b35");
+            setRoles(new ArrayList<RoleDTO>() {{
+                add(studentRole);
+            }});
+            setPhoto("");
+        }}).getData()).getId(), 5);
+        accountController.setStudentGroup(((UserDTO) accountController.registration(new UserDTO() {{
+            setUsername("zenkinaes0d9");
+            setEmail("zenkinaes0d9@mail.ru");
+            setUserFIO("Зенкина Елизавета Сергеевна");
+            setPassword("16cf12e8");
+            setRoles(new ArrayList<RoleDTO>() {{
+                add(studentRole);
+            }});
+            setPhoto("");
+        }}).getData()).getId(), 5);
+        accountController.setStudentGroup(((UserDTO) accountController.registration(new UserDTO() {{
+            setUsername("ignatevvd9b5");
+            setEmail("ignatevvd9b5@mail.ru");
+            setUserFIO("Игнатьев Вадим Дмитриевич");
+            setPassword("1c7e4e1f");
+            setRoles(new ArrayList<RoleDTO>() {{
+                add(studentRole);
+            }});
+            setPhoto("");
+        }}).getData()).getId(), 5);
+        accountController.setStudentGroup(((UserDTO) accountController.registration(new UserDTO() {{
+            setUsername("kipriyanovdec66");
+            setEmail("kipriyanovdec66@mail.ru");
+            setUserFIO("Киприянов Данил Евгеньевич");
+            setPassword("f0409f83");
+            setRoles(new ArrayList<RoleDTO>() {{
+                add(studentRole);
+            }});
+            setPhoto("");
+        }}).getData()).getId(), 5);
+        accountController.setStudentGroup(((UserDTO) accountController.registration(new UserDTO() {{
+            setUsername("kiselevkp581");
+            setEmail("kiselevkp581@mail.ru");
+            setUserFIO("Киселев Кирилл Павлович");
+            setPassword("875212f8");
+            setRoles(new ArrayList<RoleDTO>() {{
+                add(studentRole);
+            }});
+            setPhoto("");
+        }}).getData()).getId(), 5);
+        accountController.setStudentGroup(((UserDTO) accountController.registration(new UserDTO() {{
+            setUsername("kozlovya4fd");
+            setEmail("kozlovya4fd@mail.ru");
+            setUserFIO("Козлов Ярослав");
+            setPassword("e33c1637");
+            setRoles(new ArrayList<RoleDTO>() {{
+                add(studentRole);
+            }});
+            setPhoto("");
+        }}).getData()).getId(), 5);
+        accountController.setStudentGroup(((UserDTO) accountController.registration(new UserDTO() {{
+            setUsername("kolbasaoa850");
+            setEmail("kolbasaoa850@mail.ru");
+            setUserFIO("Колбаса Олег Анатольевич");
+            setPassword("2481c945");
+            setRoles(new ArrayList<RoleDTO>() {{
+                add(studentRole);
+            }});
+            setPhoto("");
+        }}).getData()).getId(), 5);
+        accountController.setStudentGroup(((UserDTO) accountController.registration(new UserDTO() {{
+            setUsername("kotkinaea52d");
+            setEmail("kotkinaea52d@mail.ru");
+            setUserFIO("Коткина Екатерина Андреевна");
+            setPassword("1eeedb45");
+            setRoles(new ArrayList<RoleDTO>() {{
+                add(studentRole);
+            }});
+            setPhoto("");
+        }}).getData()).getId(), 5);
+        accountController.setStudentGroup(((UserDTO) accountController.registration(new UserDTO() {{
+            setUsername("malahovms22b");
+            setEmail("malahovms22b@mail.ru");
+            setUserFIO("Малахов Михаил Станиславович");
+            setPassword("c648644d");
+            setRoles(new ArrayList<RoleDTO>() {{
+                add(studentRole);
+            }});
+            setPhoto("");
+        }}).getData()).getId(), 5);
+        accountController.setStudentGroup(((UserDTO) accountController.registration(new UserDTO() {{
+            setUsername("mihajlovskijd71e");
+            setEmail("mihajlovskijd71e@mail.ru");
+            setUserFIO("Михайловский Денис");
+            setPassword("b3d91fca");
+            setRoles(new ArrayList<RoleDTO>() {{
+                add(studentRole);
+            }});
+            setPhoto("");
+        }}).getData()).getId(), 5);
+        accountController.setStudentGroup(((UserDTO) accountController.registration(new UserDTO() {{
+            setUsername("mishuninkbd14");
+            setEmail("mishuninkbd14@mail.ru");
+            setUserFIO("Мишунин Кирилл Борисович");
+            setPassword("5fe73cb1");
+            setRoles(new ArrayList<RoleDTO>() {{
+                add(studentRole);
+            }});
+            setPhoto("");
+        }}).getData()).getId(), 5);
+        accountController.setStudentGroup(((UserDTO) accountController.registration(new UserDTO() {{
+            setUsername("muratovaos714");
+            setEmail("muratovaos714@mail.ru");
+            setUserFIO("Муратова Олеся Сергеевна");
+            setPassword("4708fa98");
+            setRoles(new ArrayList<RoleDTO>() {{
+                add(studentRole);
+            }});
+            setPhoto("");
+        }}).getData()).getId(), 5);
+        accountController.setStudentGroup(((UserDTO) accountController.registration(new UserDTO() {{
+            setUsername("pichuginda2c7");
+            setEmail("pichuginda2c7@mail.ru");
+            setUserFIO("Пичугин Дмитрий Андреевич");
+            setPassword("243935fb");
+            setRoles(new ArrayList<RoleDTO>() {{
+                add(studentRole);
+            }});
+            setPhoto("");
+        }}).getData()).getId(), 5);
+        accountController.setStudentGroup(((UserDTO) accountController.registration(new UserDTO() {{
+            setUsername("rozhkovid6cc");
+            setEmail("rozhkovid6cc@mail.ru");
+            setUserFIO("Рожков Илья Дмитриевич");
+            setPassword("e53ebede");
+            setRoles(new ArrayList<RoleDTO>() {{
+                add(studentRole);
+            }});
+            setPhoto("");
+        }}).getData()).getId(), 5);
+        accountController.setStudentGroup(((UserDTO) accountController.registration(new UserDTO() {{
+            setUsername("savinkm914");
+            setEmail("savinkm914@mail.ru");
+            setUserFIO("Савин Константин Максимович");
+            setPassword("be5bf6cb");
+            setRoles(new ArrayList<RoleDTO>() {{
+                add(studentRole);
+            }});
+            setPhoto("");
+        }}).getData()).getId(), 5);
+        accountController.setStudentGroup(((UserDTO) accountController.registration(new UserDTO() {{
+            setUsername("samatovbdc6");
+            setEmail("samatovbdc6@mail.ru");
+            setUserFIO("Саматов Бекислан");
+            setPassword("86dd920e");
+            setRoles(new ArrayList<RoleDTO>() {{
+                add(studentRole);
+            }});
+            setPhoto("");
+        }}).getData()).getId(), 5);
+        accountController.setStudentGroup(((UserDTO) accountController.registration(new UserDTO() {{
+            setUsername("sanginovbu261");
+            setEmail("sanginovbu261@mail.ru");
+            setUserFIO("Сангинов Бехзод Умарович");
+            setPassword("30c24892");
+            setRoles(new ArrayList<RoleDTO>() {{
+                add(studentRole);
+            }});
+            setPhoto("");
+        }}).getData()).getId(), 5);
+        accountController.setStudentGroup(((UserDTO) accountController.registration(new UserDTO() {{
+            setUsername("satoevaehifde");
+            setEmail("satoevaehifde@mail.ru");
+            setUserFIO("Сатоева Эвелина Илимдаровна");
+            setPassword("70cc8ead");
+            setRoles(new ArrayList<RoleDTO>() {{
+                add(studentRole);
+            }});
+            setPhoto("");
+        }}).getData()).getId(), 5);
+        accountController.setStudentGroup(((UserDTO) accountController.registration(new UserDTO() {{
+            setUsername("spiridonovaaa273");
+            setEmail("spiridonovaaa273@mail.ru");
+            setUserFIO("Спиридонова Анна Андреевна");
+            setPassword("5df02275");
+            setRoles(new ArrayList<RoleDTO>() {{
+                add(studentRole);
+            }});
+            setPhoto("");
+        }}).getData()).getId(), 5);
+        accountController.setStudentGroup(((UserDTO) accountController.registration(new UserDTO() {{
+            setUsername("caregorodceviaafb");
+            setEmail("caregorodceviaafb@mail.ru");
+            setUserFIO("Царегородцев Иван Александрович");
+            setPassword("0377d556");
+            setRoles(new ArrayList<RoleDTO>() {{
+                add(studentRole);
+            }});
+            setPhoto("");
+        }}).getData()).getId(), 5);
+        accountController.setStudentGroup(((UserDTO) accountController.registration(new UserDTO() {{
+            setUsername("chistyakovlo5f3");
+            setEmail("chistyakovlo5f3@mail.ru");
+            setUserFIO("Чистяков Леонид Олегович");
+            setPassword("7d490341");
+            setRoles(new ArrayList<RoleDTO>() {{
+                add(studentRole);
+            }});
+            setPhoto("");
+        }}).getData()).getId(), 5);
+        accountController.setStudentGroup(((UserDTO) accountController.registration(new UserDTO() {{
+            setUsername("shabanovde863");
+            setEmail("shabanovde863@mail.ru");
+            setUserFIO("Шабанов Данила Евгеньевич");
+            setPassword("aaadd6b8");
+            setRoles(new ArrayList<RoleDTO>() {{
+                add(studentRole);
+            }});
+            setPhoto("");
+        }}).getData()).getId(), 5);
+        accountController.setStudentGroup(((UserDTO) accountController.registration(new UserDTO() {{
+            setUsername("shakmaryovke26a");
+            setEmail("shakmaryovke26a@mail.ru");
+            setUserFIO("Шакмарёв Константин Евгеньевич");
+            setPassword("0901d6b1");
+            setRoles(new ArrayList<RoleDTO>() {{
+                add(studentRole);
+            }});
+            setPhoto("");
+        }}).getData()).getId(), 5);
+        accountController.setStudentGroup(((UserDTO) accountController.registration(new UserDTO() {{
+            setUsername("ehrgashevabu1cc");
+            setEmail("ehrgashevabu1cc@mail.ru");
+            setUserFIO("Эргашев Аббосжон Бахром угли");
+            setPassword("1e483f44");
+            setRoles(new ArrayList<RoleDTO>() {{
+                add(studentRole);
+            }});
+            setPhoto("");
+        }}).getData()).getId(), 5);
+        accountController.setStudentGroup(((UserDTO) accountController.registration(new UserDTO() {{
+            setUsername("yuzhakovana17a");
+            setEmail("yuzhakovana17a@mail.ru");
+            setUserFIO("Южакова Наталья Александровна");
+            setPassword("c9ab2d06");
+            setRoles(new ArrayList<RoleDTO>() {{
+                add(studentRole);
+            }});
+            setPhoto("");
+        }}).getData()).getId(), 5);
+        accountController.setStudentGroup(((UserDTO) accountController.registration(new UserDTO() {{
+            setUsername("mihajloviaae1");
+            setEmail("mihajloviaae1@mail.ru");
+            setUserFIO("Михайлов Иван Александрович");
+            setPassword("54b1554d");
+            setRoles(new ArrayList<RoleDTO>() {{
+                add(studentRole);
+            }});
+            setPhoto("");
+        }}).getData()).getId(), 5);
+        accountController.setStudentGroup(((UserDTO) accountController.registration(new UserDTO() {{
+            setUsername("knyazevig3d3");
+            setEmail("knyazevig3d3@mail.ru");
+            setUserFIO("Князев Иоанн Геннадьевич");
+            setPassword("d757b028");
+            setRoles(new ArrayList<RoleDTO>() {{
+                add(studentRole);
+            }});
+            setPhoto("");
+        }}).getData()).getId(), 5);
+        accountController.setStudentGroup(((UserDTO) accountController.registration(new UserDTO() {{
+            setUsername("agafonovpv397");
+            setEmail("agafonovpv397@mail.ru");
+            setUserFIO("Агафонов Петр Владиславович");
+            setPassword("11af93a3");
+            setRoles(new ArrayList<RoleDTO>() {{
+                add(studentRole);
+            }});
+            setPhoto("");
+        }}).getData()).getId(), 6);
+        accountController.setStudentGroup(((UserDTO) accountController.registration(new UserDTO() {{
+            setUsername("bovtas68f");
+            setEmail("bovtas68f@mail.ru");
+            setUserFIO("Бовт Александр Сергеевич");
+            setPassword("c8f5f503");
+            setRoles(new ArrayList<RoleDTO>() {{
+                add(studentRole);
+            }});
+            setPhoto("");
+        }}).getData()).getId(), 6);
+        accountController.setStudentGroup(((UserDTO) accountController.registration(new UserDTO() {{
+            setUsername("bulychevpd65f");
+            setEmail("bulychevpd65f@mail.ru");
+            setUserFIO("Булычев Павел Дмитриевич");
+            setPassword("8feb7e2b");
+            setRoles(new ArrayList<RoleDTO>() {{
+                add(studentRole);
+            }});
+            setPhoto("");
+        }}).getData()).getId(), 6);
+        accountController.setStudentGroup(((UserDTO) accountController.registration(new UserDTO() {{
+            setUsername("vishnyakovn21f");
+            setEmail("vishnyakovn21f@mail.ru");
+            setUserFIO("Вишняков Никита");
+            setPassword("dc27e97c");
+            setRoles(new ArrayList<RoleDTO>() {{
+                add(studentRole);
+            }});
+            setPhoto("");
+        }}).getData()).getId(), 6);
+        accountController.setStudentGroup(((UserDTO) accountController.registration(new UserDTO() {{
+            setUsername("gorbatenkodad69");
+            setEmail("gorbatenkodad69@mail.ru");
+            setUserFIO("Горбатенко Данил Алексеевич");
+            setPassword("6880fd79");
+            setRoles(new ArrayList<RoleDTO>() {{
+                add(studentRole);
+            }});
+            setPhoto("");
+        }}).getData()).getId(), 6);
+        accountController.setStudentGroup(((UserDTO) accountController.registration(new UserDTO() {{
+            setUsername("zemlyakovvnbda");
+            setEmail("zemlyakovvnbda@mail.ru");
+            setUserFIO("Земляков Виталий Николаевич");
+            setPassword("cc1c0690");
+            setRoles(new ArrayList<RoleDTO>() {{
+                add(studentRole);
+            }});
+            setPhoto("");
+        }}).getData()).getId(), 6);
+        accountController.setStudentGroup(((UserDTO) accountController.registration(new UserDTO() {{
+            setUsername("ibajdullaevkb73");
+            setEmail("ibajdullaevkb73@mail.ru");
+            setUserFIO("Ибайдуллаев Куаныш");
+            setPassword("df9dfbfd");
+            setRoles(new ArrayList<RoleDTO>() {{
+                add(studentRole);
+            }});
+            setPhoto("");
+        }}).getData()).getId(), 6);
+        accountController.setStudentGroup(((UserDTO) accountController.registration(new UserDTO() {{
+            setUsername("inozemcevaema6f");
+            setEmail("inozemcevaema6f@mail.ru");
+            setUserFIO("Иноземцева Екатерина Михайловна");
+            setPassword("30a79461");
+            setRoles(new ArrayList<RoleDTO>() {{
+                add(studentRole);
+            }});
+            setPhoto("");
+        }}).getData()).getId(), 6);
+        accountController.setStudentGroup(((UserDTO) accountController.registration(new UserDTO() {{
+            setUsername("kirsanovas607");
+            setEmail("kirsanovas607@mail.ru");
+            setUserFIO("Кирсанов Алексей Сергеевич");
+            setPassword("32491bcd");
+            setRoles(new ArrayList<RoleDTO>() {{
+                add(studentRole);
+            }});
+            setPhoto("");
+        }}).getData()).getId(), 6);
+        accountController.setStudentGroup(((UserDTO) accountController.registration(new UserDTO() {{
+            setUsername("kolesnikovaed3b5");
+            setEmail("kolesnikovaed3b5@mail.ru");
+            setUserFIO("Колесникова Евгения Дмитриевна");
+            setPassword("c7bfb2c2");
+            setRoles(new ArrayList<RoleDTO>() {{
+                add(studentRole);
+            }});
+            setPhoto("");
+        }}).getData()).getId(), 6);
+        accountController.setStudentGroup(((UserDTO) accountController.registration(new UserDTO() {{
+            setUsername("kulyovav6b6");
+            setEmail("kulyovav6b6@mail.ru");
+            setUserFIO("Кулёв Андрей Вячеславович");
+            setPassword("e0213469");
+            setRoles(new ArrayList<RoleDTO>() {{
+                add(studentRole);
+            }});
+            setPhoto("");
+        }}).getData()).getId(), 6);
+        accountController.setStudentGroup(((UserDTO) accountController.registration(new UserDTO() {{
+            setUsername("kulikas99a");
+            setEmail("kulikas99a@mail.ru");
+            setUserFIO("Кулик Андрей Сергеевич");
+            setPassword("ee79e1f3");
+            setRoles(new ArrayList<RoleDTO>() {{
+                add(studentRole);
+            }});
+            setPhoto("");
+        }}).getData()).getId(), 6);
+        accountController.setStudentGroup(((UserDTO) accountController.registration(new UserDTO() {{
+            setUsername("lavrentevia488");
+            setEmail("lavrentevia488@mail.ru");
+            setUserFIO("Лаврентьев Иван Александрович");
+            setPassword("e5a5f6b4");
+            setRoles(new ArrayList<RoleDTO>() {{
+                add(studentRole);
+            }});
+            setPhoto("");
+        }}).getData()).getId(), 6);
+        accountController.setStudentGroup(((UserDTO) accountController.registration(new UserDTO() {{
+            setUsername("losma1ed");
+            setEmail("losma1ed@mail.ru");
+            setUserFIO("Лось Михаил Александрович");
+            setPassword("f6797927");
+            setRoles(new ArrayList<RoleDTO>() {{
+                add(studentRole);
+            }});
+            setPhoto("");
+        }}).getData()).getId(), 6);
+        accountController.setStudentGroup(((UserDTO) accountController.registration(new UserDTO() {{
+            setUsername("lunkoviv936");
+            setEmail("lunkoviv936@mail.ru");
+            setUserFIO("Луньков Илья Викторович");
+            setPassword("f5b338c5");
+            setRoles(new ArrayList<RoleDTO>() {{
+                add(studentRole);
+            }});
+            setPhoto("");
+        }}).getData()).getId(), 6);
+        accountController.setStudentGroup(((UserDTO) accountController.registration(new UserDTO() {{
+            setUsername("matevosyanen54e");
+            setEmail("matevosyanen54e@mail.ru");
+            setUserFIO("Матевосян Еген Наапетович");
+            setPassword("276569fa");
+            setRoles(new ArrayList<RoleDTO>() {{
+                add(studentRole);
+            }});
+            setPhoto("");
+        }}).getData()).getId(), 6);
+        accountController.setStudentGroup(((UserDTO) accountController.registration(new UserDTO() {{
+            setUsername("moshnegucds83a");
+            setEmail("moshnegucds83a@mail.ru");
+            setUserFIO("Мошнегуц Дмитрий Сергеевич");
+            setPassword("dacc38ca");
+            setRoles(new ArrayList<RoleDTO>() {{
+                add(studentRole);
+            }});
+            setPhoto("");
+        }}).getData()).getId(), 6);
+        accountController.setStudentGroup(((UserDTO) accountController.registration(new UserDTO() {{
+            setUsername("nedosekinaee8bb");
+            setEmail("nedosekinaee8bb@mail.ru");
+            setUserFIO("Недосекина Екатерина Евгеньевна");
+            setPassword("043109f4");
+            setRoles(new ArrayList<RoleDTO>() {{
+                add(studentRole);
+            }});
+            setPhoto("");
+        }}).getData()).getId(), 6);
+        accountController.setStudentGroup(((UserDTO) accountController.registration(new UserDTO() {{
+            setUsername("nikolaevmv959");
+            setEmail("nikolaevmv959@mail.ru");
+            setUserFIO("Николаев Максим Вячеславович");
+            setPassword("367c88be");
+            setRoles(new ArrayList<RoleDTO>() {{
+                add(studentRole);
+            }});
+            setPhoto("");
+        }}).getData()).getId(), 6);
+        accountController.setStudentGroup(((UserDTO) accountController.registration(new UserDTO() {{
+            setUsername("orlovva1d1");
+            setEmail("orlovva1d1@mail.ru");
+            setUserFIO("Орлов Владислав Александрович");
+            setPassword("784f4ac0");
+            setRoles(new ArrayList<RoleDTO>() {{
+                add(studentRole);
+            }});
+            setPhoto("");
+        }}).getData()).getId(), 6);
+        accountController.setStudentGroup(((UserDTO) accountController.registration(new UserDTO() {{
+            setUsername("pashkovaga52");
+            setEmail("pashkovaga52@mail.ru");
+            setUserFIO("Пашков Артем Грачикович");
+            setPassword("a8ed04b6");
+            setRoles(new ArrayList<RoleDTO>() {{
+                add(studentRole);
+            }});
+            setPhoto("");
+        }}).getData()).getId(), 6);
+        accountController.setStudentGroup(((UserDTO) accountController.registration(new UserDTO() {{
+            setUsername("podberezengibf5");
+            setEmail("podberezengibf5@mail.ru");
+            setUserFIO("Подберезен Григорий Игоревич");
+            setPassword("2190af30");
+            setRoles(new ArrayList<RoleDTO>() {{
+                add(studentRole);
+            }});
+            setPhoto("");
+        }}).getData()).getId(), 6);
+        accountController.setStudentGroup(((UserDTO) accountController.registration(new UserDTO() {{
+            setUsername("potapenkonsdeb");
+            setEmail("potapenkonsdeb@mail.ru");
+            setUserFIO("Потапенко Николай Сергеевич");
+            setPassword("0d147a27");
+            setRoles(new ArrayList<RoleDTO>() {{
+                add(studentRole);
+            }});
+            setPhoto("");
+        }}).getData()).getId(), 6);
+        accountController.setStudentGroup(((UserDTO) accountController.registration(new UserDTO() {{
+            setUsername("repinayua5f9");
+            setEmail("repinayua5f9@mail.ru");
+            setUserFIO("Репина Юлия Александровна");
+            setPassword("9b5d39a2");
+            setRoles(new ArrayList<RoleDTO>() {{
+                add(studentRole);
+            }});
+            setPhoto("");
+        }}).getData()).getId(), 6);
+        accountController.setStudentGroup(((UserDTO) accountController.registration(new UserDTO() {{
+            setUsername("saburovkvfde");
+            setEmail("saburovkvfde@mail.ru");
+            setUserFIO("Сабуров Кристиан Владимирович");
+            setPassword("9ded3f41");
+            setRoles(new ArrayList<RoleDTO>() {{
+                add(studentRole);
+            }});
+            setPhoto("");
+        }}).getData()).getId(), 6);
+        accountController.setStudentGroup(((UserDTO) accountController.registration(new UserDTO() {{
+            setUsername("sokolovaa5d8");
+            setEmail("sokolovaa5d8@mail.ru");
+            setUserFIO("Соколов Александр Алексеевич");
+            setPassword("93811ba4");
+            setRoles(new ArrayList<RoleDTO>() {{
+                add(studentRole);
+            }});
+            setPhoto("");
+        }}).getData()).getId(), 6);
+        accountController.setStudentGroup(((UserDTO) accountController.registration(new UserDTO() {{
+            setUsername("solomkadad12");
+            setEmail("solomkadad12@mail.ru");
+            setUserFIO("Соломка Дмитрий Андреевич");
+            setPassword("5fb0f0ab");
+            setRoles(new ArrayList<RoleDTO>() {{
+                add(studentRole);
+            }});
+            setPhoto("");
+        }}).getData()).getId(), 6);
+        accountController.setStudentGroup(((UserDTO) accountController.registration(new UserDTO() {{
+            setUsername("spirinrp264");
+            setEmail("spirinrp264@mail.ru");
+            setUserFIO("Спирин Роман Петрович");
+            setPassword("06049604");
+            setRoles(new ArrayList<RoleDTO>() {{
+                add(studentRole);
+            }});
+            setPhoto("");
+        }}).getData()).getId(), 6);
+        accountController.setStudentGroup(((UserDTO) accountController.registration(new UserDTO() {{
+            setUsername("usikovsa94d");
+            setEmail("usikovsa94d@mail.ru");
+            setUserFIO("Усиков Сергей Алексеевич");
+            setPassword("1504ddce");
+            setRoles(new ArrayList<RoleDTO>() {{
+                add(studentRole);
+            }});
+            setPhoto("");
+        }}).getData()).getId(), 6);
+        accountController.setStudentGroup(((UserDTO) accountController.registration(new UserDTO() {{
+            setUsername("fedkinsp7d7");
+            setEmail("fedkinsp7d7@mail.ru");
+            setUserFIO("Федькин Сергей Петрович");
+            setPassword("695f1883");
+            setRoles(new ArrayList<RoleDTO>() {{
+                add(studentRole);
+            }});
+            setPhoto("");
+        }}).getData()).getId(), 6);
+        accountController.setStudentGroup(((UserDTO) accountController.registration(new UserDTO() {{
+            setUsername("filkovaocfa");
+            setEmail("filkovaocfa@mail.ru");
+            setUserFIO("Фильков Анатолий Олегович");
+            setPassword("fe242081");
+            setRoles(new ArrayList<RoleDTO>() {{
+                add(studentRole);
+            }});
+            setPhoto("");
+        }}).getData()).getId(), 6);
+        accountController.setStudentGroup(((UserDTO) accountController.registration(new UserDTO() {{
+            setUsername("sharifullinar0e9");
+            setEmail("sharifullinar0e9@mail.ru");
+            setUserFIO("Шарифуллин Артем Рашидович");
+            setPassword("6fa1f8df");
+            setRoles(new ArrayList<RoleDTO>() {{
+                add(studentRole);
+            }});
+            setPhoto("");
+        }}).getData()).getId(), 6);
+        accountController.setStudentGroup(((UserDTO) accountController.registration(new UserDTO() {{
+            setUsername("shipilovavc06");
+            setEmail("shipilovavc06@mail.ru");
+            setUserFIO("Шипилов Александр Викторович");
+            setPassword("de124b61");
+            setRoles(new ArrayList<RoleDTO>() {{
+                add(studentRole);
+            }});
+            setPhoto("");
+        }}).getData()).getId(), 6);
+        accountController.setStudentGroup(((UserDTO) accountController.registration(new UserDTO() {{
+            setUsername("shkorna901");
+            setEmail("shkorna901@mail.ru");
+            setUserFIO("Шкор Никита Алексеевич");
+            setPassword("74f63994");
+            setRoles(new ArrayList<RoleDTO>() {{
+                add(studentRole);
+            }});
+            setPhoto("");
+        }}).getData()).getId(), 6);
+        accountController.setStudentGroup(((UserDTO) accountController.registration(new UserDTO() {{
+            setUsername("yurchikafc9");
+            setEmail("yurchikafc9@mail.ru");
+            setUserFIO("Юрчик Александр");
+            setPassword("e072cee2");
+            setRoles(new ArrayList<RoleDTO>() {{
+                add(studentRole);
+            }});
+            setPhoto("");
+        }}).getData()).getId(), 6);
+        accountController.setStudentGroup(((UserDTO) accountController.registration(new UserDTO() {{
+            setUsername("abelyashevpa322");
+            setEmail("abelyashevpa322@mail.ru");
+            setUserFIO("Абеляшев Павел Александрович");
+            setPassword("191383c4");
+            setRoles(new ArrayList<RoleDTO>() {{
+                add(studentRole);
+            }});
+            setPhoto("");
+        }}).getData()).getId(), 6);
+        accountController.setStudentGroup(((UserDTO) accountController.registration(new UserDTO() {{
+            setUsername("artamonovaeyu1ce");
+            setEmail("artamonovaeyu1ce@mail.ru");
+            setUserFIO("Артамонова Екатерина Юрьевна");
+            setPassword("f0679ce5");
+            setRoles(new ArrayList<RoleDTO>() {{
+                add(studentRole);
+            }});
+            setPhoto("");
+        }}).getData()).getId(), 7);
+        accountController.setStudentGroup(((UserDTO) accountController.registration(new UserDTO() {{
+            setUsername("vasilenkoesfd5");
+            setEmail("vasilenkoesfd5@mail.ru");
+            setUserFIO("Василенко Екатерина Сергеевна");
+            setPassword("d0e9de06");
+            setRoles(new ArrayList<RoleDTO>() {{
+                add(studentRole);
+            }});
+            setPhoto("");
+        }}).getData()).getId(), 7);
+        accountController.setStudentGroup(((UserDTO) accountController.registration(new UserDTO() {{
+            setUsername("kornienkomved4");
+            setEmail("kornienkomved4@mail.ru");
+            setUserFIO("Корниенко Марина Викторовна");
+            setPassword("6f703a2f");
+            setRoles(new ArrayList<RoleDTO>() {{
+                add(studentRole);
+            }});
+            setPhoto("");
+        }}).getData()).getId(), 7);
+        accountController.setStudentGroup(((UserDTO) accountController.registration(new UserDTO() {{
+            setUsername("krechetovapab3b");
+            setEmail("krechetovapab3b@mail.ru");
+            setUserFIO("Кречетова Полина Александровна");
+            setPassword("45eca7b3");
+            setRoles(new ArrayList<RoleDTO>() {{
+                add(studentRole);
+            }});
+            setPhoto("");
+        }}).getData()).getId(), 7);
+        accountController.setStudentGroup(((UserDTO) accountController.registration(new UserDTO() {{
+            setUsername("kurtukovavvc39");
+            setEmail("kurtukovavvc39@mail.ru");
+            setUserFIO("Куртукова Виктория Витальевна");
+            setPassword("ae216758");
+            setRoles(new ArrayList<RoleDTO>() {{
+                add(studentRole);
+            }});
+            setPhoto("");
+        }}).getData()).getId(), 7);
+        accountController.setStudentGroup(((UserDTO) accountController.registration(new UserDTO() {{
+            setUsername("landysvea6b");
+            setEmail("landysvea6b@mail.ru");
+            setUserFIO("Ландыс Валерия Евгеньевна");
+            setPassword("ad2e0abf");
+            setRoles(new ArrayList<RoleDTO>() {{
+                add(studentRole);
+            }});
+            setPhoto("");
+        }}).getData()).getId(), 7);
+        accountController.setStudentGroup(((UserDTO) accountController.registration(new UserDTO() {{
+            setUsername("lelikovasp9c0");
+            setEmail("lelikovasp9c0@mail.ru");
+            setUserFIO("Леликова Светлана Павловна");
+            setPassword("2261f6c0");
+            setRoles(new ArrayList<RoleDTO>() {{
+                add(studentRole);
+            }});
+            setPhoto("");
+        }}).getData()).getId(), 7);
+        accountController.setStudentGroup(((UserDTO) accountController.registration(new UserDTO() {{
+            setUsername("lyamkinaasebb");
+            setEmail("lyamkinaasebb@mail.ru");
+            setUserFIO("Лямкина Анастасия Сергеевна");
+            setPassword("0bbcc847");
+            setRoles(new ArrayList<RoleDTO>() {{
+                add(studentRole);
+            }});
+            setPhoto("");
+        }}).getData()).getId(), 7);
+        accountController.setStudentGroup(((UserDTO) accountController.registration(new UserDTO() {{
+            setUsername("makarovakea1c");
+            setEmail("makarovakea1c@mail.ru");
+            setUserFIO("Макарова Ксения Евгеньевна");
+            setPassword("98caedb0");
+            setRoles(new ArrayList<RoleDTO>() {{
+                add(studentRole);
+            }});
+            setPhoto("");
+        }}).getData()).getId(), 7);
+        accountController.setStudentGroup(((UserDTO) accountController.registration(new UserDTO() {{
+            setUsername("pazinaaobee");
+            setEmail("pazinaaobee@mail.ru");
+            setUserFIO("Пазина Анна Олеговна");
+            setPassword("5df7113f");
+            setRoles(new ArrayList<RoleDTO>() {{
+                add(studentRole);
+            }});
+            setPhoto("");
+        }}).getData()).getId(), 7);
+        accountController.setStudentGroup(((UserDTO) accountController.registration(new UserDTO() {{
+            setUsername("popovaav84e");
+            setEmail("popovaav84e@mail.ru");
+            setUserFIO("Попова Анастасия Вячеславовна");
+            setPassword("a58992cf");
+            setRoles(new ArrayList<RoleDTO>() {{
+                add(studentRole);
+            }});
+            setPhoto("");
+        }}).getData()).getId(), 7);
+        accountController.setStudentGroup(((UserDTO) accountController.registration(new UserDTO() {{
+            setUsername("posudinayus62a");
+            setEmail("posudinayus62a@mail.ru");
+            setUserFIO("Посудина Юлия Станиславовна");
+            setPassword("e7ca9db4");
+            setRoles(new ArrayList<RoleDTO>() {{
+                add(studentRole);
+            }});
+            setPhoto("");
+        }}).getData()).getId(), 7);
+        accountController.setStudentGroup(((UserDTO) accountController.registration(new UserDTO() {{
+            setUsername("rotanovadd575");
+            setEmail("rotanovadd575@mail.ru");
+            setUserFIO("Ротанова Диана Дмитриевна");
+            setPassword("2cbefb8b");
+            setRoles(new ArrayList<RoleDTO>() {{
+                add(studentRole);
+            }});
+            setPhoto("");
+        }}).getData()).getId(), 7);
+        accountController.setStudentGroup(((UserDTO) accountController.registration(new UserDTO() {{
+            setUsername("staforovaaaff7");
+            setEmail("staforovaaaff7@mail.ru");
+            setUserFIO("Стафорова Анастасия Андреевна");
+            setPassword("5e8a98c8");
+            setRoles(new ArrayList<RoleDTO>() {{
+                add(studentRole);
+            }});
+            setPhoto("");
+        }}).getData()).getId(), 7);
+        accountController.setStudentGroup(((UserDTO) accountController.registration(new UserDTO() {{
+            setUsername("shabalinala1be");
+            setEmail("shabalinala1be@mail.ru");
+            setUserFIO("Шабалина Любовь Андреевна");
+            setPassword("ccf69ab2");
+            setRoles(new ArrayList<RoleDTO>() {{
+                add(studentRole);
+            }});
+            setPhoto("");
+        }}).getData()).getId(), 7);
+        accountController.setStudentGroup(((UserDTO) accountController.registration(new UserDTO() {{
+            setUsername("shavinaaa554");
+            setEmail("shavinaaa554@mail.ru");
+            setUserFIO("Шавина Анастасия Андреевна");
+            setPassword("2b31d9a4");
+            setRoles(new ArrayList<RoleDTO>() {{
+                add(studentRole);
+            }});
+            setPhoto("");
+        }}).getData()).getId(), 7);
+        accountController.setStudentGroup(((UserDTO) accountController.registration(new UserDTO() {{
+            setUsername("vikulinayuvfd7");
+            setEmail("vikulinayuvfd7@mail.ru");
+            setUserFIO("Викулина Юлия Владимировна");
+            setPassword("0c1ec412");
+            setRoles(new ArrayList<RoleDTO>() {{
+                add(studentRole);
+            }});
+            setPhoto("");
+        }}).getData()).getId(), 29);
+        accountController.setStudentGroup(((UserDTO) accountController.registration(new UserDTO() {{
+            setUsername("votincevaavce5");
+            setEmail("votincevaavce5@mail.ru");
+            setUserFIO("Вотинцева Анастасия Вячеславовна");
+            setPassword("af6605b5");
+            setRoles(new ArrayList<RoleDTO>() {{
+                add(studentRole);
+            }});
+            setPhoto("");
+        }}).getData()).getId(), 29);
+        accountController.setStudentGroup(((UserDTO) accountController.registration(new UserDTO() {{
+            setUsername("ermakovatb5b5");
+            setEmail("ermakovatb5b5@mail.ru");
+            setUserFIO("Ермакова Татьяна Борисовна");
+            setPassword("9fbe0e09");
+            setRoles(new ArrayList<RoleDTO>() {{
+                add(studentRole);
+            }});
+            setPhoto("");
+        }}).getData()).getId(), 29);
+        accountController.setStudentGroup(((UserDTO) accountController.registration(new UserDTO() {{
+            setUsername("kustovas72c");
+            setEmail("kustovas72c@mail.ru");
+            setUserFIO("Кустов Александр Сергеевич");
+            setPassword("7a9edc90");
+            setRoles(new ArrayList<RoleDTO>() {{
+                add(studentRole);
+            }});
+            setPhoto("");
+        }}).getData()).getId(), 29);
+        accountController.setStudentGroup(((UserDTO) accountController.registration(new UserDTO() {{
+            setUsername("popovanv8c3");
+            setEmail("popovanv8c3@mail.ru");
+            setUserFIO("Попова Наталья Валерьевна");
+            setPassword("f1f22a2f");
+            setRoles(new ArrayList<RoleDTO>() {{
+                add(studentRole);
+            }});
+            setPhoto("");
+        }}).getData()).getId(), 29);
+        accountController.setStudentGroup(((UserDTO) accountController.registration(new UserDTO() {{
+            setUsername("fedorovaeg8c4");
+            setEmail("fedorovaeg8c4@mail.ru");
+            setUserFIO("Федорова Елена Геннадьевна");
+            setPassword("4357a7bf");
+            setRoles(new ArrayList<RoleDTO>() {{
+                add(studentRole);
+            }});
+            setPhoto("");
+        }}).getData()).getId(), 29);
+        accountController.setStudentGroup(((UserDTO) accountController.registration(new UserDTO() {{
+            setUsername("chernayaaa2d2");
+            setEmail("chernayaaa2d2@mail.ru");
+            setUserFIO("Черная Анна Александровна");
+            setPassword("e2422e42");
+            setRoles(new ArrayList<RoleDTO>() {{
+                add(studentRole);
+            }});
+            setPhoto("");
+        }}).getData()).getId(), 29);
+        accountController.setStudentGroup(((UserDTO) accountController.registration(new UserDTO() {{
+            setUsername("kiznervsc98");
+            setEmail("kiznervsc98@mail.ru");
+            setUserFIO("Кизнер Виталий Сергеевич");
+            setPassword("31c8563d");
+            setRoles(new ArrayList<RoleDTO>() {{
+                add(studentRole);
+            }});
+            setPhoto("");
+        }}).getData()).getId(), 29);
+        accountController.setStudentGroup(((UserDTO) accountController.registration(new UserDTO() {{
+            setUsername("bashkirovaaa1de");
+            setEmail("bashkirovaaa1de@mail.ru");
+            setUserFIO("Башкирова Александра Алексеевна");
+            setPassword("77ec192c");
+            setRoles(new ArrayList<RoleDTO>() {{
+                add(studentRole);
+            }});
+            setPhoto("");
+        }}).getData()).getId(), 30);
+        accountController.setStudentGroup(((UserDTO) accountController.registration(new UserDTO() {{
+            setUsername("elesinvrc2f");
+            setEmail("elesinvrc2f@mail.ru");
+            setUserFIO("Елесин Вадим Романович");
+            setPassword("2e8571b0");
+            setRoles(new ArrayList<RoleDTO>() {{
+                add(studentRole);
+            }});
+            setPhoto("");
+        }}).getData()).getId(), 30);
+        accountController.setStudentGroup(((UserDTO) accountController.registration(new UserDTO() {{
+            setUsername("ermolaevadaf00");
+            setEmail("ermolaevadaf00@mail.ru");
+            setUserFIO("Ермолаева Дарья Алексеевна");
+            setPassword("202d1a69");
+            setRoles(new ArrayList<RoleDTO>() {{
+                add(studentRole);
+            }});
+            setPhoto("");
+        }}).getData()).getId(), 30);
+        accountController.setStudentGroup(((UserDTO) accountController.registration(new UserDTO() {{
+            setUsername("zemlyanuhinns623");
+            setEmail("zemlyanuhinns623@mail.ru");
+            setUserFIO("Землянухин Никита Сергеевич");
+            setPassword("60cc03a7");
+            setRoles(new ArrayList<RoleDTO>() {{
+                add(studentRole);
+            }});
+            setPhoto("");
+        }}).getData()).getId(), 30);
+        accountController.setStudentGroup(((UserDTO) accountController.registration(new UserDTO() {{
+            setUsername("maksimovra33e");
+            setEmail("maksimovra33e@mail.ru");
+            setUserFIO("Максимов Роман Алексеевич");
+            setPassword("1ff4dfa0");
+            setRoles(new ArrayList<RoleDTO>() {{
+                add(studentRole);
+            }});
+            setPhoto("");
+        }}).getData()).getId(), 30);
+        accountController.setStudentGroup(((UserDTO) accountController.registration(new UserDTO() {{
+            setUsername("muhachyovmyu8e1");
+            setEmail("muhachyovmyu8e1@mail.ru");
+            setUserFIO("Мухачёв Михаил Юрьевич");
+            setPassword("14454e81");
+            setRoles(new ArrayList<RoleDTO>() {{
+                add(studentRole);
+            }});
+            setPhoto("");
+        }}).getData()).getId(), 30);
+        accountController.setStudentGroup(((UserDTO) accountController.registration(new UserDTO() {{
+            setUsername("peresadinaa147");
+            setEmail("peresadinaa147@mail.ru");
+            setUserFIO("Пересадин Александр Андреевич");
+            setPassword("a3a99e86");
+            setRoles(new ArrayList<RoleDTO>() {{
+                add(studentRole);
+            }});
+            setPhoto("");
+        }}).getData()).getId(), 30);
+        accountController.setStudentGroup(((UserDTO) accountController.registration(new UserDTO() {{
+            setUsername("prokopchukfa21d");
+            setEmail("prokopchukfa21d@mail.ru");
+            setUserFIO("Прокопчук Федор Александрович");
+            setPassword("0db48380");
+            setRoles(new ArrayList<RoleDTO>() {{
+                add(studentRole);
+            }});
+            setPhoto("");
+        }}).getData()).getId(), 30);
+        accountController.setStudentGroup(((UserDTO) accountController.registration(new UserDTO() {{
+            setUsername("chernousovaee10");
+            setEmail("chernousovaee10@mail.ru");
+            setUserFIO("Черноусов Александр Евгеньевич");
+            setPassword("42e66670");
+            setRoles(new ArrayList<RoleDTO>() {{
+                add(studentRole);
+            }});
+            setPhoto("");
+        }}).getData()).getId(), 30);
+        accountController.setStudentGroup(((UserDTO) accountController.registration(new UserDTO() {{
+            setUsername("shcherbakovaka255");
+            setEmail("shcherbakovaka255@mail.ru");
+            setUserFIO("Щербакова Карина Алексеевна");
+            setPassword("f4cf7d85");
+            setRoles(new ArrayList<RoleDTO>() {{
+                add(studentRole);
+            }});
+            setPhoto("");
+        }}).getData()).getId(), 30);
+        accountController.setStudentGroup(((UserDTO) accountController.registration(new UserDTO() {{
+            setUsername("kapkovnrbd6");
+            setEmail("kapkovnrbd6@mail.ru");
+            setUserFIO("Капков Никита Романович");
+            setPassword("2b0e5328");
+            setRoles(new ArrayList<RoleDTO>() {{
+                add(studentRole);
+            }});
+            setPhoto("");
+        }}).getData()).getId(), 30);
+        accountController.setStudentGroup(((UserDTO) accountController.registration(new UserDTO() {{
+            setUsername("polkovnikovaia4e");
+            setEmail("polkovnikovaia4e@mail.ru");
+            setUserFIO("Полковников Андрей Игоревич");
+            setPassword("ade65293");
+            setRoles(new ArrayList<RoleDTO>() {{
+                add(studentRole);
+            }});
+            setPhoto("");
+        }}).getData()).getId(), 30);
+        accountController.setStudentGroup(((UserDTO) accountController.registration(new UserDTO() {{
+            setUsername("mosinds0ad");
+            setEmail("mosinds0ad@mail.ru");
+            setUserFIO("Мосин Денис Сергеевич");
+            setPassword("599cf7fa");
+            setRoles(new ArrayList<RoleDTO>() {{
+                add(studentRole);
+            }});
+            setPhoto("");
+        }}).getData()).getId(), 30);
+        accountController.setStudentGroup(((UserDTO) accountController.registration(new UserDTO() {{
+            setUsername("akilovmz51c");
+            setEmail("akilovmz51c@mail.ru");
+            setUserFIO("Акилов Мухторджон Зокирович");
+            setPassword("77f9498f");
+            setRoles(new ArrayList<RoleDTO>() {{
+                add(studentRole);
+            }});
+            setPhoto("");
+        }}).getData()).getId(), 9);
+        accountController.setStudentGroup(((UserDTO) accountController.registration(new UserDTO() {{
+            setUsername("arhipenkovi687");
+            setEmail("arhipenkovi687@mail.ru");
+            setUserFIO("Архипенко Вероника Игоревна");
+            setPassword("944e7670");
+            setRoles(new ArrayList<RoleDTO>() {{
+                add(studentRole);
+            }});
+            setPhoto("");
+        }}).getData()).getId(), 9);
+        accountController.setStudentGroup(((UserDTO) accountController.registration(new UserDTO() {{
+            setUsername("bagdasaryanva5ce");
+            setEmail("bagdasaryanva5ce@mail.ru");
+            setUserFIO("Багдасарян Виктория Александровна");
+            setPassword("5cb56e55");
+            setRoles(new ArrayList<RoleDTO>() {{
+                add(studentRole);
+            }});
+            setPhoto("");
+        }}).getData()).getId(), 9);
+        accountController.setStudentGroup(((UserDTO) accountController.registration(new UserDTO() {{
+            setUsername("bannovyas608");
+            setEmail("bannovyas608@mail.ru");
+            setUserFIO("Баннов Яков Сергеевич");
+            setPassword("4c32ec7e");
+            setRoles(new ArrayList<RoleDTO>() {{
+                add(studentRole);
+            }});
+            setPhoto("");
+        }}).getData()).getId(), 9);
+        accountController.setStudentGroup(((UserDTO) accountController.registration(new UserDTO() {{
+            setUsername("verhorubovma69e");
+            setEmail("verhorubovma69e@mail.ru");
+            setUserFIO("Верхорубов Михаил Алексеевич");
+            setPassword("1dd82b02");
+            setRoles(new ArrayList<RoleDTO>() {{
+                add(studentRole);
+            }});
+            setPhoto("");
+        }}).getData()).getId(), 9);
+        accountController.setStudentGroup(((UserDTO) accountController.registration(new UserDTO() {{
+            setUsername("eryshkinaev551");
+            setEmail("eryshkinaev551@mail.ru");
+            setUserFIO("Ерышкина Елизавета Васильевна");
+            setPassword("3003b17e");
+            setRoles(new ArrayList<RoleDTO>() {{
+                add(studentRole);
+            }});
+            setPhoto("");
+        }}).getData()).getId(), 9);
+        accountController.setStudentGroup(((UserDTO) accountController.registration(new UserDTO() {{
+            setUsername("ibodullaevahf79");
+            setEmail("ibodullaevahf79@mail.ru");
+            setUserFIO("Ибодуллаев Аббос Хошимжонович");
+            setPassword("92599725");
+            setRoles(new ArrayList<RoleDTO>() {{
+                add(studentRole);
+            }});
+            setPhoto("");
+        }}).getData()).getId(), 9);
+        accountController.setStudentGroup(((UserDTO) accountController.registration(new UserDTO() {{
+            setUsername("ivanoviveba");
+            setEmail("ivanoviveba@mail.ru");
+            setUserFIO("Иванов Игорь Владимирович");
+            setPassword("c208b492");
+            setRoles(new ArrayList<RoleDTO>() {{
+                add(studentRole);
+            }});
+            setPhoto("");
+        }}).getData()).getId(), 9);
+        accountController.setStudentGroup(((UserDTO) accountController.registration(new UserDTO() {{
+            setUsername("kalininvvf45");
+            setEmail("kalininvvf45@mail.ru");
+            setUserFIO("Калинин Владислав Валерьевич");
+            setPassword("d4376165");
+            setRoles(new ArrayList<RoleDTO>() {{
+                add(studentRole);
+            }});
+            setPhoto("");
+        }}).getData()).getId(), 9);
+        accountController.setStudentGroup(((UserDTO) accountController.registration(new UserDTO() {{
+            setUsername("karimovtkf3e");
+            setEmail("karimovtkf3e@mail.ru");
+            setUserFIO("Каримов Тоджиддин Куканович");
+            setPassword("57fa0ceb");
+            setRoles(new ArrayList<RoleDTO>() {{
+                add(studentRole);
+            }});
+            setPhoto("");
+        }}).getData()).getId(), 9);
+        accountController.setStudentGroup(((UserDTO) accountController.registration(new UserDTO() {{
+            setUsername("kindyakovaae2a");
+            setEmail("kindyakovaae2a@mail.ru");
+            setUserFIO("Киндяков Александр Анатольевич");
+            setPassword("8e22b7e4");
+            setRoles(new ArrayList<RoleDTO>() {{
+                add(studentRole);
+            }});
+            setPhoto("");
+        }}).getData()).getId(), 9);
+        accountController.setStudentGroup(((UserDTO) accountController.registration(new UserDTO() {{
+            setUsername("kostenkodrfcb");
+            setEmail("kostenkodrfcb@mail.ru");
+            setUserFIO("Костенко Дмитрий Романович");
+            setPassword("d5dd60d4");
+            setRoles(new ArrayList<RoleDTO>() {{
+                add(studentRole);
+            }});
+            setPhoto("");
+        }}).getData()).getId(), 9);
+        accountController.setStudentGroup(((UserDTO) accountController.registration(new UserDTO() {{
+            setUsername("kochetkovaaa495");
+            setEmail("kochetkovaaa495@mail.ru");
+            setUserFIO("Кочеткова Анна Андреевна");
+            setPassword("b823b846");
+            setRoles(new ArrayList<RoleDTO>() {{
+                add(studentRole);
+            }});
+            setPhoto("");
+        }}).getData()).getId(), 9);
+        accountController.setStudentGroup(((UserDTO) accountController.registration(new UserDTO() {{
+            setUsername("kryaklinaa785");
+            setEmail("kryaklinaa785@mail.ru");
+            setUserFIO("Кряклин Артем Андреевич");
+            setPassword("cf27d648");
+            setRoles(new ArrayList<RoleDTO>() {{
+                add(studentRole);
+            }});
+            setPhoto("");
+        }}).getData()).getId(), 9);
+        accountController.setStudentGroup(((UserDTO) accountController.registration(new UserDTO() {{
+            setUsername("leonovichav0e5");
+            setEmail("leonovichav0e5@mail.ru");
+            setUserFIO("Леонович Алена Вячеславовна");
+            setPassword("41ce4ef0");
+            setRoles(new ArrayList<RoleDTO>() {{
+                add(studentRole);
+            }});
+            setPhoto("");
+        }}).getData()).getId(), 9);
+        accountController.setStudentGroup(((UserDTO) accountController.registration(new UserDTO() {{
+            setUsername("leontevaao769");
+            setEmail("leontevaao769@mail.ru");
+            setUserFIO("Леонтьева Александра Олеговна");
+            setPassword("94b610b9");
+            setRoles(new ArrayList<RoleDTO>() {{
+                add(studentRole);
+            }});
+            setPhoto("");
+        }}).getData()).getId(), 9);
+        accountController.setStudentGroup(((UserDTO) accountController.registration(new UserDTO() {{
+            setUsername("lvovadd08b");
+            setEmail("lvovadd08b@mail.ru");
+            setUserFIO("Львова Дарья Дмитриевна");
+            setPassword("e85b2bd3");
+            setRoles(new ArrayList<RoleDTO>() {{
+                add(studentRole);
+            }});
+            setPhoto("");
+        }}).getData()).getId(), 9);
+        accountController.setStudentGroup(((UserDTO) accountController.registration(new UserDTO() {{
+            setUsername("minaevyuafb5");
+            setEmail("minaevyuafb5@mail.ru");
+            setUserFIO("Минаев Юрий Алексеевич");
+            setPassword("0aa411c8");
+            setRoles(new ArrayList<RoleDTO>() {{
+                add(studentRole);
+            }});
+            setPhoto("");
+        }}).getData()).getId(), 9);
+        accountController.setStudentGroup(((UserDTO) accountController.registration(new UserDTO() {{
+            setUsername("mihajlovds984");
+            setEmail("mihajlovds984@mail.ru");
+            setUserFIO("Михайлов Данил Сергеевич");
+            setPassword("66ec4d54");
+            setRoles(new ArrayList<RoleDTO>() {{
+                add(studentRole);
+            }});
+            setPhoto("");
+        }}).getData()).getId(), 9);
+        accountController.setStudentGroup(((UserDTO) accountController.registration(new UserDTO() {{
+            setUsername("prolomova-annass484");
+            setEmail("prolomova-annass484@mail.ru");
+            setUserFIO("Проломова Анна-Ситора Сафаровна");
+            setPassword("f4628199");
+            setRoles(new ArrayList<RoleDTO>() {{
+                add(studentRole);
+            }});
+            setPhoto("");
+        }}).getData()).getId(), 9);
+        accountController.setStudentGroup(((UserDTO) accountController.registration(new UserDTO() {{
+            setUsername("smychkovaae66e");
+            setEmail("smychkovaae66e@mail.ru");
+            setUserFIO("Смычкова Анна Евгеньевна");
+            setPassword("c1916e13");
+            setRoles(new ArrayList<RoleDTO>() {{
+                add(studentRole);
+            }});
+            setPhoto("");
+        }}).getData()).getId(), 9);
+        accountController.setStudentGroup(((UserDTO) accountController.registration(new UserDTO() {{
+            setUsername("umarovmk5a9");
+            setEmail("umarovmk5a9@mail.ru");
+            setUserFIO("Умаров Мухаммаджон Курбанович");
+            setPassword("1fdbb710");
+            setRoles(new ArrayList<RoleDTO>() {{
+                add(studentRole);
+            }});
+            setPhoto("");
+        }}).getData()).getId(), 9);
+        accountController.setStudentGroup(((UserDTO) accountController.registration(new UserDTO() {{
+            setUsername("hotamovshk2cf");
+            setEmail("hotamovshk2cf@mail.ru");
+            setUserFIO("Хотамов Шерзод Кудбиддинович");
+            setPassword("e6cd2053");
+            setRoles(new ArrayList<RoleDTO>() {{
+                add(studentRole);
+            }});
+            setPhoto("");
+        }}).getData()).getId(), 9);
+        accountController.setStudentGroup(((UserDTO) accountController.registration(new UserDTO() {{
+            setUsername("hotamovush910");
+            setEmail("hotamovush910@mail.ru");
+            setUserFIO("Хотамов Умедчон Шодмонович");
+            setPassword("1d1e4f13");
+            setRoles(new ArrayList<RoleDTO>() {{
+                add(studentRole);
+            }});
+            setPhoto("");
+        }}).getData()).getId(), 9);
+        accountController.setStudentGroup(((UserDTO) accountController.registration(new UserDTO() {{
+            setUsername("hudajnazarovhb22");
+            setEmail("hudajnazarovhb22@mail.ru");
+            setUserFIO("Худайназаров Хуршид");
+            setPassword("039b8d38");
+            setRoles(new ArrayList<RoleDTO>() {{
+                add(studentRole);
+            }});
+            setPhoto("");
+        }}).getData()).getId(), 9);
+        accountController.setStudentGroup(((UserDTO) accountController.registration(new UserDTO() {{
+            setUsername("churikoviyu20f");
+            setEmail("churikoviyu20f@mail.ru");
+            setUserFIO("Чуриков Илья Юрьевич");
+            setPassword("76794de1");
+            setRoles(new ArrayList<RoleDTO>() {{
+                add(studentRole);
+            }});
+            setPhoto("");
+        }}).getData()).getId(), 9);
+        accountController.setStudentGroup(((UserDTO) accountController.registration(new UserDTO() {{
+            setUsername("korolevea9b5");
+            setEmail("korolevea9b5@mail.ru");
+            setUserFIO("Королев Егор Алексеевич");
+            setPassword("057041d3");
+            setRoles(new ArrayList<RoleDTO>() {{
+                add(studentRole);
+            }});
+            setPhoto("");
+        }}).getData()).getId(), 9);
+        accountController.setStudentGroup(((UserDTO) accountController.registration(new UserDTO() {{
+            setUsername("abdinaimovlr1e1");
+            setEmail("abdinaimovlr1e1@mail.ru");
+            setUserFIO("Абдинаимов Лочинбек Равшанбекович");
+            setPassword("19755165");
+            setRoles(new ArrayList<RoleDTO>() {{
+                add(studentRole);
+            }});
+            setPhoto("");
+        }}).getData()).getId(), 11);
+        accountController.setStudentGroup(((UserDTO) accountController.registration(new UserDTO() {{
+            setUsername("aksenovmvae0");
+            setEmail("aksenovmvae0@mail.ru");
+            setUserFIO("Аксенов Марк Валерьевич");
+            setPassword("603b26c5");
+            setRoles(new ArrayList<RoleDTO>() {{
+                add(studentRole);
+            }});
+            setPhoto("");
+        }}).getData()).getId(), 11);
+        accountController.setStudentGroup(((UserDTO) accountController.registration(new UserDTO() {{
+            setUsername("astahovaadd29");
+            setEmail("astahovaadd29@mail.ru");
+            setUserFIO("Астахова Анастасия Денисовна");
+            setPassword("4fbd7222");
+            setRoles(new ArrayList<RoleDTO>() {{
+                add(studentRole);
+            }});
+            setPhoto("");
+        }}).getData()).getId(), 11);
+        accountController.setStudentGroup(((UserDTO) accountController.registration(new UserDTO() {{
+            setUsername("bessilnyhmsa72");
+            setEmail("bessilnyhmsa72@mail.ru");
+            setUserFIO("Бессильных Мария Сергеевна");
+            setPassword("970c1e37");
+            setRoles(new ArrayList<RoleDTO>() {{
+                add(studentRole);
+            }});
+            setPhoto("");
+        }}).getData()).getId(), 11);
+        accountController.setStudentGroup(((UserDTO) accountController.registration(new UserDTO() {{
+            setUsername("davydovda279");
+            setEmail("davydovda279@mail.ru");
+            setUserFIO("Давыдов Денис Александрович");
+            setPassword("73c3bf0e");
+            setRoles(new ArrayList<RoleDTO>() {{
+                add(studentRole);
+            }});
+            setPhoto("");
+        }}).getData()).getId(), 11);
+        accountController.setStudentGroup(((UserDTO) accountController.registration(new UserDTO() {{
+            setUsername("zhukovdkbc2");
+            setEmail("zhukovdkbc2@mail.ru");
+            setUserFIO("Жуков Даниил Константинович");
+            setPassword("673df3eb");
+            setRoles(new ArrayList<RoleDTO>() {{
+                add(studentRole);
+            }});
+            setPhoto("");
+        }}).getData()).getId(), 11);
+        accountController.setStudentGroup(((UserDTO) accountController.registration(new UserDTO() {{
+            setUsername("zuvajdovsehc27");
+            setEmail("zuvajdovsehc27@mail.ru");
+            setUserFIO("Зувайдов Сомон Эмомалиевич");
+            setPassword("8ec16bd1");
+            setRoles(new ArrayList<RoleDTO>() {{
+                add(studentRole);
+            }});
+            setPhoto("");
+        }}).getData()).getId(), 11);
+        accountController.setStudentGroup(((UserDTO) accountController.registration(new UserDTO() {{
+            setUsername("karimovnsh79a");
+            setEmail("karimovnsh79a@mail.ru");
+            setUserFIO("Каримов Нарзиали Шарифович");
+            setPassword("7ddb47e0");
+            setRoles(new ArrayList<RoleDTO>() {{
+                add(studentRole);
+            }});
+            setPhoto("");
+        }}).getData()).getId(), 11);
+        accountController.setStudentGroup(((UserDTO) accountController.registration(new UserDTO() {{
+            setUsername("kliminvve33");
+            setEmail("kliminvve33@mail.ru");
+            setUserFIO("Климин Владислав Васильевич");
+            setPassword("51740203");
+            setRoles(new ArrayList<RoleDTO>() {{
+                add(studentRole);
+            }});
+            setPhoto("");
+        }}).getData()).getId(), 11);
+        accountController.setStudentGroup(((UserDTO) accountController.registration(new UserDTO() {{
+            setUsername("lazarevpa88a");
+            setEmail("lazarevpa88a@mail.ru");
+            setUserFIO("Лазарев Павел Алексеевич");
+            setPassword("97b1eefc");
+            setRoles(new ArrayList<RoleDTO>() {{
+                add(studentRole);
+            }});
+            setPhoto("");
+        }}).getData()).getId(), 11);
+        accountController.setStudentGroup(((UserDTO) accountController.registration(new UserDTO() {{
+            setUsername("lapkokaf52");
+            setEmail("lapkokaf52@mail.ru");
+            setUserFIO("Лапко Константин Андреевич");
+            setPassword("9d8a39ad");
+            setRoles(new ArrayList<RoleDTO>() {{
+                add(studentRole);
+            }});
+            setPhoto("");
+        }}).getData()).getId(), 11);
+        accountController.setStudentGroup(((UserDTO) accountController.registration(new UserDTO() {{
+            setUsername("loskutnikovia687");
+            setEmail("loskutnikovia687@mail.ru");
+            setUserFIO("Лоскутников Илья Андреевич");
+            setPassword("b964a948");
+            setRoles(new ArrayList<RoleDTO>() {{
+                add(studentRole);
+            }});
+            setPhoto("");
+        }}).getData()).getId(), 11);
+        accountController.setStudentGroup(((UserDTO) accountController.registration(new UserDTO() {{
+            setUsername("lyukshinms5f8");
+            setEmail("lyukshinms5f8@mail.ru");
+            setUserFIO("Люкшин Михаил Сергеевич");
+            setPassword("2eac4e43");
+            setRoles(new ArrayList<RoleDTO>() {{
+                add(studentRole);
+            }});
+            setPhoto("");
+        }}).getData()).getId(), 11);
+        accountController.setStudentGroup(((UserDTO) accountController.registration(new UserDTO() {{
+            setUsername("medvedevaa765");
+            setEmail("medvedevaa765@mail.ru");
+            setUserFIO("Медведев Алексей Анатольевич");
+            setPassword("7e2d5b87");
+            setRoles(new ArrayList<RoleDTO>() {{
+                add(studentRole);
+            }});
+            setPhoto("");
+        }}).getData()).getId(), 11);
+        accountController.setStudentGroup(((UserDTO) accountController.registration(new UserDTO() {{
+            setUsername("ovcharovvvf5f");
+            setEmail("ovcharovvvf5f@mail.ru");
+            setUserFIO("Овчаров Виталий Викторович");
+            setPassword("3b495f53");
+            setRoles(new ArrayList<RoleDTO>() {{
+                add(studentRole);
+            }});
+            setPhoto("");
+        }}).getData()).getId(), 11);
+        accountController.setStudentGroup(((UserDTO) accountController.registration(new UserDTO() {{
+            setUsername("pajmavsc84");
+            setEmail("pajmavsc84@mail.ru");
+            setUserFIO("Пайма Варвара Сергеевна");
+            setPassword("238f0d2d");
+            setRoles(new ArrayList<RoleDTO>() {{
+                add(studentRole);
+            }});
+            setPhoto("");
+        }}).getData()).getId(), 11);
+        accountController.setStudentGroup(((UserDTO) accountController.registration(new UserDTO() {{
+            setUsername("panchukro682");
+            setEmail("panchukro682@mail.ru");
+            setUserFIO("Панчук Роман Олегович");
+            setPassword("f77cfefe");
+            setRoles(new ArrayList<RoleDTO>() {{
+                add(studentRole);
+            }});
+            setPhoto("");
+        }}).getData()).getId(), 11);
+        accountController.setStudentGroup(((UserDTO) accountController.registration(new UserDTO() {{
+            setUsername("panshinav472");
+            setEmail("panshinav472@mail.ru");
+            setUserFIO("Паньшин Андрей Владимирович");
+            setPassword("adddb290");
+            setRoles(new ArrayList<RoleDTO>() {{
+                add(studentRole);
+            }});
+            setPhoto("");
+        }}).getData()).getId(), 11);
+        accountController.setStudentGroup(((UserDTO) accountController.registration(new UserDTO() {{
+            setUsername("sidorovfa004");
+            setEmail("sidorovfa004@mail.ru");
+            setUserFIO("Сидоров Федор Александрович");
+            setPassword("655946d3");
+            setRoles(new ArrayList<RoleDTO>() {{
+                add(studentRole);
+            }});
+            setPhoto("");
+        }}).getData()).getId(), 11);
+        accountController.setStudentGroup(((UserDTO) accountController.registration(new UserDTO() {{
+            setUsername("smirnovnk4ca");
+            setEmail("smirnovnk4ca@mail.ru");
+            setUserFIO("Смирнов Никита Константинович");
+            setPassword("3439bc95");
+            setRoles(new ArrayList<RoleDTO>() {{
+                add(studentRole);
+            }});
+            setPhoto("");
+        }}).getData()).getId(), 11);
+        accountController.setStudentGroup(((UserDTO) accountController.registration(new UserDTO() {{
+            setUsername("timofeevaaccf");
+            setEmail("timofeevaaccf@mail.ru");
+            setUserFIO("Тимофеев Александр Алексеевич");
+            setPassword("5450e91b");
+            setRoles(new ArrayList<RoleDTO>() {{
+                add(studentRole);
+            }});
+            setPhoto("");
+        }}).getData()).getId(), 11);
+        accountController.setStudentGroup(((UserDTO) accountController.registration(new UserDTO() {{
+            setUsername("chekarevamad0f");
+            setEmail("chekarevamad0f@mail.ru");
+            setUserFIO("Чекарева Мария Андреевна");
+            setPassword("618bd2a6");
+            setRoles(new ArrayList<RoleDTO>() {{
+                add(studentRole);
+            }});
+            setPhoto("");
+        }}).getData()).getId(), 11);
+        accountController.setStudentGroup(((UserDTO) accountController.registration(new UserDTO() {{
+            setUsername("cherkashinaka5a9");
+            setEmail("cherkashinaka5a9@mail.ru");
+            setUserFIO("Черкашина Ксения Александровна");
+            setPassword("3404403c");
+            setRoles(new ArrayList<RoleDTO>() {{
+                add(studentRole);
+            }});
+            setPhoto("");
+        }}).getData()).getId(), 11);
+        accountController.setStudentGroup(((UserDTO) accountController.registration(new UserDTO() {{
+            setUsername("chichendaevda0ce");
+            setEmail("chichendaevda0ce@mail.ru");
+            setUserFIO("Чичендаев Денис Александрович");
+            setPassword("4ce792e4");
+            setRoles(new ArrayList<RoleDTO>() {{
+                add(studentRole);
+            }});
+            setPhoto("");
+        }}).getData()).getId(), 11);
+        accountController.setStudentGroup(((UserDTO) accountController.registration(new UserDTO() {{
+            setUsername("shatrovasaf2");
+            setEmail("shatrovasaf2@mail.ru");
+            setUserFIO("Шатров Алексей Сергеевич");
+            setPassword("92d4f049");
+            setRoles(new ArrayList<RoleDTO>() {{
+                add(studentRole);
+            }});
+            setPhoto("");
+        }}).getData()).getId(), 11);
+        accountController.setStudentGroup(((UserDTO) accountController.registration(new UserDTO() {{
+            setUsername("shkodunovnacd3");
+            setEmail("shkodunovnacd3@mail.ru");
+            setUserFIO("Шкодунов Никита Андреевич");
+            setPassword("20b96fb0");
+            setRoles(new ArrayList<RoleDTO>() {{
+                add(studentRole);
+            }});
+            setPhoto("");
+        }}).getData()).getId(), 11);
+        accountController.setStudentGroup(((UserDTO) accountController.registration(new UserDTO() {{
+            setUsername("shchegolevki183");
+            setEmail("shchegolevki183@mail.ru");
+            setUserFIO("Щеголев Константин Игоревич");
+            setPassword("eb1d3c7d");
+            setRoles(new ArrayList<RoleDTO>() {{
+                add(studentRole);
+            }});
+            setPhoto("");
+        }}).getData()).getId(), 11);
+        accountController.setStudentGroup(((UserDTO) accountController.registration(new UserDTO() {{
+            setUsername("yakovlevaevcde");
+            setEmail("yakovlevaevcde@mail.ru");
+            setUserFIO("Яковлева Елена Витальевна");
+            setPassword("0bb12964");
+            setRoles(new ArrayList<RoleDTO>() {{
+                add(studentRole);
+            }});
+            setPhoto("");
+        }}).getData()).getId(), 11);
+        accountController.setStudentGroup(((UserDTO) accountController.registration(new UserDTO() {{
+            setUsername("zhidihanovvr803");
+            setEmail("zhidihanovvr803@mail.ru");
+            setUserFIO("Жидиханов Вадим Ринатович");
+            setPassword("0ea6da75");
+            setRoles(new ArrayList<RoleDTO>() {{
+                add(studentRole);
+            }});
+            setPhoto("");
+        }}).getData()).getId(), 11);
+        accountController.setStudentGroup(((UserDTO) accountController.registration(new UserDTO() {{
+            setUsername("arefevayuc67");
+            setEmail("arefevayuc67@mail.ru");
+            setUserFIO("Арефьев Артем Юрьевич");
+            setPassword("88885efa");
+            setRoles(new ArrayList<RoleDTO>() {{
+                add(studentRole);
+            }});
+            setPhoto("");
+        }}).getData()).getId(), 13);
+        accountController.setStudentGroup(((UserDTO) accountController.registration(new UserDTO() {{
+            setUsername("aripovaa7a8");
+            setEmail("aripovaa7a8@mail.ru");
+            setUserFIO("Арипов Алиакбар Амонович");
+            setPassword("8b21b49d");
+            setRoles(new ArrayList<RoleDTO>() {{
+                add(studentRole);
+            }});
+            setPhoto("");
+        }}).getData()).getId(), 13);
+        accountController.setStudentGroup(((UserDTO) accountController.registration(new UserDTO() {{
+            setUsername("asylbekovoa5ae");
+            setEmail("asylbekovoa5ae@mail.ru");
+            setUserFIO("Асылбеков Омурбек Асылбекович");
+            setPassword("755945e0");
+            setRoles(new ArrayList<RoleDTO>() {{
+                add(studentRole);
+            }});
+            setPhoto("");
+        }}).getData()).getId(), 13);
+        accountController.setStudentGroup(((UserDTO) accountController.registration(new UserDTO() {{
+            setUsername("bagrecovdo0ce");
+            setEmail("bagrecovdo0ce@mail.ru");
+            setUserFIO("Багрецов Дмитрий Олегович");
+            setPassword("52657bc4");
+            setRoles(new ArrayList<RoleDTO>() {{
+                add(studentRole);
+            }});
+            setPhoto("");
+        }}).getData()).getId(), 13);
+        accountController.setStudentGroup(((UserDTO) accountController.registration(new UserDTO() {{
+            setUsername("vorobevdo603");
+            setEmail("vorobevdo603@mail.ru");
+            setUserFIO("Воробьев Денис Олегович");
+            setPassword("6f47eb98");
+            setRoles(new ArrayList<RoleDTO>() {{
+                add(studentRole);
+            }});
+            setPhoto("");
+        }}).getData()).getId(), 13);
+        accountController.setStudentGroup(((UserDTO) accountController.registration(new UserDTO() {{
+            setUsername("danilovgpaad");
+            setEmail("danilovgpaad@mail.ru");
+            setUserFIO("Данилов Григорий Павлович");
+            setPassword("f45ffad7");
+            setRoles(new ArrayList<RoleDTO>() {{
+                add(studentRole);
+            }});
+            setPhoto("");
+        }}).getData()).getId(), 13);
+        accountController.setStudentGroup(((UserDTO) accountController.registration(new UserDTO() {{
+            setUsername("dashkovavf5f");
+            setEmail("dashkovavf5f@mail.ru");
+            setUserFIO("Дашков Артем Вадимович");
+            setPassword("5610affe");
+            setRoles(new ArrayList<RoleDTO>() {{
+                add(studentRole);
+            }});
+            setPhoto("");
+        }}).getData()).getId(), 13);
+        accountController.setStudentGroup(((UserDTO) accountController.registration(new UserDTO() {{
+            setUsername("zhuravlyovav003");
+            setEmail("zhuravlyovav003@mail.ru");
+            setUserFIO("Журавлёв Александр Владимирович");
+            setPassword("0a9e7277");
+            setRoles(new ArrayList<RoleDTO>() {{
+                add(studentRole);
+            }});
+            setPhoto("");
+        }}).getData()).getId(), 13);
+        accountController.setStudentGroup(((UserDTO) accountController.registration(new UserDTO() {{
+            setUsername("ivanovde576");
+            setEmail("ivanovde576@mail.ru");
+            setUserFIO("Иванов Дмитрий Евгеньевич");
+            setPassword("805e209e");
+            setRoles(new ArrayList<RoleDTO>() {{
+                add(studentRole);
+            }});
+            setPhoto("");
+        }}).getData()).getId(), 13);
+        accountController.setStudentGroup(((UserDTO) accountController.registration(new UserDTO() {{
+            setUsername("kiselevmsabb");
+            setEmail("kiselevmsabb@mail.ru");
+            setUserFIO("Киселев Марк Сергеевич");
+            setPassword("c3695fbf");
+            setRoles(new ArrayList<RoleDTO>() {{
+                add(studentRole);
+            }});
+            setPhoto("");
+        }}).getData()).getId(), 13);
+        accountController.setStudentGroup(((UserDTO) accountController.registration(new UserDTO() {{
+            setUsername("korminyuo3e4");
+            setEmail("korminyuo3e4@mail.ru");
+            setUserFIO("Кормин Юрий Олегович");
+            setPassword("3c9d499f");
+            setRoles(new ArrayList<RoleDTO>() {{
+                add(studentRole);
+            }});
+            setPhoto("");
+        }}).getData()).getId(), 13);
+        accountController.setStudentGroup(((UserDTO) accountController.registration(new UserDTO() {{
+            setUsername("korolkovas307");
+            setEmail("korolkovas307@mail.ru");
+            setUserFIO("Корольков Артем Сергеевич");
+            setPassword("20237def");
+            setRoles(new ArrayList<RoleDTO>() {{
+                add(studentRole);
+            }});
+            setPhoto("");
+        }}).getData()).getId(), 13);
+        accountController.setStudentGroup(((UserDTO) accountController.registration(new UserDTO() {{
+            setUsername("kotyshevmyu43f");
+            setEmail("kotyshevmyu43f@mail.ru");
+            setUserFIO("Котышев Максим Юрьевич");
+            setPassword("6331aaa1");
+            setRoles(new ArrayList<RoleDTO>() {{
+                add(studentRole);
+            }});
+            setPhoto("");
+        }}).getData()).getId(), 13);
+        accountController.setStudentGroup(((UserDTO) accountController.registration(new UserDTO() {{
+            setUsername("marupovai6bf");
+            setEmail("marupovai6bf@mail.ru");
+            setUserFIO("Марупов Ахмад Исломович");
+            setPassword("250b33b9");
+            setRoles(new ArrayList<RoleDTO>() {{
+                add(studentRole);
+            }});
+            setPhoto("");
+        }}).getData()).getId(), 13);
+        accountController.setStudentGroup(((UserDTO) accountController.registration(new UserDTO() {{
+            setUsername("muhametdinovrre85");
+            setEmail("muhametdinovrre85@mail.ru");
+            setUserFIO("Мухаметдинов Рамиль Рафикович");
+            setPassword("1ec27ed2");
+            setRoles(new ArrayList<RoleDTO>() {{
+                add(studentRole);
+            }});
+            setPhoto("");
+        }}).getData()).getId(), 13);
+        accountController.setStudentGroup(((UserDTO) accountController.registration(new UserDTO() {{
+            setUsername("pakseevpv97e");
+            setEmail("pakseevpv97e@mail.ru");
+            setUserFIO("Паксеев Павел Владимирович");
+            setPassword("d4f9a248");
+            setRoles(new ArrayList<RoleDTO>() {{
+                add(studentRole);
+            }});
+            setPhoto("");
+        }}).getData()).getId(), 13);
+        accountController.setStudentGroup(((UserDTO) accountController.registration(new UserDTO() {{
+            setUsername("parshukovaav6a4");
+            setEmail("parshukovaav6a4@mail.ru");
+            setUserFIO("Паршукова Анастасия Владимировна");
+            setPassword("eeb44acb");
+            setRoles(new ArrayList<RoleDTO>() {{
+                add(studentRole);
+            }});
+            setPhoto("");
+        }}).getData()).getId(), 13);
+        accountController.setStudentGroup(((UserDTO) accountController.registration(new UserDTO() {{
+            setUsername("pozdnyakovase36");
+            setEmail("pozdnyakovase36@mail.ru");
+            setUserFIO("Поздняков Александр Сергеевич");
+            setPassword("9be13036");
+            setRoles(new ArrayList<RoleDTO>() {{
+                add(studentRole);
+            }});
+            setPhoto("");
+        }}).getData()).getId(), 13);
+        accountController.setStudentGroup(((UserDTO) accountController.registration(new UserDTO() {{
+            setUsername("senkovaayuc77");
+            setEmail("senkovaayuc77@mail.ru");
+            setUserFIO("Сенькова Анастасия Юрьевна");
+            setPassword("e511cd0b");
+            setRoles(new ArrayList<RoleDTO>() {{
+                add(studentRole);
+            }});
+            setPhoto("");
+        }}).getData()).getId(), 13);
+        accountController.setStudentGroup(((UserDTO) accountController.registration(new UserDTO() {{
+            setUsername("tislenkoiyuf85");
+            setEmail("tislenkoiyuf85@mail.ru");
+            setUserFIO("Тисленко Иван Юрьевич");
+            setPassword("b2540cde");
+            setRoles(new ArrayList<RoleDTO>() {{
+                add(studentRole);
+            }});
+            setPhoto("");
+        }}).getData()).getId(), 13);
+        accountController.setStudentGroup(((UserDTO) accountController.registration(new UserDTO() {{
+            setUsername("turuspekovan7fd");
+            setEmail("turuspekovan7fd@mail.ru");
+            setUserFIO("Туруспеков Акылхан Нурбекович");
+            setPassword("4a58c689");
+            setRoles(new ArrayList<RoleDTO>() {{
+                add(studentRole);
+            }});
+            setPhoto("");
+        }}).getData()).getId(), 13);
+        accountController.setStudentGroup(((UserDTO) accountController.registration(new UserDTO() {{
+            setUsername("utashevra1e5");
+            setEmail("utashevra1e5@mail.ru");
+            setUserFIO("Уташев Руслан Амантаевич");
+            setPassword("c5e2ae6a");
+            setRoles(new ArrayList<RoleDTO>() {{
+                add(studentRole);
+            }});
+            setPhoto("");
+        }}).getData()).getId(), 13);
+        accountController.setStudentGroup(((UserDTO) accountController.registration(new UserDTO() {{
+            setUsername("filimonovsb78e");
+            setEmail("filimonovsb78e@mail.ru");
+            setUserFIO("Филимонов Сергей Борисович");
+            setPassword("c8b8a6c9");
+            setRoles(new ArrayList<RoleDTO>() {{
+                add(studentRole);
+            }});
+            setPhoto("");
+        }}).getData()).getId(), 13);
+        accountController.setStudentGroup(((UserDTO) accountController.registration(new UserDTO() {{
+            setUsername("chernikovpa646");
+            setEmail("chernikovpa646@mail.ru");
+            setUserFIO("Черников Павел Андреевич");
+            setPassword("a5bfa760");
+            setRoles(new ArrayList<RoleDTO>() {{
+                add(studentRole);
+            }});
+            setPhoto("");
+        }}).getData()).getId(), 13);
+        accountController.setStudentGroup(((UserDTO) accountController.registration(new UserDTO() {{
+            setUsername("chernovav8b4");
+            setEmail("chernovav8b4@mail.ru");
+            setUserFIO("Чернов Андрей Викторович");
+            setPassword("183d48fe");
+            setRoles(new ArrayList<RoleDTO>() {{
+                add(studentRole);
+            }});
+            setPhoto("");
+        }}).getData()).getId(), 13);
+        accountController.setStudentGroup(((UserDTO) accountController.registration(new UserDTO() {{
+            setUsername("shestakovayuaf87");
+            setEmail("shestakovayuaf87@mail.ru");
+            setUserFIO("Шестакова Юлия Александровна");
+            setPassword("0201c12b");
+            setRoles(new ArrayList<RoleDTO>() {{
+                add(studentRole);
+            }});
+            setPhoto("");
+        }}).getData()).getId(), 13);
+        accountController.setStudentGroup(((UserDTO) accountController.registration(new UserDTO() {{
+            setUsername("bulanakoviad7e");
+            setEmail("bulanakoviad7e@mail.ru");
+            setUserFIO("Буланаков Иван Алексеевич");
+            setPassword("29b584f9");
+            setRoles(new ArrayList<RoleDTO>() {{
+                add(studentRole);
+            }});
+            setPhoto("");
+        }}).getData()).getId(), 13);
+        accountController.setStudentGroup(((UserDTO) accountController.registration(new UserDTO() {{
+            setUsername("arslanovmna4e");
+            setEmail("arslanovmna4e@mail.ru");
+            setUserFIO("Арсланов Магсум Насимянович");
+            setPassword("e0ef34c1");
+            setRoles(new ArrayList<RoleDTO>() {{
+                add(studentRole);
+            }});
+            setPhoto("");
+        }}).getData()).getId(), 14);
+        accountController.setStudentGroup(((UserDTO) accountController.registration(new UserDTO() {{
+            setUsername("borisovanmce2");
+            setEmail("borisovanmce2@mail.ru");
+            setUserFIO("Борисова Надежда Михайловна");
+            setPassword("790d2b66");
+            setRoles(new ArrayList<RoleDTO>() {{
+                add(studentRole);
+            }});
+            setPhoto("");
+        }}).getData()).getId(), 14);
+        accountController.setStudentGroup(((UserDTO) accountController.registration(new UserDTO() {{
+            setUsername("klimenkotna2e");
+            setEmail("klimenkotna2e@mail.ru");
+            setUserFIO("Клименко Татьяна Николаевна");
+            setPassword("d444553d");
+            setRoles(new ArrayList<RoleDTO>() {{
+                add(studentRole);
+            }});
+            setPhoto("");
+        }}).getData()).getId(), 14);
+        accountController.setStudentGroup(((UserDTO) accountController.registration(new UserDTO() {{
+            setUsername("korobejnikovats564");
+            setEmail("korobejnikovats564@mail.ru");
+            setUserFIO("Коробейникова Татьяна Сергеевна");
+            setPassword("740beb03");
+            setRoles(new ArrayList<RoleDTO>() {{
+                add(studentRole);
+            }});
+            setPhoto("");
+        }}).getData()).getId(), 14);
+        accountController.setStudentGroup(((UserDTO) accountController.registration(new UserDTO() {{
+            setUsername("kravchunmvce7");
+            setEmail("kravchunmvce7@mail.ru");
+            setUserFIO("Кравчун Михаил Викторович");
+            setPassword("e677ded2");
+            setRoles(new ArrayList<RoleDTO>() {{
+                add(studentRole);
+            }});
+            setPhoto("");
+        }}).getData()).getId(), 14);
+        accountController.setStudentGroup(((UserDTO) accountController.registration(new UserDTO() {{
+            setUsername("serbamd43c");
+            setEmail("serbamd43c@mail.ru");
+            setUserFIO("Серба Михаил Дмитриевич");
+            setPassword("996ab840");
+            setRoles(new ArrayList<RoleDTO>() {{
+                add(studentRole);
+            }});
+            setPhoto("");
+        }}).getData()).getId(), 14);
+        accountController.setStudentGroup(((UserDTO) accountController.registration(new UserDTO() {{
+            setUsername("surkinadm12a");
+            setEmail("surkinadm12a@mail.ru");
+            setUserFIO("Суркина Дарья Мстиславовна");
+            setPassword("d34e810b");
+            setRoles(new ArrayList<RoleDTO>() {{
+                add(studentRole);
+            }});
+            setPhoto("");
+        }}).getData()).getId(), 14);
+        accountController.setStudentGroup(((UserDTO) accountController.registration(new UserDTO() {{
+            setUsername("avtaevvec78");
+            setEmail("avtaevvec78@mail.ru");
+            setUserFIO("Автаев Владимир Евгеньевич");
+            setPassword("5ed657c5");
+            setRoles(new ArrayList<RoleDTO>() {{
+                add(studentRole);
+            }});
+            setPhoto("");
+        }}).getData()).getId(), 32);
+        accountController.setStudentGroup(((UserDTO) accountController.registration(new UserDTO() {{
+            setUsername("vashchenkovmeab");
+            setEmail("vashchenkovmeab@mail.ru");
+            setUserFIO("Ващенко Виталий Михайлович");
+            setPassword("009b30a7");
+            setRoles(new ArrayList<RoleDTO>() {{
+                add(studentRole);
+            }});
+            setPhoto("");
+        }}).getData()).getId(), 32);
+        accountController.setStudentGroup(((UserDTO) accountController.registration(new UserDTO() {{
+            setUsername("ilkevichvv5ab");
+            setEmail("ilkevichvv5ab@mail.ru");
+            setUserFIO("Илькевич Василий Васильевич");
+            setPassword("65b3cce9");
+            setRoles(new ArrayList<RoleDTO>() {{
+                add(studentRole);
+            }});
+            setPhoto("");
+        }}).getData()).getId(), 32);
+        accountController.setStudentGroup(((UserDTO) accountController.registration(new UserDTO() {{
+            setUsername("kalashnikovav674");
+            setEmail("kalashnikovav674@mail.ru");
+            setUserFIO("Калашников Александр Викторович");
+            setPassword("064795f5");
+            setRoles(new ArrayList<RoleDTO>() {{
+                add(studentRole);
+            }});
+            setPhoto("");
+        }}).getData()).getId(), 32);
+        accountController.setStudentGroup(((UserDTO) accountController.registration(new UserDTO() {{
+            setUsername("karpovvsc67");
+            setEmail("karpovvsc67@mail.ru");
+            setUserFIO("Карпов Валентин Сергеевич");
+            setPassword("af93a220");
+            setRoles(new ArrayList<RoleDTO>() {{
+                add(studentRole);
+            }});
+            setPhoto("");
+        }}).getData()).getId(), 32);
+        accountController.setStudentGroup(((UserDTO) accountController.registration(new UserDTO() {{
+            setUsername("noskovaeede1");
+            setEmail("noskovaeede1@mail.ru");
+            setUserFIO("Носкова Елена Евгеньевна");
+            setPassword("f77a33af");
+            setRoles(new ArrayList<RoleDTO>() {{
+                add(studentRole);
+            }});
+            setPhoto("");
+        }}).getData()).getId(), 32);
+        accountController.setStudentGroup(((UserDTO) accountController.registration(new UserDTO() {{
+            setUsername("prizovava215");
+            setEmail("prizovava215@mail.ru");
+            setUserFIO("Призова Валентина Александровна");
+            setPassword("70f876cb");
+            setRoles(new ArrayList<RoleDTO>() {{
+                add(studentRole);
+            }});
+            setPhoto("");
+        }}).getData()).getId(), 32);
+        accountController.setStudentGroup(((UserDTO) accountController.registration(new UserDTO() {{
+            setUsername("pushkarevvgd2f");
+            setEmail("pushkarevvgd2f@mail.ru");
+            setUserFIO("Пушкарев Владимир Георгиевич");
+            setPassword("d1474a44");
+            setRoles(new ArrayList<RoleDTO>() {{
+                add(studentRole);
+            }});
+            setPhoto("");
+        }}).getData()).getId(), 32);
+        accountController.setStudentGroup(((UserDTO) accountController.registration(new UserDTO() {{
+            setUsername("ryazanovase9d");
+            setEmail("ryazanovase9d@mail.ru");
+            setUserFIO("Рязанов Артем Сергеевич");
+            setPassword("16c1b452");
+            setRoles(new ArrayList<RoleDTO>() {{
+                add(studentRole);
+            }});
+            setPhoto("");
+        }}).getData()).getId(), 32);
+        accountController.setStudentGroup(((UserDTO) accountController.registration(new UserDTO() {{
+            setUsername("saltykovief85");
+            setEmail("saltykovief85@mail.ru");
+            setUserFIO("Салтыков Илья Евгеньевич");
+            setPassword("2af80ea1");
+            setRoles(new ArrayList<RoleDTO>() {{
+                add(studentRole);
+            }});
+            setPhoto("");
+        }}).getData()).getId(), 32);
+        accountController.setStudentGroup(((UserDTO) accountController.registration(new UserDTO() {{
+            setUsername("semenovae34b");
+            setEmail("semenovae34b@mail.ru");
+            setUserFIO("Семенов Александр Евгеньевич");
+            setPassword("b79f136e");
+            setRoles(new ArrayList<RoleDTO>() {{
+                add(studentRole);
+            }});
+            setPhoto("");
+        }}).getData()).getId(), 32);
+        accountController.setStudentGroup(((UserDTO) accountController.registration(new UserDTO() {{
+            setUsername("sechkarevab879");
+            setEmail("sechkarevab879@mail.ru");
+            setUserFIO("Сечкарев Алексей Борисович");
+            setPassword("5d02ebb4");
+            setRoles(new ArrayList<RoleDTO>() {{
+                add(studentRole);
+            }});
+            setPhoto("");
+        }}).getData()).getId(), 32);
+        accountController.setStudentGroup(((UserDTO) accountController.registration(new UserDTO() {{
+            setUsername("stepanoviyu642");
+            setEmail("stepanoviyu642@mail.ru");
+            setUserFIO("Степанов Иван Юрьевич");
+            setPassword("141b49d8");
+            setRoles(new ArrayList<RoleDTO>() {{
+                add(studentRole);
+            }});
+            setPhoto("");
+        }}).getData()).getId(), 32);
+        accountController.setStudentGroup(((UserDTO) accountController.registration(new UserDTO() {{
+            setUsername("shubinade898");
+            setEmail("shubinade898@mail.ru");
+            setUserFIO("Шубина Дарья Евгеньевна");
+            setPassword("b0efd68c");
+            setRoles(new ArrayList<RoleDTO>() {{
+                add(studentRole);
+            }});
+            setPhoto("");
+        }}).getData()).getId(), 32);
+        accountController.setStudentGroup(((UserDTO) accountController.registration(new UserDTO() {{
+            setUsername("bokovaaeb61");
+            setEmail("bokovaaeb61@mail.ru");
+            setUserFIO("Бокова Анна Евгеньевна");
+            setPassword("9fc54a17");
+            setRoles(new ArrayList<RoleDTO>() {{
+                add(studentRole);
+            }});
+            setPhoto("");
+        }}).getData()).getId(), 19);
+        accountController.setStudentGroup(((UserDTO) accountController.registration(new UserDTO() {{
+            setUsername("brostehvdae");
+            setEmail("brostehvdae@mail.ru");
+            setUserFIO("Брост Эдуард Владиславович");
+            setPassword("269e79ee");
+            setRoles(new ArrayList<RoleDTO>() {{
+                add(studentRole);
+            }});
+            setPhoto("");
+        }}).getData()).getId(), 19);
+        accountController.setStudentGroup(((UserDTO) accountController.registration(new UserDTO() {{
+            setUsername("dzhangievbr3f0");
+            setEmail("dzhangievbr3f0@mail.ru");
+            setUserFIO("Джангиев Бехруз Рустамович");
+            setPassword("7c8608c7");
+            setRoles(new ArrayList<RoleDTO>() {{
+                add(studentRole);
+            }});
+            setPhoto("");
+        }}).getData()).getId(), 19);
+        accountController.setStudentGroup(((UserDTO) accountController.registration(new UserDTO() {{
+            setUsername("dzhurahonovsn9a7");
+            setEmail("dzhurahonovsn9a7@mail.ru");
+            setUserFIO("Джурахонов Сухроб Назришоевич");
+            setPassword("53586975");
+            setRoles(new ArrayList<RoleDTO>() {{
+                add(studentRole);
+            }});
+            setPhoto("");
+        }}).getData()).getId(), 19);
+        accountController.setStudentGroup(((UserDTO) accountController.registration(new UserDTO() {{
+            setUsername("kudajberdievacht8b8");
+            setEmail("kudajberdievacht8b8@mail.ru");
+            setUserFIO("Кудайбердиева Чолпон Талантбековна");
+            setPassword("b440466c");
+            setRoles(new ArrayList<RoleDTO>() {{
+                add(studentRole);
+            }});
+            setPhoto("");
+        }}).getData()).getId(), 19);
+        accountController.setStudentGroup(((UserDTO) accountController.registration(new UserDTO() {{
+            setUsername("kudratbekovfk1f4");
+            setEmail("kudratbekovfk1f4@mail.ru");
+            setUserFIO("Кудратбеков Фуркат Кинохатович");
+            setPassword("1a80a9d2");
+            setRoles(new ArrayList<RoleDTO>() {{
+                add(studentRole);
+            }});
+            setPhoto("");
+        }}).getData()).getId(), 19);
+        accountController.setStudentGroup(((UserDTO) accountController.registration(new UserDTO() {{
+            setUsername("kuharchukns408");
+            setEmail("kuharchukns408@mail.ru");
+            setUserFIO("Кухарчук Никита Сергеевич");
+            setPassword("39a4ea2f");
+            setRoles(new ArrayList<RoleDTO>() {{
+                add(studentRole);
+            }});
+            setPhoto("");
+        }}).getData()).getId(), 19);
+        accountController.setStudentGroup(((UserDTO) accountController.registration(new UserDTO() {{
+            setUsername("miloserdovade86");
+            setEmail("miloserdovade86@mail.ru");
+            setUserFIO("Милосердов Алексей Дмитриевич");
+            setPassword("a859a55d");
+            setRoles(new ArrayList<RoleDTO>() {{
+                add(studentRole);
+            }});
+            setPhoto("");
+        }}).getData()).getId(), 19);
+        accountController.setStudentGroup(((UserDTO) accountController.registration(new UserDTO() {{
+            setUsername("ohrimenkova442");
+            setEmail("ohrimenkova442@mail.ru");
+            setUserFIO("Охрименко Владислав Анатольевич");
+            setPassword("ee35e1e8");
+            setRoles(new ArrayList<RoleDTO>() {{
+                add(studentRole);
+            }});
+            setPhoto("");
+        }}).getData()).getId(), 19);
+        accountController.setStudentGroup(((UserDTO) accountController.registration(new UserDTO() {{
+            setUsername("panginvv8af");
+            setEmail("panginvv8af@mail.ru");
+            setUserFIO("Пангин Владимир Викторович");
+            setPassword("291e40c8");
+            setRoles(new ArrayList<RoleDTO>() {{
+                add(studentRole);
+            }});
+            setPhoto("");
+        }}).getData()).getId(), 19);
+        accountController.setStudentGroup(((UserDTO) accountController.registration(new UserDTO() {{
+            setUsername("romanovayuo806");
+            setEmail("romanovayuo806@mail.ru");
+            setUserFIO("Романова Юлия Олеговна");
+            setPassword("a5b55648");
+            setRoles(new ArrayList<RoleDTO>() {{
+                add(studentRole);
+            }});
+            setPhoto("");
+        }}).getData()).getId(), 19);
+        accountController.setStudentGroup(((UserDTO) accountController.registration(new UserDTO() {{
+            setUsername("sartakovnk8bc");
+            setEmail("sartakovnk8bc@mail.ru");
+            setUserFIO("Сартаков Николай Константинович");
+            setPassword("696bf01e");
+            setRoles(new ArrayList<RoleDTO>() {{
+                add(studentRole);
+            }});
+            setPhoto("");
+        }}).getData()).getId(), 19);
+        accountController.setStudentGroup(((UserDTO) accountController.registration(new UserDTO() {{
+            setUsername("sashnevave8d");
+            setEmail("sashnevave8d@mail.ru");
+            setUserFIO("Сашнев Анатолий Витальевич");
+            setPassword("2cf57da2");
+            setRoles(new ArrayList<RoleDTO>() {{
+                add(studentRole);
+            }});
+            setPhoto("");
+        }}).getData()).getId(), 19);
+        accountController.setStudentGroup(((UserDTO) accountController.registration(new UserDTO() {{
+            setUsername("fajzulloevka037");
+            setEmail("fajzulloevka037@mail.ru");
+            setUserFIO("Файзуллоев Кароматуллох Абдунабиевич");
+            setPassword("3242005b");
+            setRoles(new ArrayList<RoleDTO>() {{
+                add(studentRole);
+            }});
+            setPhoto("");
+        }}).getData()).getId(), 19);
+        accountController.setStudentGroup(((UserDTO) accountController.registration(new UserDTO() {{
+            setUsername("holovahf65");
+            setEmail("holovahf65@mail.ru");
+            setUserFIO("Холов Амирджон Ходжимуродович");
+            setPassword("9c2732f8");
+            setRoles(new ArrayList<RoleDTO>() {{
+                add(studentRole);
+            }});
+            setPhoto("");
+        }}).getData()).getId(), 19);
+        accountController.setStudentGroup(((UserDTO) accountController.registration(new UserDTO() {{
+            setUsername("hotamovbk2d1");
+            setEmail("hotamovbk2d1@mail.ru");
+            setUserFIO("Хотамов Бехруз Кудбиддинович");
+            setPassword("cc674b17");
+            setRoles(new ArrayList<RoleDTO>() {{
+                add(studentRole);
+            }});
+            setPhoto("");
+        }}).getData()).getId(), 19);
+        accountController.setStudentGroup(((UserDTO) accountController.registration(new UserDTO() {{
+            setUsername("hrestinda013");
+            setEmail("hrestinda013@mail.ru");
+            setUserFIO("Хрестин Денис Алексеевич");
+            setPassword("f0686633");
+            setRoles(new ArrayList<RoleDTO>() {{
+                add(studentRole);
+            }});
+            setPhoto("");
+        }}).getData()).getId(), 19);
+        accountController.setStudentGroup(((UserDTO) accountController.registration(new UserDTO() {{
+            setUsername("hriplivecyafea8");
+            setEmail("hriplivecyafea8@mail.ru");
+            setUserFIO("Хрипливец Ярослав Феликсович");
+            setPassword("51110ac9");
+            setRoles(new ArrayList<RoleDTO>() {{
+                add(studentRole);
+            }});
+            setPhoto("");
+        }}).getData()).getId(), 19);
+        accountController.setStudentGroup(((UserDTO) accountController.registration(new UserDTO() {{
+            setUsername("shaminmd05e");
+            setEmail("shaminmd05e@mail.ru");
+            setUserFIO("Шамин Михаил Дмитриевич");
+            setPassword("f73c5c97");
+            setRoles(new ArrayList<RoleDTO>() {{
+                add(studentRole);
+            }});
+            setPhoto("");
+        }}).getData()).getId(), 19);
+        accountController.setStudentGroup(((UserDTO) accountController.registration(new UserDTO() {{
+            setUsername("shchepkovsa686");
+            setEmail("shchepkovsa686@mail.ru");
+            setUserFIO("Щепков Станислав Андреевич");
+            setPassword("0207174c");
+            setRoles(new ArrayList<RoleDTO>() {{
+                add(studentRole);
+            }});
+            setPhoto("");
+        }}).getData()).getId(), 19);
+        accountController.setStudentGroup(((UserDTO) accountController.registration(new UserDTO() {{
+            setUsername("ehshmatovns320");
+            setEmail("ehshmatovns320@mail.ru");
+            setUserFIO("Эшматов Наимжон Сафарматович");
+            setPassword("ffcfedb8");
+            setRoles(new ArrayList<RoleDTO>() {{
+                add(studentRole);
+            }});
+            setPhoto("");
+        }}).getData()).getId(), 19);
+        accountController.setStudentGroup(((UserDTO) accountController.registration(new UserDTO() {{
+            setUsername("grigorevata733");
+            setEmail("grigorevata733@mail.ru");
+            setUserFIO("Григорьева  Татьяна  Александровна");
+            setPassword("8b5e0464");
+            setRoles(new ArrayList<RoleDTO>() {{
+                add(studentRole);
+            }});
+            setPhoto("");
+        }}).getData()).getId(), 19);
+        accountController.setStudentGroup(((UserDTO) accountController.registration(new UserDTO() {{
+            setUsername("berdyuginvv961");
+            setEmail("berdyuginvv961@mail.ru");
+            setUserFIO("Бердюгин Владислав Владимирович");
+            setPassword("e09566cd");
+            setRoles(new ArrayList<RoleDTO>() {{
+                add(studentRole);
+            }});
+            setPhoto("");
+        }}).getData()).getId(), 21);
+        accountController.setStudentGroup(((UserDTO) accountController.registration(new UserDTO() {{
+            setUsername("bogdanovav332");
+            setEmail("bogdanovav332@mail.ru");
+            setUserFIO("Богданов Алексей Валерьевич");
+            setPassword("5bffd428");
+            setRoles(new ArrayList<RoleDTO>() {{
+                add(studentRole);
+            }});
+            setPhoto("");
+        }}).getData()).getId(), 21);
+        accountController.setStudentGroup(((UserDTO) accountController.registration(new UserDTO() {{
+            setUsername("valkovvv621");
+            setEmail("valkovvv621@mail.ru");
+            setUserFIO("Вальков Вячеслав Вадимович");
+            setPassword("e14bf180");
+            setRoles(new ArrayList<RoleDTO>() {{
+                add(studentRole);
+            }});
+            setPhoto("");
+        }}).getData()).getId(), 21);
+        accountController.setStudentGroup(((UserDTO) accountController.registration(new UserDTO() {{
+            setUsername("gashkovps8c1");
+            setEmail("gashkovps8c1@mail.ru");
+            setUserFIO("Гашков Павел Сергеевич");
+            setPassword("67989cbc");
+            setRoles(new ArrayList<RoleDTO>() {{
+                add(studentRole);
+            }});
+            setPhoto("");
+        }}).getData()).getId(), 21);
+        accountController.setStudentGroup(((UserDTO) accountController.registration(new UserDTO() {{
+            setUsername("karetinkgd61");
+            setEmail("karetinkgd61@mail.ru");
+            setUserFIO("Каретин Константин Григорьевич");
+            setPassword("ea2e2144");
+            setRoles(new ArrayList<RoleDTO>() {{
+                add(studentRole);
+            }});
+            setPhoto("");
+        }}).getData()).getId(), 21);
+        accountController.setStudentGroup(((UserDTO) accountController.registration(new UserDTO() {{
+            setUsername("kichenokve984");
+            setEmail("kichenokve984@mail.ru");
+            setUserFIO("Киченок Виталий Евгеньевич");
+            setPassword("430e8723");
+            setRoles(new ArrayList<RoleDTO>() {{
+                add(studentRole);
+            }});
+            setPhoto("");
+        }}).getData()).getId(), 21);
+        accountController.setStudentGroup(((UserDTO) accountController.registration(new UserDTO() {{
+            setUsername("kolesnikto63c");
+            setEmail("kolesnikto63c@mail.ru");
+            setUserFIO("Колесник Татьяна Олеговна");
+            setPassword("0e05ca47");
+            setRoles(new ArrayList<RoleDTO>() {{
+                add(studentRole);
+            }});
+            setPhoto("");
+        }}).getData()).getId(), 21);
+        accountController.setStudentGroup(((UserDTO) accountController.registration(new UserDTO() {{
+            setUsername("konstantinovvvccc");
+            setEmail("konstantinovvvccc@mail.ru");
+            setUserFIO("Константинов Вадим Валерьевич");
+            setPassword("da2fbb1a");
+            setRoles(new ArrayList<RoleDTO>() {{
+                add(studentRole);
+            }});
+            setPhoto("");
+        }}).getData()).getId(), 21);
+        accountController.setStudentGroup(((UserDTO) accountController.registration(new UserDTO() {{
+            setUsername("korzhenkovpk028");
+            setEmail("korzhenkovpk028@mail.ru");
+            setUserFIO("Корженков Павел Константинович");
+            setPassword("e0cc7bff");
+            setRoles(new ArrayList<RoleDTO>() {{
+                add(studentRole);
+            }});
+            setPhoto("");
+        }}).getData()).getId(), 21);
+        accountController.setStudentGroup(((UserDTO) accountController.registration(new UserDTO() {{
+            setUsername("kumurdzhiad06f");
+            setEmail("kumurdzhiad06f@mail.ru");
+            setUserFIO("Кумурджи Артём Дмитриевич");
+            setPassword("4d2e4a3d");
+            setRoles(new ArrayList<RoleDTO>() {{
+                add(studentRole);
+            }});
+            setPhoto("");
+        }}).getData()).getId(), 21);
+        accountController.setStudentGroup(((UserDTO) accountController.registration(new UserDTO() {{
+            setUsername("markinaaeeaa");
+            setEmail("markinaaeeaa@mail.ru");
+            setUserFIO("Маркина Александра Евгеньевна");
+            setPassword("5f4ee63e");
+            setRoles(new ArrayList<RoleDTO>() {{
+                add(studentRole);
+            }});
+            setPhoto("");
+        }}).getData()).getId(), 21);
+        accountController.setStudentGroup(((UserDTO) accountController.registration(new UserDTO() {{
+            setUsername("matrosvsf55");
+            setEmail("matrosvsf55@mail.ru");
+            setUserFIO("Матрос Владимир Сергеевич");
+            setPassword("38387e07");
+            setRoles(new ArrayList<RoleDTO>() {{
+                add(studentRole);
+            }});
+            setPhoto("");
+        }}).getData()).getId(), 21);
+        accountController.setStudentGroup(((UserDTO) accountController.registration(new UserDTO() {{
+            setUsername("nejmanaib0c");
+            setEmail("nejmanaib0c@mail.ru");
+            setUserFIO("Нейман Артур Иванович");
+            setPassword("63a808d0");
+            setRoles(new ArrayList<RoleDTO>() {{
+                add(studentRole);
+            }});
+            setPhoto("");
+        }}).getData()).getId(), 21);
+        accountController.setStudentGroup(((UserDTO) accountController.registration(new UserDTO() {{
+            setUsername("novikovtn228");
+            setEmail("novikovtn228@mail.ru");
+            setUserFIO("Новиков Тимофей Николаевич");
+            setPassword("ee8c6a20");
+            setRoles(new ArrayList<RoleDTO>() {{
+                add(studentRole);
+            }});
+            setPhoto("");
+        }}).getData()).getId(), 21);
+        accountController.setStudentGroup(((UserDTO) accountController.registration(new UserDTO() {{
+            setUsername("potyagajlovv0e2");
+            setEmail("potyagajlovv0e2@mail.ru");
+            setUserFIO("Потягайло Владимир Викторович");
+            setPassword("3bd1fb7c");
+            setRoles(new ArrayList<RoleDTO>() {{
+                add(studentRole);
+            }});
+            setPhoto("");
+        }}).getData()).getId(), 21);
+        accountController.setStudentGroup(((UserDTO) accountController.registration(new UserDTO() {{
+            setUsername("rezinkinaea378");
+            setEmail("rezinkinaea378@mail.ru");
+            setUserFIO("Резинкина Екатерина Андреевна");
+            setPassword("4dc43468");
+            setRoles(new ArrayList<RoleDTO>() {{
+                add(studentRole);
+            }});
+            setPhoto("");
+        }}).getData()).getId(), 21);
+        accountController.setStudentGroup(((UserDTO) accountController.registration(new UserDTO() {{
+            setUsername("savelevkm90b");
+            setEmail("savelevkm90b@mail.ru");
+            setUserFIO("Савельев Кирилл Максимович");
+            setPassword("14663879");
+            setRoles(new ArrayList<RoleDTO>() {{
+                add(studentRole);
+            }});
+            setPhoto("");
+        }}).getData()).getId(), 21);
+        accountController.setStudentGroup(((UserDTO) accountController.registration(new UserDTO() {{
+            setUsername("stefankinaosd85");
+            setEmail("stefankinaosd85@mail.ru");
+            setUserFIO("Стефанкина Ольга Сергеевна");
+            setPassword("65489b85");
+            setRoles(new ArrayList<RoleDTO>() {{
+                add(studentRole);
+            }});
+            setPhoto("");
+        }}).getData()).getId(), 21);
+        accountController.setStudentGroup(((UserDTO) accountController.registration(new UserDTO() {{
+            setUsername("talyaginna56a");
+            setEmail("talyaginna56a@mail.ru");
+            setUserFIO("Талягин Никита Андреевич");
+            setPassword("db3967b6");
+            setRoles(new ArrayList<RoleDTO>() {{
+                add(studentRole);
+            }});
+            setPhoto("");
+        }}).getData()).getId(), 21);
+        accountController.setStudentGroup(((UserDTO) accountController.registration(new UserDTO() {{
+            setUsername("unzhakoviad96");
+            setEmail("unzhakoviad96@mail.ru");
+            setUserFIO("Унжаков Игорь Александрович");
+            setPassword("b44ae99e");
+            setRoles(new ArrayList<RoleDTO>() {{
+                add(studentRole);
+            }});
+            setPhoto("");
+        }}).getData()).getId(), 21);
+        accountController.setStudentGroup(((UserDTO) accountController.registration(new UserDTO() {{
+            setUsername("filonenkoae0b7");
+            setEmail("filonenkoae0b7@mail.ru");
+            setUserFIO("Филоненко Артем Евгеньевич");
+            setPassword("aac544fb");
+            setRoles(new ArrayList<RoleDTO>() {{
+                add(studentRole);
+            }});
+            setPhoto("");
+        }}).getData()).getId(), 21);
+        accountController.setStudentGroup(((UserDTO) accountController.registration(new UserDTO() {{
+            setUsername("cojdsc05");
+            setEmail("cojdsc05@mail.ru");
+            setUserFIO("Цой Дмитрий Станиславович");
+            setPassword("115e4282");
+            setRoles(new ArrayList<RoleDTO>() {{
+                add(studentRole);
+            }});
+            setPhoto("");
+        }}).getData()).getId(), 21);
+        accountController.setStudentGroup(((UserDTO) accountController.registration(new UserDTO() {{
+            setUsername("yuldasheveg50d");
+            setEmail("yuldasheveg50d@mail.ru");
+            setUserFIO("Юлдашев Евгений Геннадьевич");
+            setPassword("3e17266a");
+            setRoles(new ArrayList<RoleDTO>() {{
+                add(studentRole);
+            }});
+            setPhoto("");
+        }}).getData()).getId(), 21);
+        accountController.setStudentGroup(((UserDTO) accountController.registration(new UserDTO() {{
+            setUsername("angurovaddffa");
+            setEmail("angurovaddffa@mail.ru");
+            setUserFIO("Ангурова Диана Дмитриевна");
+            setPassword("0c5a1a1a");
+            setRoles(new ArrayList<RoleDTO>() {{
+                add(studentRole);
+            }});
+            setPhoto("");
+        }}).getData()).getId(), 18);
+        accountController.setStudentGroup(((UserDTO) accountController.registration(new UserDTO() {{
+            setUsername("antonovad53c");
+            setEmail("antonovad53c@mail.ru");
+            setUserFIO("Антонов Андрей Денисович");
+            setPassword("d2c98b39");
+            setRoles(new ArrayList<RoleDTO>() {{
+                add(studentRole);
+            }});
+            setPhoto("");
+        }}).getData()).getId(), 18);
+        accountController.setStudentGroup(((UserDTO) accountController.registration(new UserDTO() {{
+            setUsername("anufrievvaf0e");
+            setEmail("anufrievvaf0e@mail.ru");
+            setUserFIO("Ануфриев Вячеслав Андреевич");
+            setPassword("a6dbf5cc");
+            setRoles(new ArrayList<RoleDTO>() {{
+                add(studentRole);
+            }});
+            setPhoto("");
+        }}).getData()).getId(), 18);
+        accountController.setStudentGroup(((UserDTO) accountController.registration(new UserDTO() {{
+            setUsername("vorobevna989");
+            setEmail("vorobevna989@mail.ru");
+            setUserFIO("Воробьев Николай Александрович");
+            setPassword("f38d2928");
+            setRoles(new ArrayList<RoleDTO>() {{
+                add(studentRole);
+            }});
+            setPhoto("");
+        }}).getData()).getId(), 18);
+        accountController.setStudentGroup(((UserDTO) accountController.registration(new UserDTO() {{
+            setUsername("gavrilovis045");
+            setEmail("gavrilovis045@mail.ru");
+            setUserFIO("Гаврилов Илья Сергеевич");
+            setPassword("c7d0b5cd");
+            setRoles(new ArrayList<RoleDTO>() {{
+                add(studentRole);
+            }});
+            setPhoto("");
+        }}).getData()).getId(), 18);
+        accountController.setStudentGroup(((UserDTO) accountController.registration(new UserDTO() {{
+            setUsername("guroves346");
+            setEmail("guroves346@mail.ru");
+            setUserFIO("Гуров Евгений Сергеевич");
+            setPassword("18860a93");
+            setRoles(new ArrayList<RoleDTO>() {{
+                add(studentRole);
+            }});
+            setPhoto("");
+        }}).getData()).getId(), 18);
+        accountController.setStudentGroup(((UserDTO) accountController.registration(new UserDTO() {{
+            setUsername("davzitip5cd");
+            setEmail("davzitip5cd@mail.ru");
+            setUserFIO("Давзит Иван Павлович");
+            setPassword("c9d43e6d");
+            setRoles(new ArrayList<RoleDTO>() {{
+                add(studentRole);
+            }});
+            setPhoto("");
+        }}).getData()).getId(), 18);
+        accountController.setStudentGroup(((UserDTO) accountController.registration(new UserDTO() {{
+            setUsername("efimovaam0ce");
+            setEmail("efimovaam0ce@mail.ru");
+            setUserFIO("Ефимова Анастасия Михайловна");
+            setPassword("f9f015e9");
+            setRoles(new ArrayList<RoleDTO>() {{
+                add(studentRole);
+            }});
+            setPhoto("");
+        }}).getData()).getId(), 18);
+        accountController.setStudentGroup(((UserDTO) accountController.registration(new UserDTO() {{
+            setUsername("zavorotnevia260");
+            setEmail("zavorotnevia260@mail.ru");
+            setUserFIO("Заворотнев Иван Александрович");
+            setPassword("112464b6");
+            setRoles(new ArrayList<RoleDTO>() {{
+                add(studentRole);
+            }});
+            setPhoto("");
+        }}).getData()).getId(), 18);
+        accountController.setStudentGroup(((UserDTO) accountController.registration(new UserDTO() {{
+            setUsername("ivancovayu68d");
+            setEmail("ivancovayu68d@mail.ru");
+            setUserFIO("Иванцов Александр Юрьевич");
+            setPassword("dce1471f");
+            setRoles(new ArrayList<RoleDTO>() {{
+                add(studentRole);
+            }});
+            setPhoto("");
+        }}).getData()).getId(), 18);
+        accountController.setStudentGroup(((UserDTO) accountController.registration(new UserDTO() {{
+            setUsername("kamolovknf45");
+            setEmail("kamolovknf45@mail.ru");
+            setUserFIO("Камолов Курбонали Нематулоевич");
+            setPassword("30b95b3a");
+            setRoles(new ArrayList<RoleDTO>() {{
+                add(studentRole);
+            }});
+            setPhoto("");
+        }}).getData()).getId(), 18);
+        accountController.setStudentGroup(((UserDTO) accountController.registration(new UserDTO() {{
+            setUsername("kovacenkoio89f");
+            setEmail("kovacenkoio89f@mail.ru");
+            setUserFIO("Коваценко Илья Олегович");
+            setPassword("3ad8f1e3");
+            setRoles(new ArrayList<RoleDTO>() {{
+                add(studentRole);
+            }});
+            setPhoto("");
+        }}).getData()).getId(), 18);
+        accountController.setStudentGroup(((UserDTO) accountController.registration(new UserDTO() {{
+            setUsername("kononovaag362");
+            setEmail("kononovaag362@mail.ru");
+            setUserFIO("Кононова Анастасия Григорьевна");
+            setPassword("44dfd586");
+            setRoles(new ArrayList<RoleDTO>() {{
+                add(studentRole);
+            }});
+            setPhoto("");
+        }}).getData()).getId(), 18);
+        accountController.setStudentGroup(((UserDTO) accountController.registration(new UserDTO() {{
+            setUsername("kurakinrvdef");
+            setEmail("kurakinrvdef@mail.ru");
+            setUserFIO("Куракин Роман Викторович");
+            setPassword("b36e4c07");
+            setRoles(new ArrayList<RoleDTO>() {{
+                add(studentRole);
+            }});
+            setPhoto("");
+        }}).getData()).getId(), 18);
+        accountController.setStudentGroup(((UserDTO) accountController.registration(new UserDTO() {{
+            setUsername("lemeshevve649");
+            setEmail("lemeshevve649@mail.ru");
+            setUserFIO("Лемешев Всеволод Евгеньевич");
+            setPassword("9a22915d");
+            setRoles(new ArrayList<RoleDTO>() {{
+                add(studentRole);
+            }});
+            setPhoto("");
+        }}).getData()).getId(), 18);
+        accountController.setStudentGroup(((UserDTO) accountController.registration(new UserDTO() {{
+            setUsername("malashinps3b0");
+            setEmail("malashinps3b0@mail.ru");
+            setUserFIO("Малашин Павел Сергеевич");
+            setPassword("beca8154");
+            setRoles(new ArrayList<RoleDTO>() {{
+                add(studentRole);
+            }});
+            setPhoto("");
+        }}).getData()).getId(), 18);
+        accountController.setStudentGroup(((UserDTO) accountController.registration(new UserDTO() {{
+            setUsername("novikovdyu553");
+            setEmail("novikovdyu553@mail.ru");
+            setUserFIO("Новиков Дмитрий Юрьевич");
+            setPassword("2c4079e4");
+            setRoles(new ArrayList<RoleDTO>() {{
+                add(studentRole);
+            }});
+            setPhoto("");
+        }}).getData()).getId(), 18);
+        accountController.setStudentGroup(((UserDTO) accountController.registration(new UserDTO() {{
+            setUsername("perevalovks729");
+            setEmail("perevalovks729@mail.ru");
+            setUserFIO("Перевалов Кирилл Сергеевич");
+            setPassword("5b70d2ab");
+            setRoles(new ArrayList<RoleDTO>() {{
+                add(studentRole);
+            }});
+            setPhoto("");
+        }}).getData()).getId(), 18);
+        accountController.setStudentGroup(((UserDTO) accountController.registration(new UserDTO() {{
+            setUsername("sobitovkn529");
+            setEmail("sobitovkn529@mail.ru");
+            setUserFIO("Собитов Кароматуллох Насибуллоевич");
+            setPassword("085809ce");
+            setRoles(new ArrayList<RoleDTO>() {{
+                add(studentRole);
+            }});
+            setPhoto("");
+        }}).getData()).getId(), 18);
+        accountController.setStudentGroup(((UserDTO) accountController.registration(new UserDTO() {{
+            setUsername("frolovavyuff3");
+            setEmail("frolovavyuff3@mail.ru");
+            setUserFIO("Фролова Валентина Юрьевна");
+            setPassword("fb1ee6a6");
+            setRoles(new ArrayList<RoleDTO>() {{
+                add(studentRole);
+            }});
+            setPhoto("");
+        }}).getData()).getId(), 18);
+        accountController.setStudentGroup(((UserDTO) accountController.registration(new UserDTO() {{
+            setUsername("yuskeevmma26");
+            setEmail("yuskeevmma26@mail.ru");
+            setUserFIO("Юскеев Максим Мусаевич");
+            setPassword("3441d089");
+            setRoles(new ArrayList<RoleDTO>() {{
+                add(studentRole);
+            }});
+            setPhoto("");
+        }}).getData()).getId(), 18);
+        accountController.setStudentGroup(((UserDTO) accountController.registration(new UserDTO() {{
+            setUsername("filkinava32");
+            setEmail("filkinava32@mail.ru");
+            setUserFIO("Филькин  Александр  Вячеславович");
+            setPassword("600b490a");
+            setRoles(new ArrayList<RoleDTO>() {{
+                add(studentRole);
+            }});
+            setPhoto("");
+        }}).getData()).getId(), 18);
+        accountController.setStudentGroup(((UserDTO) accountController.registration(new UserDTO() {{
+            setUsername("bashukmg0d6");
+            setEmail("bashukmg0d6@mail.ru");
+            setUserFIO("Башук Марина Геннадьевна");
+            setPassword("868edfd1");
+            setRoles(new ArrayList<RoleDTO>() {{
+                add(studentRole);
+            }});
+            setPhoto("");
+        }}).getData()).getId(), 22);
+        accountController.setStudentGroup(((UserDTO) accountController.registration(new UserDTO() {{
+            setUsername("konevakp13d");
+            setEmail("konevakp13d@mail.ru");
+            setUserFIO("Конева Ксения Прокопьевна");
+            setPassword("f4329cba");
+            setRoles(new ArrayList<RoleDTO>() {{
+                add(studentRole);
+            }});
+            setPhoto("");
+        }}).getData()).getId(), 22);
+        accountController.setStudentGroup(((UserDTO) accountController.registration(new UserDTO() {{
+            setUsername("maksimenkomo08d");
+            setEmail("maksimenkomo08d@mail.ru");
+            setUserFIO("Максименко Максим Олегович");
+            setPassword("85827984");
+            setRoles(new ArrayList<RoleDTO>() {{
+                add(studentRole);
+            }});
+            setPhoto("");
+        }}).getData()).getId(), 22);
+        accountController.setStudentGroup(((UserDTO) accountController.registration(new UserDTO() {{
+            setUsername("mihalevaae8d");
+            setEmail("mihalevaae8d@mail.ru");
+            setUserFIO("Михалев Александр Алексеевич");
+            setPassword("ccdd8ae4");
+            setRoles(new ArrayList<RoleDTO>() {{
+                add(studentRole);
+            }});
+            setPhoto("");
+        }}).getData()).getId(), 22);
+        accountController.setStudentGroup(((UserDTO) accountController.registration(new UserDTO() {{
+            setUsername("mihalevatbacb");
+            setEmail("mihalevatbacb@mail.ru");
+            setUserFIO("Михалева Татьяна Борисовна");
+            setPassword("a8b0923c");
+            setRoles(new ArrayList<RoleDTO>() {{
+                add(studentRole);
+            }});
+            setPhoto("");
+        }}).getData()).getId(), 22);
+        accountController.setStudentGroup(((UserDTO) accountController.registration(new UserDTO() {{
+            setUsername("anisovaes698");
+            setEmail("anisovaes698@mail.ru");
+            setUserFIO("Анисова Елизавета Сергеевна");
+            setPassword("555a9e90");
+            setRoles(new ArrayList<RoleDTO>() {{
+                add(studentRole);
+            }});
+            setPhoto("");
+        }}).getData()).getId(), 24);
+        accountController.setStudentGroup(((UserDTO) accountController.registration(new UserDTO() {{
+            setUsername("bekkee097");
+            setEmail("bekkee097@mail.ru");
+            setUserFIO("Бекк Елизавета Евгеньевна");
+            setPassword("43f3617a");
+            setRoles(new ArrayList<RoleDTO>() {{
+                add(studentRole);
+            }});
+            setPhoto("");
+        }}).getData()).getId(), 24);
+        accountController.setStudentGroup(((UserDTO) accountController.registration(new UserDTO() {{
+            setUsername("varaksinva607");
+            setEmail("varaksinva607@mail.ru");
+            setUserFIO("Вараксин Владислав Александрович");
+            setPassword("3f9d01ec");
+            setRoles(new ArrayList<RoleDTO>() {{
+                add(studentRole);
+            }});
+            setPhoto("");
+        }}).getData()).getId(), 24);
+        accountController.setStudentGroup(((UserDTO) accountController.registration(new UserDTO() {{
+            setUsername("gerasimovvg13c");
+            setEmail("gerasimovvg13c@mail.ru");
+            setUserFIO("Герасимов Вячеслав Геннадьевич");
+            setPassword("559d67b1");
+            setRoles(new ArrayList<RoleDTO>() {{
+                add(studentRole);
+            }});
+            setPhoto("");
+        }}).getData()).getId(), 24);
+        accountController.setStudentGroup(((UserDTO) accountController.registration(new UserDTO() {{
+            setUsername("gladchenkois967");
+            setEmail("gladchenkois967@mail.ru");
+            setUserFIO("Гладченко Иван Сергеевич");
+            setPassword("fb24e739");
+            setRoles(new ArrayList<RoleDTO>() {{
+                add(studentRole);
+            }});
+            setPhoto("");
+        }}).getData()).getId(), 24);
+        accountController.setStudentGroup(((UserDTO) accountController.registration(new UserDTO() {{
+            setUsername("zhuravlevdvfb4");
+            setEmail("zhuravlevdvfb4@mail.ru");
+            setUserFIO("Журавлев Денис Вадимович");
+            setPassword("425b0585");
+            setRoles(new ArrayList<RoleDTO>() {{
+                add(studentRole);
+            }});
+            setPhoto("");
+        }}).getData()).getId(), 24);
+        accountController.setStudentGroup(((UserDTO) accountController.registration(new UserDTO() {{
+            setUsername("zyrinvdfb6");
+            setEmail("zyrinvdfb6@mail.ru");
+            setUserFIO("Зырин Вадим Дмитриевич");
+            setPassword("66304a63");
+            setRoles(new ArrayList<RoleDTO>() {{
+                add(studentRole);
+            }});
+            setPhoto("");
+        }}).getData()).getId(), 24);
+        accountController.setStudentGroup(((UserDTO) accountController.registration(new UserDTO() {{
+            setUsername("kabenyuknaff4");
+            setEmail("kabenyuknaff4@mail.ru");
+            setUserFIO("Кабенюк Николай Алексеевич");
+            setPassword("12fabaa4");
+            setRoles(new ArrayList<RoleDTO>() {{
+                add(studentRole);
+            }});
+            setPhoto("");
+        }}).getData()).getId(), 24);
+        accountController.setStudentGroup(((UserDTO) accountController.registration(new UserDTO() {{
+            setUsername("kovalenkost78c");
+            setEmail("kovalenkost78c@mail.ru");
+            setUserFIO("Коваленко Софья Тарасовна");
+            setPassword("fbe956b7");
+            setRoles(new ArrayList<RoleDTO>() {{
+                add(studentRole);
+            }});
+            setPhoto("");
+        }}).getData()).getId(), 24);
+        accountController.setStudentGroup(((UserDTO) accountController.registration(new UserDTO() {{
+            setUsername("lihomanovaev4d0");
+            setEmail("lihomanovaev4d0@mail.ru");
+            setUserFIO("Лихоманова Елена Владимировна");
+            setPassword("719dbcd0");
+            setRoles(new ArrayList<RoleDTO>() {{
+                add(studentRole);
+            }});
+            setPhoto("");
+        }}).getData()).getId(), 24);
+        accountController.setStudentGroup(((UserDTO) accountController.registration(new UserDTO() {{
+            setUsername("mihalevds7f4");
+            setEmail("mihalevds7f4@mail.ru");
+            setUserFIO("Михалев Денис Сергеевич");
+            setPassword("ee7e20c2");
+            setRoles(new ArrayList<RoleDTO>() {{
+                add(studentRole);
+            }});
+            setPhoto("");
+        }}).getData()).getId(), 24);
+        accountController.setStudentGroup(((UserDTO) accountController.registration(new UserDTO() {{
+            setUsername("norkads08b");
+            setEmail("norkads08b@mail.ru");
+            setUserFIO("Норка Дмитрий Сергеевич");
+            setPassword("fff3ae43");
+            setRoles(new ArrayList<RoleDTO>() {{
+                add(studentRole);
+            }});
+            setPhoto("");
+        }}).getData()).getId(), 24);
+        accountController.setStudentGroup(((UserDTO) accountController.registration(new UserDTO() {{
+            setUsername("stepanovaaya79b");
+            setEmail("stepanovaaya79b@mail.ru");
+            setUserFIO("Степанова Анна Яновна");
+            setPassword("41266b7e");
+            setRoles(new ArrayList<RoleDTO>() {{
+                add(studentRole);
+            }});
+            setPhoto("");
+        }}).getData()).getId(), 24);
+        accountController.setStudentGroup(((UserDTO) accountController.registration(new UserDTO() {{
+            setUsername("tarakanovskijaeea8");
+            setEmail("tarakanovskijaeea8@mail.ru");
+            setUserFIO("Таракановский Александр Евгеньевич");
+            setPassword("a85cb3f0");
+            setRoles(new ArrayList<RoleDTO>() {{
+                add(studentRole);
+            }});
+            setPhoto("");
+        }}).getData()).getId(), 24);
+        accountController.setStudentGroup(((UserDTO) accountController.registration(new UserDTO() {{
+            setUsername("frolovrvf2a");
+            setEmail("frolovrvf2a@mail.ru");
+            setUserFIO("Фролов Роман Викторович");
+            setPassword("49878cce");
+            setRoles(new ArrayList<RoleDTO>() {{
+                add(studentRole);
+            }});
+            setPhoto("");
+        }}).getData()).getId(), 24);
+        accountController.setStudentGroup(((UserDTO) accountController.registration(new UserDTO() {{
+            setUsername("frolovav984");
+            setEmail("frolovav984@mail.ru");
+            setUserFIO("Фролов Александр Владимирович");
+            setPassword("13530035");
+            setRoles(new ArrayList<RoleDTO>() {{
+                add(studentRole);
+            }});
+            setPhoto("");
+        }}).getData()).getId(), 24);
+        accountController.setStudentGroup(((UserDTO) accountController.registration(new UserDTO() {{
+            setUsername("hrebtovamed94");
+            setEmail("hrebtovamed94@mail.ru");
+            setUserFIO("Хребтова Маргарита Евгеньевна");
+            setPassword("fa4ed045");
+            setRoles(new ArrayList<RoleDTO>() {{
+                add(studentRole);
+            }});
+            setPhoto("");
+        }}).getData()).getId(), 24);
+        accountController.setStudentGroup(((UserDTO) accountController.registration(new UserDTO() {{
+            setUsername("cherkasovave43");
+            setEmail("cherkasovave43@mail.ru");
+            setUserFIO("Черкасов Александр Васильевич");
+            setPassword("bef68eda");
+            setRoles(new ArrayList<RoleDTO>() {{
+                add(studentRole);
+            }});
+            setPhoto("");
+        }}).getData()).getId(), 24);
+        accountController.setStudentGroup(((UserDTO) accountController.registration(new UserDTO() {{
+            setUsername("shahatovvvf30");
+            setEmail("shahatovvvf30@mail.ru");
+            setUserFIO("Шахатов Владислав Вадимович");
+            setPassword("c7f4cb24");
+            setRoles(new ArrayList<RoleDTO>() {{
+                add(studentRole);
+            }});
+            setPhoto("");
+        }}).getData()).getId(), 24);
+        accountController.setStudentGroup(((UserDTO) accountController.registration(new UserDTO() {{
+            setUsername("bolbotdacf1");
+            setEmail("bolbotdacf1@mail.ru");
+            setUserFIO("Болбот Дарья Алексеевна");
+            setPassword("33dbce34");
+            setRoles(new ArrayList<RoleDTO>() {{
+                add(studentRole);
+            }});
+            setPhoto("");
+        }}).getData()).getId(), 25);
+        accountController.setStudentGroup(((UserDTO) accountController.registration(new UserDTO() {{
+            setUsername("voroninvv7b2");
+            setEmail("voroninvv7b2@mail.ru");
+            setUserFIO("Воронин Владислав Владимирович");
+            setPassword("75230b59");
+            setRoles(new ArrayList<RoleDTO>() {{
+                add(studentRole);
+            }});
+            setPhoto("");
+        }}).getData()).getId(), 25);
+        accountController.setStudentGroup(((UserDTO) accountController.registration(new UserDTO() {{
+            setUsername("gluhovaea87a");
+            setEmail("gluhovaea87a@mail.ru");
+            setUserFIO("Глухова Елизавета Александровна");
+            setPassword("74e2e008");
+            setRoles(new ArrayList<RoleDTO>() {{
+                add(studentRole);
+            }});
+            setPhoto("");
+        }}).getData()).getId(), 25);
+        accountController.setStudentGroup(((UserDTO) accountController.registration(new UserDTO() {{
+            setUsername("gornistovavyub6e");
+            setEmail("gornistovavyub6e@mail.ru");
+            setUserFIO("Горнистова Вероника Юрьевна");
+            setPassword("d09a2d0b");
+            setRoles(new ArrayList<RoleDTO>() {{
+                add(studentRole);
+            }});
+            setPhoto("");
+        }}).getData()).getId(), 25);
+        accountController.setStudentGroup(((UserDTO) accountController.registration(new UserDTO() {{
+            setUsername("gorodilovdv923");
+            setEmail("gorodilovdv923@mail.ru");
+            setUserFIO("Городилов Даниил Владимирович");
+            setPassword("2ba97f5a");
+            setRoles(new ArrayList<RoleDTO>() {{
+                add(studentRole);
+            }});
+            setPhoto("");
+        }}).getData()).getId(), 25);
+        accountController.setStudentGroup(((UserDTO) accountController.registration(new UserDTO() {{
+            setUsername("danaevagrc45");
+            setEmail("danaevagrc45@mail.ru");
+            setUserFIO("Данаева Гульмира Реджепмурадовна");
+            setPassword("7911e44e");
+            setRoles(new ArrayList<RoleDTO>() {{
+                add(studentRole);
+            }});
+            setPhoto("");
+        }}).getData()).getId(), 25);
+        accountController.setStudentGroup(((UserDTO) accountController.registration(new UserDTO() {{
+            setUsername("dolgoleevae6de");
+            setEmail("dolgoleevae6de@mail.ru");
+            setUserFIO("Долголеев Александр Евгеньевич");
+            setPassword("30496f4b");
+            setRoles(new ArrayList<RoleDTO>() {{
+                add(studentRole);
+            }});
+            setPhoto("");
+        }}).getData()).getId(), 25);
+        accountController.setStudentGroup(((UserDTO) accountController.registration(new UserDTO() {{
+            setUsername("karchevskijvsb05");
+            setEmail("karchevskijvsb05@mail.ru");
+            setUserFIO("Карчевский Владислав Сергеевич");
+            setPassword("f75f1af2");
+            setRoles(new ArrayList<RoleDTO>() {{
+                add(studentRole);
+            }});
+            setPhoto("");
+        }}).getData()).getId(), 25);
+        accountController.setStudentGroup(((UserDTO) accountController.registration(new UserDTO() {{
+            setUsername("kolotovana2ed");
+            setEmail("kolotovana2ed@mail.ru");
+            setUserFIO("Колотова Надежда Андреевна");
+            setPassword("fff35627");
+            setRoles(new ArrayList<RoleDTO>() {{
+                add(studentRole);
+            }});
+            setPhoto("");
+        }}).getData()).getId(), 25);
+        accountController.setStudentGroup(((UserDTO) accountController.registration(new UserDTO() {{
+            setUsername("krigerva6e1");
+            setEmail("krigerva6e1@mail.ru");
+            setUserFIO("Кригер Виталий Александрович");
+            setPassword("bdb03b58");
+            setRoles(new ArrayList<RoleDTO>() {{
+                add(studentRole);
+            }});
+            setPhoto("");
+        }}).getData()).getId(), 25);
+        accountController.setStudentGroup(((UserDTO) accountController.registration(new UserDTO() {{
+            setUsername("kutyavinaaf91");
+            setEmail("kutyavinaaf91@mail.ru");
+            setUserFIO("Кутявин Александр Александрович");
+            setPassword("24635936");
+            setRoles(new ArrayList<RoleDTO>() {{
+                add(studentRole);
+            }});
+            setPhoto("");
+        }}).getData()).getId(), 25);
+        accountController.setStudentGroup(((UserDTO) accountController.registration(new UserDTO() {{
+            setUsername("malahovaosfef");
+            setEmail("malahovaosfef@mail.ru");
+            setUserFIO("Малахова Ольга Сергеевна");
+            setPassword("77515c5f");
+            setRoles(new ArrayList<RoleDTO>() {{
+                add(studentRole);
+            }});
+            setPhoto("");
+        }}).getData()).getId(), 25);
+        accountController.setStudentGroup(((UserDTO) accountController.registration(new UserDTO() {{
+            setUsername("mamanazarovish5d9");
+            setEmail("mamanazarovish5d9@mail.ru");
+            setUserFIO("Маманазаров Илходжиддин Шахобиддинович");
+            setPassword("6702ba9d");
+            setRoles(new ArrayList<RoleDTO>() {{
+                add(studentRole);
+            }});
+            setPhoto("");
+        }}).getData()).getId(), 25);
+        accountController.setStudentGroup(((UserDTO) accountController.registration(new UserDTO() {{
+            setUsername("nemkovagv5fa");
+            setEmail("nemkovagv5fa@mail.ru");
+            setUserFIO("Немкова Галина Викторовна");
+            setPassword("6166ec4c");
+            setRoles(new ArrayList<RoleDTO>() {{
+                add(studentRole);
+            }});
+            setPhoto("");
+        }}).getData()).getId(), 25);
+        accountController.setStudentGroup(((UserDTO) accountController.registration(new UserDTO() {{
+            setUsername("nechiporenkoead8e");
+            setEmail("nechiporenkoead8e@mail.ru");
+            setUserFIO("Нечипоренко Екатерина Александровна");
+            setPassword("e3f3ef87");
+            setRoles(new ArrayList<RoleDTO>() {{
+                add(studentRole);
+            }});
+            setPhoto("");
+        }}).getData()).getId(), 25);
+        accountController.setStudentGroup(((UserDTO) accountController.registration(new UserDTO() {{
+            setUsername("ponomarevka556");
+            setEmail("ponomarevka556@mail.ru");
+            setUserFIO("Пономарев Кирилл Андреевич");
+            setPassword("dac71f24");
+            setRoles(new ArrayList<RoleDTO>() {{
+                add(studentRole);
+            }});
+            setPhoto("");
+        }}).getData()).getId(), 25);
+        accountController.setStudentGroup(((UserDTO) accountController.registration(new UserDTO() {{
+            setUsername("ryzhijoo483");
+            setEmail("ryzhijoo483@mail.ru");
+            setUserFIO("Рыжий Олег Олегович");
+            setPassword("1477d40f");
+            setRoles(new ArrayList<RoleDTO>() {{
+                add(studentRole);
+            }});
+            setPhoto("");
+        }}).getData()).getId(), 25);
+        accountController.setStudentGroup(((UserDTO) accountController.registration(new UserDTO() {{
+            setUsername("suhoduevaia216");
+            setEmail("suhoduevaia216@mail.ru");
+            setUserFIO("Суходуева Ирина Алексеевна");
+            setPassword("245e8e0d");
+            setRoles(new ArrayList<RoleDTO>() {{
+                add(studentRole);
+            }});
+            setPhoto("");
+        }}).getData()).getId(), 25);
+        accountController.setStudentGroup(((UserDTO) accountController.registration(new UserDTO() {{
+            setUsername("chudinovaae58c");
+            setEmail("chudinovaae58c@mail.ru");
+            setUserFIO("Чудинова Алина Евгеньевна");
+            setPassword("7dfabe99");
+            setRoles(new ArrayList<RoleDTO>() {{
+                add(studentRole);
+            }});
+            setPhoto("");
+        }}).getData()).getId(), 25);
+        accountController.setStudentGroup(((UserDTO) accountController.registration(new UserDTO() {{
+            setUsername("sherinkvac7");
+            setEmail("sherinkvac7@mail.ru");
+            setUserFIO("Шерин Константин Валериевич");
+            setPassword("64f6d1ad");
+            setRoles(new ArrayList<RoleDTO>() {{
+                add(studentRole);
+            }});
+            setPhoto("");
+        }}).getData()).getId(), 25);
+        accountController.setStudentGroup(((UserDTO) accountController.registration(new UserDTO() {{
+            setUsername("varushkinatg6a7");
+            setEmail("varushkinatg6a7@mail.ru");
+            setUserFIO("Варушкина  Татьяна Геннадьевна");
+            setPassword("c618e816");
+            setRoles(new ArrayList<RoleDTO>() {{
+                add(studentRole);
+            }});
+            setPhoto("");
+        }}).getData()).getId(), 26);
+        accountController.setStudentGroup(((UserDTO) accountController.registration(new UserDTO() {{
+            setUsername("vashchenkoasbb9");
+            setEmail("vashchenkoasbb9@mail.ru");
+            setUserFIO("Ващенко Андрей Станиславович");
+            setPassword("15c1cfc7");
+            setRoles(new ArrayList<RoleDTO>() {{
+                add(studentRole);
+            }});
+            setPhoto("");
+        }}).getData()).getId(), 26);
+        accountController.setStudentGroup(((UserDTO) accountController.registration(new UserDTO() {{
+            setUsername("galstyanas949");
+            setEmail("galstyanas949@mail.ru");
+            setUserFIO("Галстян Арамо Самвелович");
+            setPassword("55b30a7f");
+            setRoles(new ArrayList<RoleDTO>() {{
+                add(studentRole);
+            }});
+            setPhoto("");
+        }}).getData()).getId(), 26);
+        accountController.setStudentGroup(((UserDTO) accountController.registration(new UserDTO() {{
+            setUsername("davydenkosie9b");
+            setEmail("davydenkosie9b@mail.ru");
+            setUserFIO("Давыденко Сергей Игоревич");
+            setPassword("699ef2ea");
+            setRoles(new ArrayList<RoleDTO>() {{
+                add(studentRole);
+            }});
+            setPhoto("");
+        }}).getData()).getId(), 26);
+        accountController.setStudentGroup(((UserDTO) accountController.registration(new UserDTO() {{
+            setUsername("dacukma51e");
+            setEmail("dacukma51e@mail.ru");
+            setUserFIO("Дацук Максим Алексеевич");
+            setPassword("36180653");
+            setRoles(new ArrayList<RoleDTO>() {{
+                add(studentRole);
+            }});
+            setPhoto("");
+        }}).getData()).getId(), 26);
+        accountController.setStudentGroup(((UserDTO) accountController.registration(new UserDTO() {{
+            setUsername("zorinaos4a2");
+            setEmail("zorinaos4a2@mail.ru");
+            setUserFIO("Зорина Олеся Сергеевна");
+            setPassword("f5681c47");
+            setRoles(new ArrayList<RoleDTO>() {{
+                add(studentRole);
+            }});
+            setPhoto("");
+        }}).getData()).getId(), 26);
+        accountController.setStudentGroup(((UserDTO) accountController.registration(new UserDTO() {{
+            setUsername("karamyshevva33c");
+            setEmail("karamyshevva33c@mail.ru");
+            setUserFIO("Карамышев Владислав Анатольевич");
+            setPassword("d9035ae6");
+            setRoles(new ArrayList<RoleDTO>() {{
+                add(studentRole);
+            }});
+            setPhoto("");
+        }}).getData()).getId(), 26);
+        accountController.setStudentGroup(((UserDTO) accountController.registration(new UserDTO() {{
+            setUsername("kleshninis044");
+            setEmail("kleshninis044@mail.ru");
+            setUserFIO("Клешнин Илья Сергеевич");
+            setPassword("856223fa");
+            setRoles(new ArrayList<RoleDTO>() {{
+                add(studentRole);
+            }});
+            setPhoto("");
+        }}).getData()).getId(), 26);
+        accountController.setStudentGroup(((UserDTO) accountController.registration(new UserDTO() {{
+            setUsername("korenevaka4c3");
+            setEmail("korenevaka4c3@mail.ru");
+            setUserFIO("Коренева Ксения Алексеевна");
+            setPassword("cf191610");
+            setRoles(new ArrayList<RoleDTO>() {{
+                add(studentRole);
+            }});
+            setPhoto("");
+        }}).getData()).getId(), 26);
+        accountController.setStudentGroup(((UserDTO) accountController.registration(new UserDTO() {{
+            setUsername("mamatovvs0a2");
+            setEmail("mamatovvs0a2@mail.ru");
+            setUserFIO("Маматов Вадим Сергеевич");
+            setPassword("404d8bff");
+            setRoles(new ArrayList<RoleDTO>() {{
+                add(studentRole);
+            }});
+            setPhoto("");
+        }}).getData()).getId(), 26);
+        accountController.setStudentGroup(((UserDTO) accountController.registration(new UserDTO() {{
+            setUsername("miloserdovsa663");
+            setEmail("miloserdovsa663@mail.ru");
+            setUserFIO("Милосердов Станислав Александрович");
+            setPassword("7ba5e152");
+            setRoles(new ArrayList<RoleDTO>() {{
+                add(studentRole);
+            }});
+            setPhoto("");
+        }}).getData()).getId(), 26);
+        accountController.setStudentGroup(((UserDTO) accountController.registration(new UserDTO() {{
+            setUsername("mityaevalab33");
+            setEmail("mityaevalab33@mail.ru");
+            setUserFIO("Митяева Лидия Андреевна");
+            setPassword("49452de9");
+            setRoles(new ArrayList<RoleDTO>() {{
+                add(studentRole);
+            }});
+            setPhoto("");
+        }}).getData()).getId(), 26);
+        accountController.setStudentGroup(((UserDTO) accountController.registration(new UserDTO() {{
+            setUsername("novikovms021");
+            setEmail("novikovms021@mail.ru");
+            setUserFIO("Новиков Михаил Сергеевич");
+            setPassword("a7264686");
+            setRoles(new ArrayList<RoleDTO>() {{
+                add(studentRole);
+            }});
+            setPhoto("");
+        }}).getData()).getId(), 26);
+        accountController.setStudentGroup(((UserDTO) accountController.registration(new UserDTO() {{
+            setUsername("novikovisc0c");
+            setEmail("novikovisc0c@mail.ru");
+            setUserFIO("Новиков Иван Сергеевич");
+            setPassword("84ce5c90");
+            setRoles(new ArrayList<RoleDTO>() {{
+                add(studentRole);
+            }});
+            setPhoto("");
+        }}).getData()).getId(), 26);
+        accountController.setStudentGroup(((UserDTO) accountController.registration(new UserDTO() {{
+            setUsername("nogovicinpa13c");
+            setEmail("nogovicinpa13c@mail.ru");
+            setUserFIO("Ноговицин Павел Алексеевич");
+            setPassword("09d7bd36");
+            setRoles(new ArrayList<RoleDTO>() {{
+                add(studentRole);
+            }});
+            setPhoto("");
+        }}).getData()).getId(), 26);
+        accountController.setStudentGroup(((UserDTO) accountController.registration(new UserDTO() {{
+            setUsername("saharovvm94e");
+            setEmail("saharovvm94e@mail.ru");
+            setUserFIO("Сахаров Василий Максимович");
+            setPassword("b95712f2");
+            setRoles(new ArrayList<RoleDTO>() {{
+                add(studentRole);
+            }});
+            setPhoto("");
+        }}).getData()).getId(), 26);
+        accountController.setStudentGroup(((UserDTO) accountController.registration(new UserDTO() {{
+            setUsername("suhovolskijaic32");
+            setEmail("suhovolskijaic32@mail.ru");
+            setUserFIO("Суховольский Александр Игоревич");
+            setPassword("b321cb37");
+            setRoles(new ArrayList<RoleDTO>() {{
+                add(studentRole);
+            }});
+            setPhoto("");
+        }}).getData()).getId(), 26);
+        accountController.setStudentGroup(((UserDTO) accountController.registration(new UserDTO() {{
+            setUsername("trofimovpdd54");
+            setEmail("trofimovpdd54@mail.ru");
+            setUserFIO("Трофимов Павел Дмитриевич");
+            setPassword("35d911cd");
+            setRoles(new ArrayList<RoleDTO>() {{
+                add(studentRole);
+            }});
+            setPhoto("");
+        }}).getData()).getId(), 26);
+        accountController.setStudentGroup(((UserDTO) accountController.registration(new UserDTO() {{
+            setUsername("troyanao789");
+            setEmail("troyanao789@mail.ru");
+            setUserFIO("Троян Андрей Олегович");
+            setPassword("bf9df6d9");
+            setRoles(new ArrayList<RoleDTO>() {{
+                add(studentRole);
+            }});
+            setPhoto("");
+        }}).getData()).getId(), 26);
+        accountController.setStudentGroup(((UserDTO) accountController.registration(new UserDTO() {{
+            setUsername("fisenkovp61c");
+            setEmail("fisenkovp61c@mail.ru");
+            setUserFIO("Фисенко Владимир Павлович");
+            setPassword("d98beb63");
+            setRoles(new ArrayList<RoleDTO>() {{
+                add(studentRole);
+            }});
+            setPhoto("");
+        }}).getData()).getId(), 26);
+        accountController.setStudentGroup(((UserDTO) accountController.registration(new UserDTO() {{
+            setUsername("shishovaea3a5");
+            setEmail("shishovaea3a5@mail.ru");
+            setUserFIO("Шишова Елизавета Анатольевна");
+            setPassword("1550cf0e");
+            setRoles(new ArrayList<RoleDTO>() {{
+                add(studentRole);
+            }});
+            setPhoto("");
+        }}).getData()).getId(), 26);
+        accountController.setStudentGroup(((UserDTO) accountController.registration(new UserDTO() {{
+            setUsername("shchetnikova-e5fd");
+            setEmail("shchetnikova-e5fd@mail.ru");
+            setUserFIO("Щетников Александр  Евгеньевич");
+            setPassword("c2877d25");
+            setRoles(new ArrayList<RoleDTO>() {{
+                add(studentRole);
+            }});
+            setPhoto("");
+        }}).getData()).getId(), 26);
+        accountController.setStudentGroup(((UserDTO) accountController.registration(new UserDTO() {{
+            setUsername("arhipovais719");
+            setEmail("arhipovais719@mail.ru");
+            setUserFIO("Архипова Ирина Сергеевна");
+            setPassword("283e1f45");
+            setRoles(new ArrayList<RoleDTO>() {{
+                add(studentRole);
+            }});
+            setPhoto("");
+        }}).getData()).getId(), 27);
+        accountController.setStudentGroup(((UserDTO) accountController.registration(new UserDTO() {{
+            setUsername("ereminms3d7");
+            setEmail("ereminms3d7@mail.ru");
+            setUserFIO("Еремин Максим Сергеевич");
+            setPassword("8bd6e936");
+            setRoles(new ArrayList<RoleDTO>() {{
+                add(studentRole);
+            }});
+            setPhoto("");
+        }}).getData()).getId(), 27);
+        accountController.setStudentGroup(((UserDTO) accountController.registration(new UserDTO() {{
+            setUsername("ziminaei89f");
+            setEmail("ziminaei89f@mail.ru");
+            setUserFIO("Зимина Евгения Игоревна");
+            setPassword("5d8a3be2");
+            setRoles(new ArrayList<RoleDTO>() {{
+                add(studentRole);
+            }});
+            setPhoto("");
+        }}).getData()).getId(), 27);
+        accountController.setStudentGroup(((UserDTO) accountController.registration(new UserDTO() {{
+            setUsername("ishchanovyui9a0");
+            setEmail("ishchanovyui9a0@mail.ru");
+            setUserFIO("Ишчанов Юнус Исламович");
+            setPassword("0bbc145e");
+            setRoles(new ArrayList<RoleDTO>() {{
+                add(studentRole);
+            }});
+            setPhoto("");
+        }}).getData()).getId(), 27);
+        accountController.setStudentGroup(((UserDTO) accountController.registration(new UserDTO() {{
+            setUsername("kashinskijidedf");
+            setEmail("kashinskijidedf@mail.ru");
+            setUserFIO("Кашинский Иван Дмитриевич");
+            setPassword("96cac20d");
+            setRoles(new ArrayList<RoleDTO>() {{
+                add(studentRole);
+            }});
+            setPhoto("");
+        }}).getData()).getId(), 27);
+        accountController.setStudentGroup(((UserDTO) accountController.registration(new UserDTO() {{
+            setUsername("klimakovva6cd");
+            setEmail("klimakovva6cd@mail.ru");
+            setUserFIO("Климаков Владимир Алексеевич");
+            setPassword("dac9f759");
+            setRoles(new ArrayList<RoleDTO>() {{
+                add(studentRole);
+            }});
+            setPhoto("");
+        }}).getData()).getId(), 27);
+        accountController.setStudentGroup(((UserDTO) accountController.registration(new UserDTO() {{
+            setUsername("kolesovgs232");
+            setEmail("kolesovgs232@mail.ru");
+            setUserFIO("Колесов Григорий Сергеевич");
+            setPassword("aaaa6ac7");
+            setRoles(new ArrayList<RoleDTO>() {{
+                add(studentRole);
+            }});
+            setPhoto("");
+        }}).getData()).getId(), 27);
+        accountController.setStudentGroup(((UserDTO) accountController.registration(new UserDTO() {{
+            setUsername("rumanovvve49");
+            setEmail("rumanovvve49@mail.ru");
+            setUserFIO("Руманов Владислав Вячеславович");
+            setPassword("086a352a");
+            setRoles(new ArrayList<RoleDTO>() {{
+                add(studentRole);
+            }});
+            setPhoto("");
+        }}).getData()).getId(), 27);
+        accountController.setStudentGroup(((UserDTO) accountController.registration(new UserDTO() {{
+            setUsername("seliverstovaasc64");
+            setEmail("seliverstovaasc64@mail.ru");
+            setUserFIO("Селиверстова Александра Сергеевна");
+            setPassword("9fd4007b");
+            setRoles(new ArrayList<RoleDTO>() {{
+                add(studentRole);
+            }});
+            setPhoto("");
+        }}).getData()).getId(), 27);
+        accountController.setStudentGroup(((UserDTO) accountController.registration(new UserDTO() {{
+            setUsername("tyanikovaknb38");
+            setEmail("tyanikovaknb38@mail.ru");
+            setUserFIO("Тяникова Кристина Николаевна");
+            setPassword("a1f80400");
+            setRoles(new ArrayList<RoleDTO>() {{
+                add(studentRole);
+            }});
+            setPhoto("");
+        }}).getData()).getId(), 27);
+        accountController.setStudentGroup(((UserDTO) accountController.registration(new UserDTO() {{
+            setUsername("udalovayavd0c");
+            setEmail("udalovayavd0c@mail.ru");
+            setUserFIO("Удалова Янина Вячеславовна");
+            setPassword("59df4de7");
+            setRoles(new ArrayList<RoleDTO>() {{
+                add(studentRole);
+            }});
+            setPhoto("");
+        }}).getData()).getId(), 27);
+        accountController.setStudentGroup(((UserDTO) accountController.registration(new UserDTO() {{
+            setUsername("fedyunindi0ea");
+            setEmail("fedyunindi0ea@mail.ru");
+            setUserFIO("Федюнин Дмитрий Иванович");
+            setPassword("2f66fc85");
+            setRoles(new ArrayList<RoleDTO>() {{
+                add(studentRole);
+            }});
+            setPhoto("");
+        }}).getData()).getId(), 27);
+        accountController.setStudentGroup(((UserDTO) accountController.registration(new UserDTO() {{
+            setUsername("friseg80a");
+            setEmail("friseg80a@mail.ru");
+            setUserFIO("Фрис Евгений Германович");
+            setPassword("5d5603d0");
+            setRoles(new ArrayList<RoleDTO>() {{
+                add(studentRole);
+            }});
+            setPhoto("");
+        }}).getData()).getId(), 27);
+        accountController.setStudentGroup(((UserDTO) accountController.registration(new UserDTO() {{
+            setUsername("shelyustenkoiv29a");
+            setEmail("shelyustenkoiv29a@mail.ru");
+            setUserFIO("Шелюстенко Илья Владимирович");
+            setPassword("bf826584");
+            setRoles(new ArrayList<RoleDTO>() {{
+                add(studentRole);
+            }});
+            setPhoto("");
+        }}).getData()).getId(), 27);
+        accountController.setStudentGroup(((UserDTO) accountController.registration(new UserDTO() {{
+            setUsername("yakovlevda0cf");
+            setEmail("yakovlevda0cf@mail.ru");
+            setUserFIO("Яковлев Дмитрий Алексеевич");
+            setPassword("ffe212b9");
+            setRoles(new ArrayList<RoleDTO>() {{
+                add(studentRole);
+            }});
+            setPhoto("");
+        }}).getData()).getId(), 27);
+        accountController.setStudentGroup(((UserDTO) accountController.registration(new UserDTO() {{
+            setUsername("yakushevidf6f");
+            setEmail("yakushevidf6f@mail.ru");
+            setUserFIO("Якушев Иван Дмитриевич");
+            setPassword("2b5ffa97");
+            setRoles(new ArrayList<RoleDTO>() {{
+                add(studentRole);
+            }});
+            setPhoto("");
+        }}).getData()).getId(), 27);

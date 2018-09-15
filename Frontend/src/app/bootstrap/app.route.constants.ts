@@ -1,5 +1,4 @@
 ﻿import {appSettings} from './app.environment';
-import {ScheduleComponent} from "../components.page/schedule/schedule.component";
 
 export const BaseApiUrl = appSettings.BaseApiUrl;
 
