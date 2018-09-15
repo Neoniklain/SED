@@ -1,4 +1,4 @@
-﻿import {Compiler, Component, OnInit, ViewChild, ViewContainerRef} from "@angular/core";
+﻿import {AfterViewInit, Compiler, Component, OnInit, ViewChild, ViewContainerRef} from "@angular/core";
 import {Router} from "@angular/router";
 import {Message} from "primeng/components/common/message";
 import {Roles} from "../../../models/account/role.model";
@@ -10,6 +10,8 @@ import {User} from "../../../models/account/user.model";
 import {StatusType} from "../../../models/statusType.model";
 import {AccessRightType, UserAccessRight} from "../../../models/account/access";
 import {PluginsModule} from "../../../bootstrap/plugins.module";
+import {HttpClient} from "@angular/common/http";
+import {PluginInformation} from "../../../models/plugin.interface";
 
 @Component({
    selector: 'header-component',
@@ -17,7 +19,7 @@ import {PluginsModule} from "../../../bootstrap/plugins.module";
    styleUrls: ["./header.css"]
 })
 
-export class HeaderComponent implements OnInit {
+export class HeaderComponent implements OnInit, AfterViewInit {
 
     public RouteConstants = RouteConstants;
     public AccessRightType = AccessRightType;
@@ -33,9 +35,9 @@ export class HeaderComponent implements OnInit {
 
     constructor(private compiler: Compiler,
                 private router: Router,
-               private globals: Globals,
-               private authService: AuthenticationService) {
-
+                private http: HttpClient,
+                private globals: Globals,
+                private authService: AuthenticationService) {
         this.plugins = this.compiler.compileModuleAndAllComponentsSync(
             PluginsModule
         );
@@ -43,11 +45,6 @@ export class HeaderComponent implements OnInit {
     }
 
     ngOnInit() {
-        // Получаем все плагины
-        this.plugins.componentFactories.forEach(
-            x => this.pluginNames.push(x.selector)
-        );
-
         if (this.authService.getToken() && this.authService.getToken() != "") {
             this.authService.getRole().subscribe(
                 result => {
@@ -79,6 +76,13 @@ export class HeaderComponent implements OnInit {
         this.globals.getUser.subscribe( result => this.user = result );
         this.globals.getAccessRight.subscribe( result => this.userAccessRight = result );
     }
+
+    async ngAfterViewInit() {
+        const url = '/assets/plugins.config.json';
+        const config = await this.http.get<PluginInformation>(url).toPromise();
+
+        this.pluginNames = config.header.components;
+     }
 
     createView(name: string) {
         const factory = this.plugins.componentFactories.find(

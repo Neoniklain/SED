@@ -19,10 +19,12 @@ export class ServiceHttpInterceptor implements HttpInterceptor {
         if (token) headers = headers.append("Authorization", token);
         headers = headers.append("X-Requested-With", "XMLHttpRequest");
 
-        req = req.clone({
-            url: BaseApiUrl + req.url,
-            headers: headers
-        });
+        if (req.url != '/assets/plugins.config.json') {
+            req = req.clone({
+                url: BaseApiUrl + req.url,
+                headers: headers
+            });
+        }
 
         return next.handle(req).catch(err => {
           if (err.status === 403) {

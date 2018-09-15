@@ -10,4 +10,8 @@ export class Page1Component implements OnInit {
     constructor() { }
 
      ngOnInit() { }
+
+     public getPluginName() {
+        return 'Первый плагин';
+     }
 }
