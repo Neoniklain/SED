@@ -2,8 +2,8 @@ package com.unesco.core.controllerWeb;
 
 
 import com.unesco.core.controller.TaskController;
-import com.unesco.core.dto.task.TaskDescriptionModel;
-import com.unesco.core.dto.task.TaskUserModel;
+import com.unesco.core.dto.task.TaskDescriptionDTO;
+import com.unesco.core.dto.task.TaskUserDTO;
 import com.unesco.core.dto.additional.ResponseStatusDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -22,12 +22,12 @@ public class TaskControllerWeb {
     }
 
     @RequestMapping(value = "/create")
-    public ResponseStatusDTO create(@RequestBody TaskDescriptionModel newTask) {
+    public ResponseStatusDTO create(@RequestBody TaskDescriptionDTO newTask) {
         return _taskController.create(newTask);
     }
 
     @RequestMapping(value = "/answer")
-    public ResponseStatusDTO answer(@RequestBody TaskUserModel item) {
+    public ResponseStatusDTO answer(@RequestBody TaskUserDTO item) {
         return _taskController.answer(item);
     }
 
@@ -42,7 +42,7 @@ public class TaskControllerWeb {
     }
 
     @RequestMapping(value = "/update")
-    public ResponseStatusDTO update(@RequestBody TaskDescriptionModel task) {
+    public ResponseStatusDTO update(@RequestBody TaskDescriptionDTO task) {
         return _taskController.update(task);
     }
 

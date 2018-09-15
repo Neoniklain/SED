@@ -4,6 +4,7 @@ import com.unesco.core.entities.account.UserEntity;
 import com.unesco.core.entities.file.FileDescription;
 
 import javax.persistence.*;
+import java.sql.Timestamp;
 import java.util.List;
 import java.util.Set;
 
@@ -36,6 +37,8 @@ public class TaskDescription {
     private int status;
     private int type;
     private String description;
+    private Timestamp dateCreate;
+    private Timestamp dateRequired;
 
     public long getId() {
         return id;
@@ -99,5 +102,21 @@ public class TaskDescription {
 
     public void setType(int type) {
         this.type = type;
+    }
+
+    public Timestamp getDateCreate() {
+        return dateCreate;
+    }
+
+    public void setDateCreate(Timestamp dateCreate) {
+        this.dateCreate = dateCreate;
+    }
+
+    public Timestamp getDateRequired() {
+        return dateRequired;
+    }
+
+    public void setDateRequired(Timestamp dateRequired) {
+        this.dateRequired = dateRequired;
     }
 }

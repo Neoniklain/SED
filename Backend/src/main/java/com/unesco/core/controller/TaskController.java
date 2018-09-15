@@ -3,8 +3,8 @@ package com.unesco.core.controller;
 import com.unesco.core.dto.account.UserDTO;
 import com.unesco.core.dto.additional.ResponseStatusDTO;
 import com.unesco.core.dto.enums.StatusTypes;
-import com.unesco.core.dto.task.TaskDescriptionModel;
-import com.unesco.core.dto.task.TaskUserModel;
+import com.unesco.core.dto.task.TaskDescriptionDTO;
+import com.unesco.core.dto.task.TaskUserDTO;
 import com.unesco.core.managers.task.interfaces.ITaskService;
 import com.unesco.core.services.userService.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,17 +23,17 @@ public class TaskController {
 
     public ResponseStatusDTO getList() {
         long userId = userService.getCurrentUser().getId();
-        List<TaskDescriptionModel> res = _TaskDataService.getTaskDescriptionByCreator(userId);
-        List<TaskUserModel> myTasks = _TaskDataService.getTaskUsersByExecutor(userId);
-        for (TaskUserModel item: myTasks) {
+        List<TaskDescriptionDTO> res = _TaskDataService.getTaskDescriptionByCreator(userId);
+        List<TaskUserDTO> myTasks = _TaskDataService.getTaskUsersByExecutor(userId);
+        for (TaskUserDTO item: myTasks) {
             res.add(_TaskDataService.getTaskDescriptionById(item.getTaskDescriptionId()));
         }
-        for (TaskDescriptionModel item:res){
+        for (TaskDescriptionDTO item:res){
             if(item.getCreator().getId() == userId){
                 List<UserDTO> temp_users = new ArrayList<>();
-                List<TaskUserModel> ltu = _TaskDataService.getTaskUsersForTaskDescription(item.getId());
+                List<TaskUserDTO> ltu = _TaskDataService.getTaskUsersForTaskDescription(item.getId());
                 item.setTaskUsers(ltu);
-                for (TaskUserModel T: item.getTaskUsers()) {
+                for (TaskUserDTO T: item.getTaskUsers()) {
                     temp_users.add(T.getExecutor());
                 }
                 item.setUsers(temp_users);
@@ -50,7 +50,7 @@ public class TaskController {
         return result;
     }
 
-    public ResponseStatusDTO create(TaskDescriptionModel newTask) {
+    public ResponseStatusDTO create(TaskDescriptionDTO newTask) {
         newTask.setCreator(userService.getCurrentUser());
         ResponseStatusDTO result = new ResponseStatusDTO();
         result.setData(_TaskDataService.createNewTaskDescription(newTask));
@@ -65,7 +65,7 @@ public class TaskController {
         return result;
     }
 
-    public ResponseStatusDTO answer(TaskUserModel item) {
+    public ResponseStatusDTO answer(TaskUserDTO item) {
         _TaskDataService.answerTaskUser(item);
         ResponseStatusDTO result = new ResponseStatusDTO(StatusTypes.OK);
         result.addMessage("Ответ отправлен");
@@ -86,7 +86,7 @@ public class TaskController {
         return result;
     }
 
-    public ResponseStatusDTO update(TaskDescriptionModel task) {
+    public ResponseStatusDTO update(TaskDescriptionDTO task) {
         _TaskDataService.updateTaskDescription(task);
         ResponseStatusDTO result = new ResponseStatusDTO(StatusTypes.OK);
         result.addMessage("Задача обновлена");

@@ -4,8 +4,8 @@ import com.unesco.core.managers.task.interfaces.ITaskService;
 import com.unesco.core.dto.additional.ResponseStatusDTO;
 import com.unesco.core.dto.file.FileByteCodeModel;
 import com.unesco.core.dto.file.FileDescriptionModel;
-import com.unesco.core.dto.task.TaskDescriptionModel;
-import com.unesco.core.dto.task.TaskUserModel;
+import com.unesco.core.dto.task.TaskDescriptionDTO;
+import com.unesco.core.dto.task.TaskUserDTO;
 import com.unesco.core.services.dataService.file.fileByteCodeService.IFileByteCodeService;
 import com.unesco.core.services.dataService.file.fileDescriptionService.IFileDescriptionService;
 import com.unesco.core.dto.enums.StatusTypes;
@@ -29,7 +29,7 @@ public class FileController {
 
         FileDescriptionModel FD = new FileDescriptionModel();
         FileByteCodeModel FBC = new FileByteCodeModel();
-        TaskDescriptionModel item =  _taskService.getTaskDescriptionById(id);
+        TaskDescriptionDTO item =  _taskService.getTaskDescriptionById(id);
 
         FD.setFileName(file.getOriginalFilename());
         FD.setFileType(file.getContentType());
@@ -73,7 +73,7 @@ public class FileController {
 
         FileDescriptionModel FD = new FileDescriptionModel();
         FileByteCodeModel FBC = new FileByteCodeModel();
-        TaskUserModel item =  _taskService.getTaskUserById(id);
+        TaskUserDTO item =  _taskService.getTaskUserById(id);
 
         FD.setFileName(file.getOriginalFilename());
         FD.setFileType(file.getContentType());
@@ -114,7 +114,7 @@ public class FileController {
     }
 
     public ResponseStatusDTO getFilesForTD(long TD_id) {
-        TaskDescriptionModel res = _taskService.getTaskDescriptionById(TD_id);
+        TaskDescriptionDTO res = _taskService.getTaskDescriptionById(TD_id);
         ResponseStatusDTO result = new ResponseStatusDTO(StatusTypes.OK);
         result.addMessage("Файл получен");
         result.setData(res.getFiles());
@@ -122,7 +122,7 @@ public class FileController {
     }
 
     public ResponseStatusDTO getFilesForTU(long TU_id) {
-        TaskUserModel res = _taskService.getTaskUserById(TU_id);
+        TaskUserDTO res = _taskService.getTaskUserById(TU_id);
         ResponseStatusDTO result = new ResponseStatusDTO(StatusTypes.OK);
         result.addMessage("Файл получен");
         result.setData(res.getFiles());

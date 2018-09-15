@@ -15,8 +15,8 @@ import com.unesco.core.dto.journal.VisitationConfigDTO;
 import com.unesco.core.dto.news.NewsDTO;
 import com.unesco.core.dto.plan.DepartmentDTO;
 import com.unesco.core.dto.shedule.*;
-import com.unesco.core.dto.task.TaskDescriptionModel;
-import com.unesco.core.dto.task.TaskUserModel;
+import com.unesco.core.dto.task.TaskDescriptionDTO;
+import com.unesco.core.dto.task.TaskUserDTO;
 import com.unesco.core.entities.account.*;
 import com.unesco.core.entities.file.FileByteCode;
 import com.unesco.core.entities.file.FileDescription;
@@ -87,14 +87,14 @@ public class MapperService implements IMapperService {
         if (model instanceof RoomDTO)
             return roomToEntity((RoomDTO) model);
 
-        if (model instanceof TaskUserModel)
-            return taskuserToEntity((TaskUserModel) model);
+        if (model instanceof TaskUserDTO)
+            return taskUserToEntity((TaskUserDTO) model);
 
         if (model instanceof NewsDTO)
             return newsToEntity((NewsDTO) model);
 
-        if (model instanceof TaskDescriptionModel)
-            return taskDescriptionToEntity((TaskDescriptionModel) model);
+        if (model instanceof TaskDescriptionDTO)
+            return taskDescriptionToEntity((TaskDescriptionDTO) model);
 
         if (model instanceof FileByteCodeModel)
             return fileByteCodeToEntity((FileByteCodeModel) model);
@@ -165,7 +165,7 @@ public class MapperService implements IMapperService {
             return roomToDto((RoomEntity) entity);
 
         if (entity instanceof TaskUser)
-            return taskuserToDto((TaskUser) entity);
+            return taskUserToDto((TaskUser) entity);
 
         if (entity instanceof NewsEntity)
             return newsToDto((NewsEntity) entity);
@@ -311,9 +311,9 @@ public class MapperService implements IMapperService {
         return Entity;
     }
 
-    public TaskDescriptionModel taskDescriptionToDto(TaskDescription Entity) {
+    public TaskDescriptionDTO taskDescriptionToDto(TaskDescription Entity) {
         if (Entity == null) return null;
-        TaskDescriptionModel Dto = new TaskDescriptionModel();
+        TaskDescriptionDTO Dto = new TaskDescriptionDTO();
         Dto.setType(Entity.getType());
         Dto.setId(Entity.getId());
         Dto.setCreator(userToDto(Entity.getCreator()));
@@ -322,20 +322,25 @@ public class MapperService implements IMapperService {
         Dto.setName(Entity.getName());
         Dto.setStatus(Entity.getStatus());
         Dto.setStatusName(TaskStatusType.values()[Entity.getStatus()].name());
-        List<TaskUserModel> tasks = new ArrayList<>();
-        /*for (Task t: Entity.getSubTasks()) {
-            tasks.add(TaskToDto(t));
-        }*/
+        List<TaskUserDTO> tasks = new ArrayList<>();
         Dto.setTaskUsers(tasks);
         List<FileDescriptionModel> files = new ArrayList<>();
         for (FileDescription t: Entity.getFiles()) {
             files.add(fileDescriptionToDto(t));
         }
+        if(Entity.getDateCreate() != null) {
+            Date Dt = new Date((long)Entity.getDateCreate().getTime());
+            Dto.setDateCreate(Dt);
+        }
+        if(Entity.getDateRequired() != null) {
+            Date Dt = new Date((long)Entity.getDateRequired().getTime());
+            Dto.setDateRequired(Dt);
+        }
         Dto.setFiles(files);
         return Dto;
     }
 
-    public TaskDescription taskDescriptionToEntity(TaskDescriptionModel Dto) {
+    public TaskDescription taskDescriptionToEntity(TaskDescriptionDTO Dto) {
         if (Dto == null) return null;
         TaskDescription Entity = new TaskDescription();
         Entity.setType(Dto.getType());
@@ -344,8 +349,8 @@ public class MapperService implements IMapperService {
         Entity.setDescription(Dto.getDescription());
         Entity.setName(Dto.getName());
         List<TaskUser> tasks = new ArrayList<>();
-        for (TaskUserModel t : Dto.getTaskUsers()) {
-            tasks.add(taskuserToEntity(t));
+        for (TaskUserDTO t : Dto.getTaskUsers()) {
+            tasks.add(taskUserToEntity(t));
         }
         Entity.setTaskUsers(tasks);
 
@@ -353,13 +358,21 @@ public class MapperService implements IMapperService {
         for (FileDescriptionModel t : Dto.getFiles()) {
             files.add(fileDescriptionToEntity(t));
         }
+        if(Dto.getDateCreate() != null) {
+            Timestamp ts = new Timestamp(Dto.getDateCreate().getTime());
+            Entity.setDateCreate(ts);
+        }
+        if(Dto.getDateRequired() != null) {
+            Timestamp ts = new Timestamp(Dto.getDateRequired().getTime());
+            Entity.setDateRequired(ts);
+        }
         Entity.setFiles(files);
         return Entity;
     }
 
-    public TaskUserModel taskuserToDto(TaskUser Entity) {
+    public TaskUserDTO taskUserToDto(TaskUser Entity) {
         if (Entity == null) return null;
-        TaskUserModel Dto = new TaskUserModel();
+        TaskUserDTO Dto = new TaskUserDTO();
         Dto.setId(Entity.getId());
         Dto.setExecutor(userToDto(Entity.getExecutor()));
         Dto.setResponse(Entity.getResponse());
@@ -371,10 +384,18 @@ public class MapperService implements IMapperService {
             files.add(fileDescriptionToDto(t));
         }
         Dto.setFiles(files);
+        if(Entity.getDateCreate() != null) {
+            Date Dt = new Date((long)Entity.getDateCreate().getTime());
+            Dto.setDateCreate(Dt);
+        }
+        if(Entity.getDateRequired() != null) {
+            Date Dt = new Date((long)Entity.getDateRequired().getTime());
+            Dto.setDateRequired(Dt);
+        }
         return Dto;
     }
 
-    public TaskUser taskuserToEntity(TaskUserModel Dto) {
+    public TaskUser taskUserToEntity(TaskUserDTO Dto) {
         if (Dto == null) return null;
         TaskUser Entity = new TaskUser();
         Entity.setId(Dto.getId());
@@ -389,6 +410,14 @@ public class MapperService implements IMapperService {
             files.add(fileDescriptionToEntity(t));
         }
         Entity.setFiles(files);
+        if(Dto.getDateCreate() != null) {
+            Timestamp ts = new Timestamp(Dto.getDateCreate().getTime());
+            Entity.setDateCreate(ts);
+        }
+        if(Dto.getDateRequired() != null) {
+            Timestamp ts = new Timestamp(Dto.getDateRequired().getTime());
+            Entity.setDateRequired(ts);
+        }
         return Entity;
     }
 

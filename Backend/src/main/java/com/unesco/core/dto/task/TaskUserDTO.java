@@ -4,9 +4,10 @@ import com.unesco.core.dto.account.UserDTO;
 import com.unesco.core.dto.file.FileDescriptionModel;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
-public class TaskUserModel {
+public class TaskUserDTO {
 
     private long id;
     private UserDTO executor;
@@ -15,8 +16,10 @@ public class TaskUserModel {
     private int status;
     private String response;
     private List<FileDescriptionModel> files;
+    private Date dateCreate;
+    private Date dateRequired;
 
-    public TaskUserModel()
+    public TaskUserDTO()
     {
         this.id = 0;
         this.status = 0;
@@ -25,6 +28,8 @@ public class TaskUserModel {
         this.executor = new UserDTO();
         this.taskDescriptionId = 0;
         this.files = new ArrayList<>();
+        this.dateCreate = null;
+        this.dateRequired = null;
     }
 
     public long getId() {
@@ -81,5 +86,21 @@ public class TaskUserModel {
 
     public void setFiles(List<FileDescriptionModel> files) {
         this.files = files;
+    }
+
+    public Date getDateCreate() {
+        return dateCreate;
+    }
+
+    public void setDateCreate(Date dateCreate) {
+        this.dateCreate = dateCreate;
+    }
+
+    public Date getDateRequired() {
+        return dateRequired;
+    }
+
+    public void setDateRequired(Date dateRequired) {
+        this.dateRequired = dateRequired;
     }
 }

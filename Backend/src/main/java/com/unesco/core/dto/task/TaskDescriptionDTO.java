@@ -4,22 +4,25 @@ import com.unesco.core.dto.account.UserDTO;
 import com.unesco.core.dto.file.FileDescriptionModel;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
-public class TaskDescriptionModel {
+public class TaskDescriptionDTO {
 
     private long id;
     private String name;
     private UserDTO creator;
-    private List<TaskUserModel> taskUsers;
+    private List<TaskUserDTO> taskUsers;
     private List<UserDTO> users;
     private String description;
     private int type;
     private int status;
     private String statusName;
     private List<FileDescriptionModel> files;
+    private Date dateCreate;
+    private Date dateRequired;
 
-    public TaskDescriptionModel()
+    public TaskDescriptionDTO()
     {
         this.id = 0;
         this.name = "";
@@ -31,6 +34,8 @@ public class TaskDescriptionModel {
         this.type = -1;
         this.statusName = "";
         this.files = new ArrayList<>();
+        this.dateCreate = null;
+        this.dateRequired = null;
     }
 
     public long getId() {
@@ -89,11 +94,11 @@ public class TaskDescriptionModel {
         this.statusName = statusName;
     }
 
-    public List<TaskUserModel> getTaskUsers() {
+    public List<TaskUserDTO> getTaskUsers() {
         return taskUsers;
     }
 
-    public void setTaskUsers(List<TaskUserModel> taskUsers) {
+    public void setTaskUsers(List<TaskUserDTO> taskUsers) {
         this.taskUsers = taskUsers;
     }
 
@@ -111,5 +116,21 @@ public class TaskDescriptionModel {
 
     public void setType(int type) {
         this.type = type;
+    }
+
+    public Date getDateCreate() {
+        return dateCreate;
+    }
+
+    public void setDateCreate(Date dateCreate) {
+        this.dateCreate = dateCreate;
+    }
+
+    public Date getDateRequired() {
+        return dateRequired;
+    }
+
+    public void setDateRequired(Date dateRequired) {
+        this.dateRequired = dateRequired;
     }
 }

@@ -36,6 +36,14 @@ public enum TaskStatusType {
       this.text = text;
    }
 
+   public static TaskStatusType getById(long id) {
+      for(TaskStatusType e : values()) {
+         if(e.ordinal() == id)
+            return e;
+      }
+      return null;
+   }
+
    @Override
    public String toString() {
       return text;

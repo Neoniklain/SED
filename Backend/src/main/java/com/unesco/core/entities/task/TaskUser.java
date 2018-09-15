@@ -4,6 +4,7 @@ import com.unesco.core.entities.account.UserEntity;
 import com.unesco.core.entities.file.FileDescription;
 
 import javax.persistence.*;
+import java.sql.Timestamp;
 import java.util.Set;
 
 @Entity
@@ -29,6 +30,8 @@ public class TaskUser {
     private UserEntity executor;
     private int status;
     private String response;
+    private Timestamp dateCreate;
+    private Timestamp dateRequired;
 
     public long getId() {
         return id;
@@ -76,5 +79,21 @@ public class TaskUser {
 
     public void setFiles(Set<FileDescription> files) {
         this.files = files;
+    }
+
+    public Timestamp getDateCreate() {
+        return dateCreate;
+    }
+
+    public void setDateCreate(Timestamp dateCreate) {
+        this.dateCreate = dateCreate;
+    }
+
+    public Timestamp getDateRequired() {
+        return dateRequired;
+    }
+
+    public void setDateRequired(Timestamp dateRequired) {
+        this.dateRequired = dateRequired;
     }
 }
