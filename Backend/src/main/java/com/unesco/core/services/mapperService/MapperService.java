@@ -322,8 +322,14 @@ public class MapperService implements IMapperService {
         Dto.setName(Entity.getName());
         Dto.setStatus(Entity.getStatus());
         Dto.setStatusName(TaskStatusType.values()[Entity.getStatus()].name());
-        List<TaskUserDTO> tasks = new ArrayList<>();
-        Dto.setTaskUsers(tasks);
+
+        // Из-за ↓ этого ↓ он всегда вместе с описанием будет тянуть задачи для пользователей.
+        // Лучше буду в ручную их подставлять или по требованию тянуть из сервиса для TaskUser
+        // Потому что, например, если будет задача для всех "Студент"ов, то может лишний раз привязаться over100 элементов
+        // List<TaskUserDTO> tasks = new ArrayList<>();
+        // Dto.setTaskUsers(tasks);
+        Dto.setTaskUsers(new ArrayList<>());
+
         List<FileDescriptionModel> files = new ArrayList<>();
         for (FileDescription t: Entity.getFiles()) {
             files.add(fileDescriptionToDto(t));
