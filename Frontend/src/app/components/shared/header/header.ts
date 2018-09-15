@@ -1,4 +1,4 @@
-﻿import {Component, OnInit} from "@angular/core";
+﻿import {Compiler, Component, OnInit, ViewChild, ViewContainerRef} from "@angular/core";
 import {Router} from "@angular/router";
 import {Message} from "primeng/components/common/message";
 import {Roles} from "../../../models/account/role.model";
@@ -9,6 +9,7 @@ import {RouteConstants} from "../../../bootstrap/app.route.constants";
 import {User} from "../../../models/account/user.model";
 import {StatusType} from "../../../models/statusType.model";
 import {AccessRightType, UserAccessRight} from "../../../models/account/access";
+import {PluginsModule} from "../../../bootstrap/plugins.module";
 
 @Component({
    selector: 'header-component',
@@ -25,11 +26,28 @@ export class HeaderComponent implements OnInit {
     public userAccessRight: UserAccessRight = new UserAccessRight();
     public msgs: Message[] = [];
 
-    constructor(private router: Router,
+    @ViewChild('content', { read: ViewContainerRef })
+    content: ViewContainerRef;
+    private plugins;
+    public pluginNames: string[] = [];
+
+    constructor(private compiler: Compiler,
+                private router: Router,
                private globals: Globals,
-               private authService: AuthenticationService) { }
+               private authService: AuthenticationService) {
+
+        this.plugins = this.compiler.compileModuleAndAllComponentsSync(
+            PluginsModule
+        );
+
+    }
 
     ngOnInit() {
+        // Получаем все плагины
+        this.plugins.componentFactories.forEach(
+            x => this.pluginNames.push(x.selector)
+        );
+
         if (this.authService.getToken() && this.authService.getToken() != "") {
             this.authService.getRole().subscribe(
                 result => {
@@ -60,6 +78,19 @@ export class HeaderComponent implements OnInit {
         }
         this.globals.getUser.subscribe( result => this.user = result );
         this.globals.getAccessRight.subscribe( result => this.userAccessRight = result );
+    }
+
+    createView(name: string) {
+        const factory = this.plugins.componentFactories.find(
+            f => f.selector === name
+        );
+
+        this.content.clear();
+        this.content.createComponent(factory);
+    }
+
+    clearView() {
+        this.content.clear();
     }
 
     logout() {
