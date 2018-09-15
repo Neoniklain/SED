@@ -1,0 +1,55 @@
+{
+	"system": {
+		"paths": {
+			"npm:": "https://unpkg.com/"
+		},
+		"map": {
+			"@angular/core": "npm:@angular/core/bundles/core.umd.js",
+			"rxjs": "npm:rxjs",
+			"tslib": "npm:tslib@1.6.1",
+			"typescript": "npm:typescript@2.2.1/lib/typescript.js",
+
+			"plugins-core": "/modules/plugins-core/bundle.js",
+			"plugins-example": "/modules/plugins-example/bundle.js"
+		},
+		"packages": {
+			"rxjs": {
+				"main": "index.js",
+				"defaultExtension": "js"
+			},
+			"rxjs/operators": {
+				"main": "index.js",
+				"defaultExtension": "js"
+			}
+		}
+	},
+	"header": {
+		"components": [
+			"app-page1"
+		]
+	},
+	"plugins": {
+		"modules": {
+			"plugins-core": "/modules/plugins-core/bundle.js" ,
+			"plugins-example": "/modules/plugins-example/bundle.js"
+		},
+		"routes": [
+			{
+				"name": "Plugin 1 (label)",
+				"path": "plugin1",
+				"component": {
+					"module": "plugins-example",
+					"componentType": "my-label"
+				}
+			},
+			{
+				"name": "Plugin 2 (button)",
+				"path": "plugin2",
+				"component": {
+					"module": "plugins-example",
+					"componentType": "my-button"
+				}
+			}
+		]
+	}
+}

@@ -5,3 +5,5 @@
 /Frontend/wwwroot/js/**
 classes
 public
+node_modules
+.idea

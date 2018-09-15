@@ -38,10 +38,7 @@ export class HeaderComponent implements OnInit, AfterViewInit {
                 private http: HttpClient,
                 private globals: Globals,
                 private authService: AuthenticationService) {
-        this.plugins = this.compiler.compileModuleAndAllComponentsSync(
-            PluginsModule
-        );
-
+        this.plugins = this.compiler.compileModuleAndAllComponentsSync(PluginsModule);
     }
 
     ngOnInit() {
@@ -80,7 +77,6 @@ export class HeaderComponent implements OnInit, AfterViewInit {
     async ngAfterViewInit() {
         const url = '/assets/plugins.config.json';
         const config = await this.http.get<PluginInformation>(url).toPromise();
-
         this.pluginNames = config.header.components;
      }
 
