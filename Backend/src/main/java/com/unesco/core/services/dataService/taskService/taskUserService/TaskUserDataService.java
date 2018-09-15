@@ -103,6 +103,18 @@ public class TaskUserDataService implements ITaskUserDataService
         return result;
     }
 
+    // ЗАМЕНИТЬ НА ФИЛЬТРАЦИЮ!!!!!!!!
+    // Либо вообще убрать, и фильтровать в менеджере
+    @Override
+    public List<TaskUserDTO> getByTDID(long id) {
+        Iterable<TaskUser> tasks = _taskRepository.findByTaskDescriptionId(id);
+        List<TaskUserDTO> result = new ArrayList<>();
+        for (TaskUser item : tasks) {
+            result.add((TaskUserDTO)_mapperService.toDto(item));
+        }
+        return result;
+    }
+
     @Override
     public ResponseStatusDTO<TaskUserDTO> save(TaskUserDTO taskUserDTO) {
        TaskUser entity = (TaskUser) _mapperService.toEntity(taskUserDTO);
@@ -136,7 +148,6 @@ public class TaskUserDataService implements ITaskUserDataService
               result.addErrors("Удаление не удалось. У объекта есть зависимости.");
           }
           result.addErrors("Удаление не удалось");
-          return result;
       }
       return result;
    }

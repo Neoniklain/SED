@@ -5,7 +5,7 @@ import com.unesco.core.dto.additional.ResponseStatusDTO;
 import com.unesco.core.dto.enums.StatusTypes;
 import com.unesco.core.dto.task.TaskDescriptionDTO;
 import com.unesco.core.dto.task.TaskUserDTO;
-import com.unesco.core.managers.task.interfaces.ITaskService;
+import com.unesco.core.managers.task.interfaces.ITaskManager;
 import com.unesco.core.services.userService.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,7 +17,7 @@ import java.util.stream.Collectors;
 @Service
 public class TaskController {
     @Autowired
-    private ITaskService _TaskDataService;
+    private ITaskManager _TaskDataService;
     @Autowired
     private IUserService userService;
 

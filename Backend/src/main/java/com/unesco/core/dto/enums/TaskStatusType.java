@@ -37,8 +37,8 @@ public enum TaskStatusType {
    }
 
    public static TaskStatusType getById(long id) {
-      for(TaskStatusType e : values()) {
-         if(e.ordinal() == id)
+      for (TaskStatusType e : values()) {
+         if (e.ordinal() == id)
             return e;
       }
       return null;

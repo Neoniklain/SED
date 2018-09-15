@@ -6,7 +6,7 @@ import com.unesco.core.dto.task.TaskUserDTO;
 
 import java.util.List;
 
-public interface ITaskService {
+public interface ITaskManager {
     // ------------------------------------------------------------
     // ----- методы для описания задач (for TaskDescription) ------
     // --------------------- Основные функции ---------------------
@@ -36,7 +36,7 @@ public interface ITaskService {
     /**
      * Возвращает список всех описаний задач
      */
-    List<TaskDescriptionDTO> getAllTaskDescs(boolean isIncludeTU);
+    List<TaskDescriptionDTO> getAllTaskDesc(boolean isIncludeTU);
 
     // ------------------------------------------------------------
     // ----------------- Вспомогательные функции ------------------
@@ -52,13 +52,13 @@ public interface ITaskService {
      * Возвращает список задач (с его реализацией), в которых пользователь является исполнителем.
      * @param id id пользователя
      */
-    List<TaskDescriptionDTO> getTaskDescsByExecutor(long id);
+    List<TaskDescriptionDTO> getTaskDescByExecutor(long id);
 
     /**
      * Возвращает список задач, которые создал пользователь.
      * @param id id пользователя
      */
-    List<TaskDescriptionDTO> getTaskDescsByCreator(long id, boolean isIncludeTU);
+    List<TaskDescriptionDTO> getTaskDescByCreator(long id, boolean isIncludeTU);
 
     /**
      * Изменить статус
@@ -94,9 +94,10 @@ public interface ITaskService {
 
     /**
      * Возвращает список реализаций для указанного описания задачи.
+     * TDID == TaskDescriptionID
      * @param id id описания задачи
      */
-    List<TaskUserDTO> getTaskUsersByTDID(long id);
+    List<TaskUserDTO> getTaskUserByTDID(long id);
 
     /**
      * Изменить статус

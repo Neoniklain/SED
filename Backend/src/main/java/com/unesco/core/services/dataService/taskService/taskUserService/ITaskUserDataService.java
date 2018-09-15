@@ -29,4 +29,11 @@ public interface ITaskUserDataService extends IDataService<TaskUserDTO> {
      * @param id id пользователя
      */
     List<TaskUserDTO> getByExecutor(long id);
+
+    // ЗАМЕНИТЬ НА ФИЛЬТРАЦИЮ!!!!!!!!
+    /**
+     * Возвращает список реализаций задач, для указанного описания.
+     * @param id id описания
+     */
+    List<TaskUserDTO> getByTDID(long id);
 }

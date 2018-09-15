@@ -1,6 +1,6 @@
 package com.unesco.core.controller;
 
-import com.unesco.core.managers.task.interfaces.ITaskService;
+import com.unesco.core.managers.task.interfaces.ITaskManager;
 import com.unesco.core.dto.additional.ResponseStatusDTO;
 import com.unesco.core.dto.file.FileByteCodeModel;
 import com.unesco.core.dto.file.FileDescriptionModel;
@@ -23,7 +23,7 @@ public class FileController {
     @Autowired
     private IFileDescriptionService _fileDescriptionService;
     @Autowired
-    private ITaskService _taskService;
+    private ITaskManager _taskService;
 
     public ResponseStatusDTO addFileForTD(long id, MultipartFile file) {
 
