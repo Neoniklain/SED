@@ -3,8 +3,8 @@ package com.unesco.core.dto.task;
 import com.unesco.core.dto.account.UserDTO;
 import com.unesco.core.dto.file.FileDescriptionModel;
 
+import java.sql.Timestamp;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 public class TaskDescriptionDTO {
@@ -13,14 +13,13 @@ public class TaskDescriptionDTO {
     private String name;
     private UserDTO creator;
     private List<TaskUserDTO> taskUsers;
-    private List<UserDTO> users;
     private String description;
     private int type;
     private int status;
     private String statusName;
     private List<FileDescriptionModel> files;
-    private Date dateCreate;
-    private Date dateRequired;
+    private Timestamp dateCreate;
+    private Timestamp dateRequired;
 
     public TaskDescriptionDTO()
     {
@@ -29,7 +28,6 @@ public class TaskDescriptionDTO {
         this.description = "";
         this.creator = new UserDTO();
         this.taskUsers = new ArrayList<>();
-        this.users = new ArrayList<>();
         this.status = 0;
         this.type = -1;
         this.statusName = "";
@@ -68,14 +66,6 @@ public class TaskDescriptionDTO {
 
     public void setDescription(String description) {
         this.description = description;
-    }
-
-    public List<UserDTO> getUsers() {
-        return users;
-    }
-
-    public void setUsers(List<UserDTO> users) {
-        this.users = users;
     }
 
     public int getStatus() {
@@ -118,19 +108,19 @@ public class TaskDescriptionDTO {
         this.type = type;
     }
 
-    public Date getDateCreate() {
+    public Timestamp getDateCreate() {
         return dateCreate;
     }
 
-    public void setDateCreate(Date dateCreate) {
+    public void setDateCreate(Timestamp dateCreate) {
         this.dateCreate = dateCreate;
     }
 
-    public Date getDateRequired() {
+    public Timestamp getDateRequired() {
         return dateRequired;
     }
 
-    public void setDateRequired(Date dateRequired) {
+    public void setDateRequired(Timestamp dateRequired) {
         this.dateRequired = dateRequired;
     }
 }

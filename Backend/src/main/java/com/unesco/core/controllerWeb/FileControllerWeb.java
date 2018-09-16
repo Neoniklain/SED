@@ -23,7 +23,7 @@ public class FileControllerWeb {
     @Autowired
     FileController _fileController;
 
-    @RequestMapping(value = "/getFilesForTD/{id}")
+    /*@RequestMapping(value = "/getFilesForTD/{id}")
     public ResponseStatusDTO getFilesForTD(@PathVariable("id") long id) {
         return _fileController.getFilesForTD(id);
     }
@@ -41,7 +41,7 @@ public class FileControllerWeb {
     @RequestMapping(value = "/addFileForTU/{id}")
     public ResponseStatusDTO addFileForTU(@PathVariable("id") long id, @RequestParam("file") MultipartFile file) {
         return _fileController.addFileForTU(id,file);
-    }
+    }*/
 
     @RequestMapping(value = "/download/{id}")
     public ResponseStatusDTO download(@PathVariable("id") long id, HttpServletRequest request, HttpServletResponse response) throws IOException

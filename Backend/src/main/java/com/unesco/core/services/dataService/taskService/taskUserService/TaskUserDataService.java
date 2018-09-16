@@ -13,10 +13,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.sql.Timestamp;
+import java.util.*;
 
 @Service
 public class TaskUserDataService implements ITaskUserDataService
@@ -120,6 +118,18 @@ public class TaskUserDataService implements ITaskUserDataService
        TaskUser entity = (TaskUser) _mapperService.toEntity(taskUserDTO);
        ResponseStatusDTO<TaskUserDTO> result;
        try {
+           Date date= new Date();
+           long time = date.getTime();
+           Timestamp now = new Timestamp(time);
+           entity.setDateCreate(now);
+           if(entity.getDateRequired()!=null) {
+               if (entity.getDateRequired().after(entity.getDateCreate())) {
+                   entity.setDateRequired(null);
+               }
+               if (entity.getDateRequired().before(entity.getDateCreate())) {
+                   entity.setDateRequired(null);
+               }
+           }
            entity = _taskRepository.save(entity);
            result = new ResponseStatusDTO<>(StatusTypes.OK);
            result.addMessage("Задача пользователя успешно сохранена");

@@ -16,7 +16,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
+import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -36,9 +38,9 @@ public class TaskManager implements ITaskManager {
     public ResponseStatusDTO<TaskDescriptionDTO> createNewTask(TaskDescriptionDTO td) {
         ResponseStatusDTO<TaskDescriptionDTO> result;
 
-        if (td.getUsers().size() == 0) {
+        if (td.getTaskUsers().size() == 0) {
             result = new ResponseStatusDTO<>(StatusTypes.ERROR);
-            result.addErrors("ПОльзователи не указаны");
+            result.addErrors("Пользователи не указаны");
             return result;
         }
 
@@ -49,19 +51,20 @@ public class TaskManager implements ITaskManager {
             taskStatusType = TaskStatusType.Processed;
         }
 
-        /*result = _TDService.save(td);
+        result = _TDService.save(td);
         if (result.getStatus() == StatusTypes.OK) {
             TaskDescriptionDTO saved = result.getData();
             List<TaskUserDTO> ltu = new ArrayList<>();
-            for (UserDTO user : td.getUsers()) {
-                if (user.getId() != saved.getCreator().getId()) {
-                    TaskUserDTO newTUM = new TaskUserDTO();
-                    newTUM.setResponse("");
-                    newTUM.setStatus(taskStatusType.ordinal());
-                    newTUM.setExecutor(user);
-                    newTUM.setStatusName(taskStatusType.name());
-                    newTUM.setTaskDescriptionId(saved.getId());
-                    ResponseStatusDTO<TaskUserDTO> tuSaveRes = _TUService.save(newTUM);
+            for (TaskUserDTO TU : td.getTaskUsers()) {
+                if (TU.getExecutor().getId() != saved.getCreator().getId()) {
+                    TaskUserDTO newTUDTO = new TaskUserDTO();
+                    newTUDTO.setResponse(null);
+                    newTUDTO.setStatus(taskStatusType.ordinal());
+                    newTUDTO.setExecutor(TU.getExecutor());
+                    newTUDTO.setStatusName(taskStatusType.name());
+                    newTUDTO.setTaskDescriptionId(saved.getId());
+                    newTUDTO.setDateRequired(TU.getDateRequired());
+                    ResponseStatusDTO<TaskUserDTO> tuSaveRes = _TUService.save(newTUDTO);
                     if (tuSaveRes.getStatus() == StatusTypes.OK) {
                         ltu.add(tuSaveRes.getData());
                     } else {
@@ -73,7 +76,7 @@ public class TaskManager implements ITaskManager {
             }
             saved.setTaskUsers(ltu);
             result.setData(saved);
-        }*/
+        }
         return null;
     }
 

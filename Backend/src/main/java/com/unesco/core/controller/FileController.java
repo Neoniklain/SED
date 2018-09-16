@@ -25,7 +25,7 @@ public class FileController {
     @Autowired
     private ITaskManager _taskService;
 
-    public ResponseStatusDTO addFileForTD(long id, MultipartFile file) {
+    /*public ResponseStatusDTO addFileForTD(long id, MultipartFile file) {
 
         FileDescriptionModel FD = new FileDescriptionModel();
         FileByteCodeModel FBC = new FileByteCodeModel();
@@ -127,7 +127,7 @@ public class FileController {
         result.addMessage("Файл получен");
         result.setData(res.getFiles());
         return result;
-    }
+    }*/
 
     public FileByteCodeModel download(long fileId) {
         return _fileByteCodeService.get(fileId);

@@ -16,7 +16,7 @@ public class TaskControllerWeb {
     @Autowired
     TaskController _taskController;
 
-    @GetMapping(value = "/list")
+    /*@GetMapping(value = "/list")
     public ResponseStatusDTO getList() {
         return _taskController.getList();
     }
@@ -49,5 +49,5 @@ public class TaskControllerWeb {
     @RequestMapping(value = "/delete/{id}")
     public ResponseStatusDTO delete(@PathVariable("id") long id) {
         return _taskController.delete(id);
-    }
+    }*/
 }

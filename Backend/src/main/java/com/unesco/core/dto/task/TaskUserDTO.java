@@ -3,8 +3,8 @@ package com.unesco.core.dto.task;
 import com.unesco.core.dto.account.UserDTO;
 import com.unesco.core.dto.file.FileDescriptionModel;
 
+import java.sql.Timestamp;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 public class TaskUserDTO {
@@ -16,8 +16,8 @@ public class TaskUserDTO {
     private int status;
     private String response;
     private List<FileDescriptionModel> files;
-    private Date dateCreate;
-    private Date dateRequired;
+    private Timestamp dateCreate;
+    private Timestamp dateRequired;
 
     public TaskUserDTO()
     {
@@ -88,19 +88,19 @@ public class TaskUserDTO {
         this.files = files;
     }
 
-    public Date getDateCreate() {
+    public Timestamp getDateCreate() {
         return dateCreate;
     }
 
-    public void setDateCreate(Date dateCreate) {
+    public void setDateCreate(Timestamp dateCreate) {
         this.dateCreate = dateCreate;
     }
 
-    public Date getDateRequired() {
+    public Timestamp getDateRequired() {
         return dateRequired;
     }
 
-    public void setDateRequired(Date dateRequired) {
+    public void setDateRequired(Timestamp dateRequired) {
         this.dateRequired = dateRequired;
     }
 }

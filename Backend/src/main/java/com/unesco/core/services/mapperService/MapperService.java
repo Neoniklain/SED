@@ -317,7 +317,6 @@ public class MapperService implements IMapperService {
         Dto.setType(Entity.getType());
         Dto.setId(Entity.getId());
         Dto.setCreator(userToDto(Entity.getCreator()));
-        Dto.setUsers(new ArrayList<>());
         Dto.setDescription(Entity.getDescription());
         Dto.setName(Entity.getName());
         Dto.setStatus(Entity.getStatus());
@@ -334,15 +333,9 @@ public class MapperService implements IMapperService {
         for (FileDescription t: Entity.getFiles()) {
             files.add(fileDescriptionToDto(t));
         }
-        if(Entity.getDateCreate() != null) {
-            Date Dt = new Date((long)Entity.getDateCreate().getTime());
-            Dto.setDateCreate(Dt);
-        }
-        if(Entity.getDateRequired() != null) {
-            Date Dt = new Date((long)Entity.getDateRequired().getTime());
-            Dto.setDateRequired(Dt);
-        }
         Dto.setFiles(files);
+        Dto.setDateCreate(Entity.getDateCreate());
+        Dto.setDateRequired(Entity.getDateRequired());
         return Dto;
     }
 
@@ -364,14 +357,8 @@ public class MapperService implements IMapperService {
         for (FileDescriptionModel t : Dto.getFiles()) {
             files.add(fileDescriptionToEntity(t));
         }
-        if(Dto.getDateCreate() != null) {
-            Timestamp ts = new Timestamp(Dto.getDateCreate().getTime());
-            Entity.setDateCreate(ts);
-        }
-        if(Dto.getDateRequired() != null) {
-            Timestamp ts = new Timestamp(Dto.getDateRequired().getTime());
-            Entity.setDateRequired(ts);
-        }
+        Entity.setDateCreate(Dto.getDateCreate());
+        Entity.setDateRequired(Dto.getDateRequired());
         Entity.setFiles(files);
         return Entity;
     }
@@ -390,14 +377,8 @@ public class MapperService implements IMapperService {
             files.add(fileDescriptionToDto(t));
         }
         Dto.setFiles(files);
-        if(Entity.getDateCreate() != null) {
-            Date Dt = new Date((long)Entity.getDateCreate().getTime());
-            Dto.setDateCreate(Dt);
-        }
-        if(Entity.getDateRequired() != null) {
-            Date Dt = new Date((long)Entity.getDateRequired().getTime());
-            Dto.setDateRequired(Dt);
-        }
+        Dto.setDateCreate(Entity.getDateCreate());
+        Dto.setDateRequired(Entity.getDateRequired());
         return Dto;
     }
 
@@ -416,14 +397,8 @@ public class MapperService implements IMapperService {
             files.add(fileDescriptionToEntity(t));
         }
         Entity.setFiles(files);
-        if(Dto.getDateCreate() != null) {
-            Timestamp ts = new Timestamp(Dto.getDateCreate().getTime());
-            Entity.setDateCreate(ts);
-        }
-        if(Dto.getDateRequired() != null) {
-            Timestamp ts = new Timestamp(Dto.getDateRequired().getTime());
-            Entity.setDateRequired(ts);
-        }
+        Entity.setDateCreate(Dto.getDateCreate());
+        Entity.setDateRequired(Dto.getDateRequired());
         return Entity;
     }
 
