@@ -24,14 +24,14 @@ public class TaskDescriptionDTO {
     public TaskDescriptionDTO()
     {
         this.id = 0;
-        this.name = "";
-        this.description = "";
-        this.creator = new UserDTO();
-        this.taskUsers = new ArrayList<>();
-        this.status = 0;
+        this.name = null;
+        this.description = null;
+        this.creator = null;
+        this.taskUsers = null;
+        this.status = -1;
         this.type = -1;
         this.statusName = "";
-        this.files = new ArrayList<>();
+        this.files = null;
         this.dateCreate = null;
         this.dateRequired = null;
     }

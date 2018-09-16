@@ -31,6 +31,14 @@ public class TaskUserDataService implements ITaskUserDataService
            TaskUser base = _taskRepository.findById(newTUModel.getId());
            TaskUser entity = (TaskUser) _mapperService.toEntity(newTUModel);
            if(base != null) {
+               if(entity.getDateRequired() != null) {
+                   if (entity.getDateRequired().after(entity.getDateCreate())) {
+                       entity.setDateRequired(null);
+                   }
+                   if (entity.getDateRequired().before(entity.getDateCreate())) {
+                       entity.setDateRequired(null);
+                   }
+               }
 
                if (TaskStatusType.getById(entity.getStatus()) != null) {
                    base.setStatus(TaskStatusType.getById(entity.getStatus()).ordinal());
@@ -44,12 +52,14 @@ public class TaskUserDataService implements ITaskUserDataService
                    base.setDateRequired(entity.getDateRequired());
                }
 
-               Set<FileDescription> files = new HashSet<>();
-               for (FileDescriptionModel file : newTUModel.getFiles()) {
-                   files.add((FileDescription) _mapperService.toEntity(file));
+               if (newTUModel.getFiles()!=null) {
+                   Set<FileDescription> files = new HashSet<>();
+                   for (FileDescriptionModel file : newTUModel.getFiles()) {
+                       files.add((FileDescription) _mapperService.toEntity(file));
+                   }
+                   base.setFiles(files);
                }
 
-               base.setFiles(files);
                _taskRepository.save(base);
                result = new ResponseStatusDTO<>(StatusTypes.OK);
                result.addMessage("Задача пользователя успешно изменена");

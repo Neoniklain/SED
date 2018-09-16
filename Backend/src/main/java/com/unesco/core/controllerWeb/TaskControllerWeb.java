@@ -16,9 +16,14 @@ public class TaskControllerWeb {
     @Autowired
     TaskController _taskController;
 
-    /*@GetMapping(value = "/list")
-    public ResponseStatusDTO getList() {
-        return _taskController.getList();
+    @GetMapping(value = "/listExecutor")
+    public ResponseStatusDTO getListExecutor() {
+        return _taskController.getListExecutor();
+    }
+
+    @GetMapping(value = "/listCreator")
+    public ResponseStatusDTO getListCreator() {
+        return _taskController.getListCreator();
     }
 
     @RequestMapping(value = "/create")
@@ -28,26 +33,41 @@ public class TaskControllerWeb {
 
     @RequestMapping(value = "/answer")
     public ResponseStatusDTO answer(@RequestBody TaskUserDTO item) {
-        return _taskController.answer(item);
+        return _taskController.changeResponseTaskUser(item);
     }
 
-    @RequestMapping(value = "/changeStatus/{tu_id}/{status_id}")
-    public ResponseStatusDTO changeStatus(@PathVariable("tu_id") long tu_id, @PathVariable("status_id") int status_id) {
-        return _taskController.changeStatus(tu_id, status_id);
+    @RequestMapping(value = "/changeStatusTaskDesc/{td_id}/{status_id}")
+    public ResponseStatusDTO changeStatusTaskDesc(@PathVariable("td_id") long td_id, @PathVariable("status_id") int status_id) {
+        return _taskController.changeStatusTaskDesc(td_id, status_id);
     }
 
-    @RequestMapping(value = "/get/{id}")
-    public ResponseStatusDTO get(@PathVariable("id") long id) {
-        return _taskController.get(id);
+    @RequestMapping(value = "/changeStatusTaskUser/{tu_id}/{status_id}")
+    public ResponseStatusDTO changeStatusTaskUser(@PathVariable("tu_id") long tu_id, @PathVariable("status_id") int status_id) {
+        return _taskController.changeStatusTaskUser(tu_id, status_id);
     }
 
-    @RequestMapping(value = "/update")
-    public ResponseStatusDTO update(@RequestBody TaskDescriptionDTO task) {
-        return _taskController.update(task);
+    @RequestMapping(value = "/getTaskDesc/{id}")
+    public ResponseStatusDTO getTaskDesc(@PathVariable("id") long id) {
+        return _taskController.getTaskDesc(id);
     }
 
-    @RequestMapping(value = "/delete/{id}")
-    public ResponseStatusDTO delete(@PathVariable("id") long id) {
-        return _taskController.delete(id);
-    }*/
+    @RequestMapping(value = "/getTaskUser/{id}")
+    public ResponseStatusDTO getTaskUser(@PathVariable("id") long id) {
+        return _taskController.getTaskUser(id);
+    }
+
+    @RequestMapping(value = "/updateTaskDesc")
+    public ResponseStatusDTO updateTaskDesc(@RequestBody TaskDescriptionDTO task) {
+        return _taskController.updateTaskDesc(task);
+    }
+
+    @RequestMapping(value = "/deleteTask/{id}")
+    public ResponseStatusDTO deleteTask(@PathVariable("id") long id) {
+        return _taskController.deleteTaskDesc(id);
+    }
+
+    @RequestMapping(value = "/deleteTaskUser/{id}")
+    public ResponseStatusDTO deleteTaskUser(@PathVariable("id") long id) {
+        return _taskController.deleteTaskUser(id);
+    }
 }

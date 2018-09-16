@@ -89,8 +89,8 @@ public class TaskManager implements ITaskManager {
                 _TUService.delete(item.getId());
             }
             return _TDService.delete(id);
-
-        } catch (Exception e) {
+        }
+        catch (Exception e) {
             result = new ResponseStatusDTO<>(StatusTypes.ERROR);
             if (e instanceof DataIntegrityViolationException) {
                 result.addErrors("Удаление не удалось. У объекта есть зависимости.");

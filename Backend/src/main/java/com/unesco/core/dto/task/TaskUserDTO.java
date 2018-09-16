@@ -22,12 +22,12 @@ public class TaskUserDTO {
     public TaskUserDTO()
     {
         this.id = 0;
-        this.status = 0;
-        this.statusName = "";
-        this.response = "";
-        this.executor = new UserDTO();
+        this.status = -1;
+        this.statusName = null;
+        this.response = null;
+        this.executor = null;
         this.taskDescriptionId = 0;
-        this.files = new ArrayList<>();
+        this.files = null;
         this.dateCreate = null;
         this.dateRequired = null;
     }
