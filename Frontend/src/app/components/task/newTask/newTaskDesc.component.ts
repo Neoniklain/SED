@@ -16,18 +16,13 @@ import {FileService} from "../../../services/file.service";
 })
 
 export class NewTaskDescComponent {
-    public _uploader: FileUploader;
-    public _fileOptions: FileUploaderOptions;
-    public myFiles: File[];
-    public maxFileSize: number = 1000 * 1000 * 10;
     public localTD: TaskDescription;
-    public _show: boolean = false;
-    public _isCreate: boolean = true;
-    public _title: string = '';
+    public title: string = "";
     public listOfTypes: any[];
-    public taskType: any;
     // ↓ Это нужно для работы enum во вью.
     public TaskStatusType = TaskStatusType;
+    public selectedType: any;
+    public show: boolean = false;
 
     // возвращаем результат
     @Output() onCreateNew: EventEmitter<any> = new EventEmitter();
@@ -41,86 +36,61 @@ export class NewTaskDescComponent {
 
     ngOnInit(): void {
         this.localTD = new TaskDescription();
-        this.myFiles = [];
-        this._fileOptions = {
-            url: "",
-            maxFileSize: 50 * 1000 * 1000,
-            headers: [
-                { name: 'Authorization', value: this.authService.getToken() }
-            ]
-        };
-        this._uploader = new FileUploader(this._fileOptions);
-
+        this.title = "Создать задачу";
         this.listOfTypes = [];
         this.listOfTypes.push({name: "Без уведомления", value: TaskType.Info.valueOf()});
         this.listOfTypes.push({name: "С уведомлением", value: TaskType.Notice.valueOf()});
         this.listOfTypes.push({name: "С ответом", value: TaskType.Answer.valueOf()});
-        this.taskType = this.listOfTypes[0];
     }
 
-    public setAttributeshowDialog(td?: TaskDescription) {
+    public showDialog(td?: TaskDescription) {
         this.localTD = new TaskDescription();
-        this._isCreate = true;
-        this._uploader = new FileUploader(this._fileOptions);
         if (td) {
             this.localTD = td;
-            this._title = "Редактирование задачи";
-            this._isCreate = false;
+            this.title = "Редактирование задачи";
         }
         else {
-            this._title = "Создание задачи";
+            this.title = "Создание задачи";
         }
-        this._show = true;
+        this.show = true;
+    }
+
+    public closeDialog() {
+        this.show = false;
+        this.localTD = new TaskDescription();
     }
 
     public CreateTask() {
-        if (this._isCreate) {
-            if (this.localTD.users.length > 0) {
-                this.localTD.type = this.taskType.value;
-                this.taskService.Create(this.localTD).subscribe((res) => {
-                        this._show = false;
-                        if (this._uploader.queue.length > 0) {
-                            let url = BaseApiUrl + ApiRouteConstants.File.AddFileForTD + res.data.id;
-                            this._uploader.options.url = url;
-                            for (let i = 0; i < this._uploader.queue.length; i++) {
-                                this._uploader.queue[i].url = url;
-                                this._uploader.queue[i].upload();
-                            }
-                        }
-                        this.notificationService.FromStatus(res);
-                        this.onCreateNew.emit(res.data);
-                    },
-                    (error: any) => {
-                        console.error("Ошибка" + error);
-                    });
-            }
-        }
-        else {
-            this.taskService.Update(this.localTD).subscribe((res) => {
-                    this._show = false;
-                },
-                (error: any) => {
-                    console.error("Ошибка" + error);
-                });
-        }
+        this.localTD.type = this.selectedType.value;
+        this.taskService.Create(this.localTD).subscribe((res) => {
+                this.show = false;
+                this.notificationService.FromStatus(res);
+                this.onCreateNew.emit(res.data);
+            },
+            (error: any) => {
+                console.error("Ошибка", error);
+            });
     }
 
-    public ChangeStatus(item: TaskUser, status: number) {
+    public ChangeStatusTU(item: TaskUser, status: number) {
         item.status = status;
-        this.taskService.AnswerTask(item)
+        this.taskService.ChangeStatusTaskUser(item.id, status)
             .subscribe((res) => {
                 this.notificationService.FromStatus(res);
                 item.statusName = TaskStatusType[status];
             }, (error: any) => {
-                console.error(error);
+                console.error("Ошибка", error);
             });
     }
 
     public setUsers(users: User[]) {
-        this.localTD.users = users;
-    }
+        this.localTD.taskUsers = [];
+        for (let user of users) {
+            let tempTU = new TaskUser();
+            tempTU.dateRequired = this.localTD.dateRequired;
+            tempTU.executor = user;
+            this.localTD.taskUsers.push(tempTU);
 
-    public downloadFile(item: FileDescription) {
-        this.fileService.downloadFile(item.id);
+        }
     }
 }

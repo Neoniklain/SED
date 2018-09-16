@@ -76,8 +76,11 @@ public class TaskManager implements ITaskManager {
             }
             saved.setTaskUsers(ltu);
             result.setData(saved);
+            return result;
         }
-        return null;
+        else {
+            return result;
+        }
     }
 
     @Override

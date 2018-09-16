@@ -1,4 +1,4 @@
-<p-dialog header="{{_title}}" [(visible)]="_show" modal="modal" [width]="450"
+<!--<p-dialog header="{{_title}}" [(visible)]="_show" modal="modal" [width]="450"
           [responsive]="true" [resizable]="true" [draggable]="true" [closable]="true">
     <div style="height: 260px;">
         <div class="row" style="margin: 10px -15px;">
@@ -30,10 +30,6 @@
             <p>Ответ</p>
             <input type="text" class="form-control" placeholder="Ответ"
                    [(ngModel)]="_task.response" [disabled]="!_editable"/>
-            <!--<p-fileUpload name="files[]" [chooseLabel]="'Выбрать файл'" [cancelLabel]="'Очистить'" [showUploadButton]="false"
-                          multiple="multiple" maxFileSize="{{maxFileSize}}"
-                          (onSelect)="onSelectFile($event)" (onRemove)="onRemoveFile($event)" (onClear)="onClearFiles()">
-            </p-fileUpload>-->
             <span>
                 <p style="margin: 10px 0;">Прикрепление фалов</p>
                 <input type="file" ng2FileSelect [uploader]="_uploader" />
@@ -74,4 +70,4 @@
             <i class="fa fa-check" aria-hidden="true"></i>Ок
         </button>
     </p-footer>
-</p-dialog>
+</p-dialog>-->

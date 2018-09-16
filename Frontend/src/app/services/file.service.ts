@@ -14,7 +14,7 @@ export class  FileService {
                 private handleError: HandelErrorService) {
     }
 
-    public getFilesForTD(tdId: string): Observable<ResponseStatus> {
+    /*public getFilesForTD(tdId: string): Observable<ResponseStatus> {
         return this.http.get(ApiRouteConstants.File.GetFilesForTD + tdId)
             .pipe(
                 map((res: ResponseStatus) => res),
@@ -28,7 +28,7 @@ export class  FileService {
                 map((res: ResponseStatus) => res),
                 catchError(e => this.handleError.handle(e))
             );
-    }
+    }*/
 
     // грузим файл из базы
     public downloadFile(fileId: number): void {

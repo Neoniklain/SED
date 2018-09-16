@@ -6,22 +6,23 @@ export class TaskDescription {
   public name: string;
   public creator: User;
   public taskUsers: TaskUser[];
-  public users: User[];
   public description: string;
   public type: number;
   public status: number;
   public statusName: string;
   public files: FileDescription[];
+  public dateCreate: Date;
+  public dateRequired: Date;
   constructor() {
     this.name = "";
     this.creator = new User();
-    this.users = [];
     this.type = -1;
     this.status = 0;
     this.statusName = "";
     this.description = "";
     this.taskUsers = [];
     this.files = [];
+    this.dateRequired = new Date();
   }
 }
 
@@ -32,6 +33,8 @@ export class TaskUser {
     public status: number;
     public response: string;
     public files: FileDescription[];
+    public dateCreate: Date;
+    public dateRequired: Date;
     constructor() {
         this.status = 0;
         this.response = "";

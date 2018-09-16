@@ -16,6 +16,11 @@ public class TaskControllerWeb {
     @Autowired
     TaskController _taskController;
 
+    @GetMapping(value = "/getAll")
+    public ResponseStatusDTO getListAll() {
+        return _taskController.getListAll();
+    }
+
     @GetMapping(value = "/listExecutor")
     public ResponseStatusDTO getListExecutor() {
         return _taskController.getListExecutor();

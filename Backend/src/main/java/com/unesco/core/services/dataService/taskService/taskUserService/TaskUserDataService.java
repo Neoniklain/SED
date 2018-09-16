@@ -32,9 +32,6 @@ public class TaskUserDataService implements ITaskUserDataService
            TaskUser entity = (TaskUser) _mapperService.toEntity(newTUModel);
            if(base != null) {
                if(entity.getDateRequired() != null) {
-                   if (entity.getDateRequired().after(entity.getDateCreate())) {
-                       entity.setDateRequired(null);
-                   }
                    if (entity.getDateRequired().before(entity.getDateCreate())) {
                        entity.setDateRequired(null);
                    }
@@ -126,22 +123,20 @@ public class TaskUserDataService implements ITaskUserDataService
     @Override
     public ResponseStatusDTO<TaskUserDTO> save(TaskUserDTO taskUserDTO) {
        TaskUser entity = (TaskUser) _mapperService.toEntity(taskUserDTO);
-       ResponseStatusDTO<TaskUserDTO> result;
+       ResponseStatusDTO<TaskUserDTO> result = new ResponseStatusDTO<>();
        try {
            Date date= new Date();
            long time = date.getTime();
            Timestamp now = new Timestamp(time);
            entity.setDateCreate(now);
            if(entity.getDateRequired()!=null) {
-               if (entity.getDateRequired().after(entity.getDateCreate())) {
-                   entity.setDateRequired(null);
-               }
                if (entity.getDateRequired().before(entity.getDateCreate())) {
                    entity.setDateRequired(null);
                }
            }
            entity = _taskRepository.save(entity);
-           result = new ResponseStatusDTO<>(StatusTypes.OK);
+           result.setData((TaskUserDTO) _mapperService.toDto(entity));
+           result.setStatus(StatusTypes.OK);
            result.addMessage("Задача пользователя успешно сохранена");
        }
        catch (Exception e) {

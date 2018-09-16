@@ -27,24 +27,21 @@ public class TaskDescriptionDataService implements ITaskDescriptionDataService {
     @Override
     public ResponseStatusDTO<TaskDescriptionDTO> save(TaskDescriptionDTO taskDescriptionDTO) {
         TaskDescription entity = (TaskDescription) _mapperService.toEntity(taskDescriptionDTO);
-        ResponseStatusDTO<TaskDescriptionDTO> result;
+        ResponseStatusDTO<TaskDescriptionDTO> result = new ResponseStatusDTO<>();
         try {
             Date date = new Date();
             long time = date.getTime();
             Timestamp now = new Timestamp(time);
             entity.setDateCreate(now);
             if (entity.getDateRequired() != null) {
-                if (entity.getDateRequired().after(entity.getDateCreate())) {
-                    entity.setDateRequired(null);
-                }
                 if (entity.getDateRequired().before(entity.getDateCreate())) {
                     entity.setDateRequired(null);
                 }
             }
             entity = _taskDescriptionRepository.save(entity);
-            result = new ResponseStatusDTO<>(StatusTypes.OK);
-            result.addMessage("Задача успешно создана");
             result.setData((TaskDescriptionDTO) _mapperService.toDto(entity));
+            result.setStatus(StatusTypes.OK);
+            result.addMessage("Задача успешно создана");
         } catch (Exception e) {
             result = new ResponseStatusDTO<>(StatusTypes.ERROR);
             result.addErrors("Не удалось создать задачу");
@@ -67,15 +64,12 @@ public class TaskDescriptionDataService implements ITaskDescriptionDataService {
 
     @Override
     public ResponseStatusDTO<TaskDescriptionDTO> update(TaskDescriptionDTO newTDModel) {
-        ResponseStatusDTO<TaskDescriptionDTO> result;
+        ResponseStatusDTO<TaskDescriptionDTO> result = new ResponseStatusDTO<>();
         try {
             TaskDescription base = _taskDescriptionRepository.findById(newTDModel.getId());
             TaskDescription entity = (TaskDescription) _mapperService.toEntity(newTDModel);
             if (base != null) {
                 if(entity.getDateRequired() != null) {
-                    if (entity.getDateRequired().after(entity.getDateCreate())) {
-                        entity.setDateRequired(null);
-                    }
                     if (entity.getDateRequired().before(entity.getDateCreate())) {
                         entity.setDateRequired(null);
                     }
@@ -110,7 +104,8 @@ public class TaskDescriptionDataService implements ITaskDescriptionDataService {
                 }
 
                 _taskDescriptionRepository.save(base);
-                result = new ResponseStatusDTO<>(StatusTypes.OK);
+                result.setData((TaskDescriptionDTO) _mapperService.toDto(base));
+                result.setStatus(StatusTypes.OK);
                 result.addMessage("Задача успешно изменена");
             } else {
                 result = new ResponseStatusDTO<>(StatusTypes.ERROR);

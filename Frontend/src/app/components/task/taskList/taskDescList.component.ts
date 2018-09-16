@@ -9,6 +9,8 @@ import {Router} from "@angular/router";
 import {WorkTaskComponent} from "../workTask/workTask.component";
 import {NotificationService} from "../../../services/notification.service";
 import {AccessRightType} from "../../../models/account/access";
+import {Globals} from "../../../globals";
+import {ResponseStatus} from "../../../models/additional/responseStatus";
 
 @Component({
    selector: 'task-list',
@@ -17,13 +19,16 @@ import {AccessRightType} from "../../../models/account/access";
 })
 
 export class TaskDescListComponent {
-    public taskDescList: TaskDescription[] = [];
+    public listTaskDescCreator: TaskDescription[];
+    public listTaskDescExecutor: TaskDescription[];
     public user: User;
+    public loading: boolean = true;
+    // ↓ true - показать созданные / false - показать назначенные юзеру
+    public showCreated: boolean = false;
     // ↓ Нужно для работы на view
     TaskStatusType = TaskStatusType;
     AccessRightType = AccessRightType;
 
-    public loading: boolean = true;
 
     @ViewChild(NewTaskDescComponent)
     newTaskDescDialog: NewTaskDescComponent;
@@ -31,96 +36,65 @@ export class TaskDescListComponent {
     @ViewChild(WorkTaskComponent)
     workTaskDialog: WorkTaskComponent;
 
-   constructor(private taskService: TaskService,
-               private authService: AuthenticationService,
-               private router: Router,
-               private notificationService: NotificationService) {
-   }
-
-   ngOnInit(): void {
-      this.getTaskDescList();
-       this.user = new User();
-       // this.statuses = new TaskStatusList();
-       this.authService.getUser().subscribe(
-           res => {
-               this.user = res.data;
-           },
-           error => {
-               if (error.statusText === "Forbidden")
-                   this.router.navigate(['/404']);
-           });
-   }
-
-   public isMyTask(item: TaskDescription): boolean {
-       let localUser = this.user;
-       let result = item.taskUsers.filter(function(v) {
-           return v.executor.id === localUser.id;
-       })[0];
-
-       if (result != null) {
-           if ((result.status == TaskStatusType.Processed) ||
-               (result.status == TaskStatusType.SentToRevision) ||
-               (result.status == TaskStatusType.Viewed))
-               return true;
-       }
-
-       return false;
-   }
-
-   public getTaskDescList() {
-      this.taskService.GetList().subscribe((res) => {
-              this.loading = false;
-              this.taskDescList = res.data;
-              this.checkStatusTaskDescription(this.taskDescList);
-          },
-          (error: any) => {
-              console.error("Ошибка" + error);
-          });
-   }
-
-   public showDialogNewTaskDescription() {
-      this.newTaskDescDialog.setAttributeshowDialog();
-   }
-
-    public showDialogEditTaskDescription(td: TaskDescription) {
-        this.newTaskDescDialog.setAttributeshowDialog(td);
+    constructor(private taskService: TaskService,
+                private authService: AuthenticationService,
+                private router: Router,
+                private globals: Globals,
+                private notificationService: NotificationService) {
     }
 
-    public deleteTaskDescription(id: number) {
-        this.taskService.Delete(id).subscribe((res) => {
-                this.getTaskDescList();
-                this.notificationService.FromStatus(res);
+    ngOnInit(): void {
+        this.listTaskDescCreator = [];
+        this.listTaskDescExecutor = [];
+        this.user = new User();
+        this.globals.getUser.subscribe(
+            result => {
+                this.user = result;
+                this.getTDCreator();
+                this.getTDExecutor();
+            }
+        );
+    }
+
+    public getTDExecutor() {
+        this.loading = true;
+        this.taskService.GetListExecutor().subscribe((res) => {
+                this.loading = false;
+                this.listTaskDescExecutor = res.data;
+            },
+            (error) => {
+                console.error("Ошибка" + error);
+            });
+    }
+
+    public getTDCreator() {
+        this.loading = true;
+        this.taskService.GetListCreator().subscribe((res) => {
+                this.loading = false;
+                this.listTaskDescCreator = res.data;
             },
             (error: any) => {
                 console.error("Ошибка" + error);
             });
     }
 
-    public onCreateNew(TD: TaskDescription) {
-       this.getTaskDescList();
+    public switchList(page: boolean) {
+        this.showCreated = page;
     }
 
-    public showDialogTaskWork(td: TaskDescription) {
-       let userId = this.user.id;
-       let myTask = td.taskUsers.filter(function(v) {
-            return v.executor.id === userId;
-        })[0];
-       if (myTask != null) {
-           this.workTaskDialog.showDialog(td, myTask);
-       }
+    public showDialogNewTask() {
+        this.newTaskDescDialog.showDialog();
     }
 
-    public checkStatusTaskDescription(listTD: TaskDescription[]) {
-       for (let tdi = 0; tdi < listTD.length; tdi++) {
-          let tempTD = listTD[tdi];
-          let count = 0;
-          for (let ti = 0; ti < tempTD.taskUsers.length; ti++) {
-             let tempT = tempTD.taskUsers[ti];
-             if (tempT.status === TaskStatusType.Completed) count++;
-             else if (tempT.status === TaskStatusType.Denied) count++;
-          }
-          tempTD.statusName = TaskStatusType[TaskStatusType.Processed];
-          if (count === tempTD.taskUsers.length) tempTD.statusName = TaskStatusType[TaskStatusType.Completed];
-       }
+    public onCreateNew() {
+        this.getTDCreator();
+    }
+
+    public showDetailsDialog(item: TaskDescription) {
+
+    }
+
+    public showWorkDialog(item: TaskDescription) {
+
     }
 }

@@ -47,7 +47,21 @@ public class TaskController {
         return result;
     }
 
+    public ResponseStatusDTO getListAll() {
+        ResponseStatusDTO result = new ResponseStatusDTO(StatusTypes.ERROR);
+        try {
+            result.setData(_taskManager.getAllTaskDesc(false));
+            result.setStatus(StatusTypes.OK);
+        }
+        catch (Exception e) {
+            result = new ResponseStatusDTO(StatusTypes.ERROR);
+            result.addErrors("Не удалось получить список созданных задач");
+        }
+        return result;
+    }
+
     public ResponseStatusDTO create(TaskDescriptionDTO newTask) {
+        newTask.setCreator(userService.getCurrentUser());
         return _taskManager.createNewTask(newTask);
     }
 

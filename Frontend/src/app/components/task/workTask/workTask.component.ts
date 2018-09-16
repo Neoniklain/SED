@@ -15,16 +15,16 @@ import {BaseApiUrl, ApiRouteConstants} from "../../../bootstrap/app.route.consta
     templateUrl: './workTask.component.html'
 })
 export class WorkTaskComponent {
-    public localTD: TaskDescription;
+    /*public localTD: TaskDescription;
     public _task: TaskUser;
     public _foundedUsers: User[];
     public _show: boolean = false;
     public _title: string = '';
     public _editable: boolean = false;
-    public files: FileDescription[];
+    public TaskTypes = TaskType;
+    public files: FileDescription[];*/
     public _uploader: FileUploader;
     public _fileOptions: FileUploaderOptions;
-    public TaskTypes = TaskType;
 
     constructor(private taskService: TaskService,
                 private accountService: AccountService,
@@ -34,10 +34,10 @@ export class WorkTaskComponent {
     }
 
     ngOnInit(): void {
-        this._task = new TaskUser();
+        /*this._task = new TaskUser();
         this.localTD = new TaskDescription();
         this._editable = false;
-        this.files = [];
+        this.files = [];*/
         this._fileOptions = {
             url: "",
             maxFileSize: 50 * 1000 * 1000,
@@ -48,7 +48,7 @@ export class WorkTaskComponent {
         this._uploader = new FileUploader(this._fileOptions);
     }
 
-    public showDialog(td: TaskDescription, task: TaskUser) {
+    /*public showDialog(td: TaskDescription, task: TaskUser) {
         this._uploader = new FileUploader(this._fileOptions);
         if ((task.status == TaskStatusType.Processed) ||
             (task.status == TaskStatusType.SentToRevision) ||
@@ -86,7 +86,7 @@ export class WorkTaskComponent {
         this._show = true;
     }
 
-    /*public searchUser(event: any) {
+    public searchUser(event: any) {
         let query = event.query.substring(0, 60);
         this.accountService.FindUsersByFIO(query)
             .subscribe((res) => {
@@ -95,7 +95,7 @@ export class WorkTaskComponent {
                 (error: any) => {
                     console.error("Ошибка" + error);
                 });
-    }*/
+    }
 
     public AnswerTask() {
         this._task.status = TaskStatusType.SentToReview;
@@ -120,5 +120,5 @@ export class WorkTaskComponent {
 
     public downloadFile(item: FileDescription){
         this.fileService.downloadFile(item.id);
-    }
+    }*/
 }

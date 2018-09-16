@@ -1,53 +1,19 @@
-<p-dialog [(visible)]="_show" modal="modal" [width]="600" [minHeight]="500"
+<p-dialog [(visible)]="show" modal="modal" [width]="600" [minHeight]="500"
           [responsive]="true" [resizable]="true" [draggable]="true" [closable]="true">
     <p-header>
-        {{_title}}
+        {{title}}
     </p-header>
     <div style="height: 400px;">
         <p>Введите название задачи:</p>
         <input type="text" class="form-control" id="headerCreate" name="header" placeholder="Название задчи"
-                                [(ngModel)]="localTD.name" [disabled]="!_isCreate"/>
+                                [(ngModel)]="localTD.name"/>
         <p style="margin: 10px 0;">Тип задачи: </p>
-        <p-selectButton [options]="listOfTypes" [(ngModel)]="taskType" optionLabel="name" [disabled]="!_isCreate"></p-selectButton>
-        <user-search-form [isModal]="false" (onReturn)="setUsers($event)" *ngIf="_isCreate"></user-search-form>
-        <span *ngIf="_isCreate">
-            <p style="margin: 10px 0;">Прикрепление файлов:</p>
-            <input type="file" ng2FileSelect [uploader]="_uploader" />
-            <p>Всего файлов: {{ _uploader?.queue?.length }}</p>
-            <table [hidden]="!_uploader.queue.length" class="table">
-                <thead>
-                <tr>
-                    <th>Файл</th>
-                    <th *ngIf="_uploader.isHTML5">Размер</th>
-                    <th><i class="fa fa-wrench" aria-hidden="true" title="Действия"></i> Действия</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr *ngFor="let item of _uploader.queue">
-                    <td class="file-name-wrap">{{ item?.file?.name }}</td>
-                    <td *ngIf="_uploader.isHTML5" nowrap>{{ item?.file?.size/1024/1024 | number:'.3' }} MB</td>
-                    <td class="text-center">
-                        <button (click)="item.remove()" type="button" class="btn btn-danger btn-sm" title="Удалить файл">
-                            <i class="fa fa-times" aria-hidden="true"></i>
-                        </button>
-                    </td>
-                </tr>
-                </tbody>
-            </table>
-        </span>
-        <span *ngIf="(!_isCreate)&&(localTD.files.length>0)">
-            <p style="margin: 10px 0;">Прикрепленные файлы:</p>
-            <div>
-                <button *ngFor="let file of localTD.files" (click)="downloadFile(file)" type="button"
-                        class="btn btn-primary btn-sm" title="Скачать {{file.fileName}}">
-                    <i class="fa fa-floppy-o" aria-hidden="true"></i>
-                </button>
-            </div>
-        </span>
+        <p-selectButton [options]="listOfTypes" [(ngModel)]="selectedType" optionLabel="name"></p-selectButton>
+        <user-search-form [isModal]="false" (onReturn)="setUsers($event)"></user-search-form>
         <p style="margin: 10px 0;">Введите описание задачи:</p>
         <textarea [(ngModel)]="localTD.description" rows="3" cols="50" pInputTextarea
-                  autoResize="autoResize" style="width: 100%;" [disabled]="!_isCreate"></textarea>
-        <div *ngIf="!_isCreate">
+                  autoResize="autoResize" style="width: 100%;"></textarea>
+        <div>
             <table class="table table-news">
                 <thead class="thead-inverse">
                 <tr>
@@ -56,7 +22,6 @@
                     <th class="text-center">Статус</th>
                     <th class="text-center">Ответ</th>
                     <th class="text-center"></th>
-                    <th></th>
                 </tr>
                 </thead>
                 <tbody>
@@ -67,18 +32,13 @@
                     <td class="text-center" id="status">{{item.response}}</td>
                     <td class="text-center" id="buttons">
                         <div *ngIf="item.status === TaskStatusType.SentToReview">
-                            <button (click)="ChangeStatus(item, TaskStatusType.Completed)" class="btn btn-success" title="Подтвердить">
+                            <button (click)="ChangeStatusTU(item, TaskStatusType.Completed)" class="btn btn-success" title="Подтвердить">
                                 <i class="fa fa-check" aria-hidden="true"></i>
                             </button>
-                            <button (click)="ChangeStatus(item, TaskStatusType.SentToRevision)" class="btn btn-warning" title="Отправить на доработку">
+                            <button (click)="ChangeStatusTU(item, TaskStatusType.SentToRevision)" class="btn btn-warning" title="Отправить на доработку">
                                 <i class="fa fa-ban" aria-hidden="true"></i>
                             </button>
                         </div>
-                    </td>
-                    <td>
-                        <button *ngFor="let file of item.files" (click)="downloadFile(file)" type="button" class="btn btn-primary btn-sm" title="Скачать {{file.fileName}}">
-                            <i class="fa fa-floppy-o" aria-hidden="true"></i>
-                        </button>
                     </td>
                 </tr>
                 </tbody>
@@ -86,10 +46,10 @@
         </div>
     </div>
     <p-footer>
-        <button *ngIf="_isCreate" type="button" (click)="CreateTask()" class="btn btn-primary">
+        <button type="button" (click)="CreateTask()" class="btn btn-primary">
             <i class="fa fa-check" aria-hidden="true"></i>Создать
         </button>
-        <button type="button" (click)="_show = false" class="btn btn-default">
+        <button type="button" (click)="closeDialog()" class="btn btn-default">
             Закрыть
         </button>
     </p-footer>
