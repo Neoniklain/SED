@@ -16,14 +16,14 @@ export class UserSearchComponent implements OnInit {
     // возвращаем выбранных пользователей
     @Output()
     onReturn: EventEmitter<any> = new EventEmitter();
+    @Output()
+    onClose: EventEmitter<any> = new EventEmitter();
     @Input()
     isModal: boolean = false;
     @Input()
     disabled: boolean = false;
     @Input()
     showReCreateButton: boolean = false;
-    @Input()
-    hideForm: boolean = false;
 
     public result: User[];
     public _foundedUsers: User[];
@@ -32,7 +32,7 @@ export class UserSearchComponent implements OnInit {
     public Dictionary = Dictionary;
     public lastSelected: User;
     public forFilter: LazyLoadEvent;
-    public editable: boolean = true;
+    public editable: boolean = false;
 
     constructor(private accountService: AccountService,
                 private notificationService: NotificationService,
@@ -83,6 +83,7 @@ export class UserSearchComponent implements OnInit {
 
     // выбрана кнопка применить в фильтре
     public returnResult() {
+        this.lastSelected = new User();
         // Если выбрано значение "Все пользователи)
         if (this.Type.value == 0) {
             this.dictionaryService.Get(Dictionary.users, this.forFilter)
@@ -98,6 +99,11 @@ export class UserSearchComponent implements OnInit {
             this.onReturn.emit(this.result);
             this.editable = false;
         }
+    }
+
+    public closeForm() {
+        this.editable = false;
+        this.onClose.emit();
     }
 
     public Edit(users: User[]) {

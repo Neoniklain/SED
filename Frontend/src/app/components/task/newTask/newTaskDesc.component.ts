@@ -35,7 +35,7 @@ export class NewTaskDescComponent {
     public TaskStatusType = TaskStatusType;
     public selectedType: any;
     public show: boolean = false;
-    public showSelectUserForm: boolean = true;
+    public showSelectUserForm: boolean = false;
 
     constructor(private taskService: TaskService,
                 private accountService: AccountService,
@@ -120,6 +120,10 @@ export class NewTaskDescComponent {
     public setFull() {
         this.isModal = false;
         this.onSizeChange.emit(false);
+    }
+
+    public onCloseSearchUser() {
+        this.showSelectUserForm = false;
     }
 
     public setDialog() {

@@ -25,18 +25,15 @@
             <table class="table table-news">
                 <thead class="thead-inverse">
                     <tr>
-                        <th class="text-center">ID</th>
+                        <th class="text-center hidden-xs">ID</th>
                         <th class="text-center">Название</th>
-                        <th class="text-center">Создатель задачи</th>
                         <th class="text-center">Статус</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr *ngFor="let item of listTaskDescCreator">
-                        <td class="text-center" id="c_id">{{item.id}}</td>
-                        <td (dblclick)="showDialogTaskWork(item)" class="text-center" id="c_name">{{item.name}}</td>
-                        <td (dblclick)="showDialogTaskWork(item)" class="text-center" id="c_creator">{{item.creator.userFIO}}</td>
-                        <td (dblclick)="showDialogTaskWork(item)" class="text-center" id="c_status">{{item.statusName | translate}}</td>
+                        <td class="text-center" id="c_name">{{item.name}}</td>
+                        <td class="text-center" id="c_status">{{item.statusName | translate}}</td>
                     </tr>
                 </tbody>
             </table>
@@ -45,18 +42,16 @@
             <table class="table table-news">
                 <thead class="thead-inverse">
                     <tr>
-                        <th class="text-center">ID</th>
                         <th class="text-center">Название</th>
-                        <th class="text-center">Создатель задачи</th>
-                        <th class="text-center">Статус</th>
+                        <th class="text-center hidden-xs">Назначил</th>
+                        <th class="text-center">Срок</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr *ngFor="let item of listTaskDescExecutor">
-                        <td class="text-center" id="e_id">{{item.id}}</td>
-                        <td (dblclick)="showDialogTaskWork(item)" class="text-center" id="e_name">{{item.name}}</td>
-                        <td (dblclick)="showDialogTaskWork(item)" class="text-center" id="e_creator">{{item.creator.userFIO}}</td>
-                        <td (dblclick)="showDialogTaskWork(item)" class="text-center" id="e_status">{{item.statusName | translate}}</td>
+                        <td class="text-center" id="e_name">{{item.name}}</td>
+                        <td class="text-center hidden-xs" id="e_creator">{{item.creator.userFIO}}</td>
+                        <td class="text-center" id="e_dateRequired">ДАТА</td>
                     </tr>
                 </tbody>
             </table>

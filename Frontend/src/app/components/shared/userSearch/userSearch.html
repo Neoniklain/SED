@@ -1,37 +1,91 @@
-﻿<div class="user-search-form" style="margin-top: 10px;" [hidden]="hideForm">
-    <p-selectButton [options]="listOfTypes" [(ngModel)]="Type" optionLabel="name" [disabled]="!editable || disabled"></p-selectButton>
-    <div *ngIf="Type.value == 1">
-        <p style="margin: 10px 0;">Введите ФИО пользователя:</p>
-        <p-autoComplete [(ngModel)]="lastSelected" [suggestions]="_foundedUsers" (completeMethod)="searchUserByFIO($event)" styleClass="w-100"
-                        [minLength]="3" placeholder="Введите ФИО" field="userFIO" (onSelect)="AddUser($event)" [multiple]="false"
-                        [disabled]="!editable || disabled">
-        </p-autoComplete>
-        <div *ngIf="result != null">
-            <p style="margin: 10px 0;">Выбранные пользователи:</p>
-            <table *ngIf="result.length > 0" class="table">
-                <thead>
-                    <td>#</td>
-                    <td>Имя</td>
-                    <td>E-mail</td>
-                    <td></td>
-                </thead>
-                <tr *ngFor="let r of result; let i = index">
-                    <td>{{i+1}}</td>
-                    <td>{{r.userFIO}}</td>
-                    <td>{{r.email}}</td>
-                    <td>
-                        <button *ngIf="editable" (click)="removeUser(r)" class="btn btn-danger btn-sm"><i class="fa fa-times"></i></button>
-                    </td>
-                </tr>
-            </table>
+﻿<div id="userSearchForm" style="margin-top: 10px;">
+    <div *ngIf="!isModal">
+        <p-selectButton [options]="listOfTypes" [(ngModel)]="Type" optionLabel="name" [disabled]="!editable || disabled"></p-selectButton>
+        <div *ngIf="Type.value == 1">
+            <p style="margin: 10px 0;">Введите ФИО пользователя:</p>
+            <p-autoComplete [(ngModel)]="lastSelected" [suggestions]="_foundedUsers" (completeMethod)="searchUserByFIO($event)" styleClass="w-100"
+                            [minLength]="3" placeholder="Введите ФИО" field="userFIO" (onSelect)="AddUser($event)" [multiple]="false"
+                            [disabled]="!editable || disabled">
+            </p-autoComplete>
+            <div *ngIf="result != null">
+                <p style="margin: 10px 0;">Выбранные пользователи:</p>
+                <table *ngIf="result.length > 0" class="table">
+                    <thead>
+                        <td>#</td>
+                        <td>Имя</td>
+                        <td>E-mail</td>
+                        <td></td>
+                    </thead>
+                    <tr *ngFor="let r of result; let i = index">
+                        <td>{{i+1}}</td>
+                        <td>{{r.userFIO}}</td>
+                        <td>{{r.email}}</td>
+                        <td>
+                            <button *ngIf="editable" (click)="removeUser(r)" class="btn btn-danger btn-sm"><i class="fa fa-times"></i></button>
+                        </td>
+                    </tr>
+                </table>
+            </div>
         </div>
+        <p style="margin: 10px 0;">
+            <button *ngIf="editable" type="button" (click)="returnResult()">
+                <i class="fa fa-check" aria-hidden="true"></i>Подтвердить
+            </button>
+            <button *ngIf="!editable && showReCreateButton" type="button" (click)="ReCreate()">
+                <i class="fa fa-pencil" aria-hidden="true"></i>Изменить
+            </button>
+        </p>
     </div>
-    <p style="margin: 10px 0;">
-        <button *ngIf="editable" type="button" (click)="returnResult()">
-            <i class="fa fa-check" aria-hidden="true"></i>Подтвердить
-        </button>
-        <button *ngIf="!editable && showReCreateButton" type="button" (click)="ReCreate()">
-            <i class="fa fa-pencil" aria-hidden="true"></i>Изменить
-        </button>
-    </p>
+    <div *ngIf="isModal">
+        <p-dialog   [(visible)]="editable" modal="modal" [resizable]="true" [draggable]="true"
+                    [closable]="false" (onHide)="closeForm()" [minWidth]="320">
+            <p-header>
+                Выбор пользователей
+                <i class="fa fa-close fa-lg" aria-hidden="true" (click)="closeForm()" style="float: right">  </i>
+            </p-header>
+            <p-selectButton [options]="listOfTypes" [(ngModel)]="Type" optionLabel="name" [disabled]="!editable || disabled"></p-selectButton>
+            <div *ngIf="Type.value == 1">
+                <p style="margin: 10px 0;">Введите ФИО пользователя:</p>
+                <p-autoComplete [(ngModel)]="lastSelected" [suggestions]="_foundedUsers" (completeMethod)="searchUserByFIO($event)" styleClass="w-100"
+                                [minLength]="3" placeholder="Введите ФИО" field="userFIO" (onSelect)="AddUser($event)" [multiple]="false"
+                                [disabled]="!editable || disabled">
+                </p-autoComplete>
+                <div *ngIf="result != null">
+                    <p style="margin: 10px 0;">Выбранные пользователи:</p>
+                    <table *ngIf="result.length > 0" class="table">
+                        <thead>
+                            <tr>
+                                <th>Имя</th>
+                                <th>Логин</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let r of result; let i = index">
+                                <td>{{r.userFIO}}</td>
+                                <td>{{r.username}}</td>
+                                <td>
+                                    <button *ngIf="editable" (click)="removeUser(r)" class="btn btn-danger btn-sm"><i class="fa fa-times"></i></button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <p-footer style="width: 100%;">
+                <button *ngIf="editable && !showReCreateButton" type="button" class="btn btn-warning" (click)="Clear()">
+                    <i class="fa fa-trash" aria-hidden="true"></i>
+                </button>
+                <button *ngIf="editable" type="button" class="btn btn-primary" (click)="returnResult()">
+                    <i class="fa fa-check" aria-hidden="true"></i>Подтвердить
+                </button>
+                <button *ngIf="!editable && showReCreateButton" type="button" class="btn btn-primary" (click)="ReCreate()">
+                    <i class="fa fa-pencil" aria-hidden="true"></i>Изменить
+                </button>
+                <button *ngIf="editable" type="button" class="btn btn-default" (click)="closeForm()">
+                    <i class="fa fa-check" aria-hidden="true"></i>Закрыть
+                </button>
+            </p-footer>
+        </p-dialog>
+    </div>
 </div>

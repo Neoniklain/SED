@@ -220,5 +220,30 @@ body {
     outline: none;
 }
 
-#newTaskFull [hidden] { display: none !important;}
-#newTaskModal [hidden] { display: none !important;}
+#newTaskFull [hidden] {
+    display: none !important;
+}
+
+#newTaskFull .row {
+    margin-bottom: 10px;
+}
+
+#newTaskFull p-selectbutton div div {
+    border: 1px solid #00000020;
+}
+
+#newTaskModal [hidden] {
+    display: none !important;
+}
+
+#newTaskModal .row {
+    margin-bottom: 10px;
+}
+
+#newTaskModal p-selectbutton div div {
+    border: 1px solid #00000020;
+}
+
+#userSearchForm p-autocomplete input {
+    width: 100%;
+}

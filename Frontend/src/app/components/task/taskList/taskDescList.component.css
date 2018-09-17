@@ -33,3 +33,7 @@
   text-align: center;
 }
 
+textarea {
+  border: 1px solid #00000050;
+}
+

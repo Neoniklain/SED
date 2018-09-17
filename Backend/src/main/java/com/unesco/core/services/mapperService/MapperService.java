@@ -330,8 +330,10 @@ public class MapperService implements IMapperService {
         Dto.setTaskUsers(new ArrayList<>());
 
         List<FileDescriptionModel> files = new ArrayList<>();
-        for (FileDescription t: Entity.getFiles()) {
-            files.add(fileDescriptionToDto(t));
+        if(Entity.getFiles()!=null) {
+            for (FileDescription t : Entity.getFiles()) {
+                files.add(fileDescriptionToDto(t));
+            }
         }
         Dto.setFiles(files);
         Dto.setDateCreate(Entity.getDateCreate());
@@ -354,8 +356,10 @@ public class MapperService implements IMapperService {
         Entity.setTaskUsers(tasks);
 
         Set<FileDescription> files = new HashSet<>();
-        for (FileDescriptionModel t : Dto.getFiles()) {
-            files.add(fileDescriptionToEntity(t));
+        if(Dto.getFiles()!=null) {
+            for (FileDescriptionModel t : Dto.getFiles()) {
+                files.add(fileDescriptionToEntity(t));
+            }
         }
         Entity.setDateCreate(Dto.getDateCreate());
         Entity.setDateRequired(Dto.getDateRequired());
@@ -373,8 +377,10 @@ public class MapperService implements IMapperService {
         Dto.setStatusName(TaskStatusType.values()[Entity.getStatus()].name());
         Dto.setTaskDescriptionId(Entity.getTaskDescription().getId());
         List<FileDescriptionModel> files = new ArrayList<>();
-        for (FileDescription t: Entity.getFiles()) {
-            files.add(fileDescriptionToDto(t));
+        if(Entity.getFiles()!=null) {
+            for (FileDescription t : Entity.getFiles()) {
+                files.add(fileDescriptionToDto(t));
+            }
         }
         Dto.setFiles(files);
         Dto.setDateCreate(Entity.getDateCreate());
@@ -393,8 +399,10 @@ public class MapperService implements IMapperService {
         taskDescription.setId(Dto.getTaskDescriptionId());
         Entity.setTaskDescription(taskDescription);
         Set<FileDescription> files = new HashSet<>();
-        for (FileDescriptionModel t : Dto.getFiles()) {
-            files.add(fileDescriptionToEntity(t));
+        if(Dto.getFiles()!=null) {
+            for (FileDescriptionModel t : Dto.getFiles()) {
+                files.add(fileDescriptionToEntity(t));
+            }
         }
         Entity.setFiles(files);
         Entity.setDateCreate(Dto.getDateCreate());

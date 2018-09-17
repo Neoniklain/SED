@@ -8,51 +8,68 @@
         </div>
     </p-header>
     <div id="newTaskModal">
-
-        <p>Введите название задачи:</p>
-        <input type="text" class="form-control" id="headerCreateModal" name="header" placeholder="Название задчи"
-                                [(ngModel)]="localTD.name"/>
-
-        <p style="margin: 10px 0;">Тип задачи: </p>
-        <p-selectButton [options]="listOfTypes" [(ngModel)]="selectedType" optionLabel="name"></p-selectButton>
-        <user-search-form [isModal]="false" (onReturn)="setUsers($event)" [showReCreateButton]="false" [hideForm]="!showSelectUserForm"></user-search-form>
-        <button (click)="showUserSearchForm()" class="btn btn-primary" title="Изменить список пользователей" [hidden]="showSelectUserForm" style="margin-top: 10px;">
-            <i class="fa fa-pencil" aria-hidden="true"></i> Выбрать пользователей
-        </button>
-
-        <p style="margin: 10px 0;">Введите описание задачи:</p>
-        <textarea [(ngModel)]="localTD.description" rows="3" cols="50" pInputTextarea
-                  autoResize="autoResize" style="width: 100%;"></textarea>
         <div>
-            <table class="table table-news">
-                <thead class="thead-inverse">
-                <tr>
-                    <th class="text-center">ID</th>
-                    <th class="text-center">Исполнитель</th>
-                    <th class="text-center">Статус</th>
-                    <th class="text-center">Ответ</th>
-                    <th class="text-center"></th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr *ngFor="let item of localTD.taskUsers">
-                    <td class="text-center" id="idModal">{{item.id}}</td>
-                    <td class="text-center" id="nameModal">{{item.executor.userFIO}}</td>
-                    <td class="text-center" id="creatorModal">{{item.statusName | translate}}</td>
-                    <td class="text-center" id="statusModal">{{item.response}}</td>
-                    <td class="text-center" id="buttonsModal">
-                        <div *ngIf="item.status === TaskStatusType.SentToReview">
-                            <button (click)="ChangeStatusTU(item, TaskStatusType.Completed)" class="btn btn-success" title="Подтвердить">
-                                <i class="fa fa-check" aria-hidden="true"></i>
-                            </button>
-                            <button (click)="ChangeStatusTU(item, TaskStatusType.SentToRevision)" class="btn btn-warning" title="Отправить на доработку">
-                                <i class="fa fa-ban" aria-hidden="true"></i>
-                            </button>
-                        </div>
-                    </td>
-                </tr>
-                </tbody>
-            </table>
+            <div class="row">
+                <div class="col-xs-12 col-sm-1">Тип: </div>
+                <div class="hidden-xs col-sm-11">
+                    <p-selectButton [options]="listOfTypes" [(ngModel)]="selectedType" optionLabel="name"></p-selectButton>
+                </div>
+                <div class="visible-xs col-xs-12">
+                    <div *ngFor="let item of listOfTypes" style="width: 100%; margin: 3px 0;">
+                        <p-radioButton name="taskType"
+                                       [value]="item"
+                                       [label]="item.name"
+                                       [(ngModel)]="selectedType"
+                                       [inputId]="item.value">
+                        </p-radioButton>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-xs-12 col-sm-1">Название: </div>
+                <div class="col-xs-12 col-sm-11">
+                    <input type="text" class="form-control" id="headerCreateModal" name="header" placeholder="Название задчи"
+                           [(ngModel)]="localTD.name"/>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="visible-xs col-xs-12 hidden-sm">Текст: </div>
+                <div class="col-xs-12">
+                <textarea [(ngModel)]="localTD.description" rows="3" cols="50" pInputTextarea
+                          autoResize="autoResize" style="width: 100%; max-width: 100%; min-width: 100%;"></textarea>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-xs-12">
+                    Тут будут файлы
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-xs-12" [hidden]="!showSelectUserForm">
+                    <user-search-form
+                            [isModal]="true"
+                            (onReturn)="setUsers($event)"
+                            (onClose)="onCloseSearchUser()"
+                            [showReCreateButton]="false"></user-search-form>
+                </div>
+                <div>
+                    <div class="col-xs-12 col-sm-1">Кому: </div>
+                    <div class="col-xs-12 visible-xs">
+                        <button (click)="showUserSearchForm()" class="btn btn-primary" title="Изменить список пользователей" style="width: 100%;">
+                            <i class="fa fa-pencil" aria-hidden="true"></i> Выбрать пользователей
+                        </button>
+                    </div>
+                    <div class="col-sm-11 hidden-xs">
+                        <button (click)="showUserSearchForm()" class="btn btn-primary" title="Изменить список пользователей">
+                            <i class="fa fa-pencil" aria-hidden="true"></i> Выбрать пользователей
+                        </button>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
     <p-footer>
@@ -66,47 +83,75 @@
 </p-dialog>
 
 <div id="newTaskFull" *ngIf="!isModal">
-    <div class="row">
-        <div class="col-xs-3">Тип задачи: </div>
-        <div class="col-xs-9">
-            <p-selectButton [options]="listOfTypes" [(ngModel)]="selectedType" optionLabel="name"></p-selectButton>
+    <div>
+        <div class="row">
+            <div class="col-xs-12 col-sm-1">Тип: </div>
+            <div class="hidden-xs col-sm-11">
+                <p-selectButton [options]="listOfTypes" [(ngModel)]="selectedType" optionLabel="name"></p-selectButton>
+            </div>
+            <div class="visible-xs col-xs-12">
+                <div *ngFor="let item of listOfTypes" style="width: 100%; margin: 3px 0;">
+                    <p-radioButton name="taskType"
+                                   [value]="item"
+                                   [label]="item.name"
+                                   [(ngModel)]="selectedType"
+                                   [inputId]="item.value">
+                    </p-radioButton>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-xs-12 col-sm-1">Название: </div>
+            <div class="col-xs-12 col-sm-11">
+                <input type="text" class="form-control" id="headerCreateFull" name="header" placeholder="Название задчи"
+                       [(ngModel)]="localTD.name"/>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="visible-xs col-xs-12 hidden-sm">Текст: </div>
+            <div class="col-xs-12">
+                <textarea [(ngModel)]="localTD.description" rows="3" cols="50" pInputTextarea
+                          autoResize="autoResize" style="width: 100%; max-width: 100%; min-width: 100%;"></textarea>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-xs-12">
+                Тут будут файлы
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-xs-12" [hidden]="!showSelectUserForm" style="height: 0px;">
+                <user-search-form
+                        [isModal]="true"
+                        (onReturn)="setUsers($event)"
+                        (onClose)="onCloseSearchUser()"
+                        [showReCreateButton]="false"></user-search-form>
+            </div>
+            <div>
+                <div class="col-xs-12 col-sm-1">Кому: </div>
+                <div class="col-xs-12 visible-xs">
+                    <button (click)="showUserSearchForm()" class="btn btn-primary" title="Изменить список пользователей" style="width: 100%;">
+                        <i class="fa fa-pencil" aria-hidden="true"></i> Выбрать пользователей
+                    </button>
+                </div>
+                <div class="col-sm-11 hidden-xs">
+                    <button (click)="showUserSearchForm()" class="btn btn-primary" title="Изменить список пользователей">
+                        <i class="fa fa-pencil" aria-hidden="true"></i> Выбрать пользователей
+                    </button>
+                </div>
+            </div>
         </div>
     </div>
-
-    <div class="row">
-        <div class="col-xs-3">Название: </div>
-        <div class="col-xs-9">
-            <input type="text" class="form-control" id="headerCreateFull" name="header" placeholder="Название задчи"
-                   [(ngModel)]="localTD.name"/>
-        </div>
-    </div>
-
-    <div class="row">
-        <textarea [(ngModel)]="localTD.description" rows="3" cols="50" pInputTextarea
-                  autoResize="autoResize" style="width: 100%;"></textarea>
-    </div>
-
-    <div class="row">
-        Тут будут файлы
-    </div>
-
-    <div class="row">
-
-        <user-search-form [isModal]="false" (onReturn)="setUsers($event)" [showReCreateButton]="false" [hideForm]="!showSelectUserForm"></user-search-form>
-        <div *ngIf="!showSelectUserForm">
-            <p style="margin: 10px 0;">Кому:</p>
-            <button (click)="showUserSearchForm()" class="btn btn-primary" title="Изменить список пользователей" style="margin-top: 10px;">
-                <i class="fa fa-pencil" aria-hidden="true"></i> Выбрать пользователей
-            </button>
-        </div>
-    </div>
-
     <hr>
     <div>
-        <button type="button" (click)="CreateTask()" class="btn btn-primary">
+        <button type="button" (click)="CreateTask()" class="btn btn-primary" style="margin-right: 15px;">
             <i class="fa fa-check" aria-hidden="true"></i>Создать
         </button>
-        <button type="button" (click)="closeDialog()" class="btn btn-default">
+        <button type="button" (click)="closeDialog()" class="btn btn-default" style="margin-right: 15px;">
             Закрыть
         </button>
     </div>
