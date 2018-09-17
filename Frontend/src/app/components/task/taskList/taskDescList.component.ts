@@ -89,7 +89,6 @@ export class TaskDescListComponent {
     }
 
     public onCreateNew() {
-        this.isCreated = false;
         this.getTDCreator();
     }
 
@@ -101,7 +100,23 @@ export class TaskDescListComponent {
 
     }
 
-    public onClose() {
+    public letShow(comp: number): boolean {
+        // Список задач
+        if (comp == 1) {
+            if (!this.isCreated) {
+                return true;
+            }
+        }
+        // Добавление новой задачи
+        if (comp == 2) {
+            if (this.isCreated) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public onCloseNewDialog() {
         this.isCreated = false;
     }
 }

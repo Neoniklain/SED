@@ -78,8 +78,7 @@ export class NewTaskDescComponent {
                 this.show = false;
                 this.notificationService.FromStatus(res);
                 this.onCreateNew.emit(res.data);
-                this.isModal = true;
-                this.onSizeChange.emit(true);
+                this.onClose.emit();
             },
             (error: any) => {
                 console.error("Ошибка", error);

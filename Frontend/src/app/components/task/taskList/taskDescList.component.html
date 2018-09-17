@@ -1,4 +1,4 @@
-<div *ngIf="!isCreated">
+<div *ngIf="letShow(1)">
     <div class="header-panel-body">
        <h3>Действия</h3>
     </div>
@@ -63,12 +63,12 @@
         </div>
     </div>
 </div>
-<div [hidden]="!isCreated">
+<div [hidden]="!letShow(2)">
     <div class="header-panel-body">
         <h3>Создание задачи</h3>
     </div>
     <new-task-desc (onCreateNew)="onCreateNew($event)"
-                   (onClose)="onClose()"
+                   (onClose)="onCloseNewDialog()"
                    [isModal]="false"></new-task-desc>
 </div>
 <data-loader [show]="loading" [margin]="9"></data-loader>

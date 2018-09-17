@@ -66,52 +66,41 @@
 </p-dialog>
 
 <div id="newTaskFull" *ngIf="!isModal">
-
-    <p>Введите название задачи:</p>
-    <input type="text" class="form-control" id="headerCreateFull" name="header" placeholder="Название задчи"
-           [(ngModel)]="localTD.name"/>
-
-    <p style="margin: 10px 0;">Тип задачи: </p>
-    <p-selectButton [options]="listOfTypes" [(ngModel)]="selectedType" optionLabel="name"></p-selectButton>
-    <user-search-form [isModal]="false" (onReturn)="setUsers($event)" [showReCreateButton]="false" [hideForm]="!showSelectUserForm"></user-search-form>
-    <button (click)="showUserSearchForm()" class="btn btn-primary" title="Изменить список пользователей" [hidden]="showSelectUserForm" style="margin-top: 10px;">
-        <i class="fa fa-pencil" aria-hidden="true"></i> Выбрать пользователей
-    </button>
-
-    <p style="margin: 10px 0;">Введите описание задачи:</p>
-    <textarea [(ngModel)]="localTD.description" rows="3" cols="50" pInputTextarea
-              autoResize="autoResize" style="width: 100%;"></textarea>
-    <div>
-        <table class="table table-news">
-            <thead class="thead-inverse">
-            <tr>
-                <th class="text-center">ID</th>
-                <th class="text-center">Исполнитель</th>
-                <th class="text-center">Статус</th>
-                <th class="text-center">Ответ</th>
-                <th class="text-center"></th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr *ngFor="let item of localTD.taskUsers">
-                <td class="text-center" id="idFull">{{item.id}}</td>
-                <td class="text-center" id="nameFull">{{item.executor.userFIO}}</td>
-                <td class="text-center" id="creatorFull">{{item.statusName | translate}}</td>
-                <td class="text-center" id="statusFull">{{item.response}}</td>
-                <td class="text-center" id="buttonsFull">
-                    <div *ngIf="item.status === TaskStatusType.SentToReview">
-                        <button (click)="ChangeStatusTU(item, TaskStatusType.Completed)" class="btn btn-success" title="Подтвердить">
-                            <i class="fa fa-check" aria-hidden="true"></i>
-                        </button>
-                        <button (click)="ChangeStatusTU(item, TaskStatusType.SentToRevision)" class="btn btn-warning" title="Отправить на доработку">
-                            <i class="fa fa-ban" aria-hidden="true"></i>
-                        </button>
-                    </div>
-                </td>
-            </tr>
-            </tbody>
-        </table>
+    <div class="row">
+        <div class="col-xs-3">Тип задачи: </div>
+        <div class="col-xs-9">
+            <p-selectButton [options]="listOfTypes" [(ngModel)]="selectedType" optionLabel="name"></p-selectButton>
+        </div>
     </div>
+
+    <div class="row">
+        <div class="col-xs-3">Название: </div>
+        <div class="col-xs-9">
+            <input type="text" class="form-control" id="headerCreateFull" name="header" placeholder="Название задчи"
+                   [(ngModel)]="localTD.name"/>
+        </div>
+    </div>
+
+    <div class="row">
+        <textarea [(ngModel)]="localTD.description" rows="3" cols="50" pInputTextarea
+                  autoResize="autoResize" style="width: 100%;"></textarea>
+    </div>
+
+    <div class="row">
+        Тут будут файлы
+    </div>
+
+    <div class="row">
+
+        <user-search-form [isModal]="false" (onReturn)="setUsers($event)" [showReCreateButton]="false" [hideForm]="!showSelectUserForm"></user-search-form>
+        <div *ngIf="!showSelectUserForm">
+            <p style="margin: 10px 0;">Кому:</p>
+            <button (click)="showUserSearchForm()" class="btn btn-primary" title="Изменить список пользователей" style="margin-top: 10px;">
+                <i class="fa fa-pencil" aria-hidden="true"></i> Выбрать пользователей
+            </button>
+        </div>
+    </div>
+
     <hr>
     <div>
         <button type="button" (click)="CreateTask()" class="btn btn-primary">

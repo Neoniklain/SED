@@ -220,4 +220,5 @@ body {
     outline: none;
 }
 
-#newTask [hidden] { display: none !important;}
+#newTaskFull [hidden] { display: none !important;}
+#newTaskModal [hidden] { display: none !important;}
