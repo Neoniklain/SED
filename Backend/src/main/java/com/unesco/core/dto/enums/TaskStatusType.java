@@ -36,6 +36,11 @@ public enum TaskStatusType {
       this.text = text;
    }
 
+   /**
+    * Получить значение enum по её ID
+    * @param id номер enum
+    * @return null, если такого объекта нет в enum
+    */
    public static TaskStatusType getById(long id) {
       for (TaskStatusType e : values()) {
          if (e.ordinal() == id)

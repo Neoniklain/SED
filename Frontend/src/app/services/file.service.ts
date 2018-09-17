@@ -14,21 +14,15 @@ export class  FileService {
                 private handleError: HandelErrorService) {
     }
 
-    /*public getFilesForTD(tdId: string): Observable<ResponseStatus> {
-        return this.http.get(ApiRouteConstants.File.GetFilesForTD + tdId)
+    public getFilesForObject(objectTypeId: number, objectId: number): Observable<ResponseStatus> {
+        return this.http.get(ApiRouteConstants.File.GetFileForObject
+            .replace(":objectTypeId", objectTypeId.toString())
+            .replace(":objectId", objectId.toString()))
             .pipe(
                 map((res: ResponseStatus) => res),
                 catchError(e => this.handleError.handle(e))
             );
     }
-
-    public getFilesForTU(tuId: string): Observable<ResponseStatus> {
-        return this.http.get(ApiRouteConstants.File.GetFilesForTU + tuId)
-            .pipe(
-                map((res: ResponseStatus) => res),
-                catchError(e => this.handleError.handle(e))
-            );
-    }*/
 
     // грузим файл из базы
     public downloadFile(fileId: number): void {

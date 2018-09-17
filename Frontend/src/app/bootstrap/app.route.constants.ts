@@ -133,11 +133,7 @@ export const ApiRouteConstants = {
     },
     File: {
         Download: "file/download/",
-
-        /*GetFilesForTD: "file/getFilesForTD/",
-        GetFilesForTU: "file/getFilesForTU/",
-
-        AddFileForTD: "file/addFileForTD/",
-        AddFileForTU: "file/addFileForTU/"*/
+        GetFileForObject: "file/getFileForObject/:objectTypeId/:objectId",
+        AddFileForObject: "file/addFileForObject/:objectTypeId/:objectId"
     }
 }

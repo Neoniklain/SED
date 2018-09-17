@@ -1,4 +1,4 @@
-﻿<div class="user-search-form" style="margin-top: 10px;">
+﻿<div class="user-search-form" style="margin-top: 10px;" [hidden]="hideForm">
     <p-selectButton [options]="listOfTypes" [(ngModel)]="Type" optionLabel="name" [disabled]="!editable || disabled"></p-selectButton>
     <div *ngIf="Type.value == 1">
         <p style="margin: 10px 0;">Введите ФИО пользователя:</p>
@@ -30,7 +30,7 @@
         <button *ngIf="editable" type="button" (click)="returnResult()">
             <i class="fa fa-check" aria-hidden="true"></i>Подтвердить
         </button>
-        <button *ngIf="!editable" type="button" (click)="Edit()">
+        <button *ngIf="!editable && showReCreateButton" type="button" (click)="ReCreate()">
             <i class="fa fa-pencil" aria-hidden="true"></i>Изменить
         </button>
     </p>

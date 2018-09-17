@@ -23,42 +23,34 @@ public class FileControllerWeb {
     @Autowired
     FileController _fileController;
 
-    /*@RequestMapping(value = "/getFilesForTD/{id}")
-    public ResponseStatusDTO getFilesForTD(@PathVariable("id") long id) {
-        return _fileController.getFilesForTD(id);
+    @RequestMapping(value = "/getFileForObject/{objectTypeId}/{objectId}")
+    public ResponseStatusDTO getFileForObject(@PathVariable("objectTypeId") long objectTypeId, @PathVariable("objectId") long objectId) {
+        return _fileController.getFiles(objectTypeId, objectId);
     }
 
-    @RequestMapping(value = "/addFileForTD/{id}")
-    public ResponseStatusDTO addFileForTD(@PathVariable("id") long id, @RequestParam("file") MultipartFile file) {
-        return _fileController.addFileForTD(id,file);
+    @RequestMapping(value = "/addFileForObject/{objectTypeId}/{objectId}")
+    public ResponseStatusDTO addFileForObject(@PathVariable("objectTypeId") long objectTypeId, @PathVariable("objectId") long objectId, @RequestParam("file") MultipartFile file) {
+        return _fileController.addFile(objectTypeId, objectId, file);
     }
 
-    @RequestMapping(value = "/getFilesForTU/{id}")
-    public ResponseStatusDTO getFilesForTU(@PathVariable("id") long id) {
-        return _fileController.getFilesForTU(id);
-    }
-
-    @RequestMapping(value = "/addFileForTU/{id}")
-    public ResponseStatusDTO addFileForTU(@PathVariable("id") long id, @RequestParam("file") MultipartFile file) {
-        return _fileController.addFileForTU(id,file);
-    }*/
-
-    @RequestMapping(value = "/download/{id}")
-    public ResponseStatusDTO download(@PathVariable("id") long id, HttpServletRequest request, HttpServletResponse response) throws IOException
+    @RequestMapping(value = "/download/{fileId}")
+    public ResponseStatusDTO download(@PathVariable("fileId") long fileId, HttpServletRequest request, HttpServletResponse response)
     {
-        ResponseStatusDTO result = new ResponseStatusDTO(StatusTypes.OK);
+        ResponseStatusDTO result = new ResponseStatusDTO();
         try
         {
-            FileByteCodeModel myFile = _fileController.download(id);
+            FileByteCodeModel myFile = _fileController.getByteCode(fileId);
             byte[] file = myFile.getData();
             response.reset();
             response.setHeader("Content-disposition","attachment; filename="+myFile.getFileDescription().getFileName());
             response.setBufferSize(DEFAULT_BUFFER_SIZE);
-            response.setContentType(myFile.getFileDescription().getFileType()); //or whatever file type you want to send.
+            response.setContentType(myFile.getFileDescription().getFileType());
             response.getOutputStream().write(file);
+            result.setStatus(StatusTypes.OK);
             result.addMessage("Файл загружен");
         }
         catch (IOException e) {
+            result.setStatus(StatusTypes.ERROR);
             result.addErrors("Ошибка загрузки файла");
         }
         return result;

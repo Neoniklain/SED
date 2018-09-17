@@ -20,6 +20,11 @@ export class UserSearchComponent implements OnInit {
     isModal: boolean = false;
     @Input()
     disabled: boolean = false;
+    @Input()
+    showReCreateButton: boolean = false;
+    @Input()
+    hideForm: boolean = false;
+
     public result: User[];
     public _foundedUsers: User[];
     public listOfTypes: any[];
@@ -71,7 +76,7 @@ export class UserSearchComponent implements OnInit {
         this.result.splice(this.result.indexOf(user), 1);
     }
 
-    public Edit() {
+    public ReCreate() {
         this.Clear();
         this.editable = true;
     }
@@ -93,5 +98,9 @@ export class UserSearchComponent implements OnInit {
             this.onReturn.emit(this.result);
             this.editable = false;
         }
+    }
+
+    public Edit(users: User[]) {
+        this.result = users;
     }
 }

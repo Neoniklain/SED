@@ -1,26 +1,22 @@
 package com.unesco.core.dto.enums;
 
-public enum TaskType {
+public enum ObjectType {
     /**
-     * Без уведомления
+     * Описание задачи
      */
-    Info("Info"),
+    TaskDescription("TaskDescription"),
     /**
-     * С уведомлением о прочтении
+     * Реализация задачи юзером
      */
-    Notice("Notice"),
-    /**
-     * С ответом
-     */
-    Answer("Answer");
+    TaskUser("TaskUser");
 
     /**
      * Получить значение enum по её ID
      * @param id номер enum
      * @return null, если такого объекта нет в enum
      */
-    public static TaskType getById(long id) {
-        for (TaskType e : values()) {
+    public static ObjectType getById(long id) {
+        for (ObjectType e : values()) {
             if (e.ordinal() == id)
                 return e;
         }
@@ -29,7 +25,7 @@ public enum TaskType {
 
     private final String text;
 
-    TaskType(final String text) {
+    ObjectType(final String text) {
         this.text = text;
     }
 

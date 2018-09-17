@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Output} from '@angular/core';
+import {Component, EventEmitter, Output, ViewChild} from '@angular/core';
 import {TaskDescription, TaskStatusType, TaskType, TaskUser} from "../../../models/task/task.model";
 import {TaskService} from "../../../services/task.service";
 import {AccountService} from "../../../services/accountService";
@@ -9,6 +9,8 @@ import {AuthenticationService} from "../../../services/authService";
 import {ApiRouteConstants, BaseApiUrl} from "../../../bootstrap/app.route.constants";
 import {FileDescription} from "../../../models/file/file.model";
 import {FileService} from "../../../services/file.service";
+import {WorkTaskComponent} from "../workTask/workTask.component";
+import {UserSearchComponent} from "../../shared/userSearch/userSearch";
 
 @Component({
     selector: 'new-task-desc',
@@ -23,9 +25,13 @@ export class NewTaskDescComponent {
     public TaskStatusType = TaskStatusType;
     public selectedType: any;
     public show: boolean = false;
+    public showSelectUserForm: boolean = true;
 
     // возвращаем результат
     @Output() onCreateNew: EventEmitter<any> = new EventEmitter();
+
+    @ViewChild(UserSearchComponent)
+    userSearchComponent: UserSearchComponent;
 
     constructor(private taskService: TaskService,
                 private accountService: AccountService,
@@ -41,6 +47,7 @@ export class NewTaskDescComponent {
         this.listOfTypes.push({name: "Без уведомления", value: TaskType.Info.valueOf()});
         this.listOfTypes.push({name: "С уведомлением", value: TaskType.Notice.valueOf()});
         this.listOfTypes.push({name: "С ответом", value: TaskType.Answer.valueOf()});
+        this.selectedType = this.listOfTypes[0];
     }
 
     public showDialog(td?: TaskDescription) {
@@ -84,6 +91,7 @@ export class NewTaskDescComponent {
     }
 
     public setUsers(users: User[]) {
+        this.showSelectUserForm = false;
         this.localTD.taskUsers = [];
         for (let user of users) {
             let tempTU = new TaskUser();
@@ -92,5 +100,14 @@ export class NewTaskDescComponent {
             this.localTD.taskUsers.push(tempTU);
 
         }
+    }
+
+    public showUserSearchForm() {
+        let users: User[];
+        for(let item of this.localTD.taskUsers) {
+            users.push(item.executor);
+        }
+        this.showSelectUserForm = true;
+        this.userSearchComponent.Edit(users);
     }
 }

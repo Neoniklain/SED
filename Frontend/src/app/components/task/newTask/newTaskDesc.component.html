@@ -4,12 +4,18 @@
         {{title}}
     </p-header>
     <div style="height: 400px;">
+
         <p>Введите название задачи:</p>
         <input type="text" class="form-control" id="headerCreate" name="header" placeholder="Название задчи"
                                 [(ngModel)]="localTD.name"/>
+
         <p style="margin: 10px 0;">Тип задачи: </p>
         <p-selectButton [options]="listOfTypes" [(ngModel)]="selectedType" optionLabel="name"></p-selectButton>
-        <user-search-form [isModal]="false" (onReturn)="setUsers($event)"></user-search-form>
+        <user-search-form [isModal]="false" (onReturn)="setUsers($event)" [showReCreateButton]="false" [hideForm]="showSelectUserForm"></user-search-form>
+        <button (click)="showUserSearchForm()" class="btn btn-primary" title="Изменить список пользователей" [hidden]="!showSelectUserForm">
+            <i class="fa fa-pencil" aria-hidden="true"></i> Выбрать пользователей
+        </button>
+
         <p style="margin: 10px 0;">Введите описание задачи:</p>
         <textarea [(ngModel)]="localTD.description" rows="3" cols="50" pInputTextarea
                   autoResize="autoResize" style="width: 100%;"></textarea>
