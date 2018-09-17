@@ -101,6 +101,7 @@ export class UserSearchComponent implements OnInit {
     }
 
     public Edit(users: User[]) {
+        this.editable = true;
         this.result = users;
     }
 }

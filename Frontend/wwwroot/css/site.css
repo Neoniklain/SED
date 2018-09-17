@@ -219,3 +219,5 @@ body {
     box-shadow: inset 1px 1px 12px -2px #44af48;
     outline: none;
 }
+
+#newTask [hidden] { display: none !important;}

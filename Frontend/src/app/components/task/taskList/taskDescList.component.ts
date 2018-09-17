@@ -23,6 +23,7 @@ export class TaskDescListComponent {
     public listTaskDescExecutor: TaskDescription[];
     public user: User;
     public loading: boolean = true;
+    public isCreated: boolean = false;
     // ↓ true - показать созданные / false - показать назначенные юзеру
     public showCreated: boolean = false;
     // ↓ Нужно для работы на view
@@ -31,7 +32,7 @@ export class TaskDescListComponent {
 
 
     @ViewChild(NewTaskDescComponent)
-    newTaskDescDialog: NewTaskDescComponent;
+    newTaskDialog: NewTaskDescComponent;
 
     @ViewChild(WorkTaskComponent)
     workTaskDialog: WorkTaskComponent;
@@ -83,10 +84,12 @@ export class TaskDescListComponent {
     }
 
     public showDialogNewTask() {
-        this.newTaskDescDialog.showDialog();
+        this.isCreated = true;
+        this.newTaskDialog.showDialog();
     }
 
     public onCreateNew() {
+        this.isCreated = false;
         this.getTDCreator();
     }
 
@@ -96,5 +99,9 @@ export class TaskDescListComponent {
 
     public showWorkDialog(item: TaskDescription) {
 
+    }
+
+    public onClose() {
+        this.isCreated = false;
     }
 }

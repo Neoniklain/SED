@@ -1,64 +1,75 @@
-<div class="header-panel-body">
-   <h3>Действия</h3>
-</div>
-<div *hasAccessRight="[AccessRightType.CREATE_TASK]" class="news-action-buttons">
-   <div class="btn-group" role="group" aria-label="Basic example">
-      <button (click)="showDialogNewTask()" type="button" class="btn btn-success">Добавить задачу</button>
-   </div>
-</div>
-<div *ngIf="!loading">
-   <div class="header-panel-body">
-      <h3>Список задач</h3>
-   </div>
-    <div class="row">
-        <div class="col-xs-6" (click)="switchList(true)">
-            Созданные
-        </div>
-        <div class="col-xs-6" (click)="switchList(false)">
-            Назначенные
+<div *ngIf="!isCreated">
+    <div class="header-panel-body">
+       <h3>Действия</h3>
+    </div>
+    <div>
+        <div *hasAccessRight="[AccessRightType.CREATE_TASK]" class="news-action-buttons">
+           <div class="btn-group" role="group" aria-label="Basic example">
+              <button (click)="showDialogNewTask()" type="button" class="btn btn-success">Добавить задачу</button>
+           </div>
         </div>
     </div>
-    <div *ngIf="showCreated">
-        <table class="table table-news">
-            <thead class="thead-inverse">
-                <tr>
-                    <th class="text-center">ID</th>
-                    <th class="text-center">Название</th>
-                    <th class="text-center">Создатель задачи</th>
-                    <th class="text-center">Статус</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr *ngFor="let item of listTaskDescCreator">
-                    <td class="text-center" id="c_id">{{item.id}}</td>
-                    <td (dblclick)="showDialogTaskWork(item)" class="text-center" id="c_name">{{item.name}}</td>
-                    <td (dblclick)="showDialogTaskWork(item)" class="text-center" id="c_creator">{{item.creator.userFIO}}</td>
-                    <td (dblclick)="showDialogTaskWork(item)" class="text-center" id="c_status">{{item.statusName | translate}}</td>
-                </tr>
-            </tbody>
-        </table>
+    <div *ngIf="!loading">
+        <div class="header-panel-body">
+          <h3>Список задач</h3>
+       </div>
+        <div class="row">
+            <div class="col-xs-6" (click)="switchList(true)">
+                Созданные
+            </div>
+            <div class="col-xs-6" (click)="switchList(false)">
+                Назначенные
+            </div>
+        </div>
+        <div *ngIf="showCreated">
+            <table class="table table-news">
+                <thead class="thead-inverse">
+                    <tr>
+                        <th class="text-center">ID</th>
+                        <th class="text-center">Название</th>
+                        <th class="text-center">Создатель задачи</th>
+                        <th class="text-center">Статус</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let item of listTaskDescCreator">
+                        <td class="text-center" id="c_id">{{item.id}}</td>
+                        <td (dblclick)="showDialogTaskWork(item)" class="text-center" id="c_name">{{item.name}}</td>
+                        <td (dblclick)="showDialogTaskWork(item)" class="text-center" id="c_creator">{{item.creator.userFIO}}</td>
+                        <td (dblclick)="showDialogTaskWork(item)" class="text-center" id="c_status">{{item.statusName | translate}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div *ngIf="!showCreated">
+            <table class="table table-news">
+                <thead class="thead-inverse">
+                    <tr>
+                        <th class="text-center">ID</th>
+                        <th class="text-center">Название</th>
+                        <th class="text-center">Создатель задачи</th>
+                        <th class="text-center">Статус</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let item of listTaskDescExecutor">
+                        <td class="text-center" id="e_id">{{item.id}}</td>
+                        <td (dblclick)="showDialogTaskWork(item)" class="text-center" id="e_name">{{item.name}}</td>
+                        <td (dblclick)="showDialogTaskWork(item)" class="text-center" id="e_creator">{{item.creator.userFIO}}</td>
+                        <td (dblclick)="showDialogTaskWork(item)" class="text-center" id="e_status">{{item.statusName | translate}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
     </div>
-    <div *ngIf="!showCreated">
-        <table class="table table-news">
-            <thead class="thead-inverse">
-                <tr>
-                    <th class="text-center">ID</th>
-                    <th class="text-center">Название</th>
-                    <th class="text-center">Создатель задачи</th>
-                    <th class="text-center">Статус</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr *ngFor="let item of listTaskDescExecutor">
-                    <td class="text-center" id="e_id">{{item.id}}</td>
-                    <td (dblclick)="showDialogTaskWork(item)" class="text-center" id="e_name">{{item.name}}</td>
-                    <td (dblclick)="showDialogTaskWork(item)" class="text-center" id="e_creator">{{item.creator.userFIO}}</td>
-                    <td (dblclick)="showDialogTaskWork(item)" class="text-center" id="e_status">{{item.statusName | translate}}</td>
-                </tr>
-            </tbody>
-        </table>
+</div>
+<div [hidden]="!isCreated">
+    <div class="header-panel-body">
+        <h3>Создание задачи</h3>
     </div>
+    <new-task-desc (onCreateNew)="onCreateNew($event)"
+                   (onClose)="onClose()"
+                   [isModal]="false"></new-task-desc>
 </div>
 <data-loader [show]="loading" [margin]="9"></data-loader>
 <work-task></work-task>
-<new-task-desc (onCreateNew)="onCreateNew($event)"></new-task-desc>

@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Output, ViewChild} from '@angular/core';
+import {Component, EventEmitter, Input, Output, ViewChild} from "@angular/core";
 import {TaskDescription, TaskStatusType, TaskType, TaskUser} from "../../../models/task/task.model";
 import {TaskService} from "../../../services/task.service";
 import {AccountService} from "../../../services/accountService";
@@ -18,6 +18,16 @@ import {UserSearchComponent} from "../../shared/userSearch/userSearch";
 })
 
 export class NewTaskDescComponent {
+    @Input()
+    isModal: boolean = false;
+
+    @Output() onCreateNew: EventEmitter<any> = new EventEmitter();
+    @Output() onSizeChange: EventEmitter<any> = new EventEmitter();
+    @Output() onClose: EventEmitter<any> = new EventEmitter();
+
+    @ViewChild(UserSearchComponent)
+    userSearchComponent: UserSearchComponent;
+
     public localTD: TaskDescription;
     public title: string = "";
     public listOfTypes: any[];
@@ -26,12 +36,6 @@ export class NewTaskDescComponent {
     public selectedType: any;
     public show: boolean = false;
     public showSelectUserForm: boolean = true;
-
-    // возвращаем результат
-    @Output() onCreateNew: EventEmitter<any> = new EventEmitter();
-
-    @ViewChild(UserSearchComponent)
-    userSearchComponent: UserSearchComponent;
 
     constructor(private taskService: TaskService,
                 private accountService: AccountService,
@@ -65,6 +69,7 @@ export class NewTaskDescComponent {
     public closeDialog() {
         this.show = false;
         this.localTD = new TaskDescription();
+        this.onClose.emit();
     }
 
     public CreateTask() {
@@ -73,6 +78,8 @@ export class NewTaskDescComponent {
                 this.show = false;
                 this.notificationService.FromStatus(res);
                 this.onCreateNew.emit(res.data);
+                this.isModal = true;
+                this.onSizeChange.emit(true);
             },
             (error: any) => {
                 console.error("Ошибка", error);
@@ -103,11 +110,21 @@ export class NewTaskDescComponent {
     }
 
     public showUserSearchForm() {
-        let users: User[];
-        for(let item of this.localTD.taskUsers) {
+        let users: User[] = [];
+        for (let item of this.localTD.taskUsers) {
             users.push(item.executor);
         }
         this.showSelectUserForm = true;
         this.userSearchComponent.Edit(users);
+    }
+
+    public setFull() {
+        this.isModal = false;
+        this.onSizeChange.emit(false);
+    }
+
+    public setDialog() {
+        this.isModal = true;
+        this.onSizeChange.emit(true);
     }
 }
