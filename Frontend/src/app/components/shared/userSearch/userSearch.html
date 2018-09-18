@@ -45,7 +45,7 @@
                     [closable]="false" (onHide)="closeForm()" [minWidth]="320">
             <p-header>
                 Выбор пользователей
-                <i class="fa fa-close fa-lg" aria-hidden="true" (click)="closeForm()" style="float: right; cursor: pointer;">  </i>
+                <i class="fa fa-close fa-lg pull-right" aria-hidden="true" (click)="closeForm()" style="cursor: pointer;">  </i>
             </p-header>
             <div style="min-height: 300px;">
                 <p-selectButton [options]="listOfTypes" [(ngModel)]="Type" optionLabel="name" [disabled]="!editable || disabled"></p-selectButton>
@@ -91,7 +91,7 @@
                     <i class="fa fa-pencil" aria-hidden="true"></i>Изменить
                 </button>
                 <button *ngIf="editable" type="button" class="btn btn-default" (click)="closeForm()">
-                    <i class="fa fa-check" aria-hidden="true"></i>Закрыть
+                    Закрыть
                 </button>
             </p-footer>
         </p-dialog>

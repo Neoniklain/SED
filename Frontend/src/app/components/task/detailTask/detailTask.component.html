@@ -1,0 +1,119 @@
+<div id="DetailTask" [hidden]="!show">
+    <div *ngIf="!isModal">
+        <div>
+            <div class="row">
+                <div class="col-xs-12 col-sm-1">Тип: </div>
+                <div class="col-xs-12 col-sm-11">
+                    <input [disabled]="true" [value]="GetTypeName()" class="form-control">
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-xs-12 col-sm-1">Название: </div>
+                <div class="col-xs-12 col-sm-11">
+                    <input type="text" class="form-control" id="headerCreateFull" name="header" placeholder="Название задчи"
+                           [(ngModel)]="localTD.name"/>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-xs-12 col-sm-1">Тип: </div>
+                <div class="col-xs-12 col-sm-11">
+                    <input [disabled]="true" [value]="GetTypeName()" class="form-control">
+                </div>
+            </div>
+
+            <div class="row" *ngIf="!ICreate">
+                <div class="col-xs-12">
+                    Автор
+                </div>
+            </div>
+
+            <div class="row" *ngIf="!ICreate">
+                <div class="col-xs-12">
+                    Что-то связанное с моим ответом. Может не здесь.
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="visible-xs col-xs-12 hidden-sm">Текст: </div>
+                <div class="col-xs-12">
+                        <textarea [(ngModel)]="localTD.description" rows="15" cols="70" pInputTextarea class="form-control" [disabled]="true"
+                                  [autoResize]="false" style="width: 100%; max-width: 100%; min-width: 100%;"></textarea>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-xs-12">
+                    Тут будут файлы
+                </div>
+            </div>
+
+            <div class="row" *ngIf="ICreate">
+                <div class="col-xs-12">
+                    Если я автор, то здесь, в зависимости от разных параметров - будет список, кому назначено и т.д.
+                </div>
+            </div>
+        </div>
+        <hr>
+        <div>
+            <button type="button" class="btn btn-default" (click)="Close()">
+                Закрыть
+            </button>
+        </div>
+    </div>
+    <div *ngIf="isModal">
+        <p-dialog [(visible)]="show" modal="modal" [resizable]="true" [draggable]="true"
+                  [closable]="false" [responsive]="true" (onHide)="Close()">
+            <p-header>
+                {{localTD.name}}
+                <i class="fa fa-close fa-lg pull-right" aria-hidden="true" (click)="Close()" style="cursor: pointer;"></i>
+            </p-header>
+            <div class="rows-in-dialog">
+                <div class="row">
+                    <div class="col-xs-12 col-sm-1">Тип: </div>
+                    <div class="col-xs-12 col-sm-11">
+                        <input [disabled]="true" [value]="GetTypeName()" class="form-control">
+                    </div>
+                </div>
+
+                <div class="row" *ngIf="!ICreate">
+                    <div class="col-xs-12">
+                        Автор
+                    </div>
+                </div>
+
+                <div class="row" *ngIf="!ICreate">
+                    <div class="col-xs-12">
+                        Что-то связанное с моим ответом. Может не здесь.
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="visible-xs col-xs-12 hidden-sm">Текст: </div>
+                    <div class="col-xs-12">
+                        <textarea [(ngModel)]="localTD.description" rows="15" cols="70" pInputTextarea class="form-control" [disabled]="true"
+                                  [autoResize]="false" style="width: 100%; max-width: 100%; min-width: 100%;"></textarea>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-xs-12">
+                        Тут будут файлы
+                    </div>
+                </div>
+
+                <div class="row" *ngIf="ICreate">
+                    <div class="col-xs-12">
+                        Если я автор, то здесь, в зависимости от разных параметров - будет список, кому назначено и т.д.
+                    </div>
+                </div>
+            </div>
+            <p-footer>
+                <button type="button" class="btn btn-default" (click)="Close()">
+                    Закрыть
+                </button>
+            </p-footer>
+        </p-dialog>
+    </div>
+</div>

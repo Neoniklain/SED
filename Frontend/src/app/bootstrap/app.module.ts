@@ -14,7 +14,14 @@ import {EnumKeysPipe} from "../pipes/enum.keys";
 import {Globals} from "../globals";
 import {ProfileDirective} from "../directive/profile.dirictive";
 import {EnumStringKeysPipe} from "../pipes/enum.string.keys";
-import {CheckboxModule, EditorModule, RadioButtonModule, TabViewModule, TooltipModule} from "primeng/primeng";
+import {
+    CheckboxModule,
+    EditorModule,
+    InputTextareaModule,
+    RadioButtonModule,
+    TabViewModule,
+    TooltipModule
+} from "primeng/primeng";
 import {ConfirmDialogModule} from 'primeng/primeng';
 import {InputTextModule} from 'primeng/primeng';
 import {DialogModule} from 'primeng/primeng';
@@ -90,6 +97,7 @@ import {HasRoleDirective} from "../directive/hasRole.dirictive";
 import {UserSearchComponent} from "../components/shared/userSearch/userSearch";
 import {FileUploadModule} from "ng2-file-upload";
 import {ScheduleComponent} from "../components.page/schedule/schedule.component";
+import {DetailTaskComponent} from "../components/task/detailTask/detailTask.component";
 
 registerLocaleData(localeRu);
 
@@ -121,7 +129,8 @@ registerLocaleData(localeRu);
         FileUploadModule,
         RadioButtonModule,
         TabViewModule,
-        TooltipModule
+        TooltipModule,
+        InputTextareaModule
     ],
     entryComponents: [
         ProfileComponent
@@ -168,7 +177,8 @@ registerLocaleData(localeRu);
         LessonListComponent,
         LessonDetailsComponent,
         ScheduleComponent,
-        UserSearchComponent
+        UserSearchComponent,
+        DetailTaskComponent
     ],
     providers: [
         {provide: RequestOptions, useClass: GlobalHttpOptions},

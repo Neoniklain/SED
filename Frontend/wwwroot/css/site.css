@@ -274,6 +274,11 @@ body {
     width: calc(50% - 2px);
 }
 
+.rows-in-dialog {
+    width: -webkit-calc(100% - 1px);
+    width: calc(100% - 1px);
+}
+
 #TasksList .ui-tabview-nav li a {
     width: 100%;
     text-align: center;

@@ -77,10 +77,10 @@
                         <td class="text-center" id="c_name">{{item.name}}</td>
                         <td class="text-center" id="c_status">{{item.statusName | translate}}</td>
                         <td class="text-center" id="c_buttons">
-                            <button type="button" class="btn btn-info btn-sm" title="Посмотреть подробности">
+                            <button type="button" class="btn btn-info btn-sm" title="Посмотреть подробности" (click)="showDetailsDialog(item)">
                                 <i class="fa fa-eye"></i>
                             </button>
-                            <button type="button" class="btn btn-danger btn-sm" title="Удалить задачу">
+                            <button type="button" class="btn btn-danger btn-sm" title="Удалить задачу" (click)="deleteTask(item)">
                                 <i class="fa fa-trash"></i>
                             </button>
                         </td>
@@ -104,7 +104,7 @@
                         <td class="text-center hidden-xs" id="e_creator">{{item.creator.userFIO}}</td>
                         <td class="text-center" id="e_dateRequired">ДАТА</td>
                         <td class="text-center" id="e_buttons">
-                            <button type="button" class="btn btn-info btn-sm" title="Посмотреть подробности">
+                            <button type="button" class="btn btn-info btn-sm" title="Посмотреть подробности" (click)="showDetailsDialog(item)">
                                 <i class="fa fa-eye"></i>
                             </button>
                         </td>
@@ -123,5 +123,96 @@
                    (onClose)="onCloseNewDialog()"
                    [isModal]="false"></new-task-desc>
 </div>
+<div [hidden]="!letShow(3)">
+    <detail-task [isModal]="true"></detail-task>
+</div>
 <data-loader [show]="loading" [margin]="9"></data-loader>
 <work-task></work-task>
+<detail-task [isModal]="true"></detail-task>
+<!--<div>
+    <div *ngIf="!letShow('list')">
+        <button (click)="setComp('list')" type="button" class="btn btn-success">
+            <i class="fa fa-backward"></i>Назад
+        </button>
+    </div>
+    <div *ngIf="letShow('list')" id="TasksList">
+        <div>
+            <div *hasAccessRight="[AccessRightType.CREATE_TASK]" class="news-action-buttons">
+                <div class="btn-group" role="group" aria-label="Basic example">
+                    <button (click)="showDialogNewTask()" type="button" class="btn btn-success">Добавить задачу</button>
+                </div>
+            </div>
+        </div>
+        <div *ngIf="!loading">
+            <div class="header-panel-body">
+                <h3>Список задач</h3>
+            </div>
+<p-tabView>
+    <p-tabPanel header="Созданные">
+        <table class="table table-news table-hover">
+            <thead class="thead-inverse">
+            <tr>
+                <th class="text-center">Название</th>
+                <th class="text-center">Статус</th>
+                <th class="text-center">Действия</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let item of listTaskDescCreator">
+                <td class="text-center" id="c_name">{{item.name}}</td>
+                <td class="text-center" id="c_status">{{item.statusName | translate}}</td>
+                <td class="text-center" id="c_buttons">
+                    <button type="button" class="btn btn-info btn-sm" title="Посмотреть подробности" (click)="showDetailsFull(item)">
+                        <i class="fa fa-eye"></i>
+                    </button>
+                    <button type="button" class="btn btn-danger btn-sm" title="Удалить задачу" (click)="deleteTask(item)">
+                        <i class="fa fa-trash"></i>
+                    </button>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </p-tabPanel>
+    <p-tabPanel header="Назначенные" [selected]="true">
+        <table class="table table-news table-hover">
+            <thead class="thead-inverse">
+            <tr>
+                <th class="text-center">Название</th>
+                <th class="text-center hidden-xs">Назначил</th>
+                <th class="text-center">Срок</th>
+                <th class="text-center">Действия</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let item of listTaskDescExecutor">
+                <td class="text-center" id="e_name">{{item.name}}</td>
+                <td class="text-center hidden-xs" id="e_creator">{{item.creator.userFIO}}</td>
+                <td class="text-center" id="e_dateRequired">ДАТА</td>
+                <td class="text-center" id="e_buttons">
+                    <button type="button" class="btn btn-info btn-sm" title="Посмотреть подробности" (click)="showDetailsDialog(item)">
+                        <i class="fa fa-eye"></i>
+                    </button>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </p-tabPanel>
+</p-tabView>
+</div>
+</div>
+<div *ngIf="letShow('new')">
+    <div class="header-panel-body">
+        <h3>Создание задачи</h3>
+    </div>
+    <new-task-desc (onCreateNew)="onCreateNew($event)"
+                   [isModal]="false"></new-task-desc>
+</div>
+<div *ngIf="letShow('detail-dialog')">
+    <detail-task [isModal]="true"></detail-task>
+</div>
+<div *ngIf="letShow('detail-full')">
+    <detail-task [isModal]="false"></detail-task>
+</div>
+<data-loader [show]="loading" [margin]="9"></data-loader>
+<work-task></work-task>
+</div>-->

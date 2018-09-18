@@ -11,6 +11,8 @@ import {NotificationService} from "../../../services/notification.service";
 import {AccessRightType} from "../../../models/account/access";
 import {Globals} from "../../../globals";
 import {ResponseStatus} from "../../../models/additional/responseStatus";
+import {DetailTaskComponent} from "../detailTask/detailTask.component";
+import {StatusType} from "../../../models/statusType.model";
 
 @Component({
    selector: 'task-list',
@@ -36,6 +38,9 @@ export class TaskDescListComponent {
 
     @ViewChild(WorkTaskComponent)
     workTaskDialog: WorkTaskComponent;
+
+    @ViewChild(DetailTaskComponent)
+    detailTaskDialog: DetailTaskComponent;
 
     constructor(private taskService: TaskService,
                 private authService: AuthenticationService,
@@ -79,27 +84,26 @@ export class TaskDescListComponent {
             });
     }
 
-    public switchList(page: boolean) {
-        this.showCreated = page;
-    }
-
-    public getSwitchListButtonClass(id: number): string {
-        if (id == 1) {
-            if (this.showCreated) {
-                return " active ";
-            }
-        }
-        if (id == 2) {
-            if (!this.showCreated) {
-                return " active ";
-            }
-        }
-        return "";
-    }
-
     public showDialogNewTask() {
         this.isCreated = true;
         this.newTaskDialog.showDialog();
+    }
+
+    public deleteTask(item: TaskDescription) {
+        this.taskService.DeleteTask(item.id)
+            .subscribe(
+                res => {
+                    this.notificationService.FromStatus(res);
+                    if (res.status == StatusType[StatusType.OK]) {
+                        this.listTaskDescCreator.splice(this.listTaskDescCreator.findIndex(function (x) {
+                            return x.id == item.id;
+                        }), 1);
+                    }
+                },
+                error => {
+                    console.error(error);
+                }
+            );
     }
 
     public onCreateNew() {
@@ -107,7 +111,7 @@ export class TaskDescListComponent {
     }
 
     public showDetailsDialog(item: TaskDescription) {
-
+        this.detailTaskDialog.Show(item);
     }
 
     public showWorkDialog(item: TaskDescription) {
@@ -126,6 +130,9 @@ export class TaskDescListComponent {
             if (this.isCreated) {
                 return true;
             }
+        }
+        if (comp == 3) {
+            return true;
         }
         return false;
     }
