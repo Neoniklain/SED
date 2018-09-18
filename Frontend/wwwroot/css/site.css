@@ -247,3 +247,40 @@ body {
 #userSearchForm p-autocomplete input {
     width: 100%;
 }
+
+#TasksList .ui-tabview .ui-tabview-panels {
+    background-color: #ffffff;
+    padding: 0.571em 0 0 0;
+    border: 0;
+    border-top: 1px solid #c8c8c8;
+    border-bottom: 1px solid #c8c8c8;
+    color: #333333;
+}
+
+#TasksList p-tabView table {
+    margin-bottom: 0;
+}
+
+#TasksList p-tabView table td {
+    vertical-align: middle;
+}
+
+#userSearchForm td {
+    vertical-align: middle;
+}
+
+#TasksList .ui-tabview-nav li {
+    width: -webkit-calc(50% - 2px);
+    width: calc(50% - 2px);
+}
+
+#TasksList .ui-tabview-nav li a {
+    width: 100%;
+    text-align: center;
+}
+
+#TasksList .ui-tabview-selected {
+    background-color: #000000ab;
+    border-color: #c8c8c8;
+    color: #333333 !important;
+}

@@ -14,7 +14,7 @@ import {EnumKeysPipe} from "../pipes/enum.keys";
 import {Globals} from "../globals";
 import {ProfileDirective} from "../directive/profile.dirictive";
 import {EnumStringKeysPipe} from "../pipes/enum.string.keys";
-import {CheckboxModule, EditorModule, RadioButtonModule} from "primeng/primeng";
+import {CheckboxModule, EditorModule, RadioButtonModule, TabViewModule, TooltipModule} from "primeng/primeng";
 import {ConfirmDialogModule} from 'primeng/primeng';
 import {InputTextModule} from 'primeng/primeng';
 import {DialogModule} from 'primeng/primeng';
@@ -119,7 +119,9 @@ registerLocaleData(localeRu);
         ToggleButtonModule,
         EditorModule,
         FileUploadModule,
-        RadioButtonModule
+        RadioButtonModule,
+        TabViewModule,
+        TooltipModule
     ],
     entryComponents: [
         ProfileComponent

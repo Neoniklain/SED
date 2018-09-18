@@ -1,7 +1,4 @@
-<div *ngIf="letShow(1)">
-    <div class="header-panel-body">
-       <h3>Действия</h3>
-    </div>
+<div *ngIf="letShow(1)" id="TasksList">
     <div>
         <div *hasAccessRight="[AccessRightType.CREATE_TASK]" class="news-action-buttons">
            <div class="btn-group" role="group" aria-label="Basic example">
@@ -13,33 +10,42 @@
         <div class="header-panel-body">
           <h3>Список задач</h3>
        </div>
-        <div class="row">
-            <div class="col-xs-6" (click)="switchList(true)">
-                Созданные
+        <!--<div class="row">
+            <div class="col-xs-6">
+                <button (click)="switchList(true)" type="button" class="btn btn-default {{getSwitchListButtonClass(1)}}" style="width: 100%;">
+                    Созданные
+                </button>
             </div>
-            <div class="col-xs-6" (click)="switchList(false)">
-                Назначенные
+            <div class="col-xs-6">
+                <button (click)="switchList(false)" type="button" class="btn btn-default {{getSwitchListButtonClass(2)}}" style="width: 100%;">
+                    Назначенные
+                </button>
             </div>
         </div>
         <div *ngIf="showCreated">
-            <table class="table table-news">
+            <table class="table table-news table-hover">
                 <thead class="thead-inverse">
                     <tr>
-                        <th class="text-center hidden-xs">ID</th>
                         <th class="text-center">Название</th>
                         <th class="text-center">Статус</th>
+                        <th class="text-center">Действия</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr *ngFor="let item of listTaskDescCreator">
                         <td class="text-center" id="c_name">{{item.name}}</td>
                         <td class="text-center" id="c_status">{{item.statusName | translate}}</td>
+                        <td class="text-center" id="c_buttons">
+                            <button (click)="alert('REMOVE')" type="button" class="btn btn-danger" title="Удалить задачу">
+                                <i class="fa fa-trash"></i>
+                            </button>
+                        </td>
                     </tr>
                 </tbody>
             </table>
         </div>
         <div *ngIf="!showCreated">
-            <table class="table table-news">
+            <table class="table table-news table-hover">
                 <thead class="thead-inverse">
                     <tr>
                         <th class="text-center">Название</th>
@@ -55,7 +61,58 @@
                     </tr>
                 </tbody>
             </table>
-        </div>
+        </div>-->
+        <p-tabView>
+            <p-tabPanel header="Созданные">
+                <table class="table table-news table-hover">
+                    <thead class="thead-inverse">
+                    <tr>
+                        <th class="text-center">Название</th>
+                        <th class="text-center">Статус</th>
+                        <th class="text-center">Действия</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr *ngFor="let item of listTaskDescCreator">
+                        <td class="text-center" id="c_name">{{item.name}}</td>
+                        <td class="text-center" id="c_status">{{item.statusName | translate}}</td>
+                        <td class="text-center" id="c_buttons">
+                            <button type="button" class="btn btn-info btn-sm" title="Посмотреть подробности">
+                                <i class="fa fa-eye"></i>
+                            </button>
+                            <button type="button" class="btn btn-danger btn-sm" title="Удалить задачу">
+                                <i class="fa fa-trash"></i>
+                            </button>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </p-tabPanel>
+            <p-tabPanel header="Назначенные" [selected]="true">
+                <table class="table table-news table-hover">
+                    <thead class="thead-inverse">
+                    <tr>
+                        <th class="text-center">Название</th>
+                        <th class="text-center hidden-xs">Назначил</th>
+                        <th class="text-center">Срок</th>
+                        <th class="text-center">Действия</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr *ngFor="let item of listTaskDescExecutor">
+                        <td class="text-center" id="e_name">{{item.name}}</td>
+                        <td class="text-center hidden-xs" id="e_creator">{{item.creator.userFIO}}</td>
+                        <td class="text-center" id="e_dateRequired">ДАТА</td>
+                        <td class="text-center" id="e_buttons">
+                            <button type="button" class="btn btn-info btn-sm" title="Посмотреть подробности">
+                                <i class="fa fa-eye"></i>
+                            </button>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </p-tabPanel>
+        </p-tabView>
     </div>
 </div>
 <div [hidden]="!letShow(2)">

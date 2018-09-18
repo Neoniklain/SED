@@ -8,20 +8,24 @@
                             [disabled]="!editable || disabled">
             </p-autoComplete>
             <div *ngIf="result != null">
-                <p style="margin: 10px 0;">Выбранные пользователи:</p>
-                <table *ngIf="result.length > 0" class="table">
+                <p *ngIf="result.length > 0" style="margin: 10px 0;">Выбранные пользователи:</p>
+                <table *ngIf="result.length > 0" class="table table-hover">
                     <thead>
                         <td>#</td>
+                        <th>Логин</th>
                         <td>Имя</td>
                         <td>E-mail</td>
                         <td></td>
                     </thead>
                     <tr *ngFor="let r of result; let i = index">
                         <td>{{i+1}}</td>
+                        <td>{{r.username}}</td>
                         <td>{{r.userFIO}}</td>
                         <td>{{r.email}}</td>
                         <td>
-                            <button *ngIf="editable" (click)="removeUser(r)" class="btn btn-danger btn-sm"><i class="fa fa-times"></i></button>
+                            <button *ngIf="editable" (click)="removeUser(r)" class="btn btn-danger btn-sm" title="Удалить из списка">
+                                <i class="fa fa-times"></i>
+                            </button>
                         </td>
                     </tr>
                 </table>
@@ -41,39 +45,43 @@
                     [closable]="false" (onHide)="closeForm()" [minWidth]="320">
             <p-header>
                 Выбор пользователей
-                <i class="fa fa-close fa-lg" aria-hidden="true" (click)="closeForm()" style="float: right">  </i>
+                <i class="fa fa-close fa-lg" aria-hidden="true" (click)="closeForm()" style="float: right; cursor: pointer;">  </i>
             </p-header>
-            <p-selectButton [options]="listOfTypes" [(ngModel)]="Type" optionLabel="name" [disabled]="!editable || disabled"></p-selectButton>
-            <div *ngIf="Type.value == 1">
-                <p style="margin: 10px 0;">Введите ФИО пользователя:</p>
-                <p-autoComplete [(ngModel)]="lastSelected" [suggestions]="_foundedUsers" (completeMethod)="searchUserByFIO($event)" styleClass="w-100"
-                                [minLength]="3" placeholder="Введите ФИО" field="userFIO" (onSelect)="AddUser($event)" [multiple]="false"
-                                [disabled]="!editable || disabled">
-                </p-autoComplete>
-                <div *ngIf="result != null">
-                    <p style="margin: 10px 0;">Выбранные пользователи:</p>
-                    <table *ngIf="result.length > 0" class="table">
-                        <thead>
-                            <tr>
-                                <th>Имя</th>
-                                <th>Логин</th>
-                                <th></th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr *ngFor="let r of result; let i = index">
-                                <td>{{r.userFIO}}</td>
-                                <td>{{r.username}}</td>
-                                <td>
-                                    <button *ngIf="editable" (click)="removeUser(r)" class="btn btn-danger btn-sm"><i class="fa fa-times"></i></button>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
+            <div style="min-height: 300px;">
+                <p-selectButton [options]="listOfTypes" [(ngModel)]="Type" optionLabel="name" [disabled]="!editable || disabled"></p-selectButton>
+                <div *ngIf="Type.value == 1">
+                    <p style="margin: 10px 0;">Введите ФИО пользователя:</p>
+                    <p-autoComplete [(ngModel)]="lastSelected" [suggestions]="_foundedUsers" (completeMethod)="searchUserByFIO($event)" styleClass="w-100"
+                                    [minLength]="3" placeholder="Введите ФИО" field="userFIO" (onSelect)="AddUser($event)" [multiple]="false"
+                                    [disabled]="!editable || disabled">
+                    </p-autoComplete>
+                    <div *ngIf="result != null">
+                        <p *ngIf="result.length > 0" style="margin: 10px 0;">Выбранные пользователи:</p>
+                        <table *ngIf="result.length > 0" class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th>Имя</th>
+                                    <th>Логин</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let r of result; let i = index">
+                                    <td>{{r.userFIO}}</td>
+                                    <td>{{r.username}}</td>
+                                    <td>
+                                        <button *ngIf="editable" (click)="removeUser(r)" class="btn btn-danger btn-sm" title="Удалить из списка">
+                                            <i class="fa fa-times"></i>
+                                        </button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
             <p-footer style="width: 100%;">
-                <button *ngIf="editable && !showReCreateButton" type="button" class="btn btn-warning" (click)="Clear()">
+                <button *ngIf="editable && !showReCreateButton" type="button" class="btn btn-warning" (click)="Clear()" title="Очистить список выбранных пользователей">
                     <i class="fa fa-trash" aria-hidden="true"></i>
                 </button>
                 <button *ngIf="editable" type="button" class="btn btn-primary" (click)="returnResult()">

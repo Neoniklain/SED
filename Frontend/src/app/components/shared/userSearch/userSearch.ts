@@ -69,7 +69,11 @@ export class UserSearchComponent implements OnInit {
     }
 
     public AddUser(user: User) {
-       this.result.push(user);
+        if (!this.result.find(function (x) {
+            return x.id == user.id;
+        })) {
+            this.result.push(user);
+        }
     }
 
     removeUser(user: User) {

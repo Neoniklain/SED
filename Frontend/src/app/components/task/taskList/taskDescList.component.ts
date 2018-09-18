@@ -83,6 +83,20 @@ export class TaskDescListComponent {
         this.showCreated = page;
     }
 
+    public getSwitchListButtonClass(id: number): string {
+        if (id == 1) {
+            if (this.showCreated) {
+                return " active ";
+            }
+        }
+        if (id == 2) {
+            if (!this.showCreated) {
+                return " active ";
+            }
+        }
+        return "";
+    }
+
     public showDialogNewTask() {
         this.isCreated = true;
         this.newTaskDialog.showDialog();

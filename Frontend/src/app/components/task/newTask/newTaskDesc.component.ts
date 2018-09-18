@@ -11,6 +11,9 @@ import {FileDescription} from "../../../models/file/file.model";
 import {FileService} from "../../../services/file.service";
 import {WorkTaskComponent} from "../workTask/workTask.component";
 import {UserSearchComponent} from "../../shared/userSearch/userSearch";
+import {ResponseType} from "@angular/http";
+import {ResponseStatus} from "../../../models/additional/responseStatus";
+import {StatusType} from "../../../models/statusType.model";
 
 @Component({
     selector: 'new-task-desc',
@@ -75,10 +78,12 @@ export class NewTaskDescComponent {
     public CreateTask() {
         this.localTD.type = this.selectedType.value;
         this.taskService.Create(this.localTD).subscribe((res) => {
-                this.show = false;
                 this.notificationService.FromStatus(res);
-                this.onCreateNew.emit(res.data);
-                this.onClose.emit();
+                if (res.status == StatusType[StatusType.OK]) {
+                    this.show = false;
+                    this.onCreateNew.emit(res.data);
+                    this.onClose.emit();
+                }
             },
             (error: any) => {
                 console.error("Ошибка", error);
