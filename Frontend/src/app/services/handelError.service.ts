@@ -23,7 +23,7 @@ export class HandelErrorService {
         } else {
             this.notification.Error("Не удалось выполнить запрос. Повторите попытку позже.", "Ошибка выполнения");
         }
-        return Observable.throw(errMsg);
+        return Observable.throwError(errMsg);
     }
 
 }

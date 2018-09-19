@@ -27,6 +27,11 @@ Extension.prototype.register = function (name, ctor, deps) {
     };
 };
 
+Extension.prototype.exist = function (name) {
+    return this.registry[name];
+};
+
+
 Extension.prototype.getExtensionType = function (name) {
     return this.registry[name].ctor;
 }

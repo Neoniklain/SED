@@ -13,4 +13,8 @@ export class PluginManager {
     register(name, ctor, deps) {
         return Extension.prototype.register(name, ctor, deps);
     }
+
+    exist(name) {
+        return Extension.prototype.exist(name);
+    }
 }

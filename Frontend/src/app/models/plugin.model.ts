@@ -1,12 +1,23 @@
-
 export class Plugin {
-
-    public name:string;
-    public description:string;
+    public id: string;
+    public name: string;
+    public mainClass: string;
 
     constructor() {
-        this.name="";
-        this.description="";
+        this.id = "";
+        this.name = "";
+        this.mainClass = "";
     }
 
+}
+
+export interface PluginCore {
+    pluginManager: PluginManager;
+}
+
+interface PluginManager {
+    getType(name: string);
+    exist(name: string);
+    getProviders();
+    register(name: string, ctor, deps: string[]);
 }

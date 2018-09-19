@@ -8,15 +8,17 @@ export interface PluginInformation {
     header: {
         components: string[]
     };
-    plugins: {
-        modules: any,
-        routes: Array<{
-            name: string,
-            path: string,
-            component: {
-                module: string,
-                componentType: string
-            }
-        }>
-    };
+    plugins: Array<{
+        id: string,
+        name: string,
+        mainClass: string
+    }>;
+    routes: Array<{
+        name: string,
+        path: string,
+        component: {
+            module: string,
+            componentType: string
+        }
+    }>;
 }
