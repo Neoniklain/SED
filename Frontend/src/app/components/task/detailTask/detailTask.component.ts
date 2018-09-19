@@ -1,4 +1,4 @@
-import {Component, Input} from "@angular/core";
+import {Component, EventEmitter, Input, Output} from "@angular/core";
 import {TaskService} from "../../../services/task.service";
 import {AccountService} from "../../../services/accountService";
 import {NotificationService} from "../../../services/notification.service";
@@ -14,9 +14,10 @@ import {TaskDescription} from "../../../models/task/task.model";
 export class DetailTaskComponent {
     @Input()
     isModal: boolean = false;
-
-    public show: boolean = false;
-    public localTD: TaskDescription;
+    @Input()
+    localTD: TaskDescription;
+    @Output()
+    onClose: EventEmitter<any> = new EventEmitter();
     public ICreate: boolean = false;
 
     constructor(private taskService: TaskService,
@@ -27,7 +28,10 @@ export class DetailTaskComponent {
     }
 
     ngOnInit(): void {
-        this.localTD = new TaskDescription();
+        if (this.localTD == null) {
+            this.localTD = new TaskDescription();
+            this.localTD.name = "Задача не существует";
+        }
         this.CheckICreate();
     }
 
@@ -37,16 +41,9 @@ export class DetailTaskComponent {
     public isNeedAnswer() {
     }
 
-    public Show(td: TaskDescription) {
-        if (td != null) {
-            this.show = true;
-            this.localTD = td;
-        }
-    }
-
     public Close() {
-        this.show = false;
         this.localTD = new TaskDescription();
+        this.onClose.emit();
     }
 
     public GetTypeName(): string {

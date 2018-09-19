@@ -25,22 +25,13 @@ export class TaskDescListComponent {
     public listTaskDescExecutor: TaskDescription[];
     public user: User;
     public loading: boolean = true;
-    public isCreated: boolean = false;
+    public viewName: string;
+    public localTD: TaskDescription;
     // ↓ true - показать созданные / false - показать назначенные юзеру
     public showCreated: boolean = false;
     // ↓ Нужно для работы на view
     TaskStatusType = TaskStatusType;
     AccessRightType = AccessRightType;
-
-
-    @ViewChild(NewTaskDescComponent)
-    newTaskDialog: NewTaskDescComponent;
-
-    @ViewChild(WorkTaskComponent)
-    workTaskDialog: WorkTaskComponent;
-
-    @ViewChild(DetailTaskComponent)
-    detailTaskDialog: DetailTaskComponent;
 
     constructor(private taskService: TaskService,
                 private authService: AuthenticationService,
@@ -50,6 +41,7 @@ export class TaskDescListComponent {
     }
 
     ngOnInit(): void {
+        this.viewName = 'list';
         this.listTaskDescCreator = [];
         this.listTaskDescExecutor = [];
         this.user = new User();
@@ -84,11 +76,6 @@ export class TaskDescListComponent {
             });
     }
 
-    public showDialogNewTask() {
-        this.isCreated = true;
-        this.newTaskDialog.showDialog();
-    }
-
     public deleteTask(item: TaskDescription) {
         this.taskService.DeleteTask(item.id)
             .subscribe(
@@ -106,38 +93,30 @@ export class TaskDescListComponent {
             );
     }
 
-    public onCreateNew() {
-        this.getTDCreator();
-    }
-
-    public showDetailsDialog(item: TaskDescription) {
-        this.detailTaskDialog.Show(item);
-    }
-
-    public showWorkDialog(item: TaskDescription) {
-
-    }
-
-    public letShow(comp: number): boolean {
-        // Список задач
-        if (comp == 1) {
-            if (!this.isCreated) {
-                return true;
-            }
+    public setComp(name: string) {
+        this.viewName = name;
+        if (name == 'list') {
+            this.localTD = new TaskDescription();
         }
-        // Добавление новой задачи
-        if (comp == 2) {
-            if (this.isCreated) {
-                return true;
-            }
-        }
-        if (comp == 3) {
+    }
+
+    public letShow(name: string): boolean {
+        if (name == this.viewName) {
             return true;
         }
         return false;
     }
 
-    public onCloseNewDialog() {
-        this.isCreated = false;
+    public showDetails(item: TaskDescription) {
+        this.localTD = item;
+        this.setComp('detail');
+    }
+
+    public showDialogNewTask() {
+        this.setComp('new');
+    }
+
+    public onCreateNew() {
+        this.getTDCreator();
     }
 }

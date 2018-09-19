@@ -1,56 +1,50 @@
-<div id="DetailTask" [hidden]="!show">
+<div id="DetailTask">
     <div *ngIf="!isModal">
-        <div>
-            <div class="row">
-                <div class="col-xs-12 col-sm-1">Тип: </div>
+        <div class="header-panel-body">
+            <h3>{{localTD.name}}</h3>
+        </div>
+        <div class="form-horizontal">
+            <div class="row form-group">
+                <label class="col-xs-12 col-sm-1 control-label">Тип: </label>
                 <div class="col-xs-12 col-sm-11">
                     <input [disabled]="true" [value]="GetTypeName()" class="form-control">
                 </div>
             </div>
 
-            <div class="row">
-                <div class="col-xs-12 col-sm-1">Название: </div>
+            <div class="row form-group" *ngIf="!ICreate">
+                <label class="col-xs-12 col-sm-1 control-label">Автор: </label>
                 <div class="col-xs-12 col-sm-11">
-                    <input type="text" class="form-control" id="headerCreateFull" name="header" placeholder="Название задчи"
-                           [(ngModel)]="localTD.name"/>
+                    <input [disabled]="true" [value]="localTD.creator.userFIO" class="form-control">
                 </div>
             </div>
 
-            <div class="row">
-                <div class="col-xs-12 col-sm-1">Тип: </div>
+            <div class="row form-group" *ngIf="!ICreate">
+                <label class="col-xs-12 col-sm-1 control-label">Ответ: </label>
                 <div class="col-xs-12 col-sm-11">
-                    <input [disabled]="true" [value]="GetTypeName()" class="form-control">
+                    <input [disabled]="true" class="form-control" placeholder="Ответ...">
                 </div>
             </div>
 
-            <div class="row" *ngIf="!ICreate">
-                <div class="col-xs-12">
-                    Автор
-                </div>
-            </div>
-
-            <div class="row" *ngIf="!ICreate">
-                <div class="col-xs-12">
-                    Что-то связанное с моим ответом. Может не здесь.
-                </div>
-            </div>
-
-            <div class="row">
-                <div class="visible-xs col-xs-12 hidden-sm">Текст: </div>
+            <div class="row form-group">
+                <label class="visible-xs col-xs-12 hidden-sm control-label">Текст: </label>
                 <div class="col-xs-12">
                         <textarea [(ngModel)]="localTD.description" rows="15" cols="70" pInputTextarea class="form-control" [disabled]="true"
-                                  [autoResize]="false" style="width: 100%; max-width: 100%; min-width: 100%;"></textarea>
+                                  [autoResize]="false" style="width: 100%; max-width: 100%; min-width: 100%; resize: none;"></textarea>
                 </div>
             </div>
 
-            <div class="row">
-                <div class="col-xs-12">
-                    Тут будут файлы
+            <div class="row form-group">
+                <label class="col-xs-12 col-sm-1 control-label">Файлы: </label>
+                <div class="col-xs-12 col-sm-11 form-control-static">
+                    <i class="fa fa-file-image-o fa-lg" aria-hidden="true" style="cursor: pointer;" title="Картинка"></i> 
+                    <i class="fa fa-file-excel-o fa-lg" aria-hidden="true" style="cursor: pointer;" title="Эксель"></i> 
+                    <i class="fa fa-file-video-o fa-lg" aria-hidden="true" style="cursor: pointer;" title="Видосик"></i> 
                 </div>
             </div>
 
-            <div class="row" *ngIf="ICreate">
-                <div class="col-xs-12">
+            <div class="row form-group" *ngIf="ICreate">
+                <label class="col-xs-12 col-sm-1 control-label">Something: </label>
+                <div class="col-xs-12 col-sm-11">
                     Если я автор, то здесь, в зависимости от разных параметров - будет список, кому назначено и т.д.
                 </div>
             </div>
@@ -63,48 +57,54 @@
         </div>
     </div>
     <div *ngIf="isModal">
-        <p-dialog [(visible)]="show" modal="modal" [resizable]="true" [draggable]="true"
-                  [closable]="false" [responsive]="true" (onHide)="Close()">
+        <p-dialog [(visible)]="isModal" modal="modal" [resizable]="true" [draggable]="true"
+                  [closable]="false" [responsive]="true" (onHide)="Close()" [minHeight]="550">
             <p-header>
                 {{localTD.name}}
                 <i class="fa fa-close fa-lg pull-right" aria-hidden="true" (click)="Close()" style="cursor: pointer;"></i>
             </p-header>
-            <div class="rows-in-dialog">
-                <div class="row">
-                    <div class="col-xs-12 col-sm-1">Тип: </div>
+            <div class="form-horizontal" style="width: -webkit-calc(100% - 1px);width: calc(100% - 1px);">
+                <div class="row form-group">
+                    <label class="col-xs-12 col-sm-1 control-label">Тип: </label>
                     <div class="col-xs-12 col-sm-11">
                         <input [disabled]="true" [value]="GetTypeName()" class="form-control">
                     </div>
                 </div>
 
-                <div class="row" *ngIf="!ICreate">
-                    <div class="col-xs-12">
-                        Автор
+                <div class="row form-group" *ngIf="!ICreate">
+                    <label class="col-xs-12 col-sm-1 control-label">Автор: </label>
+                    <div class="col-xs-12 col-sm-11">
+                        <input [disabled]="true" [value]="localTD.creator.userFIO" class="form-control">
                     </div>
                 </div>
 
-                <div class="row" *ngIf="!ICreate">
-                    <div class="col-xs-12">
-                        Что-то связанное с моим ответом. Может не здесь.
+                <div class="row form-group" *ngIf="!ICreate">
+                    <label class="col-xs-12 col-sm-1 control-label">Ответ: </label>
+                    <div class="col-xs-12 col-sm-11">
+                        <input [disabled]="true" class="form-control" placeholder="Ответ...">
                     </div>
                 </div>
 
-                <div class="row">
-                    <div class="visible-xs col-xs-12 hidden-sm">Текст: </div>
+                <div class="row form-group">
+                    <label class="visible-xs col-xs-12 hidden-sm control-label">Текст: </label>
                     <div class="col-xs-12">
                         <textarea [(ngModel)]="localTD.description" rows="15" cols="70" pInputTextarea class="form-control" [disabled]="true"
-                                  [autoResize]="false" style="width: 100%; max-width: 100%; min-width: 100%;"></textarea>
+                                  [autoResize]="false" style="width: 100%; max-width: 100%; min-width: 100%; resize: none;"></textarea>
                     </div>
                 </div>
 
-                <div class="row">
-                    <div class="col-xs-12">
-                        Тут будут файлы
+                <div class="row form-group">
+                    <label class="col-xs-12 col-sm-1 control-label">Файлы: </label>
+                    <div class="col-xs-12 col-sm-11 form-control-static">
+                        <i class="fa fa-file-image-o fa-lg" aria-hidden="true" style="cursor: pointer;" title="Картинка"></i> 
+                        <i class="fa fa-file-excel-o fa-lg" aria-hidden="true" style="cursor: pointer;" title="Эксель"></i> 
+                        <i class="fa fa-file-video-o fa-lg" aria-hidden="true" style="cursor: pointer;" title="Видосик"></i> 
                     </div>
                 </div>
 
-                <div class="row" *ngIf="ICreate">
-                    <div class="col-xs-12">
+                <div class="row form-group" *ngIf="ICreate">
+                    <label class="col-xs-12 col-sm-1 control-label">Something: </label>
+                    <div class="col-xs-12 col-sm-11">
                         Если я автор, то здесь, в зависимости от разных параметров - будет список, кому назначено и т.д.
                     </div>
                 </div>

@@ -16,12 +16,13 @@ import {ProfileDirective} from "../directive/profile.dirictive";
 import {EnumStringKeysPipe} from "../pipes/enum.string.keys";
 import {
     CheckboxModule,
-    EditorModule,
+    EditorModule, FileUploadModule,
     InputTextareaModule,
     RadioButtonModule,
     TabViewModule,
     TooltipModule
 } from "primeng/primeng";
+import {FileUploadModule as ngFileUploadModule} from "ng2-file-upload";
 import {ConfirmDialogModule} from 'primeng/primeng';
 import {InputTextModule} from 'primeng/primeng';
 import {DialogModule} from 'primeng/primeng';
@@ -95,7 +96,6 @@ import {DictionaryTableComponent} from "../components/shared/dictionaryTable/dic
 import {HasAccessRightDirective} from "../directive/hasAccessRight.dirictive";
 import {HasRoleDirective} from "../directive/hasRole.dirictive";
 import {UserSearchComponent} from "../components/shared/userSearch/userSearch";
-import {FileUploadModule} from "ng2-file-upload";
 import {ScheduleComponent} from "../components.page/schedule/schedule.component";
 import {DetailTaskComponent} from "../components/task/detailTask/detailTask.component";
 
@@ -126,11 +126,12 @@ registerLocaleData(localeRu);
         ConfirmDialogModule,
         ToggleButtonModule,
         EditorModule,
-        FileUploadModule,
         RadioButtonModule,
         TabViewModule,
         TooltipModule,
-        InputTextareaModule
+        InputTextareaModule,
+        FileUploadModule,
+        ngFileUploadModule
     ],
     entryComponents: [
         ProfileComponent

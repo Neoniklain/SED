@@ -12,6 +12,7 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.List;
 
 import static org.apache.jasper.Constants.DEFAULT_BUFFER_SIZE;
 
@@ -23,14 +24,17 @@ public class FileControllerWeb {
     @Autowired
     FileController _fileController;
 
-    @RequestMapping(value = "/getFileForObject/{objectTypeId}/{objectId}")
-    public ResponseStatusDTO getFileForObject(@PathVariable("objectTypeId") long objectTypeId, @PathVariable("objectId") long objectId) {
+    @RequestMapping(value = "/getFileForObject/{objectTypeId}/{objectId}", method = RequestMethod.POST)
+    public ResponseStatusDTO getFileForObject(@PathVariable("objectTypeId") long objectTypeId,
+                                              @PathVariable("objectId") long objectId) {
         return _fileController.getFiles(objectTypeId, objectId);
     }
 
     @RequestMapping(value = "/addFileForObject/{objectTypeId}/{objectId}")
-    public ResponseStatusDTO addFileForObject(@PathVariable("objectTypeId") long objectTypeId, @PathVariable("objectId") long objectId, @RequestParam("file") MultipartFile file) {
-        return _fileController.addFile(objectTypeId, objectId, file);
+    public ResponseStatusDTO addFilesForObject(@PathVariable("objectTypeId") long objectTypeId,
+                                               @PathVariable("objectId") long objectId,
+                                               @RequestParam("files") MultipartFile[] files) {
+        return _fileController.addFiles(objectTypeId, objectId, files);
     }
 
     @RequestMapping(value = "/download/{fileId}")

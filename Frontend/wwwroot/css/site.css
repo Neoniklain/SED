@@ -220,27 +220,17 @@ body {
     outline: none;
 }
 
-#newTaskFull [hidden] {
+/* ↓ Наговностилил... Стоит ли что-то думать по поводу того, как это переработать? ↓ */
+
+#NewTask [hidden] {
     display: none !important;
 }
 
-#newTaskFull .row {
+#NewTask .row {
     margin-bottom: 10px;
 }
 
-#newTaskFull p-selectbutton div div {
-    border: 1px solid #00000020;
-}
-
-#newTaskModal [hidden] {
-    display: none !important;
-}
-
-#newTaskModal .row {
-    margin-bottom: 10px;
-}
-
-#newTaskModal p-selectbutton div div {
+#NewTask p-selectbutton div div {
     border: 1px solid #00000020;
 }
 
@@ -274,11 +264,6 @@ body {
     width: calc(50% - 2px);
 }
 
-.rows-in-dialog {
-    width: -webkit-calc(100% - 1px);
-    width: calc(100% - 1px);
-}
-
 #TasksList .ui-tabview-nav li a {
     width: 100%;
     text-align: center;
@@ -288,4 +273,63 @@ body {
     background-color: #000000ab;
     border-color: #c8c8c8;
     color: #333333 !important;
+}
+
+#DetailTask .form-control[disabled] {
+    background-color: white;
+    color: black;
+    opacity: 1;
+    cursor: default;
+}
+
+@media (max-width: 768px)
+{
+    .ui-dialog {
+        left: 0 !important;
+        top:0 !important;
+        width: 100% !important;
+    }
+}
+
+@media (min-width: 768px)
+{
+    .ui-dialog {
+        min-width: 400px !important;
+        max-width: 1200px !important;
+    }
+}
+
+#TasksListComponent .header-panel-body {
+    width: 100%;
+    height: 25px;
+    margin: 14px 0;
+    margin-bottom: 2em ;
+    text-align: center;
+    font-size: 17px;
+    position: relative;
+}
+
+#TasksListComponent .header-panel-body:after {
+    content: '';
+    width: 100%;
+    border-bottom: dashed 2px lightgrey;
+    position: absolute;
+    left: 0;
+    top: 50%;
+    z-index: 1;
+}
+
+#TasksListComponent .header-panel-body h3 {
+    background-color: white;
+    width: auto;
+    display: inline-block;
+    z-index: 3;
+    color: lightslategrey;
+    padding: 0 1em 0 1em;
+    position: relative;
+    margin: 0;
+}
+#TasksListComponent .news-action-buttons
+{
+    text-align: center;
 }

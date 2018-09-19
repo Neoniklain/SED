@@ -7,13 +7,14 @@ import {NotificationService} from "../../../services/notification.service";
 import {FileUploader, FileUploaderOptions} from "ng2-file-upload";
 import {AuthenticationService} from "../../../services/authService";
 import {ApiRouteConstants, BaseApiUrl} from "../../../bootstrap/app.route.constants";
-import {FileDescription} from "../../../models/file/file.model";
+import {FileDescription, ObjectType} from "../../../models/file/file.model";
 import {FileService} from "../../../services/file.service";
 import {WorkTaskComponent} from "../workTask/workTask.component";
 import {UserSearchComponent} from "../../shared/userSearch/userSearch";
 import {ResponseType} from "@angular/http";
 import {ResponseStatus} from "../../../models/additional/responseStatus";
 import {StatusType} from "../../../models/statusType.model";
+import {FileUpload} from "primeng/primeng";
 
 @Component({
     selector: 'new-task-desc',
@@ -23,21 +24,23 @@ import {StatusType} from "../../../models/statusType.model";
 export class NewTaskDescComponent {
     @Input()
     isModal: boolean = false;
-
-    @Output() onCreateNew: EventEmitter<any> = new EventEmitter();
-    @Output() onSizeChange: EventEmitter<any> = new EventEmitter();
-    @Output() onClose: EventEmitter<any> = new EventEmitter();
+    @Input()
+    localTD: TaskDescription;
+    @Output()
+    onCreateNew: EventEmitter<any> = new EventEmitter();
+    @Output()
+    onClose: EventEmitter<any> = new EventEmitter();
 
     @ViewChild(UserSearchComponent)
     userSearchComponent: UserSearchComponent;
+    @ViewChild(FileUpload)
+    primeFileUploader: FileUpload;
 
-    public localTD: TaskDescription;
     public title: string = "";
     public listOfTypes: any[];
     // ↓ Это нужно для работы enum во вью.
     public TaskStatusType = TaskStatusType;
     public selectedType: any;
-    public show: boolean = false;
     public showSelectUserForm: boolean = false;
 
     constructor(private taskService: TaskService,
@@ -48,8 +51,13 @@ export class NewTaskDescComponent {
     }
 
     ngOnInit(): void {
-        this.localTD = new TaskDescription();
-        this.title = "Создать задачу";
+        if (this.localTD == null) {
+            this.localTD = new TaskDescription();
+            this.title = "Создание задачи";
+        }
+        else {
+            this.title = "Редактирование задачи";
+        }
         this.listOfTypes = [];
         this.listOfTypes.push({name: "Без уведомления", value: TaskType.Info.valueOf()});
         this.listOfTypes.push({name: "С уведомлением", value: TaskType.Notice.valueOf()});
@@ -57,30 +65,15 @@ export class NewTaskDescComponent {
         this.selectedType = this.listOfTypes[0];
     }
 
-    public showDialog(td?: TaskDescription) {
-        this.localTD = new TaskDescription();
-        if (td) {
-            this.localTD = td;
-            this.title = "Редактирование задачи";
-        }
-        else {
-            this.title = "Создание задачи";
-        }
-        this.show = true;
-    }
-
-    public closeDialog() {
-        this.show = false;
-        this.localTD = new TaskDescription();
-        this.onClose.emit();
-    }
-
     public CreateTask() {
         this.localTD.type = this.selectedType.value;
         this.taskService.Create(this.localTD).subscribe((res) => {
                 this.notificationService.FromStatus(res);
                 if (res.status == StatusType[StatusType.OK]) {
-                    this.show = false;
+                    let url = BaseApiUrl + ApiRouteConstants.File.AddFileForObject
+                        .replace(":objectTypeId", ObjectType.TaskDescription.toString())
+                        .replace(":objectId", res.data.id.toString());
+                    this.uploadFiles(url);
                     this.onCreateNew.emit(res.data);
                     this.onClose.emit();
                 }
@@ -88,6 +81,11 @@ export class NewTaskDescComponent {
             (error: any) => {
                 console.error("Ошибка", error);
             });
+    }
+
+    public CloseDialog() {
+        this.localTD = new TaskDescription();
+        this.onClose.emit();
     }
 
     public ChangeStatusTU(item: TaskUser, status: number) {
@@ -122,17 +120,13 @@ export class NewTaskDescComponent {
         this.userSearchComponent.Edit(users);
     }
 
-    public setFull() {
-        this.isModal = false;
-        this.onSizeChange.emit(false);
-    }
-
     public onCloseSearchUser() {
         this.showSelectUserForm = false;
     }
 
-    public setDialog() {
-        this.isModal = true;
-        this.onSizeChange.emit(true);
+    uploadFiles(url: string) {
+        this.primeFileUploader.url = url;
+        this.primeFileUploader.upload();
+        this.notificationService.Success("Ну файлы типа загружены");
     }
 }
