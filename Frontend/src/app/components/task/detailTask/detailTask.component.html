@@ -38,15 +38,19 @@
                 <div class="row form-group">
                     <label class="col-xs-12 col-sm-1 control-label">Файлы: </label>
                     <div class="col-xs-12 col-sm-11 form-control-static">
-                            <button *ngFor="let file of localTD.files" (click)="downloadFile(file)" type="button" class="btn btn-primary btn-sm" title="Скачать {{file.fileName}}">
-                                <i class="fa fa-floppy-o" aria-hidden="true"></i>
-                                <!--
-                                Тут добавлю ngSwitch и буду менять иконку
-                                i class="fa fa-file-image-o fa-lg" aria-hidden="true" style="cursor: pointer;" title="Картинка"></i> 
-                                <i class="fa fa-file-excel-o fa-lg" aria-hidden="true" style="cursor: pointer;" title="Эксель"></i> 
-                                <i class="fa fa-file-video-o fa-lg" aria-hidden="true" style="cursor: pointer;" title="Видосик"></i>
-                                -->
+                            <button *ngFor="let file of localTD.files" (click)="downloadFile(file)" title="Скачать {{file.fileName}}"
+                                    type="button" class="btn btn-primary btn-sm"
+                                    style="cursor: pointer; margin: 2px 4px;">
+                                <span [ngSwitch]="file.fileType">
+                                    <i *ngSwitchCase="'image/jpeg'" class="fa fa-file-image-o fa-lg" aria-hidden="true"></i>
+                                    <i *ngSwitchCase="'image/png'" class="fa fa-file-image-o fa-lg" aria-hidden="true"></i>
+                                    <i *ngSwitchCase="'application/pdf'" class="fa fa-file-pdf-o fa-lg" aria-hidden="true"></i>
+                                    <i *ngSwitchCase="'text/plain'" class="fa fa-file-text-o fa-lg" aria-hidden="true"></i>
+                                    <i *ngSwitchCase="'application/octet-stream'" class="fa fa-file-archive-o fa-lg" aria-hidden="true"></i>
+                                    <i *ngSwitchDefault class="fa fa-floppy-o fa-lg" aria-hidden="true"></i>
+                                </span>
                             </button>
+
                     </div>
                 </div>
             </div>
