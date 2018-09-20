@@ -333,3 +333,20 @@ body {
 {
     text-align: center;
 }
+
+@media (max-width: 40em) {
+    .primeng-custom-files .ui-fileupload-row > div {
+        display: unset;
+    }
+
+    .primeng-custom-files .ui-fileupload-row > div:nth-child(3) {
+        display: none;
+    }
+
+    .primeng-custom-files .ui-fileupload-files .ui-fileupload-row {
+        display: flex;
+        justify-content: space-between;
+        align-items: baseline;
+        word-break: break-word;
+    }
+}

@@ -1,5 +1,4 @@
 <div id="DetailTask">
-    <div *ngIf="!isModal">
         <div class="header-panel-body">
             <h3>{{localTD.name}}</h3>
         </div>
@@ -26,19 +25,29 @@
             </div>
 
             <div class="row form-group">
-                <label class="visible-xs col-xs-12 hidden-sm control-label">Текст: </label>
-                <div class="col-xs-12">
+                <!--<label class="visible-xs col-xs-12 hidden-sm control-label">Текст: </label>
+                <div class="col-xs-12">-->
+                <label class="col-xs-12 col-sm-1 control-label">Текст: </label>
+                <div class="col-xs-12 col-sm-11">
                         <textarea [(ngModel)]="localTD.description" rows="15" cols="70" pInputTextarea class="form-control" [disabled]="true"
                                   [autoResize]="false" style="width: 100%; max-width: 100%; min-width: 100%; resize: none;"></textarea>
                 </div>
             </div>
 
-            <div class="row form-group">
-                <label class="col-xs-12 col-sm-1 control-label">Файлы: </label>
-                <div class="col-xs-12 col-sm-11 form-control-static">
-                    <i class="fa fa-file-image-o fa-lg" aria-hidden="true" style="cursor: pointer;" title="Картинка"></i> 
-                    <i class="fa fa-file-excel-o fa-lg" aria-hidden="true" style="cursor: pointer;" title="Эксель"></i> 
-                    <i class="fa fa-file-video-o fa-lg" aria-hidden="true" style="cursor: pointer;" title="Видосик"></i> 
+            <div *ngIf="isShowFiles">
+                <div class="row form-group">
+                    <label class="col-xs-12 col-sm-1 control-label">Файлы: </label>
+                    <div class="col-xs-12 col-sm-11 form-control-static">
+                            <button *ngFor="let file of localTD.files" (click)="downloadFile(file)" type="button" class="btn btn-primary btn-sm" title="Скачать {{file.fileName}}">
+                                <i class="fa fa-floppy-o" aria-hidden="true"></i>
+                                <!--
+                                Тут добавлю ngSwitch и буду менять иконку
+                                i class="fa fa-file-image-o fa-lg" aria-hidden="true" style="cursor: pointer;" title="Картинка"></i> 
+                                <i class="fa fa-file-excel-o fa-lg" aria-hidden="true" style="cursor: pointer;" title="Эксель"></i> 
+                                <i class="fa fa-file-video-o fa-lg" aria-hidden="true" style="cursor: pointer;" title="Видосик"></i>
+                                -->
+                            </button>
+                    </div>
                 </div>
             </div>
 
@@ -55,65 +64,4 @@
                 Закрыть
             </button>
         </div>
-    </div>
-    <div *ngIf="isModal">
-        <p-dialog [(visible)]="isModal" modal="modal" [resizable]="true" [draggable]="true"
-                  [closable]="false" [responsive]="true" (onHide)="Close()" [minHeight]="550">
-            <p-header>
-                {{localTD.name}}
-                <i class="fa fa-close fa-lg pull-right" aria-hidden="true" (click)="Close()" style="cursor: pointer;"></i>
-            </p-header>
-            <div class="form-horizontal" style="width: -webkit-calc(100% - 1px);width: calc(100% - 1px);">
-                <div class="row form-group">
-                    <label class="col-xs-12 col-sm-1 control-label">Тип: </label>
-                    <div class="col-xs-12 col-sm-11">
-                        <input [disabled]="true" [value]="GetTypeName()" class="form-control">
-                    </div>
-                </div>
-
-                <div class="row form-group" *ngIf="!ICreate">
-                    <label class="col-xs-12 col-sm-1 control-label">Автор: </label>
-                    <div class="col-xs-12 col-sm-11">
-                        <input [disabled]="true" [value]="localTD.creator.userFIO" class="form-control">
-                    </div>
-                </div>
-
-                <div class="row form-group" *ngIf="!ICreate">
-                    <label class="col-xs-12 col-sm-1 control-label">Ответ: </label>
-                    <div class="col-xs-12 col-sm-11">
-                        <input [disabled]="true" class="form-control" placeholder="Ответ...">
-                    </div>
-                </div>
-
-                <div class="row form-group">
-                    <label class="visible-xs col-xs-12 hidden-sm control-label">Текст: </label>
-                    <div class="col-xs-12">
-                        <textarea [(ngModel)]="localTD.description" rows="15" cols="70" pInputTextarea class="form-control" [disabled]="true"
-                                  [autoResize]="false" style="width: 100%; max-width: 100%; min-width: 100%; resize: none;"></textarea>
-                    </div>
-                </div>
-
-                <div class="row form-group">
-                    <label class="col-xs-12 col-sm-1 control-label">Файлы: </label>
-                    <div class="col-xs-12 col-sm-11 form-control-static">
-                        <i class="fa fa-file-image-o fa-lg" aria-hidden="true" style="cursor: pointer;" title="Картинка"></i> 
-                        <i class="fa fa-file-excel-o fa-lg" aria-hidden="true" style="cursor: pointer;" title="Эксель"></i> 
-                        <i class="fa fa-file-video-o fa-lg" aria-hidden="true" style="cursor: pointer;" title="Видосик"></i> 
-                    </div>
-                </div>
-
-                <div class="row form-group" *ngIf="ICreate">
-                    <label class="col-xs-12 col-sm-1 control-label">Something: </label>
-                    <div class="col-xs-12 col-sm-11">
-                        Если я автор, то здесь, в зависимости от разных параметров - будет список, кому назначено и т.д.
-                    </div>
-                </div>
-            </div>
-            <p-footer>
-                <button type="button" class="btn btn-default" (click)="Close()">
-                    Закрыть
-                </button>
-            </p-footer>
-        </p-dialog>
-    </div>
 </div>

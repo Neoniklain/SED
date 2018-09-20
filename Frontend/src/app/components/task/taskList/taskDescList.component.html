@@ -80,7 +80,7 @@
 <div id="TasksListComponent">
     <div *ngIf="!letShow('list')">
         <button (click)="setComp('list')" type="button" class="btn btn-success">
-            <i class="fa fa-undo"></i>  Назад
+            <i class="fa fa-share fa-flip-horizontal"></i>  Назад
         </button>
     </div>
     <div [hidden]="!letShow('list')" id="TasksList">
@@ -151,12 +151,10 @@
     <div *ngIf="letShow('new')">
         <new-task-desc (onCreateNew)="onCreateNew($event)"
                        (onClose)="setComp('list')"
-                       [localTD]="localTD"
-                       [isModal]="false"></new-task-desc>
+                       [localTD]="localTD"></new-task-desc>
     </div>
     <div *ngIf="letShow('detail')">
-        <detail-task [isModal]="false"
-                     (onClose)="setComp('list')"
+        <detail-task (onClose)="setComp('list')"
                      [localTD]="localTD"></detail-task>
     </div>
     <data-loader [show]="loading" [margin]="9"></data-loader>

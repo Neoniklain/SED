@@ -24,7 +24,7 @@ public class FileControllerWeb {
     @Autowired
     FileController _fileController;
 
-    @RequestMapping(value = "/getFileForObject/{objectTypeId}/{objectId}", method = RequestMethod.POST)
+    @RequestMapping(value = "/getFileForObject/{objectTypeId}/{objectId}")
     public ResponseStatusDTO getFileForObject(@PathVariable("objectTypeId") long objectTypeId,
                                               @PathVariable("objectId") long objectId) {
         return _fileController.getFiles(objectTypeId, objectId);
