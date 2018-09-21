@@ -50,7 +50,7 @@ public class TaskManager implements ITaskManager {
         } else {
             taskStatusType = TaskStatusType.Processed;
         }
-
+        td.setStatus(taskStatusType.ordinal());
         result = _TDService.save(td);
         if (result.getStatus() == StatusTypes.OK) {
             TaskDescriptionDTO saved = result.getData();
@@ -61,7 +61,6 @@ public class TaskManager implements ITaskManager {
                     newTUDTO.setResponse(null);
                     newTUDTO.setStatus(taskStatusType.ordinal());
                     newTUDTO.setExecutor(TU.getExecutor());
-                    newTUDTO.setStatusName(taskStatusType.name());
                     newTUDTO.setTaskDescriptionId(saved.getId());
                     newTUDTO.setDateRequired(TU.getDateRequired());
                     ResponseStatusDTO<TaskUserDTO> tuSaveRes = _TUService.save(newTUDTO);
@@ -155,7 +154,11 @@ public class TaskManager implements ITaskManager {
 
     @Override
     public ResponseStatusDTO<TaskUserDTO> deleteTaskUser(long id) {
-        return _TUService.delete(id);
+        ResponseStatusDTO<TaskUserDTO> result = _TUService.delete(id);
+        if(result.getData()!=null) {
+            this.CheckTaskDescStatus(result.getData().getTaskDescriptionId());
+        }
+        return result;
     }
 
     @Override
@@ -175,6 +178,27 @@ public class TaskManager implements ITaskManager {
 
     @Override
     public ResponseStatusDTO<TaskUserDTO> changeStatusTaskUser(long tu_id, int status_id) {
-        return _TUService.changeStatus(tu_id, status_id);
+        ResponseStatusDTO<TaskUserDTO> result = _TUService.changeStatus(tu_id, status_id);
+        CheckTaskDescStatus(result.getData().getTaskDescriptionId());
+        return result;
+    }
+
+    private void CheckTaskDescStatus(long td_id) {
+        TaskDescriptionDTO task = this.getTaskDescById(td_id, true);
+        if(task.getStatus() != TaskStatusType.Completed.ordinal()) {
+            int total_count_TU = task.getTaskUsers().size();
+            int total_count_completed = 0;
+            for(TaskUserDTO tu: task.getTaskUsers()) {
+                if (tu.getStatus() == TaskStatusType.Completed.ordinal()) {
+                    total_count_completed++;
+                }
+                if (tu.getStatus() == TaskStatusType.Denied.ordinal()) {
+                    total_count_completed++;
+                }
+            }
+            if (total_count_completed == total_count_TU) {
+                this.changeStatusTaskDesc(td_id, TaskStatusType.Completed.ordinal());
+            }
+        }
     }
 }

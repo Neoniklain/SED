@@ -282,6 +282,23 @@ body {
     cursor: default;
 }
 
+#TasksList p-tabPanel .btn {
+    cursor: pointer;
+    margin: 2px 4px;
+}
+
+#DetailTask .form-group .btn {
+    cursor: pointer;
+    margin: 2px 4px;
+}
+
+#WorkTask .form-control[disabled] {
+    background-color: white;
+    color: black;
+    opacity: 1;
+    cursor: default;
+}
+
 @media (max-width: 768px)
 {
     .ui-dialog {

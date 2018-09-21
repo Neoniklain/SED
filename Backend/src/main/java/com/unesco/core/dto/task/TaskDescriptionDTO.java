@@ -16,7 +16,6 @@ public class TaskDescriptionDTO {
     private String description;
     private int type;
     private int status;
-    private String statusName;
     private List<FileDescriptionModel> files;
     private Timestamp dateCreate;
     private Timestamp dateRequired;
@@ -30,7 +29,6 @@ public class TaskDescriptionDTO {
         this.taskUsers = null;
         this.status = -1;
         this.type = -1;
-        this.statusName = "";
         this.files = null;
         this.dateCreate = null;
         this.dateRequired = null;
@@ -74,14 +72,6 @@ public class TaskDescriptionDTO {
 
     public void setStatus(int status) {
         this.status = status;
-    }
-
-    public String getStatusName() {
-        return statusName;
-    }
-
-    public void setStatusName(String statusName) {
-        this.statusName = statusName;
     }
 
     public List<TaskUserDTO> getTaskUsers() {

@@ -9,7 +9,6 @@ export class TaskDescription {
   public description: string;
   public type: number;
   public status: number;
-  public statusName: string;
   public files: FileDescription[];
   public dateCreate: Date;
   public dateRequired: Date;
@@ -18,7 +17,6 @@ export class TaskDescription {
     this.creator = new User();
     this.type = -1;
     this.status = 0;
-    this.statusName = "";
     this.description = "";
     this.taskUsers = [];
     this.files = [];
@@ -29,7 +27,6 @@ export class TaskDescription {
 export class TaskUser {
     public id: number;
     public executor: User;
-    public statusName: string;
     public status: number;
     public response: string;
     public files: FileDescription[];
@@ -42,6 +39,15 @@ export class TaskUser {
     }
 }
 
+/**
+ * Processed В процессе
+ * Denied Отклонено
+ * Completed Завершено
+ * Checked Проверено (вероятно то же самое, что и Просмотрено, только для автора, но это не точно)
+ * Viewed Просмотрено
+ * SentToRevision Отправлено на доработку
+ * SentToReview Отправлено на проверку
+ */
 export enum TaskStatusType {
     // В процессе
     Processed = 0,
@@ -49,16 +55,20 @@ export enum TaskStatusType {
     Denied = 1,
     // Завершено
     Completed = 2,
-    // Проверено
+    // Проверено (вероятно то же самое, что и Просмотрено, только для автора, но это не точно)
     Checked = 3,
-    // Просмотрено (вероятно то же самое, что и Проверено)
+    // Просмотрено
     Viewed = 4,
-    // Отправить на доработку
+    // Отправлено на доработку
     SentToRevision = 5,
-    // Отправить на проверку
+    // Отправлено на проверку
     SentToReview = 6
 }
-
+/**
+ * Info Без уведомления
+ * Notice С уведомлением
+ * Answer С ответом
+ */
 export enum TaskType {
     // Без уведомления
     Info = 0,
@@ -67,22 +77,3 @@ export enum TaskType {
     // С ответом
     Answer = 2
 }
-
-/*export class TaskStatusList {
-    public Processed: string = "Processed";
-    public Denied: string = "Denied";
-    public Completed: string = "Completed";
-    public Checked: string = "Checked";
-    public Viewed: string = "Viewed";
-    public SentToRevision: string = "SentToRevision"
-    public SentToReview: string = "SentToReview";
-    constructor() {
-        this.Processed = "Processed";
-        this.Denied = "Denied";
-        this.Completed = "Completed";
-        this.Checked = "Checked";
-        this.Viewed = "Viewed";
-        this.SentToRevision = "SentToRevision";
-        this.SentToReview = "SentToReview";
-    }
-}*/

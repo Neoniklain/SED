@@ -1,12 +1,30 @@
-<div id="DetailTask">
+<div id="DetailTask" *ngIf="letShow('detail')">
         <div class="header-panel-body">
             <h3>{{localTD.name}}</h3>
         </div>
         <div class="form-horizontal">
             <div class="row form-group">
                 <label class="col-xs-12 col-sm-1 control-label">Тип: </label>
+                <div class="col-xs-12 col-sm-5">
+                    <input [disabled]="true" [value]="GetTypeName() | translate" class="form-control">
+                </div>
+                <label class="col-xs-12 col-sm-1 control-label">Создано: </label>
+                <div class="col-xs-12 col-sm-5">
+                    <input [disabled]="true" [value]="localTD.dateCreate" class="form-control">
+                </div>
+            </div>
+
+            <div class="row form-group" *ngIf="ICreate">
+                <label class="col-xs-12 col-sm-1 control-label">Статус: </label>
                 <div class="col-xs-12 col-sm-11">
-                    <input [disabled]="true" [value]="GetTypeName()" class="form-control">
+                    <input [disabled]="true" [value]="getStatusName(localTD.status) | translate" class="form-control">
+                </div>
+            </div>
+
+            <div class="row form-group" *ngIf="!ICreate && myTaskUser!=null">
+                <label class="col-xs-12 col-sm-1 control-label">Статус: </label>
+                <div class="col-xs-12 col-sm-11">
+                    <input [disabled]="true" [value]="getStatusName(myTaskUser.status) | translate" class="form-control">
                 </div>
             </div>
 
@@ -17,30 +35,40 @@
                 </div>
             </div>
 
-            <div class="row form-group" *ngIf="!ICreate">
-                <label class="col-xs-12 col-sm-1 control-label">Ответ: </label>
-                <div class="col-xs-12 col-sm-11">
-                    <input [disabled]="true" class="form-control" placeholder="Ответ...">
-                </div>
-            </div>
-
-            <div class="row form-group">
-                <!--<label class="visible-xs col-xs-12 hidden-sm control-label">Текст: </label>
-                <div class="col-xs-12">-->
-                <label class="col-xs-12 col-sm-1 control-label">Текст: </label>
-                <div class="col-xs-12 col-sm-11">
-                        <textarea [(ngModel)]="localTD.description" rows="15" cols="70" pInputTextarea class="form-control" [disabled]="true"
-                                  [autoResize]="false" style="width: 100%; max-width: 100%; min-width: 100%; resize: none;"></textarea>
-                </div>
-            </div>
-
-            <div *ngIf="isShowFiles">
-                <div class="row form-group">
-                    <label class="col-xs-12 col-sm-1 control-label">Файлы: </label>
-                    <div class="col-xs-12 col-sm-11 form-control-static">
-                            <button *ngFor="let file of localTD.files" (click)="downloadFile(file)" title="Скачать {{file.fileName}}"
-                                    type="button" class="btn btn-primary btn-sm"
-                                    style="cursor: pointer; margin: 2px 4px;">
+            <div class="row form-group" *ngIf="isShowFiles">
+                <label class="col-xs-12 col-sm-1 control-label">Файлы: </label>
+                <div class="col-xs-12 col-sm-11 form-control-static">
+                    <!--
+                    <div *ngFor="let file of localTD.files" (click)="downloadFile(file)" title="Скачать {{file.fileName}}" style="cursor: pointer;">
+                        <span [ngSwitch]="file.fileType">
+                            <button *ngSwitchCase="'image/jpeg'" class="btn btn-sm btn-default">
+                                <i class="fa fa-file-image-o fa-lg" aria-hidden="true"></i>
+                            </button>
+                            <button *ngSwitchCase="'image/png'" class="btn btn-sm btn-default">
+                                <i class="fa fa-file-image-o fa-lg" aria-hidden="true"></i>
+                            </button>
+                            <button *ngSwitchCase="'application/pdf'" class="btn btn-sm btn-danger">
+                                <i class="fa fa-file-pdf-o fa-lg" aria-hidden="true"></i>
+                            </button>
+                            <button *ngSwitchCase="'text/plain'" class="btn btn-sm btn-default">
+                                <i class="fa fa-file-text-o fa-lg" aria-hidden="true"></i>
+                            </button>
+                            <button *ngSwitchCase="'application/octet-stream'" class="btn btn-sm btn-default">
+                                <i class="fa fa-file-archive-o fa-lg" aria-hidden="true"></i>
+                            </button>
+                            <button *ngSwitchCase="'Микромягкие'" class="btn btn-sm btn-default">
+                                <i class="fa fa-file-archive-o fa-lg" aria-hidden="true"></i>
+                            </button>
+                            <button *ngSwitchDefault class="btn btn-sm btn-default">
+                                <i class="fa fa-floppy-o fa-lg" aria-hidden="true"></i>
+                            </button>
+                        </span>
+                        <span>{{file.fileName}}</span>
+                    </div>
+                    -->
+                    <button *ngFor="let file of localTD.files" (click)="downloadFile(file)" title="Скачать {{file.fileName}}"
+                            type="button" class="btn btn-primary btn-sm"
+                            style="cursor: pointer; margin: 2px 4px;">
                                 <span [ngSwitch]="file.fileType">
                                     <i *ngSwitchCase="'image/jpeg'" class="fa fa-file-image-o fa-lg" aria-hidden="true"></i>
                                     <i *ngSwitchCase="'image/png'" class="fa fa-file-image-o fa-lg" aria-hidden="true"></i>
@@ -49,23 +77,90 @@
                                     <i *ngSwitchCase="'application/octet-stream'" class="fa fa-file-archive-o fa-lg" aria-hidden="true"></i>
                                     <i *ngSwitchDefault class="fa fa-floppy-o fa-lg" aria-hidden="true"></i>
                                 </span>
-                            </button>
+                    </button>
+                </div>
+            </div>
 
-                    </div>
+            <div class="row form-group">
+                <label class="col-xs-12 col-sm-1 control-label">Текст: </label>
+                <div class="col-xs-12 col-sm-11">
+                        <textarea [(ngModel)]="localTD.description" rows="10" cols="70" pInputTextarea class="form-control" [disabled]="true"
+                                  [autoResize]="false" style="width: 100%; max-width: 100%; min-width: 100%; resize: none;"></textarea>
                 </div>
             </div>
 
             <div class="row form-group" *ngIf="ICreate">
-                <label class="col-xs-12 col-sm-1 control-label">Something: </label>
-                <div class="col-xs-12 col-sm-11">
-                    Если я автор, то здесь, в зависимости от разных параметров - будет список, кому назначено и т.д.
+                <label class="col-xs-12 col-sm-1 control-label">Ответы: </label>
+                <div class="col-xs-12 col-sm-11 form-control-static">
+                    <table class="table table-news table-hover">
+                        <thead class="thead-inverse">
+                        <tr>
+                            <th class="text-center">ФИО</th>
+                            <th class="text-center">Ответ</th>
+                            <th class="text-center">Файлы</th>
+                            <th class="text-center">Статус</th>
+                            <th class="text-center">Действия</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr *ngFor="let item of localTD.taskUsers">
+                            <td class="text-center" >{{item.executor.userFIO}}</td>
+                            <td class="text-center">{{item.response}}</td>
+                            <td class="text-center">
+                                <button *ngFor="let file of item.files" (click)="downloadFile(file)" title="Скачать {{file.fileName}}"
+                                        type="button" class="btn btn-primary btn-sm"
+                                        style="cursor: pointer; margin: 2px 4px;">
+                                    <span [ngSwitch]="file.fileType">
+                                        <i *ngSwitchCase="'image/jpeg'" class="fa fa-file-image-o fa-lg" aria-hidden="true"></i>
+                                        <i *ngSwitchCase="'image/png'" class="fa fa-file-image-o fa-lg" aria-hidden="true"></i>
+                                        <i *ngSwitchCase="'application/pdf'" class="fa fa-file-pdf-o fa-lg" aria-hidden="true"></i>
+                                        <i *ngSwitchCase="'text/plain'" class="fa fa-file-text-o fa-lg" aria-hidden="true"></i>
+                                        <i *ngSwitchCase="'application/octet-stream'" class="fa fa-file-archive-o fa-lg" aria-hidden="true"></i>
+                                        <i *ngSwitchDefault class="fa fa-floppy-o fa-lg" aria-hidden="true"></i>
+                                    </span>
+                                </button>
+                            </td>
+                            <td class="text-center">{{getStatusName(item.status) | translate}}</td>
+                            <td class="text-center">
+                                <span *ngIf="item.status == TaskStatusType.SentToReview">
+                                    <button type="button" class="btn btn-success btn-sm"
+                                            title="Принять решение" (click)="ChangeStatusTU(item, TaskStatusType.Completed)">
+                                        <i class="fa fa-check"></i>
+                                    </button>
+                                    <button type="button" class="btn btn-danger btn-sm"
+                                            title="Отправить на доработку" (click)="ChangeStatusTU(item, TaskStatusType.SentToRevision)">
+                                        <i class="fa fa-share"></i>
+                                    </button>
+                                    <button type="button" class="btn btn-warning btn-sm"
+                                            title="Отклонить решение" (click)="ChangeStatusTU(item, TaskStatusType.Denied)">
+                                        <i class="fa fa-times"></i>
+                                    </button>
+                                </span>
+                                <span *ngIf="item.status == TaskStatusType.Processed">
+                                    <button type="button" class="btn btn-warning btn-sm"
+                                            title="Отменить назначение" (click)="DeleteTaskUser(item.id)">
+                                        <i class="fa fa-trash"></i>
+                                    </button>
+                                </span>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>
         <hr>
         <div>
-            <button type="button" class="btn btn-default" (click)="Close()">
+            <button type="button" class="btn btn-default pull-right" style="margin-right: 15px;" (click)="Close()">
                 Закрыть
+            </button>
+            <button *ngIf="isNeedAnswer" type="button" class="btn btn-info pull-right" style="margin-right: 15px;" (click)="setComp('answer')">
+                Ответить
             </button>
         </div>
 </div>
+<work-task *ngIf="letShow('answer')"
+           [localTD]="localTD"
+            (onClose)="setComp('detail')"
+            (onAnswer)="onAnswer($event)">
+</work-task>

@@ -56,6 +56,11 @@ public class TaskControllerWeb {
         return _taskController.getTaskDesc(id);
     }
 
+    @RequestMapping(value = "/getTaskUserByTD/{id}/{isForExecutor}")
+    public ResponseStatusDTO GetTaskUserByTD(@PathVariable("id") long id,@PathVariable("isForExecutor") long isForExecutor) {
+        return _taskController.GetTaskUserByTD(id, isForExecutor);
+    }
+
     @RequestMapping(value = "/getTaskUser/{id}")
     public ResponseStatusDTO getTaskUser(@PathVariable("id") long id) {
         return _taskController.getTaskUser(id);

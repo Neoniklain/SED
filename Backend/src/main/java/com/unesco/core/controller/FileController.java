@@ -42,7 +42,8 @@ public class FileController {
                     FileDescriptionModel FD = new FileDescriptionModel();
                     FileByteCodeModel FBC = new FileByteCodeModel();
                     // Сохранение описания файла
-                    FD.setFileName(file.getOriginalFilename());
+
+                    FD.setFileName(file.getOriginalFilename().replace(',', '.'));
                     FD.setFileType(file.getContentType());
                     ResponseStatusDTO<FileDescriptionModel> saveFD = _fileDescriptionService.save(FD);
                     if (saveFD.getStatus() == StatusTypes.ERROR) {

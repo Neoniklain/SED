@@ -1,30 +1,32 @@
-import {Component, EventEmitter, Output} from '@angular/core';
-import {TaskDescription, TaskUser, TaskStatusType, TaskType} from "../../../models/task/task.model";
+import {Component, EventEmitter, Input, OnInit, Output, ViewChild} from "@angular/core";
 import {TaskService} from "../../../services/task.service";
 import {AccountService} from "../../../services/accountService";
-import {User} from "../../../models/account/user.model";
 import {NotificationService} from "../../../services/notification.service";
 import {FileService} from "../../../services/file.service";
-import {FileDescription} from "../../../models/file/file.model";
-import {FileUploader, FileUploaderOptions} from "ng2-file-upload";
 import {AuthenticationService} from "../../../services/authService";
-import {BaseApiUrl, ApiRouteConstants} from "../../../bootstrap/app.route.constants";
+import {TaskDescription, TaskStatusType, TaskType, TaskUser} from "../../../models/task/task.model";
+import {ObjectType} from "../../../models/file/file.model";
+import {StatusType} from "../../../models/statusType.model";
+import {FileUpload} from "primeng/primeng";
+import {ApiRouteConstants, BaseApiUrl} from "../../../bootstrap/app.route.constants";
 
 @Component({
     selector: 'work-task',
     templateUrl: './workTask.component.html'
 })
-export class WorkTaskComponent {
-    /*public localTD: TaskDescription;
-    public _task: TaskUser;
-    public _foundedUsers: User[];
-    public _show: boolean = false;
-    public _title: string = '';
-    public _editable: boolean = false;
-    public TaskTypes = TaskType;
-    public files: FileDescription[];*/
-    public _uploader: FileUploader;
-    public _fileOptions: FileUploaderOptions;
+export class WorkTaskComponent implements OnInit {
+    @Input()
+    localTD: TaskDescription;
+    @Output()
+    onClose: EventEmitter<any> = new EventEmitter();
+    @Output()
+    onAnswer: EventEmitter<any> = new EventEmitter();
+    @ViewChild(FileUpload)
+    primeFileUploader: FileUpload;
+
+    public myTaskUser: TaskUser;
+    public isShowFiles: boolean = false;
+    public isNeedAnswer: boolean = false;
 
     constructor(private taskService: TaskService,
                 private accountService: AccountService,
@@ -34,91 +36,109 @@ export class WorkTaskComponent {
     }
 
     ngOnInit(): void {
-        /*this._task = new TaskUser();
-        this.localTD = new TaskDescription();
-        this._editable = false;
-        this.files = [];*/
-        this._fileOptions = {
-            url: "",
-            maxFileSize: 50 * 1000 * 1000,
-            headers: [
-                { name: 'Authorization', value: this.authService.getToken() }
-            ]
-        };
-        this._uploader = new FileUploader(this._fileOptions);
+        this.myTaskUser = new TaskUser();
+        if (this.localTD == null) {
+            this.localTD = new TaskDescription();
+            this.localTD.name = "Задача не существует";
+        }
+        else {
+            this.checkTaskUser();
+            this.CheckIsNeedAnswer();
+        }
     }
 
-    /*public showDialog(td: TaskDescription, task: TaskUser) {
-        this._uploader = new FileUploader(this._fileOptions);
-        if ((task.status == TaskStatusType.Processed) ||
-            (task.status == TaskStatusType.SentToRevision) ||
-            (task.status == TaskStatusType.Viewed)){
-            this._editable = true;
-        }
-        this.localTD = new TaskDescription();
-        this._task = new TaskUser();
-        this._title = "Выполнение задачи";
-        this.localTD = td;
-        this._task = task;
-        if (this._task.status == TaskStatusType.Processed) {
-            let Type;
-            if (this.localTD.type == this.TaskTypes.Notice) {
-                Type = TaskStatusType.Completed;
-            }
-            else {
-                Type = TaskStatusType.Viewed;
-            }
-            this.taskService.ChangeStatus(this._task.id, Type).subscribe((res) => {
-                // this.notificationService.FromStatus(res);
-                this._task.status = TaskStatusType.Viewed;
-            }, (error) => {
-                console.error(error);
-            });
-        }
-        console.log("Получаем файлы для браузера");
-        this.fileService.getFilesForTD(this.localTD.id.toString())
-            .subscribe((res) => {
-                console.log(res);
-                this.files = res.data;
-            }, (error) => {
-                console.error(error);
-            });
-        this._show = true;
-    }
-
-    public searchUser(event: any) {
-        let query = event.query.substring(0, 60);
-        this.accountService.FindUsersByFIO(query)
-            .subscribe((res) => {
-                    this._foundedUsers = res.data;
+    private checkTaskUser() {
+        this.taskService.GetTaskUserByTD(this.localTD.id, true)
+            .subscribe(
+                res => {
+                    if (res.status == StatusType[StatusType.OK]) {
+                        this.localTD.taskUsers = [];
+                        this.localTD.taskUsers = res.data;
+                        this.myTaskUser = this.localTD.taskUsers[0];
+                        this.checkFilesTU();
+                    }
+                    else {
+                        this.localTD.taskUsers = [];
+                        this.notificationService.FromStatus(res);
+                    }
                 },
-                (error: any) => {
-                    console.error("Ошибка" + error);
-                });
+                error => {
+                    this.localTD.taskUsers = [];
+                    console.error(error);
+                }
+            );
     }
 
     public AnswerTask() {
-        this._task.status = TaskStatusType.SentToReview;
-        this.taskService.AnswerTask(this._task)
-            .subscribe((res) => {
-                if (this._uploader.queue.length > 0) {
-                    let url = BaseApiUrl + ApiRouteConstants.File.AddFileForTU + res.data.id;
-                    this._uploader.options.url = url;
-                    for (let i = 0; i < this._uploader.queue.length; i++) {
-                        this._uploader.queue[i].url = url;
-                        this._uploader.queue[i].upload();
+        this.taskService.AnswerTask(this.myTaskUser)
+            .subscribe(
+                res => {
+                    this.notificationService.FromStatus(res);
+                    if (res.status == StatusType[StatusType.OK]) {
+                        let url = BaseApiUrl + ApiRouteConstants.File.AddFileForObject
+                            .replace(":objectTypeId", ObjectType.TaskUser.toString())
+                            .replace(":objectId", res.data.id.toString());
+                        this.uploadFiles(url);
+                        console.log(res.data);
+                        this.onAnswer.emit(res.data);
                     }
+                },
+                error => {
+                    console.log(error);
                 }
-                this.notificationService.FromStatus(res);
-                this._task.statusName = TaskStatusType[TaskStatusType.SentToReview];
-                this._show = false;
-            }, (error: any) => {
-                console.error(error);
-                this._show = false;
-            });
+            );
     }
 
-    public downloadFile(item: FileDescription){
-        this.fileService.downloadFile(item.id);
-    }*/
+    public CloseDialog() {
+        this.onClose.emit();
+    }
+
+    public CheckIsNeedAnswer() {
+        this.isNeedAnswer = false;
+        if (this.localTD.status != TaskStatusType.Completed) {
+            if (this.myTaskUser != null) {
+                if (this.myTaskUser.status == TaskStatusType.Processed) {
+                    this.isNeedAnswer = true;
+                }
+                if (this.myTaskUser.status == TaskStatusType.SentToRevision) {
+                    this.isNeedAnswer = true;
+                }
+            }
+        }
+    }
+
+    uploadFiles(url: string) {
+        if (this.primeFileUploader.hasFiles()) {
+            this.primeFileUploader.url = url;
+            this.primeFileUploader.upload();
+        }
+    }
+
+    private checkFilesTU() {
+        if (this.myTaskUser != null) {
+            this.fileService.getFilesForObject(ObjectType.TaskUser, this.myTaskUser.id)
+                .subscribe(
+                    res => {
+                        if (res.status == StatusType[StatusType.OK]) {
+                            this.myTaskUser.files = res.data;
+                            if (this.myTaskUser.files != null) {
+                                if (this.myTaskUser.files.length > 0) {
+                                    this.isShowFiles = true;
+                                }
+                            }
+                            else {
+                                this.isShowFiles = false;
+                            }
+                        }
+                        else {
+                            this.isShowFiles = false;
+                        }
+                    },
+                    error => {
+                        console.error(error);
+                        this.isShowFiles = false;
+                    }
+                );
+        }
+    }
 }

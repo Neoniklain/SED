@@ -129,8 +129,8 @@ public class TaskDescriptionDataService implements ITaskDescriptionDataService {
                 base.setStatus(TaskStatusType.getById(statusId).ordinal());
             }
 
-            _taskDescriptionRepository.save(base);
             result = new ResponseStatusDTO<>(StatusTypes.OK);
+            result.setData((TaskDescriptionDTO) _mapperService.toDto(_taskDescriptionRepository.save(base)));
             result.addMessage("Статус успешно изменён");
         } catch (Exception e) {
             result = new ResponseStatusDTO<>(StatusTypes.ERROR);
@@ -144,9 +144,17 @@ public class TaskDescriptionDataService implements ITaskDescriptionDataService {
     public ResponseStatusDTO<TaskDescriptionDTO> delete(long id) {
         ResponseStatusDTO<TaskDescriptionDTO> result;
         try {
-            _taskDescriptionRepository.delete(id);
             result = new ResponseStatusDTO<>(StatusTypes.OK);
-            result.addMessage("Задача удалена");
+            TaskDescription item = _taskDescriptionRepository.findById(id);
+            if(item != null) {
+                result.setData((TaskDescriptionDTO) _mapperService.toDto(item));
+                _taskDescriptionRepository.delete(id);
+                result.addMessage("Задача удалена");
+            }
+            else {
+                result.setStatus(StatusTypes.ERROR);
+                result.addErrors("Задача не найдена");
+            }
         } catch (Exception e) {
             result = new ResponseStatusDTO<>(StatusTypes.ERROR);
             if (e instanceof DataIntegrityViolationException) {

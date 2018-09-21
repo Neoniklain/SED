@@ -93,6 +93,17 @@ export class  TaskService {
             );
     }
 
+    public GetTaskUserByTD(td_id: number, isForExecutor: boolean): Observable<ResponseStatus> {
+        let params: HttpParams = new HttpParams();
+        return this.http.get(ApiRouteConstants.Task.GetTaskUserByTD
+            .replace(":id", td_id.toString())
+            .replace(":isForExecutor", isForExecutor ? "1" : "0"))
+            .pipe(
+                map((res: ResponseStatus) => res),
+                catchError(e => this.handleError.handle(e))
+            );
+    }
+
     public UpdateTaskDesc(item: TaskDescription): Observable<ResponseStatus> {
         let params = new HttpParams();
         return this.http.post(ApiRouteConstants.Task.UpdateTaskDesc, item, {params: params})

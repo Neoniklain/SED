@@ -6,7 +6,7 @@ public enum TaskStatusType {
     */
    Processed("Processed"),
    /**
-    * Отклнено
+    * Отклонено
     */
    Denied("Denied"),
    /**
@@ -22,11 +22,11 @@ public enum TaskStatusType {
     */
    Viewed("Viewed"),
    /**
-    * Отправить на доработку
+    * Отправлено на доработку
     */
    SentToRevision("SentToRevision"),
    /**
-    * Отправить на проверку
+    * Отправлено на проверку
     */
    SentToReview("SentToReview");
 

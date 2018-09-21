@@ -95,6 +95,7 @@ export const ApiRouteConstants = {
         ChangeStatusTaskUser: "task/changeStatusTaskUser",
         GetTaskDesc: "task/getTaskDesc/:id",
         GetTaskUser: "task/getTaskUser/:id",
+        GetTaskUserByTD: "task/getTaskUserByTD/:id/:isForExecutor",
         UpdateTaskDesc: "task/updateTaskDesc",
         DeleteTask: "task/deleteTask/:id",
         DeleteTaskUser: "task/deleteTaskUser/:id"

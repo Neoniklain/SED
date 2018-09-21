@@ -1,0 +1,62 @@
+<div id="WorkTask">
+    <div class="header-panel-body">
+        <h3>Ответ на задачу</h3>
+    </div>
+    <div class="form-horizontal">
+        <div class="row form-group">
+            <label class="col-xs-12 col-sm-1 control-label">Задача: </label>
+            <div class="col-xs-12 col-sm-11">
+                <input [disabled]="true" [value]="localTD.name" class="form-control">
+            </div>
+        </div>
+
+        <div class="row form-group">
+            <label class="col-xs-12 col-sm-1 control-label">Ответ: </label>
+            <div class="col-xs-12 col-sm-11">
+                    <textarea [(ngModel)]="myTaskUser.response" rows="5" cols="150" pInputTextarea class="form-control"
+                              autoResize="autoResize" style="width: 100%; max-width: 100%; min-width: 100%;" [disabled]="!isNeedAnswer"></textarea>
+            </div>
+        </div>
+
+        <div class="row form-group" *ngIf="isNeedAnswer">
+            <label class="col-xs-12 col-sm-1 control-label">Прикрепить: </label>
+            <div class="col-xs-12 col-sm-11">
+                <p-fileUpload name="files"
+                              [showUploadButton]="false"
+                              chooseLabel="Выбрать"
+                              cancelLabel="Очистить"
+                              styleClass="primeng-custom-files"
+                              multiple="multiple"
+                              maxFileSize="1000000">
+                </p-fileUpload>
+            </div>
+        </div>
+
+        <div class="row form-group" *ngIf="isShowFiles">
+            <label class="col-xs-12 col-sm-1 control-label">Файлы: </label>
+            <div class="col-xs-12 col-sm-11 form-control-static">
+                <button *ngFor="let file of myTaskUser.files" (click)="downloadFile(file)" title="Скачать {{file.fileName}}"
+                        type="button" class="btn btn-primary btn-sm"
+                        style="cursor: pointer; margin: 2px 4px;">
+                                <span [ngSwitch]="file.fileType">
+                                    <i *ngSwitchCase="'image/jpeg'" class="fa fa-file-image-o fa-lg" aria-hidden="true"></i>
+                                    <i *ngSwitchCase="'image/png'" class="fa fa-file-image-o fa-lg" aria-hidden="true"></i>
+                                    <i *ngSwitchCase="'application/pdf'" class="fa fa-file-pdf-o fa-lg" aria-hidden="true"></i>
+                                    <i *ngSwitchCase="'text/plain'" class="fa fa-file-text-o fa-lg" aria-hidden="true"></i>
+                                    <i *ngSwitchCase="'application/octet-stream'" class="fa fa-file-archive-o fa-lg" aria-hidden="true"></i>
+                                    <i *ngSwitchDefault class="fa fa-floppy-o fa-lg" aria-hidden="true"></i>
+                                </span>
+                </button>
+            </div>
+        </div>
+    </div>
+    <hr>
+    <div>
+        <button type="button" (click)="CloseDialog()" class="btn btn-default pull-right" style="margin-right: 15px;">
+            Закрыть
+        </button>
+        <button *ngIf="isNeedAnswer" type="button" (click)="AnswerTask()" class="btn btn-primary pull-right" style="margin-right: 15px;">
+            <i class="fa fa-check" aria-hidden="true"></i>Ответить
+        </button>
+    </div>
+</div >

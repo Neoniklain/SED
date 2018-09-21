@@ -57,8 +57,9 @@ public class TaskUserDataService implements ITaskUserDataService
                    base.setFiles(files);
                }
 
-               _taskRepository.save(base);
+
                result = new ResponseStatusDTO<>(StatusTypes.OK);
+               result.setData((TaskUserDTO) _mapperService.toDto(_taskRepository.save(base)));
                result.addMessage("Задача пользователя успешно изменена");
            }
            else{
@@ -84,8 +85,8 @@ public class TaskUserDataService implements ITaskUserDataService
                base.setStatus(TaskStatusType.getById(statusId).ordinal());
            }
 
-           _taskRepository.save(base);
            result = new ResponseStatusDTO<>(StatusTypes.OK);
+           result.setData((TaskUserDTO) _mapperService.toDto(_taskRepository.save(base)));
            result.addMessage("Статус успешно изменён");
        }
        catch (Exception e) {
@@ -153,9 +154,17 @@ public class TaskUserDataService implements ITaskUserDataService
     public ResponseStatusDTO<TaskUserDTO> delete(long id) {
       ResponseStatusDTO<TaskUserDTO> result;
       try {
-         _taskRepository.delete(id);
-         result = new ResponseStatusDTO<>(StatusTypes.OK);
-          result.addMessage("Задача пользователя удалена");
+          result = new ResponseStatusDTO<>(StatusTypes.OK);
+          TaskUser item = _taskRepository.findById(id);
+          if(item != null) {
+              result.setData((TaskUserDTO) _mapperService.toDto(item));
+              _taskRepository.delete(id);
+              result.addMessage("Задача пользователя удалена");
+          }
+          else {
+              result.setStatus(StatusTypes.ERROR);
+              result.addErrors("Задача пользователя не найдена");
+          }
       }
       catch (Exception e) {
           result = new ResponseStatusDTO<>(StatusTypes.ERROR);

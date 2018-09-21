@@ -12,7 +12,6 @@ public class TaskUserDTO {
     private long id;
     private UserDTO executor;
     private long taskDescriptionId;
-    private String statusName;
     private int status;
     private String response;
     private List<FileDescriptionModel> files;
@@ -23,7 +22,6 @@ public class TaskUserDTO {
     {
         this.id = 0;
         this.status = -1;
-        this.statusName = null;
         this.response = null;
         this.executor = null;
         this.taskDescriptionId = 0;
@@ -70,14 +68,6 @@ public class TaskUserDTO {
 
     public void setResponse(String response) {
         this.response = response;
-    }
-
-    public String getStatusName() {
-        return statusName;
-    }
-
-    public void setStatusName(String statusName) {
-        this.statusName = statusName;
     }
 
     public List<FileDescriptionModel> getFiles() {

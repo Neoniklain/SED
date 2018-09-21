@@ -93,7 +93,6 @@ export class NewTaskDescComponent {
         this.taskService.ChangeStatusTaskUser(item.id, status)
             .subscribe((res) => {
                 this.notificationService.FromStatus(res);
-                item.statusName = TaskStatusType[status];
             }, (error: any) => {
                 console.error("Ошибка", error);
             });
@@ -125,8 +124,9 @@ export class NewTaskDescComponent {
     }
 
     uploadFiles(url: string) {
-        this.primeFileUploader.url = url;
-        this.primeFileUploader.upload();
-        this.notificationService.Success("Ну файлы типа загружены");
+        if (this.primeFileUploader.hasFiles()) {
+            this.primeFileUploader.url = url;
+            this.primeFileUploader.upload();
+        }
     }
 }

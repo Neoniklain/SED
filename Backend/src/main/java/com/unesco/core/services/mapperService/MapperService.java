@@ -320,7 +320,6 @@ public class MapperService implements IMapperService {
         Dto.setDescription(Entity.getDescription());
         Dto.setName(Entity.getName());
         Dto.setStatus(Entity.getStatus());
-        Dto.setStatusName(TaskStatusType.values()[Entity.getStatus()].name());
 
         // Из-за ↓ этого ↓ он всегда вместе с описанием будет тянуть задачи для пользователей.
         // Лучше буду в ручную их подставлять или по требованию тянуть из сервиса для TaskUser
@@ -345,6 +344,7 @@ public class MapperService implements IMapperService {
         if (Dto == null) return null;
         TaskDescription Entity = new TaskDescription();
         Entity.setType(Dto.getType());
+        Entity.setStatus(Dto.getStatus());
         Entity.setId(Dto.getId());
         Entity.setCreator(userToEntity(Dto.getCreator()));
         Entity.setDescription(Dto.getDescription());
@@ -374,7 +374,6 @@ public class MapperService implements IMapperService {
         Dto.setExecutor(userToDto(Entity.getExecutor()));
         Dto.setResponse(Entity.getResponse());
         Dto.setStatus(Entity.getStatus());
-        Dto.setStatusName(TaskStatusType.values()[Entity.getStatus()].name());
         Dto.setTaskDescriptionId(Entity.getTaskDescription().getId());
         List<FileDescriptionModel> files = new ArrayList<>();
         if(Entity.getFiles()!=null) {

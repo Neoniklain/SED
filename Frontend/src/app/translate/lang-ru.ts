@@ -39,5 +39,8 @@ export const LANG_RU_TRANS = {
     "admin ": "Администратор",
     "student ": "Судент",
     "lesson-configurator": "Настройка занятия",
-    "settings-page": "Профиль"
+    "settings-page": "Профиль",
+    "Answer": "Ответ",
+    "Info": "Оповещение",
+    "Notice": "Уведомление о прочтении"
 };

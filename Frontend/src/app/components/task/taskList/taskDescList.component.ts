@@ -1,23 +1,17 @@
-import {Component, ViewChild} from '@angular/core';
+import {Component} from '@angular/core';
 import {TaskDescription, TaskStatusType} from "../../../models/task/task.model";
 import {TaskService} from "../../../services/task.service";
-import {forEach} from "@angular/router/src/utils/collection";
-import {NewTaskDescComponent} from "../newTask/newTaskDesc.component";
 import {User} from "../../../models/account/user.model";
 import {AuthenticationService} from "../../../services/authService";
 import {Router} from "@angular/router";
-import {WorkTaskComponent} from "../workTask/workTask.component";
 import {NotificationService} from "../../../services/notification.service";
 import {AccessRightType} from "../../../models/account/access";
 import {Globals} from "../../../globals";
-import {ResponseStatus} from "../../../models/additional/responseStatus";
-import {DetailTaskComponent} from "../detailTask/detailTask.component";
 import {StatusType} from "../../../models/statusType.model";
 
 @Component({
    selector: 'task-list',
-   templateUrl: './taskDescList.component.html',
-   styleUrls: ['./taskDescList.component.css']
+   templateUrl: './taskDescList.component.html'
 })
 
 export class TaskDescListComponent {
@@ -52,6 +46,10 @@ export class TaskDescListComponent {
                 this.getTDExecutor();
             }
         );
+    }
+
+    public getStatusName(statusId: number) {
+        return TaskStatusType[statusId];
     }
 
     public getTDExecutor() {
@@ -118,5 +116,11 @@ export class TaskDescListComponent {
 
     public onCreateNew() {
         this.getTDCreator();
+    }
+
+    public onReturnDetail() {
+        this.getTDExecutor();
+        this.getTDCreator();
+        this.setComp('list');
     }
 }
