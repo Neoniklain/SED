@@ -5,13 +5,10 @@ spring:
     hibernate:
       ddl-auto: none
   datasource:
-    # Release DB
-    url: jdbc:postgresql://192.168.253.8:3254/ict?currentSchema=public
-    username: ict
-    password: 123456
-    #url: jdbc:postgresql://localhost:5432/unesco?currentSchema=public
-    #username: postgres
-    #password: postgres
+    # Local DB
+    url: jdbc:postgresql://localhost:5432/unesco?currentSchema=public
+    username: postgres
+    password: postgres
     driverClassName: org.postgresql.Driver
   http:
     multipart:

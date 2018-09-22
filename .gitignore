@@ -1,4 +1,7 @@
 /Frontend/package-lock.json
 /Frontend/node_modules/**
+/Frontend/.idea/**
+/Frontend/src/app/aot/**
+/Frontend/wwwroot/js/**
 classes
 public

@@ -9,12 +9,16 @@ const tslint = require('gulp-tslint');
 const libs = './wwwroot/lib/';
 const vendor = './wwwroot/vendor/';
 const shell = require('gulp-shell');
+const bom = require('gulp-bom');
+var exec = require('child_process').exec;
+var replace = require('gulp-replace');
+var rename = require('gulp-rename');
 
 /**
  * Remove build directory.
  */
 gulp.task('clean', (cb) => {
-    return del(["./dist/", "./wwwroot/js/", "./src/**/*.js*", "!./src/app/locales/*.json"], cb);
+    return del(["./wwwroot/js/", "./src/**/*.js*"], cb);
 });
 
 /**
@@ -28,43 +32,79 @@ gulp.task('tslint', () => {
         .pipe(tslint.report());
 });
 
-gulp.task("build:test", ['build:restore'], shell.task('npm run build:test'));
-gulp.task("build:prod", ['build:restore'], shell.task('npm run build:prod'));
-gulp.task("build:dev", ['build:restore'], shell.task('npm run build:dev'));
-gulp.task("watch:dev", ['restore'], shell.task('npm run watch:dev'));
+gulp.task("build:dev", shell.task('npm run build:dev'));
+gulp.task("watch:dev", shell.task('npm run watch:dev'));
 
-gulp.task('restore', [
-    'restore:bootstrap',
-    'restore:pleasewait',
-    'restore:primeng',
-]);
+gulp.task("build:prod", function() {
+  var child = exec("npm run build:prod");
 
-gulp.task('build:restore', [
-    'restore:primeng',
-]);
+  child.stdout.on('data', function(data) {
+    console.log(data);
+  });
+  child.stderr.on('data', function(data) {
+    console.log(data);
+  });
+  child.on('close', function(code) {
 
-gulp.task('restore:primeng', function () {
-    gulp.src([
-        'node_modules/primeng/**',,
-    ]).pipe(gulp.dest('./src/app/aot/node_modules/primeng'));
+  	gulp.start('convert', 'copyOnBackend', 'build:backend');
+
+  });
 });
 
-gulp.task('restore:bootstrap', function () {
-    gulp.src([
-        'node_modules/bootstrap/dist/**/*.min.css',
-        'node_modules/bootstrap/dist/**/*.eot',
-        'node_modules/bootstrap/dist/**/*.svg',
-        'node_modules/bootstrap/dist/**/*.ttf',
-        'node_modules/bootstrap/dist/**/*.woff',
-        'node_modules/bootstrap/dist/**/*.woff2',
-        'node_modules/bootstrap-material-design/dist/**/*.min.css'
-    ]).pipe(gulp.dest(vendor + 'bootstrap'));
+gulp.task("build:backend", function() {
+
+  gulp.src('../Backend/src/main/resources/application.prodaction.yml')
+    	.pipe(rename({ basename: 'application'}))
+	    .pipe(gulp.dest('../Backend/src/main/resources'));
+
+  var child = exec("buildprod");
+
+  child.stdout.on('data', function(data) {
+    console.log(data);
+  });
+  child.stderr.on('data', function(data) {
+    console.log(data);
+  });
+  child.on('close', function(code) {
+
+ 	gulp.src('../Backend/src/main/resources/application.development.yml')
+    	.pipe(rename({ basename: 'application'}))
+	    .pipe(gulp.dest('../Backend/src/main/resources'));
+	    
+    gulp.src('../Backend/target/unesco-1.5.8.RELEASE.war')
+    	.pipe(rename({ basename: 'unesco'}))
+	    .pipe(gulp.dest('../LastBuild'));
+
+  });
+});
+
+gulp.task('convert',function() {
+    gulp.src("./wwwroot/js/polyfills.js").pipe(bom())
+        .pipe(gulp.dest('./wwwroot/js/'));
+
+    gulp.src("./wwwroot/js/site.js").pipe(bom())
+        .pipe(gulp.dest('./wwwroot/js/'));
+
+    gulp.src("./wwwroot/js/vendor.js").pipe(bom())
+        .pipe(gulp.dest('./wwwroot/js/'));
 });
 
 
-gulp.task('restore:pleasewait', function () {
-    gulp.src([
-        'node_modules/please-wait/build/**/*.css',
-        'node_modules/please-wait/build/**/*.min.js',
-    ]).pipe(gulp.dest(vendor + 'please-wait'));
+gulp.task('copyOnBackend',function() {
+
+    gulp.src('./wwwroot/index.html')
+	    .pipe(replace('<base href="/">', '<base href="unesco">'))
+	    .pipe(gulp.dest('../Backend/src/main/resources/public/'));
+	    
+    gulp.src("./wwwroot/css/**/*")
+        .pipe(gulp.dest('../Backend/src/main/resources/public/css'));
+    gulp.src("./wwwroot/fonts/**/*")
+        .pipe(gulp.dest('../Backend/src/main/resources/public/fonts'));
+    gulp.src("./wwwroot/images/**/*")
+        .pipe(gulp.dest('../Backend/src/main/resources/public/images'));
+    gulp.src("./wwwroot/js/**/*")
+        .pipe(gulp.dest('../Backend/src/main/resources/public/js'));
+    gulp.src("./wwwroot/vendor/**/*")
+        .pipe(gulp.dest('../Backend/src/main/resources/public/vendor'));
+
 });

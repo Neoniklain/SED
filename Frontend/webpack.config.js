@@ -65,19 +65,9 @@ var config = {
 };
 
 module.exports = function(env) {
-  var allowedEnvValues = ['prod', 'dev', 'test'];
+  var allowedEnvValues = ['prod', 'dev'];
   if (env == undefined) { 
-    console.log('env is unset. prod is assumed.');
     env = 'dev';
-  }
-
-  const ifDefOpts = {
-    ENVIRONMENT: env,
-    "ifdef-verbose": true
-  };
-
-  if (!allowedEnvValues.includes(env)) {
-    throw new Error(`Value '${env}' is not allowed`);
   }
 
   config.module.loaders = config.module.loaders.concat([
@@ -86,10 +76,25 @@ module.exports = function(env) {
         use: [
           { loader: 'awesome-typescript-loader' },
           { loader: 'angular2-template-loader' },
-          { loader: 'ifdef-loader', options: ifDefOpts }
         ]
       }
     ]);
+
+  if (env == 'dev') {
+    config.plugins = config.plugins.concat([
+      new webpack.DefinePlugin({
+       'process.env': { 'API_URL': JSON.stringify('http://localhost:8080/api/') }
+      })
+    ]);
+  }
+
+  if (env == 'prod') {
+    config.plugins = config.plugins.concat([
+      new webpack.DefinePlugin({
+       'process.env': { 'API_URl': JSON.stringify('api/') }
+      })
+    ]);
+  }
 
   if (env == 'prod' || env == 'test') {
     config.entry.site = [

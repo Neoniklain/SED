@@ -1,0 +1,16 @@
+spring:
+  jpa:
+    database: POSTGRESQL
+    show-sql: false
+    hibernate:
+      ddl-auto: none
+  datasource:
+    # Local DB
+    url: jdbc:postgresql://localhost:5432/unesco?currentSchema=public
+    username: postgres
+    password: postgres
+    driverClassName: org.postgresql.Driver
+  http:
+    multipart:
+      max-file-size: 50Mb
+      max-request-size: 50Mb

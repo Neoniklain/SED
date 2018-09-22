@@ -17,7 +17,8 @@
 Для проекта необходима база данных PostgreSQL. Если хотите использовать ее локально то:
 
 1. Создаем базу с названием unesco (можно другое)
-2. Указываем настройки подключения в файле [application.yml](Backend\src\main\resources\application.yml)
+2. Указываем настройки подключения в файле [application.yml](Backend\src\main\resources\application.development.yml) и в файле
+[application.development.yml](Backend\src\main\resources\application.yml)
 3. Файл выглядеть должен примерно так:
 ```
 spring:
@@ -97,13 +98,23 @@ os: win32 x64
 
 ### Сборка перед загрузкой на сервер
 
-1. Выполнить сборку ангуляра (запустить файл makeang.bat)
-2. новая сборка окажется в папке SED\Frontend\wwwroot.
-3. Удостовериться что все js файлы в папке SED\Frontend\wwwroot\js установлены в кодировке UTF-8 (не "UTF-8 без БОМ").
-4. Скопировать все файлы из SED\Frontend\wwwroot в папку SED\Backend\src\main\resources\public
-5. Сгененрировать .war файл.
+1. Ззапустить файл makeBuild.bat
+2. новая сборка окажется в папке SED\LastBuild\unesco.war.
 
-#### Ссылки
+### Возможные ошибки:
+
+1. Не установдлен gulp:
+ Для исправление выполнить команду в консоли:
+ ```aidl
+ > npm install -g node-gyp 
+ ```
+
+2. Не встановлена переменная JAVA_HOME указать переменную к сдк в Мой компьютер -> Свойства -> Дополнительные параметры системы -> Переменные среды -> Системные переменные -> Создать:
+Имя переменной: JAVA_HOME
+Значение переменной: <ваш путь до java jdk (например: 'C:\Progra~1\Java\jdk1.8.0_171')>
+
+
+### Ссылки
 1. [Node.js 7.5.0](https://nodejs.org/en/download/releases/)
 2. [PostgreSQL](https://www.openscg.com/bigsql/postgresql/installers/)
 3. [Терминология внутри проекта и в рамках диплома](https://docs.google.com/document/d/1W4wgcB6TIVwtqD4uvjvx68ElTZ8ADfEWJCAs22TjwkE/edit)
