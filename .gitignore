@@ -1,9 +1,9 @@
-/Frontend/package-lock.json
-/Frontend/node_modules/**
-/Frontend/.idea/**
-/Frontend/src/app/aot/**
-/Frontend/wwwroot/js/**
+/Frontend/Core/package-lock.json
+/Frontend/Core/.idea/**
+/Frontend/Core/src/app/aot/**
+/Frontend/Core/wwwroot/js/**
 classes
 public
 node_modules
 .idea
+.rpt2_cache

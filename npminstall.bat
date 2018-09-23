@@ -1,2 +1,0 @@
-cd Frontend
-npm install
