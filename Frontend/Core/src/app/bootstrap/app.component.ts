@@ -1,9 +1,7 @@
 ﻿import {
-    AfterViewInit,
     Compiler,
     Component,
     Injector,
-    NgModule,
     OnInit,
     ViewChild,
     ViewContainerRef
@@ -14,7 +12,6 @@ import { LocaleService, TranslationService } from "angular-l10n";
 import { LANG_RU_TRANS } from "../translate/lang-ru";
 import {PluginInformation} from "../models/plugin.interface";
 import {HttpClient} from "@angular/common/http";
-import {PluginsModule} from "./plugins.module";
 import {Globals} from "../globals";
 import {PluginService} from "../services/plugin.service";
 
@@ -59,7 +56,6 @@ export class AppComponent implements OnInit {
         if (window.loading_screen) {
             window.loading_screen.finish();
         }
-        this.module = this.compiler.compileModuleAndAllComponentsSync(PluginsModule);
     }
 
     ngOnInit() {
@@ -81,8 +77,8 @@ export class AppComponent implements OnInit {
             return null;
             }).subscribe( (title: any) => { this.titleService.setTitle(title + " - UNESCO"); });
 
-        this.pluginService.GetPlugin('plugins-example', this.content);
-        this.loadPlugin();
+        // this.pluginService.GetPlugin('plugins-example', this.content);
+        // this.loadPlugin();
     }
 
     async loadPlugin() {

@@ -1,2 +1,2 @@
-cd Frontend
+cd Frontend/Core
 gulp watch:dev
