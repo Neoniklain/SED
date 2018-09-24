@@ -9,6 +9,7 @@ import {User} from "../../../models/account/user.model";
 import {StatusType} from "../../../models/statusType.model";
 import {AccessRightType, UserAccessRight} from "../../../models/account/access";
 import {HttpClient} from "@angular/common/http";
+import {Message} from "primeng/components/common/message";
 
 @Component({
    selector: 'header-component',
@@ -23,6 +24,7 @@ export class HeaderComponent implements OnInit {
     public Roles = Roles;
     public user: User = new User();
     public userAccessRight: UserAccessRight = new UserAccessRight();
+    public msgs: Message[] = [];
 
     constructor(private compiler: Compiler,
                 private router: Router,

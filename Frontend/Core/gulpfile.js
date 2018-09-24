@@ -47,7 +47,7 @@ gulp.task("build:prod", function() {
   });
   child.on('close', function(code) {
 
-  	gulp.start('convert', 'copyOnBackend', 'build:backend');
+  	gulp.start('build:backend');
 
   });
 });
@@ -57,6 +57,32 @@ gulp.task("build:backend", function() {
   gulp.src(backend+'src/main/resources/application.prodaction.yml')
     	.pipe(rename({ basename: 'application'}))
 	    .pipe(gulp.dest(backend+'src/main/resources'));
+
+  gulp.src("./wwwroot/js/polyfills.js").pipe(bom())
+      .pipe(gulp.dest(backend+'src/main/resources/public/js/'));
+
+  gulp.src("./wwwroot/js/site.js").pipe(bom())
+      .pipe(gulp.dest(backend+'src/main/resources/public/js/'));
+
+  gulp.src("./wwwroot/js/vendor.js").pipe(bom())
+      .pipe(gulp.dest(backend+'src/main/resources/public/js/'));
+
+  gulp.src('./wwwroot/index.html')
+    .pipe(replace('<base href="/">', '<base href="unesco">'))
+    .pipe(gulp.dest(backend+'src/main/resources/public/'));
+    
+  gulp.src("./wwwroot/css/**/*")
+      .pipe(gulp.dest(backend+'src/main/resources/public/css'));
+  gulp.src("./wwwroot/fonts/**/*")
+      .pipe(gulp.dest(backend+'src/main/resources/public/fonts'));
+  gulp.src("./wwwroot/images/**/*")
+      .pipe(gulp.dest(backend+'src/main/resources/public/images'));
+  gulp.src("./wwwroot/assets/**/*")
+      .pipe(gulp.dest(backend+'src/main/resources/public/assets'));
+  gulp.src("./wwwroot/vendor/**/*")
+      .pipe(gulp.dest(backend+'src/main/resources/public/vendor'));
+  gulp.src("./wwwroot/modules/**/*")
+      .pipe(gulp.dest(backend+'src/main/resources/public/modules'));
 
   var child = exec("buildprod");
 
@@ -77,35 +103,4 @@ gulp.task("build:backend", function() {
 	    .pipe(gulp.dest('../../LastBuild'));
 
   });
-});
-
-gulp.task('convert',function() {
-    gulp.src("./wwwroot/js/polyfills.js").pipe(bom())
-        .pipe(gulp.dest('./wwwroot/js/'));
-
-    gulp.src("./wwwroot/js/site.js").pipe(bom())
-        .pipe(gulp.dest('./wwwroot/js/'));
-
-    gulp.src("./wwwroot/js/vendor.js").pipe(bom())
-        .pipe(gulp.dest('./wwwroot/js/'));
-});
-
-
-gulp.task('copyOnBackend',function() {
-
-    gulp.src('./wwwroot/index.html')
-	    .pipe(replace('<base href="/">', '<base href="unesco/">'))
-	    .pipe(gulp.dest(backend+'src/main/resources/public/'));
-	    
-    gulp.src("./wwwroot/css/**/*")
-        .pipe(gulp.dest(backend+'src/main/resources/public/css'));
-    gulp.src("./wwwroot/fonts/**/*")
-        .pipe(gulp.dest(backend+'src/main/resources/public/fonts'));
-    gulp.src("./wwwroot/images/**/*")
-        .pipe(gulp.dest(backend+'src/main/resources/public/images'));
-    gulp.src("./wwwroot/js/**/*")
-        .pipe(gulp.dest(backend+'src/main/resources/public/js'));
-    gulp.src("./wwwroot/vendor/**/*")
-        .pipe(gulp.dest(backend+'src/main/resources/public/vendor'));
-
 });

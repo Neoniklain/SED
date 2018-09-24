@@ -91,7 +91,7 @@ module.exports = function(env) {
   if (env == 'prod') {
     config.plugins = config.plugins.concat([
       new webpack.DefinePlugin({
-       'process.env': { 'API_URl': JSON.stringify('api/') }
+       'process.env': { 'API_URL': JSON.stringify('api/') }
       })
     ]);
   }
