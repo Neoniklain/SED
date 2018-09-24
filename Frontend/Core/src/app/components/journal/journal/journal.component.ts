@@ -22,6 +22,7 @@ export class JournalComponent implements OnInit {
     public monthHeader: Array<MonthHeader> = [];
     public currentMonth: string;
     public currentDay: Date;
+    public showLoader: boolean = false;
     public datePipe = new DatePipe("ru");
 
     constructor(private authenticationService: AuthenticationService,
@@ -143,8 +144,10 @@ export class JournalComponent implements OnInit {
     }
 
     save() {
+        this.showLoader = true;
         this.journalService.Save(this.journal).subscribe(
             result => {
+                this.showLoader = false;
                 this.notificationService.FromStatus(result);
             }, error => console.error(error)
         );
@@ -176,6 +179,16 @@ export class JournalComponent implements OnInit {
 
     cancelField(cell) {
         if (cell.value === '') cell.value = 0;
+    }
+
+    hoverTdInput(element, cell) {
+        element.focus();
+        this.clearField(cell);
+    }
+
+    leaveTdInput(element, cell) {
+        element.blur();
+        this.cancelField(cell);
     }
 
     isCurrentMonth(day: Date) {

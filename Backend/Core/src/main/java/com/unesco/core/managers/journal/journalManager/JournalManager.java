@@ -86,13 +86,10 @@ public class JournalManager implements IJournalManager {
                 for (PairDTO pair : journal.getPairs()) {
                     List<PointDTO> find = this.journal.getJournalCell().stream().
                             filter(o -> o.getStudent().getUser().getId() == student.getUser().getId()
-                                    && o.getDate().getYear() == date.getYear()
-                                    && o.getDate().getMonth() == date.getMonth()
-                                    && o.getDate().getDay() == date.getDay()
+                                    && date.equals(o.getDate())
                                     && o.getType().getName().equals(PointTypes.Visitation.toString())
                                     && o.getPair().getId() == pair.getId()
-                            )
-                            .collect(Collectors.toList());
+                            ).collect(Collectors.toList());
 
                     Calendar c = Calendar.getInstance();
                     c.setTime(date);
@@ -135,9 +132,7 @@ public class JournalManager implements IJournalManager {
         for (StudentDTO student : journal.getStudents()) {
             for (LessonEventDTO currentLessonEvent : LessonEvents) {
                 if( !this.journal.getJournalCell().stream().anyMatch(
-                        o -> o.getDate().getYear() == currentLessonEvent.getDate().getYear()
-                        && o.getDate().getMonth() == currentLessonEvent.getDate().getMonth()
-                        && o.getDate().getDay() == currentLessonEvent.getDate().getDay()
+                        o -> currentLessonEvent.getDate().equals(o.getDate())
                         && o.getType().getId() == currentLessonEvent.getType().getId()
                 )) {
                     PointDTO pointLessonEvent = new PointDTO();

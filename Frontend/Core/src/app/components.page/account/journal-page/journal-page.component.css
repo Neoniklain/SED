@@ -51,6 +51,10 @@ td input {
   position: relative;
 }
 
+.head-desc {
+  font-size: 11px;
+}
+
 .header-panel-body h3 {
   background-color: white;
   width: auto;

@@ -1,9 +1,9 @@
-<div *ngIf="journal.students.length > 0" class="col-sm-12 text-right journal">
-    <table class="table">
+<div *ngIf="journal.students.length > 0 && !showLoader" class="col-sm-12 text-right journal">
+    <table class="table table-bordered table-striped">
         <colgroup>
             <col span="1" style="width: 25%;">
         </colgroup>
-        <thead>
+        <thead class="thead">
         <tr>
             <td></td>
             <ng-container *ngFor="let month of monthHeader">
@@ -45,6 +45,10 @@
                     <ng-container *ngIf="inMonthPeriodDate(head.date)">
                         <td [ngSwitch]="type.type.name" style="font-size: 14px" [title]="type.type.name"
                             [ngClass]="{today: isPairNow(type.pair)}">
+                            <span class="head-desc">
+                                {{type.pair.weektype}}
+                                <span title="Номер занятия">№{{type.pair.pairNumber}} </span>
+                            </span>
                             <span *ngSwitchCase="'Посещение'"><i class="fa fa-sign-in" aria-hidden="true"></i></span>
                             <span *ngSwitchDefault><i class="fa fa-circle" aria-hidden="true"></i></span>
                         </td>
@@ -55,11 +59,17 @@
         </thead>
         <tbody>
             <tr *ngFor="let student of journal.students">
-                <td><span [userCard]="student.user">{{student.user.userFIO}}</span></td>
+                <td style="text-align: right"><span [userCard]="student.user">{{student.user.userFIO}}</span></td>
                 <ng-container *ngFor="let cell of journal.journalCell">
                     <ng-container *ngIf="inMonthPeriodDate(cell.date)">
-                        <td [ngClass]="{displayNo: cell.student.user.userFIO!=student.user.userFIO, todayCell: isPairNow(cell.pair)}">
-                            <input [disabled]="cell.student.user.userFIO == 'Testing'" (click)="clearField(cell)" (blur)="cancelField(cell)" [(ngModel)]="cell.value" type="text">
+                        <td (mouseenter)="hoverTdInput(element, cell)"
+                            (mouseleave)="leaveTdInput(element, cell)"
+                            [ngClass]="{displayNo: cell.student.user.userFIO!=student.user.userFIO,
+                                        whiteZero: cell.value == 0,
+                                        todayCell: isPairNow(cell.pair)}">
+                            <input #element [disabled]="cell.student.user.userFIO == 'Testing'"
+                                   (click)="clearField(cell)" (blur)="cancelField(cell)"
+                                   [(ngModel)]="cell.value" type="number">
                         </td>
                     </ng-container>
                 </ng-container>
@@ -72,6 +82,8 @@
     </div>
 </div>
 
+
+<data-loader [show]="showLoader" [margin]="9"></data-loader>
 
 <div *ngIf="journal.students.length == 0" class="students-not-found">
     <h1>Студенты для группы не заданы.</h1>

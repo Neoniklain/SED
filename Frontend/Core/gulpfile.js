@@ -8,6 +8,7 @@ const tsProject = tsc.createProject("tsconfig.json");
 const tslint = require('gulp-tslint');
 const libs = './wwwroot/lib/';
 const vendor = './wwwroot/vendor/';
+const backend = '../../Backend/Core/';
 const shell = require('gulp-shell');
 const bom = require('gulp-bom');
 var exec = require('child_process').exec;
@@ -53,9 +54,9 @@ gulp.task("build:prod", function() {
 
 gulp.task("build:backend", function() {
 
-  gulp.src('../Backend/src/main/resources/application.prodaction.yml')
+  gulp.src(backend+'src/main/resources/application.prodaction.yml')
     	.pipe(rename({ basename: 'application'}))
-	    .pipe(gulp.dest('../Backend/src/main/resources'));
+	    .pipe(gulp.dest(backend+'src/main/resources'));
 
   var child = exec("buildprod");
 
@@ -67,13 +68,13 @@ gulp.task("build:backend", function() {
   });
   child.on('close', function(code) {
 
- 	gulp.src('../Backend/src/main/resources/application.development.yml')
+ 	gulp.src(backend+'src/main/resources/application.development.yml')
     	.pipe(rename({ basename: 'application'}))
-	    .pipe(gulp.dest('../Backend/src/main/resources'));
+	    .pipe(gulp.dest(backend+'src/main/resources'));
 	    
-    gulp.src('../Backend/target/unesco-1.5.8.RELEASE.war')
+    gulp.src(backend+'target/unesco-1.5.8.RELEASE.war')
     	.pipe(rename({ basename: 'unesco'}))
-	    .pipe(gulp.dest('../LastBuild'));
+	    .pipe(gulp.dest('../../LastBuild'));
 
   });
 });
@@ -93,18 +94,18 @@ gulp.task('convert',function() {
 gulp.task('copyOnBackend',function() {
 
     gulp.src('./wwwroot/index.html')
-	    .pipe(replace('<base href="/">', '<base href="unesco">'))
-	    .pipe(gulp.dest('../Backend/src/main/resources/public/'));
+	    .pipe(replace('<base href="/">', '<base href="unesco/">'))
+	    .pipe(gulp.dest(backend+'src/main/resources/public/'));
 	    
     gulp.src("./wwwroot/css/**/*")
-        .pipe(gulp.dest('../Backend/src/main/resources/public/css'));
+        .pipe(gulp.dest(backend+'src/main/resources/public/css'));
     gulp.src("./wwwroot/fonts/**/*")
-        .pipe(gulp.dest('../Backend/src/main/resources/public/fonts'));
+        .pipe(gulp.dest(backend+'src/main/resources/public/fonts'));
     gulp.src("./wwwroot/images/**/*")
-        .pipe(gulp.dest('../Backend/src/main/resources/public/images'));
+        .pipe(gulp.dest(backend+'src/main/resources/public/images'));
     gulp.src("./wwwroot/js/**/*")
-        .pipe(gulp.dest('../Backend/src/main/resources/public/js'));
+        .pipe(gulp.dest(backend+'src/main/resources/public/js'));
     gulp.src("./wwwroot/vendor/**/*")
-        .pipe(gulp.dest('../Backend/src/main/resources/public/vendor'));
+        .pipe(gulp.dest(backend+'src/main/resources/public/vendor'));
 
 });

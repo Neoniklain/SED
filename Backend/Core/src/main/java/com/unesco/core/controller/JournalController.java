@@ -38,11 +38,6 @@ public class JournalController {
     @Autowired
     private IVisitationConfigManager visitationConfigManager;
 
-    @Autowired
-    private IAccessControlService accessСontrolService;
-    @Autowired
-    private IUserService userService;
-
     public ResponseStatusDTO getJournal(long lessonId) {
 
         JournalDTO journal = journalDataService.get(lessonId);
