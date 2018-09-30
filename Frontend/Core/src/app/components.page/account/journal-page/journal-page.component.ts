@@ -1,15 +1,13 @@
 import {Component, EventEmitter, Injectable, OnInit, Output} from '@angular/core';
-import {Router} from "@angular/router";
 import {Pair} from "../../../models/shedule/pair";
 import {Journal} from "../../../models/journal/journal.model";
 import {User} from "../../../models/account/user.model";
 import {AuthenticationService} from "../../../services/authService";
 import {JournalService} from "../../../services/journal.service";
 import {ScheduleService} from "../../../services/schedule.service";
-import {NotificationService} from "../../../services/notification.service";
 import {AccountService} from "../../../services/accountService";
 import {Professor} from "../../../models/account/professor";
-import {StatusType} from "../../../models/statusType.model";
+import {DatePipe} from "@angular/common";
 
 @Component({
     selector: 'journal-page',
@@ -25,11 +23,19 @@ export class JournalPageComponent implements OnInit {
     public journal: Journal;
     public pairs: Array<Pair> = [];
     public showLoader: boolean = false;
+    public month: number;
+    public lastMonth: number;
+    public datePipe = new DatePipe("ru");
+    public lastPair: Pair;
 
     constructor(private authenticationService: AuthenticationService,
                 private journalService: JournalService,
                 private accountService: AccountService,
                 private ScheduleService: ScheduleService) {
+    }
+
+    ngOnInit(): void {
+        this.month = Number.parseInt(this.datePipe.transform(Date.now(), 'M')) - 1;
         this.user = new User();
         this.authenticationService.getUser().subscribe(
             res => {
@@ -51,23 +57,45 @@ export class JournalPageComponent implements OnInit {
             });
     }
 
-    ngOnInit(): void { }
+    changeMonth(event) {
+        this.lastMonth = this.month;
+        this.month = event;
+        this.updateJournal();
+    }
 
     onClick(pair: Pair) {
-        if (pair.id !== 0) {
+        this.lastPair = pair;
+        this.updateJournal();
+    }
+
+    updateJournal() {
+        let lastJournal = new Journal();
+        if (this.journal)
+            lastJournal = JSON.parse(JSON.stringify(this.journal));
+        this.journal = null;
+        if (this.lastPair.id !== 0) {
             this.showLoader = true;
-            this.journalService.GetJournal(pair.lesson.id).subscribe(
+            this.journalService.GetJournal(this.lastPair.lesson.id, this.month).subscribe(
                 result => {
-                    console.log("this.journal", result.data);
+                    console.log("journal", result.data);
+                    for (let key in result.data.сomparison) {
+                    }
+                    if (!this.lastMonth) {
+                        this.toogleViewMenu.emit();
+                    }
                     this.journal = result.data;
                     this.showLoader = false;
-                    this.toogleViewMenu.emit();
-                }, error => console.error(error)
+                }, error => {
+                    this.journal = lastJournal;
+                    this.month = this.lastMonth;
+                    this.showLoader = false;
+                }
             );
         }
     }
 
     back() {
+        this.lastMonth = null;
         this.journal = null;
         this.toogleViewMenu.emit();
     }

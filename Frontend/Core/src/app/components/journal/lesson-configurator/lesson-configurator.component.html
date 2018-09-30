@@ -99,6 +99,7 @@
                                         [readonlyInput]="true"
                                         placeholder="Дата события"
                                         [(ngModel)]="model.date"
+                                        (ngModelChange)="changeDate($event)"
                                         [locale]="ru"></p-calendar>
                         </div>
                     </div>
@@ -125,6 +126,28 @@
                 </div>
 
             </div>
+
+            <div *ngIf="findsPairsForDate.length > 1" class="row">
+                <div class="header-lesson text-center col-md-12">
+                    <h3>Найденно больше одного занятия в этот день.</h3>
+                </div>
+                <div class="header-lesson text-left col-md-12">
+                    <h5>Выберите занятие, для которого назначить контрольную точку</h5>
+                    <div><p-checkbox [(ngModel)]="selectAllPair" (ngModelChange)="clearSelect()" [label]="'Назначить всем'" binary="true"></p-checkbox></div>
+                </div>
+                <div class="header-lesson col-md-12">
+                    <span (click)="selectAllPair ? '' : selectPair = p" class="pair-find text-center" *ngFor="let p of findsPairsForDate"
+                        [ngClass]="{selectPair: selectPair.id == p.id}">
+                        <span style="float: left">{{p.pairType.type}}</span>
+                        <span style="float: right">{{p.weektype}}</span>
+                        <span style="font-size: 14px">{{p.lesson.discipline.name}}</span>
+                        <span style="float: left">{{p.lesson.group.name}}</span>
+                        <span style="float: right; padding-left: 1em;">Номер занятия: {{p.pairNumber}}</span>
+                    </span>
+                </div>
+            </div>
+
+            <hr>
 
             <div class="header-lesson text-left col-md-12">
                 <h5>

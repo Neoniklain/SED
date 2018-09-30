@@ -5,6 +5,7 @@ import com.unesco.core.dto.additional.ResponseStatusDTO;
 import com.unesco.core.dto.journal.JournalDTO;
 import com.unesco.core.dto.journal.LessonEventDTO;
 import com.unesco.core.dto.journal.VisitationConfigDTO;
+import com.unesco.core.dto.shedule.PairDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -21,8 +22,8 @@ public class JournalControllerWeb {
     private JournalController journalController;
 
     @GetMapping("/{lessonId}")
-    public ResponseStatusDTO getJournal(@PathVariable("lessonId") long lessonId) {
-        return journalController.getJournal(lessonId);
+    public ResponseStatusDTO getJournal(@PathVariable("lessonId") long lessonId, @RequestParam int month) {
+        return journalController.getJournal(lessonId, month);
     }
 
     @RequestMapping("/dates/{lessonId}")

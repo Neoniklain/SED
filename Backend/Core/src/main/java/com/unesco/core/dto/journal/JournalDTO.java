@@ -5,14 +5,15 @@ import com.unesco.core.dto.shedule.LessonDTO;
 import com.unesco.core.dto.shedule.PairDTO;
 
 import java.util.Date;
+import java.util.Dictionary;
 import java.util.List;
+import java.util.Map;
 
 public class JournalDTO
 {
    private LessonDTO lesson;
-   private List<PairDTO> pairs;
    private List<StudentDTO> students;
-   private List<Date> dates;
+   private List<ComparisonDTO> comparison;
    private List<PointDTO> journalCell;
 
    public JournalDTO()
@@ -33,11 +34,11 @@ public class JournalDTO
       this.students = students;
    }
 
-   public List<Date> getDates() {
-      return dates;
+   public List<ComparisonDTO> getComparison() {
+      return comparison;
    }
-   public void setDates(List<Date> dates) {
-      this.dates = dates;
+   public void setComparison(List<ComparisonDTO> comparison) {
+      this.comparison = comparison;
    }
 
    public List<PointDTO> getJournalCell() {
@@ -45,13 +46,6 @@ public class JournalDTO
    }
    public void setJournalCell(List<PointDTO> journalCell) {
       this.journalCell = journalCell;
-   }
-
-   public List<PairDTO> getPairs() {
-      return pairs;
-   }
-   public void setPairs(List<PairDTO> pairs) {
-      this.pairs = pairs;
    }
 
 }

@@ -1,11 +1,13 @@
 import {Lesson} from "../shedule/lesson";
 import {PointType} from "./journal.model";
+import {Pair} from "../shedule/pair";
 
 export class LessonEvent {
 
     public id: number;
     public date: Date;
     public type: PointType;
+    public pair: Pair;
     public maxValue: number;
     public lesson: Lesson;
     public comment: string;

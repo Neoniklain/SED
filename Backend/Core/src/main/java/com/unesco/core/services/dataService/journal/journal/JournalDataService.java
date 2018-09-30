@@ -2,10 +2,9 @@ package com.unesco.core.services.dataService.journal.journal;
 
 import com.unesco.core.dto.account.StudentDTO;
 import com.unesco.core.dto.additional.ResponseStatusDTO;
+import com.unesco.core.dto.enums.PointTypes;
 import com.unesco.core.dto.enums.StatusTypes;
-import com.unesco.core.dto.journal.JournalDTO;
-import com.unesco.core.dto.journal.PointDTO;
-import com.unesco.core.dto.journal.PointTypeDTO;
+import com.unesco.core.dto.journal.*;
 import com.unesco.core.dto.shedule.LessonDTO;
 import com.unesco.core.dto.shedule.PairDTO;
 import com.unesco.core.services.dataService.account.studentService.IStudentDataService;
@@ -36,19 +35,51 @@ public class JournalDataService implements IJournalDataService {
 
     public JournalDTO get(long lessonId)
     {
+        return getForMonth(lessonId, -1);
+    }
+
+    public JournalDTO getForMonth(long lessonId, int month)
+    {
+        JournalDTO model = new JournalDTO();
+        model.setComparison(new ArrayList<>());
+
         LessonDTO lesson = lessonDataService.get(lessonId);
         List<StudentDTO> students = studentDataService.getByGroup(lesson.getGroup().getId());
         List<PairDTO> pairs = pairDataService.getAllByLesson(lesson.getId());
 
+        Calendar from = Calendar.getInstance();
+        Calendar to = Calendar.getInstance();
+
+        from.set(2018,8,1);
+        to.set(2018,11,28);
+        Set<Date> days = new HashSet<>();
+
         Calendar starDate = Calendar.getInstance();
         Calendar endDate = Calendar.getInstance();
-
-        Set<Date> days = new HashSet<>();
+        int toMonth = to.get(Calendar.MONTH);
+        int fromMonth = from.get(Calendar.MONTH);
+        if(month != -1 && month >= from.get(Calendar.MONTH)  && month <= to.get(Calendar.MONTH))
+        {
+            from.set(from.get(Calendar.YEAR), month,1);
+            to.set(from.get(Calendar.YEAR), month, from.getActualMaximum(Calendar.DAY_OF_MONTH));
+        }
+        else if(month != -1 && month < fromMonth) {
+            month = from.get(Calendar.MONTH);
+            from.set(from.get(Calendar.YEAR), month,1);
+            to.set(from.get(Calendar.YEAR), month, from.getActualMaximum(Calendar.DAY_OF_MONTH));
+        }
+        else if(month != -1 && month > toMonth) {
+            month = to.get(Calendar.MONTH);
+            from.set(from.get(Calendar.YEAR), month,1);
+            to.set(from.get(Calendar.YEAR), month, from.getActualMaximum(Calendar.DAY_OF_MONTH));
+        }
+        Date t1 =  from.getTime();
+        Date t2 =  to.getTime();
 
         for (PairDTO pair: pairs) {
 
-            starDate.set(2018,8,1);
-            endDate.set(2018,11,28);
+            starDate.set(from.get(Calendar.YEAR), from.get(Calendar.MONTH), from.get(Calendar.DAY_OF_MONTH));
+            endDate.set(to.get(Calendar.YEAR), to.get(Calendar.MONTH), to.get(Calendar.DAY_OF_MONTH));
 
             switch (pair.getDayofweek()) {
                 case "Понедельник":
@@ -89,11 +120,11 @@ public class JournalDataService implements IJournalDataService {
             if(!pair.getWeektype().equals("Все"))
             {
                 if(pair.getWeektype().equals("Чет")) {
-                    days.add(getZeroTimeDate(starDate.getTime()));
+                    addDate(model.getComparison(), getZeroTimeDate(starDate.getTime()), pair);
                     starDate.add(Calendar.DAY_OF_WEEK, 14); //Прибавляем две недели
                 } else {
                     starDate.add(Calendar.DAY_OF_WEEK, 7); //Прибавляем неделю
-                    days.add(getZeroTimeDate(starDate.getTime()));
+                    addDate(model.getComparison(), getZeroTimeDate(starDate.getTime()), pair);
                     starDate.add(Calendar.DAY_OF_WEEK, 14); //Прибавляем две недели
                 }
             }
@@ -101,7 +132,7 @@ public class JournalDataService implements IJournalDataService {
             int amount = pair.getWeektype().equals("Все") ? 7 : 14;
 
             while(starDate.getTime().compareTo(endDate.getTime()) < 0) {
-                days.add(getZeroTimeDate(starDate.getTime()));
+                addDate(model.getComparison(), getZeroTimeDate(starDate.getTime()), pair);
                 starDate.add(Calendar.DAY_OF_WEEK, amount);
             }
         }
@@ -114,10 +145,7 @@ public class JournalDataService implements IJournalDataService {
             }
         }
 
-        JournalDTO model = new JournalDTO();
-        model.setPairs(pairs);
         model.setLesson(lesson);
-        model.setDates(days.stream().collect(Collectors.toList()));
         model.setStudents(students);
         model.setJournalCell(points);
 
@@ -143,10 +171,10 @@ public class JournalDataService implements IJournalDataService {
             if(point.getId() == 0) {
 
                 PointDTO findPoint = pointDataService.getByStudentAndDateAndTypeAndPair(
-                        point.getStudent().getUser().getId(),
+                        point.getStudentId(),
                         point.getDate(),
                         point.getType().getId(),
-                        point.getPair().getId());
+                        point.getPairId());
 
                 if(findPoint!=null) {
                     point.setId(findPoint.getId());
@@ -190,6 +218,39 @@ public class JournalDataService implements IJournalDataService {
         res = calendar.getTime();
 
         return res;
+    }
+
+    private void addDate(List<ComparisonDTO> comp, Date date, PairDTO pair) {
+        PointTypeDTO visit = new PointTypeDTO();
+        visit.setName(PointTypes.Visitation.toString());
+
+        if (comp.stream().noneMatch(x -> x.getDate().compareTo(date)==0)) {
+            ComparisonDTO newComp = new ComparisonDTO();
+            newComp.setDate(date);
+            ComparisonPointDTO point = new ComparisonPointDTO();
+            point.setType(visit);
+            point.setPair(pair);
+            newComp.setPoints(new ArrayList<ComparisonPointDTO>(){{add(point);}});
+            comp.add(newComp);
+        } else {
+            ComparisonDTO newComp = new ComparisonDTO();
+
+            ComparisonDTO comparisonDTO = comp.stream().filter(x -> x.getDate().compareTo(date) == 0).collect(Collectors.toList()).get(0);
+
+            ComparisonPointDTO point = new ComparisonPointDTO();
+            point.setType(visit);
+            point.setPair(pair);
+
+            List<ComparisonPointDTO> points = comparisonDTO.getPoints();
+            points.add(point);
+
+            newComp.setDate(date);
+            newComp.setPoints(points);
+
+            comp.remove(comparisonDTO);
+            comp.add(newComp);
+        }
+
     }
 
 }

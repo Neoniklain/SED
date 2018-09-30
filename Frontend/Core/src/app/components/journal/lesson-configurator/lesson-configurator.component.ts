@@ -3,7 +3,7 @@ import {ScheduleService} from "../../../services/schedule.service";
 import {NotificationService} from "../../../services/notification.service";
 import {JournalService} from "../../../services/journal.service";
 import {LessonEvent} from "../../../models/journal/lessonEvent.model";
-import {PointType} from "../../../models/journal/journal.model";
+import {Comparison, PointType} from "../../../models/journal/journal.model";
 import {DictionaryService} from "../../../services/dictionary.service";
 import {UtilsService} from "../../../services/utils.service";
 import {isUndefined} from "util";
@@ -14,6 +14,7 @@ import {VisitationConfig} from "../../../models/journal/visitationConfig.model";
 import {ResponseStatus} from "../../../models/additional/responseStatus";
 import {Observable} from "rxjs/Observable";
 import {Dictionary} from "../../../models/admin/dictionary.model";
+import {Pair} from "../../../models/shedule/pair";
 
 @Component({
     selector: 'lesson-configurator',
@@ -24,16 +25,19 @@ import {Dictionary} from "../../../models/admin/dictionary.model";
 export class LessonСonfiguratorComponent implements OnInit {
 
     @Input() lesson: Lesson;
-    public dates: Array<Date> = new  Array<Date>();
-    public events: Array<LessonEvent> = new  Array<LessonEvent>();
-    public eventTypes: Array<PointType> = new  Array<PointType>();
+    public dates: Array<Date> = [];
+    public events: Array<LessonEvent> = [];
+    public eventTypes: Array<PointType> = [];
     public model: LessonEvent = new LessonEvent();
     public visitationConfig: VisitationConfig = new VisitationConfig();
-    public dataVisitation: Array<DataVisitation> = new Array<DataVisitation>();
+    public dataVisitation: Array<DataVisitation> = [];
     public ru;
     public allDisabledDates: Array<Date>;
     public disabledDates: Array<Date>;
     public datePipe = new DatePipe("en");
+    public findsPairsForDate: Array<Pair> = [];
+    public selectPair: Pair = new Pair();
+    public selectAllPair: boolean = false;
 
     public editMode: boolean = false;
     public editVisitable: boolean = false;
@@ -113,6 +117,19 @@ export class LessonСonfiguratorComponent implements OnInit {
         }
     }
 
+    changeDate(event: Date) {
+        this.journalService.GetJournal(this.lesson.id, event.getMonth()).subscribe(
+            result => {
+                let comparison: Array<Comparison> = result.data.comparison;
+                let find = comparison.find(x =>
+                    this.createDate(x.date).getFullYear() == event.getFullYear()
+                    && this.createDate(x.date).getMonth() == event.getMonth()
+                    && this.createDate(x.date).getDay() == event.getDay());
+                this.findsPairsForDate = find.points.filter(x => x.type.id == 0).map(x => x.pair);
+            }
+        );
+    }
+
     disableUnusedDays(): Observable<any> {
         return this.journalService.GetJournalDates(this.lesson.id).do(
             result => {
@@ -140,18 +157,26 @@ export class LessonСonfiguratorComponent implements OnInit {
     }
 
     Save() {
-        this.model.date.setHours(20);
-        console.log("save", this.model);
-        console.log("save getHours", this.model.date.getHours());
-        console.log("save getUTCHours", this.model.date.getUTCHours());
-        console.log("save -", this.model.date.getUTCHours() - this.model.date.getHours());
+        if (this.selectPair.id == 0 && this.findsPairsForDate.length > 1 && !this.selectAllPair) {
+            this.notificationService.Error("Укажите занятие для создания контрольной точки.");
+            return;
+        }
+        if (this.selectPair.id != 0 && !this.selectAllPair)
+            this.model.pair = this.selectPair;
         this.journalService.SaveEvent(this.model).subscribe(
             result => {
+                this.selectPair = new Pair();
+                this.findsPairsForDate = [];
+                this.selectAllPair = false;
                 if (result.status === StatusType.OK.toString()) {
                     this.getEvents();
                     this.CancelEdit();
                 }
                 this.notificationService.FromStatus(result);
+            }, error1 => {
+                this.selectPair = new Pair();
+                this.findsPairsForDate = [];
+                this.selectAllPair = false;
             }
         );
     }
@@ -193,6 +218,14 @@ export class LessonСonfiguratorComponent implements OnInit {
         this.model.date = model.date;
         this.model.id = model.id;
         this.model.lesson = model.lesson;
+        this.model.pair = model.pair;
+
+        if (this.model.pair == null) this.selectAllPair = true;
+
+        this.selectPair = this.model.pair;
+
+        this.changeDate(model.date);
+
     }
 
     CancelEdit() {
@@ -200,6 +233,10 @@ export class LessonСonfiguratorComponent implements OnInit {
         this.model = new LessonEvent();
         this.model.lesson = this.lesson;
         this.model.type = this.eventTypes[0];
+
+        this.selectAllPair = false;
+        this.selectPair = new Pair();
+        this.findsPairsForDate = [];
     }
 
     changeVisiationAutoGenerated() {
@@ -226,6 +263,14 @@ export class LessonСonfiguratorComponent implements OnInit {
         }
         summ += this.getSummForVisitation();
         return summ;
+    }
+
+    clearSelect() {
+        this.selectPair = new Pair();
+    }
+
+    createDate(date: Date): Date {
+        return new Date(this.datePipe.transform(date, "yyyy-MM-ddTHH:mm:ss"));
     }
 
 }

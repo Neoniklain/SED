@@ -1,36 +1,45 @@
 import {Student} from "../account/student";
 import {Lesson} from "../shedule/lesson";
 import {Pair} from "../shedule/pair";
+import {ComparisonPoint} from "./comparisonPoint.model";
 
 export class Journal {
    public students: Array<Student>;
-   public dates: Date[];
+   public comparison: Array<Comparison>;
    public journalCell: Array<JournalCell>;
    public lesson: Lesson;
-   public pairs: Array<Pair>;
    constructor() {
-      this.students = new Array();
-      this.dates = [];
-      this.journalCell = new Array();
-      this.pairs = new Array();
+      this.students = [];
+      this.journalCell = [];
+      this.comparison = [];
    }
+}
+
+export class Comparison {
+    public date: Date;
+    public points: Array<ComparisonPoint>;
+
+    constructor() {
+        this.date = new Date();
+        this.points = [];
+    }
 }
 
 export class JournalCell {
 
    public id: number;
    public value: number;
-   public student: Student;
+   public studentId: number;
     public date: Date;
     public type: PointType;
-    public pair: Pair;
+    public pairId: number;
 
     constructor() {
         this.id = 0;
         this.value = 0;
-        this.student = new Student();
+        this.studentId = 0;
         this.type = new PointType();
-        this.pair = new Pair();
+        this.pairId = 0;
     }
 }
 

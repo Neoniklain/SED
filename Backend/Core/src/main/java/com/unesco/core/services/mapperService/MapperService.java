@@ -28,6 +28,9 @@ import com.unesco.core.entities.news.NewsEntity;
 import com.unesco.core.entities.schedule.*;
 import com.unesco.core.entities.task.TaskDescription;
 import com.unesco.core.entities.task.TaskUser;
+import com.unesco.core.repositories.PairRepository;
+import com.unesco.core.repositories.account.StudentRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.nio.charset.StandardCharsets;
@@ -36,6 +39,11 @@ import java.util.*;
 
 @Service
 public class MapperService implements IMapperService {
+
+    @Autowired
+    private PairRepository pairRepository;
+    @Autowired
+    private StudentRepository studentRepository;
 
     public <T> Object toEntity(T model) {
 
@@ -241,9 +249,9 @@ public class MapperService implements IMapperService {
         if (Entity == null) return null;
         PointDTO Dto = new PointDTO();
         Dto.setId(Entity.getId());
-        Dto.setStudent(studentToDto(Entity.getStudent()));
+        Dto.setStudentId(Entity.getStudent().getId());
         Dto.setValue(Entity.getValue());
-        Dto.setPair(pairToDto(Entity.getPair()));
+        Dto.setPairId(Entity.getPair().getId());
         Dto.setType(pointTypeToDto(Entity.getType()));
         Dto.setDate(Entity.getDate());
         return Dto;
@@ -253,9 +261,9 @@ public class MapperService implements IMapperService {
         if (Dto == null) return null;
         PointEntity Entity = new PointEntity();
         Entity.setId(Dto.getId());
-        Entity.setStudent(studentToEntity(Dto.getStudent()));
+        Entity.setStudent(studentRepository.findOne(Dto.getStudentId()));
+        Entity.setPair(pairRepository.findOne(Dto.getPairId()));
         Entity.setValue(Dto.getValue());
-        Entity.setPair(pairToEntity(Dto.getPair()));
         Entity.setType(pointTypeToEntity(Dto.getType()));
         Entity.setDate(Dto.getDate());
         return Entity;
@@ -272,6 +280,7 @@ public class MapperService implements IMapperService {
             Dto.setDate(Dt);
         }
         Dto.setComment(Entity.getComment());
+        Dto.setPair(pairToDto(Entity.getPair()));
         Dto.setMaxValue(Entity.getMaxValue());
         Dto.setLesson(lessonToDto(Entity.getLesson()));
         Dto.setType(pointTypeToDto(Entity.getType()));
@@ -288,6 +297,7 @@ public class MapperService implements IMapperService {
             Entity.setDate(ts);
         }
         Entity.setComment(Dto.getComment());
+        Entity.setPair(pairToEntity(Dto.getPair()));
         Entity.setMaxValue(Dto.getMaxValue());
         Entity.setLesson(lessonToEntity(Dto.getLesson()));
         Entity.setType(pointTypeToEntity(Dto.getType()));

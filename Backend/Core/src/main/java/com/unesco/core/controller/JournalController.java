@@ -17,6 +17,9 @@ import com.unesco.core.services.userService.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -38,9 +41,9 @@ public class JournalController {
     @Autowired
     private IVisitationConfigManager visitationConfigManager;
 
-    public ResponseStatusDTO getJournal(long lessonId) {
+    public ResponseStatusDTO getJournal(long lessonId, int month) {
 
-        JournalDTO journal = journalDataService.get(lessonId);
+        JournalDTO journal = journalDataService.getForMonth(lessonId, month);
 
         VisitationConfigDTO visitConfig = visitationConfigDataService.getByLesson(lessonId);
         visitationConfigManager.init(visitConfig);
@@ -63,8 +66,7 @@ public class JournalController {
      */
     public ResponseStatusDTO getDates(long lessonId) {
         JournalDTO journal = journalDataService.get(lessonId);
-        journal.setDates(journal.getDates().stream().sorted().collect(Collectors.toList()));
-        return new ResponseStatusDTO(StatusTypes.OK, journal.getDates());
+        return new ResponseStatusDTO(StatusTypes.OK, journal.getComparison().stream().map(x -> x.getDate()).collect(Collectors.toList()));
     }
 
     public ResponseStatusDTO saveJournal(JournalDTO journal) {

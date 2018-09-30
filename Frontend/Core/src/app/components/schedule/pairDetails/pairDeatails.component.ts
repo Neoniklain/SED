@@ -118,7 +118,6 @@ export class PairDetailsComponent implements OnInit, OnChanges {
 
                 if ( (this.pointY + heightDetails + 5) >  this.windowHeight + this.windowYOffset) {
                     changedPointY = this.pointY - heightDetails;
-                    console.log("Не вошел по высоте");
                 }
 
                 if ( (this.pointX + widthDetails + 5) >  this.windowWidth + this.windowXOffset) {

@@ -1,18 +1,15 @@
 package com.unesco.core.dto.journal;
 
-import com.unesco.core.dto.account.StudentDTO;
-import com.unesco.core.dto.shedule.PairDTO;
-
 import java.util.Date;
 
 public class PointDTO {
 
     private long id;
     private int value;
-    private StudentDTO student;
+    private long studentId;
     private Date date;
     private PointTypeDTO type;
-    private PairDTO pair;
+    private long pairId;
 
     public long getId() {
         return id;
@@ -28,12 +25,6 @@ public class PointDTO {
         this.value = value;
     }
 
-    public StudentDTO getStudent() {
-        return student;
-    }
-    public void setStudent(StudentDTO student) {
-        this.student = student;
-    }
 
     public Date getDate() {
         return date;
@@ -49,12 +40,17 @@ public class PointDTO {
         this.type = type;
     }
 
-    public PairDTO getPair() {
-        return pair;
+    public long getStudentId() {
+        return studentId;
     }
-    public void setPair(PairDTO pair) {
-        this.pair = pair;
+    public void setStudentId(long studentId) {
+        this.studentId = studentId;
     }
 
-
+    public long getPairId() {
+        return pairId;
+    }
+    public void setPairId(long pairId) {
+        this.pairId = pairId;
+    }
 }

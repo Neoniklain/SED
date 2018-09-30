@@ -1,7 +1,7 @@
 import {HttpErrorResponse} from "@angular/common/http";
-import {Observable} from "rxjs/Observable";
 import {NotificationService} from "./notification.service";
 import {Injectable} from "@angular/core";
+import {Observable, throwError} from 'rxjs';
 
 @Injectable()
 export class HandelErrorService {
@@ -21,9 +21,10 @@ export class HandelErrorService {
         if (error.status == 403 || error.status == 401) {
             this.notification.Error("Аторизация не удалась.");
         } else {
-            this.notification.Error("Не удалось выполнить запрос. Повторите попытку позже.", "Ошибка выполнения");
+            console.error("error", errMsg);
+            // this.notification.Error("Не удалось выполнить запрос. Повторите попытку позже.", "Ошибка выполнения");
         }
-        return Observable.throwError(errMsg);
+        return throwError(errMsg);
     }
 
 }

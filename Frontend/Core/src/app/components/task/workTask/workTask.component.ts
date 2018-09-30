@@ -79,7 +79,6 @@ export class WorkTaskComponent implements OnInit {
                             .replace(":objectTypeId", ObjectType.TaskUser.toString())
                             .replace(":objectId", res.data.id.toString());
                         this.uploadFiles(url);
-                        console.log(res.data);
                         this.onAnswer.emit(res.data);
                     }
                 },

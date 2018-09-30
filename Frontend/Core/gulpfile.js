@@ -68,7 +68,7 @@ gulp.task("build:backend", function() {
       .pipe(gulp.dest(backend+'src/main/resources/public/js/'));
 
   gulp.src('./wwwroot/index.html')
-    .pipe(replace('<base href="/">', '<base href="unesco">'))
+    .pipe(replace('<base href="/">', '<base href="/unesco/">'))
     .pipe(gulp.dest(backend+'src/main/resources/public/'));
     
   gulp.src("./wwwroot/css/**/*")

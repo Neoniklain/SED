@@ -104,7 +104,6 @@ export class PairCreateComponent {
 
 
     public SavePair() {
-        console.log("this.newPair", this.newPair);
         this.ScheduleService.Save(this.newPair).subscribe(
             res => {
                 this.notification.FromStatus(res);

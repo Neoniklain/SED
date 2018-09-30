@@ -41,7 +41,6 @@ public class LessonEventDataService implements ILessonEventDataService {
 
     public List<LessonEventDTO> getByLesson(long lessonId)
     {
-
         List<LessonEventDTO> modelList = new ArrayList<>();
         Iterable<LessonEventEntity> entityList = lessonEventRepository.findByLessonEntityId(lessonId);
         for (LessonEventEntity item: entityList) {

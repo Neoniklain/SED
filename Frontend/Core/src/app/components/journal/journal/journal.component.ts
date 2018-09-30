@@ -1,4 +1,4 @@
-import {Component, Injectable, Input, OnChanges, OnInit} from '@angular/core';
+import {Component, EventEmitter, Injectable, Input, OnChanges, OnInit, Output} from '@angular/core';
 import {AuthenticationService} from "../../../services/authService";
 import {JournalService} from "../../../services/journal.service";
 import {Journal, JournalCell, PointType} from "../../../models/journal/journal.model";
@@ -8,6 +8,7 @@ import {NotificationService} from "../../../services/notification.service";
 import {isUndefined} from "util";
 import {DatePipe} from "@angular/common";
 import {PairNumber} from "../../../models/shedule/pairNumber.model";
+import {forEach} from "@angular/router/src/utils/collection";
 
 @Component({
     selector: 'journal',
@@ -18,6 +19,9 @@ import {PairNumber} from "../../../models/shedule/pairNumber.model";
 export class JournalComponent implements OnInit {
 
     @Input() journal: Journal;
+    @Input() month: number;
+    @Output() changeMonth = new EventEmitter<number>();
+    public oldJournal: Journal;
     public header: Array<JournalHeader> = [];
     public monthHeader: Array<MonthHeader> = [];
     public currentMonth: string;
@@ -25,84 +29,69 @@ export class JournalComponent implements OnInit {
     public showLoader: boolean = false;
     public datePipe = new DatePipe("ru");
 
-    constructor(private authenticationService: AuthenticationService,
-                private journalService: JournalService,
-                private ScheduleService: ScheduleService,
+    constructor(private journalService: JournalService,
                 private notificationService: NotificationService) {
     }
 
     ngOnInit(): void {
-        if (this.journal != null && !isUndefined(this.journal))
+        if (this.journal != null && !isUndefined(this.journal)) {
             this.sortHeader();
-        this.currentDay = new Date(this.datePipe.transform(Date.now(), "yyyy-MM-ddTHH:mm:ss"));
-        if (this.monthHeader
-            .map( x => x.date.getMonth())
-            .indexOf(this.currentDay.getMonth()) !== -1) {
-            this.currentMonth = (Number.parseInt(this.datePipe.transform(Date.now(), 'M')) - 1).toString();
-        } else {
-            this.currentMonth = (this.monthHeader.map( x => x.date.getMonth())[0]).toString();
+            this.oldJournal = JSON.parse(JSON.stringify(this.journal));
         }
+        this.currentDay = new Date(this.datePipe.transform(Date.now(), "yyyy-MM-ddTHH:mm:ss"));
+        this.currentMonth = (Number.parseInt(this.datePipe.transform(Date.now(), 'MMMM')) - 1).toString();
+        this.month = Number.parseInt(this.datePipe.transform(this.journal.comparison[0].date, 'MM')) - 1;
     }
 
     nextMonth() {
-        let currentMonth = Number.parseInt(this.currentMonth);
-        for (let month of this.monthHeader.map(x => x.date.getMonth())) {
-            if (month > currentMonth) {
-                this.currentMonth = month.toString();
-                break;
-            }
-        }
+        this.month++;
+        this.changeMonth.emit(this.month);
     }
 
     backMonth() {
-        let currentMonth = Number.parseInt(this.currentMonth);
-        for (let month of this.monthHeader.sort(this.sortBigToSmallDate).map(x => x.date.getMonth())) {
-            if (month < currentMonth) {
-                this.currentMonth = month.toString();
-                break;
-            }
-        }
-        this.monthHeader.sort(this.sortSmallToBigDate);
+        this.month--;
+        this.changeMonth.emit(this.month);
     }
 
     sortHeader() {
         this.header = [];
         this.monthHeader = [];
-        this.journal.dates.forEach(x => x = this.createDate(x));
+
+        this.journal.comparison.forEach(x => x.date = this.createDate(x.date));
         this.journal.journalCell.forEach(x => x.date = this.createDate(x.date));
 
-        this.journal.journalCell.sort(
-            function (a, b) {
-                if (a.date < b.date)
-                    return -1;
-                if (a.date > b.date)
-                    return 1;
-
-                if (a.pair.pairNumber < b.pair.pairNumber)
-                    return -1;
-                if (a.pair.pairNumber > b.pair.pairNumber)
-                    return 1;
-
-                if (a.type.name !== "Посещение")
-                    return 1;
-                if (a.type.name === "Посещение")
-                    return -1;
-
-                return 0;
+        for (let student of this.journal.students) {
+            for (let comp of this.journal.comparison) {
+                for (let point of comp.points) {
+                    let find = this.journal.journalCell.find(cell =>
+                        this.eqDate(comp.date, cell.date)
+                        && point.type.name == cell.type.name
+                        && point.pair.id == cell.pairId
+                        && cell.studentId == student.id
+                    );
+                    if (!find) {
+                        let newCell = new JournalCell();
+                        newCell.date = this.createDate(comp.date);
+                        newCell.type = point.type;
+                        newCell.pairId = point.pair.id;
+                        newCell.value = null;
+                        newCell.studentId = student.id;
+                        newCell.id = 0;
+                        this.journal.journalCell.push(newCell);
+                    }
+                }
             }
-        );
+        }
 
         // Создание заголовка дат
         this.setHeaderDates();
-
-        this.header.sort(this.sortSmallToBigDate);
 
         // Создание заголовка месяцов
         for (let headDate of this.header) {
             let existMonthHeader = false;
             for (let head of this.monthHeader) {
                 if (head.date.getMonth() === headDate.date.getMonth()) {
-                    head.dateLen = head.dateLen + headDate.types.length;
+                    head.dateLen = head.dateLen + headDate.numbers.length;
                     existMonthHeader = true;
                 }
             }
@@ -110,40 +99,86 @@ export class JournalComponent implements OnInit {
                 let curMonthHeader: MonthHeader = new MonthHeader();
                 let temp = new Date(this.datePipe.transform(headDate.date, "yyyy-MM-ddTHH:mm:ss"));
                 curMonthHeader.date = temp;
-                curMonthHeader.dateLen = headDate.types.length;
+                curMonthHeader.dateLen = headDate.numbers.length;
                 this.monthHeader.push(curMonthHeader);
             }
         }
-
-        this.monthHeader.sort(this.sortSmallToBigDate);
-
     }
 
     setHeaderDates() {
-        for (let date of this.journal.dates) {
+        for (let comp of this.journal.comparison) {
             let temp: JournalHeader = new JournalHeader();
-            temp.date = this.createDate(date);
-            for (let cell of this.findCellsForDay(temp.date)) {
-                if (cell.student.id === this.journal.students[0].id
-                    && this.eqDate(cell.date, temp.date)) {
-                    temp.types.push(new JournalHeaderType(cell.type, cell.pair));
-                }
+            temp.date = comp.date;
+            for (let point of comp.points) {
+                let newNumber = new JournalHeaderNumber();
+                newNumber.number = point.pair.pairNumber;
+                newNumber.types.push(new JournalHeaderType(point.type, point.pair));
+                temp.numbers.push(newNumber);
             }
             this.header.push(temp);
         }
+
+        for (let comp of this.header) {
+            let newNum = new Array<JournalHeaderNumber>();
+            for (let x of comp.numbers) {
+                let find = newNum.find(y => y.number == x.number);
+                if (!find) {
+                    newNum.push(x);
+                } else {
+                    let newFind = newNum.find(y => y.number == find.number);
+                    let index = newNum.indexOf(newFind);
+                    for (let t of x.types)
+                        newFind.types.push(t);
+                    newNum.splice(index, 1, newFind);
+                }
+            }
+            comp.numbers = newNum;
+        }
     }
 
-    findCellsForDay(date: Date): Array<JournalCell> {
-        let cells = [];
-        for (let cell of this.journal.journalCell) {
-            if (this.eqDate(cell.date, date)) {
-                cells.push(cell);
+    getHeaderLength() {
+        let result = 0;
+        for (let head of this.header) {
+            for (let num of head.numbers) {
+                for (let type of num.types) {
+                    result += 1;
+                }
             }
         }
-        return cells;
+        return result;
+    }
+
+    getDateLen(head: JournalHeader) {
+        let result = 0;
+        for (let num of head.numbers) {
+            for (let t of num.types) {
+                result += 1;
+            }
+        }
+        return result;
     }
 
     save() {
+        let journalForSend: Journal = new Journal();
+        journalForSend.comparison = this.journal.comparison;
+        journalForSend.students = this.journal.students;
+        journalForSend.lesson = this.journal.lesson;
+        journalForSend.journalCell = [];
+        for (let j of this.journal.journalCell) {
+            if (j.id == 0 && j.value == 0)
+                continue;
+
+            let find = this.oldJournal.journalCell.findIndex( x =>
+                x.pairId == j.pairId
+                && this.eqDate(this.createDate(x.date), j.date)
+                && x.studentId == j.studentId
+                && x.type.id == j.type.id
+            );
+
+            if (find != -1 && this.oldJournal.journalCell[find].value != j.value) {
+                journalForSend.journalCell.push(j);
+            }
+        }
         this.showLoader = true;
         this.journalService.Save(this.journal).subscribe(
             result => {
@@ -154,53 +189,18 @@ export class JournalComponent implements OnInit {
     }
 
     isCurrentDate(day: Date) {
-        return (
-            day.getDate() === this.currentDay.getDate()
-            && day.getMonth() === this.currentDay.getMonth());
+        return (day.getDate() === this.currentDay.getDate());
     }
 
-    isPairNow(pair: Pair) {
-        let currentDate = Date.now();
-        let pairNumber = new PairNumber(pair.pairNumber);
-        let start = pairNumber.getTime().start;
-        let end = pairNumber.getTime().end;
-        if (this.datePipe.transform(currentDate, "H") >= this.datePipe.transform(start, "H")
-            && this.datePipe.transform(currentDate, "H") <= this.datePipe.transform(end, "H")
-            && this.datePipe.transform(currentDate, "m") >= this.datePipe.transform(start, "m")
-            && this.datePipe.transform(currentDate, "m") <= this.datePipe.transform(end, "m")
-        ) {
-            return true;
-        }
-    }
-
-    clearField(cell) {
-        if (cell.value === 0) cell.value = '';
-    }
-
-    cancelField(cell) {
-        if (cell.value === '') cell.value = 0;
-    }
-
-    hoverTdInput(element, cell) {
-        element.focus();
-        this.clearField(cell);
-    }
-
-    leaveTdInput(element, cell) {
-        element.blur();
-        this.cancelField(cell);
-    }
-
-    isCurrentMonth(day: Date) {
-        return (day.getMonth() === this.currentDay.getMonth());
-    }
-
-    inMonthPeriodDate(day: Date) {
-        return (day.getMonth() === Number.parseInt(this.currentMonth));
+    setCellValue(element: number, cell: JournalCell) {
+        if (element == 0)
+            cell.value = null;
+        else
+            cell.value = element;
     }
 
     eqDate(date1: Date, date2: Date) {
-        if (date1.getDate() === date2.getDate()
+        if ( date1.getDate() === date2.getDate()
             && date1.getMonth() === date2.getMonth()
         ) {
             return true;
@@ -208,20 +208,6 @@ export class JournalComponent implements OnInit {
         return false;
     }
 
-    sortSmallToBigDate(a, b) {
-        if (a.date < b.date)
-            return -1;
-        if (a.date > b.date)
-            return 1;
-        return 0;
-    }
-    sortBigToSmallDate(a, b) {
-        if (a.date > b.date)
-            return -1;
-        if (a.date < b.date)
-            return 1;
-        return 0;
-    }
     createDate(date: Date): Date {
         return new Date(this.datePipe.transform(date, "yyyy-MM-ddTHH:mm:ss"));
     }
@@ -230,10 +216,20 @@ export class JournalComponent implements OnInit {
 
 class JournalHeader {
     public date: Date;
+    public numbers: Array<JournalHeaderNumber>;
+
+    constructor() {
+        this.numbers = [];
+    }
+}
+
+class JournalHeaderNumber {
+    public number: number;
     public types: Array<JournalHeaderType>;
 
     constructor() {
-        this.types = new Array();
+        this.number = 0;
+        this.types = [];
     }
 }
 

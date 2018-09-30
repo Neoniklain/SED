@@ -1,6 +1,7 @@
 package com.unesco.core.dto.journal;
 
 import com.unesco.core.dto.shedule.LessonDTO;
+import com.unesco.core.dto.shedule.PairDTO;
 
 import java.util.Date;
 
@@ -9,6 +10,7 @@ public class LessonEventDTO implements Cloneable {
     private Date date;
     private String comment;
     private PointTypeDTO type;
+    private PairDTO pair;
     private int maxValue;
     private LessonDTO lesson;
 
@@ -45,6 +47,13 @@ public class LessonEventDTO implements Cloneable {
     }
     public void setMaxValue(int maxValue) {
         this.maxValue = maxValue;
+    }
+
+    public PairDTO getPair() {
+        return pair;
+    }
+    public void setPair(PairDTO pair) {
+        this.pair = pair;
     }
 
     public LessonDTO getLesson() {

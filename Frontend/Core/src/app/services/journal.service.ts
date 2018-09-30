@@ -11,6 +11,7 @@ import {ResponseStatus} from "../models/additional/responseStatus";
 import {LessonEvent} from "../models/journal/lessonEvent.model";
 import {VisitationConfig} from "../models/journal/visitationConfig.model";
 import {catchError, map} from "rxjs/operators";
+import {Pair} from "../models/shedule/pair";
 
 @Injectable()
 export class JournalService {
@@ -30,9 +31,12 @@ export class JournalService {
           );
    }
 
-    public GetJournal(lessonId): Observable<ResponseStatus> {
+    public GetJournal(lessonId, month): Observable<ResponseStatus> {
+        let params = new HttpParams();
+        params = params.set("month", month);
+
         return this.http.get(ApiRouteConstants.Journal.All
-            .replace(":lessonId", lessonId))
+            .replace(":lessonId", lessonId), {params: params })
             .pipe(
                 map((res: ResponseStatus) => res),
                 catchError(e => this.handleError.handle(e))

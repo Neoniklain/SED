@@ -1,6 +1,7 @@
 package com.unesco.core.entities.journal;
 
 import com.unesco.core.entities.schedule.LessonEntity;
+import com.unesco.core.entities.schedule.PairEntity;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
@@ -26,6 +27,10 @@ public class LessonEventEntity {
 
     private String comment;
 
+    @ManyToOne
+    @JoinColumn(name = "pair_id", referencedColumnName = "id")
+    private PairEntity pair;
+
     private int maxValue;
 
     @ManyToOne
@@ -35,6 +40,13 @@ public class LessonEventEntity {
     @ManyToOne
     @JoinColumn(name = "lesson_id", referencedColumnName = "id")
     private LessonEntity lessonEntity;
+
+    public PairEntity getPair() {
+        return pair;
+    }
+    public void setPair(PairEntity pair) {
+        this.pair = pair;
+    }
 
     public long getId() {
         return id;
