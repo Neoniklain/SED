@@ -1,20 +1,17 @@
-import {Component, EventEmitter, Injectable, Input, OnChanges, OnInit, Output} from '@angular/core';
-import {AuthenticationService} from "../../../services/authService";
+import {Component, EventEmitter, Injectable, Input, OnInit, Output} from '@angular/core';
 import {JournalService} from "../../../services/journal.service";
 import {Journal, JournalCell, PointType} from "../../../models/journal/journal.model";
-import {ScheduleService} from "../../../services/schedule.service";
 import {Pair} from "../../../models/shedule/pair";
 import {NotificationService} from "../../../services/notification.service";
 import {isUndefined} from "util";
 import {DatePipe} from "@angular/common";
-import {PairNumber} from "../../../models/shedule/pairNumber.model";
-import {forEach} from "@angular/router/src/utils/collection";
 
 @Component({
     selector: 'journal',
     templateUrl: './journal.component.html',
     styleUrls: ['./journal.component.css']
 })
+
 @Injectable()
 export class JournalComponent implements OnInit {
 
@@ -28,6 +25,7 @@ export class JournalComponent implements OnInit {
     public currentDay: Date;
     public showLoader: boolean = false;
     public datePipe = new DatePipe("ru");
+    public selectStudentId: number = 0;
 
     constructor(private journalService: JournalService,
                 private notificationService: NotificationService) {
@@ -197,6 +195,7 @@ export class JournalComponent implements OnInit {
             cell.value = null;
         else
             cell.value = element;
+        this.selectStudentId = 0;
     }
 
     eqDate(date1: Date, date2: Date) {

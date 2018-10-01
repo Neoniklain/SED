@@ -1,86 +1,89 @@
 <div *ngIf="journal.students.length > 0 && !showLoader" class="col-sm-12 text-right journal">
-    <table class="table table-bordered table-striped">
-        <colgroup>
-            <col span="1" style="width: 25%;">
-        </colgroup>
-        <thead class="thead">
-        <tr>
-            <td></td>
-            <ng-container>
+    <p-table
+            [columns]="header"
+            [value]="journal.students"
+            [scrollable]="true"
+            [tableStyleClass]="'table table-bordered table-striped'"
+            scrollHeight="60vh">
+        <ng-template pTemplate="header" let-columns>
+            <tr>
+                <td class="td-header"></td>
                 <ng-container>
-                    <td [attr.colspan]="getHeaderLength()">
-                        <div class="col-sm-3 text-left">
-                            <span class="nav-button" (click)="backMonth()"><i class="fa fa-angle-left" aria-hidden="true"></i></span>
-                        </div>
-                        <div class="col-sm-6 text-center">
-                            {{(journal.comparison[0].date | date: 'MMM')[0].toUpperCase() + (journal.comparison[0].date | date: 'MMM').slice(1)}}
-                        </div>
-                        <div class="col-sm-3 text-right">
-                            <span class="nav-button" (click)="nextMonth()"><i class="fa fa-angle-right" aria-hidden="true"></i></span>
-                        </div>
-                    </td>
-                </ng-container>
-            </ng-container>
-        </tr>
-        <tr>
-            <td>Дата</td>
-            <ng-container *ngFor="let head of header">
-                <td [attr.colspan]="getDateLen(head)" [ngClass]="{today: isCurrentDate(head.date)}">
-                    {{head.date.getDate()}}
-                </td>
-            </ng-container>
-        </tr>
-        <tr>
-            <td>Номер занятия</td>
-            <ng-container *ngFor="let head of header">
-                <ng-container *ngFor="let num of head.numbers">
-                    <td [attr.colspan]="num.types.length" >
-                        {{num.number}}
-                    </td>
-                </ng-container>
-            </ng-container>
-        </tr>
-        <tr>
-            <td><b>ФИО.</b></td>
-            <ng-container *ngFor="let head of header">
-                <ng-container *ngFor="let numbers of head.numbers">
-                    <ng-container *ngFor="let type of numbers.types">
-                        <td [ngSwitch]="type.type.name" style="font-size: 14px" [title]="type.type.name">
-                            <span *ngSwitchCase="'Посещение'"><i class="fa fa-sign-in" aria-hidden="true"></i></span>
-                            <span *ngSwitchDefault><i class="fa fa-circle" aria-hidden="true"></i></span>
+                    <ng-container>
+                        <td class="td-header" [attr.colspan]="getHeaderLength()">
+                            <div class="col-sm-3 text-left">
+                                <span class="nav-button" (click)="backMonth()"><i class="fa fa-angle-left" aria-hidden="true"></i></span>
+                            </div>
+                            <div class="col-sm-6 text-center">
+                                {{(journal.comparison[0].date | date: 'MMM')[0].toUpperCase() + (journal.comparison[0].date | date: 'MMM').slice(1)}}
+                            </div>
+                            <div class="col-sm-3 text-right">
+                                <span class="nav-button" (click)="nextMonth()"><i class="fa fa-angle-right" aria-hidden="true"></i></span>
+                            </div>
                         </td>
                     </ng-container>
                 </ng-container>
-            </ng-container>
-        </tr>
-        </thead>
-        <tbody>
-            <tr *ngFor="let student of journal.students">
-                <td style="text-align: right"><span [userCard]="student.user">{{student.user.userFIO}}</span></td>
-                <ng-container *ngFor="let head of header">
+            </tr>
+            <tr>
+                <td class="td-header">Дата</td>
+                <ng-container *ngFor="let head of columns">
+                    <td class="td-header" [attr.colspan]="getDateLen(head)" [ngClass]="{today: isCurrentDate(head.date)}">
+                        {{head.date.getDate()}}
+                    </td>
+                </ng-container>
+            </tr>
+            <tr>
+                <td class="td-header">Номер занятия</td>
+                <ng-container *ngFor="let head of columns">
                     <ng-container *ngFor="let num of head.numbers">
-                        <ng-container *ngFor="let type of num.types">
-                            <ng-container *ngFor="let cell of journal.journalCell">
-                                <ng-container *ngIf="eqDate(head.date, cell.date) && type.type.name == cell.type.name && type.pair.id == cell.pairId && cell.studentId == student.id">
-                                    <td [ngClass]="{whiteZero: cell.value == 0}">
-                                        <input #element
-                                               [value]="cell.value"
-                                               (blur)="setCellValue(element.value, cell)"
-                                               type="number">
-                                    </td>
-                                </ng-container>
-                            </ng-container>
+                        <td  class="td-header" [attr.colspan]="num.types.length" >
+                            {{num.number}}
+                        </td>
+                    </ng-container>
+                </ng-container>
+            </tr>
+            <tr>
+                <td class="td-header"><b>ФИО.</b></td>
+                <ng-container *ngFor="let head of columns">
+                    <ng-container *ngFor="let numbers of head.numbers">
+                        <ng-container *ngFor="let type of numbers.types">
+                            <td class="td-header" [ngSwitch]="type.type.name" style="font-size: 14px" [title]="type.type.name">
+                                <span *ngSwitchCase="'Посещение'"><i class="fa fa-sign-in" aria-hidden="true"></i></span>
+                                <span *ngSwitchDefault><i class="fa fa-circle" aria-hidden="true"></i></span>
+                            </td>
                         </ng-container>
                     </ng-container>
                 </ng-container>
-
             </tr>
-        </tbody>
-    </table>
+        </ng-template>
 
-    <div class="col-sm-12 text-right">
-        <button (click)="save()" class="btn btn-info btn-success">Сохранить</button>
-    </div>
+        <ng-template pTemplate="body" let-rowData let-columns="columns">
+            <tr [ngClass]="{coloredRow: selectStudentId == rowData.id}">
+                <td style="text-align: right"><span [userCard]="rowData.user">{{rowData.user.userFIO}}</span></td>
+                <ng-template ngFor let-head [ngForOf]="columns">
+                    <ng-template ngFor let-num [ngForOf]="head.numbers">
+                        <ng-template ngFor let-type [ngForOf]="num.types">
+                            <ng-template ngFor let-cell [ngForOf]="journal.journalCell">
+                                <td *ngIf="eqDate(head.date, cell.date) && type.type.name == cell.type.name && type.pair.id == cell.pairId && cell.studentId == rowData.id">
+                                    <span [ngClass]="{whiteZero: cell.value == 0}">
+                                        <input #element
+                                               [value]="cell.value"
+                                               (focus)="this.selectStudentId = rowData.id"
+                                               (blur)="setCellValue(element.value, cell)"
+                                               type="number">
+                                    </span>
+                                </td>
+                            </ng-template>
+                        </ng-template>
+                    </ng-template>
+                </ng-template>
+            </tr>
+        </ng-template>
+    </p-table>
+</div>
+
+<div class="col-sm-12 text-right">
+    <button (click)="save()" class="btn btn-info btn-success">Сохранить</button>
 </div>
 
 

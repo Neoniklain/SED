@@ -98,6 +98,7 @@ import {HasRoleDirective} from "../directive/hasRole.dirictive";
 import {UserSearchComponent} from "../components/shared/userSearch/userSearch";
 import {ScheduleComponent} from "../components.page/schedule/schedule.component";
 import {DetailTaskComponent} from "../components/task/detailTask/detailTask.component";
+import {TableModule} from "primeng/table";
 
 registerLocaleData(localeRu);
 
@@ -127,6 +128,7 @@ registerLocaleData(localeRu);
         ToggleButtonModule,
         EditorModule,
         RadioButtonModule,
+        TableModule,
         TabViewModule,
         TooltipModule,
         InputTextareaModule,

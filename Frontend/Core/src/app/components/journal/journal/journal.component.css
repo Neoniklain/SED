@@ -17,20 +17,10 @@ input:hover,input:focus {
   outline: none;
 }
 
-.thead {
+.td-header {
+  text-align: center;
   background: #2a2b2d;
   color: white;
-  text-align: center;
-  position: sticky;
-  top: 0;
-}
-
-table {
-  table-layout: fixed;
-}
-
-tbody tr {
-  text-align: center;
 }
 
 td input {
@@ -100,4 +90,8 @@ td input:focus {
   padding: 8em 0;
   font-style: italic;
   color: #7d7d7d;
+}
+
+.coloredRow {
+  background: #e2f5ff !important;
 }
