@@ -146,7 +146,6 @@ export class PairDetailsComponent implements OnInit, OnChanges {
                     this.closeDetails();
                 }
                 if (result.status === StatusType.WARNING.toString()) {
-                    console.log("res1111");
                     this.showIgnoreWarnings = true;
                 }
                 this.notification.FromStatus(result);

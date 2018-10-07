@@ -50,8 +50,8 @@ public class JournalDataService implements IJournalDataService {
         Calendar from = Calendar.getInstance();
         Calendar to = Calendar.getInstance();
 
-        from.set(2018,8,1);
-        to.set(2018,11,28);
+        from.set(2018,8,1,12,0);
+        to.set(2018,11,28,12,0);
         Set<Date> days = new HashSet<>();
 
         Calendar starDate = Calendar.getInstance();
@@ -60,26 +60,26 @@ public class JournalDataService implements IJournalDataService {
         int fromMonth = from.get(Calendar.MONTH);
         if(month != -1 && month >= from.get(Calendar.MONTH)  && month <= to.get(Calendar.MONTH))
         {
-            from.set(from.get(Calendar.YEAR), month,1);
-            to.set(from.get(Calendar.YEAR), month, from.getActualMaximum(Calendar.DAY_OF_MONTH));
+            from.set(from.get(Calendar.YEAR), month,1,12,0);
+            to.set(from.get(Calendar.YEAR), month, from.getActualMaximum(Calendar.DAY_OF_MONTH),12,0);
         }
         else if(month != -1 && month < fromMonth) {
             month = from.get(Calendar.MONTH);
-            from.set(from.get(Calendar.YEAR), month,1);
-            to.set(from.get(Calendar.YEAR), month, from.getActualMaximum(Calendar.DAY_OF_MONTH));
+            from.set(from.get(Calendar.YEAR), month,1,12,0);
+            to.set(from.get(Calendar.YEAR), month, from.getActualMaximum(Calendar.DAY_OF_MONTH),12,0);
         }
         else if(month != -1 && month > toMonth) {
             month = to.get(Calendar.MONTH);
-            from.set(from.get(Calendar.YEAR), month,1);
-            to.set(from.get(Calendar.YEAR), month, from.getActualMaximum(Calendar.DAY_OF_MONTH));
+            from.set(from.get(Calendar.YEAR), month,1,12,0);
+            to.set(from.get(Calendar.YEAR), month, from.getActualMaximum(Calendar.DAY_OF_MONTH),12,0);
         }
         Date t1 =  from.getTime();
         Date t2 =  to.getTime();
 
         for (PairDTO pair: pairs) {
 
-            starDate.set(from.get(Calendar.YEAR), from.get(Calendar.MONTH), from.get(Calendar.DAY_OF_MONTH));
-            endDate.set(to.get(Calendar.YEAR), to.get(Calendar.MONTH), to.get(Calendar.DAY_OF_MONTH));
+            starDate.set(from.get(Calendar.YEAR), from.get(Calendar.MONTH), from.get(Calendar.DAY_OF_MONTH),12,0);
+            endDate.set(to.get(Calendar.YEAR), to.get(Calendar.MONTH), to.get(Calendar.DAY_OF_MONTH),12,0);
 
             switch (pair.getDayofweek()) {
                 case "Понедельник":
@@ -210,7 +210,7 @@ public class JournalDataService implements IJournalDataService {
         Calendar calendar = Calendar.getInstance();
 
         calendar.setTime( fecha );
-        calendar.set(Calendar.HOUR_OF_DAY, 0);
+        calendar.set(Calendar.HOUR_OF_DAY, 12);
         calendar.set(Calendar.MINUTE, 0);
         calendar.set(Calendar.SECOND, 0);
         calendar.set(Calendar.MILLISECOND, 0);

@@ -185,7 +185,6 @@ export class LessonСonfiguratorComponent implements OnInit {
         this.visitationConfig.dates = this.dataVisitation.filter(function (a) {
             if (a.active) return a;
         }).map(x => x.date);
-        console.log("this.visitationConfig", this.visitationConfig);
         this.journalService.SaveVisitation(this.visitationConfig).subscribe(
             result => {
                 if (result.status === StatusType.OK.toString()) {

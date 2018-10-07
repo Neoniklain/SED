@@ -166,7 +166,7 @@ export class JournalComponent implements OnInit {
             if (j.id == 0 && j.value == 0)
                 continue;
 
-            let find = this.oldJournal.journalCell.findIndex( x =>
+            let find = this.oldJournal.journalCell.findIndex(x =>
                 x.pairId == j.pairId
                 && this.eqDate(this.createDate(x.date), j.date)
                 && x.studentId == j.studentId
@@ -199,7 +199,7 @@ export class JournalComponent implements OnInit {
     }
 
     eqDate(date1: Date, date2: Date) {
-        if ( date1.getDate() === date2.getDate()
+        if (date1.getDate() === date2.getDate()
             && date1.getMonth() === date2.getMonth()
         ) {
             return true;
@@ -208,9 +208,8 @@ export class JournalComponent implements OnInit {
     }
 
     createDate(date: Date): Date {
-        return new Date(this.datePipe.transform(date, "yyyy-MM-ddTHH:mm:ss"));
+        return new Date(this.datePipe.transform(date, "yyyy-MM-dd"));
     }
-
 }
 
 class JournalHeader {

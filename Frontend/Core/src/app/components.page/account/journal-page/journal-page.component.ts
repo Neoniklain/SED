@@ -77,7 +77,6 @@ export class JournalPageComponent implements OnInit {
             this.showLoader = true;
             this.journalService.GetJournal(this.lastPair.lesson.id, this.month).subscribe(
                 result => {
-                    console.log("journal", result.data);
                     for (let key in result.data.сomparison) {
                     }
                     if (!this.lastMonth) {
