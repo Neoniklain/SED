@@ -178,9 +178,10 @@ export class JournalComponent implements OnInit {
             }
         }
         this.showLoader = true;
-        this.journalService.Save(this.journal).subscribe(
+        this.journalService.Save(journalForSend).subscribe(
             result => {
                 this.showLoader = false;
+                this.oldJournal = JSON.parse(JSON.stringify(this.journal));
                 this.notificationService.FromStatus(result);
             }, error => console.error(error)
         );
