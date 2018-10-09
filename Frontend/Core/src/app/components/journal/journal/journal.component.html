@@ -7,7 +7,7 @@
             scrollHeight="60vh">
         <ng-template pTemplate="header" let-columns>
             <tr>
-                <td class="td-header"></td>
+                <td style="width: 250px" class="td-header"></td>
                 <ng-container>
                     <ng-container>
                         <td class="td-header" [attr.colspan]="getHeaderLength()">
@@ -59,16 +59,16 @@
 
         <ng-template pTemplate="body" let-rowData let-columns="columns">
             <tr [ngClass]="{coloredRow: selectStudentId == rowData.id}">
-                <td style="text-align: right"><span [userCard]="rowData.user">{{rowData.user.userFIO}}</span></td>
+                <td style="text-align: left; text-overflow: ellipsis; overflow: hidden; width: 250px;"><span style="white-space: nowrap;" [userCard]="rowData.user">{{rowData.user.userFIO}}</span></td>
                 <ng-template ngFor let-head [ngForOf]="columns">
                     <ng-template ngFor let-num [ngForOf]="head.numbers">
                         <ng-template ngFor let-type [ngForOf]="num.types">
                             <ng-template ngFor let-cell [ngForOf]="journal.journalCell">
-                                <td *ngIf="eqDate(head.date, cell.date) && type.type.name == cell.type.name && type.pair.id == cell.pairId && cell.studentId == rowData.id">
+                                <td [ngClass]="{wasChanged: cell.wasChange}" *ngIf="eqDate(head.date, cell.date) && type.type.name == cell.type.name && type.pair.id == cell.pairId && cell.studentId == rowData.id">
                                     <span [ngClass]="{whiteZero: cell.value == 0}">
                                         <input #element
                                                [value]="cell.value"
-                                               (focus)="this.selectStudentId = rowData.id"
+                                               (focus)="selectStudentId = rowData.id"
                                                (blur)="setCellValue(element.value, cell)"
                                                type="number">
                                     </span>

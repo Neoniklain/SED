@@ -87,6 +87,13 @@ export class JournalComponent implements OnInit {
         // Создание заголовка месяцов
         for (let headDate of this.header) {
             let existMonthHeader = false;
+            headDate.numbers.sort( function (a, b) {
+                if (a.number < b.number )
+                    return -1;
+                if (a.number > b.number )
+                    return 1;
+                return 0;
+            });
             for (let head of this.monthHeader) {
                 if (head.date.getMonth() === headDate.date.getMonth()) {
                     head.dateLen = head.dateLen + headDate.numbers.length;
@@ -101,6 +108,7 @@ export class JournalComponent implements OnInit {
                 this.monthHeader.push(curMonthHeader);
             }
         }
+
     }
 
     setHeaderDates() {
@@ -117,7 +125,7 @@ export class JournalComponent implements OnInit {
         }
 
         for (let comp of this.header) {
-            let newNum = new Array<JournalHeaderNumber>();
+            let newNum = [];
             for (let x of comp.numbers) {
                 let find = newNum.find(y => y.number == x.number);
                 if (!find) {
@@ -174,6 +182,7 @@ export class JournalComponent implements OnInit {
             );
 
             if (find != -1 && this.oldJournal.journalCell[find].value != j.value) {
+                j.wasChange = false;
                 journalForSend.journalCell.push(j);
             }
         }
@@ -192,6 +201,19 @@ export class JournalComponent implements OnInit {
     }
 
     setCellValue(element: number, cell: JournalCell) {
+        if (cell.id != 0 || element != 0) {
+            let find = this.oldJournal.journalCell.findIndex(x =>
+                x.pairId == cell.pairId
+                && this.eqDate(this.createDate(x.date), cell.date)
+                && x.studentId == cell.studentId
+                && x.type.id == cell.type.id
+            );
+
+            if (find != -1 && this.oldJournal.journalCell[find].value != element) {
+                cell.wasChange = true;
+            }
+        }
+
         if (element == 0)
             cell.value = null;
         else

@@ -12,6 +12,7 @@ import com.unesco.core.dto.shedule.GroupDTO;
 import com.unesco.core.dto.shedule.PairDTO;
 import com.unesco.core.managers.journal.journalManager.interfaces.journal.IJournalManager;
 import com.unesco.core.managers.journal.lessonEvent.interfaces.lessonEventList.ILessonEventListManager;
+import com.unesco.core.utils.DateHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
@@ -78,7 +79,7 @@ public class JournalManager implements IJournalManager {
 
         for (LessonEventDTO currentLessonEvent : LessonEvents) {
             if(this.journal.getComparison().stream().anyMatch( o ->
-                            currentLessonEvent.getDate().equals(o.getDate())
+                            DateHelper.getZeroTimeDate(currentLessonEvent.getDate()).equals(DateHelper.getZeroTimeDate(o.getDate()))
                     )) {
                 if(this.journal.getComparison().stream().noneMatch(
                         o -> o.getPoints().stream().anyMatch(y ->
@@ -86,12 +87,12 @@ public class JournalManager implements IJournalManager {
                                 && currentLessonEvent.getPair().getId() == y.getPair().getId())))
                 {
                    ComparisonDTO find = this.journal.getComparison().stream().filter(x ->
-                            currentLessonEvent.getDate().equals(x.getDate())).collect(Collectors.toList()).get(0);
+                           DateHelper.getZeroTimeDate(currentLessonEvent.getDate()).equals(DateHelper.getZeroTimeDate(x.getDate()))).collect(Collectors.toList()).get(0);
 
                    List<PairDTO> pairs = new ArrayList<PairDTO>();
 
                    if(currentLessonEvent.getPair()==null) {
-                       pairs.addAll(this.journal.getComparison().stream().filter(x -> x.getDate().equals(currentLessonEvent.getDate()))
+                       pairs.addAll(this.journal.getComparison().stream().filter(x -> DateHelper.getZeroTimeDate(x.getDate()).equals(DateHelper.getZeroTimeDate(currentLessonEvent.getDate())))
                                .collect(Collectors.toList()).get(0).getPoints().stream().map(x -> x.getPair()).collect(Collectors.toList()));
                    } else {
                        pairs.add(currentLessonEvent.getPair());

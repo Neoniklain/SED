@@ -118,6 +118,7 @@ export class LessonСonfiguratorComponent implements OnInit {
     }
 
     changeDate(event: Date) {
+        console.log("changeDate");
         this.journalService.GetJournal(this.lesson.id, event.getMonth()).subscribe(
             result => {
                 let comparison: Array<Comparison> = result.data.comparison;
@@ -196,6 +197,7 @@ export class LessonСonfiguratorComponent implements OnInit {
     }
 
     Remove(id: number) {
+        this.CancelEdit();
         this.journalService.EventDelete(id).subscribe(
             result => {
                 if (result.status === StatusType.OK.toString())
@@ -221,7 +223,7 @@ export class LessonСonfiguratorComponent implements OnInit {
 
         if (this.model.pair == null) this.selectAllPair = true;
 
-        this.selectPair = this.model.pair;
+        this.selectPair = this.model.pair ? this.model.pair : new Pair();
 
         this.changeDate(model.date);
 
@@ -270,6 +272,11 @@ export class LessonСonfiguratorComponent implements OnInit {
 
     createDate(date: Date): Date {
         return new Date(this.datePipe.transform(date, "yyyy-MM-ddTHH:mm:ss"));
+    }
+
+    changeSelectPair(p) {
+        if (!this.selectAllPair)
+            this.selectPair = p;
     }
 
 }

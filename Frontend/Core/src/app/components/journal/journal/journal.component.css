@@ -95,3 +95,7 @@ td input:focus {
 .coloredRow {
   background: #e2f5ff !important;
 }
+
+.wasChanged {
+  background: #d1ffd2 !important
+}

@@ -33,6 +33,7 @@ export class JournalCell {
     public date: Date;
     public type: PointType;
     public pairId: number;
+    public wasChange: boolean;
 
     constructor() {
         this.id = 0;
@@ -40,6 +41,7 @@ export class JournalCell {
         this.studentId = 0;
         this.type = new PointType();
         this.pairId = 0;
+        this.wasChange = false;
     }
 }
 
