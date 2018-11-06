@@ -8,6 +8,7 @@ import {ScheduleService} from "../../../services/schedule.service";
 import {AccountService} from "../../../services/accountService";
 import {Professor} from "../../../models/account/professor";
 import {DatePipe} from "@angular/common";
+import {CertificationReport} from "../../../models/journal/certificationReport.model";
 
 @Component({
     selector: 'journal-page',
@@ -27,6 +28,11 @@ export class JournalPageComponent implements OnInit {
     public lastMonth: number;
     public datePipe = new DatePipe("ru");
     public lastPair: Pair;
+
+    public reportSatrtDate: Date;
+    public reportEndDate: Date;
+    public certGenerator: boolean = false;
+    public certificationReport: CertificationReport;
 
     constructor(private authenticationService: AuthenticationService,
                 private journalService: JournalService,
@@ -55,6 +61,22 @@ export class JournalPageComponent implements OnInit {
                     }
                 );
             });
+    }
+
+    getCertification() {
+        if (this.reportSatrtDate && this.reportEndDate) {
+            let start = this.datePipe.transform(this.reportSatrtDate, "yyyy-MM-dd");
+            let end = this.datePipe.transform(this.reportEndDate, "yyyy-MM-dd");
+            this.journalService.GetJournalCertificationReport(this.lastPair.lesson.id, start, end).subscribe(
+                result => {
+                    this.certificationReport = result.data;
+                    console.log("result.data", result.data);
+                    console.log("this.certificationReport", this.certificationReport);
+                }, error => {
+                }
+            );
+
+        }
     }
 
     changeMonth(event) {

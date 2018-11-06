@@ -19,10 +19,46 @@
 </div>
 
 <div *ngIf="journal && !showLoader">
+    <div class="col-md-12">
+        <button (click)="certGenerator = true; certificationReport = null;" class="btn btn-default btn-sm">Отчет по аттестации</button>
+    </div>
 
     <journal [journal]="journal" [month]="month" (changeMonth)="changeMonth($event)">
     </journal>
-
 </div>
 
 <data-loader [show]="!journal && showLoader" [margin]="9"></data-loader>
+
+<p-dialog header="Генератор отчета" [(visible)]="certGenerator" [modal]="true" [responsive]="true" [width]="500" [minWidth]="300" [minY]="70"
+              [maximizable]="false">
+    <div *ngIf="!certificationReport">
+        <div class="col-md-6 text-center">
+            <p-calendar appendTo="body" placeholder="Начало" [(ngModel)]="reportSatrtDate"></p-calendar>
+        </div>
+        <div class="col-md-6 text-center">
+            <p-calendar appendTo="body" placeholder="Конец" [(ngModel)]="reportEndDate"></p-calendar>
+        </div>
+        <div class="col-md-12 text-center" style="margin-top: 1em;">
+            <button (click)="getCertification()" class="btn btn-default btn-sm">Создать</button>
+        </div>
+    </div>
+    <div *ngIf="certificationReport?.studentCertification?.length > 0">
+        <span>Всего часов: {{certificationReport.allHours}}</span>
+        <p-table scrollHeight="350px" [scrollable]="true" [value]="certificationReport.studentCertification">
+            <ng-template pTemplate="header">
+                <tr>
+                    <th>Студент</th>
+                    <th>Пропущено часов</th>
+                    <th>Атестация</th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-car>
+                <tr>
+                    <td>{{car.student.user.userFIO}}</td>
+                    <td>{{car.missingHours}}</td>
+                    <td>{{car.value}}</td>
+                </tr>
+            </ng-template>
+        </p-table>
+    </div>
+</p-dialog>

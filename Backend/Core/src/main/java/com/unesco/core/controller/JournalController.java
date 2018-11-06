@@ -5,20 +5,17 @@ import com.unesco.core.dto.enums.StatusTypes;
 import com.unesco.core.dto.journal.JournalDTO;
 import com.unesco.core.dto.journal.LessonEventDTO;
 import com.unesco.core.dto.journal.VisitationConfigDTO;
+import com.unesco.core.dto.journal.CertificationReportDto;
 import com.unesco.core.managers.journal.VisitationConfigManager.interfaces.IVisitationConfigManager;
 import com.unesco.core.managers.journal.journalManager.interfaces.journal.IJournalManager;
 import com.unesco.core.managers.journal.lessonEvent.interfaces.lessonEvent.ILessonEventManager;
 import com.unesco.core.managers.journal.lessonEvent.interfaces.lessonEventList.ILessonEventListManager;
-import com.unesco.core.services.accessControlService.IAccessControlService;
 import com.unesco.core.services.dataService.journal.journal.IJournalDataService;
 import com.unesco.core.services.dataService.journal.lessonEvent.ILessonEventDataService;
 import com.unesco.core.services.dataService.journal.visitation.IVisitationConfigDataService;
-import com.unesco.core.services.userService.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -169,7 +166,22 @@ public class JournalController {
         }
 
         return new ResponseStatusDTO(StatusTypes.OK, visitationConfig);
+    }
 
+    public ResponseStatusDTO getCertificationReport(long lessonId, Date start, Date end) {
+
+        JournalDTO journal = journalDataService.get(lessonId);
+
+        VisitationConfigDTO visitConfig = visitationConfigDataService.getByLesson(lessonId);
+        visitationConfigManager.init(visitConfig);
+
+        List<LessonEventDTO> lessonEvents = lessonEventDataService.getAll();
+        lessonEventListManager.init(lessonEvents);
+
+        journalManager.init(journal, lessonEventListManager.getAll(), visitationConfigManager.get());
+        CertificationReportDto result = journalManager.CertificationReportDto(start, end);
+
+        return new ResponseStatusDTO(StatusTypes.OK, result);
     }
 
 }

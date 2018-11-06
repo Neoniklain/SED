@@ -168,4 +168,46 @@ public class JournalManager implements IJournalManager {
         return "";
     }
 
+    public CertificationReportDto CertificationReportDto(Date start, Date end) {
+        CertificationReportDto result = new CertificationReportDto();
+
+        double allhours = 0;
+        for (ComparisonDTO comp : this.journal.getComparison().stream().filter(
+                x -> x.getDate().compareTo(DateHelper.getZeroTimeDate(start)) >= 0
+                    && x.getDate().compareTo(DateHelper.getZeroTimeDate(end)) <= 0).collect(Collectors.toList())) {
+            allhours += comp.getPoints().size() * 2;
+        }
+        result.setAllHours(allhours);
+
+        List<CertificationStudentDto> studentCertification = new ArrayList<>();
+        for (StudentDTO student : this.journal.getStudents()) {
+            List<PointDTO> cells = this.journal.getJournalCell().stream().filter(
+                    x -> x.getStudentId() == student.getId()
+                            && x.getDate().compareTo(DateHelper.getZeroTimeDate(start)) >= 0
+                            && x.getDate().compareTo(DateHelper.getZeroTimeDate(end)) <= 0).collect(Collectors.toList());
+
+            CertificationStudentDto certificationStudentDto = new CertificationStudentDto();
+            double visitedHours = 0;
+
+            for (PointDTO cell : cells) {
+                if(cell.getValue() > 0)
+                    visitedHours += 2;
+            }
+
+            certificationStudentDto.setMissingHours(result.getAllHours() - visitedHours);
+            certificationStudentDto.setStudent(student);
+
+            int resultCertificationValue = 0;
+            if(visitedHours > result.getAllHours() / 3) resultCertificationValue = 1;
+            if(visitedHours > ((result.getAllHours() / 3) * 2)) resultCertificationValue = 2;
+
+            certificationStudentDto.setValue(resultCertificationValue);
+            studentCertification.add(certificationStudentDto);
+        }
+
+        result.setStudentCertification(studentCertification);
+
+        return result;
+    }
+
 }

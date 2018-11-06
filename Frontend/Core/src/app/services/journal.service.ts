@@ -43,6 +43,19 @@ export class JournalService {
             );
     }
 
+    public GetJournalCertificationReport(lessonId, start, end): Observable<ResponseStatus> {
+        let params = new HttpParams();
+        params = params.set("start", start);
+        params = params.set("end", end);
+
+        return this.http.get(ApiRouteConstants.Journal.СertificationReport
+            .replace(":lessonId", lessonId), {params: params })
+            .pipe(
+                map((res: ResponseStatus) => res),
+                catchError(e => this.handleError.handle(e))
+            );
+    }
+
     public GetJournalDates(lessonId): Observable<ResponseStatus> {
         return this.http.get(ApiRouteConstants.Journal.Dates
             .replace(":lessonId", lessonId))

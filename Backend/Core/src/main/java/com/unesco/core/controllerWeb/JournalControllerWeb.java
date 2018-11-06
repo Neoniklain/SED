@@ -7,7 +7,10 @@ import com.unesco.core.dto.journal.LessonEventDTO;
 import com.unesco.core.dto.journal.VisitationConfigDTO;
 import com.unesco.core.dto.shedule.PairDTO;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.Date;
 
 /**
  * Created by lukasz on 27.08.2017.
@@ -59,5 +62,12 @@ public class JournalControllerWeb {
     @RequestMapping("/event/delete/{id}")
     public ResponseStatusDTO deleteEvent(@PathVariable("id") long id) {
         return journalController.deleteEvent(id);
+    }
+
+    @RequestMapping("/report/certification/{id}")
+    public ResponseStatusDTO getCertificationReport(@PathVariable("id") long id,
+                                                    @RequestParam("start") @DateTimeFormat(pattern="yyyy-MM-dd") Date start,
+                                                    @RequestParam("end") @DateTimeFormat(pattern="yyyy-MM-dd") Date end) {
+        return journalController.getCertificationReport(id, start, end);
     }
 }
