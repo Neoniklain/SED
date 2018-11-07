@@ -8,7 +8,7 @@ import {ScheduleService} from "../../../services/schedule.service";
 import {AccountService} from "../../../services/accountService";
 import {Professor} from "../../../models/account/professor";
 import {DatePipe} from "@angular/common";
-import {CertificationReport} from "../../../models/journal/certificationReport.model";
+import {CertificationReport, CertificationStudent} from "../../../models/journal/certificationReport.model";
 
 @Component({
     selector: 'journal-page',
@@ -113,6 +113,14 @@ export class JournalPageComponent implements OnInit {
                 }
             );
         }
+    }
+
+    getEventsSummValue(car: CertificationStudent) {
+        let summ = 0;
+        for (let s of car.eventValue) {
+            summ += s.value;
+        }
+        return summ;
     }
 
     back() {

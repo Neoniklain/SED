@@ -36,7 +36,7 @@ export class LessonСonfiguratorComponent implements OnInit {
     public disabledDates: Array<Date>;
     public datePipe = new DatePipe("en");
     public findsPairsForDate: Array<Pair> = [];
-    public selectPair: Pair = new Pair();
+    public selectPair: Array<Pair> = [];
     public selectAllPair: boolean = false;
 
     public editMode: boolean = false;
@@ -118,14 +118,13 @@ export class LessonСonfiguratorComponent implements OnInit {
     }
 
     changeDate(event: Date) {
-        console.log("changeDate");
         this.journalService.GetJournal(this.lesson.id, event.getMonth()).subscribe(
             result => {
                 let comparison: Array<Comparison> = result.data.comparison;
                 let find = comparison.find(x =>
-                    this.createDate(x.date).getFullYear() == event.getFullYear()
-                    && this.createDate(x.date).getMonth() == event.getMonth()
-                    && this.createDate(x.date).getDay() == event.getDay());
+                    this.createDate(x.date).getFullYear() == this.createDate(event).getFullYear()
+                    && this.createDate(x.date).getMonth() == this.createDate(event).getMonth()
+                    && this.createDate(x.date).getDate() == this.createDate(event).getDate());
                 this.findsPairsForDate = find.points.filter(x => x.type.id == 0).map(x => x.pair);
             }
         );
@@ -158,15 +157,16 @@ export class LessonСonfiguratorComponent implements OnInit {
     }
 
     Save() {
-        if (this.selectPair.id == 0 && this.findsPairsForDate.length > 1 && !this.selectAllPair) {
+        if (this.selectPair.length == 0 && this.findsPairsForDate.length > 1 && !this.selectAllPair) {
             this.notificationService.Error("Укажите занятие для создания контрольной точки.");
             return;
         }
-        if (this.selectPair.id != 0 && !this.selectAllPair)
-            this.model.pair = this.selectPair;
+        if (this.selectPair.length != 0 && !this.selectAllPair)
+            this.model.pairs = this.selectPair;
+
         this.journalService.SaveEvent(this.model).subscribe(
             result => {
-                this.selectPair = new Pair();
+                this.selectPair = [];
                 this.findsPairsForDate = [];
                 this.selectAllPair = false;
                 if (result.status === StatusType.OK.toString()) {
@@ -175,7 +175,7 @@ export class LessonСonfiguratorComponent implements OnInit {
                 }
                 this.notificationService.FromStatus(result);
             }, error1 => {
-                this.selectPair = new Pair();
+                this.selectPair = [];
                 this.findsPairsForDate = [];
                 this.selectAllPair = false;
             }
@@ -219,11 +219,13 @@ export class LessonСonfiguratorComponent implements OnInit {
         this.model.date = model.date;
         this.model.id = model.id;
         this.model.lesson = model.lesson;
-        this.model.pair = model.pair;
-
-        if (this.model.pair == null) this.selectAllPair = true;
-
-        this.selectPair = this.model.pair ? this.model.pair : new Pair();
+        this.model.pairs = [];
+        this.selectPair = [];
+        for (let p of model.pairs) {
+            this.selectPair.push(p);
+            this.model.pairs.push(p);
+        }
+        if (this.model.pairs.length == this.findsPairsForDate.length) this.selectAllPair = true;
 
         this.changeDate(model.date);
 
@@ -236,7 +238,7 @@ export class LessonСonfiguratorComponent implements OnInit {
         this.model.type = this.eventTypes[0];
 
         this.selectAllPair = false;
-        this.selectPair = new Pair();
+        this.selectPair = [];
         this.findsPairsForDate = [];
     }
 
@@ -267,7 +269,12 @@ export class LessonСonfiguratorComponent implements OnInit {
     }
 
     clearSelect() {
-        this.selectPair = new Pair();
+        if (!this.selectAllPair)
+            this.selectPair = [];
+        if (this.selectAllPair) {
+            for (let p of this.findsPairsForDate)
+                this.selectPair.push(p);
+        }
     }
 
     createDate(date: Date): Date {
@@ -275,8 +282,24 @@ export class LessonСonfiguratorComponent implements OnInit {
     }
 
     changeSelectPair(p) {
-        if (!this.selectAllPair)
-            this.selectPair = p;
+        if (!this.pairInSelect(p)) {
+            this.selectPair.push(p);
+            if (this.selectPair.length == this.findsPairsForDate.length) this.selectAllPair = true;
+        }
+        else {
+            console.log(" this.selectPair",  this.selectPair);
+            console.log("indexOf(p)", this.selectPair.map(x => x.id).indexOf(p.id));
+            console.log("p", p);
+            this.selectPair.splice(this.selectPair.map(x => x.id).indexOf(p.id), 1);
+            this.selectAllPair = false;
+        }
+    }
+
+    pairInSelect(pair: Pair) {
+        for (let p of this.selectPair) {
+            if (p.id == pair.id) return true;
+        }
+        return false;
     }
 
 }

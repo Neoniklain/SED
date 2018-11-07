@@ -280,7 +280,15 @@ public class MapperService implements IMapperService {
             Dto.setDate(Dt);
         }
         Dto.setComment(Entity.getComment());
-        Dto.setPair(pairToDto(Entity.getPair()));
+
+        List<PairDTO> pairs = new ArrayList<>();
+        if(Entity.getPairs()!=null) {
+            for (PairEntity t : Entity.getPairs()) {
+                pairs.add(pairToDto(t));
+            }
+        }
+        Dto.setPairs(pairs);
+
         Dto.setMaxValue(Entity.getMaxValue());
         Dto.setLesson(lessonToDto(Entity.getLesson()));
         Dto.setType(pointTypeToDto(Entity.getType()));
@@ -297,7 +305,15 @@ public class MapperService implements IMapperService {
             Entity.setDate(ts);
         }
         Entity.setComment(Dto.getComment());
-        Entity.setPair(pairToEntity(Dto.getPair()));
+
+        Set<PairEntity> pairs = new HashSet<>();
+        if(Dto.getPairs()!=null) {
+            for (PairDTO t : Dto.getPairs()) {
+                pairs.add(pairToEntity(t));
+            }
+        }
+        Entity.setPairs(pairs);
+
         Entity.setMaxValue(Dto.getMaxValue());
         Entity.setLesson(lessonToEntity(Dto.getLesson()));
         Entity.setType(pointTypeToEntity(Dto.getType()));

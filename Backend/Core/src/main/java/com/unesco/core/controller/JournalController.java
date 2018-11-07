@@ -5,7 +5,7 @@ import com.unesco.core.dto.enums.StatusTypes;
 import com.unesco.core.dto.journal.JournalDTO;
 import com.unesco.core.dto.journal.LessonEventDTO;
 import com.unesco.core.dto.journal.VisitationConfigDTO;
-import com.unesco.core.dto.journal.CertificationReportDto;
+import com.unesco.core.dto.journal.CertificationReportDTO;
 import com.unesco.core.managers.journal.VisitationConfigManager.interfaces.IVisitationConfigManager;
 import com.unesco.core.managers.journal.journalManager.interfaces.journal.IJournalManager;
 import com.unesco.core.managers.journal.lessonEvent.interfaces.lessonEvent.ILessonEventManager;
@@ -179,7 +179,7 @@ public class JournalController {
         lessonEventListManager.init(lessonEvents);
 
         journalManager.init(journal, lessonEventListManager.getAll(), visitationConfigManager.get());
-        CertificationReportDto result = journalManager.CertificationReportDto(start, end);
+        CertificationReportDTO result = journalManager.CertificationReportDto(start, end);
 
         return new ResponseStatusDTO(StatusTypes.OK, result);
     }

@@ -1,0 +1,1 @@
+ALTER TABLE un_lesson_event DROP COLUMN pair_id;

@@ -28,7 +28,6 @@ public class PlanEntity {
    @JoinTable(name = "un_plan_competence",
            joinColumns = {@JoinColumn(name = "competence_id")},
            inverseJoinColumns = {@JoinColumn(name = "plan_id")})
-   /** Поле список компетенций */
    private Set<CompetenceEntity> competence;
 
    public long getId() {

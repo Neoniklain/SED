@@ -5,6 +5,7 @@ import com.unesco.core.entities.schedule.PairEntity;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
+import java.util.Set;
 
 
 @Entity
@@ -27,9 +28,11 @@ public class LessonEventEntity {
 
     private String comment;
 
-    @ManyToOne
-    @JoinColumn(name = "pair_id", referencedColumnName = "id")
-    private PairEntity pair;
+    @ManyToMany(fetch = FetchType.EAGER, cascade = { CascadeType.MERGE })
+    @JoinTable(name = "un_lesson_event_pair",
+            joinColumns = {@JoinColumn(name = "lessons_event_id")},
+            inverseJoinColumns = {@JoinColumn(name = "pair_id")})
+    private Set<PairEntity> pairs;
 
     private int maxValue;
 
@@ -41,11 +44,11 @@ public class LessonEventEntity {
     @JoinColumn(name = "lesson_id", referencedColumnName = "id")
     private LessonEntity lessonEntity;
 
-    public PairEntity getPair() {
-        return pair;
+    public Set<PairEntity> getPairs() {
+        return pairs;
     }
-    public void setPair(PairEntity pair) {
-        this.pair = pair;
+    public void setPairs(Set<PairEntity> pairs) {
+        this.pairs = pairs;
     }
 
     public long getId() {

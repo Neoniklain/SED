@@ -19,12 +19,28 @@ export class CertificationStudent {
     student: Student;
     /* Атестация */
     value: number;
+    /* Баллы за посещения */
+    visitationValue: number;
     /* Пропущено часов */
     missingHours: number;
+    /* События */
+    eventValue: Array<CertificationEvent>;
 
     constructor() {
         this.student = new Student();
         this.value = 0;
+        this.visitationValue = 0;
         this.missingHours = 0;
+        this.eventValue = [];
+    }
+}
+
+export class CertificationEvent {
+    event: string;
+    value: number;
+
+    constructor() {
+        this.event = "";
+        this.value = 0;
     }
 }

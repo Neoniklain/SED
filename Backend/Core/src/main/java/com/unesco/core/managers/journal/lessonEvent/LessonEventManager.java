@@ -43,7 +43,11 @@ public class LessonEventManager implements ILessonEventManager {
         }
         if (lessonEvent.getMaxValue() < 0) {
             responseStatusDTO.setStatus(StatusTypes.ERROR);
-            responseStatusDTO.addErrors("Не dверное значение балла.");
+            responseStatusDTO.addErrors("Не верное значение балла.");
+        }
+        if (lessonEvent.getPairs().size() == 0) {
+            responseStatusDTO.setStatus(StatusTypes.ERROR);
+            responseStatusDTO.addErrors("Не указаны занятия.");
         }
         return responseStatusDTO;
     }

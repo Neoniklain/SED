@@ -13,6 +13,7 @@ import com.unesco.core.dto.shedule.PairDTO;
 import com.unesco.core.managers.journal.journalManager.interfaces.journal.IJournalManager;
 import com.unesco.core.managers.journal.lessonEvent.interfaces.lessonEventList.ILessonEventListManager;
 import com.unesco.core.utils.DateHelper;
+import javafx.event.EventType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
@@ -84,18 +85,15 @@ public class JournalManager implements IJournalManager {
                 if(this.journal.getComparison().stream().noneMatch(
                         o -> o.getPoints().stream().anyMatch(y ->
                                 y.getType().getId() == currentLessonEvent.getType().getId()
-                                && currentLessonEvent.getPair().getId() == y.getPair().getId())))
+                                && currentLessonEvent.getPairs().stream().anyMatch(e -> e.getId() == y.getPair().getId()))))
                 {
                    ComparisonDTO find = this.journal.getComparison().stream().filter(x ->
                            DateHelper.getZeroTimeDate(currentLessonEvent.getDate()).equals(DateHelper.getZeroTimeDate(x.getDate()))).collect(Collectors.toList()).get(0);
 
                    List<PairDTO> pairs = new ArrayList<PairDTO>();
 
-                   if(currentLessonEvent.getPair()==null) {
-                       pairs.addAll(this.journal.getComparison().stream().filter(x -> DateHelper.getZeroTimeDate(x.getDate()).equals(DateHelper.getZeroTimeDate(currentLessonEvent.getDate())))
-                               .collect(Collectors.toList()).get(0).getPoints().stream().map(x -> x.getPair()).collect(Collectors.toList()));
-                   } else {
-                       pairs.add(currentLessonEvent.getPair());
+                   if(currentLessonEvent.getPairs().size() > 0) {
+                       pairs.addAll(currentLessonEvent.getPairs());
                    }
 
                    List<ComparisonPointDTO> points = find.getPoints();
@@ -168,8 +166,8 @@ public class JournalManager implements IJournalManager {
         return "";
     }
 
-    public CertificationReportDto CertificationReportDto(Date start, Date end) {
-        CertificationReportDto result = new CertificationReportDto();
+    public CertificationReportDTO CertificationReportDto(Date start, Date end) {
+        CertificationReportDTO result = new CertificationReportDTO();
 
         double allhours = 0;
         for (ComparisonDTO comp : this.journal.getComparison().stream().filter(
@@ -179,23 +177,40 @@ public class JournalManager implements IJournalManager {
         }
         result.setAllHours(allhours);
 
-        List<CertificationStudentDto> studentCertification = new ArrayList<>();
+        List<CertificationStudentDTO> studentCertification = new ArrayList<>();
         for (StudentDTO student : this.journal.getStudents()) {
             List<PointDTO> cells = this.journal.getJournalCell().stream().filter(
                     x -> x.getStudentId() == student.getId()
                             && x.getDate().compareTo(DateHelper.getZeroTimeDate(start)) >= 0
                             && x.getDate().compareTo(DateHelper.getZeroTimeDate(end)) <= 0).collect(Collectors.toList());
 
-            CertificationStudentDto certificationStudentDto = new CertificationStudentDto();
+            CertificationStudentDTO certificationStudentDto = new CertificationStudentDTO();
             double visitedHours = 0;
+            double visitedValue = 0;
+            List<CertificationEventDTO> certEvents = new ArrayList<>();
 
             for (PointDTO cell : cells) {
-                if(cell.getValue() > 0)
+                if(cell.getValue() > 0 && cell.getType().getName().equals(PointTypes.Visitation.toString())) {
                     visitedHours += 2;
+                    visitedValue += cell.getValue();
+                } else {
+                    CertificationEventDTO certEvent = new CertificationEventDTO();
+                    certEvent.setEvent(cell.getType().getName());
+                    certEvent.setValue(cell.getValue());
+
+                    if(certEvents.stream().anyMatch(x -> x.getEvent().equals(certEvent.getEvent()))) {
+                        CertificationEventDTO certificationEventDTO = certEvents.stream().filter(x -> x.getEvent() == certEvent.getEvent()).collect(Collectors.toList()).get(0);
+                        certificationEventDTO.setValue(certificationEventDTO.getValue() + cell.getValue());
+                    } else {
+                        certEvents.add(certEvent);
+                    }
+                }
             }
 
             certificationStudentDto.setMissingHours(result.getAllHours() - visitedHours);
             certificationStudentDto.setStudent(student);
+            certificationStudentDto.setVisitationValue(visitedValue);
+            certificationStudentDto.setEventValue(certEvents);
 
             int resultCertificationValue = 0;
             if(visitedHours > result.getAllHours() / 3) resultCertificationValue = 1;

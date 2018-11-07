@@ -48,15 +48,15 @@
             <ng-template pTemplate="header">
                 <tr>
                     <th>Студент</th>
-                    <th>Пропущено часов</th>
-                    <th>Атестация</th>
+                    <th>Посещения</th>
+                    <th>Лабораторные</th>
                 </tr>
             </ng-template>
-            <ng-template pTemplate="body" let-car>
+            <ng-template pTemplate="body" let-cert>
                 <tr>
-                    <td>{{car.student.user.userFIO}}</td>
-                    <td>{{car.missingHours}}</td>
-                    <td>{{car.value}}</td>
+                    <td>{{cert.student.user.userFIO}}</td>
+                    <td>{{cert.visitationValue}}</td>
+                    <td>{{getEventsSummValue(cert)}}</td>
                 </tr>
             </ng-template>
         </p-table>

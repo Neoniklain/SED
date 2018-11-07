@@ -4,6 +4,7 @@ import com.unesco.core.dto.additional.ResponseStatusDTO;
 import com.unesco.core.dto.enums.StatusTypes;
 import com.unesco.core.dto.journal.LessonEventDTO;
 import com.unesco.core.entities.journal.LessonEventEntity;
+import com.unesco.core.entities.schedule.PairEntity;
 import com.unesco.core.repositories.journal.LessonEventRepository;
 import com.unesco.core.services.mapperService.IMapperService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,7 +12,9 @@ import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Service
 public class LessonEventDataService implements ILessonEventDataService {
@@ -70,6 +73,10 @@ public class LessonEventDataService implements ILessonEventDataService {
         LessonEventEntity entity = (LessonEventEntity) mapperService.toEntity(lessonEvent);
         ResponseStatusDTO<LessonEventDTO> result = new ResponseStatusDTO<>(StatusTypes.OK);
         try {
+            Set<PairEntity> pairs = entity.getPairs();
+            entity.setPairs(new HashSet<>());
+            entity = lessonEventRepository.save(entity);
+            entity.setPairs(pairs);
             entity = lessonEventRepository.save(entity);
         } catch (Exception e) {
             result.setStatus(StatusTypes.ERROR);

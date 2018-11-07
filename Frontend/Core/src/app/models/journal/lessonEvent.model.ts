@@ -7,7 +7,7 @@ export class LessonEvent {
     public id: number;
     public date: Date;
     public type: PointType;
-    public pair: Pair;
+    public pairs: Array<Pair>;
     public maxValue: number;
     public lesson: Lesson;
     public comment: string;
@@ -17,5 +17,6 @@ export class LessonEvent {
         this.type = new PointType();
         this.lesson = new Lesson();
         this.comment = "";
+        this.pairs = [];
     }
 }
