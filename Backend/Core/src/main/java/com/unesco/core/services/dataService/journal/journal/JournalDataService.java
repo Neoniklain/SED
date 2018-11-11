@@ -1,6 +1,5 @@
 package com.unesco.core.services.dataService.journal.journal;
 
-import com.unesco.core.dto.account.StudentDTO;
 import com.unesco.core.dto.additional.ResponseStatusDTO;
 import com.unesco.core.dto.enums.PointTypes;
 import com.unesco.core.dto.enums.StatusTypes;
@@ -44,7 +43,7 @@ public class JournalDataService implements IJournalDataService {
         model.setComparison(new ArrayList<>());
 
         LessonDTO lesson = lessonDataService.get(lessonId);
-        List<StudentDTO> students = studentDataService.getByGroup(lesson.getGroup().getId());
+        List<StudentJournalDTO> students = studentDataService.getByGroupAndLesson(lesson.getGroup().getId(), lesson.getId());
         List<PairDTO> pairs = pairDataService.getAllByLesson(lesson.getId());
 
         Calendar from = Calendar.getInstance();
@@ -52,7 +51,6 @@ public class JournalDataService implements IJournalDataService {
 
         from.set(2018,8,1,12,0);
         to.set(2018,11,28,12,0);
-        Set<Date> days = new HashSet<>();
 
         Calendar starDate = Calendar.getInstance();
         Calendar endDate = Calendar.getInstance();
@@ -138,10 +136,11 @@ public class JournalDataService implements IJournalDataService {
         }
 
         List<PointDTO> points = new ArrayList<>();
+        List<StudentJournalDTO> studentsJournal = new ArrayList<>();
 
-        for (StudentDTO student : students ) {
+        for (StudentJournalDTO student : students ) {
             for (PairDTO pair : pairs ) {
-                points.addAll(pointDataService.getByStudentAndPair(student.getUser().getId(), pair.getId()));
+                points.addAll(pointDataService.getByStudentAndPair(student.getStudent().getUser().getId(), pair.getId()));
             }
         }
 

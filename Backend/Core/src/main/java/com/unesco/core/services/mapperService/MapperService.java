@@ -5,7 +5,6 @@ import com.unesco.core.dto.account.ProfessorDTO;
 import com.unesco.core.dto.account.RoleDTO;
 import com.unesco.core.dto.account.StudentDTO;
 import com.unesco.core.dto.account.UserDTO;
-import com.unesco.core.dto.enums.TaskStatusType;
 import com.unesco.core.dto.file.FileByteCodeModel;
 import com.unesco.core.dto.file.FileDescriptionModel;
 import com.unesco.core.dto.journal.LessonEventDTO;
@@ -28,7 +27,7 @@ import com.unesco.core.entities.news.NewsEntity;
 import com.unesco.core.entities.schedule.*;
 import com.unesco.core.entities.task.TaskDescription;
 import com.unesco.core.entities.task.TaskUser;
-import com.unesco.core.repositories.PairRepository;
+import com.unesco.core.repositories.schedule.PairRepository;
 import com.unesco.core.repositories.account.StudentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -627,7 +626,6 @@ public class MapperService implements IMapperService {
         Dto.setUsername(Entity.getUsername());
         Dto.setEmail(Entity.getEmail());
         Dto.setUserFIO(Entity.getUserFIO());
-        Dto.setPassword(Entity.getPassword());
         String photo = "";
         if(Entity.getPhoto() != null)
             photo = new String(Entity.getPhoto(), StandardCharsets.UTF_8);

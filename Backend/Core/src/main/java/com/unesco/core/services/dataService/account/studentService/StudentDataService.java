@@ -5,9 +5,14 @@ import com.unesco.core.dto.additional.FilterQueryDTO;
 import com.unesco.core.dto.additional.PageResultDTO;
 import com.unesco.core.dto.additional.ResponseStatusDTO;
 import com.unesco.core.dto.enums.StatusTypes;
+import com.unesco.core.dto.journal.StudentJournalDTO;
+import com.unesco.core.dto.shedule.LessonDTO;
 import com.unesco.core.entities.account.StudentEntity;
 import com.unesco.core.entities.account.UserEntity;
+import com.unesco.core.entities.schedule.LessonEntity;
+import com.unesco.core.entities.schedule.StudentLessonSubgroupEntity;
 import com.unesco.core.repositories.account.StudentRepository;
+import com.unesco.core.repositories.schedule.StudentLessonSubgroupRepository;
 import com.unesco.core.services.dataService.account.userService.IUserDataService;
 import com.unesco.core.services.mapperService.IMapperService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +31,8 @@ public class StudentDataService implements IStudentDataService {
     private StudentRepository studentRepository;
     @Autowired
     private IUserDataService userDataService;
+    @Autowired
+    private StudentLessonSubgroupRepository studentLessonSubgroupRepository;
 
     public PageResultDTO<StudentDTO> getPage(FilterQueryDTO filter) {
         int rows = filter.getRows()>0? filter.getRows() : (int) studentRepository.count();
@@ -80,6 +87,28 @@ public class StudentDataService implements IStudentDataService {
         }
         return modelList;
     }
+
+    public List<StudentJournalDTO> getByGroupAndLesson(long groupId, long lessonId) {
+
+        List<StudentJournalDTO> modelList = new ArrayList<>();
+        Iterable<StudentEntity> entityList = studentRepository.findAllByGroupId(groupId);
+        List<StudentLessonSubgroupEntity> all = studentLessonSubgroupRepository.findByLessonId(lessonId);
+
+        for (StudentEntity item: entityList) {
+            StudentDTO model = (StudentDTO) mapperService.toDto(item);
+            StudentJournalDTO student = new StudentJournalDTO();
+            student.setStudent(model);
+            student.setSubgroup(0);
+            if(all.stream().anyMatch(x -> x.getStudent().getId() == item.getId())) {
+                StudentLessonSubgroupEntity studentLessonSubgroup = all.stream().filter(x -> x.getStudent().getId() == item.getId()).findFirst().get();
+                student.setSubgroup(studentLessonSubgroup.getSubgroup());
+            }
+            modelList.add(student);
+        }
+
+        return modelList;
+    }
+
     public ResponseStatusDTO<StudentDTO> save(StudentDTO student)
     {
         StudentEntity entity = (StudentEntity) mapperService.toEntity(student);
@@ -103,4 +132,50 @@ public class StudentDataService implements IStudentDataService {
         StudentDTO model = (StudentDTO) mapperService.toDto(entity);
         return model;
     }
+
+    public ResponseStatusDTO<StudentDTO> saveStudentsSubgroup(List<StudentJournalDTO> studentsJournal, LessonDTO lesson) {
+
+        for (StudentJournalDTO studentJournal: studentsJournal) {
+            StudentLessonSubgroupEntity studentLesson = new StudentLessonSubgroupEntity();
+            studentLesson.setLesson((LessonEntity) mapperService.toEntity(lesson));
+            studentLesson.setStudent((StudentEntity) mapperService.toEntity(studentJournal.getStudent()));
+            studentLesson.setSubgroup(studentJournal.getSubgroup());
+
+            StudentLessonSubgroupEntity findStudentAndLesson = studentLessonSubgroupRepository.findByStudentIdAndLessonId(studentJournal.getStudent().getId(), lesson.getId());
+
+            if(studentJournal.getSubgroup() != 0) {
+                try {
+                    if(findStudentAndLesson == null) {
+                        studentLessonSubgroupRepository.save(studentLesson);
+                    } else {
+                        findStudentAndLesson.setSubgroup(studentJournal.getSubgroup());
+                        studentLessonSubgroupRepository.save(findStudentAndLesson);
+                    }
+                } catch (Exception e) {
+                    ResponseStatusDTO result = new ResponseStatusDTO();
+                    result.setStatus(StatusTypes.ERROR);
+                    result.addErrors(e.getMessage());
+                    return result;
+                }
+            } else {
+                try {
+                    if(findStudentAndLesson != null) {
+                        studentLessonSubgroupRepository.delete(findStudentAndLesson.getId());
+                    }
+                } catch (Exception e) {
+                    ResponseStatusDTO result = new ResponseStatusDTO();
+                    result.setStatus(StatusTypes.ERROR);
+                    result.addErrors(e.getMessage());
+                    return result;
+                }
+            }
+        }
+
+        ResponseStatusDTO<StudentDTO> result = new ResponseStatusDTO<StudentDTO>();
+        result.setStatus(StatusTypes.OK);
+        result.addMessage("Подгруппы сохранены");
+
+        return result;
+    }
+
 }

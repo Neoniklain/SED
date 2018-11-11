@@ -30,6 +30,9 @@
         (onDragEnter)="dragEnter($event)"
         (onDragLeave)="dragLeave($event)"
         width="13%" *ngFor="let day of days" (click)="onClick($event, day, lessonTime.num)">
+
+      <!-- Для редактируемого вида -->
+      <div *ngIf="showedPairs.length == 0">
       <div *ngFor="let pair of pairs">
         <div *ngIf="(pair.weektype == selectedType || pair.weektype == 'Все' || selectedType == 'Все') && pair.dayofweek === day && pair.pairNumber === lessonTime.num" height="100%">
           <span pDraggable="pnl"
@@ -59,7 +62,7 @@
             </div>
             <div style="padding-bottom: 7px; font-size: 10px;" class="text-right">{{pair.lesson.professor.user.userFIO}}</div>
             <div style="float: left; font-size: 12px;" class="text-left">
-              <span>{{pair.lesson.group.name}}</span>
+              <span>{{pair.lesson.group.name}} </span>
             </div>
             <div style="font-size: 12px;" class="text-right">{{pair.room.room}}</div>
 
@@ -78,11 +81,49 @@
 
         </div>
       </div>
+      </div>
+
+      <!-- Для не редактируемого вида -->
+      <div *ngIf="showedPairs.length > 0">
+      <div *ngFor="let pair of showedPairs">
+        <div *ngIf="(pair.weektype == selectedType || pair.weektype == 'Все' || selectedType == 'Все') && pair.dayofweek === day && pair.pairNumber === lessonTime.num" height="100%">
+          <span [ngClass]="{
+                          'pair': true,
+                          'even': pair.weektype =='Чет' && pair.subgroup == 0,
+                          'odd': pair.weektype =='Нечет' && pair.subgroup == 0,
+                          'subgroup-1': pair.subgroup == 1 && pair.weektype =='Все',
+                          'subgroup-2': pair.subgroup == 2 && pair.weektype =='Все',
+                          'odd-subgroup-1': pair.subgroup == 1 && pair.weektype =='Нечет',
+                          'odd-subgroup-2': pair.subgroup == 2 && pair.weektype =='Нечет',
+                          'even-subgroup-1': pair.subgroup == 1 && pair.weektype =='Чет',
+                          'even-subgroup-2': pair.subgroup == 2 && pair.weektype =='Чет',
+                          'half-width': existPairInThisDay(pair)}"
+                (click)="onClickPair(pair)"
+                (mousemove)="onMouseMove($event)"
+                (mouseenter)="onMouseEnter($event, day, lessonTime.num, weektype)" (mouseleave)="onMouseLeave()">
+            <div *ngIf="pair.weektype !='Все'" class="text-left" style="float: right;font-size: 10px;">{{pair.weektype}}</div>
+            <div class="text-left" style="font-size: 10px;">{{pair.pairType.type}}</div>
+            <div style="padding-bottom: 7px; font-size: 12px;" class="text-center">
+              {{pair.lesson.discipline.name}}
+              <span *ngIf="pair.optionally" style="font-size: 10px;">(по выбору)</span>
+              <span *ngIf="pair.subgroup != 0" style="font-size: 10px;">(подгруппа {{pair.subgroup}})</span>
+            </div>
+            <div style="padding-bottom: 7px; font-size: 10px;" class="text-right">{{pair.lesson.professor.user.userFIO}}</div>
+            <div style="float: left; font-size: 12px;" class="text-left">
+              <span *ngFor="let group of pair.lesson.groups">{{group.name}} </span>
+            </div>
+            <div style="font-size: 12px;" class="text-right">{{pair.room.room}}</div>
+
+          </span>
+
+        </div>
+      </div>
+      </div>
     </td>
   </tr>
 </table>
 
-<div *ngIf="(!pairs || pairs.length == 0) && !editable" class="pairs-not-found">
+<div *ngIf="(!showedPairs || showedPairs.length == 0) && !editable" class="pairs-not-found">
   <h1>Расписание не заполнено.</h1>
 </div>
 
@@ -104,4 +145,13 @@
         <button type="button" pButton icon="fa-check" (click)="movePair()" label="Да"></button>
         <button type="button" pButton icon="fa-close" (click)="showDeleteDialog=false" label="Нет"></button>
     </p-footer>
+</p-dialog>
+
+
+<p-dialog *ngIf="choosedGroups.length > 1" header="Выберите группу" [(visible)]="showGroupChooseDialog" modal="modal" [responsive]="true" [width]="350" [minWidth]="200">
+    <span>Укажите группу для которой выбрано занятие.</span>
+  <p-footer>
+    <button *ngFor="let group of choosedGroups" type="button" pButton (click)="selectGroup(group)" label="{{group.name}}"></button>
+    <button type="button" pButton icon="fa-close" (click)="showGroupChooseDialog=false" label="Закрыть"></button>
+  </p-footer>
 </p-dialog>

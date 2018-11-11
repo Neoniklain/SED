@@ -1,11 +1,13 @@
 import {Injectable} from '@angular/core';
-import {HttpClient} from '@angular/common/http';
+import {HttpClient, HttpParams} from '@angular/common/http';
 import {ApiRouteConstants} from "../bootstrap/app.route.constants";
 import {ResponseStatus} from "../models/additional/responseStatus";
 import {HandelErrorService} from "./handelError.service";
 import {UserAccessRight} from "../models/account/access";
 import {catchError, map} from "rxjs/operators";
 import {Observable} from "rxjs/Observable";
+import {StudentJournal, StudentJournalList} from "../models/journal/journal.model";
+import {Lesson} from "../models/shedule/lesson";
 
  
 @Injectable()
@@ -60,7 +62,7 @@ export class AccountService {
             );
     }
 
-    public GetProfessorByUser(userId): Observable<ResponseStatus> {
+    public GetProfessorByUser(userId: number): Observable<ResponseStatus> {
         return this.http.get(ApiRouteConstants.Account.GetProfessorByUser
             .replace(":userId", userId.toString()))
             .pipe(
@@ -69,7 +71,7 @@ export class AccountService {
             );
     }
 
-    public GetStudentByUser(userId): Observable<ResponseStatus> {
+    public GetStudentByUser(userId: number): Observable<ResponseStatus> {
         return this.http.get(ApiRouteConstants.Account.GetStudentByUser
             .replace(":userId", userId.toString()))
             .pipe(
@@ -78,7 +80,7 @@ export class AccountService {
             );
     }
 
-    public GetUserAccessRight(userId): Observable<ResponseStatus> {
+    public GetUserAccessRight(userId: number): Observable<ResponseStatus> {
         return this.http.get(ApiRouteConstants.Account.GetUserAccessRight
             .replace(":userId", userId.toString()))
             .pipe(
@@ -89,6 +91,24 @@ export class AccountService {
 
     public SaveUserAccessRight(acceses: UserAccessRight): Observable<ResponseStatus> {
         return this.http.post(ApiRouteConstants.Account.SaveUserAccessRight, acceses)
+            .pipe(
+                map((res: ResponseStatus) => res),
+                catchError(e => this.handleError.handle(e))
+            );
+    }
+
+    public GetStudentByGroup(groupId: number, lessonId: number): Observable<ResponseStatus> {
+        return this.http.get(ApiRouteConstants.Account.getStudentForGroupAndLesson
+            .replace(":groupId", groupId.toString())
+            .replace(":lessonId", lessonId.toString()))
+            .pipe(
+                map((res: ResponseStatus) => res),
+                catchError(e => this.handleError.handle(e))
+            );
+    }
+
+    public SaveStudentsSubgroup(studentJournalList: StudentJournalList): Observable<ResponseStatus> {
+        return this.http.post(ApiRouteConstants.Account.SaveStudentsSubgroup, studentJournalList)
             .pipe(
                 map((res: ResponseStatus) => res),
                 catchError(e => this.handleError.handle(e))

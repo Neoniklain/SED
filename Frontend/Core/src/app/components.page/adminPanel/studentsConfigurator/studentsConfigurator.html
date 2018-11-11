@@ -1,0 +1,65 @@
+﻿<div class="main-header col-md-12">
+   <div class="panel panel-default panel-inverse">
+      <div class="panel-heading">
+         <h3>Настройка подгрупп</h3>
+      </div>
+      <div class="panel-body">
+
+         <div class="row text-center">
+            <div class="col-xs-4 col-xs-push-4">
+               <div class="input-group input-group-md">
+                  <span class="input-group-addon">Настройка группы: </span>
+                  <select class="form-control" (ngModelChange)="selectLessonForGroup($event)" [(ngModel)]="selectGroup" id="group" name="grouplist">
+                     <option *ngFor="let group of groups" id="groupname" name="name" [ngValue]="group">{{group.name}}</option>
+                  </select>
+               </div>
+            </div>
+         </div>
+
+         <lessons-list [lessons]="groupLessons" (clickOnLesson)="selectedLesson($event)"></lessons-list>
+
+         <div *ngIf="selectLesson.id != 0" class="row">
+            <div class="col-md-12">
+               <h3 class="text-center">Настройки для дисциплины: {{selectLesson.discipline.name}}</h3>
+            </div>
+            <div class="col-md-6">
+               <span>Укажите номер подгруппы "3" чтобы скрыть студента из журнала.</span>
+            </div>
+            <div class="col-md-6 text-right">
+               <div class="legend">
+                  <span><div class="legend-item subgroup-1"></div> - Подгруппа 1 </span>
+                  <span><div class="legend-item subgroup-2"></div> - Подгруппа 2 </span>
+                  <span><div class="legend-item subgroup-hidden"></div> - Скрыт </span>
+               </div>
+            </div>
+         </div>
+
+         <div *ngIf="studentsJournal?.length > 0">
+            <table class="table table-bordered table-striped">
+               <thead>
+                  <tr>
+                     <td width="1%"></td>
+                     <td>Студент</td>
+                     <td>Подгруппа</td>
+                  </tr>
+               </thead>
+               <tbody>
+                  <tr *ngFor="let stud of studentsJournal">
+                     <td [ngClass]="{
+                          'subgroup-1': stud.subgroup == 1,
+                          'subgroup-2': stud.subgroup == 2,
+                          'subgroup-hidden': stud.subgroup == 3}"></td>
+                     <td>{{stud.student.user.userFIO}}</td>
+                     <td><input (click)="$event.target.select()" [(ngModel)]="stud.subgroup" placeholder="Укажите подгруппу" type="text"></td>
+                  </tr>
+               </tbody>
+            </table>
+
+            <div class="col-sm-12 text-right">
+               <button (click)="save()" class="btn btn-info btn-success">Сохранить подгруппы</button>
+            </div>
+         </div>
+
+      </div>
+   </div>
+</div>

@@ -48,6 +48,11 @@ public class ScheduleControllerWeb {
         return sheduleController.getLessonsForProfessor(professorId);
     }
 
+    @RequestMapping("/group/{groupId}/lessons")
+    public ResponseStatusDTO getByPGroupId(@PathVariable("groupId") long groupId) {
+        return sheduleController.getLessonsForGroup(groupId);
+    }
+
     @RequestMapping("/pair/save")
     public ResponseStatusDTO savePair(@RequestBody PairParameters param) {
         return sheduleController.savePair(param.getPairModel(), param.isSkipWarnings());

@@ -12,7 +12,7 @@ import java.util.Map;
 public class JournalDTO
 {
    private LessonDTO lesson;
-   private List<StudentDTO> students;
+   private List<StudentJournalDTO> students;
    private List<ComparisonDTO> comparison;
    private List<PointDTO> journalCell;
 
@@ -27,10 +27,10 @@ public class JournalDTO
       this.lesson = lesson;
    }
 
-   public List<StudentDTO> getStudents() {
+   public List<StudentJournalDTO> getStudents() {
       return students;
    }
-   public void setStudents(List<StudentDTO> students) {
+   public void setStudents(List<StudentJournalDTO> students) {
       this.students = students;
    }
 

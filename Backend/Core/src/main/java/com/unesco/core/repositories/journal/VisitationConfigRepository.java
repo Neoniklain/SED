@@ -1,4 +1,4 @@
-package com.unesco.core.repositories;
+package com.unesco.core.repositories.journal;
 
 import com.unesco.core.entities.journal.VisitationConfigEntity;
 import com.unesco.core.repositories.utils.CrudPagableRepository;

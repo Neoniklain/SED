@@ -57,20 +57,6 @@ public class JournalManager implements IJournalManager {
             journal.setComparison(сomparison);
         }
 
-        // !!! Тестовое условие, удалить.
-        if (journal.getStudents().size() == 0) {
-            StudentDTO testStud = new StudentDTO();
-            UserDTO testUser = new UserDTO();
-            testUser.setRoles(Collections.singletonList(new RoleDTO() {{
-                setRoleName(RoleType.STUDENT.toString());
-            }}));
-            testUser.setUserFIO("Testing");
-            testUser.setUsername("Testing");
-            testStud.setUser(testUser);
-            testStud.setGroup(new GroupDTO() {{setName("test");}});
-            journal.setStudents( new ArrayList<StudentDTO>() {{ add(testStud); }});
-        }
-
         lessonEventListManager.init(lessonEvents);
         lessonEventListManager.ApplayFilter(this.journal.getLesson());
         lessonEventListManager.RemoveWithoutDates();
@@ -178,9 +164,9 @@ public class JournalManager implements IJournalManager {
         result.setAllHours(allhours);
 
         List<CertificationStudentDTO> studentCertification = new ArrayList<>();
-        for (StudentDTO student : this.journal.getStudents()) {
+        for (StudentJournalDTO student : this.journal.getStudents()) {
             List<PointDTO> cells = this.journal.getJournalCell().stream().filter(
-                    x -> x.getStudentId() == student.getId()
+                    x -> x.getStudentId() == student.getStudent().getId()
                             && x.getDate().compareTo(DateHelper.getZeroTimeDate(start)) >= 0
                             && x.getDate().compareTo(DateHelper.getZeroTimeDate(end)) <= 0).collect(Collectors.toList());
 
@@ -208,7 +194,7 @@ public class JournalManager implements IJournalManager {
             }
 
             certificationStudentDto.setMissingHours(result.getAllHours() - visitedHours);
-            certificationStudentDto.setStudent(student);
+            certificationStudentDto.setStudent(student.getStudent());
             certificationStudentDto.setVisitationValue(visitedValue);
             certificationStudentDto.setEventValue(certEvents);
 

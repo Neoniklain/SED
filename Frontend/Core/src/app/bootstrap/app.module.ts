@@ -99,6 +99,7 @@ import {UserSearchComponent} from "../components/shared/userSearch/userSearch";
 import {ScheduleComponent} from "../components.page/schedule/schedule.component";
 import {DetailTaskComponent} from "../components/task/detailTask/detailTask.component";
 import {TableModule} from "primeng/table";
+import {StudentsConfiguratorComponent} from "../components.page/adminPanel/studentsConfigurator/studentsConfigurator";
 
 registerLocaleData(localeRu);
 
@@ -143,6 +144,7 @@ registerLocaleData(localeRu);
         AccountComponent,
         NewsDispatcherComponent,
         TaskDescListComponent,
+        StudentsConfiguratorComponent,
         NewTaskDescComponent,
         WorkTaskComponent,
         ProfileComponent,

@@ -6,7 +6,7 @@ import com.unesco.core.dto.enums.StatusTypes;
 import com.unesco.core.dto.journal.VisitationConfigDTO;
 import com.unesco.core.dto.shedule.LessonDTO;
 import com.unesco.core.entities.schedule.LessonEntity;
-import com.unesco.core.repositories.LessonRepository;
+import com.unesco.core.repositories.schedule.LessonRepository;
 import com.unesco.core.services.dataService.journal.visitation.VisitationConfigDataService;
 import com.unesco.core.services.mapperService.IMapperService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -67,6 +67,17 @@ public class LessonDataService implements ILessonDataService {
     {
         List<LessonDTO> modelList = new ArrayList<>();
         List<LessonEntity> entityList = lessonRepository.findByProfessorId(professorId);
+        for (LessonEntity item: entityList) {
+            LessonDTO model = (LessonDTO) mapperService.toDto(item);
+            modelList.add(model);
+        }
+        return modelList;
+    }
+
+    public List<LessonDTO> getByGroupId(long groupId)
+    {
+        List<LessonDTO> modelList = new ArrayList<>();
+        List<LessonEntity> entityList = lessonRepository.findByGroupId(groupId);
         for (LessonEntity item: entityList) {
             LessonDTO model = (LessonDTO) mapperService.toDto(item);
             modelList.add(model);

@@ -1,3 +1,7 @@
+<div *ngIf="journal.students.length > 0 && !showLoader" class="col-sm-12 text-right">
+    <p-selectButton [options]="types" [(ngModel)]="selectedType"></p-selectButton>
+</div>
+
 <div *ngIf="journal.students.length > 0 && !showLoader" class="col-sm-12 text-right journal">
     <p-table
             [columns]="header"
@@ -24,6 +28,7 @@
                     </ng-container>
                 </ng-container>
             </tr>
+
             <tr>
                 <td class="td-header">Дата</td>
                 <ng-container *ngFor="let head of columns">
@@ -32,22 +37,25 @@
                     </td>
                 </ng-container>
             </tr>
+
             <tr>
                 <td class="td-header">Номер занятия</td>
                 <ng-container *ngFor="let head of columns">
                     <ng-container *ngFor="let num of head.numbers">
-                        <td  class="td-header" [attr.colspan]="num.types.length" >
+                        <td *ngIf="getForDateLenForNumber(num) > 0" class="td-header" [attr.colspan]="getForDateLenForNumber(num)" >
                             {{num.number}}
                         </td>
                     </ng-container>
                 </ng-container>
             </tr>
+
             <tr>
                 <td class="td-header"><b>ФИО.</b></td>
                 <ng-container *ngFor="let head of columns">
                     <ng-container *ngFor="let numbers of head.numbers">
                         <ng-container *ngFor="let type of numbers.types">
-                            <td class="td-header" [ngSwitch]="type.type.name" style="font-size: 14px" [title]="type.type.name">
+                            <td *ngIf="type.pair.subgroup == selectedType || selectedType == 0 || type.pair.subgroup == 0"
+                                    class="td-header" [ngSwitch]="type.type.name" style="font-size: 14px" [title]="type.type.name">
                                 <span *ngSwitchCase="'Посещение'"><i class="fa fa-sign-in" aria-hidden="true"></i></span>
                                 <span *ngSwitchDefault><i class="fa fa-circle" aria-hidden="true"></i></span>
                             </td>
@@ -55,20 +63,29 @@
                     </ng-container>
                 </ng-container>
             </tr>
+
         </ng-template>
 
         <ng-template pTemplate="body" let-rowData let-columns="columns">
-            <tr [ngClass]="{coloredRow: selectStudentId == rowData.id}">
-                <td style="text-align: left; text-overflow: ellipsis; overflow: hidden; width: 250px;"><span style="white-space: nowrap;" [userCard]="rowData.user">{{rowData.user.userFIO}}</span></td>
+            <tr *ngIf="rowData.subgroup < 3 && (rowData.subgroup == selectedType || selectedType == 0)" [ngClass]="{coloredRow: selectStudentId == rowData.student.id}">
+                <td style="text-align: left; text-overflow: ellipsis; overflow: hidden; width: 250px;"><span style="white-space: nowrap;" [userCard]="rowData.student.user">{{rowData.student.user.userFIO}}</span></td>
                 <ng-template ngFor let-head [ngForOf]="columns">
                     <ng-template ngFor let-num [ngForOf]="head.numbers">
                         <ng-template ngFor let-type [ngForOf]="num.types">
                             <ng-template ngFor let-cell [ngForOf]="journal.journalCell">
-                                <td [ngClass]="{wasChanged: cell.wasChange}" *ngIf="eqDate(head.date, cell.date) && type.type.name == cell.type.name && type.pair.id == cell.pairId && cell.studentId == rowData.id">
+                                <td [ngClass]="{wasChanged: cell.wasChange, disableCell: type.pair.subgroup != rowData.subgroup && type.pair.subgroup != 0 && rowData.subgroup != 0}"
+                                    *ngIf="eqDate(head.date, cell.date)
+                                     && type.type.name == cell.type.name
+                                      && type.pair.id == cell.pairId
+                                      && cell.studentId == rowData.student.id
+                                      && (type.pair.subgroup == selectedType || selectedType == 0 || type.pair.subgroup == 0)
+                                        ">
                                     <span [ngClass]="{whiteZero: cell.value == 0}">
-                                        <input #element
+                                        <input *ngIf="!(type.pair.subgroup != rowData.subgroup && type.pair.subgroup != 0 && rowData.subgroup != 0)"
+                                                #element
                                                [value]="cell.value"
-                                               (focus)="selectStudentId = rowData.id"
+                                               (click)="$event.target.select()"
+                                               (focus)="selectStudentId = rowData.student.id"
                                                (blur)="setCellValue(element.value, cell)"
                                                type="number">
                                     </span>
@@ -82,7 +99,7 @@
     </p-table>
 </div>
 
-<div class="col-sm-12 text-right">
+<div *ngIf="journal.students.length > 0 && !showLoader" class="col-sm-12 text-right">
     <button (click)="save()" class="btn btn-info btn-success">Сохранить</button>
 </div>
 

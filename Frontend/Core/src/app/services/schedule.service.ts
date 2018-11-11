@@ -25,7 +25,6 @@ export class ScheduleService {
             );
     }
 
-
     public Save(pair: Pair, skipWarnings?: boolean): Observable<ResponseStatus> {
         let params = new HttpParams();
         return this.http.post(ApiRouteConstants.Schedule.Save, {pairModel: pair, skipWarnings: skipWarnings ? skipWarnings : false}, {params: params })
@@ -59,7 +58,6 @@ export class ScheduleService {
             );
     }
 
-
     GetDepartmentPair(departmentId: number): Observable<ResponseStatus> {
         return this.http.get(ApiRouteConstants.Schedule.DepartmentPairs.replace(":id", departmentId.toString()))
             .pipe(
@@ -78,6 +76,14 @@ export class ScheduleService {
 
     GetProfessorLessons(professorId: number): Observable<ResponseStatus> {
         return this.http.get(ApiRouteConstants.Schedule.ProffesorLessons.replace(":id", professorId.toString()))
+            .pipe(
+                map((res: ResponseStatus) => res),
+                catchError(e => this.handleError.handle(e))
+            );
+    }
+
+    GetGroupLessons(groupId: number): Observable<ResponseStatus> {
+        return this.http.get(ApiRouteConstants.Schedule.GroupLessons.replace(":id", groupId.toString()))
             .pipe(
                 map((res: ResponseStatus) => res),
                 catchError(e => this.handleError.handle(e))

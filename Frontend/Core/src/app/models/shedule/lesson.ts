@@ -17,3 +17,20 @@ export class Lesson {
     }
 
 }
+
+export class ScheduleShowedLesson {
+
+    public id: number;
+    public discipline: Discipline;
+    public professor: Professor;
+    public groups: Array<Group>;
+
+    constructor(lesson: Lesson) {
+        this.groups = [];
+        this.id = lesson.id;
+        this.discipline = lesson.discipline;
+        this.groups.push(lesson.group);
+        this.professor = lesson.professor;
+    }
+
+}

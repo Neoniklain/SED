@@ -99,3 +99,7 @@ td input:focus {
 .wasChanged {
   background: #d1ffd2 !important
 }
+
+.disableCell {
+  background: #2a2b2d !important
+}

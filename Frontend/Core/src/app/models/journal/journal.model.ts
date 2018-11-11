@@ -1,10 +1,9 @@
 import {Student} from "../account/student";
 import {Lesson} from "../shedule/lesson";
-import {Pair} from "../shedule/pair";
 import {ComparisonPoint} from "./comparisonPoint.model";
 
 export class Journal {
-   public students: Array<Student>;
+   public students: Array<StudentJournal>;
    public comparison: Array<Comparison>;
    public journalCell: Array<JournalCell>;
    public lesson: Lesson;
@@ -45,7 +44,6 @@ export class JournalCell {
     }
 }
 
-
 export class PointType {
 
     public id: number;
@@ -54,6 +52,28 @@ export class PointType {
     constructor() {
         this.id = 0;
         this.name = "";
+    }
+
+}
+
+export class StudentJournal {
+    public student: Student;
+    public subgroup: number;
+
+    constructor() {
+        this.student = new Student();
+        this.subgroup = 0;
+    }
+
+}
+
+export class StudentJournalList {
+    public studentJournal: Array<StudentJournal>;
+    public lesson: Lesson;
+
+    constructor() {
+        this.studentJournal = [];
+        this.lesson = new Lesson();
     }
 
 }

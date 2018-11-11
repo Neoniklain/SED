@@ -5,7 +5,7 @@ import com.unesco.core.dto.journal.JournalDTO;
 
 public interface IJournalDataService {
     JournalDTO get(long lessonId);
-    JournalDTO getForMonth(long lessonId, int month);
+    JournalDTO getForMonth(long pairId, int month);
 
     ResponseStatusDTO<JournalDTO> save(JournalDTO journal);
 }

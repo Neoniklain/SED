@@ -1,4 +1,4 @@
-package com.unesco.core.repositories;
+package com.unesco.core.repositories.schedule;
 
 import com.unesco.core.entities.schedule.PairEntity;
 import com.unesco.core.repositories.utils.CrudPagableRepository;

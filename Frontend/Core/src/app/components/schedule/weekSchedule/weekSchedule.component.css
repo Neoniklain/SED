@@ -56,13 +56,6 @@ input {
   padding: 0px;
 }
 
-.odd {
-  background: rgba(0, 7, 255, 0.08);
-}
-
-.even {
-  background: rgba(255, 0, 0, 0.09);
-}
 
 .subgroup-1 {
   background: #bcffbf;
@@ -88,12 +81,25 @@ input {
   background: linear-gradient(#ffe8e8, #aafff6);
 }
 
-
 .pair {
   padding: 5px;
   cursor: pointer;
   display: inline-block;
   width: 100%;
+}
+
+.odd {
+  background: rgba(0, 7, 255, 0.08);
+}
+
+.even {
+  background: rgba(255, 0, 0, 0.09);
+}
+
+.half-width {
+  width: 50%;
+  overflow: hidden;
+  float: left;
 }
 
 input:hover,input:focus {

@@ -1,5 +1,5 @@
 import {Component, EventEmitter, Injectable, Input, OnChanges, OnInit, Output, SimpleChanges} from '@angular/core';
-import {Pair} from "../../../models/shedule/pair";
+import {Pair, ScheduleShowedPairs} from "../../../models/shedule/pair";
 import {PairNumber, PairTime} from "../../../models/shedule/pairNumber.model";
 import {DayOfWeek} from "../../../models/shedule/dayOfWeek.enum";
 import {PairType} from "../../../models/shedule/pairType";
@@ -9,6 +9,8 @@ import {ScheduleService} from "../../../services/schedule.service";
 import {StatusType} from "../../../models/statusType.model";
 import {NotificationService} from "../../../services/notification.service";
 import {SelectItem} from "primeng/api";
+import {ScheduleShowedLesson} from "../../../models/shedule/lesson";
+import {Group} from "../../../models/shedule/group";
 
 @Component({
     selector: 'schedule-week',
@@ -25,6 +27,10 @@ export class WeekScheduleComponent implements OnInit {
     @Input() showDetailOnHover: boolean = false;
     @Input() editable: boolean = false;
 
+    // Только для отображения
+    public showedPairs: Array<ScheduleShowedPairs> = [];
+    public cleckedPair: ScheduleShowedPairs = null;
+
     public days = Object.keys(DayOfWeek);
     public lessonsTime = Array<PairNumber>();
 
@@ -32,6 +38,8 @@ export class WeekScheduleComponent implements OnInit {
     public draggedPair: Pair;
     public movedPair: Pair;
     public showDeleteDialog: boolean = false;
+    public showGroupChooseDialog: boolean = false;
+    public choosedGroups: Array<Group> = [];
     public X: number;
     public Y: number;
 
@@ -58,22 +66,39 @@ export class WeekScheduleComponent implements OnInit {
             {label: 'Четные', value: 'Чет'}
         ];
 
-        // TODO: Возможно в будущем придется объединять потоковые занятия.
-        /* if (!this.editable) {
-            for (let p of this.pairs) {
+        // Удаляем отображение субботы если в текущем расписанаа нет пар в субботу
+        let findSundayPair = this.pairs.find(x => x.dayofweek == "Суббота");
+        if (!findSundayPair) {
+            this.days.splice(this.days.indexOf("Суббота"), 1);
+        }
 
-                let findPair = this.pairs.find(o => o.dayofweek == p.dayofweek
+        // TODO: Возможно в будущем придется объединять потоковые занятия.
+        if (!this.editable) {
+            let temPairs: Array<Pair> = JSON.parse(JSON.stringify(this.pairs));
+            for (let i = 0; i < temPairs.length; i++) {
+                let p = temPairs[i];
+                if (!p) continue;
+                let findPair: Pair = temPairs.find(o => o.dayofweek == p.dayofweek
                 && o.pairNumber == p.pairNumber
                 && o.weektype == p.weektype
                 && o.lesson.professor.id == p.lesson.professor.id
                 && o.lesson.discipline.id == p.lesson.discipline.id
                 && o.lesson.group.id != p.lesson.group.id
                 && o.id != p.id);
+                let newShoedPair = new ScheduleShowedPairs(p);
 
-                console.log("findPair", findPair)
+                if (findPair) {
+                    console.log("findPair", findPair);
+                    console.log("p", p);
+                    newShoedPair = new ScheduleShowedPairs(p);
+                    newShoedPair.lesson.groups.push(findPair.lesson.group);
+                    temPairs.splice(temPairs.map(x => x.id).indexOf(findPair.id), 1);
+                }
+
+                this.showedPairs.push(newShoedPair);
 
             }
-        }*/
+        }
     }
 
     updatePairs() {
@@ -118,6 +143,32 @@ export class WeekScheduleComponent implements OnInit {
             this.X = event.pageX;
             this.Y = event.pageY;
         }
+    }
+
+    onClickPair(pair: ScheduleShowedPairs) {
+        if (pair.lesson.groups.length > 1) {
+            this.cleckedPair = pair;
+            this.showGroupChooseDialog = true;
+            this.choosedGroups = pair.lesson.groups;
+        } else {
+            this.clickPair.emit(this.pairs.find(x => x.id == pair.id));
+            this.showGroupChooseDialog = false;
+        }
+    }
+
+    selectGroup(group: Group) {
+        let findPair = this.pairs.find(
+            o => o.dayofweek == this.cleckedPair.dayofweek
+            && o.pairNumber == this.cleckedPair.pairNumber
+            && o.weektype == this.cleckedPair.weektype
+            && o.lesson.professor.id == this.cleckedPair.lesson.professor.id
+            && o.lesson.discipline.id == this.cleckedPair.lesson.discipline.id
+            && o.lesson.group.id == group.id)
+        this.clickPair.emit(findPair);
+
+        this.cleckedPair = null;
+        this.showGroupChooseDialog = false;
+        this.choosedGroups = [];
     }
 
     onMouseEnter(event: MouseEvent, day, lessonTime: PairNumber, weektype?) {
@@ -193,6 +244,13 @@ export class WeekScheduleComponent implements OnInit {
         } else {
             return this.getTDParent(element.parentElement);
         }
+    }
+
+    existPairInThisDay(p: ScheduleShowedPairs) {
+        let findPair = this.showedPairs.find(o => o.dayofweek == p.dayofweek
+            && o.pairNumber == p.pairNumber
+            && o.id != p.id);
+        return findPair;
     }
 
 }

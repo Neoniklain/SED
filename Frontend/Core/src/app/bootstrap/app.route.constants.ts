@@ -54,7 +54,9 @@ export const ApiRouteConstants = {
         SetProfessorDepartment: "account/professor/:userId/setDepartment/:departmentId",
         SetStudentGroup: "account/student/:userId/setGroup/:groupId",
         GetProfessorByUser: "account/professorByUser/:userId",
-        GetStudentByUser: "/studentByUser/:userId",
+        GetStudentByUser: "account/studentByUser/:userId",
+        getStudentForGroupAndLesson: "account/student/group/:groupId/lesson/:lessonId",
+        SaveStudentsSubgroup: "account/student/save/subgroup",
         GetUserAccessRight: "account/user/:userId/getAccessRight",
         SaveUserAccessRight: "account/user/:userId/saveAccessRight"
     },
@@ -77,6 +79,7 @@ export const ApiRouteConstants = {
         LessonPairs: "shedule/lesson/:id/pairs",
         GroupPairs: "shedule/group/:id/pairs",
         ProffesorLessons: "shedule/professor/:id/lessons",
+        GroupLessons: "shedule/group/:id/lessons",
     },
     News: {
         All: "news/all",

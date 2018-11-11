@@ -7,11 +7,15 @@ import com.unesco.core.dto.account.UserDTO;
 import com.unesco.core.dto.additional.ResponseStatusDTO;
 import com.unesco.core.dto.enums.RoleType;
 import com.unesco.core.dto.enums.StatusTypes;
+import com.unesco.core.dto.journal.StudentJournalDTO;
+import com.unesco.core.dto.journal.StudentJournalList;
+import com.unesco.core.dto.shedule.LessonDTO;
 import com.unesco.core.managers.account.accessRightManager.interfaces.IAccessRightManager;
 import com.unesco.core.managers.account.professorManager.interfaces.professor.IProfessorManager;
 import com.unesco.core.managers.account.professorManager.interfaces.professorList.IProfessorListManager;
 import com.unesco.core.managers.account.roleManager.interfaces.roleList.IRoleListManager;
 import com.unesco.core.managers.account.studentManager.interfaces.student.IStudentManager;
+import com.unesco.core.managers.account.studentManager.interfaces.studentList.IStudentListManager;
 import com.unesco.core.managers.account.userManager.interfaces.user.IUserManager;
 import com.unesco.core.managers.account.userManager.interfaces.userList.IUserListManager;
 import com.unesco.core.managers.schedule.departmentManager.interfaces.department.IDepartmentManager;
@@ -27,6 +31,8 @@ import com.unesco.core.services.dataService.schedule.groupService.IGroupDataServ
 import com.unesco.core.services.userService.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class AccountController {
@@ -54,6 +60,8 @@ public class AccountController {
     private IStudentDataService studentDataService;
     @Autowired
     private IStudentManager studentManager;
+    @Autowired
+    private IStudentListManager studentListManager;
 
     @Autowired
     private IDepartmentDataService departmentDataService;
@@ -192,6 +200,10 @@ public class AccountController {
         return new ResponseStatusDTO(StatusTypes.OK, studentManager.get());
     }
 
+    public ResponseStatusDTO getStudentForGroupAndLesson(long groupId, long lessonId) {
+        return new ResponseStatusDTO(StatusTypes.OK, studentDataService.getByGroupAndLesson(groupId, lessonId));
+    }
+
     public ResponseStatusDTO setProfessorDepartment(long userId, long departmentId) {
         ResponseStatusDTO res = new ResponseStatusDTO();
         try {
@@ -265,6 +277,22 @@ public class AccountController {
             userAccessRightDataService.save(acceses);
             res.setStatus(StatusTypes.OK);
             res.addMessage("Настройки доступа сохранены.");
+            res.setData(accessRightManager.get());
+            return res;
+        }
+        catch (Exception e) {
+            res.setStatus(StatusTypes.ERROR);
+            res.addErrors(e.getMessage());
+            return res;
+        }
+    }
+
+    public ResponseStatusDTO saveStudentsSubgroup(StudentJournalList studentJournalList) {
+        ResponseStatusDTO res = new ResponseStatusDTO();
+        try {
+            studentDataService.saveStudentsSubgroup(studentJournalList.getStudentJournal(), studentJournalList.getLesson());
+            res.setStatus(StatusTypes.OK);
+            res.addMessage("Подгруппы студентов сохранены.");
             res.setData(accessRightManager.get());
             return res;
         }

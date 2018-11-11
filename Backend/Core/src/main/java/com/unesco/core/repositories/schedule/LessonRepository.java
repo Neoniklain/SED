@@ -1,4 +1,4 @@
-package com.unesco.core.repositories;
+package com.unesco.core.repositories.schedule;
 
 import com.unesco.core.entities.schedule.LessonEntity;
 import com.unesco.core.repositories.utils.CrudPagableRepository;
@@ -18,5 +18,7 @@ public interface LessonRepository extends CrudRepository<LessonEntity, Long>, Cr
             long disciplineId, long groupId, long professorId);
 
     List<LessonEntity> findByProfessorId(long professorId);
+
+    List<LessonEntity> findByGroupId(long groupId);
 
 }

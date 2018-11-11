@@ -76,6 +76,10 @@ public class ScheduleController {
         return new ResponseStatusDTO(StatusTypes.OK, lessonDataService.getByProfessorId(professorId));
     }
 
+    public ResponseStatusDTO getLessonsForGroup(long groupId) {
+        return new ResponseStatusDTO(StatusTypes.OK, lessonDataService.getByGroupId(groupId));
+    }
+
     public ResponseStatusDTO savePair(PairDTO pairModel, boolean skipWarnings) {
         pairManager.init(pairModel);
         

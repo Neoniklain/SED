@@ -7,7 +7,7 @@ import com.unesco.core.dto.shedule.LessonDTO;
 import com.unesco.core.dto.shedule.PairDTO;
 import com.unesco.core.entities.schedule.LessonEntity;
 import com.unesco.core.entities.schedule.PairEntity;
-import com.unesco.core.repositories.PairRepository;
+import com.unesco.core.repositories.schedule.PairRepository;
 import com.unesco.core.services.dataService.schedule.lessonService.ILessonDataService;
 import com.unesco.core.services.mapperService.IMapperService;
 import org.springframework.beans.factory.annotation.Autowired;

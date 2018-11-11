@@ -5,6 +5,7 @@ import {Pair} from "../../../models/shedule/pair";
 import {NotificationService} from "../../../services/notification.service";
 import {isUndefined} from "util";
 import {DatePipe} from "@angular/common";
+import {SelectItem} from "primeng/api";
 
 @Component({
     selector: 'journal',
@@ -27,11 +28,19 @@ export class JournalComponent implements OnInit {
     public datePipe = new DatePipe("ru");
     public selectStudentId: number = 0;
 
+    public types: SelectItem[];
+    public selectedType: number = 0;
+
     constructor(private journalService: JournalService,
                 private notificationService: NotificationService) {
     }
 
     ngOnInit(): void {
+        this.types = [
+            {label: 'Все', value: 0},
+            {label: 'Подгруппа 1', value: 1},
+            {label: 'Подгруппа 2', value: 2}
+        ];
         if (this.journal != null && !isUndefined(this.journal)) {
             this.sortHeader();
             this.oldJournal = JSON.parse(JSON.stringify(this.journal));
@@ -65,7 +74,7 @@ export class JournalComponent implements OnInit {
                         this.eqDate(comp.date, cell.date)
                         && point.type.name == cell.type.name
                         && point.pair.id == cell.pairId
-                        && cell.studentId == student.id
+                        && cell.studentId == student.student.id
                     );
                     if (!find) {
                         let newCell = new JournalCell();
@@ -73,7 +82,7 @@ export class JournalComponent implements OnInit {
                         newCell.type = point.type;
                         newCell.pairId = point.pair.id;
                         newCell.value = null;
-                        newCell.studentId = student.id;
+                        newCell.studentId = student.student.id;
                         newCell.id = 0;
                         this.journal.journalCell.push(newCell);
                     }
@@ -147,7 +156,8 @@ export class JournalComponent implements OnInit {
         for (let head of this.header) {
             for (let num of head.numbers) {
                 for (let type of num.types) {
-                    result += 1;
+                    if (type.pair.subgroup == this.selectedType || this.selectedType == 0 || type.pair.subgroup == 0)
+                        result += 1;
                 }
             }
         }
@@ -158,8 +168,18 @@ export class JournalComponent implements OnInit {
         let result = 0;
         for (let num of head.numbers) {
             for (let t of num.types) {
-                result += 1;
+                if (t.pair.subgroup == this.selectedType || this.selectedType == 0 || t.pair.subgroup == 0)
+                    result += 1;
             }
+        }
+        return result;
+    }
+
+    getForDateLenForNumber(numberJournal: JournalHeaderNumber) {
+        let result = 0;
+        for (let t of numberJournal.types) {
+            if (t.pair.subgroup == this.selectedType || this.selectedType == 0 || t.pair.subgroup == 0)
+                result += 1;
         }
         return result;
     }

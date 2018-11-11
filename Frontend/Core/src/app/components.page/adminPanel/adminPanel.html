@@ -11,6 +11,7 @@
             <li><a (click)="menuToogle='accessControl'"><i class="fa fa-unlock-alt"></i> Управление правами доступа</a></li>
             <li><a (click)="menuToogle='showShedule'"><i class="fa fa-calendar"></i> Просмотр расписания</a></li>
             <li><a (click)="menuToogle='createPair'"><i class="fa fa-calendar-plus-o"></i> Добавить занятие</a></li>
+            <li><a (click)="menuToogle='studentsConfiguratorPage'"><i class="fa fa-users"></i> Настройка подгрупп студентов</a></li>
             <li class="dropdown">
                <a class="dropdown-toggle" data-toggle="dropdown" href="#">
                   <i class="fa fa-book"></i> Справочники
@@ -49,6 +50,8 @@
             <schedule-page [editable]="true" *ngSwitchCase="menuToogle == 'showShedule'"></schedule-page>
 
             <access-control *ngSwitchCase="menuToogle == 'accessControl'"></access-control>
+
+            <students-configurator-page *ngSwitchCase="menuToogle == 'studentsConfiguratorPage'"></students-configurator-page>
 
          </div>
       </div>

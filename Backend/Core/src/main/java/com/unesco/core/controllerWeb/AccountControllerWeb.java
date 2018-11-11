@@ -4,10 +4,15 @@ import com.unesco.core.controller.AccountController;
 import com.unesco.core.dto.UserAccessRightDTO;
 import com.unesco.core.dto.account.UserDTO;
 import com.unesco.core.dto.additional.ResponseStatusDTO;
+import com.unesco.core.dto.journal.StudentJournalDTO;
+import com.unesco.core.dto.journal.StudentJournalList;
+import com.unesco.core.dto.shedule.LessonDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.context.WebApplicationContext;
+
+import java.util.List;
 
 @CrossOrigin
 @RestController
@@ -68,6 +73,11 @@ public class AccountControllerWeb {
         return accountController.getStudentByUser(userId);
     }
 
+    @GetMapping("/student/group/{groupId}/lesson/{lessonId}")
+    public ResponseStatusDTO getStudentForGroupAndLesson(@PathVariable("groupId") long groupId, @PathVariable("lessonId") long lessonId) {
+        return accountController.getStudentForGroupAndLesson(groupId, lessonId);
+    }
+
     @RequestMapping(value = "/professor/{userId}/setDepartment/{departmentId}")
     public ResponseStatusDTO setProfessorDepartment(@PathVariable("userId") long userId, @PathVariable("departmentId") long departmentId) {
         return accountController.setProfessorDepartment(userId, departmentId);
@@ -91,6 +101,11 @@ public class AccountControllerWeb {
     @RequestMapping(value = "/user/{userId}/saveAccessRight")
     public ResponseStatusDTO saveUserAccessRight(@RequestBody UserAccessRightDTO acceses) {
         return accountController.saveUserAccessRight(acceses);
+    }
+
+    @RequestMapping(value = "/student/save/subgroup", method = RequestMethod.POST)
+    public ResponseStatusDTO SaveStudentsSubgroup(@RequestBody StudentJournalList studentJournalList) {
+        return accountController.saveStudentsSubgroup(studentJournalList);
     }
 
     private class Pass {
