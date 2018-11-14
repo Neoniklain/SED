@@ -45,6 +45,7 @@ export class WeekScheduleComponent implements OnInit {
 
     public types: SelectItem[];
     public selectedType: string;
+    public prityWeekNum: number;
 
     constructor(
         private notification: NotificationService,
@@ -59,13 +60,18 @@ export class WeekScheduleComponent implements OnInit {
         this.lessonsTime.push(new PairNumber(6));
         this.lessonsTime.push(new PairNumber(7));
         if (!this.templatePair) this.templatePair = new Pair();
-        this.selectedType = 'Все';
+        this.prityWeek().subscribe(
+            result => {
+                this.prityWeekNum = result;
+                this.selectedType = result == 0 ? 'Нечет' : 'Чет';
+                console.log("selectedType", this.selectedType);
+            }
+        );
         this.types = [
             {label: 'Все', value: 'Все'},
             {label: 'Нечетные', value: 'Нечет'},
             {label: 'Четные', value: 'Чет'}
         ];
-
         // Удаляем отображение субботы если в текущем расписанаа нет пар в субботу
         let findSundayPair = this.pairs.find(x => x.dayofweek == "Суббота");
         if (!findSundayPair) {
@@ -249,8 +255,13 @@ export class WeekScheduleComponent implements OnInit {
     existPairInThisDay(p: ScheduleShowedPairs) {
         let findPair = this.showedPairs.find(o => o.dayofweek == p.dayofweek
             && o.pairNumber == p.pairNumber
+            && (o.weektype == this.selectedType || this.selectedType == 'Все')
             && o.id != p.id);
         return findPair;
+    }
+
+    prityWeek() {
+         return this.scheduleService.GetPrityWeek();
     }
 
 }

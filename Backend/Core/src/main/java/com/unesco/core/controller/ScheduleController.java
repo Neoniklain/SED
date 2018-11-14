@@ -11,8 +11,13 @@ import com.unesco.core.services.dataService.schedule.departmentService.IDepartme
 import com.unesco.core.services.dataService.schedule.groupService.IGroupDataService;
 import com.unesco.core.services.dataService.schedule.lessonService.ILessonDataService;
 import com.unesco.core.services.dataService.schedule.pairService.IPairDataService;
+import com.unesco.core.utils.DateHelper;
+import org.hibernate.type.descriptor.java.DataHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.Calendar;
+import java.util.Date;
 
 @Service
 public class ScheduleController {
@@ -100,6 +105,14 @@ public class ScheduleController {
             result.addErrors("При создании занятия произошла ошибка");
             result.addErrors(e.getMessage());
         }
+        return result;
+    }
+
+    public ResponseStatusDTO getPrityWeek() {
+        ResponseStatusDTO result = new ResponseStatusDTO(StatusTypes.OK);
+        Calendar from = Calendar.getInstance();
+        from.set(2018,8,1,12,0);
+        result.setData(DateHelper.getPrityWeek(new Date(), from.getTime()));
         return result;
     }
 

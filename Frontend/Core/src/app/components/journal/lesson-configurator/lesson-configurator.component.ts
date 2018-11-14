@@ -161,7 +161,7 @@ export class LessonСonfiguratorComponent implements OnInit {
             this.notificationService.Error("Укажите занятие для создания контрольной точки.");
             return;
         }
-        if (this.selectPair.length != 0 && !this.selectAllPair)
+        if (this.selectPair.length != 0)
             this.model.pairs = this.selectPair;
 
         this.journalService.SaveEvent(this.model).subscribe(
@@ -287,9 +287,6 @@ export class LessonСonfiguratorComponent implements OnInit {
             if (this.selectPair.length == this.findsPairsForDate.length) this.selectAllPair = true;
         }
         else {
-            console.log(" this.selectPair",  this.selectPair);
-            console.log("indexOf(p)", this.selectPair.map(x => x.id).indexOf(p.id));
-            console.log("p", p);
             this.selectPair.splice(this.selectPair.map(x => x.id).indexOf(p.id), 1);
             this.selectAllPair = false;
         }

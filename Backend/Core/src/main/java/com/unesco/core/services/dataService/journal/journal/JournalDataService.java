@@ -11,6 +11,8 @@ import com.unesco.core.services.dataService.journal.point.IPointDataService;
 import com.unesco.core.services.dataService.journal.pointType.IPointTypeDataService;
 import com.unesco.core.services.dataService.schedule.lessonService.ILessonDataService;
 import com.unesco.core.services.dataService.schedule.pairService.IPairDataService;
+import com.unesco.core.utils.DateHelper;
+import com.unesco.core.utils.DayOfWeekHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -49,6 +51,10 @@ public class JournalDataService implements IJournalDataService {
         Calendar from = Calendar.getInstance();
         Calendar to = Calendar.getInstance();
 
+        // Тут устанавливаются даты начала и конца обучения
+        // Это конечно не верно, нужно установить как-то подругому, по хорошему
+        // сделать сервис отвечающий за даты сессии
+        // Нумерация месяцов идет с 0
         from.set(2018,8,1,12,0);
         to.set(2018,11,28,12,0);
 
@@ -56,7 +62,10 @@ public class JournalDataService implements IJournalDataService {
         Calendar endDate = Calendar.getInstance();
         int toMonth = to.get(Calendar.MONTH);
         int fromMonth = from.get(Calendar.MONTH);
-        if(month != -1 && month >= from.get(Calendar.MONTH)  && month <= to.get(Calendar.MONTH))
+
+        // Устанавливаем дату начала и конца в соответсвии с запрошеным месяцем
+        // Если месяц = -1 то берется журнал за весь период
+        if(month != -1 && month >= from.get(Calendar.MONTH) && month <= to.get(Calendar.MONTH))
         {
             from.set(from.get(Calendar.YEAR), month,1,12,0);
             to.set(from.get(Calendar.YEAR), month, from.getActualMaximum(Calendar.DAY_OF_MONTH),12,0);
@@ -74,59 +83,28 @@ public class JournalDataService implements IJournalDataService {
         Date t1 =  from.getTime();
         Date t2 =  to.getTime();
 
+        // Заполнение занятий по указанным дням
         for (PairDTO pair: pairs) {
-
             starDate.set(from.get(Calendar.YEAR), from.get(Calendar.MONTH), from.get(Calendar.DAY_OF_MONTH),12,0);
             endDate.set(to.get(Calendar.YEAR), to.get(Calendar.MONTH), to.get(Calendar.DAY_OF_MONTH),12,0);
 
-            switch (pair.getDayofweek()) {
-                case "Понедельник":
-                    starDate.set(Calendar.DAY_OF_WEEK, Calendar.MONDAY);
-                    starDate.set(Calendar.DAY_OF_WEEK_IN_MONTH, 1);
-                    break;
-                case "Вторник":
-                    starDate.set(Calendar.DAY_OF_WEEK, Calendar.TUESDAY);
-                    starDate.set(Calendar.DAY_OF_WEEK_IN_MONTH, 1);
-                    break;
-                case "Среда":
-                    starDate.set(Calendar.DAY_OF_WEEK, Calendar.WEDNESDAY);
-                    starDate.set(Calendar.DAY_OF_WEEK_IN_MONTH, 1);
-                    break;
-                case "Четверг":
-                    starDate.set(Calendar.DAY_OF_WEEK, Calendar.THURSDAY);
-                    starDate.set(Calendar.DAY_OF_WEEK_IN_MONTH, 1);
-                    break;
-                case "Пятница":
-                    starDate.set(Calendar.DAY_OF_WEEK, Calendar.FRIDAY);
-                    starDate.set(Calendar.DAY_OF_WEEK_IN_MONTH, 1);
-                    break;
-                case "Суббота":
-                    starDate.set(Calendar.DAY_OF_WEEK, Calendar.SATURDAY);
-                    starDate.set(Calendar.DAY_OF_WEEK_IN_MONTH, 1);
-                    break;
-                case "Воскресенье":
-                    starDate.set(Calendar.DAY_OF_WEEK, Calendar.SUNDAY);
-                    starDate.set(Calendar.DAY_OF_WEEK_IN_MONTH, 1);
-                    break;
-                default:
-                    starDate.set(Calendar.DAY_OF_WEEK, Calendar.MONDAY);
-                    starDate.set(Calendar.DAY_OF_WEEK_IN_MONTH, 1);
-                    break;
-            }
+            starDate.set(Calendar.DAY_OF_WEEK, DayOfWeekHelper.getWeekNumber(pair.getDayofweek()));
+            starDate.set(Calendar.DAY_OF_WEEK_IN_MONTH, 1);
+
+            int prityWeek = DateHelper.getPrityWeek(from.getTime(), starDate.getTime());
 
             // для четных/нечетных недель
             if(!pair.getWeektype().equals("Все"))
             {
-                if(pair.getWeektype().equals("Чет")) {
-                    addDate(model.getComparison(), getZeroTimeDate(starDate.getTime()), pair);
-                    starDate.add(Calendar.DAY_OF_WEEK, 14); //Прибавляем две недели
-                } else {
+                if(pair.getWeektype().equals("Чет") && prityWeek == 0) {
                     starDate.add(Calendar.DAY_OF_WEEK, 7); //Прибавляем неделю
-                    addDate(model.getComparison(), getZeroTimeDate(starDate.getTime()), pair);
-                    starDate.add(Calendar.DAY_OF_WEEK, 14); //Прибавляем две недели
                 }
+                if(pair.getWeektype().equals("Нечет") && prityWeek == 1) {
+                    starDate.add(Calendar.DAY_OF_WEEK, 7); //Прибавляем неделю
+                }
+                addDate(model.getComparison(), getZeroTimeDate(starDate.getTime()), pair);
+                starDate.add(Calendar.DAY_OF_WEEK, 14); //Прибавляем две недели
             }
-
             int amount = pair.getWeektype().equals("Все") ? 7 : 14;
 
             while(starDate.getTime().compareTo(endDate.getTime()) < 0) {
@@ -135,15 +113,13 @@ public class JournalDataService implements IJournalDataService {
             }
         }
 
+        // Добавляем в журнал сохраненные отметки
         List<PointDTO> points = new ArrayList<>();
-        List<StudentJournalDTO> studentsJournal = new ArrayList<>();
-
         for (StudentJournalDTO student : students ) {
             for (PairDTO pair : pairs ) {
                 points.addAll(pointDataService.getByStudentAndPair(student.getStudent().getUser().getId(), pair.getId()));
             }
         }
-
         model.setLesson(lesson);
         model.setStudents(students);
         model.setJournalCell(points);

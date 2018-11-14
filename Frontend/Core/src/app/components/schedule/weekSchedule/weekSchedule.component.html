@@ -1,9 +1,12 @@
 <div class="row" *ngIf="pairs.length > 0 || editable">
-  <div class="col-md-6 text-left">
+  <div class="col-md-3 text-left">
     <p-selectButton [options]="types" [(ngModel)]="selectedType"></p-selectButton>
   </div>
+  <div class="col-md-4 text-left">
+    <p-button disabled="true" class="ui-button-rounded ui-button-secondary" [label]="'Неделя: ' + (prityWeekNum == 0 ? 'Нечетная' : 'Четная')"></p-button>
+  </div>
 
-  <div class="col-md-6 text-right">
+  <div class="col-md-5 text-right">
     <div class="legend">
       <span><div class="legend-item even"></div> - Четное </span>
       <span><div class="legend-item odd"></div> - Нечетное </span>
@@ -142,8 +145,8 @@
         <div style="display: block"><b>Номер занятия: </b>{{movedPair.pairNumber}}</div>
     </span>
     <p-footer>
-        <button type="button" pButton icon="fa-check" (click)="movePair()" label="Да"></button>
-        <button type="button" pButton icon="fa-close" (click)="showDeleteDialog=false" label="Нет"></button>
+        <button type="button" pButton (click)="movePair()" label="Да"></button>
+        <button type="button" pButton (click)="showDeleteDialog=false" label="Нет"></button>
     </p-footer>
 </p-dialog>
 
@@ -152,6 +155,6 @@
     <span>Укажите группу для которой выбрано занятие.</span>
   <p-footer>
     <button *ngFor="let group of choosedGroups" type="button" pButton (click)="selectGroup(group)" label="{{group.name}}"></button>
-    <button type="button" pButton icon="fa-close" (click)="showGroupChooseDialog=false" label="Закрыть"></button>
+    <button type="button" pButton (click)="showGroupChooseDialog=false" label="Закрыть"></button>
   </p-footer>
 </p-dialog>

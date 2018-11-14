@@ -90,6 +90,14 @@ export class ScheduleService {
             );
     }
 
+    GetPrityWeek(): Observable<number> {
+        return this.http.get(ApiRouteConstants.Schedule.PrityWeek)
+            .pipe(
+                map((res: ResponseStatus) => res.data == 0 ? 0 : 1),
+                catchError(e => this.handleError.handle(e))
+            );
+    }
+
 }
 
 

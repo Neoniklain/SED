@@ -80,6 +80,7 @@ export const ApiRouteConstants = {
         GroupPairs: "shedule/group/:id/pairs",
         ProffesorLessons: "shedule/professor/:id/lessons",
         GroupLessons: "shedule/group/:id/lessons",
+        PrityWeek: "shedule/week/prity",
     },
     News: {
         All: "news/all",

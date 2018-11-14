@@ -2,7 +2,7 @@ package com.unesco.core.controllerWeb;
 
 import com.unesco.core.controller.ScheduleController;
 import com.unesco.core.dto.additional.ResponseStatusDTO;
-import com.unesco.core.dto.shedule.PairDTO;
+import com.unesco.core.dto.shedule.PairParameters;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -57,28 +57,10 @@ public class ScheduleControllerWeb {
     public ResponseStatusDTO savePair(@RequestBody PairParameters param) {
         return sheduleController.savePair(param.getPairModel(), param.isSkipWarnings());
     }
-}
 
-class PairParameters {
-    private PairDTO pairModel;
-    private boolean skipWarnings;
-
-    public PairParameters() {
-        this.pairModel = new PairDTO();
-    }
-
-    public PairDTO getPairModel() {
-        return pairModel;
-    }
-    public void setPairModel(PairDTO pairModel) {
-        this.pairModel = pairModel;
-    }
-
-    public boolean isSkipWarnings() {
-        return skipWarnings;
-    }
-    public void setSkipWarnings(boolean skipWarnings) {
-        this.skipWarnings = skipWarnings;
+    @RequestMapping("/week/prity")
+    public ResponseStatusDTO getPrityWeek() {
+        return sheduleController.getPrityWeek();
     }
 }
 
