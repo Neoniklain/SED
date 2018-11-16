@@ -1,15 +1,22 @@
-import {Component, EventEmitter, Injectable, Input, OnChanges, OnInit, Output, SimpleChanges} from '@angular/core';
+import {
+    AfterViewInit,
+    Component,
+    ElementRef,
+    EventEmitter,
+    Injectable,
+    Input,
+    OnInit,
+    Output, QueryList, Renderer2,
+    ViewChildren
+} from '@angular/core';
 import {Pair, ScheduleShowedPairs} from "../../../models/shedule/pair";
-import {PairNumber, PairTime} from "../../../models/shedule/pairNumber.model";
+import {PairNumber} from "../../../models/shedule/pairNumber.model";
 import {DayOfWeek} from "../../../models/shedule/dayOfWeek.enum";
-import {PairType} from "../../../models/shedule/pairType";
 import {WeekType} from "../../../models/shedule/weekType.enum";
-import {isUndefined} from "util";
 import {ScheduleService} from "../../../services/schedule.service";
 import {StatusType} from "../../../models/statusType.model";
 import {NotificationService} from "../../../services/notification.service";
 import {SelectItem} from "primeng/api";
-import {ScheduleShowedLesson} from "../../../models/shedule/lesson";
 import {Group} from "../../../models/shedule/group";
 
 @Component({
@@ -18,7 +25,7 @@ import {Group} from "../../../models/shedule/group";
     styleUrls: ['./weekSchedule.component.css']
 })
 @Injectable()
-export class WeekScheduleComponent implements OnInit {
+export class WeekScheduleComponent implements OnInit  {
 
     @Output() clickPair = new EventEmitter<Pair>();
     @Output() updatePair = new EventEmitter<any>();
@@ -47,8 +54,10 @@ export class WeekScheduleComponent implements OnInit {
     public selectedType: string;
     public prityWeekNum: number;
 
+
     constructor(
         private notification: NotificationService,
+        private renderer: Renderer2,
         private scheduleService: ScheduleService) { }
 
     ngOnInit(): void {
@@ -64,7 +73,6 @@ export class WeekScheduleComponent implements OnInit {
             result => {
                 this.prityWeekNum = result;
                 this.selectedType = result == 0 ? 'Нечет' : 'Чет';
-                console.log("selectedType", this.selectedType);
             }
         );
         this.types = [
@@ -78,7 +86,6 @@ export class WeekScheduleComponent implements OnInit {
             this.days.splice(this.days.indexOf("Суббота"), 1);
         }
 
-        // TODO: Возможно в будущем придется объединять потоковые занятия.
         if (!this.editable) {
             let temPairs: Array<Pair> = JSON.parse(JSON.stringify(this.pairs));
             for (let i = 0; i < temPairs.length; i++) {
@@ -94,15 +101,11 @@ export class WeekScheduleComponent implements OnInit {
                 let newShoedPair = new ScheduleShowedPairs(p);
 
                 if (findPair) {
-                    console.log("findPair", findPair);
-                    console.log("p", p);
                     newShoedPair = new ScheduleShowedPairs(p);
                     newShoedPair.lesson.groups.push(findPair.lesson.group);
                     temPairs.splice(temPairs.map(x => x.id).indexOf(findPair.id), 1);
                 }
-
                 this.showedPairs.push(newShoedPair);
-
             }
         }
     }
@@ -255,7 +258,7 @@ export class WeekScheduleComponent implements OnInit {
     existPairInThisDay(p: ScheduleShowedPairs) {
         let findPair = this.showedPairs.find(o => o.dayofweek == p.dayofweek
             && o.pairNumber == p.pairNumber
-            && (o.weektype == this.selectedType || this.selectedType == 'Все')
+            && (o.weektype == this.selectedType || this.selectedType == 'Все' || o.weektype == 'Все')
             && o.id != p.id);
         return findPair;
     }

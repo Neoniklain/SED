@@ -1,5 +1,5 @@
 <div *ngIf="journal.students.length > 0 && !showLoader" class="col-sm-12 text-right">
-    <p-selectButton [options]="types" [(ngModel)]="selectedType"></p-selectButton>
+    <p-selectButton [options]="types" [(ngModel)]="subgroupType"></p-selectButton>
 </div>
 
 <div *ngIf="journal.students.length > 0 && !showLoader" class="col-sm-12 text-right journal">
@@ -54,7 +54,7 @@
                 <ng-container *ngFor="let head of columns">
                     <ng-container *ngFor="let numbers of head.numbers">
                         <ng-container *ngFor="let type of numbers.types">
-                            <td *ngIf="type.pair.subgroup == selectedType || selectedType == 0 || type.pair.subgroup == 0"
+                            <td *ngIf="type.pair.subgroup == subgroupType || subgroupType == 0 || type.pair.subgroup == 0"
                                     class="td-header" [ngSwitch]="type.type.name" style="font-size: 14px" [title]="type.type.name">
                                 <span *ngSwitchCase="'Посещение'"><i class="fa fa-sign-in" aria-hidden="true"></i></span>
                                 <span *ngSwitchDefault><i class="fa fa-circle" aria-hidden="true"></i></span>
@@ -67,7 +67,7 @@
         </ng-template>
 
         <ng-template pTemplate="body" let-rowData let-columns="columns">
-            <tr *ngIf="rowData.subgroup < 3 && (rowData.subgroup == selectedType || selectedType == 0)" [ngClass]="{coloredRow: selectStudentId == rowData.student.id}">
+            <tr *ngIf="rowData.subgroup < 3 && (rowData.subgroup == subgroupType || subgroupType == 0)" [ngClass]="{coloredRow: selectStudentId == rowData.student.id}">
                 <td style="text-align: left; text-overflow: ellipsis; overflow: hidden; width: 250px;"><span style="white-space: nowrap;" [userCard]="rowData.student.user">{{rowData.student.user.userFIO}}</span></td>
                 <ng-template ngFor let-head [ngForOf]="columns">
                     <ng-template ngFor let-num [ngForOf]="head.numbers">
@@ -78,16 +78,22 @@
                                      && type.type.name == cell.type.name
                                       && type.pair.id == cell.pairId
                                       && cell.studentId == rowData.student.id
-                                      && (type.pair.subgroup == selectedType || selectedType == 0 || type.pair.subgroup == 0)
-                                        ">
-                                    <span [ngClass]="{whiteZero: cell.value == 0}">
-                                        <input *ngIf="!(type.pair.subgroup != rowData.subgroup && type.pair.subgroup != 0 && rowData.subgroup != 0)"
-                                                #element
+                                      && (type.pair.subgroup == subgroupType || subgroupType == 0 || type.pair.subgroup == 0)
+                                      " style="text-align: center">
+                                    <span *ngIf="!(type.pair.subgroup != rowData.subgroup && type.pair.subgroup != 0 && rowData.subgroup != 0)"
+                                          [ngClass]="{whiteZero: cell.value == 0}">
+                                        <input *ngIf="type.type.name != 'Посещение'"
+                                                #elementIn
                                                [value]="cell.value"
-                                               (click)="$event.target.select()"
+                                               (click)="elementIn?.target?.select()"
                                                (focus)="selectStudentId = rowData.student.id"
-                                               (blur)="setCellValue(element.value, cell)"
+                                               (blur)="setCellValue(elementIn.value, cell)"
                                                type="number">
+                                        <p-checkbox *ngIf="type.type.name == 'Посещение'"
+                                                    [(ngModel)]="cell.value"
+                                                    (ngModelChange)="setCellValue(cell.value ? 1 : 0, cell)"
+                                                    binary="true">
+                                        </p-checkbox>
                                     </span>
                                 </td>
                             </ng-template>

@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Injectable, Input, OnInit, Output} from '@angular/core';
+import {Component, ElementRef, EventEmitter, Injectable, Input, OnInit, Output} from '@angular/core';
 import {JournalService} from "../../../services/journal.service";
 import {Journal, JournalCell, PointType} from "../../../models/journal/journal.model";
 import {Pair} from "../../../models/shedule/pair";
@@ -17,6 +17,7 @@ import {SelectItem} from "primeng/api";
 export class JournalComponent implements OnInit {
 
     @Input() journal: Journal;
+    @Input() subgroupType: number = 0;
     @Input() month: number;
     @Output() changeMonth = new EventEmitter<number>();
     public oldJournal: Journal;
@@ -29,7 +30,6 @@ export class JournalComponent implements OnInit {
     public selectStudentId: number = 0;
 
     public types: SelectItem[];
-    public selectedType: number = 0;
 
     constructor(private journalService: JournalService,
                 private notificationService: NotificationService) {
@@ -156,7 +156,7 @@ export class JournalComponent implements OnInit {
         for (let head of this.header) {
             for (let num of head.numbers) {
                 for (let type of num.types) {
-                    if (type.pair.subgroup == this.selectedType || this.selectedType == 0 || type.pair.subgroup == 0)
+                    if (type.pair.subgroup == this.subgroupType || this.subgroupType == 0 || type.pair.subgroup == 0)
                         result += 1;
                 }
             }
@@ -168,7 +168,7 @@ export class JournalComponent implements OnInit {
         let result = 0;
         for (let num of head.numbers) {
             for (let t of num.types) {
-                if (t.pair.subgroup == this.selectedType || this.selectedType == 0 || t.pair.subgroup == 0)
+                if (t.pair.subgroup == this.subgroupType || this.subgroupType == 0 || t.pair.subgroup == 0)
                     result += 1;
             }
         }
@@ -178,7 +178,7 @@ export class JournalComponent implements OnInit {
     getForDateLenForNumber(numberJournal: JournalHeaderNumber) {
         let result = 0;
         for (let t of numberJournal.types) {
-            if (t.pair.subgroup == this.selectedType || this.selectedType == 0 || t.pair.subgroup == 0)
+            if (t.pair.subgroup == this.subgroupType || this.subgroupType == 0 || t.pair.subgroup == 0)
                 result += 1;
         }
         return result;
@@ -221,16 +221,21 @@ export class JournalComponent implements OnInit {
     }
 
     setCellValue(element: number, cell: JournalCell) {
-        if (cell.id != 0 || element != 0) {
-            let find = this.oldJournal.journalCell.findIndex(x =>
-                x.pairId == cell.pairId
-                && this.eqDate(this.createDate(x.date), cell.date)
-                && x.studentId == cell.studentId
-                && x.type.id == cell.type.id
-            );
+        let find = this.oldJournal.journalCell.findIndex(x =>
+            x.pairId == cell.pairId
+            && this.eqDate(this.createDate(x.date), cell.date)
+            && x.studentId == cell.studentId
+            && x.type.id == cell.type.id
+        );
 
-            if (find != -1 && this.oldJournal.journalCell[find].value != element) {
+        if (find != -1) {
+            if (this.oldJournal.journalCell[find].value != element) {
                 cell.wasChange = true;
+            }
+            if (this.oldJournal.journalCell[find].value == element ||
+                (this.oldJournal.journalCell[find].value == null && element == 0)
+            ) {
+                cell.wasChange = false;
             }
         }
 

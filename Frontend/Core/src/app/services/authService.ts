@@ -83,7 +83,7 @@ export class AuthenticationService {
         this.globals.role = [];
         this.globals.user = new User();
         this.globals.accessRight = new UserAccessRight();
-        this.router.navigate([ApiRouteConstants.News.All]);
+        this.router.navigate([RouteConstants.Home]);
     }
 
     removeToken() {

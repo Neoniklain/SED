@@ -16,7 +16,7 @@ import {ProfileDirective} from "../directive/profile.dirictive";
 import {EnumStringKeysPipe} from "../pipes/enum.string.keys";
 import {
     CheckboxModule,
-    EditorModule, FileUploadModule,
+    EditorModule, FileUploadModule, InplaceModule,
     InputTextareaModule,
     RadioButtonModule,
     TabViewModule,
@@ -128,6 +128,7 @@ registerLocaleData(localeRu);
         ConfirmDialogModule,
         ToggleButtonModule,
         EditorModule,
+        InplaceModule,
         RadioButtonModule,
         TableModule,
         TabViewModule,

@@ -23,7 +23,7 @@
         <button (click)="certGenerator = true; certificationReport = null;" class="btn btn-default btn-sm">Отчет по аттестации</button>
     </div>
 
-    <journal [journal]="journal" [month]="month" (changeMonth)="changeMonth($event)">
+    <journal [journal]="journal" [subgroupType]="lastPair?.subgroup" [month]="month" (changeMonth)="changeMonth($event)">
     </journal>
 </div>
 

@@ -41,7 +41,7 @@ public class DateHelper {
         int currentWeekNumber = cal.get(Calendar.WEEK_OF_YEAR);
         startWeekNumber = currentWeekNumber - startWeekNumber;
 
-        return startWeekNumber % 2 == 0 ? 1 : 0;
+        return startWeekNumber % 2 == 0 ? 0 : 1;
     }
 
 

@@ -37,7 +37,7 @@
       <!-- Для редактируемого вида -->
       <div *ngIf="showedPairs.length == 0">
       <div *ngFor="let pair of pairs">
-        <div *ngIf="(pair.weektype == selectedType || pair.weektype == 'Все' || selectedType == 'Все') && pair.dayofweek === day && pair.pairNumber === lessonTime.num" height="100%">
+        <div *ngIf="(pair.weektype == selectedType || pair.weektype == 'Все' || selectedType == 'Все') && pair.dayofweek === day && pair.pairNumber === lessonTime.num">
           <span pDraggable="pnl"
                 [pDraggableDisabled]="!editable"
                 (onDragStart)="dragStart($event,pair)"
@@ -89,8 +89,8 @@
       <!-- Для не редактируемого вида -->
       <div *ngIf="showedPairs.length > 0">
       <div *ngFor="let pair of showedPairs">
-        <div *ngIf="(pair.weektype == selectedType || pair.weektype == 'Все' || selectedType == 'Все') && pair.dayofweek === day && pair.pairNumber === lessonTime.num" height="100%">
-          <span [ngClass]="{
+        <div *ngIf="(pair.weektype == selectedType || pair.weektype == 'Все' || selectedType == 'Все') && pair.dayofweek === day && pair.pairNumber === lessonTime.num">
+          <span #pairElement [ngClass]="{
                           'pair': true,
                           'even': pair.weektype =='Чет' && pair.subgroup == 0,
                           'odd': pair.weektype =='Нечет' && pair.subgroup == 0,
