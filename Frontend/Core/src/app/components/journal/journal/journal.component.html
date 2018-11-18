@@ -1,12 +1,13 @@
-<div *ngIf="journal.students.length > 0 && !showLoader" class="col-sm-12 text-right">
+<div *ngIf="journal.students.length > 0" class="col-sm-12 text-right">
     <p-selectButton [options]="types" [(ngModel)]="subgroupType"></p-selectButton>
 </div>
 
-<div *ngIf="journal.students.length > 0 && !showLoader" class="col-sm-12 text-right journal">
+<div *ngIf="journal.students.length > 0" class="col-sm-12 text-right journal">
     <p-table
             [columns]="header"
             [value]="journal.students"
             [scrollable]="true"
+            [loading]="showLoader"
             [tableStyleClass]="'table table-bordered table-striped'"
             scrollHeight="60vh">
         <ng-template pTemplate="header" let-columns>
@@ -105,12 +106,9 @@
     </p-table>
 </div>
 
-<div *ngIf="journal.students.length > 0 && !showLoader" class="col-sm-12 text-right">
+<div *ngIf="journal.students.length > 0" class="col-sm-12 text-right">
     <button (click)="save()" class="btn btn-info btn-success">Сохранить</button>
 </div>
-
-
-<data-loader [show]="showLoader" [margin]="9"></data-loader>
 
 <div *ngIf="journal.students.length == 0" class="students-not-found">
     <h1>Студенты для группы не заданы.</h1>

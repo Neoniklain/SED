@@ -68,29 +68,23 @@ public class JournalManager implements IJournalManager {
             if(this.journal.getComparison().stream().anyMatch( o ->
                             DateHelper.getZeroTimeDate(currentLessonEvent.getDate()).equals(DateHelper.getZeroTimeDate(o.getDate()))
                     )) {
-                if(this.journal.getComparison().stream().noneMatch(
-                        o -> o.getPoints().stream().anyMatch(y ->
-                                y.getType().getId() == currentLessonEvent.getType().getId()
-                                && currentLessonEvent.getPairs().stream().anyMatch(e -> e.getId() == y.getPair().getId()))))
-                {
-                   ComparisonDTO find = this.journal.getComparison().stream().filter(x ->
-                           DateHelper.getZeroTimeDate(currentLessonEvent.getDate()).equals(DateHelper.getZeroTimeDate(x.getDate()))).collect(Collectors.toList()).get(0);
+               ComparisonDTO find = this.journal.getComparison().stream().filter(x ->
+                       DateHelper.getZeroTimeDate(currentLessonEvent.getDate()).equals(DateHelper.getZeroTimeDate(x.getDate()))).collect(Collectors.toList()).get(0);
 
-                   List<PairDTO> pairs = new ArrayList<PairDTO>();
+               List<PairDTO> pairs = new ArrayList<PairDTO>();
 
-                   if(currentLessonEvent.getPairs().size() > 0) {
-                       pairs.addAll(currentLessonEvent.getPairs());
-                   }
+               if(currentLessonEvent.getPairs().size() > 0) {
+                   pairs.addAll(currentLessonEvent.getPairs());
+               }
 
-                   List<ComparisonPointDTO> points = find.getPoints();
-                   for(PairDTO p : pairs) {
-                       ComparisonPointDTO point = new ComparisonPointDTO();
-                       point.setPair(p);
-                       point.setType(currentLessonEvent.getType());
-                       points.add(point);
-                   }
-                   find.setPoints(points);
-                }
+               List<ComparisonPointDTO> points = find.getPoints();
+               for(PairDTO p : pairs) {
+                   ComparisonPointDTO point = new ComparisonPointDTO();
+                   point.setPair(p);
+                   point.setType(currentLessonEvent.getType());
+                   points.add(point);
+               }
+               find.setPoints(points);
             }
         }
 
