@@ -89,7 +89,7 @@
                                         <input *ngIf="type.type.name != 'Посещение'"
                                                 #elementIn
                                                [value]="cell.value"
-                                               (click)="elementIn?.target?.select()"
+                                               (click)="$event.target?.select()"
                                                (focus)="selectStudentId = rowData.student.id"
                                                (blur)="setCellValue(elementIn.value, cell)"
                                                type="number">

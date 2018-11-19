@@ -107,7 +107,7 @@ public class JournalDataService implements IJournalDataService {
             }
             int amount = pair.getWeektype().equals("Все") ? 7 : 14;
 
-            while(starDate.getTime().compareTo(endDate.getTime()) < 0) {
+            while(starDate.getTime().compareTo(endDate.getTime()) <= 0) {
                 addDate(model.getComparison(), getZeroTimeDate(starDate.getTime()), pair);
                 starDate.add(Calendar.DAY_OF_WEEK, amount);
             }

@@ -29,7 +29,7 @@ public class DateHelper {
      * @param date Дата для которой нужно определить четность
      * @return 0 нечетная 1 четная
      */
-    public static int getPrityWeek(Date startDate, Date date) {
+    public static int getPrityWeek(Date date, Date startDate) {
 
         if(startDate.compareTo(date) < 0) return 0;
 
@@ -39,8 +39,8 @@ public class DateHelper {
         Calendar cal = Calendar.getInstance();
         cal.setTime(date);
         int currentWeekNumber = cal.get(Calendar.WEEK_OF_YEAR);
-        startWeekNumber = currentWeekNumber - startWeekNumber;
 
+        startWeekNumber = currentWeekNumber - startWeekNumber + 1;
         return startWeekNumber % 2 == 0 ? 0 : 1;
     }
 
