@@ -53,7 +53,7 @@ public class ScheduleController {
         sheduleManager.init(pairDataService.getAllByGroup(groupId),
                 groupDataService.get(groupId));
 
-        return new ResponseStatusDTO(StatusTypes.OK, sheduleManager.get());
+        return new ResponseStatusDTO(StatusTypes.OK, sheduleManager.get().getPairs());
     }
 
     public ResponseStatusDTO getPair(long pairId) {

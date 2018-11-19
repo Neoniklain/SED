@@ -9,6 +9,8 @@ import {AccountService} from "../../../services/accountService";
 import {Professor} from "../../../models/account/professor";
 import {DatePipe} from "@angular/common";
 import {CertificationReport, CertificationStudent} from "../../../models/journal/certificationReport.model";
+import {Roles} from "../../../models/account/role.model";
+import {Student} from "../../../models/account/student";
 
 @Component({
     selector: 'journal-page',
@@ -20,7 +22,6 @@ export class JournalPageComponent implements OnInit {
 
     @Output() toogleViewMenu: EventEmitter<any> = new EventEmitter();
     public user: User;
-    public professor: Professor;
     public journal: Journal;
     public pairs: Array<Pair> = [];
     public showLoader: boolean = false;
@@ -28,11 +29,7 @@ export class JournalPageComponent implements OnInit {
     public lastMonth: number;
     public datePipe = new DatePipe("ru");
     public lastPair: Pair;
-
-    public reportSatrtDate: Date;
-    public reportEndDate: Date;
-    public certGenerator: boolean = false;
-    public certificationReport: CertificationReport;
+    public Roles = Roles;
 
     constructor(private authenticationService: AuthenticationService,
                 private journalService: JournalService,
@@ -47,36 +44,43 @@ export class JournalPageComponent implements OnInit {
             res => {
                 this.user = res.data;
                 this.showLoader = true;
-                this.accountService.GetProfessorByUser(this.user.id).subscribe(
-                    resultProf => {
-                        this.professor = resultProf.data;
-                        if (this.professor !== null) {
-                            this.ScheduleService.GetPeofessorPair(this.professor.id).subscribe(
-                                result => {
-                                    this.showLoader = false;
-                                    this.pairs = result.data;
-                                }
-                            );
-                        }
-                    }
-                );
+                if (this.user.roles.find(x => x.roleName == Roles.Professor.toString()))
+                    this.getProffesorPair();
+                else if (this.user.roles.find(x => x.roleName == Roles.Student.toString()))
+                    this.getStudentPair();
             });
     }
 
-    getCertification() {
-        if (this.reportSatrtDate && this.reportEndDate) {
-            let start = this.datePipe.transform(this.reportSatrtDate, "yyyy-MM-dd");
-            let end = this.datePipe.transform(this.reportEndDate, "yyyy-MM-dd");
-            this.journalService.GetJournalCertificationReport(this.lastPair.lesson.id, start, end).subscribe(
-                result => {
-                    this.certificationReport = result.data;
-                    console.log("result.data", result.data);
-                    console.log("this.certificationReport", this.certificationReport);
-                }, error => {
+    public getProffesorPair() {
+        this.accountService.GetProfessorByUser(this.user.id).subscribe(
+            resultProf => {
+                let professor = resultProf.data;
+                if (professor !== null) {
+                    this.ScheduleService.GetPeofessorPair(professor.id).subscribe(
+                        result => {
+                            this.showLoader = false;
+                            this.pairs = result.data;
+                        }
+                    );
                 }
-            );
+            }
+        );
+    }
 
-        }
+    public getStudentPair() {
+        this.accountService.GetStudentByUser(this.user.id).subscribe(
+            resultStud => {
+                let student: Student = resultStud.data;
+                if (student) {
+                    this.ScheduleService.GetGroupPair(student.group.id).subscribe(
+                        result => {
+                            this.showLoader = false;
+                            this.pairs = result.data;
+                        }
+                    );
+                }
+            }
+        );
     }
 
     changeMonth(event) {
@@ -113,14 +117,6 @@ export class JournalPageComponent implements OnInit {
                 }
             );
         }
-    }
-
-    getEventsSummValue(car: CertificationStudent) {
-        let summ = 0;
-        for (let s of car.eventValue) {
-            summ += s.value;
-        }
-        return summ;
     }
 
     back() {

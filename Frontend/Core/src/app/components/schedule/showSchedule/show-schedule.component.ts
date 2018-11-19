@@ -132,7 +132,7 @@ import {LazyLoadEvent} from "primeng/api";
             result =>  {
                 this.templatePair = new Pair();
                 this.templatePair.lesson.group = this.currentGroup;
-                this.pairList = result.data.pairs;
+                this.pairList = result.data;
                 this.showLoader = false;
             }
         );

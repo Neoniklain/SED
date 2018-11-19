@@ -100,6 +100,7 @@ import {ScheduleComponent} from "../components.page/schedule/schedule.component"
 import {DetailTaskComponent} from "../components/task/detailTask/detailTask.component";
 import {TableModule} from "primeng/table";
 import {StudentsConfiguratorComponent} from "../components.page/adminPanel/studentsConfigurator/studentsConfigurator";
+import {AcademicPerformanceComponent} from "../components/journal/academic-performance/academic-performance.component";
 
 registerLocaleData(localeRu);
 
@@ -151,6 +152,7 @@ registerLocaleData(localeRu);
         ProfileComponent,
         LogInComponent,
         JournalPageComponent,
+        AcademicPerformanceComponent,
         LessonConfiguratorPageComponent,
         SingleNewsComponent,
         ListNewsComponent,

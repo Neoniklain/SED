@@ -6,6 +6,7 @@ import {NotificationService} from "../../../services/notification.service";
 import {isUndefined} from "util";
 import {DatePipe} from "@angular/common";
 import {SelectItem} from "primeng/api";
+import {CertificationReport, CertificationStudent} from "../../../models/journal/certificationReport.model";
 
 @Component({
     selector: 'journal',
@@ -28,6 +29,11 @@ export class JournalComponent implements OnInit {
     public showLoader: boolean = false;
     public datePipe = new DatePipe("ru");
     public selectStudentId: number = 0;
+
+    public reportSatrtDate: Date;
+    public reportEndDate: Date;
+    public certGenerator: boolean = false;
+    public certificationReport: CertificationReport;
 
     public types: SelectItem[];
 
@@ -216,6 +222,20 @@ export class JournalComponent implements OnInit {
         );
     }
 
+    getCertification() {
+        if (this.reportSatrtDate && this.reportEndDate) {
+            let start = this.datePipe.transform(this.reportSatrtDate, "yyyy-MM-dd");
+            let end = this.datePipe.transform(this.reportEndDate, "yyyy-MM-dd");
+            this.journalService.GetJournalCertificationReport(this.journal.lesson.id, start, end).subscribe(
+                result => {
+                    this.certificationReport = result.data;
+                }, error => {
+                }
+            );
+
+        }
+    }
+
     isCurrentDate(day: Date) {
         return (day.getDate() === this.currentDay.getDate());
     }
@@ -253,6 +273,14 @@ export class JournalComponent implements OnInit {
             return true;
         }
         return false;
+    }
+
+    getEventsSummValue(car: CertificationStudent) {
+        let summ = 0;
+        for (let s of car.eventValue) {
+            summ += s.value;
+        }
+        return summ;
     }
 
     createDate(date: Date): Date {
@@ -293,13 +321,3 @@ class MonthHeader {
     public date: Date;
     public dateLen: number;
 }
-
-
-
-
-
-
-
-
-
-
