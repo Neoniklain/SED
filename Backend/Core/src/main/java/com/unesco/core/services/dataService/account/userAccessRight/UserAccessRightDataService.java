@@ -1,8 +1,8 @@
 package com.unesco.core.services.dataService.account.userAccessRight;
 
-import com.unesco.core.dto.AccessRightDTO;
-import com.unesco.core.dto.UserAccessRightDTO;
-import com.unesco.core.dto.UserAccessRowDTO;
+import com.unesco.core.dto.account.AccessRightDTO;
+import com.unesco.core.dto.account.UserAccessRightDTO;
+import com.unesco.core.dto.account.UserAccessRowDTO;
 import com.unesco.core.dto.account.UserDTO;
 import com.unesco.core.dto.enums.AccessRightType;
 import com.unesco.core.entities.account.AccessRightEntity;

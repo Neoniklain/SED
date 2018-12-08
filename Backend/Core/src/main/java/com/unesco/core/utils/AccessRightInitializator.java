@@ -1,6 +1,6 @@
 package com.unesco.core.utils;
 
-import com.unesco.core.dto.AccessRightDTO;
+import com.unesco.core.dto.account.AccessRightDTO;
 import com.unesco.core.dto.enums.AccessRightType;
 import com.unesco.core.services.dataService.account.accessRightService.IAccessRightDataService;
 import org.springframework.beans.factory.annotation.Autowired;

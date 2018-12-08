@@ -2,7 +2,7 @@ package com.unesco.core.managers.schedule.sheduleManager;
 
 import com.unesco.core.managers.schedule.pairManager.interfaces.pairList.IPairListManager;
 import com.unesco.core.managers.schedule.sheduleManager.interfaces.shedule.ISheduleManager;
-import com.unesco.core.dto.SheduleDTO;
+import com.unesco.core.dto.shedule.SheduleDTO;
 import com.unesco.core.dto.account.ProfessorDTO;
 import com.unesco.core.dto.plan.DepartmentDTO;
 import com.unesco.core.dto.shedule.DepartmentSheduleDTO;

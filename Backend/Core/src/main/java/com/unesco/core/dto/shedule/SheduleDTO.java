@@ -1,4 +1,4 @@
-package com.unesco.core.dto;
+package com.unesco.core.dto.shedule;
 
 import com.unesco.core.dto.shedule.PairDTO;
 

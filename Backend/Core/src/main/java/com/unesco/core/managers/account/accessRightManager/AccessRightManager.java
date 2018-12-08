@@ -1,8 +1,8 @@
 package com.unesco.core.managers.account.accessRightManager;
 
-import com.unesco.core.dto.AccessRightDTO;
-import com.unesco.core.dto.UserAccessRightDTO;
-import com.unesco.core.dto.UserAccessRowDTO;
+import com.unesco.core.dto.account.AccessRightDTO;
+import com.unesco.core.dto.account.UserAccessRightDTO;
+import com.unesco.core.dto.account.UserAccessRowDTO;
 import com.unesco.core.dto.additional.ResponseStatusDTO;
 import com.unesco.core.dto.enums.StatusTypes;
 import com.unesco.core.managers.account.accessRightManager.interfaces.IAccessRightManager;

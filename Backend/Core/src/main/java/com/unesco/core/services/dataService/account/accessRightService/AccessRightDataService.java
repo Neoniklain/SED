@@ -1,6 +1,6 @@
 package com.unesco.core.services.dataService.account.accessRightService;
 
-import com.unesco.core.dto.AccessRightDTO;
+import com.unesco.core.dto.account.AccessRightDTO;
 import com.unesco.core.dto.additional.FilterQueryDTO;
 import com.unesco.core.dto.additional.ResponseStatusDTO;
 import com.unesco.core.dto.enums.AccessRightType;

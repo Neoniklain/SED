@@ -1,6 +1,6 @@
 package com.unesco.core.services.dataService.account.userAccessRight;
 
-import com.unesco.core.dto.UserAccessRightDTO;
+import com.unesco.core.dto.account.UserAccessRightDTO;
 import com.unesco.core.dto.enums.AccessRightType;
 
 import java.util.List;

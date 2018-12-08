@@ -1,4 +1,4 @@
-package com.unesco.core.dto;
+package com.unesco.core.dto.account;
 
 public class UserAccessRowDTO {
 

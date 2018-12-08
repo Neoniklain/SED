@@ -1,6 +1,4 @@
-package com.unesco.core.dto;
-
-import com.unesco.core.dto.account.UserDTO;
+package com.unesco.core.dto.account;
 
 import java.util.List;
 

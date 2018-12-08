@@ -1,18 +1,14 @@
 package com.unesco.core.controllerWeb;
 
 import com.unesco.core.controller.AccountController;
-import com.unesco.core.dto.UserAccessRightDTO;
+import com.unesco.core.dto.account.UserAccessRightDTO;
 import com.unesco.core.dto.account.UserDTO;
 import com.unesco.core.dto.additional.ResponseStatusDTO;
-import com.unesco.core.dto.journal.StudentJournalDTO;
 import com.unesco.core.dto.journal.StudentJournalList;
-import com.unesco.core.dto.shedule.LessonDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.context.WebApplicationContext;
-
-import java.util.List;
 
 @CrossOrigin
 @RestController

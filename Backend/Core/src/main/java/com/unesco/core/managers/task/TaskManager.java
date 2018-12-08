@@ -24,8 +24,6 @@ import java.util.List;
 @Service
 public class TaskManager implements ITaskManager {
     @Autowired
-    MapperService _mapperService;
-    @Autowired
     ITaskDescriptionDataService _TDService;
     @Autowired
     ITaskUserDataService _TUService;

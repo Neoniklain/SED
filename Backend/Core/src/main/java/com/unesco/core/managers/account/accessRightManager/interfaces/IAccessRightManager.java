@@ -1,7 +1,7 @@
 package com.unesco.core.managers.account.accessRightManager.interfaces;
 
-import com.unesco.core.dto.AccessRightDTO;
-import com.unesco.core.dto.UserAccessRightDTO;
+import com.unesco.core.dto.account.AccessRightDTO;
+import com.unesco.core.dto.account.UserAccessRightDTO;
 import com.unesco.core.managers.IValidateManager;
 import org.springframework.stereotype.Service;
 

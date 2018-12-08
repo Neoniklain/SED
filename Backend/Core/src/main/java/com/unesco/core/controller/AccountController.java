@@ -1,15 +1,13 @@
 package com.unesco.core.controller;
 
-import com.unesco.core.dto.UserAccessRightDTO;
+import com.unesco.core.dto.account.UserAccessRightDTO;
 import com.unesco.core.dto.account.ProfessorDTO;
 import com.unesco.core.dto.account.StudentDTO;
 import com.unesco.core.dto.account.UserDTO;
 import com.unesco.core.dto.additional.ResponseStatusDTO;
 import com.unesco.core.dto.enums.RoleType;
 import com.unesco.core.dto.enums.StatusTypes;
-import com.unesco.core.dto.journal.StudentJournalDTO;
 import com.unesco.core.dto.journal.StudentJournalList;
-import com.unesco.core.dto.shedule.LessonDTO;
 import com.unesco.core.managers.account.accessRightManager.interfaces.IAccessRightManager;
 import com.unesco.core.managers.account.professorManager.interfaces.professor.IProfessorManager;
 import com.unesco.core.managers.account.professorManager.interfaces.professorList.IProfessorListManager;
@@ -31,8 +29,6 @@ import com.unesco.core.services.dataService.schedule.groupService.IGroupDataServ
 import com.unesco.core.services.userService.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
 
 @Service
 public class AccountController {

@@ -1,6 +1,6 @@
 package com.unesco.core.services.mapperService;
 
-import com.unesco.core.dto.AccessRightDTO;
+import com.unesco.core.dto.account.AccessRightDTO;
 import com.unesco.core.dto.account.ProfessorDTO;
 import com.unesco.core.dto.account.RoleDTO;
 import com.unesco.core.dto.account.StudentDTO;
