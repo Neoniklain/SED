@@ -5,8 +5,9 @@ import {Pair} from "../../../models/shedule/pair";
 import {NotificationService} from "../../../services/notification.service";
 import {isUndefined} from "util";
 import {DatePipe} from "@angular/common";
-import {SelectItem} from "primeng/api";
+import {SelectItem, SelectItemGroup} from "primeng/api";
 import {CertificationReport, CertificationStudent} from "../../../models/journal/certificationReport.model";
+import {Lesson} from "../../../models/shedule/lesson";
 
 @Component({
     selector: 'journal',
@@ -17,11 +18,11 @@ import {CertificationReport, CertificationStudent} from "../../../models/journal
 @Injectable()
 export class JournalComponent implements OnInit {
 
-    @Input() journal: Journal;
+    @Input() lesson: Lesson;
     @Input() subgroupType: number = 0;
-    @Input() month: number;
-    @Output() changeMonth = new EventEmitter<number>();
-    public oldJournal: Journal;
+    public journal: Journal;
+    public month: number;
+    public oldJournal: Journal = null;
     public header: Array<JournalHeader> = [];
     public monthHeader: Array<MonthHeader> = [];
     public currentMonth: string;
@@ -35,35 +36,70 @@ export class JournalComponent implements OnInit {
     public certGenerator: boolean = false;
     public certificationReport: CertificationReport;
 
+    public historyDates = [];
+    public selectHistoryDate: Date = null;
+
     public types: SelectItem[];
+    public ru: any;
 
     constructor(private journalService: JournalService,
                 private notificationService: NotificationService) {
     }
 
     ngOnInit(): void {
+        this.ru = {
+            firstDayOfWeek: 1,
+            dayNames: ["Воскресенье", "Понедельник", "Вторник", "Среда", "Четверг", "Пятница", "Суббота"],
+            dayNamesShort: ["Вск", "Пн", "Вт", "СР", "Чт", "Пт", "Сб"],
+            dayNamesMin: ["Вск", "Пн", "Вт", "СР", "Чт", "Пт", "Сб"],
+            monthNames: ["Январь", "Февраль", "Март", "Апрель", "Май", "Июнь", "Июль", "Август", "Сентябрь", "Октябрь", "Ноябрь", "Декабрь"],
+            monthNamesShort: ["Янв", "Фев", "Мар", "Апр", "Май", "Июн", "Июл", "Авг", "Сен", "Окт", "Ноя", "Дек"],
+            today: 'Сегодня',
+            clear: 'Очистить'
+        };
         this.types = [
             {label: 'Все', value: 0},
             {label: 'Подгруппа 1', value: 1},
             {label: 'Подгруппа 2', value: 2}
         ];
-        if (this.journal != null && !isUndefined(this.journal)) {
-            this.sortHeader();
-            this.oldJournal = JSON.parse(JSON.stringify(this.journal));
-        }
+
         this.currentDay = new Date(this.datePipe.transform(Date.now(), "yyyy-MM-ddTHH:mm:ss"));
         this.currentMonth = (Number.parseInt(this.datePipe.transform(Date.now(), 'MMMM')) - 1).toString();
-        this.month = Number.parseInt(this.datePipe.transform(this.journal.comparison[0].date, 'MM')) - 1;
+        this.month = Number.parseInt(this.datePipe.transform(Date.now(), 'MM')) - 1;
+        this.updateJournal();
+
+    }
+
+    updateJournal() {
+        let lastJournal = new Journal();
+        if (this.journal)
+            lastJournal = JSON.parse(JSON.stringify(this.journal));
+        this.journal = null;
+        if (this.lesson.id !== 0) {
+            this.showLoader = true;
+            this.journalService.GetJournal(this.lesson.id, this.month, this.selectHistoryDate).subscribe(
+                result => {
+                    this.journal = result.data;
+                    this.sortHeader();
+                    this.oldJournal = JSON.parse(JSON.stringify(this.journal));
+                    this.getHistoryDates();
+                    this.showLoader = false;
+                }, error => {
+                    this.journal = lastJournal;
+                    this.showLoader = false;
+                }
+            );
+        }
     }
 
     nextMonth() {
         this.month++;
-        this.changeMonth.emit(this.month);
+        this.updateJournal();
     }
 
     backMonth() {
         this.month--;
-        this.changeMonth.emit(this.month);
+        this.updateJournal();
     }
 
     sortHeader() {
@@ -218,8 +254,14 @@ export class JournalComponent implements OnInit {
                 this.showLoader = false;
                 this.oldJournal = JSON.parse(JSON.stringify(this.journal));
                 this.notificationService.FromStatus(result);
+                this.getHistoryDates();
             }, error => console.error(error)
         );
+    }
+
+    changeHistoryDate(event) {
+        this.selectHistoryDate = event;
+        this.updateJournal();
     }
 
     getCertification() {
@@ -285,6 +327,20 @@ export class JournalComponent implements OnInit {
 
     createDate(date: Date): Date {
         return new Date(this.datePipe.transform(date, "yyyy-MM-dd"));
+    }
+
+    getHistoryDates() {
+        if (this.journal) {
+            this.journalService.GetJournalHistoryDate(this.journal.lesson.id).subscribe(
+                result => {
+                    this.historyDates = [];
+                    for (let d of result.data) {
+                        let newItem = {label: this.datePipe.transform(d, "dd.MM.yyyy"), value: this.datePipe.transform(d, "dd.MM.yyyy")};
+                        this.historyDates.push(newItem);
+                    }
+                }, error => console.error(error)
+            );
+        }
     }
 }
 

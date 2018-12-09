@@ -6,17 +6,17 @@ import com.unesco.core.dto.journal.PointDTO;
 import com.unesco.core.entities.journal.PointEntity;
 import com.unesco.core.repositories.journal.PointRepository;
 import com.unesco.core.services.mapperService.IMapperService;
+import com.unesco.core.utils.DateHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 public class PointDataService implements IPointDataService {
-    
+
     @Autowired
     private IMapperService mapperService;
     @Autowired
@@ -24,60 +24,14 @@ public class PointDataService implements IPointDataService {
 
     public List<PointDTO> getAll()
     {
-        List<PointDTO> modelList = new ArrayList<>();
         Iterable<PointEntity> entityList = pointRepository.findAll();
-        for (PointEntity item: entityList) {
-            PointDTO model = (PointDTO) mapperService.toDto(item);
-            modelList.add(model);
-        }
-        return modelList;
+        return entityListToDtoList((List<PointEntity>) entityList);
     }
 
     public PointDTO get(long id)
     {
         PointEntity entity = pointRepository.findOne(id);
-        PointDTO model = (PointDTO) mapperService.toDto(entity);
-        return model;
-    }
-
-    public List<PointDTO> getByStudentAndPair(long studentId, long pairId)
-    {
-        List<PointDTO> modelList = new ArrayList<>();
-        Iterable<PointEntity> entityList = pointRepository.findByStudentIdAndPairId(studentId, pairId);
-        for (PointEntity item: entityList) {
-            PointDTO model = (PointDTO) mapperService.toDto(item);
-            modelList.add(model);
-        }
-        return modelList;
-    }
-
-    public List<PointDTO> getByStudentAndPairBetweenDate(long studentId, long pairId, Date from, Date to)
-    {
-        List<PointDTO> modelList = new ArrayList<>();
-        Iterable<PointEntity> entityList = pointRepository.findByStudentIdAndPairIdAndMonth(studentId, pairId, from, to);
-        for (PointEntity item: entityList) {
-            PointDTO model = (PointDTO) mapperService.toDto(item);
-            modelList.add(model);
-        }
-        return modelList;
-    }
-
-    public List<PointDTO> getByLesson(long lessonId)
-    {
-        List<PointDTO> modelList = new ArrayList<>();
-        Iterable<PointEntity> entityList = pointRepository.findByLesson(lessonId);
-        for (PointEntity item: entityList) {
-            PointDTO model = (PointDTO) mapperService.toDto(item);
-            modelList.add(model);
-        }
-        return modelList;
-    }
-
-    public PointDTO getByStudentAndDateAndTypeAndPair(long studentId, Date date, long typeId, long pairId)
-    {
-        PointEntity entity = pointRepository.findByStudentIdAndDateAndTypeIdAndPairId(studentId, date, typeId, pairId);
-        PointDTO model = (PointDTO) mapperService.toDto(entity);
-        return model;
+        return (PointDTO) mapperService.toDto(entity);
     }
 
     public ResponseStatusDTO<PointDTO> delete(long id)
@@ -99,6 +53,8 @@ public class PointDataService implements IPointDataService {
     {
         PointEntity entity = (PointEntity) mapperService.toEntity(point);
         ResponseStatusDTO<PointDTO> result = new ResponseStatusDTO<>(StatusTypes.OK);
+        entity.setDateOfCreate(DateHelper.getZeroTimeDate(new Date()));
+        entity.setDate(DateHelper.getZeroTimeDate(point.getDate()));
         try {
             entity = pointRepository.save(entity);
         } catch (Exception e) {
@@ -107,6 +63,104 @@ public class PointDataService implements IPointDataService {
             return result;
         }
         result.setData((PointDTO) mapperService.toDto(entity));
+        return result;
+    }
+
+    public List<PointDTO> getAllByLesson(long lessonId)
+    {
+        List<PointEntity> entityList = pointRepository.findByLesson(lessonId);
+        return entityListToDtoList(entityList);
+    }
+
+    public List<PointDTO> getByLesson(long lessonId)
+    {
+        List<PointEntity> entityList = pointRepository.findByLesson(lessonId);
+        entityList = getLastPoint(entityList);
+        return entityListToDtoList(entityList);
+    }
+
+    public List<PointDTO> getByLesson(long lessonId, Date date)
+    {
+        List<PointEntity> entityList = pointRepository.findByLesson(lessonId);
+        entityList = getPointForDate(entityList, date);
+        return entityListToDtoList(entityList);
+    }
+
+    public List<PointDTO> getByStudentAndPairBetweenDate(long studentId, long pairId, Date from, Date to)
+    {
+        List<PointEntity> entityList = pointRepository.findByStudentIdAndPairIdAndMonth(studentId, pairId, from, to);
+        entityList = getLastPoint(entityList);
+        return entityListToDtoList(entityList);
+    }
+
+    public List<PointDTO> getByStudentAndPairBetweenDate(long studentId, long pairId, Date from, Date to, Date date)
+    {
+        List<PointEntity> entityList = pointRepository.findByStudentIdAndPairIdAndMonth(studentId, pairId, from, to);
+        entityList = getPointForDate(entityList, date);
+        return entityListToDtoList(entityList);
+    }
+
+    public PointDTO getEqualPoint(long studentId, Date date, long typeId, long pairId, Date dateOfCreate)
+    {
+        PointEntity  entity = pointRepository.findByStudentIdAndDateAndTypeIdAndPairIdAndDateOfCreate(studentId, date, typeId, pairId, dateOfCreate);
+        return (PointDTO) mapperService.toDto(entity);
+    }
+
+    /**
+     * Перевод списка сущностей в список ДТО
+     * @param points Список сущностей
+     * @return Список ДТО
+     */
+    private List<PointDTO> entityListToDtoList(List<PointEntity> points) {
+        List<PointDTO> modelList = new ArrayList<>();
+        for (PointEntity item: points) {
+            PointDTO model = (PointDTO) mapperService.toDto(item);
+            modelList.add(model);
+        }
+        return modelList;
+    }
+
+    /**
+     * Поучает последние установленные отметки
+     * @param points Список отметок
+     * @return Список отметок.
+     */
+    private List<PointEntity> getLastPoint(List<PointEntity> points) {
+        List<PointEntity> result = new ArrayList<>();
+        for (PointEntity point: points) {
+            List<PointEntity> inOneDatePoint = points.stream().filter(x ->
+                    x.getType().getId() == point.getType().getId()
+                    && DateHelper.getZeroTimeDate(x.getDate()).compareTo(DateHelper.getZeroTimeDate(point.getDate())) == 0
+                    && x.getPair().getId() == point.getPair().getId()
+                    && x.getStudent().getId() == point.getStudent().getId()
+            ).collect(Collectors.toList());
+
+            if(inOneDatePoint.size() > 1) {
+                PointEntity lastPoint = inOneDatePoint.stream().max(Comparator.comparing(PointEntity::getDateOfCreate)).get();
+                if(!result.stream().anyMatch(x ->
+                        x.getType().getId() == point.getType().getId()
+                                && DateHelper.getZeroTimeDate(x.getDate()).compareTo(DateHelper.getZeroTimeDate(point.getDate())) == 0
+                                && x.getPair().getId() == point.getPair().getId()
+                                && x.getStudent().getId() == point.getStudent().getId()
+                )) {
+                    result.add(lastPoint);
+                }
+            } else {
+                result.add(point);
+            }
+        }
+        return result;
+    }
+
+    /**
+     * Поучает установленные отметки до указанной даты
+     * @param points Список отметок
+     * @return Список отметок.
+     */
+    private List<PointEntity> getPointForDate(List<PointEntity> points, Date date) {
+        points = points.stream().filter(x ->
+                DateHelper.getZeroTimeDate(x.getDateOfCreate()).compareTo(DateHelper.getZeroTimeDate(date)) <= 0).collect(Collectors.toList());
+        List<PointEntity> result = getLastPoint(points);
         return result;
     }
 

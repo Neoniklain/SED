@@ -18,6 +18,8 @@ public class PointEntity {
 
     private Date date;
 
+    private Date dateOfCreate;
+
     @ManyToOne
     @JoinColumn(name = "point_type_id", referencedColumnName = "id")
     private PointTypeEntity type;
@@ -29,6 +31,13 @@ public class PointEntity {
     @ManyToOne
     @JoinColumn(name = "pair_id", referencedColumnName = "id")
     private PairEntity pair;
+
+    public Date getDateOfCreate() {
+        return dateOfCreate;
+    }
+    public void setDateOfCreate(Date dateOfCreate) {
+        this.dateOfCreate = dateOfCreate;
+    }
 
     public long getId() {
         return id;

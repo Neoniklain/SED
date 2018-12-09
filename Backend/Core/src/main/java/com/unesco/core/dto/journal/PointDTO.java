@@ -8,6 +8,7 @@ public class PointDTO {
     private int value;
     private long studentId;
     private Date date;
+    private Date dateOfCreate;
     private PointTypeDTO type;
     private long pairId;
 
@@ -52,5 +53,12 @@ public class PointDTO {
     }
     public void setPairId(long pairId) {
         this.pairId = pairId;
+    }
+
+    public Date getDateOfCreate() {
+        return dateOfCreate;
+    }
+    public void setDateOfCreate(Date dateOfCreate) {
+        this.dateOfCreate = dateOfCreate;
     }
 }

@@ -34,12 +34,12 @@ public class JournalDataService implements IJournalDataService {
     @Autowired
     private IPointDataService pointDataService;
 
-    public JournalDTO get(long lessonId)
+    public JournalDTO get(long lessonId, Date date)
     {
-        return getForMonth(lessonId, -1);
+        return getForMonth(lessonId, -1, date);
     }
 
-    public JournalDTO getForMonth(long lessonId, int month)
+    public JournalDTO getForMonth(long lessonId, int month, Date date)
     {
         JournalDTO model = new JournalDTO();
         model.setComparison(new ArrayList<>());
@@ -80,8 +80,6 @@ public class JournalDataService implements IJournalDataService {
             from.set(from.get(Calendar.YEAR), month,1,12,0);
             to.set(from.get(Calendar.YEAR), month, from.getActualMaximum(Calendar.DAY_OF_MONTH),12,0);
         }
-        Date t1 =  from.getTime();
-        Date t2 =  to.getTime();
 
         // Заполнение занятий по указанным дням
         for (PairDTO pair: pairs) {
@@ -102,13 +100,13 @@ public class JournalDataService implements IJournalDataService {
                 if(pair.getWeektype().equals("Нечет") && prityWeek == 1) {
                     starDate.add(Calendar.DAY_OF_WEEK, 7); //Прибавляем неделю
                 }
-                addDate(model.getComparison(), getZeroTimeDate(starDate.getTime()), pair);
+                addDate(model.getComparison(), DateHelper.getZeroTimeDate(starDate.getTime()), pair);
                 starDate.add(Calendar.DAY_OF_WEEK, 14); //Прибавляем две недели
             }
             int amount = pair.getWeektype().equals("Все") ? 7 : 14;
 
             while(starDate.getTime().compareTo(endDate.getTime()) <= 0) {
-                addDate(model.getComparison(), getZeroTimeDate(starDate.getTime()), pair);
+                addDate(model.getComparison(), DateHelper.getZeroTimeDate(starDate.getTime()), pair);
                 starDate.add(Calendar.DAY_OF_WEEK, amount);
             }
         }
@@ -117,7 +115,13 @@ public class JournalDataService implements IJournalDataService {
         List<PointDTO> points = new ArrayList<>();
         for (StudentJournalDTO student : students ) {
             for (PairDTO pair : pairs ) {
-                points.addAll(pointDataService.getByStudentAndPair(student.getStudent().getUser().getId(), pair.getId()));
+                if(date != null) {
+                    points.addAll(pointDataService.getByStudentAndPairBetweenDate(student.getStudent().getUser().getId(),
+                            pair.getId(), from.getTime(), to.getTime(), date));
+                } else {
+                    points.addAll(pointDataService.getByStudentAndPairBetweenDate(student.getStudent().getUser().getId(),
+                            pair.getId(), from.getTime(), to.getTime()));
+                }
             }
         }
         model.setLesson(lesson);
@@ -127,6 +131,27 @@ public class JournalDataService implements IJournalDataService {
         return model;
     }
 
+    public List<Date> getHistoryDates(long lessonId)
+    {
+        JournalDTO model = new JournalDTO();
+        model.setComparison(new ArrayList<>());
+
+        LessonDTO lesson = lessonDataService.get(lessonId);
+        List<StudentJournalDTO> students = studentDataService.getByGroupAndLesson(lesson.getGroup().getId(), lesson.getId());
+        List<PairDTO> pairs = pairDataService.getAllByLesson(lesson.getId());
+
+        // Добавляем в журнал сохраненные отметки
+        List<PointDTO> allByLesson = pointDataService.getAllByLesson(lessonId);
+        Set<Date> allDatesForJournal = allByLesson.stream().map(x -> x.getDateOfCreate()).collect(Collectors.toSet());
+
+        return new ArrayList<>(allDatesForJournal);
+    }
+
+    /**
+     * Сохранение отметок журнала
+     * @param journal Журнал
+     * @return Результат выполнения
+     */
     public ResponseStatusDTO<JournalDTO> save(JournalDTO journal)
     {
         List<PointDTO> points = new ArrayList<>();
@@ -138,61 +163,44 @@ public class JournalDataService implements IJournalDataService {
             if(point.getType().getId() == 0) {
                 PointTypeDTO pointType = pointTypeDataService.findByName(point.getType().getName());
                 if(pointType==null) {
-                    throw new InvalidParameterException("Не верно указан тип отметки");
+                    result.setStatus(StatusTypes.ERROR);
+                    result.addErrors("Не верно указан тип отметки");
+                    return result;
                 }
                 point.setType(pointType);
             }
 
-            if(point.getId() == 0) {
+            // Проверка существования отметки, чтобы не сохранять одинковые отметки несколько раз
+            // Проверяем ставилась ли такая же отметка уже сегодня
+            PointDTO findPoint = pointDataService.getEqualPoint(
+                    point.getStudentId(),
+                    DateHelper.getZeroTimeDate(point.getDate()),
+                    point.getType().getId(),
+                    point.getPairId(),
+                    DateHelper.getZeroTimeDate(new Date()));
 
-                PointDTO findPoint = pointDataService.getByStudentAndDateAndTypeAndPair(
-                        point.getStudentId(),
-                        point.getDate(),
-                        point.getType().getId(),
-                        point.getPairId());
+            if(findPoint!=null) {
+                point.setId(findPoint.getId());
+            }
 
-                if(findPoint!=null) {
-                    point.setId(findPoint.getId());
-                }
+            // Если отметка последний раз ставилась не сегодня, то это новая отметка
+            if(DateHelper.getZeroTimeDate(point.getDateOfCreate() != null ? point.getDateOfCreate() : new Date())
+                    .compareTo(DateHelper.getZeroTimeDate(new Date())) != 0) {
+                point.setId(0);
             }
-            if(point.getValue() != 0) {
-                ResponseStatusDTO<PointDTO> savePointStatus = pointDataService.save(point);
-                if(savePointStatus.getStatus() == StatusTypes.ERROR) {
-                    result.setStatus(StatusTypes.ERROR);
-                    result.setMessage(savePointStatus.getMessage());
-                    return result;
-                }
-                points.add(savePointStatus.getData());
-                continue;
+
+            ResponseStatusDTO<PointDTO> savePointStatus = pointDataService.save(point);
+            if(savePointStatus.getStatus() == StatusTypes.ERROR) {
+                result.setStatus(StatusTypes.ERROR);
+                result.setMessage(savePointStatus.getMessage());
+                return result;
             }
-            if(point.getValue() == 0 && point.getId() != 0) {
-                ResponseStatusDTO<PointDTO> deletePointStatus = pointDataService.delete(point.getId());
-                if (deletePointStatus.getStatus() == StatusTypes.ERROR){
-                    result.setStatus(StatusTypes.ERROR);
-                    result.setMessage(deletePointStatus.getMessage());
-                    return result;
-                }
-                continue;
-            }
+            points.add(savePointStatus.getData());
         }
+
         journal.setJournalCell(points);
         result.setData(journal);
         return result;
-    }
-
-    private Date getZeroTimeDate(Date fecha) {
-        Date res = fecha;
-        Calendar calendar = Calendar.getInstance();
-
-        calendar.setTime( fecha );
-        calendar.set(Calendar.HOUR_OF_DAY, 12);
-        calendar.set(Calendar.MINUTE, 0);
-        calendar.set(Calendar.SECOND, 0);
-        calendar.set(Calendar.MILLISECOND, 0);
-
-        res = calendar.getTime();
-
-        return res;
     }
 
     private void addDate(List<ComparisonDTO> comp, Date date, PairDTO pair) {

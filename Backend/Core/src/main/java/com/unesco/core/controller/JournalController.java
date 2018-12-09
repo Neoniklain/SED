@@ -38,9 +38,9 @@ public class JournalController {
     @Autowired
     private IVisitationConfigManager visitationConfigManager;
 
-    public ResponseStatusDTO getJournal(long lessonId, int month) {
+    public ResponseStatusDTO getJournal(long lessonId, int month, Date forDate) {
 
-        JournalDTO journal = journalDataService.getForMonth(lessonId, month);
+        JournalDTO journal = journalDataService.getForMonth(lessonId, month, forDate);
 
         VisitationConfigDTO visitConfig = visitationConfigDataService.getByLesson(lessonId);
         visitationConfigManager.init(visitConfig);
@@ -54,6 +54,11 @@ public class JournalController {
         return new ResponseStatusDTO(StatusTypes.OK, journalManager.get());
     }
 
+    public ResponseStatusDTO getJournalHistoryDate(long lessonId) {
+        List<Date> historyDates = journalDataService.getHistoryDates(lessonId);
+        return new ResponseStatusDTO(StatusTypes.OK, historyDates);
+    }
+
     /**
      * На данный момент метод не верен.
      * Должен возвращать даты исходя из семестра.
@@ -62,7 +67,7 @@ public class JournalController {
      * @return ResponseStatusDTO
      */
     public ResponseStatusDTO getDates(long lessonId) {
-        JournalDTO journal = journalDataService.get(lessonId);
+        JournalDTO journal = journalDataService.get(lessonId, null);
         return new ResponseStatusDTO(StatusTypes.OK, journal.getComparison().stream().map(x -> x.getDate()).collect(Collectors.toList()));
     }
 
@@ -170,7 +175,7 @@ public class JournalController {
 
     public ResponseStatusDTO getCertificationReport(long lessonId, Date start, Date end) {
 
-        JournalDTO journal = journalDataService.get(lessonId);
+        JournalDTO journal = journalDataService.get(lessonId, null);
 
         VisitationConfigDTO visitConfig = visitationConfigDataService.getByLesson(lessonId);
         visitationConfigManager.init(visitConfig);

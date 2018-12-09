@@ -253,6 +253,7 @@ public class MapperService implements IMapperService {
         Dto.setPairId(Entity.getPair().getId());
         Dto.setType(pointTypeToDto(Entity.getType()));
         Dto.setDate(Entity.getDate());
+        Dto.setDateOfCreate(Entity.getDateOfCreate());
         return Dto;
     }
     public PointEntity pointToEntity(PointDTO Dto)
@@ -265,6 +266,7 @@ public class MapperService implements IMapperService {
         Entity.setValue(Dto.getValue());
         Entity.setType(pointTypeToEntity(Dto.getType()));
         Entity.setDate(Dto.getDate());
+        Entity.setDateOfCreate(Dto.getDateOfCreate());
         return Entity;
     }
 

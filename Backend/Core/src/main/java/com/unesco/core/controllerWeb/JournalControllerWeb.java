@@ -10,7 +10,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.*;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * Created by lukasz on 27.08.2017.
@@ -25,8 +30,16 @@ public class JournalControllerWeb {
     private JournalController journalController;
 
     @GetMapping("/{lessonId}")
-    public ResponseStatusDTO getJournal(@PathVariable("lessonId") long lessonId, @RequestParam int month) {
-        return journalController.getJournal(lessonId, month);
+    public ResponseStatusDTO getJournal(@PathVariable("lessonId") long lessonId, @RequestParam int month, @RequestParam String forDate) {
+        DateFormat format = new SimpleDateFormat("dd.MM.yyyy");
+        Date date = null;
+        try {
+            date = format.parse(forDate);
+        } catch (ParseException e) {
+            Logger.getLogger("JournalControllerWeb").log(Level.ALL, "Could not parse date");
+            Logger.getLogger("JournalControllerWeb").log(Level.ALL, e.getMessage());
+        }
+        return journalController.getJournal(lessonId, month, date);
     }
 
     @RequestMapping("/dates/{lessonId}")
@@ -37,6 +50,11 @@ public class JournalControllerWeb {
     @RequestMapping("/save")
     public ResponseStatusDTO saveJournal(@RequestBody JournalDTO journal) {
         return journalController.saveJournal(journal);
+    }
+
+    @RequestMapping("/history/{lessonId}")
+    public ResponseStatusDTO getJournalHistoryDate(@PathVariable("lessonId") long lessonId) {
+        return journalController.getJournalHistoryDate(lessonId);
     }
 
     @RequestMapping("/event/lesson/{lessonId}")

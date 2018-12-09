@@ -1,14 +1,10 @@
 import {Component, EventEmitter, Injectable, OnInit, Output} from '@angular/core';
 import {Pair} from "../../../models/shedule/pair";
-import {Journal} from "../../../models/journal/journal.model";
 import {User} from "../../../models/account/user.model";
 import {AuthenticationService} from "../../../services/authService";
-import {JournalService} from "../../../services/journal.service";
 import {ScheduleService} from "../../../services/schedule.service";
 import {AccountService} from "../../../services/accountService";
-import {Professor} from "../../../models/account/professor";
 import {DatePipe} from "@angular/common";
-import {CertificationReport, CertificationStudent} from "../../../models/journal/certificationReport.model";
 import {Roles} from "../../../models/account/role.model";
 import {Student} from "../../../models/account/student";
 
@@ -22,7 +18,6 @@ export class JournalPageComponent implements OnInit {
 
     @Output() toogleViewMenu: EventEmitter<any> = new EventEmitter();
     public user: User;
-    public journal: Journal;
     public pairs: Array<Pair> = [];
     public showLoader: boolean = false;
     public month: number;
@@ -32,7 +27,6 @@ export class JournalPageComponent implements OnInit {
     public Roles = Roles;
 
     constructor(private authenticationService: AuthenticationService,
-                private journalService: JournalService,
                 private accountService: AccountService,
                 private ScheduleService: ScheduleService) {
     }
@@ -83,45 +77,14 @@ export class JournalPageComponent implements OnInit {
         );
     }
 
-    changeMonth(event) {
-        this.lastMonth = this.month;
-        this.month = event;
-        this.updateJournal();
-    }
-
     onClick(pair: Pair) {
         this.lastPair = pair;
-        this.updateJournal();
+        this.toogleViewMenu.emit();
     }
 
-    updateJournal() {
-        let lastJournal = new Journal();
-        if (this.journal)
-            lastJournal = JSON.parse(JSON.stringify(this.journal));
-        this.journal = null;
-        if (this.lastPair.id !== 0) {
-            this.showLoader = true;
-            this.journalService.GetJournal(this.lastPair.lesson.id, this.month).subscribe(
-                result => {
-                    for (let key in result.data.сomparison) {
-                    }
-                    if (!this.lastMonth) {
-                        this.toogleViewMenu.emit();
-                    }
-                    this.journal = result.data;
-                    this.showLoader = false;
-                }, error => {
-                    this.journal = lastJournal;
-                    this.month = this.lastMonth;
-                    this.showLoader = false;
-                }
-            );
-        }
-    }
 
     back() {
-        this.lastMonth = null;
-        this.journal = null;
+        this.lastPair = null;
         this.toogleViewMenu.emit();
     }
 

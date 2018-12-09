@@ -1,131 +1,153 @@
-<div *ngIf="journal.students.length > 0" class="col-sm-6">
-    <p-selectButton [options]="types" [(ngModel)]="subgroupType"></p-selectButton>
-</div>
-<div class="col-md-6 text-right">
-    <button style="margin-right: 20px" (click)="certGenerator = true; certificationReport = null;" class="btn btn-default btn-sm">Отчет по аттестации</button>
-</div>
+<div *ngIf="journal && journal.students?.length > 0 && !showLoader">
+    <div class="col-sm-6">
+        <span>
+            <p-selectButton [options]="types" [(ngModel)]="subgroupType"></p-selectButton>
+        </span>
 
-<div *ngIf="journal.students.length > 0" class="col-sm-12 text-right journal">
-    <p-table
-            [columns]="header"
-            [value]="journal.students"
-            [scrollable]="true"
-            [loading]="showLoader"
-            [tableStyleClass]="'table table-bordered table-striped'"
-            scrollHeight="60vh">
-        <ng-template pTemplate="header" let-columns>
-            <tr>
-                <td style="width: 250px" class="td-header"></td>
-                <ng-container>
+        <span style="margin-left: 1em">
+            <p-dropdown (ngModelChange)="changeHistoryDate($event)" [showClear]="true" [options]="historyDates"
+                        [(ngModel)]="selectHistoryDate" [placeholder]="'Отобразить журнал за дату'">
+            <ng-template let-item pTemplate="selectedItem">
+                <span>{{item.label}}</span>
+            </ng-template>
+            <ng-template let-date pTemplate="item">
+                <span>{{date.label}}</span>
+            </ng-template>
+            </p-dropdown>
+        </span>
+    </div>
+
+    <div class="col-md-6 text-right">
+        <button style="margin-right: 20px" (click)="certGenerator = true; certificationReport = null;" class="btn btn-default btn-sm">Отчет по аттестации</button>
+    </div>
+
+    <div class="col-sm-12 text-right journal">
+        <p-table
+                [columns]="header"
+                [value]="journal.students"
+                [scrollable]="true"
+                [loading]="showLoader"
+                [tableStyleClass]="'table table-bordered table-striped'"
+                scrollHeight="60vh">
+            <ng-template pTemplate="header" let-columns>
+                <tr>
+                    <td style="width: 250px" class="td-header"></td>
                     <ng-container>
-                        <td class="td-header" [attr.colspan]="getHeaderLength()">
-                            <div class="col-sm-3 text-left">
-                                <span class="nav-button" (click)="backMonth()"><i class="fa fa-angle-left" aria-hidden="true"></i></span>
-                            </div>
-                            <div class="col-sm-6 text-center">
-                                {{(journal.comparison[0].date | date: 'MMM')[0].toUpperCase() + (journal.comparison[0].date | date: 'MMM').slice(1)}}
-                            </div>
-                            <div class="col-sm-3 text-right">
-                                <span class="nav-button" (click)="nextMonth()"><i class="fa fa-angle-right" aria-hidden="true"></i></span>
-                            </div>
-                        </td>
-                    </ng-container>
-                </ng-container>
-            </tr>
-
-            <tr>
-                <td class="td-header">Дата</td>
-                <ng-container *ngFor="let head of columns">
-                    <td class="td-header" [attr.colspan]="getDateLen(head)" [ngClass]="{today: isCurrentDate(head.date)}">
-                        {{head.date.getDate()}}
-                    </td>
-                </ng-container>
-            </tr>
-
-            <tr>
-                <td class="td-header">Номер занятия</td>
-                <ng-container *ngFor="let head of columns">
-                    <ng-container *ngFor="let num of head.numbers">
-                        <td *ngIf="getForDateLenForNumber(num) > 0" class="td-header" [attr.colspan]="getForDateLenForNumber(num)" >
-                            {{num.number}}
-                        </td>
-                    </ng-container>
-                </ng-container>
-            </tr>
-
-            <tr>
-                <td class="td-header"><b>ФИО.</b></td>
-                <ng-container *ngFor="let head of columns">
-                    <ng-container *ngFor="let numbers of head.numbers">
-                        <ng-container *ngFor="let type of numbers.types">
-                            <td *ngIf="type.pair.subgroup == subgroupType || subgroupType == 0 || type.pair.subgroup == 0"
-                                    class="td-header" [ngSwitch]="type.type.name" style="font-size: 14px" [title]="type.type.name">
-                                <span *ngSwitchCase="'Посещение'"><i class="fa fa-sign-in" aria-hidden="true"></i></span>
-                                <span *ngSwitchDefault><i class="fa fa-circle" aria-hidden="true"></i></span>
+                        <ng-container>
+                            <td class="td-header" [attr.colspan]="getHeaderLength()">
+                                <div class="col-sm-3 text-left">
+                                    <span class="nav-button" (click)="backMonth()"><i class="fa fa-angle-left" aria-hidden="true"></i></span>
+                                </div>
+                                <div class="col-sm-6 text-center">
+                                    {{(journal.comparison[0].date | date: 'MMM')[0].toUpperCase() + (journal.comparison[0].date | date: 'MMM').slice(1)}}
+                                </div>
+                                <div class="col-sm-3 text-right">
+                                    <span class="nav-button" (click)="nextMonth()"><i class="fa fa-angle-right" aria-hidden="true"></i></span>
+                                </div>
                             </td>
                         </ng-container>
                     </ng-container>
-                </ng-container>
-            </tr>
+                </tr>
 
-        </ng-template>
+                <tr>
+                    <td class="td-header">Дата</td>
+                    <ng-container *ngFor="let head of columns">
+                        <td class="td-header" [attr.colspan]="getDateLen(head)" [ngClass]="{today: isCurrentDate(head.date)}">
+                            {{head.date.getDate()}}
+                        </td>
+                    </ng-container>
+                </tr>
 
-        <ng-template pTemplate="body" let-rowData let-columns="columns">
-            <tr *ngIf="rowData.subgroup < 3 && (rowData.subgroup == subgroupType || subgroupType == 0)" [ngClass]="{coloredRow: selectStudentId == rowData.student.id}">
-                <td style="text-align: left; text-overflow: ellipsis; overflow: hidden; width: 250px;"><span style="white-space: nowrap;" [userCard]="rowData.student.user">{{rowData.student.user.userFIO}}</span></td>
-                <ng-template ngFor let-head [ngForOf]="columns">
-                    <ng-template ngFor let-num [ngForOf]="head.numbers">
-                        <ng-template ngFor let-type [ngForOf]="num.types">
-                            <ng-template ngFor let-cell [ngForOf]="journal.journalCell">
-                                <td [ngClass]="{wasChanged: cell.wasChange, disableCell: type.pair.subgroup != rowData.subgroup && type.pair.subgroup != 0 && rowData.subgroup != 0}"
-                                    *ngIf="eqDate(head.date, cell.date)
-                                     && type.type.name == cell.type.name
-                                      && type.pair.id == cell.pairId
-                                      && cell.studentId == rowData.student.id
-                                      && (type.pair.subgroup == subgroupType || subgroupType == 0 || type.pair.subgroup == 0)
-                                      " style="text-align: center">
-                                    <span *ngIf="!(type.pair.subgroup != rowData.subgroup && type.pair.subgroup != 0 && rowData.subgroup != 0)"
-                                          [ngClass]="{whiteZero: cell.value == 0}">
-                                        <input *ngIf="type.type.name != 'Посещение'"
-                                                #elementIn
-                                               [value]="cell.value"
-                                               (click)="$event.target?.select()"
-                                               (focus)="selectStudentId = rowData.student.id"
-                                               (blur)="setCellValue(elementIn.value, cell)"
-                                               type="number">
-                                        <p-checkbox *ngIf="type.type.name == 'Посещение'"
-                                                    [(ngModel)]="cell.value"
-                                                    (ngModelChange)="setCellValue(cell.value ? 1 : 0, cell)"
-                                                    binary="true">
-                                        </p-checkbox>
-                                    </span>
+                <tr>
+                    <td class="td-header">Номер занятия</td>
+                    <ng-container *ngFor="let head of columns">
+                        <ng-container *ngFor="let num of head.numbers">
+                            <td *ngIf="getForDateLenForNumber(num) > 0" class="td-header" [attr.colspan]="getForDateLenForNumber(num)" >
+                                {{num.number}}
+                            </td>
+                        </ng-container>
+                    </ng-container>
+                </tr>
+
+                <tr>
+                    <td class="td-header"><b>ФИО.</b></td>
+                    <ng-container *ngFor="let head of columns">
+                        <ng-container *ngFor="let numbers of head.numbers">
+                            <ng-container *ngFor="let type of numbers.types">
+                                <td *ngIf="type.pair.subgroup == subgroupType || subgroupType == 0 || type.pair.subgroup == 0"
+                                    class="td-header" [ngSwitch]="type.type.name" style="font-size: 14px" [title]="type.type.name">
+                                    <span *ngSwitchCase="'Посещение'"><i class="fa fa-sign-in" aria-hidden="true"></i></span>
+                                    <span *ngSwitchDefault><i class="fa fa-circle" aria-hidden="true"></i></span>
                                 </td>
+                            </ng-container>
+                        </ng-container>
+                    </ng-container>
+                </tr>
+
+            </ng-template>
+
+            <ng-template pTemplate="body" let-rowData let-columns="columns">
+                <tr *ngIf="rowData.subgroup < 3 && (rowData.subgroup == subgroupType || subgroupType == 0)" [ngClass]="{coloredRow: selectStudentId == rowData.student.id}">
+                    <td style="text-align: left; text-overflow: ellipsis; overflow: hidden; width: 250px;"><span style="white-space: nowrap;" [userCard]="rowData.student.user">{{rowData.student.user.userFIO}}</span></td>
+                    <ng-template ngFor let-head [ngForOf]="columns">
+                        <ng-template ngFor let-num [ngForOf]="head.numbers">
+                            <ng-template ngFor let-type [ngForOf]="num.types">
+                                <ng-template ngFor let-cell [ngForOf]="journal.journalCell">
+                                    <td [ngClass]="{wasChanged: cell.wasChange, disableCell: type.pair.subgroup != rowData.subgroup && type.pair.subgroup != 0 && rowData.subgroup != 0}"
+                                        *ngIf="eqDate(head.date, cell.date)
+                                         && type.type.name == cell.type.name
+                                          && type.pair.id == cell.pairId
+                                          && cell.studentId == rowData.student.id
+                                          && (type.pair.subgroup == subgroupType || subgroupType == 0 || type.pair.subgroup == 0)
+                                          " style="text-align: center">
+                                        <span *ngIf="!(type.pair.subgroup != rowData.subgroup && type.pair.subgroup != 0 && rowData.subgroup != 0)"
+                                              [ngClass]="{whiteZero: cell.value == 0}">
+                                            <input *ngIf="type.type.name != 'Посещение'"
+                                                   #elementIn
+                                                   [value]="cell.value"
+                                                   (click)="$event.target?.select()"
+                                                   (focus)="selectStudentId = rowData.student.id"
+                                                   (blur)="setCellValue(elementIn.value, cell)"
+                                                   type="number">
+                                            <p-checkbox *ngIf="type.type.name == 'Посещение'"
+                                                        [(ngModel)]="cell.value"
+                                                        (ngModelChange)="setCellValue(cell.value ? 1 : 0, cell)"
+                                                        binary="true">
+                                            </p-checkbox>
+                                        </span>
+                                    </td>
+                                </ng-template>
                             </ng-template>
                         </ng-template>
                     </ng-template>
-                </ng-template>
-            </tr>
-        </ng-template>
-    </p-table>
+                </tr>
+            </ng-template>
+        </p-table>
+    </div>
+
+    <div class="col-sm-12 text-right">
+        <button [disabled]="selectHistoryDate" (click)="save()" class="btn btn-info btn-success">Сохранить</button>
+    </div>
 </div>
 
-<div *ngIf="journal.students.length > 0" class="col-sm-12 text-right">
-    <button (click)="save()" class="btn btn-info btn-success">Сохранить</button>
-</div>
-
-<div *ngIf="journal.students.length == 0" class="students-not-found">
+<div *ngIf="journal && journal.students?.length == 0 && !showLoader" class="students-not-found">
     <h1>Студенты для группы не заданы.</h1>
 </div>
 
+<div *ngIf="!journal && !showLoader" class="students-not-found">
+    <h1>Что-то полшло не так.</h1>
+</div>
+
+<data-loader [show]="!journal && showLoader" [margin]="9"></data-loader>
 
 <p-dialog header="Генератор отчета" [(visible)]="certGenerator" [modal]="true" [responsive]="true" [width]="500" [minWidth]="300" [minY]="70"
           [maximizable]="false">
     <div *ngIf="!certificationReport">
         <div class="col-md-6 text-center">
-            <p-calendar appendTo="body" placeholder="Начало" [(ngModel)]="reportSatrtDate"></p-calendar>
+            <p-calendar [locale]="ru" appendTo="body" placeholder="Начало" [(ngModel)]="reportSatrtDate"></p-calendar>
         </div>
         <div class="col-md-6 text-center">
-            <p-calendar appendTo="body" placeholder="Конец" [(ngModel)]="reportEndDate"></p-calendar>
+            <p-calendar [locale]="ru" appendTo="body" placeholder="Конец" [(ngModel)]="reportEndDate"></p-calendar>
         </div>
         <div class="col-md-12 text-center" style="margin-top: 1em;">
             <button (click)="getCertification()" class="btn btn-default btn-sm">Создать</button>

@@ -31,9 +31,10 @@ export class JournalService {
           );
    }
 
-    public GetJournal(lessonId, month): Observable<ResponseStatus> {
+    public GetJournal(lessonId, month, forDate?): Observable<ResponseStatus> {
         let params = new HttpParams();
         params = params.set("month", month);
+        params = params.set("forDate", !forDate ? '' : forDate);
 
         return this.http.get(ApiRouteConstants.Journal.All
             .replace(":lessonId", lessonId), {params: params })
@@ -61,6 +62,20 @@ export class JournalService {
             .replace(":lessonId", lessonId))
             .pipe(
                 map((res: ResponseStatus) => res),
+                catchError(e => this.handleError.handle(e))
+            );
+    }
+
+    public GetJournalHistoryDate(lessonId): Observable<ResponseStatus> {
+        return this.http.get(ApiRouteConstants.Journal.HistoryDates
+            .replace(":lessonId", lessonId))
+            .pipe(
+                map((res: ResponseStatus) => {
+                    for (let i = 0; i < res.data.length; i++) {
+                        res.data[i] = new Date(res.data[i]);
+                    }
+                    return res;
+                }),
                 catchError(e => this.handleError.handle(e))
             );
     }
