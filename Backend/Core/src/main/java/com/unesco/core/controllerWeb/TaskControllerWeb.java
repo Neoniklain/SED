@@ -5,6 +5,7 @@ import com.unesco.core.controller.TaskController;
 import com.unesco.core.dto.task.TaskDescriptionDTO;
 import com.unesco.core.dto.task.TaskUserDTO;
 import com.unesco.core.dto.additional.ResponseStatusDTO;
+import com.unesco.core.repositories.moodlerest.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
