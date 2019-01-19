@@ -8,7 +8,7 @@ import {ScheduleService} from "../../../services/schedule.service";
 import {Lesson} from "../../../models/shedule/lesson";
 import {NotificationService} from "../../../services/notification.service";
 import {Student} from "../../../models/account/student";
-import {AccountService} from "../../../services/accountService";
+import {AccountService} from "../../../services/account.service";
 import {StudentJournal, StudentJournalList} from "../../../models/journal/journal.model";
 
 @Component({

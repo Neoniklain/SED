@@ -1,5 +1,5 @@
 import {Component, OnInit} from "@angular/core";
-import {AuthenticationService} from "../../../services/authService";
+import {AuthenticationService} from "../../../services/auth.service";
 import {UserCreate} from "../../../models/account/user.model";
 import {Role} from "../../../models/account/role.model";
 import {DictionaryService} from "../../../services/dictionary.service";
@@ -7,7 +7,7 @@ import {UtilsService} from "../../../services/utils.service";
 import {Group} from "../../../models/shedule/group";
 import {Department} from "../../../models/shedule/department";
 import {Roles} from "../../../models/account/role.model";
-import {AccountService} from "../../../services/accountService";
+import {AccountService} from "../../../services/account.service";
 import {StatusType} from "../../../models/statusType.model";
 import {NotificationService} from "../../../services/notification.service";
 import {Dictionary} from "../../../models/admin/dictionary.model";

@@ -1,6 +1,6 @@
 import {Component, Injectable, OnInit} from '@angular/core';
 import {Router} from "@angular/router";
-import {AuthenticationService} from "../../../services/authService";
+import {AuthenticationService} from "../../../services/auth.service";
 import {RouteConstants} from "../../../bootstrap/app.route.constants";
 
 @Component({

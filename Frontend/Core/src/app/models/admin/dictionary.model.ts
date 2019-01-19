@@ -9,5 +9,6 @@ export enum Dictionary {
    "pairTypes" = 8,
    "professors" = 9,
    "fieldOfKnowladge" = 10,
-   "pointTypes" = 11
+   "pointTypes" = 11,
+   "specialities" = 12,
 }

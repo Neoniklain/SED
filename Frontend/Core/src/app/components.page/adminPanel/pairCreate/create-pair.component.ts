@@ -9,7 +9,7 @@ import {Discipline} from "../../../models/shedule/discipline";
 import {Room} from "../../../models/shedule/room.model";
 import {Group} from "../../../models/shedule/group";
 import {DictionaryService} from "../../../services/dictionary.service";
-import {AccountService} from "../../../services/accountService";
+import {AccountService} from "../../../services/account.service";
 import {PageResult} from "../../../models/admin/PageResult.model.list";
 import {NotificationService} from "../../../services/notification.service";
 import {DayOfWeek} from "../../../models/shedule/dayOfWeek.enum";

@@ -1,9 +1,9 @@
 import {Component, EventEmitter, Input, OnInit, Output, ViewChild} from "@angular/core";
 import {TaskService} from "../../../services/task.service";
-import {AccountService} from "../../../services/accountService";
+import {AccountService} from "../../../services/account.service";
 import {NotificationService} from "../../../services/notification.service";
 import {FileService} from "../../../services/file.service";
-import {AuthenticationService} from "../../../services/authService";
+import {AuthenticationService} from "../../../services/auth.service";
 import {TaskDescription, TaskStatusType, TaskType, TaskUser} from "../../../models/task/task.model";
 import {ObjectType} from "../../../models/file/file.model";
 import {StatusType} from "../../../models/statusType.model";

@@ -1,6 +1,6 @@
 import {Component, Injectable, OnInit} from '@angular/core';
 import {User} from "../../../models/account/user.model";
-import {AuthenticationService} from "../../../services/authService";
+import {AuthenticationService} from "../../../services/auth.service";
 import {NotificationService} from "../../../services/notification.service";
 import {StatusType} from "../../../models/statusType.model";
 @Component({

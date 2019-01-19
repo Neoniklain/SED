@@ -1,14 +1,12 @@
 package com.unesco.core.dto.shedule;
 
-import com.unesco.core.dto.plan.DepartmentDTO;
-
 public class GroupDTO {
 
    private long id;
    private String name;
 
    /** Поле кафедры */
-   private DepartmentDTO department;
+   private SpecialityDTO specialty;
 
    public long getId() {
       return id;
@@ -24,11 +22,11 @@ public class GroupDTO {
       this.name = name;
    }
 
-   public DepartmentDTO getDepartment() {
-      return department;
+   public SpecialityDTO getSpecialty() {
+      return specialty;
    }
-   public void setDepartment(DepartmentDTO department) {
-      this.department = department;
+   public void setSpecialty(SpecialityDTO specialty) {
+      this.specialty = specialty;
    }
 
    public GroupDTO() {

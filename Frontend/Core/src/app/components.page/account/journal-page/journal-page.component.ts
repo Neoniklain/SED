@@ -1,9 +1,9 @@
 import {Component, EventEmitter, Injectable, OnInit, Output} from '@angular/core';
 import {Pair} from "../../../models/shedule/pair";
 import {User} from "../../../models/account/user.model";
-import {AuthenticationService} from "../../../services/authService";
+import {AuthenticationService} from "../../../services/auth.service";
 import {ScheduleService} from "../../../services/schedule.service";
-import {AccountService} from "../../../services/accountService";
+import {AccountService} from "../../../services/account.service";
 import {DatePipe} from "@angular/common";
 import {Roles} from "../../../models/account/role.model";
 import {Student} from "../../../models/account/student";

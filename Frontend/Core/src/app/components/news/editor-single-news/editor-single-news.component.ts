@@ -5,7 +5,7 @@ import {Location} from '@angular/common';
 import {Message} from "primeng/components/common/message";
 import {News} from "../../../models/news/news.model";
 import {NewsService} from "../../../services/news.service";
-import {AuthenticationService} from "../../../services/authService";
+import {AuthenticationService} from "../../../services/auth.service";
 import {RouteConstants} from "../../../bootstrap/app.route.constants";
 import {NotificationService} from "../../../services/notification.service";
 import {StatusType} from "../../../models/statusType.model";

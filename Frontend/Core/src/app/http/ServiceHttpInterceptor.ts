@@ -2,7 +2,7 @@
 
 import { Injectable } from '@angular/core';
 import { Observable } from "rxjs/Rx";
-import {AuthenticationService, TOKEN_NAME} from '../services/authService';
+import {AuthenticationService, TOKEN_NAME} from '../services/auth.service';
 import { Router } from "@angular/router";
 import { RouteConstants, BaseApiUrl } from "../bootstrap/app.route.constants";
 

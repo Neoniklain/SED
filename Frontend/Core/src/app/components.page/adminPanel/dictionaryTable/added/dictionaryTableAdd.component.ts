@@ -12,6 +12,7 @@ import {Department} from "../../../../models/shedule/department";
 import {Room} from "../../../../models/shedule/room.model";
 import {StatusType} from "../../../../models/statusType.model";
 import {NotificationService} from "../../../../services/notification.service";
+import {Speciality} from "../../../../models/shedule/speciality";
 
 @Component({
 selector: 'dictionary-table-add',
@@ -33,6 +34,7 @@ export class DictionaryTableAddComponent implements OnInit, OnChanges {
     public fieldOfKnowledges: Array<FieldOfKnowledge>;
     public institutes: Array<Institute>;
     public departments: Array<Department>;
+    public speciality: Array<Speciality>;
     public Dictionary;
     public columnsName: string[];
 
@@ -79,6 +81,9 @@ export class DictionaryTableAddComponent implements OnInit, OnChanges {
                 break;
             case Dictionary.departments.toString():
                 this.model = new Department();
+                break;
+            case Dictionary.specialities.toString():
+                this.model = new Speciality();
                 break;
             case Dictionary.groups.toString():
                 this.model = new Group();
@@ -138,8 +143,11 @@ export class DictionaryTableAddComponent implements OnInit, OnChanges {
             case Dictionary.departments.toString():
                 this.dictionaryService.Get(Dictionary.institutes).subscribe(result => { this.institutes = result.content; });
                 break;
-            case Dictionary.groups.toString():
+            case Dictionary.specialities.toString():
                 this.dictionaryService.Get(Dictionary.departments).subscribe(result => { this.departments = result.content; });
+                break;
+            case Dictionary.groups.toString():
+                this.dictionaryService.Get(Dictionary.specialities).subscribe(result => { this.speciality = result.content; });
                 break;
         }
     }

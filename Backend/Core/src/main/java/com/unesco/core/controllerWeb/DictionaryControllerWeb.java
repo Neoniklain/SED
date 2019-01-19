@@ -121,6 +121,19 @@ public class DictionaryControllerWeb {
       return dictionaryController.deleteDiscipline(id);
    }
 
+   @RequestMapping(method = RequestMethod.POST, value = "speciality")
+   public PageResultDTO<SpecialityDTO> getSpecialityList(@RequestBody FilterQueryDTO filter) {
+      return dictionaryController.getSpecialityList(filter);
+   }
+   @RequestMapping(method = RequestMethod.PUT, value = "speciality")
+   public ResponseStatusDTO addSpeciality(@RequestBody SpecialityDTO speciality) {
+      return dictionaryController.addSpeciality(speciality);
+   }
+   @RequestMapping(method = RequestMethod.DELETE, value = "speciality/{id}")
+   public ResponseStatusDTO deleteSpeciality(@PathVariable("id") long id) {
+      return dictionaryController.deleteSpeciality(id);
+   }
+
    @RequestMapping(method = RequestMethod.POST, value = "pointType")
    public PageResultDTO<PointTypeDTO> getPointTypeList(@RequestBody FilterQueryDTO filter) {
       return dictionaryController.getPointTypeList(filter);

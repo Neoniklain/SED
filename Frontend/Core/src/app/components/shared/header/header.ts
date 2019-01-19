@@ -2,7 +2,7 @@
 import {Router} from "@angular/router";
 import {Roles} from "../../../models/account/role.model";
 
-import {AuthenticationService} from "../../../services/authService";
+import {AuthenticationService} from "../../../services/auth.service";
 import {Globals} from "../../../globals";
 import {RouteConstants} from "../../../bootstrap/app.route.constants";
 import {User} from "../../../models/account/user.model";

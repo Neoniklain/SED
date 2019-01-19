@@ -1,7 +1,7 @@
 import {Component, Injectable, OnInit} from '@angular/core';
 import {Router} from "@angular/router";
 import {User} from "../../models/account/user.model";
-import {AuthenticationService} from "../../services/authService";
+import {AuthenticationService} from "../../services/auth.service";
 import {Roles} from "../../models/account/role.model";
 import {AccessRightType} from "../../models/account/access";
 

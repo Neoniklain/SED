@@ -42,5 +42,6 @@ export const LANG_RU_TRANS = {
     "settings-page": "Профиль",
     "Answer": "Ответ",
     "Info": "Оповещение",
+    "speciality": "Направление",
     "Notice": "Уведомление о прочтении"
 };

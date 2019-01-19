@@ -1,8 +1,8 @@
 import {Component, EventEmitter, Injectable, OnInit, Output} from '@angular/core';
 import {User} from "../../../models/account/user.model";
-import {AuthenticationService} from "../../../services/authService";
+import {AuthenticationService} from "../../../services/auth.service";
 import {ScheduleService} from "../../../services/schedule.service";
-import {AccountService} from "../../../services/accountService";
+import {AccountService} from "../../../services/account.service";
 import {Professor} from "../../../models/account/professor";
 import {Lesson} from "../../../models/shedule/lesson";
 

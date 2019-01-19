@@ -14,7 +14,7 @@ import {Group} from "../../../models/shedule/group";
 import {DictionaryService} from "../../../services/dictionary.service";
 import {Discipline} from "../../../models/shedule/discipline";
 import {Professor} from "../../../models/account/professor";
-import {AccountService} from "../../../services/accountService";
+import {AccountService} from "../../../services/account.service";
 import {Room} from "../../../models/shedule/room.model";
 import {ScheduleService} from "../../../services/schedule.service";
 import {isUndefined} from "util";

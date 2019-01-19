@@ -23,6 +23,7 @@ import {Professor} from "../models/account/professor";
 import {FieldOfKnowledge} from "../models/shedule/fieldOfKnowledge";
 import {PointType} from "../models/journal/journal.model";
 import {catchError, map} from "rxjs/operators";
+import {Speciality} from "../models/shedule/speciality";
 
 @Injectable()
 export class DictionaryService {
@@ -86,6 +87,9 @@ export class DictionaryService {
             case Dictionary.departments.toString():
                 model = new Array<Department>();
                 break;
+            case Dictionary.specialities.toString():
+                model = new Array<Speciality>();
+                break;
             case Dictionary.rooms.toString():
                 model = new Array<Room>();
                 break;
@@ -128,6 +132,9 @@ export class DictionaryService {
                 break;
             case Dictionary.departments.toString():
                 url = ApiRouteConstants.Dictonary.Page.Departments;
+                break;
+            case Dictionary.specialities.toString():
+                url = ApiRouteConstants.Dictonary.Page.Specialities;
                 break;
             case Dictionary.rooms.toString():
                 url = ApiRouteConstants.Dictonary.Page.Rooms;

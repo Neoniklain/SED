@@ -1,13 +1,13 @@
-import {Department} from "./department";
+import {Speciality} from "./speciality";
 
 export class Group {
     public id: number;
     public name: string;
-    public department: Department;
+    public speciality: Speciality;
 
     constructor() {
         this.id = 0;
         this.name = "";
-        this.department = new Department();
+        this.speciality = new Speciality();
     }
 }

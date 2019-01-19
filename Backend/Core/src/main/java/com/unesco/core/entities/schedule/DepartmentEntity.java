@@ -13,20 +13,17 @@ public class DepartmentEntity {
     @SequenceGenerator(name = "departmentSequenceGen", sequenceName = "departmentSequenceGen", allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "departmentSequenceGen")
     private long id;
-    /**
-     * Поле название
-     */
+
     @Column(unique=true)
     private String name;
+
     @ManyToOne
     @JoinColumn(name = "institute_id", referencedColumnName = "id")
-    /** Поле Институты */
     private InstituteEntity institute;
 
     public long getId() {
         return id;
     }
-
     public void setId(long id) {
         this.id = id;
     }
@@ -34,7 +31,6 @@ public class DepartmentEntity {
     public String getName() {
         return name;
     }
-
     public void setName(String name) {
         this.name = name;
     }
@@ -42,12 +38,9 @@ public class DepartmentEntity {
     public InstituteEntity getInstitute() {
         return institute;
     }
-
     public void setInstitute(InstituteEntity instituteEntity) {
         this.institute = instituteEntity;
     }
-
-
 
     public DepartmentEntity() {
     }

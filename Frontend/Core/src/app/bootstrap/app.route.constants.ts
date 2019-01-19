@@ -127,6 +127,7 @@ export const ApiRouteConstants = {
             Users: "dictionary/user",
             Institutes: "dictionary/institute",
             Departments: "dictionary/department",
+            Specialities: "dictionary/speciality",
             Groups: "dictionary/group",
             Roles: "dictionary/role",
             Rooms: "dictionary/room",

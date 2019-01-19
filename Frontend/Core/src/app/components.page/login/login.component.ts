@@ -2,7 +2,7 @@ import {Component, ViewChild} from '@angular/core';
 import {Router} from '@angular/router';
 import {LogInUser, User} from "../../models/account/user.model";
 import {MessageService} from "primeng/components/common/messageservice";
-import {AuthenticationService} from "../../services/authService";
+import {AuthenticationService} from "../../services/auth.service";
 import {NgForm} from "@angular/forms";
 import {Globals} from "../../globals";
 import {StatusType} from "../../models/statusType.model";

@@ -1,7 +1,7 @@
 ﻿import {Component, Input, OnChanges, OnInit} from "@angular/core";
 import {Router} from "@angular/router";
 import {FileUploaderOptions, FileUploader} from "ng2-file-upload";
-import {AuthenticationService} from "../../../services/authService";
+import {AuthenticationService} from "../../../services/auth.service";
 
 const MB = 1024 * 1024;
 const URL = 'http://localhost:8080/api/excel/ParseStudyPlan';

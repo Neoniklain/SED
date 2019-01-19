@@ -18,6 +18,7 @@ import com.unesco.core.managers.schedule.fieldofknowledgeManager.interfaces.fiel
 import com.unesco.core.managers.schedule.groupManager.interfaces.group.IGroupManager;
 import com.unesco.core.managers.schedule.instituteManager.interfaces.institute.IInstituteManager;
 import com.unesco.core.managers.schedule.roomManager.interfaces.room.IRoomManager;
+import com.unesco.core.managers.schedule.specialityManager.interfaces.speciality.ISpecialityManager;
 import com.unesco.core.services.dataService.IDataService;
 import com.unesco.core.services.dataService.account.professorService.IProfessorDataService;
 import com.unesco.core.services.dataService.account.roleService.IRoleDataService;
@@ -30,6 +31,7 @@ import com.unesco.core.services.dataService.schedule.groupService.IGroupDataServ
 import com.unesco.core.services.dataService.schedule.instituteService.IInstituteDataService;
 import com.unesco.core.services.dataService.schedule.pairTypeService.IPairTypeDataService;
 import com.unesco.core.services.dataService.schedule.roomService.IRoomDataService;
+import com.unesco.core.services.dataService.schedule.specialityService.ISpecialityDataService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -60,6 +62,8 @@ public class DictionaryController {
    private IPointTypeDataService pointTypeDataService;
    @Autowired
    private IPairTypeDataService pairTypeDataService;
+   @Autowired
+   private ISpecialityDataService specialityDataService;
 
    @Autowired
    private IDisciplineManager disciplineManager;
@@ -81,6 +85,9 @@ public class DictionaryController {
 
    @Autowired
    private IRoomManager roomManager;
+
+   @Autowired
+   private ISpecialityManager specialityManager;
 
    public PageResultDTO<ProfessorDTO> getProfessorList(FilterQueryDTO filter) {
       return professorDataService.getPage(filter);
@@ -159,6 +166,16 @@ public class DictionaryController {
       return delete(disciplineManager, disciplineDataService, id);
    }
 
+
+   public PageResultDTO<SpecialityDTO> getSpecialityList(FilterQueryDTO filter) {
+      return specialityDataService.getPage(filter);
+   }
+   public ResponseStatusDTO addSpeciality(SpecialityDTO speciality) {
+      return add(specialityManager, specialityDataService, speciality);
+   }
+   public ResponseStatusDTO deleteSpeciality(long id) {
+      return delete(specialityManager, specialityDataService, id);
+   }
 
    public PageResultDTO<PointTypeDTO> getPointTypeList(FilterQueryDTO filter) {
       List<PointTypeDTO> pointTypeModels = pointTypeDataService.getAll();

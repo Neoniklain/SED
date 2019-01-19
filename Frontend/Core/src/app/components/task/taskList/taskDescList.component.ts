@@ -2,7 +2,7 @@ import {Component} from '@angular/core';
 import {TaskDescription, TaskStatusType} from "../../../models/task/task.model";
 import {TaskService} from "../../../services/task.service";
 import {User} from "../../../models/account/user.model";
-import {AuthenticationService} from "../../../services/authService";
+import {AuthenticationService} from "../../../services/auth.service";
 import {Router} from "@angular/router";
 import {NotificationService} from "../../../services/notification.service";
 import {AccessRightType} from "../../../models/account/access";

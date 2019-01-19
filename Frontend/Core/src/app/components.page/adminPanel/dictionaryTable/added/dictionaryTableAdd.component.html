@@ -26,14 +26,14 @@
                   </div>
               </div>
 
-            <div *ngSwitchCase="'department'">
-              <label for="{{column}}" class="col-sm-offset-2 col-sm-2 col-form-label">{{column | translate}}</label>
-              <div class="col-sm-6" id="{{column}}">
-                  <select #institute="ngModel" required  [(ngModel)]="model[column].id" class="form-control">
-                      <option disabled value="0">Выбор кафедры</option>
-                      <option *ngFor="let item of departments" value="{{item.id}}">{{item.name}}</option>
-                  </select>
-              </div>
+            <div *ngSwitchCase="'speciality'">
+                <label for="{{column}}" class="col-sm-offset-2 col-sm-2 col-form-label">{{column | translate}}</label>
+                <div class="col-sm-6" id="{{column}}">
+                    <select #institute="ngModel" required  [(ngModel)]="model[column].id" class="form-control">
+                        <option disabled value="0">Выбор направления</option>
+                        <option *ngFor="let item of speciality" value="{{item.id}}">{{item.name}}</option>
+                    </select>
+                </div>
             </div>
 
             <div *ngSwitchDefault>

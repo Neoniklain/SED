@@ -1,7 +1,7 @@
 ﻿import {Component, OnInit, Input, Output, EventEmitter} from "@angular/core";
 import {User} from "../../../models/account/user.model";
 import {NotificationService} from "../../../services/notification.service";
-import {AccountService} from "../../../services/accountService";
+import {AccountService} from "../../../services/account.service";
 import {Dictionary} from "../../../models/admin/dictionary.model";
 import {LazyLoadEvent} from "primeng/api";
 import {DictionaryService} from "../../../services/dictionary.service";

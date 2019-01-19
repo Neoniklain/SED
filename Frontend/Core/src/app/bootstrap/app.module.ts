@@ -45,10 +45,10 @@ import {ServiceHttpInterceptor} from "../http/serviceHttpInterceptor";
 // services
 import {NewsService} from "../services/news.service";
 import {TaskService} from "../services/task.service";
-import {AuthenticationService} from "../services/authService";
+import {AuthenticationService} from "../services/auth.service";
 import {ScheduleService} from "../services/schedule.service";
 import {PluginService} from "../services/plugin.service";
-import {AccountService} from "../services/accountService";
+import {AccountService} from "../services/account.service";
 import {DictionaryService} from "../services/dictionary.service";
 import {JournalService} from "../services/journal.service";
 import {UtilsService} from "../services/utils.service";

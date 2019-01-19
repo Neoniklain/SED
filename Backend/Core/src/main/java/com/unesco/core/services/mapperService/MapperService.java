@@ -118,6 +118,9 @@ public class MapperService implements IMapperService {
         if (model instanceof AccessRightDTO)
             return accessRightToEntity((AccessRightDTO) model);
 
+        if (model instanceof SpecialityDTO)
+            return specialityToEntity((SpecialityDTO) model);
+
         return new Exception("Not found " + model.getClass().toString() + " model class");
     }
 
@@ -194,6 +197,9 @@ public class MapperService implements IMapperService {
 
         if (entity instanceof AccessRightEntity)
             return accessRightToDTO((AccessRightEntity) entity);
+
+        if (entity instanceof SpecialityEntity)
+            return specialityToDto((SpecialityEntity) entity);
 
         return new Exception("Not found " + entity.getClass().toString() + " entity class");
     }
@@ -697,6 +703,26 @@ public class MapperService implements IMapperService {
         return Entity;
     }
 
+    public SpecialityDTO specialityToDto(SpecialityEntity Entity)
+    {
+        if (Entity == null) return null;
+        SpecialityDTO Dto = new SpecialityDTO();
+
+        Dto.setId(Entity.getId());
+        Dto.setName(Entity.getName());
+        Dto.setDepartment(departmentToDto(Entity.getDepartment()));
+        return Dto;
+    }
+    public SpecialityEntity specialityToEntity(SpecialityDTO Dto)
+    {
+        if (Dto == null) return null;
+        SpecialityEntity Entity = new SpecialityEntity();
+        Entity.setId(Dto.getId());
+        Entity.setName(Dto.getName());
+        Entity.setDepartment(departmentToEntity(Dto.getDepartment()));
+        return Entity;
+    }
+
     public GroupDTO groupToDto(GroupEntity Entity)
     {
         if (Entity == null) return null;
@@ -704,7 +730,7 @@ public class MapperService implements IMapperService {
 
         Dto.setName(Entity.getName());
         Dto.setId(Entity.getId());
-        Dto.setDepartment(departmentToDto(Entity.getDepartment()));
+        Dto.setSpecialty(specialityToDto(Entity.getSpecialty()));
 
         return Dto;
     }
@@ -716,7 +742,7 @@ public class MapperService implements IMapperService {
 
         Entity.setName(Dto.getName());
         Entity.setId(Dto.getId());
-        Entity.setDepartment(departmentToEntity(Dto.getDepartment()));
+        Entity.setSpecialty(specialityToEntity(Dto.getSpecialty()));
 
         return Entity;
     }

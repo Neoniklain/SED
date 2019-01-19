@@ -9,12 +9,13 @@ public class GroupEntity {
    @SequenceGenerator(name = "groupSequenceGen", sequenceName = "groupSequenceGen", allocationSize = 1)
    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "groupSequenceGen")
    private long id;
+
    @Column(unique=true)
    private String name;
+
    @ManyToOne
-   @JoinColumn(name = "department_id", referencedColumnName = "id")
-   /** Поле кафедры */
-   private DepartmentEntity department;
+   @JoinColumn(name = "specialty_id", referencedColumnName = "id")
+   private SpecialityEntity specialty;
 
    public long getId() {
       return id;
@@ -30,10 +31,10 @@ public class GroupEntity {
       this.name = name;
    }
 
-   public DepartmentEntity getDepartment() {
-      return department;
+   public SpecialityEntity getSpecialty() {
+      return specialty;
    }
-   public void setDepartment(DepartmentEntity department) {
-      this.department = department;
+   public void setSpecialty(SpecialityEntity specialty) {
+      this.specialty = specialty;
    }
 }

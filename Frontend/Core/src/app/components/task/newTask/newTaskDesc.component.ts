@@ -1,11 +1,11 @@
 import {Component, EventEmitter, Input, Output, ViewChild} from "@angular/core";
 import {TaskDescription, TaskStatusType, TaskType, TaskUser} from "../../../models/task/task.model";
 import {TaskService} from "../../../services/task.service";
-import {AccountService} from "../../../services/accountService";
+import {AccountService} from "../../../services/account.service";
 import {User} from "../../../models/account/user.model";
 import {NotificationService} from "../../../services/notification.service";
 import {FileUploader, FileUploaderOptions} from "ng2-file-upload";
-import {AuthenticationService} from "../../../services/authService";
+import {AuthenticationService} from "../../../services/auth.service";
 import {ApiRouteConstants, BaseApiUrl} from "../../../bootstrap/app.route.constants";
 import {FileDescription, ObjectType} from "../../../models/file/file.model";
 import {FileService} from "../../../services/file.service";
