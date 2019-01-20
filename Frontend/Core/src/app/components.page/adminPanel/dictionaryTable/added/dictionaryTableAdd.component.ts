@@ -69,29 +69,7 @@ export class DictionaryTableAddComponent implements OnInit, OnChanges {
     }
 
     updateModel() {
-        switch (this.type.toString()) {
-            case Dictionary.users.toString():
-                this.model = new User();
-                break;
-            case Dictionary.disciplines.toString():
-                this.model = new Discipline();
-                break;
-            case Dictionary.institutes.toString():
-                this.model = new Institute();
-                break;
-            case Dictionary.departments.toString():
-                this.model = new Department();
-                break;
-            case Dictionary.specialities.toString():
-                this.model = new Speciality();
-                break;
-            case Dictionary.groups.toString():
-                this.model = new Group();
-                break;
-            case Dictionary.rooms.toString():
-                this.model = new Room();
-                break;
-        }
+        this.model = this.dictionaryService.CreateInstance(this.type);
     }
 
     Add() {
@@ -144,6 +122,7 @@ export class DictionaryTableAddComponent implements OnInit, OnChanges {
                 this.dictionaryService.Get(Dictionary.institutes).subscribe(result => { this.institutes = result.content; });
                 break;
             case Dictionary.specialities.toString():
+                this.dictionaryService.Get(Dictionary.institutes).subscribe(result => { this.institutes = result.content; });
                 this.dictionaryService.Get(Dictionary.departments).subscribe(result => { this.departments = result.content; });
                 break;
             case Dictionary.groups.toString():

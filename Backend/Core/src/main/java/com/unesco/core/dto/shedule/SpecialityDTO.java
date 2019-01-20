@@ -5,7 +5,9 @@ import com.unesco.core.dto.plan.DepartmentDTO;
 public class SpecialityDTO {
     private long id;
     private String name;
+    private String code;
     private DepartmentDTO department;
+    private InstituteDTO institute;
 
     public long getId() {
         return id;
@@ -21,11 +23,25 @@ public class SpecialityDTO {
         this.name = name;
     }
 
+    public String getCode() {
+        return code;
+    }
+    public void setCode(String code) {
+        this.code = code;
+    }
+
     public DepartmentDTO getDepartment() {
         return department;
     }
     public void setDepartment(DepartmentDTO department) {
         this.department = department;
+    }
+
+    public InstituteDTO getInstitute() {
+        return institute;
+    }
+    public void setInstitute(InstituteDTO institute) {
+        this.institute = institute;
     }
 }
 

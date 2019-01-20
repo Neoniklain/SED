@@ -710,7 +710,9 @@ public class MapperService implements IMapperService {
 
         Dto.setId(Entity.getId());
         Dto.setName(Entity.getName());
+        Dto.setCode(Entity.getCode());
         Dto.setDepartment(departmentToDto(Entity.getDepartment()));
+        Dto.setInstitute(instituteToDto(Entity.getInstitute()));
         return Dto;
     }
     public SpecialityEntity specialityToEntity(SpecialityDTO Dto)
@@ -719,7 +721,9 @@ public class MapperService implements IMapperService {
         SpecialityEntity Entity = new SpecialityEntity();
         Entity.setId(Dto.getId());
         Entity.setName(Dto.getName());
+        Entity.setCode(Dto.getCode());
         Entity.setDepartment(departmentToEntity(Dto.getDepartment()));
+        Entity.setInstitute(instituteToEntity(Dto.getInstitute()));
         return Entity;
     }
 

@@ -1,15 +1,14 @@
-﻿import {Component, EventEmitter, Input, OnChanges, OnInit, Output} from "@angular/core";
+﻿import {Component, Input, OnChanges, OnInit} from "@angular/core";
 import {Router} from "@angular/router";
 import {LazyLoadEvent} from "primeng/api";
-import {isDate, isObject} from "util";
 import {Dictionary} from "../../../models/admin/dictionary.model";
 import {PageResult} from "../../../models/admin/PageResult.model.list";
 import {DictionaryService} from "../../../services/dictionary.service";
 
 @Component({
-selector: 'dictionary',
-templateUrl: "./dictionaryTable.component.html",
-styleUrls: ["./dictionaryTable.component.css"],
+    selector: 'dictionary',
+    templateUrl: "./dictionaryTable.component.html",
+    styleUrls: ["./dictionaryTable.component.css"],
 })
 
 export class DictionaryComponent implements OnInit, OnChanges {
@@ -18,7 +17,6 @@ export class DictionaryComponent implements OnInit, OnChanges {
 
     public columnsName: string[];
     public model;
-    public deleteModel;
     public updateTableTrigger: boolean = false;
     public editMode: boolean = false;
     public deleteMode: boolean = false;
@@ -28,15 +26,15 @@ export class DictionaryComponent implements OnInit, OnChanges {
 
     public loading: boolean = false;
 
-    constructor(private router: Router,
-               private dictionaryService: DictionaryService) { }
+    constructor() {
+    }
 
     ngOnInit(): void {
-      this.Dictionary = Dictionary;
+        this.Dictionary = Dictionary;
     }
 
     ngOnChanges(): void {
-      this.model = null;
+        this.model = null;
     }
 
     // Редактирование модели
@@ -44,6 +42,7 @@ export class DictionaryComponent implements OnInit, OnChanges {
         this.model = item;
         this.editMode = true;
     }
+
     // Удаление модели
     delete(item) {
         this.model = item;
@@ -61,6 +60,7 @@ export class DictionaryComponent implements OnInit, OnChanges {
         this.loading = false;
         this.updateTableTrigger = true;
     }
+
     tableUpdated() {
         this.loading = false;
         this.updateTableTrigger = false;

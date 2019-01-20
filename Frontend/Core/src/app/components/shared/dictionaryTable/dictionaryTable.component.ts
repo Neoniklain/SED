@@ -13,9 +13,9 @@ import {Room} from "../../../models/shedule/room.model";
 import {Group} from "../../../models/shedule/group";
 
 @Component({
-selector: 'dictionary-table',
-templateUrl: "./dictionaryTable.component.html",
-styleUrls: ["./dictionaryTable.component.css"],
+    selector: 'dictionary-table',
+    templateUrl: "./dictionaryTable.component.html",
+    styleUrls: ["./dictionaryTable.component.css"],
 })
 
 export class DictionaryTableComponent implements OnInit, OnChanges {
@@ -44,7 +44,8 @@ export class DictionaryTableComponent implements OnInit, OnChanges {
     public event: LazyLoadEvent;
 
     constructor(private router: Router,
-               private dictionaryService: DictionaryService) { }
+                private dictionaryService: DictionaryService) {
+    }
 
     ngOnInit(): void {
         this.getData(this.event);
@@ -57,26 +58,7 @@ export class DictionaryTableComponent implements OnInit, OnChanges {
 
     updateModel() {
         this.loading = true;
-        switch (this.type.toString()) {
-            case Dictionary.users.toString():
-                this.model = new User();
-                break;
-            case Dictionary.disciplines.toString():
-                this.model = new Discipline();
-                break;
-            case Dictionary.institutes.toString():
-                this.model = new Institute();
-                break;
-            case Dictionary.departments.toString():
-                this.model = new Department();
-                break;
-            case Dictionary.groups.toString():
-                this.model = new Group();
-                break;
-            case Dictionary.rooms.toString():
-                this.model = new Room();
-                break;
-        }
+        this.model = this.dictionaryService.CreateInstance(this.type);
     }
 
     // Получить данные
@@ -89,29 +71,35 @@ export class DictionaryTableComponent implements OnInit, OnChanges {
             this.tableUpdated.emit();
         });
     }
+
     // Редактирование модели
     edit(item) {
         this.clickOnEdit.emit(item);
     }
+
     // Удаление модели
     delete(item) {
         this.clickOnDelete.emit(item);
     }
+
     config(item) {
         this.clickOnRow.emit(item);
     }
 
-    isArray(obj: any ) {
-      return Array.isArray(obj);
+    isArray(obj: any) {
+        return Array.isArray(obj);
     }
-    itIsObject(obj: any ) {
-      return isObject(obj);
+
+    itIsObject(obj: any) {
+        return isObject(obj);
     }
-    getKeys(obj: any ) {
-      return Object.keys(obj);
+
+    getKeys(obj: any) {
+        return Object.keys(obj);
     }
+
     dateis(obj: any) {
-      isDate(obj);
+        isDate(obj);
     }
 
     loadLazy(event: LazyLoadEvent) {

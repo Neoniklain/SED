@@ -33,6 +33,18 @@ public class SpecialityManager implements ISpecialityManager {
             responseStatusDTO.setStatus(StatusTypes.ERROR);
             responseStatusDTO.addErrors("Не указано название специальности");
         }
+        if (speciality.getDepartment() == null || speciality.getDepartment().getId() == 0) {
+            responseStatusDTO.setStatus(StatusTypes.ERROR);
+            responseStatusDTO.addErrors("Не указан департамент");
+        }
+        if (speciality.getInstitute() == null || speciality.getInstitute().getId() == 0) {
+            responseStatusDTO.setStatus(StatusTypes.ERROR);
+            responseStatusDTO.addErrors("Не указан институт");
+        }
+        if (speciality.getCode() == null || speciality.getCode() == "") {
+            responseStatusDTO.setStatus(StatusTypes.ERROR);
+            responseStatusDTO.addErrors("Не указан код");
+        }
         return responseStatusDTO;
     }
 }

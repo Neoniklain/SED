@@ -43,5 +43,6 @@ export const LANG_RU_TRANS = {
     "Answer": "Ответ",
     "Info": "Оповещение",
     "speciality": "Направление",
+    "code": "Код",
     "Notice": "Уведомление о прочтении"
 };

@@ -17,10 +17,16 @@ public class SpecialityEntity {
     @Column(unique=true)
     private String name;
 
+    @Column(unique=true)
+    private String code;
+
     @ManyToOne
     @JoinColumn(name = "department_id", referencedColumnName = "id")
-    /** Поле кафедры */
     private DepartmentEntity department;
+
+    @ManyToOne
+    @JoinColumn(name = "institute_id", referencedColumnName = "id")
+    private InstituteEntity institute;
 
     public long getId() {
         return id;
@@ -36,6 +42,13 @@ public class SpecialityEntity {
         this.name = name;
     }
 
+    public String getCode() {
+        return code;
+    }
+    public void setCode(String code) {
+        this.code = code;
+    }
+
     public DepartmentEntity getDepartment() {
         return department;
     }
@@ -43,4 +56,10 @@ public class SpecialityEntity {
         this.department = department;
     }
 
+    public InstituteEntity getInstitute() {
+        return institute;
+    }
+    public void setInstitute(InstituteEntity institute) {
+        this.institute = institute;
+    }
 }

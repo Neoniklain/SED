@@ -1,9 +1,9 @@
-import { Injectable } from "@angular/core";
-import { HttpClient, HttpResponse, HttpErrorResponse, HttpParams } from "@angular/common/http";
-import { Observable } from "rxjs/Observable";
-import { Router } from "@angular/router";
-import { ApiRouteConstants } from "../bootstrap/app.route.constants";
-import { News } from "../models/news/news.model";
+import {Injectable} from "@angular/core";
+import {HttpClient, HttpResponse, HttpErrorResponse, HttpParams} from "@angular/common/http";
+import {Observable} from "rxjs/Observable";
+import {Router} from "@angular/router";
+import {ApiRouteConstants} from "../bootstrap/app.route.constants";
+import {News} from "../models/news/news.model";
 import 'rxjs/add/operator/catch';
 import {User} from "../models/account/user.model";
 import {Discipline} from "../models/shedule/discipline";
@@ -38,10 +38,10 @@ export class DictionaryService {
     public Get(type: Dictionary, filterQuery?: LazyLoadEvent): Observable<PageResult> {
         let params = new HttpParams();
         let url = this.GetUrl(type);
-        return this.http.post(url, this.initFilter(filterQuery), {params: params })
+        return this.http.post(url, this.initFilter(filterQuery), {params: params})
             .pipe(
                 map((res: PageResult) => {
-                    let model = this.CreateInstance(type);
+                    let model = this.CreateInstanceList(type);
                     model = res.content;
                     res.content = model;
                     return res;
@@ -53,7 +53,7 @@ export class DictionaryService {
     public AddOrUpdate(type: Dictionary, object: any): Observable<ResponseStatus> {
         let params = new HttpParams();
         let url = this.GetUrl(type);
-        return this.http.put(url, object, {params: params })
+        return this.http.put(url, object, {params: params})
             .pipe(
                 map((res: ResponseStatus) => res),
                 catchError(e => this.handleError.handle(e))
@@ -69,7 +69,53 @@ export class DictionaryService {
             );
     }
 
-    private CreateInstance(type: Dictionary): any {
+    public CreateInstance(type: Dictionary): any {
+        let model;
+        switch (type.toString()) {
+            case Dictionary.users.toString():
+                model = new User();
+                break;
+            case Dictionary.disciplines.toString():
+                model = new Discipline();
+                break;
+            case Dictionary.groups.toString():
+                model = new Group();
+                break;
+            case Dictionary.institutes.toString():
+                model = new Institute();
+                break;
+            case Dictionary.departments.toString():
+                model = new Department();
+                break;
+            case Dictionary.specialities.toString():
+                model = new Speciality();
+                break;
+            case Dictionary.rooms.toString():
+                model = new Room();
+                break;
+            case Dictionary.pairTypes.toString():
+                model = new PairType();
+                break;
+            case Dictionary.roles.toString():
+                model = new Role();
+                break;
+            case Dictionary.professors.toString():
+                model = new Professor();
+                break;
+            case Dictionary.fieldOfKnowladge.toString():
+                model = new FieldOfKnowledge();
+                break;
+            case Dictionary.pointTypes.toString():
+                model = new PointType();
+                break;
+            default:
+                throw new DOMException('Incorect model');
+                break;
+        }
+        return model;
+    }
+
+    public CreateInstanceList(type: Dictionary): any {
         let model;
         switch (type.toString()) {
             case Dictionary.users.toString():
@@ -162,11 +208,11 @@ export class DictionaryService {
     }
 
     private initFilter(filterQuery?: LazyLoadEvent) {
-      let filter = {
-         rows: filterQuery ? filterQuery.rows : 0,
-         first: filterQuery ? filterQuery.first : 0,
-         globalFilter: filterQuery ? filterQuery.globalFilter : ""
-      };
-      return filter;
+        let filter = {
+            rows: filterQuery ? filterQuery.rows : 0,
+            first: filterQuery ? filterQuery.first : 0,
+            globalFilter: filterQuery ? filterQuery.globalFilter : ""
+        };
+        return filter;
     }
 }
