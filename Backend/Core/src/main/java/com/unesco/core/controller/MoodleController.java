@@ -32,8 +32,10 @@ public class MoodleController {
 
         try{
             result.setData(_moodle.GetAllUsers());
+            result.setStatus(StatusTypes.OK);
         } catch (Exception e) {
             System.out.println(e.getMessage());
+            result.setStatus(StatusTypes.ERROR);
             result.setData(e.getMessage());
             result.addErrors("Exception при вызове moodle rest api");
             e.printStackTrace();
@@ -46,11 +48,13 @@ public class MoodleController {
 
         try{
             result.setData(_moodle.GetAllGroups());
+            result.setStatus(StatusTypes.OK);
         } catch (Exception e) {
             System.out.println(e.getMessage());
             result.setData(e.getMessage());
             result.addErrors("Exception при вызове moodle rest api");
             e.printStackTrace();
+            result.setStatus(StatusTypes.ERROR);
         }
         return result;
     }
@@ -60,10 +64,12 @@ public class MoodleController {
 
         try{
             result.setData(_moodle.CreateGroups());
+            result.setStatus(StatusTypes.OK);
         } catch (Exception e) {
             System.out.println(e.getMessage());
             result.setData(e.getMessage());
             result.addErrors("Exception при вызове moodle rest api");
+            result.setStatus(StatusTypes.ERROR);
             e.printStackTrace();
         }
         return result;
@@ -83,12 +89,30 @@ public class MoodleController {
         return result;
     }
 
-    public ResponseStatusDTO CreateStudents() {
+    public ResponseStatusDTO CreateStudents(long groupId) {
         ResponseStatusDTO result = new ResponseStatusDTO();
 
         try{
-            result.setData(_moodle.CreateStudents());
+            result.setData(_moodle.CreateStudents(groupId));
+            result.setStatus(StatusTypes.OK);
         } catch (Exception e) {
+            System.out.println(e.getMessage());
+            result.setData(e.getMessage());
+            result.setStatus(StatusTypes.ERROR);
+            result.addErrors("Exception при вызове moodle rest api");
+            e.printStackTrace();
+        }
+        return result;
+    }
+
+    public ResponseStatusDTO CreateAllStudents() {
+        ResponseStatusDTO result = new ResponseStatusDTO();
+
+        try{
+            result.setData(_moodle.CreateAllStudents());
+            result.setStatus(StatusTypes.OK);
+        } catch (Exception e) {
+            result.setStatus(StatusTypes.ERROR);
             System.out.println(e.getMessage());
             result.setData(e.getMessage());
             result.addErrors("Exception при вызове moodle rest api");
@@ -101,9 +125,11 @@ public class MoodleController {
         ResponseStatusDTO result = new ResponseStatusDTO();
 
         try{
-            result.setData(_moodle.AssignStudentsOnGroups());
+            result.setStatus(StatusTypes.OK);
+            result.setData(_moodle.AllAssignStudentsOnGroups());
         } catch (Exception e) {
             System.out.println(e.getMessage());
+            result.setStatus(StatusTypes.ERROR);
             result.setData(e.getMessage());
             result.addErrors("Exception при вызове moodle rest api");
             e.printStackTrace();

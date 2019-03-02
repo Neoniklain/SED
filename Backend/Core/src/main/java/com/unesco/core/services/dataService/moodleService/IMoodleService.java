@@ -39,6 +39,13 @@ public interface IMoodleService {
      * @param students Список студентов, которых необходимо зарегестрировать
      * @return
      */
+    MoodleUser[] CreateStudents(List<StudentDTO> students, boolean LineByLineCreation);
+
+    /**
+     * Регистрация пользователей-судентов в Moodle
+     * @param students Список студентов, которых необходимо зарегестрировать
+     * @return
+     */
     MoodleUser[] CreateStudents(List<StudentDTO> students);
 
     /**
@@ -46,7 +53,21 @@ public interface IMoodleService {
      * @param groups Список групп, которые необходимо создать
      * @return
      */
+    MoodleCohort[] CreateGroups(List<GroupDTO> groups, boolean LineByLineCreation);
+
+    /**
+     * Создание учебных групп в Moodle
+     * @param groups Список групп, которые необходимо создать
+     * @return
+     */
     MoodleCohort[] CreateGroups(List<GroupDTO> groups);
+
+    /**
+     * Привязать студентов к глобальным группам в Moodle
+     * @param students Список студентов, которых необходимо привязать
+     * @return true - если метод выполнен успешно
+     */
+    boolean AddUsersToCohorts(List<StudentDTO> students, boolean LineByLineCreation);
 
     /**
      * Привязать студентов к глобальным группам в Moodle

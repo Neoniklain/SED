@@ -39,19 +39,33 @@ public interface IMoodleManager {
 
     /**
      * Регистрация пользователей-судентов в Moodle
+     * @param groupId Id группы, студентов которой необходимо создать в Moodle
      * @return
      */
-    MoodleUser[] CreateStudents();
+    MoodleUser[] CreateStudents(long groupId);
 
     /**
-     * Создание учебных групп в Moodle
+     * Регистрация всех пользователей-судентов в Moodle
+     * @return
+     */
+    MoodleUser[] CreateAllStudents();
+
+    /**
+     * Создание всех учебных групп в Moodle
      * @return
      */
     MoodleCohort[] CreateGroups();
 
     /**
      * Привязать студентов к глобальным группам в Moodle
+     * @param groupId Id группы, студентов которой необходимо связать в Moodle
      * @return true - если метод выполнен успешно
      */
-    boolean AssignStudentsOnGroups();
+    boolean AssignStudentsOnGroups(long groupId);
+
+    /**
+     * Привязать всех студентов к соответствующим глобальным группам в Moodle
+     * @return true - если метод выполнен успешно
+     */
+    boolean AllAssignStudentsOnGroups();
 }
