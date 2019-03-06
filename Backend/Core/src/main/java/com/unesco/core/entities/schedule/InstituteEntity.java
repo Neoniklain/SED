@@ -11,9 +11,6 @@ public class InstituteEntity {
    private long id;
    @Column(unique=true)
    private String name;
-//   @OneToMany(cascade = CascadeType.ALL, mappedBy = "institute")
-//   /** Поле набор кафедр */
-//   private Set<DepartmentEntity> departments;
 
    public long getId() {
       return id;

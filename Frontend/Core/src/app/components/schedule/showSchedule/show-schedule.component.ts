@@ -12,14 +12,16 @@ import {NotificationService} from "../../../services/notification.service";
 import {Dictionary} from "../../../models/admin/dictionary.model";
 import {isUndefined} from "util";
 import {LazyLoadEvent} from "primeng/api";
+import {EducationPeriod} from "../../../models/educationPeriod";
+import {SemesterNumberYear} from "../../../models/semesterNumberYear.model";
 
 @Component({
-        selector: 'schedule-page',
-        templateUrl: './show-schedule.component.html',
-        styleUrls: ["./show-schedule.component.css"]
-    })
+    selector: 'schedule-page',
+    templateUrl: './show-schedule.component.html',
+    styleUrls: ["./show-schedule.component.css"]
+})
 
-    export class ShowScheduleComponent implements OnInit {
+export class ShowScheduleComponent implements OnInit {
 
     @Input() editable: boolean = false;
     public RouteConstants = RouteConstants;
@@ -32,9 +34,9 @@ import {LazyLoadEvent} from "primeng/api";
     public groups: Array<Group> = [];
     public departments: Array<Department> = [];
 
-    public lastprofsFilter: LazyLoadEvent = { globalFilter: "&7&" };
-    public lastgroupsFilter: LazyLoadEvent = { globalFilter: "&7&" };
-    public lastdepartmentsFilter: LazyLoadEvent = { globalFilter: "&7&" };
+    public lastprofsFilter: LazyLoadEvent = {globalFilter: "&7&"};
+    public lastgroupsFilter: LazyLoadEvent = {globalFilter: "&7&"};
+    public lastdepartmentsFilter: LazyLoadEvent = {globalFilter: "&7&"};
 
     public currentProfessor: Professor;
     public currentGroup: Group;
@@ -42,13 +44,17 @@ import {LazyLoadEvent} from "primeng/api";
 
     public showLoader: boolean = false;
 
+    public semesterNumberYear: SemesterNumberYear = new SemesterNumberYear();
+
     constructor(private notification: NotificationService,
                 private router: Router,
-                private ScheduleService: ScheduleService,
+                private scheduleService: ScheduleService,
                 private dictionaryService: DictionaryService,
-    ) { }
+    ) {
+    }
 
-    ngOnInit() { }
+    ngOnInit() {
+    }
 
     public update() {
         switch (this.menuToggle) {
@@ -62,9 +68,10 @@ import {LazyLoadEvent} from "primeng/api";
     }
 
     public GetProfessors(event: any) {
-        if (this.profs.length == 0 || this.lastprofsFilter.globalFilter != event.query.substring(0, 60)) {
-            if (!isUndefined(event.query))
-                this.lastprofsFilter = { globalFilter: event.query.substring(0, 60) };
+        let query = event.query ? event.query : '';
+        if (this.profs.length == 0 || this.lastprofsFilter.globalFilter != query.substring(0, 60)) {
+            if (!isUndefined(query))
+                this.lastprofsFilter = {globalFilter: query.substring(0, 60)};
 
             this.dictionaryService.Get(Dictionary.professors, this.lastprofsFilter).subscribe(
                 result => {
@@ -78,9 +85,10 @@ import {LazyLoadEvent} from "primeng/api";
     }
 
     public GetGroups(event: any) {
-        if (this.groups.length == 0 || this.lastgroupsFilter.globalFilter != event.query.substring(0, 60)) {
-            if (!isUndefined(event.query))
-                this.lastgroupsFilter = { globalFilter: event.query.substring(0, 60) };
+        let query = event.query ? event.query : '';
+        if (this.groups.length == 0 || this.lastgroupsFilter.globalFilter != query.substring(0, 60)) {
+            if (!isUndefined(query))
+                this.lastgroupsFilter = {globalFilter: query.substring(0, 60)};
 
             this.dictionaryService.Get(Dictionary.groups, this.lastgroupsFilter).subscribe(
                 result => {
@@ -94,9 +102,10 @@ import {LazyLoadEvent} from "primeng/api";
     }
 
     public GetDepartments(event: any) {
-        if (this.departments.length == 0 || this.lastdepartmentsFilter.globalFilter != event.query.substring(0, 60)) {
-            if (!isUndefined(event.query))
-                this.lastdepartmentsFilter = { globalFilter: event.query.substring(0, 60) };
+        let query = event.query ? event.query : '';
+        if (this.departments.length == 0 || this.lastdepartmentsFilter.globalFilter != query.substring(0, 60)) {
+            if (!isUndefined(query))
+                this.lastdepartmentsFilter = {globalFilter: query.substring(0, 60)};
 
             this.dictionaryService.Get(Dictionary.departments, this.lastdepartmentsFilter).subscribe(
                 result => {
@@ -110,12 +119,12 @@ import {LazyLoadEvent} from "primeng/api";
     }
 
     public getProfessorPair() {
-        if (this.currentProfessor == null && this.currentProfessor.id == 0)
+        if (this.currentProfessor == null || this.currentProfessor.id == 0 || !this.semesterNumberYear)
             return;
         this.pairList = null;
         this.showLoader = true;
-        this.ScheduleService.GetPeofessorPair(this.currentProfessor.id).subscribe(
-            result =>  {
+        this.scheduleService.GetProfessorPair(this.currentProfessor.id, this.semesterNumberYear).subscribe(
+            result => {
                 this.templatePair = new Pair();
                 this.templatePair.lesson.professor = this.currentProfessor;
                 this.pairList = result.data;
@@ -123,13 +132,14 @@ import {LazyLoadEvent} from "primeng/api";
             }
         );
     }
+
     public getGroupPair() {
-        if (this.currentGroup == null && this.currentGroup.id == 0)
+        if (this.currentGroup == null || this.currentGroup.id == 0 || !this.semesterNumberYear)
             return;
         this.pairList = null;
         this.showLoader = true;
-        this.ScheduleService.GetGroupPair(this.currentGroup.id).subscribe(
-            result =>  {
+        this.scheduleService.GetGroupPair(this.currentGroup.id, this.semesterNumberYear).subscribe(
+            result => {
                 this.templatePair = new Pair();
                 this.templatePair.lesson.group = this.currentGroup;
                 this.pairList = result.data;
@@ -139,12 +149,12 @@ import {LazyLoadEvent} from "primeng/api";
     }
 
     public getDepartmentPair() {
-        if (this.currentDepartment == null && this.currentDepartment.id == 0)
-            return
+        if (this.currentDepartment == null || this.currentDepartment.id == 0 || !this.semesterNumberYear)
+            return;
         this.departmentSchedule = null;
         this.showLoader = true;
-        this.ScheduleService.GetDepartmentPair(this.currentDepartment.id).subscribe(
-            result =>  {
+        this.scheduleService.GetDepartmentPair(this.currentDepartment.id, this.semesterNumberYear).subscribe(
+            result => {
                 this.departmentSchedule = result.data.lines;
                 this.update();
                 this.showLoader = false;

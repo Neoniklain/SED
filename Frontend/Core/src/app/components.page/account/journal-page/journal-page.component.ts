@@ -7,6 +7,7 @@ import {AccountService} from "../../../services/account.service";
 import {DatePipe} from "@angular/common";
 import {Roles} from "../../../models/account/role.model";
 import {Student} from "../../../models/account/student";
+import {SemesterNumberYear} from "../../../models/semesterNumberYear.model";
 
 @Component({
     selector: 'journal-page',
@@ -21,10 +22,11 @@ export class JournalPageComponent implements OnInit {
     public pairs: Array<Pair> = [];
     public showLoader: boolean = false;
     public month: number;
-    public lastMonth: number;
     public datePipe = new DatePipe("ru");
     public lastPair: Pair;
     public Roles = Roles;
+
+    public semesterNumberYear: SemesterNumberYear = new SemesterNumberYear();
 
     constructor(private authenticationService: AuthenticationService,
                 private accountService: AccountService,
@@ -37,36 +39,41 @@ export class JournalPageComponent implements OnInit {
         this.authenticationService.getUser().subscribe(
             res => {
                 this.user = res.data;
-                this.showLoader = true;
-                if (this.user.roles.find(x => x.roleName == Roles.Professor.toString()))
-                    this.getProffesorPair();
-                else if (this.user.roles.find(x => x.roleName == Roles.Student.toString()))
-                    this.getStudentPair();
             });
     }
 
+    loadSchedule() {
+        if (this.user.roles.find(x => x.roleName == Roles.Professor.toString()))
+            this.getProffesorPair();
+        else if (this.user.roles.find(x => x.roleName == Roles.Student.toString()))
+            this.getStudentPair();
+    }
+
     public getProffesorPair() {
+        this.showLoader = true;
         this.accountService.GetProfessorByUser(this.user.id).subscribe(
             resultProf => {
                 let professor = resultProf.data;
                 if (professor !== null) {
-                    this.ScheduleService.GetPeofessorPair(professor.id).subscribe(
+                    this.ScheduleService.GetProfessorPair(professor.id, this.semesterNumberYear).subscribe(
                         result => {
                             this.showLoader = false;
                             this.pairs = result.data;
                         }
                     );
                 }
+                this.showLoader = false;
             }
         );
     }
 
     public getStudentPair() {
+        this.showLoader = true;
         this.accountService.GetStudentByUser(this.user.id).subscribe(
             resultStud => {
                 let student: Student = resultStud.data;
                 if (student) {
-                    this.ScheduleService.GetGroupPair(student.group.id).subscribe(
+                    this.ScheduleService.GetGroupPair(student.group.id, this.semesterNumberYear).subscribe(
                         result => {
                             this.showLoader = false;
                             this.pairs = result.data;
@@ -75,6 +82,7 @@ export class JournalPageComponent implements OnInit {
                 }
             }
         );
+        this.showLoader = false;
     }
 
     onClick(pair: Pair) {

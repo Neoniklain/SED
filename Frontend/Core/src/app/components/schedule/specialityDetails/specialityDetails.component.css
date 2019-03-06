@@ -1,0 +1,54 @@
+.speciality-WithoutHover {
+    border: 1px solid rgba(128, 128, 128, 0.4);
+    padding: 1em;
+    transition: all 0.1s;
+    height: 100%;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-flex-direction: column;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.speciality {
+    border: 1px solid rgba(128, 128, 128, 0.4);
+    padding: 1em;
+    transition: all 0.1s;
+    height: 100%;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-flex-direction: column;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.speciality:hover {
+    background: rgba(0, 0, 0, 0.02);
+    box-shadow: 9px 8px 18px -9px;
+}
+
+.speciality-name {
+    text-align: center;
+    font-size: 19px;
+    color: #757373;
+    display: flex;
+    flex: 1;
+    align-items: center;
+    justify-content: center;
+}
+
+.speciality:hover .speciality-name {
+    color: black;
+}
+
+.speciality-institute {
+    text-align: right;
+    font-size: 14px;
+    color: #757373;
+}
+
+.speciality:hover .speciality-institute {
+    color: black;
+}
+
+

@@ -1,0 +1,30 @@
+.speciality-container {
+    width: 100%;
+}
+
+.flex-row.row {
+    display: flex;
+    flex-wrap: wrap;
+    padding-bottom: 2em;
+}
+.flex-row.row > [class*='col-'] {
+    display: flex;
+    flex-direction: column;
+}
+.flex-row.row:after,
+.flex-row.row:before {
+    display: flex;
+}
+
+.pairs-not-found h1 {
+    color: inherit;
+}
+
+.pairs-not-found {
+    text-align: center;
+    padding: 8em 0;
+    font-style: italic;
+    color: #7d7d7d;
+}
+
+

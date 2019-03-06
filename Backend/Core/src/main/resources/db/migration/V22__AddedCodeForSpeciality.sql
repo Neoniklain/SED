@@ -1,1 +1,0 @@
-ALTER TABLE un_specialty add column code varchar(255);

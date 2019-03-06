@@ -1,6 +1,7 @@
 import {Component, EventEmitter, Injectable, Input, OnInit, Output} from '@angular/core';
 import {DepartmentShedule} from "../../../models/shedule/departmentShedule";
 import {Pair} from "../../../models/shedule/pair";
+import {SemesterNumberYear} from "../../../models/semesterNumberYear.model";
 
 @Component({
     selector: 'schedule-department',
@@ -13,6 +14,7 @@ export class DepartmentScheduleComponent implements OnInit {
     @Output() clickPair = new EventEmitter<any>();
     @Input() schedule: Array<DepartmentShedule>;
     @Input() showDetailOnHover: boolean = true;
+    @Input() semesterNumberYear: SemesterNumberYear;
 
     public days = ["Понедельник", "Вторник", "Среда", "Четверг", "Пятница", "Суббота"];
 

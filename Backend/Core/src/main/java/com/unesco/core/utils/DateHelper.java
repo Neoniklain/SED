@@ -1,5 +1,8 @@
 package com.unesco.core.utils;
 
+import com.unesco.core.entities.plan.EducationPeriodEntity;
+
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -8,6 +11,7 @@ public class DateHelper {
     /**
      * Приводит двремя у даты к 12 чсасам
      * Во избежание смещения от часового пояса
+     *
      * @param date Дата для приведения
      * @return Возвращает дату с 12 часами
      */
@@ -25,13 +29,14 @@ public class DateHelper {
 
     /**
      * Определяет четность недели от заданной даты
+     *
      * @param startDate Дата от которой ведется счет
-     * @param date Дата для которой нужно определить четность
+     * @param date      Дата для которой нужно определить четность
      * @return 0 нечетная 1 четная
      */
     public static int getPrityWeek(Date date, Date startDate) {
 
-        if(startDate.compareTo(date) < 0) return 0;
+        if (startDate.compareTo(date) < 0) return 0;
 
         Calendar startCal = Calendar.getInstance();
         startCal.setTime(startDate);
@@ -44,6 +49,25 @@ public class DateHelper {
         return startWeekNumber % 2 == 0 ? 0 : 1;
     }
 
-
+    public static StartEndDate getPeriodForYearAndSemester(int semester, int year) {
+        StartEndDate result = new StartEndDate();
+        Calendar calendar = Calendar.getInstance();
+        String pattern = "yyyy-MM-dd";
+        SimpleDateFormat dateFormat = new SimpleDateFormat(pattern);
+        if (semester == 2) {
+            calendar.set(year, 0, 1);
+            result.startDate = calendar.getTime();
+            calendar.set(year, 8, 1);
+            calendar.add(Calendar.DATE, -1);
+            result.endDate = calendar.getTime();
+        } else {
+            calendar.set(year, 8, 1);
+            result.startDate = calendar.getTime();
+            calendar.set(year + 1, 0, 1);
+            calendar.add(Calendar.DATE, -1);
+            result.endDate = calendar.getTime();
+        }
+        return result;
+    }
 
 }

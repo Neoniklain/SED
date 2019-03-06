@@ -1,0 +1,13 @@
+<div *ngIf="speciality"
+     [ngClass]="{'speciality': clickable,
+                'speciality-WithoutHover': !clickable}"
+     class="speciality"
+     (click)="onClick(speciality)"
+     [style.cursor]="clickable ? 'pointer' : 'auto'">
+    <div class="speciality-name">
+        {{speciality.code}} - {{speciality.name}}
+    </div>
+    <div class="speciality-institute">
+        {{speciality.institute?.name}}
+    </div>
+</div>

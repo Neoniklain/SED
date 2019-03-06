@@ -11,10 +11,10 @@ import {StatusType} from "../../../models/statusType.model";
 import {DatePipe} from "@angular/common";
 import {Lesson} from "../../../models/shedule/lesson";
 import {VisitationConfig} from "../../../models/journal/visitationConfig.model";
-import {ResponseStatus} from "../../../models/additional/responseStatus";
 import {Observable} from "rxjs/Observable";
 import {Dictionary} from "../../../models/admin/dictionary.model";
 import {Pair} from "../../../models/shedule/pair";
+import {SemesterNumberYear} from "../../../models/semesterNumberYear.model";
 
 @Component({
     selector: 'lesson-configurator',
@@ -25,6 +25,7 @@ import {Pair} from "../../../models/shedule/pair";
 export class LessonConfiguratorComponent implements OnInit {
 
     @Input() lesson: Lesson;
+    @Input() semesterNumberYear: SemesterNumberYear;
     public dates: Array<Date> = [];
     public events: Array<LessonEvent> = [];
     public eventTypes: Array<PointType> = [];
@@ -55,10 +56,10 @@ export class LessonConfiguratorComponent implements OnInit {
         this.ru = {
             firstDayOfWeek: 1,
             dayNames: ["Воскресенье", "Понедельник", "Вторник", "Среда", "Четверг", "Пятница", "Суббота"],
-            dayNamesShort: ["Вск", "Пн", "Вт", "СР", "Чт", "Пт", "Сб" ],
-            dayNamesMin: ["Вск", "Пн", "Вт", "СР", "Чт", "Пт", "Сб" ],
-            monthNames: [ "Январь", "Февраль", "Март", "Апрель", "Май", "Июнь", "Июль", "Август", "Сентябрь", "Октябрь", "Ноябрь", "Декабрь" ],
-            monthNamesShort: [ "Янв", "Фев", "Мар", "Апр", "Май", "Июн", "Июл", "Авг", "Сен", "Окт", "Ноя", "Дек" ],
+            dayNamesShort: ["Вск", "Пн", "Вт", "СР", "Чт", "Пт", "Сб"],
+            dayNamesMin: ["Вск", "Пн", "Вт", "СР", "Чт", "Пт", "Сб"],
+            monthNames: ["Январь", "Февраль", "Март", "Апрель", "Май", "Июнь", "Июль", "Август", "Сентябрь", "Октябрь", "Ноябрь", "Декабрь"],
+            monthNamesShort: ["Янв", "Фев", "Мар", "Апр", "Май", "Июн", "Июл", "Авг", "Сен", "Окт", "Ноя", "Дек"],
             today: 'Сегодня',
             clear: 'Очистить'
         };
@@ -66,7 +67,7 @@ export class LessonConfiguratorComponent implements OnInit {
             result => {
                 this.getVisitationConfig();
             }
-        )
+        );
         this.getPointsType();
         this.getEvents();
         this.model.lesson = this.lesson;
@@ -75,7 +76,7 @@ export class LessonConfiguratorComponent implements OnInit {
 
     getVisitationConfig() {
         this.journalService.GetVisitation(this.lesson.id)
-            .subscribe( result => {
+            .subscribe(result => {
                 if (!isUndefined(result) && !isUndefined(result.data) && result.data != null) {
                     this.visitationConfig = result.data;
                     for (let date of this.visitationConfig.dates) {
@@ -91,7 +92,7 @@ export class LessonConfiguratorComponent implements OnInit {
 
     getEvents() {
         this.journalService.GetEvents(this.lesson.id)
-            .subscribe( result => {
+            .subscribe(result => {
                 this.loadingEventList = false;
                 this.events = result.data;
             });
@@ -106,7 +107,7 @@ export class LessonConfiguratorComponent implements OnInit {
         this.disabledDates = [];
         // Отключаем даты в текущем месяце
         for (let i = 1; i < daysInMonth + 1; i++) {
-            let find = this.allDisabledDates.find(function(element) {
+            let find = this.allDisabledDates.find(function (element) {
                 let bool = element.getFullYear() === event.year
                     && (element.getMonth() + 1) === (event.month)
                     && element.getDate() === i;
@@ -118,7 +119,7 @@ export class LessonConfiguratorComponent implements OnInit {
     }
 
     changeDate(event: Date) {
-        this.journalService.GetJournal(this.lesson.id, event.getMonth()).subscribe(
+        this.journalService.GetJournal(this.lesson.id, event.getMonth(), this.semesterNumberYear).subscribe(
             result => {
                 let comparison: Array<Comparison> = result.data.comparison;
                 let find = comparison.find(x =>
@@ -131,7 +132,7 @@ export class LessonConfiguratorComponent implements OnInit {
     }
 
     disableUnusedDays(): Observable<any> {
-        return this.journalService.GetJournalDates(this.lesson.id).do(
+        return this.journalService.GetJournalDates(this.lesson.id, this.semesterNumberYear).do(
             result => {
                 this.dates = result.data;
                 this.allDisabledDates = [];
@@ -148,7 +149,7 @@ export class LessonConfiguratorComponent implements OnInit {
 
     getPointsType() {
         this.dictionaryService.Get(Dictionary.pointTypes)
-            .subscribe( result => {
+            .subscribe(result => {
                 this.eventTypes = result.content;
                 let deleteItem = this.eventTypes.findIndex(i => i.name === "Посещение");
                 this.eventTypes.splice(deleteItem, 1);

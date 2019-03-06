@@ -7,13 +7,15 @@
 
             <ul class="nav nav-tabs nav-justified">
                 <li class="nav-item active">
-                    <a (click)="changeToogle('professor')" class="nav-link active" data-toggle="tab" role="tab"><h4>Преподаватель</h4></a>
+                    <a (click)="changeToogle('professor')" class="nav-link active" data-toggle="tab" role="tab"><h4>
+                        Преподаватель</h4></a>
                 </li>
                 <li class="nav-item">
                     <a (click)="changeToogle('group')" class="nav-link" data-toggle="tab" role="tab"><h4>Группа</h4></a>
                 </li>
                 <li class="nav-item">
-                    <a (click)="changeToogle('department')" class="nav-link" data-toggle="tab" role="tab"><h4>Кафедра</h4></a>
+                    <a (click)="changeToogle('department')" class="nav-link" data-toggle="tab" role="tab"><h4>
+                        Кафедра</h4></a>
                 </li>
             </ul>
 
@@ -21,7 +23,7 @@
 
                 <div *ngSwitchCase="'professor'">
                     <div class="row">
-                        <div class="col-md-5 text-left">
+                        <div class="col-md-8 text-left">
                             <p-autoComplete [size]="40"
                                             id="professor"
                                             [(ngModel)]="currentProfessor"
@@ -34,27 +36,31 @@
                                             [multiple]="false" field="user.userFIO"
                                             [emptyMessage]="'Ничего не найдено.'"
                                             [forceSelection]="true"></p-autoComplete>
+
+                            <semester-picker style="display: inline-block" (ngModelChange)="getProfessorPair()"
+                                             [semesterNumberYear]="semesterNumberYear"></semester-picker>
+
                         </div>
-                        <div class="col-md-4 text-center">
-                           <h3 *ngIf="currentProfessor"><span [userCard]="currentProfessor.user">{{currentProfessor.user.userFIO}}</span></h3>
-                        </div>
-                        <div class="col-md-3">
+                        <div class="col-md-4 text-right">
+                            <h3 *ngIf="currentProfessor"><span [userCard]="currentProfessor.user">{{currentProfessor.user.userFIO}}</span>
+                            </h3>
                         </div>
                     </div>
                     <schedule-week *ngIf="pairList"
                                    (updatePair)="update()"
                                    [editable]="editable"
                                    [templatePair]="templatePair"
+                                   [semesterNumberYear]="semesterNumberYear"
                                    [pairs]="pairList"></schedule-week>
                     <div *ngIf="!pairList" class="select-item">
                         <data-loader [show]="showLoader"></data-loader>
                         <h1 *ngIf="!showLoader">Укажите преподавателя для просмотра расписания</h1>
                     </div>
-                 </div>
+                </div>
 
                 <div *ngSwitchCase="'group'">
                     <div class="row">
-                        <div class="col-md-5 text-left">
+                        <div class="col-md-8 text-left">
                             <p-autoComplete [size]="40"
                                             id="groups"
                                             [(ngModel)]="currentGroup"
@@ -68,17 +74,19 @@
                                             field="name"
                                             [emptyMessage]="'Ничего не найдено.'"
                                             [forceSelection]="true"></p-autoComplete>
+
+                            <semester-picker style="display: inline-block" (ngModelChange)="getProfessorPair()"
+                                             [semesterNumberYear]="semesterNumberYear"></semester-picker>
                         </div>
-                        <div class="col-md-4 text-center">
+                        <div class="col-md-4 text-right">
                             <h3 *ngIf="currentGroup">{{currentGroup.name}}</h3>
-                        </div>
-                        <div class="col-md-3">
                         </div>
                     </div>
                     <schedule-week *ngIf="pairList"
                                    (updatePair)="update()"
                                    [editable]="editable"
                                    [templatePair]="templatePair"
+                                   [semesterNumberYear]="semesterNumberYear"
                                    [pairs]="pairList"></schedule-week>
                     <div *ngIf="!pairList" class="select-item">
                         <data-loader [show]="showLoader"></data-loader>
@@ -88,7 +96,7 @@
 
                 <div *ngSwitchCase="'department'">
                     <div class="row">
-                        <div class="col-md-5 text-left">
+                        <div class="col-md-8 text-left">
                             <p-autoComplete [size]="40"
                                             id="department"
                                             [(ngModel)]="currentDepartment"
@@ -103,15 +111,16 @@
                                             [emptyMessage]="'Ничего не найдено.'"
                                             [forceSelection]="true"></p-autoComplete>
 
+                            <semester-picker style="display: inline-block" (ngModelChange)="getProfessorPair()"
+                                             [semesterNumberYear]="semesterNumberYear"></semester-picker>
                         </div>
-                        <div class="col-md-4 text-center">
+                        <div class="col-md-4 text-right">
                             <h3 *ngIf="currentDepartment">{{currentDepartment.name}}</h3>
-                        </div>
-                        <div class="col-md-3">
                         </div>
                     </div>
                     <schedule-department *ngIf="departmentSchedule"
                                          [showDetailOnHover]="true"
+                                         [semesterNumberYear]="semesterNumberYear"
                                          [schedule]="departmentSchedule"></schedule-department>
                     <div *ngIf="!departmentSchedule" class="select-item">
                         <data-loader [show]="showLoader"></data-loader>

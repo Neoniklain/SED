@@ -2,25 +2,26 @@ package com.unesco.core.controllerWeb;
 
 import com.unesco.core.controller.ScheduleController;
 import com.unesco.core.dto.additional.ResponseStatusDTO;
+import com.unesco.core.dto.plan.EducationPeriodDTO;
 import com.unesco.core.dto.shedule.PairParameters;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 @CrossOrigin
 @RestController
-@RequestMapping("/api/shedule")
+@RequestMapping("/api/schedule")
 public class ScheduleControllerWeb {
     @Autowired
     private ScheduleController sheduleController;
 
-    @RequestMapping("/department/{id}/pairs")
-    public ResponseStatusDTO getDepartmentPairs(@PathVariable("id") long departmentId) {
-        return sheduleController.getDepartmentPairs(departmentId);
+    @RequestMapping("/department/{id}/pairs/period/{semester}/{year}")
+    public ResponseStatusDTO getDepartmentPairs(@PathVariable("id") long departmentId, @PathVariable("semester") int semester, @PathVariable("year") int year) {
+        return sheduleController.getDepartmentPairs(departmentId, semester, year);
     }
 
-    @RequestMapping("/group/{id}/pairs")
-    public ResponseStatusDTO getGroupPairs(@PathVariable("id") long groupId) {
-        return sheduleController.getGroupPairs(groupId);
+    @RequestMapping("/group/{id}/pairs/period/{semester}/{year}")
+    public ResponseStatusDTO getGroupPairs(@PathVariable("id") long groupId, @PathVariable("semester") int semester, @PathVariable("year") int year) {
+        return sheduleController.getGroupPairs(groupId, semester, year);
     }
 
     @RequestMapping(method = RequestMethod.GET, value = "/pair/{id}")
@@ -33,24 +34,24 @@ public class ScheduleControllerWeb {
         return sheduleController.deletePair(pairId);
     }
 
-    @RequestMapping("/professor/{id}/pairs")
-    public ResponseStatusDTO getProfessorPairs(@PathVariable("id") long professorId) {
-        return sheduleController.getProfessorPairs(professorId);
+    @RequestMapping("/professor/{id}/pairs/period/{semester}/{year}")
+    public ResponseStatusDTO getProfessorPairs(@PathVariable("id") long professorId, @PathVariable("semester") int semester, @PathVariable("year") int year) {
+        return sheduleController.getProfessorPairs(professorId, semester, year);
     }
 
-    @RequestMapping("/lesson/{lessonId}/pairs")
-    public ResponseStatusDTO getLessonPairs(@PathVariable("lessonId") long lessonId) {
-        return sheduleController.getLessonPairs(lessonId);
+    @RequestMapping("/lesson/{lessonId}/pairs/period/{semester}/{year}")
+    public ResponseStatusDTO getLessonPairs(@PathVariable("lessonId") long lessonId, @PathVariable("semester") int semester, @PathVariable("year") int year) {
+        return sheduleController.getLessonPairs(lessonId, semester, year);
     }
 
-    @RequestMapping("/professor/{professorId}/lessons")
-    public ResponseStatusDTO getByProfessorId(@PathVariable("professorId") long professorId) {
-        return sheduleController.getLessonsForProfessor(professorId);
+    @RequestMapping("/professor/{professorId}/lessons/period/{semester}/{year}")
+    public ResponseStatusDTO getByProfessorLessons(@PathVariable("professorId") long professorId, @PathVariable("semester") int semester, @PathVariable("year") int year) {
+        return sheduleController.getLessonsForProfessor(professorId, semester, year);
     }
 
-    @RequestMapping("/group/{groupId}/lessons")
-    public ResponseStatusDTO getByPGroupId(@PathVariable("groupId") long groupId) {
-        return sheduleController.getLessonsForGroup(groupId);
+    @RequestMapping("/group/{groupId}/lessons/period/{semester}/{year}")
+    public ResponseStatusDTO getByPGroupLessons(@PathVariable("groupId") long groupId, @PathVariable("semester") int semester, @PathVariable("year") int year) {
+        return sheduleController.getLessonsForGroup(groupId, semester, year);
     }
 
     @RequestMapping("/pair/save")
@@ -58,9 +59,25 @@ public class ScheduleControllerWeb {
         return sheduleController.savePair(param.getPairModel(), param.isSkipWarnings());
     }
 
-    @RequestMapping("/week/prity")
-    public ResponseStatusDTO getPrityWeek() {
-        return sheduleController.getPrityWeek();
+    @RequestMapping("/week/prity/period/{semester}/{year}")
+    public ResponseStatusDTO getPrityWeek(@PathVariable("semester") int semester, @PathVariable("year") int year) {
+        return sheduleController.getPrityWeek(semester, year);
+    }
+
+    @RequestMapping("/educationPeriod/speciality/{id}")
+    public ResponseStatusDTO getEducationPeriod(@PathVariable("id") long specialityId) {
+        return sheduleController.getEducationPeriod(specialityId);
+    }
+
+    @RequestMapping("/educationPeriod/periodSave/")
+    public ResponseStatusDTO SavePeriod(@RequestBody EducationPeriodDTO educationPeriod) {
+        return sheduleController.saveEducationPeriod(educationPeriod);
+    }
+
+    @RequestMapping("/educationPeriod/group/{id}/period/{semester}/{year}")
+    public ResponseStatusDTO getEducationPeriodForGroup(@PathVariable("id") long groupId,
+                                                        @PathVariable("semester") int semester, @PathVariable("year") int year) {
+        return sheduleController.getEducationPeriodForGroup(groupId, semester, year);
     }
 }
 

@@ -118,6 +118,9 @@
         </div>
     </div>
 
+    <div *ngIf="!currentEducationPeriod && pair?.lesson?.group?.id != 0" style="color: darkred; font-size: 12px">
+        Не найден период обучения для данной группы!
+    </div>
 
     <div class="form-group row">
         <div *ngIf="editablePair.id != 0" class="col-sm-4 text-left">

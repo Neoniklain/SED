@@ -1,0 +1,38 @@
+<div *ngIf="specialities?.length > 0" class="container speciality-container">
+    <div *ngFor="let speciality of specialities; let i = index">
+        <div *ngIf="i % 4 == 0" class="flex-row row">
+            <div class="col-md-3">
+                <speciality-details
+                    style="height: 100%"
+                    [speciality]="speciality"
+                    (clickOnSpeciality)="onClick($event)">
+                </speciality-details>
+            </div>
+            <div class="col-md-3">
+                <speciality-details
+                        style="height: 100%"
+                        [speciality]="specialities[i+1]"
+                        (clickOnSpeciality)="onClick($event)">
+                </speciality-details>
+            </div>
+            <div class="col-md-3">
+                <speciality-details
+                        style="height: 100%"
+                        [speciality]="specialities[i+2]"
+                        (clickOnSpeciality)="onClick($event)">
+                </speciality-details>
+            </div>
+            <div class="col-md-3">
+                <speciality-details
+                        style="height: 100%"
+                        [speciality]="specialities[i+3]"
+                        (clickOnSpeciality)="onClick($event)">
+                </speciality-details>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div *ngIf="!specialities || specialities?.length == 0" class="pairs-not-found">
+    <h1>Нет специальностей.</h1>
+</div>

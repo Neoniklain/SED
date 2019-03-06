@@ -126,7 +126,7 @@
   </tr>
 </table>
 
-<div *ngIf="(!showedPairs || showedPairs.length == 0) && !editable" class="pairs-not-found">
+<div *ngIf="(!pairs || pairs.length == 0) && !editable" class="pairs-not-found">
   <h1>Расписание не заполнено.</h1>
 </div>
 
@@ -136,6 +136,7 @@
         [editable]="editable"
         [pointX]="X"
         [pointY]="Y"
+        [semesterNumberYear]="semesterNumberYear"
         [editablePair]="currentPair">
 </pair-details>
 
@@ -151,7 +152,7 @@
 </p-dialog>
 
 
-<p-dialog *ngIf="choosedGroups.length > 1" header="Выберите группу" [(visible)]="showGroupChooseDialog" modal="modal" [responsive]="true" [width]="350" [minWidth]="200">
+<p-dialog *ngIf="choosedGroups.length > 1 && clickPair?.observers?.length > 0" header="Выберите группу" [(visible)]="showGroupChooseDialog" modal="modal" [responsive]="true" [width]="350" [minWidth]="200">
     <span>Укажите группу для которой выбрано занятие.</span>
   <p-footer>
     <button *ngFor="let group of choosedGroups" type="button" pButton (click)="selectGroup(group)" label="{{group.name}}"></button>

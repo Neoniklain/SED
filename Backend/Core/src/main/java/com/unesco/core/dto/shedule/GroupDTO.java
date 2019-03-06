@@ -6,7 +6,7 @@ public class GroupDTO {
    private String name;
 
    /** Поле кафедры */
-   private SpecialityDTO specialty;
+   private SpecialityDTO speciality;
 
    public long getId() {
       return id;
@@ -22,11 +22,11 @@ public class GroupDTO {
       this.name = name;
    }
 
-   public SpecialityDTO getSpecialty() {
-      return specialty;
+   public SpecialityDTO getSpeciality() {
+      return speciality;
    }
-   public void setSpecialty(SpecialityDTO specialty) {
-      this.specialty = specialty;
+   public void setSpeciality(SpecialityDTO speciality) {
+      this.speciality = speciality;
    }
 
    public GroupDTO() {

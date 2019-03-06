@@ -44,7 +44,7 @@ export const RouteConstants = {
         All: "journal"
     },
     NotFound: "404"
-}
+};
 
 export const ApiRouteConstants = {
     Account: {
@@ -72,16 +72,19 @@ export const ApiRouteConstants = {
     },
     Schedule: {
         All: "pairs",
-        Save: "shedule/pair/save",
-        Delete: "shedule/pair/:id",
-        Get: "shedule/pair/{id}",
-        ProffesorPairs: "shedule/professor/:id/pairs",
-        DepartmentPairs: "shedule/department/:id/pairs",
-        LessonPairs: "shedule/lesson/:id/pairs",
-        GroupPairs: "shedule/group/:id/pairs",
-        ProffesorLessons: "shedule/professor/:id/lessons",
-        GroupLessons: "shedule/group/:id/lessons",
-        PrityWeek: "shedule/week/prity",
+        Save: "schedule/pair/save",
+        Delete: "schedule/pair/:id",
+        Get: "schedule/pair/{id}",
+        ProffesorPairs: "schedule/professor/:id/pairs/period/:semester/:year",
+        DepartmentPairs: "schedule/department/:id/pairs/period/:semester/:year",
+        LessonPairs: "schedule/lesson/:id/pairs/period/:semester/:year",
+        GroupPairs: "schedule/group/:id/pairs/period/:semester/:year",
+        ProffesorLessons: "schedule/professor/:id/lessons/period/:semester/:year",
+        GroupLessons: "schedule/group/:id/lessons/period/:semester/:year",
+        PrityWeek: "schedule/week/prity/period/:semester/:year",
+        EducationPeriod: "schedule/educationPeriod/speciality/:id",
+        EducationPeriodForGroup: "schedule/educationPeriod/group/:id/period/:semester/:year",
+        SavePeriod: "schedule/educationPeriod/periodSave/",
     },
     News: {
         All: "news/all",
@@ -145,4 +148,4 @@ export const ApiRouteConstants = {
         GetFileForObject: "file/getFileForObject/:objectTypeId/:objectId",
         AddFileForObject: "file/addFileForObject/:objectTypeId/:objectId"
     }
-}
+};

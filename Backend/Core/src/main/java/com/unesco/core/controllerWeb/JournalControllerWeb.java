@@ -5,7 +5,6 @@ import com.unesco.core.dto.additional.ResponseStatusDTO;
 import com.unesco.core.dto.journal.JournalDTO;
 import com.unesco.core.dto.journal.LessonEventDTO;
 import com.unesco.core.dto.journal.VisitationConfigDTO;
-import com.unesco.core.dto.shedule.PairDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.*;
@@ -30,7 +29,11 @@ public class JournalControllerWeb {
     private JournalController journalController;
 
     @GetMapping("/{lessonId}")
-    public ResponseStatusDTO getJournal(@PathVariable("lessonId") long lessonId, @RequestParam int month, @RequestParam String forDate) {
+    public ResponseStatusDTO getJournal(@PathVariable("lessonId") long lessonId,
+                                        @RequestParam int month,
+                                        @RequestParam String forDate,
+                                        @RequestParam int semester,
+                                        @RequestParam int year) {
         DateFormat format = new SimpleDateFormat("dd.MM.yyyy");
         Date date = null;
         try {
@@ -39,12 +42,14 @@ public class JournalControllerWeb {
             Logger.getLogger("JournalControllerWeb").log(Level.ALL, "Could not parse date");
             Logger.getLogger("JournalControllerWeb").log(Level.ALL, e.getMessage());
         }
-        return journalController.getJournal(lessonId, month, date);
+        return journalController.getJournal(lessonId, month, date, semester, year);
     }
 
     @RequestMapping("/dates/{lessonId}")
-    public ResponseStatusDTO getDates(@PathVariable("lessonId") long lessonId) {
-        return journalController.getDates(lessonId);
+    public ResponseStatusDTO getDates(@PathVariable("lessonId") long lessonId,
+                                      @RequestParam int semester,
+                                      @RequestParam int year) {
+        return journalController.getDates(lessonId, semester, year);
     }
 
     @RequestMapping("/save")
@@ -53,8 +58,10 @@ public class JournalControllerWeb {
     }
 
     @RequestMapping("/history/{lessonId}")
-    public ResponseStatusDTO getJournalHistoryDate(@PathVariable("lessonId") long lessonId) {
-        return journalController.getJournalHistoryDate(lessonId);
+    public ResponseStatusDTO getJournalHistoryDate(@PathVariable("lessonId") long lessonId,
+                                                   @RequestParam int semester,
+                                                   @RequestParam int year) {
+        return journalController.getJournalHistoryDate(lessonId, semester, year);
     }
 
     @RequestMapping("/event/lesson/{lessonId}")
@@ -84,8 +91,10 @@ public class JournalControllerWeb {
 
     @RequestMapping("/report/certification/{id}")
     public ResponseStatusDTO getCertificationReport(@PathVariable("id") long id,
-                                                    @RequestParam("start") @DateTimeFormat(pattern="yyyy-MM-dd") Date start,
-                                                    @RequestParam("end") @DateTimeFormat(pattern="yyyy-MM-dd") Date end) {
-        return journalController.getCertificationReport(id, start, end);
+                                                    @RequestParam("start") @DateTimeFormat(pattern = "yyyy-MM-dd") Date start,
+                                                    @RequestParam("end") @DateTimeFormat(pattern = "yyyy-MM-dd") Date end,
+                                                    @RequestParam int semester,
+                                                    @RequestParam int year) {
+        return journalController.getCertificationReport(id, start, end, semester, year);
     }
 }

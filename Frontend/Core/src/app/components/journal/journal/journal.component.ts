@@ -1,13 +1,13 @@
-import {Component, ElementRef, EventEmitter, Injectable, Input, OnInit, Output} from '@angular/core';
+import {Component, Injectable, Input, OnInit} from '@angular/core';
 import {JournalService} from "../../../services/journal.service";
 import {Journal, JournalCell, PointType} from "../../../models/journal/journal.model";
 import {Pair} from "../../../models/shedule/pair";
 import {NotificationService} from "../../../services/notification.service";
-import {isUndefined} from "util";
 import {DatePipe} from "@angular/common";
-import {SelectItem, SelectItemGroup} from "primeng/api";
+import {SelectItem} from "primeng/api";
 import {CertificationReport, CertificationStudent} from "../../../models/journal/certificationReport.model";
 import {Lesson} from "../../../models/shedule/lesson";
+import {SemesterNumberYear} from "../../../models/semesterNumberYear.model";
 
 @Component({
     selector: 'journal',
@@ -20,6 +20,7 @@ export class JournalComponent implements OnInit {
 
     @Input() lesson: Lesson;
     @Input() subgroupType: number = 0;
+    @Input() semesterNumberYear: SemesterNumberYear;
     public journal: Journal;
     public month: number;
     public oldJournal: Journal = null;
@@ -77,7 +78,7 @@ export class JournalComponent implements OnInit {
         this.journal = null;
         if (this.lesson.id !== 0) {
             this.showLoader = true;
-            this.journalService.GetJournal(this.lesson.id, this.month, this.selectHistoryDate).subscribe(
+            this.journalService.GetJournal(this.lesson.id, this.month, this.semesterNumberYear, this.selectHistoryDate).subscribe(
                 result => {
                     this.journal = result.data;
                     this.sortHeader();
@@ -94,11 +95,13 @@ export class JournalComponent implements OnInit {
 
     nextMonth() {
         this.month++;
+        this.month = Number.parseInt(this.datePipe.transform(this.journal.comparison[0].date, 'MM'));
         this.updateJournal();
     }
 
     backMonth() {
         this.month--;
+        this.month = Number.parseInt(this.datePipe.transform(this.journal.comparison[0].date, 'MM')) - 2;
         this.updateJournal();
     }
 
@@ -138,10 +141,10 @@ export class JournalComponent implements OnInit {
         // Создание заголовка месяцов
         for (let headDate of this.header) {
             let existMonthHeader = false;
-            headDate.numbers.sort( function (a, b) {
-                if (a.number < b.number )
+            headDate.numbers.sort(function (a, b) {
+                if (a.number < b.number)
                     return -1;
-                if (a.number > b.number )
+                if (a.number > b.number)
                     return 1;
                 return 0;
             });
@@ -268,7 +271,7 @@ export class JournalComponent implements OnInit {
         if (this.reportSatrtDate && this.reportEndDate) {
             let start = this.datePipe.transform(this.reportSatrtDate, "yyyy-MM-dd");
             let end = this.datePipe.transform(this.reportEndDate, "yyyy-MM-dd");
-            this.journalService.GetJournalCertificationReport(this.journal.lesson.id, start, end).subscribe(
+            this.journalService.GetJournalCertificationReport(this.journal.lesson.id, start, end, this.semesterNumberYear).subscribe(
                 result => {
                     this.certificationReport = result.data;
                 }, error => {
@@ -331,11 +334,14 @@ export class JournalComponent implements OnInit {
 
     getHistoryDates() {
         if (this.journal) {
-            this.journalService.GetJournalHistoryDate(this.journal.lesson.id).subscribe(
+            this.journalService.GetJournalHistoryDate(this.journal.lesson.id, this.semesterNumberYear).subscribe(
                 result => {
                     this.historyDates = [];
                     for (let d of result.data) {
-                        let newItem = {label: this.datePipe.transform(d, "dd.MM.yyyy"), value: this.datePipe.transform(d, "dd.MM.yyyy")};
+                        let newItem = {
+                            label: this.datePipe.transform(d, "dd.MM.yyyy"),
+                            value: this.datePipe.transform(d, "dd.MM.yyyy")
+                        };
                         this.historyDates.push(newItem);
                     }
                 }, error => console.error(error)
@@ -367,7 +373,7 @@ class JournalHeaderType {
     public type: PointType;
     public pair: Pair;
 
-    constructor( type: PointType, pair: Pair) {
+    constructor(type: PointType, pair: Pair) {
         this.type = type;
         this.pair = pair;
     }

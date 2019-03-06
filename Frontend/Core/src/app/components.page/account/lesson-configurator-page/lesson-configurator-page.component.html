@@ -1,3 +1,9 @@
+<div *ngIf="!lastPair">
+    Занятия за
+    <semester-picker style="display: inline-block" (ngModelChange)="loadLesson()"
+                     [semesterNumberYear]="semesterNumberYear"></semester-picker>
+</div>
+
 <div *ngIf="!this.selectLesson && !showLoader" class="header-panel-body">
     <h3>Для настройки контольных точек выберите занятие.</h3>
 </div>
@@ -21,7 +27,7 @@
 </div>
 
 <lesson-configurator *ngIf="this.selectLesson && !showLoader"
-               [lesson]="this.selectLesson">
+               [lesson]="this.selectLesson" [semesterNumberYear]="semesterNumberYear">
 </lesson-configurator>
 
 

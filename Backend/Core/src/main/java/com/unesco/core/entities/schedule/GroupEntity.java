@@ -14,8 +14,8 @@ public class GroupEntity {
    private String name;
 
    @ManyToOne
-   @JoinColumn(name = "specialty_id", referencedColumnName = "id")
-   private SpecialityEntity specialty;
+   @JoinColumn(name = "speciality_id", referencedColumnName = "id")
+   private SpecialityEntity speciality;
 
    public long getId() {
       return id;
@@ -31,10 +31,10 @@ public class GroupEntity {
       this.name = name;
    }
 
-   public SpecialityEntity getSpecialty() {
-      return specialty;
+   public SpecialityEntity getSpeciality() {
+      return speciality;
    }
-   public void setSpecialty(SpecialityEntity specialty) {
-      this.specialty = specialty;
+   public void setSpeciality(SpecialityEntity speciality) {
+      this.speciality = speciality;
    }
 }

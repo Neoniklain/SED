@@ -1,8 +1,6 @@
-import {Department} from "./department";
-
 export class Institute {
-    private id: number;
-    private name: string;
+    id: number;
+    name: string;
 
     constructor() {
         this.id = 0;

@@ -1,13 +1,13 @@
 import {
-    AfterViewInit,
     Component,
-    ElementRef,
     EventEmitter,
     Injectable,
     Input,
+    OnChanges,
     OnInit,
-    Output, QueryList, Renderer2,
-    ViewChildren
+    Output,
+    Renderer2,
+    SimpleChanges
 } from '@angular/core';
 import {Pair, ScheduleShowedPairs} from "../../../models/shedule/pair";
 import {PairNumber} from "../../../models/shedule/pairNumber.model";
@@ -18,6 +18,7 @@ import {StatusType} from "../../../models/statusType.model";
 import {NotificationService} from "../../../services/notification.service";
 import {SelectItem} from "primeng/api";
 import {Group} from "../../../models/shedule/group";
+import {SemesterNumberYear} from "../../../models/semesterNumberYear.model";
 
 @Component({
     selector: 'schedule-week',
@@ -25,7 +26,7 @@ import {Group} from "../../../models/shedule/group";
     styleUrls: ['./weekSchedule.component.css']
 })
 @Injectable()
-export class WeekScheduleComponent implements OnInit  {
+export class WeekScheduleComponent implements OnInit, OnChanges {
 
     @Output() clickPair = new EventEmitter<Pair>();
     @Output() updatePair = new EventEmitter<any>();
@@ -33,6 +34,7 @@ export class WeekScheduleComponent implements OnInit  {
     @Input() templatePair: Pair = new Pair();
     @Input() showDetailOnHover: boolean = false;
     @Input() editable: boolean = false;
+    @Input() semesterNumberYear: SemesterNumberYear = new SemesterNumberYear();
 
     // Только для отображения
     public showedPairs: Array<ScheduleShowedPairs> = [];
@@ -58,7 +60,8 @@ export class WeekScheduleComponent implements OnInit  {
     constructor(
         private notification: NotificationService,
         private renderer: Renderer2,
-        private scheduleService: ScheduleService) { }
+        private scheduleService: ScheduleService) {
+    }
 
     ngOnInit(): void {
         this.lessonsTime.push(new PairNumber(1));
@@ -69,20 +72,25 @@ export class WeekScheduleComponent implements OnInit  {
         this.lessonsTime.push(new PairNumber(6));
         this.lessonsTime.push(new PairNumber(7));
         if (!this.templatePair) this.templatePair = new Pair();
-        this.prityWeek().subscribe(
-            result => {
-                this.prityWeekNum = result;
-                this.selectedType = result == 0 ? 'Нечет' : 'Чет';
-            }
-        );
         this.types = [
             {label: 'Все', value: 'Все'},
             {label: 'Нечетные', value: 'Нечет'},
             {label: 'Четные', value: 'Чет'}
         ];
+    }
+
+    ngOnChanges(changes: SimpleChanges): void {
+        this.prityWeek().subscribe(
+            result => {
+                this.prityWeekNum = result;
+                this.selectedType = result == 0 ? 'Нечет' : 'Чет';
+            }, error1 => {
+                this.selectedType = 'Все';
+            }
+        );
         // Удаляем отображение субботы если в текущем расписанаа нет пар в субботу
         let findSundayPair = this.pairs.find(x => x.dayofweek == "Суббота");
-        if (!findSundayPair) {
+        if (!findSundayPair && this.days.indexOf("Суббота") != -1) {
             this.days.splice(this.days.indexOf("Суббота"), 1);
         }
 
@@ -92,12 +100,12 @@ export class WeekScheduleComponent implements OnInit  {
                 let p = temPairs[i];
                 if (!p) continue;
                 let findPair: Pair = temPairs.find(o => o.dayofweek == p.dayofweek
-                && o.pairNumber == p.pairNumber
-                && o.weektype == p.weektype
-                && o.lesson.professor.id == p.lesson.professor.id
-                && o.lesson.discipline.id == p.lesson.discipline.id
-                && o.lesson.group.id != p.lesson.group.id
-                && o.id != p.id);
+                    && o.pairNumber == p.pairNumber
+                    && o.weektype == p.weektype
+                    && o.lesson.professor.id == p.lesson.professor.id
+                    && o.lesson.discipline.id == p.lesson.discipline.id
+                    && o.lesson.group.id != p.lesson.group.id
+                    && o.id != p.id);
                 let newShoedPair = new ScheduleShowedPairs(p);
 
                 if (findPair) {
@@ -168,11 +176,11 @@ export class WeekScheduleComponent implements OnInit  {
     selectGroup(group: Group) {
         let findPair = this.pairs.find(
             o => o.dayofweek == this.cleckedPair.dayofweek
-            && o.pairNumber == this.cleckedPair.pairNumber
-            && o.weektype == this.cleckedPair.weektype
-            && o.lesson.professor.id == this.cleckedPair.lesson.professor.id
-            && o.lesson.discipline.id == this.cleckedPair.lesson.discipline.id
-            && o.lesson.group.id == group.id)
+                && o.pairNumber == this.cleckedPair.pairNumber
+                && o.weektype == this.cleckedPair.weektype
+                && o.lesson.professor.id == this.cleckedPair.lesson.professor.id
+                && o.lesson.discipline.id == this.cleckedPair.lesson.discipline.id
+                && o.lesson.group.id == group.id);
         this.clickPair.emit(findPair);
 
         this.cleckedPair = null;
@@ -238,6 +246,7 @@ export class WeekScheduleComponent implements OnInit  {
             element.className = element.className + " dropped-element";
         }
     }
+
     dragLeave(event: DragEvent) {
         let element = this.getTDParent(event.toElement)
         if (element != null) {
@@ -264,7 +273,7 @@ export class WeekScheduleComponent implements OnInit  {
     }
 
     prityWeek() {
-         return this.scheduleService.GetPrityWeek();
+        return this.scheduleService.GetPrityWeek(this.semesterNumberYear);
     }
 
 }

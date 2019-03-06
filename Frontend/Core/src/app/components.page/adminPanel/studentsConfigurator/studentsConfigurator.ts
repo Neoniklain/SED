@@ -7,34 +7,35 @@ import {Group} from "../../../models/shedule/group";
 import {ScheduleService} from "../../../services/schedule.service";
 import {Lesson} from "../../../models/shedule/lesson";
 import {NotificationService} from "../../../services/notification.service";
-import {Student} from "../../../models/account/student";
 import {AccountService} from "../../../services/account.service";
 import {StudentJournal, StudentJournalList} from "../../../models/journal/journal.model";
+import {SemesterNumberYear} from "../../../models/semesterNumberYear.model";
 
 @Component({
-   selector: 'students-configurator-page',
-   templateUrl: "./studentsConfigurator.html",
-   styleUrls: ["./studentsConfigurator.css"],
+    selector: 'students-configurator-page',
+    templateUrl: "./studentsConfigurator.html",
+    styleUrls: ["./studentsConfigurator.css"],
 })
 
 export class StudentsConfiguratorComponent implements OnInit {
 
-   constructor(private router: Router,
-               private scheduleService: ScheduleService,
-               private dictionaryService: DictionaryService,
-               private notificationService: NotificationService,
-               private accountService: AccountService) {}
+    public groups: Group[] = [];
+    public groupLessons: Lesson[] = [];
+    public studentsJournal: StudentJournal[] = [];
+    public selectGroup: Group = new Group();
+    public selectLesson: Lesson = new Lesson();
+    public semesterNumberYear: SemesterNumberYear = new SemesterNumberYear();
 
-   public groups: Group[] = [];
-   public groupLessons: Lesson[] = [];
-   public studentsJournal: StudentJournal[] = [];
+    constructor(private router: Router,
+                private scheduleService: ScheduleService,
+                private dictionaryService: DictionaryService,
+                private notificationService: NotificationService,
+                private accountService: AccountService) {
+    }
 
-   public selectGroup: Group = new Group();
-   public selectLesson: Lesson = new Lesson();
-
-   ngOnInit() {
-      this.GetGroups();
-   }
+    ngOnInit() {
+        this.GetGroups();
+    }
 
     public GetGroups() {
         this.dictionaryService.Get(Dictionary.groups)
@@ -43,37 +44,36 @@ export class StudentsConfiguratorComponent implements OnInit {
             });
     }
 
-    public selectLessonForGroup(selectGroup) {
-      if (selectGroup && selectGroup.id != 0) {
-        this.scheduleService.GetGroupLessons(selectGroup.id).subscribe(
-            result => {
-                this.groupLessons = result.data;
-                this.studentsJournal = [];
-                this.selectLesson = new Lesson();
-            }, error => {
-               this.notificationService.Error("Не удалось получить занятия для группы.");
-                console.error(error);
-            }
-        );
-      } else {
-          this.notificationService.Error("Не верно указана группа.");
-      }
+    public selectLessonForGroup() {
+        if (this.selectGroup && this.selectGroup.id != 0) {
+            this.groupLessons = [];
+            this.scheduleService.GetGroupLessons(this.selectGroup.id, this.semesterNumberYear).subscribe(
+                result => {
+                    this.groupLessons = result.data;
+                    this.studentsJournal = [];
+                    this.selectLesson = new Lesson();
+                }, error => {
+                    this.notificationService.Error("Не удалось получить занятия для группы.");
+                    console.error(error);
+                }
+            );
+        }
     }
 
     public selectedLesson(selectLesson) {
-      if (selectLesson && selectLesson.id != 0) {
-         this.selectLesson = selectLesson;
-         this.accountService.GetStudentByGroup(this.selectGroup.id, selectLesson.id).subscribe(
-             result => {
-                 this.studentsJournal = result.data;
-             }, error => {
-                 this.notificationService.Error("Не удалось получить студентов для группы.");
-                 console.error(error);
-             }
-         );
-      } else {
-          this.notificationService.Error("Не верно указано занятие.");
-      }
+        if (selectLesson && selectLesson.id != 0) {
+            this.selectLesson = selectLesson;
+            this.accountService.GetStudentByGroup(this.selectGroup.id, selectLesson.id).subscribe(
+                result => {
+                    this.studentsJournal = result.data;
+                }, error => {
+                    this.notificationService.Error("Не удалось получить студентов для группы.");
+                    console.error(error);
+                }
+            );
+        } else {
+            this.notificationService.Error("Не верно указано занятие.");
+        }
     }
 
     public save() {

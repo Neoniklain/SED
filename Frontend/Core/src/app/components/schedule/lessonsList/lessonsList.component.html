@@ -1,4 +1,4 @@
-<div *ngIf="lessons.length > 0" class="container lesson-container">
+<div *ngIf="lessons?.length > 0" class="container lesson-container">
     <div *ngFor="let lesson of lessons; let i = index">
         <div *ngIf="i % 4 == 0" class="flex-row row">
             <div class="col-md-3">
@@ -33,6 +33,6 @@
     </div>
 </div>
 
-<div *ngIf="lessons.length == 0" class="pairs-not-found">
+<div *ngIf="!lessons || lessons?.length == 0" class="pairs-not-found">
     <h1>Расписание не заполнено.</h1>
 </div>

@@ -6,6 +6,12 @@
       <div class="panel-body">
 
          <div class="row text-center">
+            <div class="col-xs-12">
+               <semester-picker style="display: inline-block" (ngModelChange)="selectLessonForGroup()"
+                                [semesterNumberYear]="semesterNumberYear"></semester-picker>
+            </div>
+         </div>
+         <div class="row text-center">
             <div class="col-xs-4 col-xs-push-4">
                <div class="input-group input-group-md">
                   <span class="input-group-addon">Настройка группы: </span>

@@ -38,9 +38,9 @@ public class JournalController {
     @Autowired
     private IVisitationConfigManager visitationConfigManager;
 
-    public ResponseStatusDTO getJournal(long lessonId, int month, Date forDate) {
+    public ResponseStatusDTO getJournal(long lessonId, int month, Date forDate, int semester, int year) {
 
-        JournalDTO journal = journalDataService.getForMonth(lessonId, month, forDate);
+        JournalDTO journal = journalDataService.getForMonth(lessonId, month, forDate, semester, year);
 
         VisitationConfigDTO visitConfig = visitationConfigDataService.getByLesson(lessonId);
         visitationConfigManager.init(visitConfig);
@@ -54,8 +54,8 @@ public class JournalController {
         return new ResponseStatusDTO(StatusTypes.OK, journalManager.get());
     }
 
-    public ResponseStatusDTO getJournalHistoryDate(long lessonId) {
-        List<Date> historyDates = journalDataService.getHistoryDates(lessonId);
+    public ResponseStatusDTO getJournalHistoryDate(long lessonId, int semester, int year) {
+        List<Date> historyDates = journalDataService.getHistoryDates(lessonId, semester, year);
         return new ResponseStatusDTO(StatusTypes.OK, historyDates);
     }
 
@@ -66,8 +66,8 @@ public class JournalController {
      * @param lessonId ID занятия
      * @return ResponseStatusDTO
      */
-    public ResponseStatusDTO getDates(long lessonId) {
-        JournalDTO journal = journalDataService.get(lessonId, null);
+    public ResponseStatusDTO getDates(long lessonId, int semester, int year) {
+        JournalDTO journal = journalDataService.get(lessonId, null, semester, year);
         return new ResponseStatusDTO(StatusTypes.OK, journal.getComparison().stream().map(x -> x.getDate()).collect(Collectors.toList()));
     }
 
@@ -173,9 +173,9 @@ public class JournalController {
         return new ResponseStatusDTO(StatusTypes.OK, visitationConfig);
     }
 
-    public ResponseStatusDTO getCertificationReport(long lessonId, Date start, Date end) {
+    public ResponseStatusDTO getCertificationReport(long lessonId, Date start, Date end, int semester, int year) {
 
-        JournalDTO journal = journalDataService.get(lessonId, null);
+        JournalDTO journal = journalDataService.get(lessonId, null, semester, year);
 
         VisitationConfigDTO visitConfig = visitationConfigDataService.getByLesson(lessonId);
         visitationConfigManager.init(visitConfig);

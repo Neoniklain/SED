@@ -5,6 +5,7 @@ import {ScheduleService} from "../../../services/schedule.service";
 import {AccountService} from "../../../services/account.service";
 import {Professor} from "../../../models/account/professor";
 import {Lesson} from "../../../models/shedule/lesson";
+import {SemesterNumberYear} from "../../../models/semesterNumberYear.model";
 
 @Component({
     selector: 'lesson-configurator-page',
@@ -21,6 +22,7 @@ export class LessonConfiguratorPageComponent implements OnInit {
     public lessons: Array<Lesson> = new Array<Lesson>();
     public showLoader: boolean = false;
 
+    public semesterNumberYear: SemesterNumberYear = new SemesterNumberYear();
 
     constructor(private authenticationService: AuthenticationService,
                 private accountService: AccountService,
@@ -29,16 +31,9 @@ export class LessonConfiguratorPageComponent implements OnInit {
         this.authenticationService.getUser().subscribe(
             res => {
                 this.user = res.data;
-                this.showLoader = true;
                 this.accountService.GetProfessorByUser(this.user.id).subscribe(
                     resultProf => {
                         this.professor = resultProf.data;
-                            this.ScheduleService.GetProfessorLessons(this.professor.id).subscribe(
-                            result => {
-                                this.showLoader = false;
-                                this.lessons = result.data;
-                            }
-                        );
                     }
                 );
             });
@@ -46,6 +41,20 @@ export class LessonConfiguratorPageComponent implements OnInit {
 
     ngOnInit(): void {
         this.selectLesson = null;
+    }
+
+    loadLesson() {
+        if (this.professor == null || this.professor.id == 0)
+            return;
+        this.showLoader = true;
+        this.ScheduleService.GetProfessorLessons(this.professor.id, this.semesterNumberYear).subscribe(
+            result => {
+                this.showLoader = false;
+                this.lessons = result.data;
+            }, error1 => {
+                this.showLoader = false;
+            }
+        );
     }
 
     onClick(lesson: Lesson) {

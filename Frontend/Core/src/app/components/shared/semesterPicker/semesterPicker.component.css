@@ -1,0 +1,19 @@
+.button-control-bar {
+    padding-left: 1em;
+}
+
+.button-control-bar button {
+    border: none;
+    padding: 0.05em 0.3em;
+    background: #0079d9;
+    color: white;
+    font-size: 1.25em;
+    margin: 0 0.4em 0 0;
+    border-radius: 10px;
+    outline: none;
+    transition: all 0.1s;
+}
+
+.button-control-bar button:hover {
+    padding: 0.1em 0.4em;
+}

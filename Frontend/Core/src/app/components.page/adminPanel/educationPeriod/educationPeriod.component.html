@@ -1,0 +1,70 @@
+<div class="main-header col-md-12">
+    <div class="panel panel-default panel-inverse">
+        <div class="panel-heading">
+            <h3>Настройка периодов обучения</h3>
+        </div>
+        <div class="panel-body">
+
+            <div class="row text-center">
+                <div class="col-xs-6 col-xs-push-3">
+                    <div class="input-group input-group-md">
+                        <span class="input-group-addon">Выбор института: </span>
+                        <select class="form-control" (ngModelChange)="selectLessonForInstitute($event)" [(ngModel)]="selectInstitute">
+                            <option *ngFor="let institute of institutes" name="name" [ngValue]="institute">{{institute.name}}</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <hr *ngIf="specialities && specialities.length != 0">
+
+            <speciality-list [specialities]="specialities" (clickOnSpeciality)="onClickSpeciality($event)"></speciality-list>
+
+            <ng-container *ngIf="selectSpeciality.id != 0">
+                <div class="row">
+                    <div class="col-md-12">
+                        <h3 class="text-center">{{selectSpeciality.name}}</h3>
+                    </div>
+                </div>
+                <hr>
+                <div class="row align-items-center">
+                    <div class="col-md-3 text-right">
+                        <span style="font-size: 20px">Добавить период: </span>
+                    </div>
+                    <div class="col-md-3 text-center">
+                        <p-calendar [locale]="ru" appendTo="body" placeholder="Начало"
+                                    dateFormat="dd.mm.yy"
+                                    [(ngModel)]="startDate"></p-calendar>
+                    </div>
+                    <div class="col-md-3 text-center">
+                        <p-calendar [locale]="ru" appendTo="body" placeholder="Конец"
+                                    dateFormat="dd.mm.yy"
+                                    [(ngModel)]="endDate"></p-calendar>
+                    </div>
+                    <div class="col-md-3 text-left">
+                        <button pButton (click)="addPeriod()" label="Добавить"></button>
+                    </div>
+                </div>
+
+                <hr>
+
+                <table *ngIf="educationPeriods && educationPeriods?.length > 0" class="table table-bordered table-striped">
+                    <thead>
+                    <tr>
+                        <td>Начало</td>
+                        <td>Конец</td>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr *ngFor="let educationPeriod of educationPeriods">
+                        <td>{{educationPeriod.startDate | date: 'dd.MM.yyyy'}}</td>
+                        <td>{{educationPeriod.endDate | date: 'dd.MM.yyyy'}}</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </ng-container>
+
+
+        </div>
+    </div>
+</div>

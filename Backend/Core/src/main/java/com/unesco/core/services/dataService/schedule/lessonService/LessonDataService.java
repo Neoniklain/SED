@@ -5,10 +5,14 @@ import com.unesco.core.dto.additional.ResponseStatusDTO;
 import com.unesco.core.dto.enums.StatusTypes;
 import com.unesco.core.dto.journal.VisitationConfigDTO;
 import com.unesco.core.dto.shedule.LessonDTO;
+import com.unesco.core.entities.plan.EducationPeriodEntity;
 import com.unesco.core.entities.schedule.LessonEntity;
+import com.unesco.core.repositories.plan.EducationPeriodRepository;
 import com.unesco.core.repositories.schedule.LessonRepository;
 import com.unesco.core.services.dataService.journal.visitation.VisitationConfigDataService;
 import com.unesco.core.services.mapperService.IMapperService;
+import com.unesco.core.utils.DateHelper;
+import com.unesco.core.utils.StartEndDate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.PageRequest;
@@ -26,6 +30,8 @@ public class LessonDataService implements ILessonDataService {
     private LessonRepository lessonRepository;
     @Autowired
     private VisitationConfigDataService visitationConfigDataService;
+    @Autowired
+    private EducationPeriodRepository educationPeriodRepository;
 
     public List<LessonDTO> getPage(FilterQueryDTO filter) {
         int rows = filter.getRows()>0? filter.getRows() : (int) lessonRepository.count();
@@ -63,10 +69,14 @@ public class LessonDataService implements ILessonDataService {
         return model;
     }
 
-    public List<LessonDTO> getByProfessorId(long professorId)
+    public List<LessonDTO> getByProfessorId(long professorId, int semester, int year)
     {
+        EducationPeriodEntity period = getEducationPeriodForYearAndSemester(semester, year);
+        if (period == null)
+            return new ArrayList<>();
+
         List<LessonDTO> modelList = new ArrayList<>();
-        List<LessonEntity> entityList = lessonRepository.findByProfessorId(professorId);
+        List<LessonEntity> entityList = lessonRepository.findByProfessorId(professorId, period.getId());
         for (LessonEntity item: entityList) {
             LessonDTO model = (LessonDTO) mapperService.toDto(item);
             modelList.add(model);
@@ -74,10 +84,14 @@ public class LessonDataService implements ILessonDataService {
         return modelList;
     }
 
-    public List<LessonDTO> getByGroupId(long groupId)
+    public List<LessonDTO> getByGroupId(long groupId, int semester, int year)
     {
+        EducationPeriodEntity period = getEducationPeriodForYearAndSemester(semester, year);
+        if (period == null)
+            return new ArrayList<>();
+
         List<LessonDTO> modelList = new ArrayList<>();
-        List<LessonEntity> entityList = lessonRepository.findByGroupId(groupId);
+        List<LessonEntity> entityList = lessonRepository.findByGroupId(groupId, period.getId());
         for (LessonEntity item: entityList) {
             LessonDTO model = (LessonDTO) mapperService.toDto(item);
             modelList.add(model);
@@ -120,6 +134,11 @@ public class LessonDataService implements ILessonDataService {
         }
         result.setData((LessonDTO) mapperService.toDto(model));
         return result;
+    }
+
+    private EducationPeriodEntity getEducationPeriodForYearAndSemester(int semester, int year) {
+        StartEndDate result = DateHelper.getPeriodForYearAndSemester(semester, year);
+        return educationPeriodRepository.findByStartDateBetween(result.startDate, result.endDate);
     }
 
 }

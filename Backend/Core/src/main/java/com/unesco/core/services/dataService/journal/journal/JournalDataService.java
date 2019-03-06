@@ -6,6 +6,8 @@ import com.unesco.core.dto.enums.StatusTypes;
 import com.unesco.core.dto.journal.*;
 import com.unesco.core.dto.shedule.LessonDTO;
 import com.unesco.core.dto.shedule.PairDTO;
+import com.unesco.core.entities.plan.EducationPeriodEntity;
+import com.unesco.core.repositories.plan.EducationPeriodRepository;
 import com.unesco.core.services.dataService.account.studentService.IStudentDataService;
 import com.unesco.core.services.dataService.journal.point.IPointDataService;
 import com.unesco.core.services.dataService.journal.pointType.IPointTypeDataService;
@@ -13,6 +15,7 @@ import com.unesco.core.services.dataService.schedule.lessonService.ILessonDataSe
 import com.unesco.core.services.dataService.schedule.pairService.IPairDataService;
 import com.unesco.core.utils.DateHelper;
 import com.unesco.core.utils.DayOfWeekHelper;
+import com.unesco.core.utils.StartEndDate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -33,20 +36,22 @@ public class JournalDataService implements IJournalDataService {
     private IPointTypeDataService pointTypeDataService;
     @Autowired
     private IPointDataService pointDataService;
+    @Autowired
+    private EducationPeriodRepository educationPeriodRepository;
 
-    public JournalDTO get(long lessonId, Date date)
+    public JournalDTO get(long lessonId, Date date, int semester, int year)
     {
-        return getForMonth(lessonId, -1, date);
+        return getForMonth(lessonId, -1, date, semester, year);
     }
 
-    public JournalDTO getForMonth(long lessonId, int month, Date date)
+    public JournalDTO getForMonth(long lessonId, int month, Date date, int semester, int year)
     {
         JournalDTO model = new JournalDTO();
         model.setComparison(new ArrayList<>());
 
         LessonDTO lesson = lessonDataService.get(lessonId);
         List<StudentJournalDTO> students = studentDataService.getByGroupAndLesson(lesson.getGroup().getId(), lesson.getId());
-        List<PairDTO> pairs = pairDataService.getAllByLesson(lesson.getId());
+        List<PairDTO> pairs = pairDataService.getAllByLesson(lesson.getId(), semester, year);
 
         Calendar from = Calendar.getInstance();
         Calendar to = Calendar.getInstance();
@@ -55,8 +60,10 @@ public class JournalDataService implements IJournalDataService {
         // Это конечно не верно, нужно установить как-то подругому, по хорошему
         // сделать сервис отвечающий за даты сессии
         // Нумерация месяцов идет с 0
-        from.set(2018,8,1,12,0);
-        to.set(2018,11,28,12,0);
+        StartEndDate startEndDate = DateHelper.getPeriodForYearAndSemester(semester, year);
+        EducationPeriodEntity period = educationPeriodRepository.findByStartDateBetween(startEndDate.startDate, startEndDate.endDate);
+        from.setTime(period.getStartDate());
+        to.setTime(period.getEndDate());
 
         Calendar starDate = Calendar.getInstance();
         Calendar endDate = Calendar.getInstance();
@@ -131,14 +138,14 @@ public class JournalDataService implements IJournalDataService {
         return model;
     }
 
-    public List<Date> getHistoryDates(long lessonId)
+    public List<Date> getHistoryDates(long lessonId, int semester, int year)
     {
         JournalDTO model = new JournalDTO();
         model.setComparison(new ArrayList<>());
 
         LessonDTO lesson = lessonDataService.get(lessonId);
         List<StudentJournalDTO> students = studentDataService.getByGroupAndLesson(lesson.getGroup().getId(), lesson.getId());
-        List<PairDTO> pairs = pairDataService.getAllByLesson(lesson.getId());
+        List<PairDTO> pairs = pairDataService.getAllByLesson(lesson.getId(), semester, year);
 
         // Добавляем в журнал сохраненные отметки
         List<PointDTO> allByLesson = pointDataService.getAllByLesson(lessonId);

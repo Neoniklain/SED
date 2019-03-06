@@ -1,10 +1,17 @@
-<div *ngIf="!lastPair && !showLoader" class="header-panel-body">
+<div *ngIf="!lastPair">
+    Расписание за
+    <semester-picker style="display: inline-block" (ngModelChange)="loadSchedule()"
+                     [semesterNumberYear]="semesterNumberYear"></semester-picker>
+</div>
+
+<div *ngIf="!lastPair && !showLoader && pairs && pairs.length > 0" class="header-panel-body">
     <h3>Для заполнения журнала выберите занятие.</h3>
 </div>
 
-<schedule-week *ngIf="!lastPair && !showLoader && pairs && pairs.length > 0"
-    [pairs]="pairs"
-    (clickPair)="onClick($event)">
+<schedule-week *ngIf="!lastPair && !showLoader"
+               [pairs]="pairs"
+               [semesterNumberYear]="semesterNumberYear"
+               (clickPair)="onClick($event)">
 </schedule-week>
 
 <div *ngIf="lastPair && !showLoader" class="header-panel-body">
@@ -13,14 +20,15 @@
             <button (click)="back()" class="btn btn-default btn-sm">Назад</button>
         </div>
         <div class="col-sm-10">
-            <h3>Заполнение журнала для группы {{lastPair.lesson.group.name}} по предмету {{lastPair.lesson.discipline.name}}</h3>
+            <h3>Заполнение журнала для группы {{lastPair.lesson.group.name}} по предмету
+                {{lastPair.lesson.discipline.name}}</h3>
         </div>
     </div>
 </div>
 
 <div *ngIf="lastPair && !showLoader">
 
-    <journal *hasRole="[Roles.Professor]" [lesson]="lastPair.lesson" [subgroupType]="lastPair?.subgroup">
+    <journal *hasRole="[Roles.Professor]" [lesson]="lastPair.lesson" [subgroupType]="lastPair?.subgroup" [semesterNumberYear]="semesterNumberYear">
     </journal>
 
     <academic-performance *hasRole="[Roles.Student]"></academic-performance>

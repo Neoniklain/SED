@@ -13,6 +13,7 @@ import com.unesco.core.dto.journal.PointTypeDTO;
 import com.unesco.core.dto.journal.VisitationConfigDTO;
 import com.unesco.core.dto.news.NewsDTO;
 import com.unesco.core.dto.plan.DepartmentDTO;
+import com.unesco.core.dto.plan.EducationPeriodDTO;
 import com.unesco.core.dto.shedule.*;
 import com.unesco.core.dto.task.TaskDescriptionDTO;
 import com.unesco.core.dto.task.TaskUserDTO;
@@ -24,6 +25,7 @@ import com.unesco.core.entities.journal.PointEntity;
 import com.unesco.core.entities.journal.PointTypeEntity;
 import com.unesco.core.entities.journal.VisitationConfigEntity;
 import com.unesco.core.entities.news.NewsEntity;
+import com.unesco.core.entities.plan.EducationPeriodEntity;
 import com.unesco.core.entities.schedule.*;
 import com.unesco.core.entities.task.TaskDescription;
 import com.unesco.core.entities.task.TaskUser;
@@ -121,6 +123,9 @@ public class MapperService implements IMapperService {
         if (model instanceof SpecialityDTO)
             return specialityToEntity((SpecialityDTO) model);
 
+        if (model instanceof EducationPeriodDTO)
+            return educationPeriodToEntity((EducationPeriodDTO) model);
+
         return new Exception("Not found " + model.getClass().toString() + " model class");
     }
 
@@ -200,6 +205,9 @@ public class MapperService implements IMapperService {
 
         if (entity instanceof SpecialityEntity)
             return specialityToDto((SpecialityEntity) entity);
+
+        if (entity instanceof EducationPeriodEntity)
+            return educationPeriodToDto((EducationPeriodEntity) entity);
 
         return new Exception("Not found " + entity.getClass().toString() + " entity class");
     }
@@ -727,6 +735,28 @@ public class MapperService implements IMapperService {
         return Entity;
     }
 
+    public EducationPeriodDTO educationPeriodToDto(EducationPeriodEntity Entity)
+    {
+        if (Entity == null) return null;
+        EducationPeriodDTO Dto = new EducationPeriodDTO();
+
+        Dto.setId(Entity.getId());
+        Dto.setEndDate(Entity.getEndDate());
+        Dto.setStartDate(Entity.getStartDate());
+        Dto.setSpeciality(specialityToDto(Entity.getSpeciality()));
+        return Dto;
+    }
+    public EducationPeriodEntity educationPeriodToEntity(EducationPeriodDTO Dto)
+    {
+        if (Dto == null) return null;
+        EducationPeriodEntity Entity = new EducationPeriodEntity();
+        Entity.setId(Dto.getId());
+        Entity.setEndDate(Dto.getEndDate());
+        Entity.setStartDate(Dto.getStartDate());
+        Entity.setSpeciality(specialityToEntity(Dto.getSpeciality()));
+        return Entity;
+    }
+
     public GroupDTO groupToDto(GroupEntity Entity)
     {
         if (Entity == null) return null;
@@ -734,7 +764,7 @@ public class MapperService implements IMapperService {
 
         Dto.setName(Entity.getName());
         Dto.setId(Entity.getId());
-        Dto.setSpecialty(specialityToDto(Entity.getSpecialty()));
+        Dto.setSpeciality(specialityToDto(Entity.getSpeciality()));
 
         return Dto;
     }
@@ -746,7 +776,7 @@ public class MapperService implements IMapperService {
 
         Entity.setName(Dto.getName());
         Entity.setId(Dto.getId());
-        Entity.setSpecialty(specialityToEntity(Dto.getSpecialty()));
+        Entity.setSpeciality(specialityToEntity(Dto.getSpeciality()));
 
         return Entity;
     }

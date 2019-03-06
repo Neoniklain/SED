@@ -37,7 +37,7 @@ public IGroupDataService dataService;
             responseStatusDTO.setStatus(StatusTypes.ERROR);
             responseStatusDTO.addErrors("Не указано название группы");
         }
-        if (group.getSpecialty().getId() == 0) {
+        if (group.getSpeciality().getId() == 0) {
             responseStatusDTO.setStatus(StatusTypes.ERROR);
             responseStatusDTO.addErrors("Не указана специальность");
         }

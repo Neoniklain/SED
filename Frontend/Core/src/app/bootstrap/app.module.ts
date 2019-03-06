@@ -65,7 +65,6 @@ import {EditorListNewsComponent} from "../components/news/editor-list-news/edito
 import {ListNewsComponent} from "../components/news/list-news/list-news.component";
 import {NotFoundComponent} from "../components/notfound/notfound.component";
 import {TaskDescListComponent} from "../components/task/taskList/taskDescList.component";
-import {PairCreateComponent} from "../components.page/adminPanel/pairCreate/create-pair.component";
 import {HeaderComponent} from "../components/shared/header/header";
 import {AccessDeniedComponent} from "../components/shared/accessDenied/accessDenied.component";
 import {LoaderComponent} from "../components/shared/loader/loader";
@@ -101,6 +100,10 @@ import {TableModule} from "primeng/table";
 import {StudentsConfiguratorComponent} from "../components.page/adminPanel/studentsConfigurator/studentsConfigurator";
 import {AcademicPerformanceComponent} from "../components/journal/academic-performance/academic-performance.component";
 import {LessonConfiguratorComponent} from "../components/journal/lesson-configurator/lesson-configurator.component";
+import {EducationPeriodComponent} from "../components.page/adminPanel/educationPeriod/educationPeriod.component";
+import {SpecialityListComponent} from "../components/schedule/specialityList/specialityList.component";
+import {SpecialityDetailsComponent} from "../components/schedule/specialityDetails/specialityDetails.component";
+import {SemesterPickerComponent} from "../components/shared/semesterPicker/semesterPicker.component";
 
 registerLocaleData(localeRu);
 
@@ -180,13 +183,16 @@ registerLocaleData(localeRu);
         HasAccessRightDirective,
         HasRoleDirective,
         ShowScheduleComponent,
-        PairCreateComponent,
         PairDetailsComponent,
         LessonListComponent,
         LessonDetailsComponent,
         ScheduleComponent,
         UserSearchComponent,
-        DetailTaskComponent
+        EducationPeriodComponent,
+        SpecialityListComponent,
+        SpecialityDetailsComponent,
+        DetailTaskComponent,
+        SemesterPickerComponent
     ],
     providers: [
         {provide: RequestOptions, useClass: GlobalHttpOptions},

@@ -4,14 +4,14 @@ package com.unesco.core.entities.schedule;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "un_specialty")
+@Table(name = "un_speciality")
 /**
  * Направление обучения
  */
 public class SpecialityEntity {
     @Id
-    @SequenceGenerator(name = "specialtySequenceGen", sequenceName = "specialtySequenceGen", allocationSize = 1)
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "specialtySequenceGen")
+    @SequenceGenerator(name = "specialitySequenceGen", sequenceName = "specialitySequenceGen", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "specialitySequenceGen")
     private long id;
 
     @Column(unique=true)

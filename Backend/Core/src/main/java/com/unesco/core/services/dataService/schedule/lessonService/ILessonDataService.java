@@ -7,6 +7,6 @@ import java.util.List;
 
 public interface ILessonDataService extends IDataService<LessonDTO> {
     LessonDTO getDisciplineIdAndGroupIdAndProfessorId(long disciplineId, long groupId, long professorId);
-    List<LessonDTO> getByProfessorId(long professorId);
-    List<LessonDTO> getByGroupId(long groupId);
+    List<LessonDTO> getByProfessorId(long professorId, int semester, int year);
+    List<LessonDTO> getByGroupId(long groupId, int semester, int year);
 }

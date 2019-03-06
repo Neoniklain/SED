@@ -1,6 +1,7 @@
 package com.unesco.core.entities.schedule;
 
 import com.unesco.core.entities.account.ProfessorEntity;
+import com.unesco.core.entities.plan.EducationPeriodEntity;
 
 import javax.persistence.*;
 
@@ -12,15 +13,22 @@ public class LessonEntity {
     @SequenceGenerator(name = "lessonSequenceGen", sequenceName = "lessonSequenceGen", allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "lessonSequenceGen")
     private long id;
+
     @ManyToOne
     @JoinColumn(name = "discipline_id", referencedColumnName = "id")
     private DisciplineEntity discipline;
+
     @ManyToOne
     @JoinColumn(name = "professor_id", referencedColumnName = "id")
     private ProfessorEntity professor;
+
     @ManyToOne
     @JoinColumn(name = "group_id", referencedColumnName = "id")
     private GroupEntity group;
+
+    @ManyToOne
+    @JoinColumn(name = "educationPeriod_id", referencedColumnName = "id")
+    private EducationPeriodEntity educationPeriod;
 
     public long getId() {
         return id;
@@ -50,4 +58,10 @@ public class LessonEntity {
         this.group = group;
     }
 
+    public EducationPeriodEntity getEducationPeriod() {
+        return educationPeriod;
+    }
+    public void setEducationPeriod(EducationPeriodEntity educationPeriod) {
+        this.educationPeriod = educationPeriod;
+    }
 }

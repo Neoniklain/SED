@@ -25,6 +25,8 @@ import {PairType} from "../../../models/shedule/pairType";
 import {PageResult} from "../../../models/admin/PageResult.model.list";
 import {User} from "../../../models/account/user.model";
 import {Dictionary} from "../../../models/admin/dictionary.model";
+import {SemesterNumberYear} from "../../../models/semesterNumberYear.model";
+import {EducationPeriod} from "../../../models/educationPeriod";
 
 @Component({
     selector: 'pair-details',
@@ -37,6 +39,7 @@ export class PairDetailsComponent implements OnInit, OnChanges {
     @Input() pointX: number;
     @Input() pointY: number;
     @Input() editable: boolean = false;
+    @Input() semesterNumberYear: SemesterNumberYear;
     @Output() close = new EventEmitter<any>();
     @Output() updatePairs = new EventEmitter<any>();
 
@@ -57,13 +60,16 @@ export class PairDetailsComponent implements OnInit, OnChanges {
     public windowWidth: number;
     public windowHeight: number;
 
+    public currentEducationPeriod: EducationPeriod;
+
     @ViewChild('pairDetails') pairDetailsView: ElementRef;
 
     constructor(private dictionaryService: DictionaryService,
                 private accountService: AccountService,
                 private notification: NotificationService,
-                private ScheduleService: ScheduleService,
-    ) { }
+                private scheduleService: ScheduleService,
+    ) {
+    }
 
     ngOnInit() {
         this.GetPairTypes();
@@ -86,7 +92,7 @@ export class PairDetailsComponent implements OnInit, OnChanges {
     ngOnChanges() {
         if (!isUndefined(this.editablePair)) {
             this.pair = JSON.parse(JSON.stringify(this.editablePair));
-            if (this.pair!=null)
+            if (this.pair != null)
                 this.curSubGroup = this.SubGroups.find(x => x.value == this.pair.subgroup);
         }
         else this.pair = null;
@@ -116,11 +122,11 @@ export class PairDetailsComponent implements OnInit, OnChanges {
                 let widthDetails = this.pairDetailsView.nativeElement.offsetWidth;
                 let heightDetails = this.pairDetailsView.nativeElement.offsetHeight;
 
-                if ( (this.pointY + heightDetails + 5) >  this.windowHeight + this.windowYOffset) {
+                if ((this.pointY + heightDetails + 5) > this.windowHeight + this.windowYOffset) {
                     changedPointY = this.pointY - heightDetails;
                 }
 
-                if ( (this.pointX + widthDetails + 5) >  this.windowWidth + this.windowXOffset) {
+                if ((this.pointX + widthDetails + 5) > this.windowWidth + this.windowXOffset) {
                     changedPointX = this.pointX - widthDetails;
                 }
             }
@@ -139,7 +145,7 @@ export class PairDetailsComponent implements OnInit, OnChanges {
 
     AllUpdatePairs(skipWarnings?: boolean) {
         this.checkOnEmpty(true);
-        this.ScheduleService.Save(this.pair, skipWarnings).subscribe(
+        this.scheduleService.Save(this.pair, skipWarnings).subscribe(
             result => {
                 if (result.status === StatusType.OK.toString()) {
                     this.updatePairs.emit();
@@ -154,7 +160,7 @@ export class PairDetailsComponent implements OnInit, OnChanges {
     }
 
     deletePair() {
-        this.ScheduleService.Delete(this.pair.id).subscribe(
+        this.scheduleService.Delete(this.pair.id).subscribe(
             result => {
                 this.updatePairs.emit();
                 this.closeDetails();
@@ -177,30 +183,41 @@ export class PairDetailsComponent implements OnInit, OnChanges {
 
     public selectGroup(group: Group) {
         this.pair.lesson.group = group;
+        this.scheduleService.getEducationPeriodForGroup(group.id, this.semesterNumberYear).subscribe(
+            result => {
+                console.log("getting education period:", result);
+                this.currentEducationPeriod = result.data;
+            }
+        );
     }
+
     public selectDiscipline(discipline: Discipline) {
         this.pair.lesson.discipline = discipline;
     }
+
     public selectProfessor(professor: Professor) {
         this.pair.lesson.professor = professor;
     }
+
     public selectRoom(room: Room) {
         this.pair.room = room;
     }
+
     public selectWeekType(week: string) {
-        if (this.editablePair.id !== 0 && this.editablePair.weektype !==  week) {
+        if (this.editablePair.id !== 0 && this.editablePair.weektype !== week) {
             if (this.editablePair.weektype === WeekType.Все.toString()
-            || week === WeekType.Все.toString()) {
+                || week === WeekType.Все.toString()) {
                 this.pair.id = this.editablePair.id;
             } else {
                 this.pair.id = this.editablePair.id;
             }
         }
-        if (this.editablePair.id !== 0 && this.editablePair.weektype ===  week) {
+        if (this.editablePair.id !== 0 && this.editablePair.weektype === week) {
             this.pair.id = this.editablePair.id;
         }
         this.pair.weektype = week;
     }
+
     public selectPairType(pairType: PairType) {
         this.pair.pairType = pairType;
     }
@@ -248,6 +265,7 @@ export class PairDetailsComponent implements OnInit, OnChanges {
             }, error => console.error(error)
         );
     }
+
     public searchDisciplines(event: any) {
         let filter = {
             globalFilter: event.query.substring(0, 60)
@@ -280,6 +298,7 @@ export class PairDetailsComponent implements OnInit, OnChanges {
             }, error => console.error(error)
         );
     }
+
     public searchRooms(event: any) {
         let filter = {
             globalFilter: event.query.substring(0, 60)
