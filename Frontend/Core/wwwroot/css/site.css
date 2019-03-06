@@ -234,9 +234,15 @@ body {
     border: 1px solid #00000020;
 }
 
-#userSearchForm p-autocomplete input {
+#userSearchForm p-autocomplete .ui-autocomplete input {
     width: 100%;
 }
+
+#userSearchForm p-autocomplete .ui-autocomplete-dd input {
+    width: calc(100% - 2.357em);
+}
+
+
 
 #TasksList .ui-tabview .ui-tabview-panels {
     background-color: #ffffff;

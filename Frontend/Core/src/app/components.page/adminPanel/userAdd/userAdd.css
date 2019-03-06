@@ -27,3 +27,7 @@
     text-align: center;
     padding-bottom: 1em;
 }
+
+p-autoComplete .ui-inputtext {
+    width: calc(100% - 2.357em);
+}

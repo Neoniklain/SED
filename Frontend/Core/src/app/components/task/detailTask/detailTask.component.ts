@@ -203,6 +203,11 @@ export class DetailTaskComponent {
             .subscribe(
                 res => {
                     this.notificationService.FromStatus(res);
+                    if (res.status == StatusType.OK.toString()) {
+                        this.localTD.taskUsers = [...this.localTD.taskUsers.filter(function (x) {
+                            return x.id != tu_id;
+                        })];
+                    }
                 },
                 error => {
                     console.error(error);

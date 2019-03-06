@@ -63,6 +63,15 @@ public class UserDataService implements IUserDataService {
         return model;
     }
 
+    public List<UserDTO> getByRoleName(String rolename) {
+        List<UserEntity> entities = userRepository.findByRole(rolename);
+        List<UserDTO> model = new ArrayList<>();
+        for (UserEntity entity: entities) {
+            model.add((UserDTO)mapperService.toDto(entity));
+        }
+        return model;
+    }
+
     public ResponseStatusDTO<UserDTO> delete(long id)
     {
         ResponseStatusDTO<UserDTO> result = new ResponseStatusDTO<>(StatusTypes.OK);

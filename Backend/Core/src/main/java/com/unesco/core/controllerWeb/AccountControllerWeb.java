@@ -54,6 +54,11 @@ public class AccountControllerWeb {
         return accountController.findUsersByFIO(req);
     }
 
+    @RequestMapping(value = "/FindUsersByRoleName/{req}")
+    public ResponseStatusDTO findUsersByRoleName(@PathVariable("req") String req) {
+        return accountController.findUsersByRoleName(req);
+    }
+
     @GetMapping("/professors")
     public ResponseStatusDTO getProfessors() {
         return accountController.getProfessors();

@@ -13,7 +13,6 @@ import com.unesco.core.dto.shedule.PairDTO;
 import com.unesco.core.managers.journal.journalManager.interfaces.journal.IJournalManager;
 import com.unesco.core.managers.journal.lessonEvent.interfaces.lessonEventList.ILessonEventListManager;
 import com.unesco.core.utils.DateHelper;
-import javafx.event.EventType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;

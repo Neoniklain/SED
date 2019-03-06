@@ -181,6 +181,11 @@ public class AccountController {
         return new ResponseStatusDTO(StatusTypes.OK, userListManager.GetByFio(req));
     }
 
+    public ResponseStatusDTO findUsersByRoleName(String roleName) {
+        userListManager.init(userDataService.getByRoleName(roleName));
+        return new ResponseStatusDTO(StatusTypes.OK, userListManager.getAll());
+    }
+
     public ResponseStatusDTO getProfessors() {
         professorListManager.init(professorDataService.getAll());
         return new ResponseStatusDTO(StatusTypes.OK, professorListManager.getAll());

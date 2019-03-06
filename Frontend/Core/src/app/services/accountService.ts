@@ -25,6 +25,14 @@ export class AccountService {
             );
     }
 
+    public FindUsersByRoleName(req: string): Observable<ResponseStatus> {
+        return this.http.get(ApiRouteConstants.Account.FindUsersByRoleName.replace(":req", req))
+            .pipe(
+                map((res: ResponseStatus) => res),
+                catchError(e => this.handleError.handle(e))
+            );
+    }
+
     public FindUserByLogin(req: string): Observable<ResponseStatus> {
         return this.http.get(ApiRouteConstants.Account.FindUserByUsername.replace(":req", req))
             .pipe(

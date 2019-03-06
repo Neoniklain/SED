@@ -42,12 +42,12 @@
     </div>
     <div *ngIf="isModal">
         <p-dialog   [(visible)]="editable" modal="modal" [resizable]="true" [draggable]="true"
-                    [closable]="false" (onHide)="closeForm()" [minWidth]="320">
+                    [closable]="false" (onHide)="closeForm()" [minWidth]="320" [positionTop]="150">
             <p-header>
                 Выбор пользователей
                 <i class="fa fa-close fa-lg pull-right" aria-hidden="true" (click)="closeForm()" style="cursor: pointer;">  </i>
             </p-header>
-            <div style="min-height: 300px;">
+            <div style="min-height: 300px; max-height: 600px;">
                 <p-selectButton [options]="listOfTypes" [(ngModel)]="Type" optionLabel="name" [disabled]="!editable || disabled"></p-selectButton>
                 <div *ngIf="Type.value == 1">
                     <p style="margin: 10px 0;">Введите ФИО пользователя:</p>
@@ -55,29 +55,34 @@
                                     [minLength]="3" placeholder="Введите ФИО" field="userFIO" (onSelect)="AddUser($event)" [multiple]="false"
                                     [disabled]="!editable || disabled">
                     </p-autoComplete>
-                    <div *ngIf="result != null">
-                        <p *ngIf="result.length > 0" style="margin: 10px 0;">Выбранные пользователи:</p>
-                        <table *ngIf="result.length > 0" class="table table-hover">
-                            <thead>
-                                <tr>
-                                    <th>Имя</th>
-                                    <th>Логин</th>
-                                    <th></th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr *ngFor="let r of result; let i = index">
-                                    <td>{{r.userFIO}}</td>
-                                    <td>{{r.username}}</td>
-                                    <td>
-                                        <button *ngIf="editable" (click)="removeUser(r)" class="btn btn-danger btn-sm" title="Удалить из списка">
-                                            <i class="fa fa-times"></i>
-                                        </button>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
+                </div>
+                <div *ngIf="Type.value == 2">
+                    <p style="margin: 10px 0;">Выберите роль:</p>
+                    <p-autoComplete [(ngModel)]="selectedRole" [suggestions]="findRoles" (completeMethod)="searchRoles($event)"
+                                    [multiple]="false" field="roleName" [dropdown]="true"></p-autoComplete>
+                </div>
+                <div *ngIf="isShowUserList()">
+                    <p *ngIf="result.length > 0" style="margin: 10px 0;">Выбранные пользователи:</p>
+                    <table *ngIf="result.length > 0" class="table table-hover">
+                        <thead>
+                        <tr>
+                            <th>Имя</th>
+                            <th>Логин</th>
+                            <th></th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr *ngFor="let r of result; let i = index">
+                            <td>{{r.userFIO}}</td>
+                            <td>{{r.username}}</td>
+                            <td>
+                                <button *ngIf="editable" (click)="removeUser(r)" class="btn btn-danger btn-sm" title="Удалить из списка">
+                                    <i class="fa fa-times"></i>
+                                </button>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
                 </div>
             </div>
             <p-footer style="width: 100%;">
