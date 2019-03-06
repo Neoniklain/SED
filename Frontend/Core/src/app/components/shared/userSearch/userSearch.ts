@@ -10,8 +10,7 @@ import {Role} from "../../../models/account/role.model";
 
 @Component({
    selector: 'user-search-form',
-   templateUrl: "./userSearch.html",
-    styleUrls: ["./userSearch.css"]
+   templateUrl: "./userSearch.html"
 })
 
 export class UserSearchComponent implements OnInit {
