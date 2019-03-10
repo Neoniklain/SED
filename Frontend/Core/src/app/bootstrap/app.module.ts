@@ -83,7 +83,6 @@ import {AdminPanelComponent} from "../components.page/adminPanel/adminPanel";
 import {SettingsPageComponent} from "../components.page/account/settings-page/settings-page.component";
 import {LessonConfiguratorPageComponent} from "../components.page/account/lesson-configurator-page/lesson-configurator-page.component";
 import {JournalPageComponent} from "../components.page/account/journal-page/journal-page.component";
-import {LessonСonfiguratorComponent} from "../components/journal/lesson-configurator/lesson-configurator.component";
 import {AccountComponent} from "../components.page/account/account.component";
 import {NewsDispatcherComponent} from "../components.page/account/news-dispatcher/news-dispatcher.component";
 import {LogInComponent} from "../components.page/login/login.component";
@@ -101,6 +100,7 @@ import {DetailTaskComponent} from "../components/task/detailTask/detailTask.comp
 import {TableModule} from "primeng/table";
 import {StudentsConfiguratorComponent} from "../components.page/adminPanel/studentsConfigurator/studentsConfigurator";
 import {AcademicPerformanceComponent} from "../components/journal/academic-performance/academic-performance.component";
+import {LessonConfiguratorComponent} from "../components/journal/lesson-configurator/lesson-configurator.component";
 
 registerLocaleData(localeRu);
 
@@ -173,7 +173,7 @@ registerLocaleData(localeRu);
         DictionaryTableAddComponent,
         LoaderComponent,
         JournalComponent,
-        LessonСonfiguratorComponent,
+        LessonConfiguratorComponent,
         DictionaryTableComponent,
         AccessControlComponent,
         DepartmentScheduleComponent,

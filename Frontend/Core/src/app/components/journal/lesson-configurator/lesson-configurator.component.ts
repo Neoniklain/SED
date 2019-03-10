@@ -22,7 +22,7 @@ import {Pair} from "../../../models/shedule/pair";
     styleUrls: ['./lesson-configurator.component.css']
 })
 @Injectable()
-export class LessonСonfiguratorComponent implements OnInit {
+export class LessonConfiguratorComponent implements OnInit {
 
     @Input() lesson: Lesson;
     public dates: Array<Date> = [];
