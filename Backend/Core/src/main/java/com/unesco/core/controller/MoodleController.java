@@ -112,7 +112,8 @@ public class MoodleController {
         ResponseStatusDTO result = new ResponseStatusDTO();
 
         try{
-            result.setData(_moodle.CreateStudents(groupId));
+            _moodle.CreateStudents(groupId);
+            result.addMessage("Студенты группы успешно созданы в moodle");
             result.setStatus(StatusTypes.OK);
         } catch (Exception e) {
             System.out.println(e.getMessage());
@@ -128,7 +129,8 @@ public class MoodleController {
         ResponseStatusDTO result = new ResponseStatusDTO();
 
         try{
-            result.setData(_moodle.CreateUser(userId));
+            _moodle.CreateUser(userId);
+            result.addMessage("Пользователь успешно создан в moodle");
             result.setStatus(StatusTypes.OK);
         } catch (Exception e) {
             System.out.println(e.getMessage());

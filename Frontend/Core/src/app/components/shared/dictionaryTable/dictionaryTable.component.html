@@ -38,6 +38,7 @@
                    field=""
                   header="Действия">
             <ng-template let-item let-col let-fields="rowData" let-ri="rowIndex" pTemplate="body">
+               <button *ngIf="isAbleToRegisterMoodle()" (click)="registerMoodle(fields)" class="btn btn-info btn-sm">M</button>
                <button *ngIf="editable" (click)="edit(fields)" class="btn btn-warning btn-sm"><i class="fa fa-pencil-square-o"></i></button>
                <button *ngIf="editable" (click)="delete(fields)" class="btn btn-danger btn-sm"><i class="fa fa-times"></i></button>
                <button *ngIf="clickableRow" (click)="config(fields)" class="btn btn-success btn-sm"><i class="fa fa-cog"></i></button>

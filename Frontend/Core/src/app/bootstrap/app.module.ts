@@ -99,6 +99,7 @@ import {DetailTaskComponent} from "../components/task/detailTask/detailTask.comp
 import {TableModule} from "primeng/table";
 import {StudentsConfiguratorComponent} from "../components.page/adminPanel/studentsConfigurator/studentsConfigurator";
 import {AcademicPerformanceComponent} from "../components/journal/academic-performance/academic-performance.component";
+import {MoodleService} from "../services/moodle.service";
 import {LessonConfiguratorComponent} from "../components/journal/lesson-configurator/lesson-configurator.component";
 import {EducationPeriodComponent} from "../components.page/adminPanel/educationPeriod/educationPeriod.component";
 import {SpecialityListComponent} from "../components/schedule/specialityList/specialityList.component";
@@ -204,6 +205,7 @@ registerLocaleData(localeRu);
         NotificationService,
         HandelErrorService,
         TaskService,
+        MoodleService,
         NewsService,
         MessageService,
         AccountService,

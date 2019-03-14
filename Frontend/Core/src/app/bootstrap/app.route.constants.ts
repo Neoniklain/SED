@@ -108,6 +108,20 @@ export const ApiRouteConstants = {
         DeleteTask: "task/deleteTask/:id",
         DeleteTaskUser: "task/deleteTaskUser/:id"
     },
+    Moodle: {
+        Create: {
+            Courses: "moodle/createCourses",
+            Groups: "moodle/createGroups",
+            Students: "moodle/createStudents/:groupId",
+            User: "moodle/createUser/:userId"
+        },
+        Get: {
+            AllCourses: "moodle/getAllCourses",
+            AllUsers: "moodle/getAllUsers",
+            UserByUnescoUserId: "moodle/getUserById/:id",
+            AllGroups: "moodle/getAllGroups"
+        }
+    },
     Journal: {
         All: "journal/:lessonId",
         СertificationReport: "journal/report/certification/:lessonId",

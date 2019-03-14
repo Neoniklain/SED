@@ -75,7 +75,6 @@ public class MoodleControllerWeb {
         return result;
     }
 
-
     @RequestMapping(value = "assignStudentsOnGroups/{groupId}")
     public ResponseStatusDTO AssignStudentsOnGroups(@PathVariable("groupId") long groupId) {
         return _moodleController.AssignStudentsOnGroups(groupId);

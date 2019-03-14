@@ -31,3 +31,8 @@
 summary h3 {
     display: inline-block;
 }
+
+.btn-info {
+    background: white;
+    color: black;
+}

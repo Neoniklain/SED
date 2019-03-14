@@ -11,11 +11,13 @@ import {User} from "../../../models/account/user.model";
 import {Discipline} from "../../../models/shedule/discipline";
 import {Room} from "../../../models/shedule/room.model";
 import {Group} from "../../../models/shedule/group";
+import {MoodleService} from "../../../services/moodle.service";
+import {NotificationService} from "../../../services/notification.service";
 
 @Component({
-    selector: 'dictionary-table',
-    templateUrl: "./dictionaryTable.component.html",
-    styleUrls: ["./dictionaryTable.component.css"],
+selector: 'dictionary-table',
+templateUrl: "./dictionaryTable.component.html",
+styleUrls: ["./dictionaryTable.component.css"],
 })
 
 export class DictionaryTableComponent implements OnInit, OnChanges {
@@ -44,8 +46,9 @@ export class DictionaryTableComponent implements OnInit, OnChanges {
     public event: LazyLoadEvent;
 
     constructor(private router: Router,
-                private dictionaryService: DictionaryService) {
-    }
+                private dictionaryService: DictionaryService,
+                private moodleService: MoodleService,
+                private notificationService: NotificationService) { }
 
     ngOnInit(): void {
         this.getData(this.event);
@@ -59,7 +62,7 @@ export class DictionaryTableComponent implements OnInit, OnChanges {
     updateModel() {
         this.loading = true;
         this.model = this.dictionaryService.CreateInstance(this.type);
-    }
+        }
 
     // Получить данные
     getData(event?) {
@@ -86,20 +89,60 @@ export class DictionaryTableComponent implements OnInit, OnChanges {
         this.clickOnRow.emit(item);
     }
 
-    isArray(obj: any) {
-        return Array.isArray(obj);
+    isArray(obj: any ) {
+      return Array.isArray(obj);
     }
 
-    itIsObject(obj: any) {
-        return isObject(obj);
+    itIsObject(obj: any ) {
+      return isObject(obj);
     }
 
-    getKeys(obj: any) {
-        return Object.keys(obj);
+    getKeys(obj: any ) {
+      return Object.keys(obj);
     }
 
     dateis(obj: any) {
-        isDate(obj);
+      isDate(obj);
+    }
+
+    isAbleToRegisterMoodle(): boolean {
+        let res = false;
+        switch (this.type.toString()) {
+            case Dictionary.users.toString():
+                res = true;
+                break;
+            case Dictionary.groups.toString():
+                res = true;
+                break;
+        }
+        return res;
+    }
+
+    registerMoodle(obj: any) {
+        switch (this.type.toString()) {
+            case Dictionary.users.toString():
+                let user = <User>obj;
+                this.moodleService.CreateUser(user.id).subscribe(
+                    res => {
+                        this.notificationService.FromStatus(res);
+                    },
+                    error => {
+                        console.error("Moodle Create User", error);
+                    }
+                );
+                break;
+            case Dictionary.groups.toString():
+                let group = <Group>obj;
+                this.moodleService.CreateStudentsOfGroup(group.id).subscribe(
+                    res => {
+                        this.notificationService.FromStatus(res);
+                    },
+                    error => {
+                        console.error("Moodle Create Students of Group", error);
+                    }
+                );
+                break;
+        }
     }
 
     loadLazy(event: LazyLoadEvent) {
