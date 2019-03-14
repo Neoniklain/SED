@@ -1,8 +1,11 @@
 package com.unesco.core.services.dataService.moodleService;
 
+import com.unesco.core.config.MoodleConfig.IMoodleConfigService;
 import com.unesco.core.dto.account.StudentDTO;
+import com.unesco.core.dto.account.UserDTO;
 import com.unesco.core.dto.shedule.GroupDTO;
 import com.unesco.core.repositories.moodlerest.*;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.text.DateFormat;
@@ -10,18 +13,26 @@ import java.text.SimpleDateFormat;
 import java.util.*;
 
 @Service
-public class MoodleService implements IMoodleService
-{
-    MoodleService() {
+public class MoodleService implements IMoodleService {
+
+    @Autowired
+    private IMoodleConfigService _moodleConfigService;
+
+    MoodleService(IMoodleConfigService moodleConfigService) {
+        _moodleConfigService = moodleConfigService;
+        this.Init();
+    }
+
+    private void Init() {
         // Токкен авторизации, для доступа к API Moodle
-        MoodleCallRestWebService.setAuth("0696880e69359bb66a713931a44c9974");
+        MoodleCallRestWebService.setAuth(_moodleConfigService.GetToken());
         // Адрес Moodle
-        MoodleCallRestWebService.setURL("http://localhost/moodle/webservice/rest/server.php");
+        MoodleCallRestWebService.setURL(_moodleConfigService.GetURL());
     }
 
     public MoodleCourse[] GetAllCourses() {
         MoodleCourse[] result = null;
-        try{
+        try {
             result = MoodleRestCourse.getAllCourses();
         } catch (Exception e) {
             System.out.println(e.getMessage());
@@ -33,10 +44,31 @@ public class MoodleService implements IMoodleService
 
     public MoodleUser[] GetAllUsers() {
         MoodleUser[] result = null;
-        try{
+        try {
             Criteria[] criteria = new Criteria[1];
-            criteria[0] = new Criteria("email","%%");
+            criteria[0] = new Criteria("email", "%%");
             result = MoodleRestUser.getUsers(criteria);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            e.printStackTrace();
+            result = null;
+        }
+        return result;
+    }
+
+    public MoodleUser GetUserByEmail(String email) {
+        MoodleUser result = null;
+        try {
+            Criteria[] criteria = new Criteria[1];
+            criteria[0] = new Criteria("email", email);
+            MoodleUser[] resultArray = MoodleRestUser.getUsers(criteria);
+            if (resultArray != null) {
+                if (resultArray.length == 1) {
+                    result = resultArray[0];
+                } else {
+                    result = null;
+                }
+            }
         } catch (Exception e) {
             System.out.println(e.getMessage());
             e.printStackTrace();
@@ -60,7 +92,7 @@ public class MoodleService implements IMoodleService
 
     public MoodleCourse[] CreateCourses() {
         MoodleCourse[] result = null;
-        try{
+        try {
             // 12 - id Иванова
             /*List<PairDTO> pairs = pairDataService.getAllByProfessor(12);
             List<DisciplineDTO> discs = new ArrayList<>();
@@ -74,13 +106,13 @@ public class MoodleService implements IMoodleService
             }*/
 
             MoodleCourse[] allCourses = this.GetAllCourses();
-            if(allCourses == null) {
+            if (allCourses == null) {
                 return result;
             }
 
             List<MoodleCourse> listCourses = new ArrayList<>(Arrays.asList(allCourses));
 
-            try{
+            try {
                 List<MoodleCourse> courses = new ArrayList<>();
                 Long catId = Long.valueOf(2);
                 DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
@@ -88,13 +120,13 @@ public class MoodleService implements IMoodleService
                 Date startDate = dateFormat.parse("01/09/2018");
                 long start = startDate.getTime();
                 // Убираем три нуля в концеъ
-                start = start/1000;
+                start = start / 1000;
                 // 1546210800 - пример корректной даты
 
                 Date endDate = dateFormat.parse("30/12/2018");
                 long end = endDate.getTime();
                 // Убираем три нуля в концеъ
-                end = end/1000;
+                end = end / 1000;
                 // 1546210800 - пример корректной даты
 
                 /*for (DisciplineDTO disc: forCreate) {
@@ -109,7 +141,7 @@ public class MoodleService implements IMoodleService
                     courses.add(course);
                 }*/
 
-                if(courses.size()>0) {
+                if (courses.size() > 0) {
                     MoodleCourse[] forCreateCourses = courses.toArray(new MoodleCourse[courses.size()]);
                     // result = MoodleRestCourse.createCourses(forCreateCourses);
                 }
@@ -126,40 +158,31 @@ public class MoodleService implements IMoodleService
         return result;
     }
 
-    public MoodleUser[] CreateStudents(List<StudentDTO> students, boolean LineByLineCreation) {
+    public MoodleUser[] CreateUsers(List<UserDTO> users, boolean LineByLineCreation) {
         MoodleUser[] result = null;
-        try{
-            MoodleUser[] allUsers = this.GetAllUsers();
-            List<StudentDTO> notCreatedStudents = new ArrayList<>();
-            if(allUsers != null) {
-                List<MoodleUser> allUsersFromMoodle = Arrays.asList(allUsers);
-                for (StudentDTO student : students) {
-                    Optional<MoodleUser> matchingObject = allUsersFromMoodle.stream()
-                            .filter(p -> student.getUser().getEmail().toUpperCase().equals(p.getEmail().toUpperCase()))
-                            .findFirst();
-                    if (!matchingObject.isPresent()) {
-                        notCreatedStudents.add(student);
-                    }
+        try {
+            List<UserDTO> notCreatedUsers = new ArrayList<>();
+            for (UserDTO user : users) {
+                MoodleUser mUser = GetUserByEmail(user.getEmail());
+                if (mUser == null) {
+                    notCreatedUsers.add(user);
                 }
-            }
-            else {
-                notCreatedStudents = students;
             }
 
             List<MoodleUser> forCreateUsersList = new ArrayList<>();
-            for (StudentDTO student: notCreatedStudents) {
+            for (UserDTO userDTO : notCreatedUsers) {
                 MoodleUser user = new MoodleUser();
-                user.setFullname(student.getUser().getUserFIO());
-                user.setFirstname(this.GetFirstName(student.getUser().getUserFIO()));
-                user.setLastname(this.GetLastName(student.getUser().getUserFIO()));
-                user.setEmail(student.getUser().getEmail());
+                user.setFullname(userDTO.getUserFIO());
+                user.setFirstname(this.GetFirstName(userDTO.getUserFIO()));
+                user.setLastname(this.GetLastName(userDTO.getUserFIO()));
+                user.setEmail(userDTO.getEmail());
                 user.setPassword("Default!3000");
-                user.setUsername(student.getUser().getUsername().toLowerCase());
+                user.setUsername(userDTO.getUsername().toLowerCase());
                 forCreateUsersList.add(user);
             }
 
-            if(forCreateUsersList.size()>0) {
-                if(LineByLineCreation) {
+            if (forCreateUsersList.size() > 0) {
+                if (LineByLineCreation) {
                     // ↓ Построчное создание
                     List<MoodleUser> resultList = new ArrayList<>();
                     for (MoodleUser forCreate : forCreateUsersList) {
@@ -176,13 +199,11 @@ public class MoodleService implements IMoodleService
                     }
                     result = resultList.toArray(new MoodleUser[resultList.size()]);
                     // ↑ Построчное создание
-                }
-                else {
+                } else {
                     MoodleUser[] forCreateUsersArray = forCreateUsersList.toArray(new MoodleUser[forCreateUsersList.size()]);
                     result = MoodleRestUser.createUsers(forCreateUsersArray);
                 }
-            }
-            else {
+            } else {
                 result = new MoodleUser[0];
             }
         } catch (Exception e) {
@@ -193,38 +214,61 @@ public class MoodleService implements IMoodleService
         return result;
     }
 
+    public MoodleUser[] CreateUsers(List<UserDTO> users) {
+        return CreateUsers(users, false);
+    }
+
+    public MoodleUser CreateUser(UserDTO user) {
+        List<UserDTO> forCreate = new ArrayList<>();
+        forCreate.add(user);
+        MoodleUser[] res = CreateUsers(forCreate);
+        if (res != null) {
+            if (res.length > 0) {
+                return res[0];
+            }
+        }
+        return null;
+    }
+
+    public MoodleUser[] CreateStudents(List<StudentDTO> students, boolean LineByLineCreation) {
+        List<UserDTO> forCreate = new ArrayList<>();
+        for (StudentDTO student : students) {
+            forCreate.add(student.getUser());
+        }
+        MoodleUser[] created = CreateUsers(forCreate);
+        if (created != null) {
+            if (created.length > 0) {
+                AddUsersToCohorts(students);
+            }
+        }
+        return created;
+    }
+
     public MoodleUser[] CreateStudents(List<StudentDTO> students) {
         return CreateStudents(students, false);
     }
 
     public boolean AddUsersToCohorts(List<StudentDTO> students, boolean LineByLineCreation) {
         boolean result = false;
-        try{
+        try {
 
-            if(students == null) {
+            if (students == null) {
                 return false;
             }
             MoodleCohort[] allCohortsFromMoodle = this.GetAllGroups();
-            if(allCohortsFromMoodle == null) {
+            if (allCohortsFromMoodle == null) {
                 return false;
             }
             List<MoodleCohort> moodleCohorts = Arrays.asList(allCohortsFromMoodle);
-            MoodleUser[] allUsersFromMoodle = this.GetAllUsers();
-            if(allUsersFromMoodle == null) {
-                return false;
-            }
-            List<MoodleUser> allMoodleUsers = Arrays.asList(allUsersFromMoodle);
 
             List<CohortMember> forAddUsersToCohorts = new ArrayList<>();
-            for(StudentDTO student: students) {
+            for (StudentDTO student : students) {
                 Optional<MoodleCohort> cohortExist = moodleCohorts.stream()
                         .filter(p -> p.getName().toUpperCase().equals(student.getGroup().getName().toUpperCase()))
                         .findFirst();
                 if (cohortExist.isPresent()) {
-                    Optional<MoodleUser> userExist = allMoodleUsers.stream()
-                            .filter(p -> p.getEmail().toUpperCase().equals(student.getUser().getEmail().toUpperCase()))
-                            .findFirst();
-                    if (userExist.isPresent()) {
+                    MoodleUser mUser = GetUserByEmail(student.getUser().getEmail());
+                    if (mUser != null) {
                         CohortMember cm = new CohortMember();
                         cm.setCohortTypeId(CohortTypeId.ID_NUMBER);
                         cm.setCohortIdValue(cohortExist.get().getIdNumber());
@@ -235,8 +279,8 @@ public class MoodleService implements IMoodleService
                 }
             }
 
-            if(forAddUsersToCohorts.size()>0) {
-                if(LineByLineCreation) {
+            if (forAddUsersToCohorts.size() > 0) {
+                if (LineByLineCreation) {
                     // ↓ Построчное создание
                     for (CohortMember forCreate : forAddUsersToCohorts) {
                         try {
@@ -252,16 +296,14 @@ public class MoodleService implements IMoodleService
                         }
                     }
                     // ↑ Построчное создание
-                }
-                else {
+                } else {
                     CohortMember[] forCM = forAddUsersToCohorts.toArray(new CohortMember[forAddUsersToCohorts.size()]);
                     MoodleRestCohort.addCohortMembers(forCM);
                 }
             }
 
             result = true;
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             System.out.println(e.getMessage());
             result = false;
             e.printStackTrace();
@@ -275,10 +317,10 @@ public class MoodleService implements IMoodleService
 
     public MoodleCohort[] CreateGroups(List<GroupDTO> groups, boolean LineByLineCreation) {
         MoodleCohort[] result = null;
-        try{
+        try {
             MoodleCohort[] allGroupsFromMoodleArray = this.GetAllGroups();
             List<GroupDTO> notCreatedGroups = new ArrayList<>();
-            if(allGroupsFromMoodleArray != null) {
+            if (allGroupsFromMoodleArray != null) {
                 List<MoodleCohort> allGroupsFromMoodle = Arrays.asList(allGroupsFromMoodleArray);
                 for (GroupDTO group : groups) {
                     Optional<MoodleCohort> matchingObject = allGroupsFromMoodle.stream()
@@ -288,21 +330,20 @@ public class MoodleService implements IMoodleService
                         notCreatedGroups.add(group);
                     }
                 }
-            }
-            else {
+            } else {
                 notCreatedGroups = groups;
             }
 
             List<MoodleCohort> forCreateCohortList = new ArrayList<>();
-            for (GroupDTO group: notCreatedGroups) {
+            for (GroupDTO group : notCreatedGroups) {
                 MoodleCohort cohort = new MoodleCohort();
                 cohort.setName(group.getName());
                 cohort.setIdNumber(group.getName());
                 forCreateCohortList.add(cohort);
             }
 
-            if(forCreateCohortList.size()>0) {
-                if(LineByLineCreation) {
+            if (forCreateCohortList.size() > 0) {
+                if (LineByLineCreation) {
                     // ↓ Построчное создание
                     List<MoodleCohort> resultList = new ArrayList<>();
                     for (MoodleCohort forCreate : forCreateCohortList) {
@@ -319,8 +360,7 @@ public class MoodleService implements IMoodleService
                     }
                     result = resultList.toArray(new MoodleCohort[resultList.size()]);
                     // ↑ Построчное создание
-                }
-                else {
+                } else {
                     MoodleCohort[] forCreateCohortArray = forCreateCohortList.toArray(new MoodleCohort[forCreateCohortList.size()]);
                     result = MoodleRestCohort.createCohorts(forCreateCohortArray);
                 }
@@ -337,11 +377,6 @@ public class MoodleService implements IMoodleService
         return CreateGroups(groups, false);
     }
 
-    /**
-     * Получить имя
-     * @param fullname Ф.И.О.
-     * @return
-     */
     private String GetFirstName(String fullname) {
         String result = "";
         try {
@@ -350,19 +385,13 @@ public class MoodleService implements IMoodleService
             if (words.length >= 2) {
                 result = words[1];
             }
-            result = result.replaceAll("\\P{L}+","");
-        }
-        catch (Exception ex) {
+            result = result.replaceAll("\\P{L}+", "");
+        } catch (Exception ex) {
             result = "";
         }
         return result;
     }
 
-    /**
-     * Получить фамилию
-     * @param fullname Ф.И.О.
-     * @return
-     */
     private String GetLastName(String fullname) {
         String result = "";
         try {
@@ -371,19 +400,13 @@ public class MoodleService implements IMoodleService
             if (words.length > 0) {
                 result = words[0];
             }
-            result = result.replaceAll("\\P{L}+","");
-        }
-        catch (Exception ex) {
+            result = result.replaceAll("\\P{L}+", "");
+        } catch (Exception ex) {
             result = "";
         }
         return result;
     }
 
-    /**
-     * Получить отчество
-     * @param fullname Ф.И.О.
-     * @return
-     */
     private String GetMiddleName(String fullname) {
         String result = "";
         try {
@@ -392,9 +415,8 @@ public class MoodleService implements IMoodleService
             if (words.length >= 3) {
                 result = words[2];
             }
-            result = result.replaceAll("\\P{L}+","");
-        }
-        catch (Exception ex) {
+            result = result.replaceAll("\\P{L}+", "");
+        } catch (Exception ex) {
             result = "";
         }
         return result;

@@ -1,12 +1,14 @@
 package com.unesco.core.managers.moodle;
 
 import com.unesco.core.dto.account.StudentDTO;
+import com.unesco.core.dto.account.UserDTO;
 import com.unesco.core.dto.shedule.GroupDTO;
 import com.unesco.core.managers.moodle.interfaces.IMoodleManager;
 import com.unesco.core.repositories.moodlerest.MoodleCohort;
 import com.unesco.core.repositories.moodlerest.MoodleCourse;
 import com.unesco.core.repositories.moodlerest.MoodleUser;
 import com.unesco.core.services.dataService.account.studentService.IStudentDataService;
+import com.unesco.core.services.dataService.account.userService.IUserDataService;
 import com.unesco.core.services.dataService.moodleService.IMoodleService;
 import com.unesco.core.services.dataService.schedule.groupService.IGroupDataService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +28,8 @@ public class MoodleManager implements IMoodleManager {
     IGroupDataService _groupDataService;
     @Autowired
     IStudentDataService _studentDataService;
+    @Autowired
+    IUserDataService _userDataService;
 
     public MoodleCourse[] GetAllCourses() {
         return _moodleService.GetAllCourses();
@@ -33,6 +37,16 @@ public class MoodleManager implements IMoodleManager {
 
     public MoodleUser[] GetAllUsers() {
         return _moodleService.GetAllUsers();
+    }
+
+    public MoodleUser GetUserById(long userId) {
+        UserDTO user = _userDataService.get(userId);
+        if(user != null) {
+            return _moodleService.GetUserByEmail(user.getEmail());
+        }
+        else {
+            return null;
+        }
     }
 
     public MoodleCohort[] GetAllGroups() {
@@ -46,6 +60,16 @@ public class MoodleManager implements IMoodleManager {
     public MoodleUser[] CreateStudents(long groupId) {
         GroupDTO group = _groupDataService.get(groupId);
         return CreateStudents(group);
+    }
+
+    public MoodleUser CreateUser(long userId) {
+        UserDTO user = _userDataService.get(userId);
+        if(user != null) {
+            return _moodleService.CreateUser(user);
+        }
+        else {
+            return null;
+        }
     }
 
     private MoodleUser[] CreateStudents(GroupDTO group) {

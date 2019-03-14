@@ -1,6 +1,7 @@
 package com.unesco.core.services.dataService.moodleService;
 
 import com.unesco.core.dto.account.StudentDTO;
+import com.unesco.core.dto.account.UserDTO;
 import com.unesco.core.dto.shedule.GroupDTO;
 import com.unesco.core.repositories.moodlerest.MoodleCohort;
 import com.unesco.core.repositories.moodlerest.MoodleCourse;
@@ -22,6 +23,13 @@ public interface IMoodleService {
     MoodleUser[] GetAllUsers();
 
     /**
+     * Получить пользователя Moodle
+     * @param email почтовый адрес пользователя
+     * @return
+     */
+    MoodleUser GetUserByEmail(String email);
+
+    /**
      * Получить список всех групп Moodle
      * @return
      */
@@ -33,6 +41,27 @@ public interface IMoodleService {
      * @return
      */
     MoodleCourse[] CreateCourses();
+
+    /**
+     * Регистрация пользователей в Moodle
+     * @param users Список пользователей, которых необходимо зарегестрировать
+     * @return
+     */
+    MoodleUser[] CreateUsers(List<UserDTO> users, boolean LineByLineCreation);
+
+    /**
+     * Регистрация пользователей в Moodle
+     * @param users Список пользователей, которых необходимо зарегестрировать
+     * @return
+     */
+    MoodleUser[] CreateUsers(List<UserDTO> users);
+
+    /**
+     * Регистрация пользователя в Moodle
+     * @param user Пользователь, которого необходимо зарегестрировать
+     * @return
+     */
+    MoodleUser CreateUser(UserDTO user);
 
     /**
      * Регистрация пользователей-судентов в Moodle

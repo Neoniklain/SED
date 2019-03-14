@@ -27,6 +27,11 @@ public class MoodleControllerWeb {
         return _moodleController.GetAllUsers();
     }
 
+    @RequestMapping(value = "getUserById/{id}")
+    public ResponseStatusDTO GetUserById(@PathVariable("id") long userId ) {
+        return _moodleController.GetUserById(userId);
+    }
+
     @RequestMapping(value = "getAllGroups")
     public ResponseStatusDTO GetAllGroups() {
         return _moodleController.GetAllGroups();
@@ -47,13 +52,15 @@ public class MoodleControllerWeb {
         return _moodleController.CreateStudents(groupId);
     }
 
-    @RequestMapping(value = "createAllStudents")
-    public ResponseStatusDTO CreateAllStudents() {
+    @RequestMapping(value = "createUser/{userId}")
+    public ResponseStatusDTO createUser(@PathVariable("userId") long userId) {
+        return _moodleController.CreateUser(userId);
+    }
+
+    @RequestMapping(value = "createStudents")
+    public ResponseStatusDTO CreateStudents() {
         ResponseStatusDTO result = new ResponseStatusDTO();
         result.setStatus(StatusTypes.OK);
-        ResponseStatusDTO assignResult = new ResponseStatusDTO();
-        assignResult.setStatus(StatusTypes.ERROR);
-
 
         long startTimeCreate = System.currentTimeMillis();
         ResponseStatusDTO createResult = _moodleController.CreateAllStudents();
@@ -61,27 +68,17 @@ public class MoodleControllerWeb {
         long betweenSecondsCreate = (endTimeCreate - startTimeCreate) / 1000;
         result.addMessage("Creation time = " + betweenSecondsCreate);
 
-        if(createResult.getStatus() == StatusTypes.OK) {
-            result.addMessage("Count of created users = " + ((MoodleUser[]) createResult.getData()).length);
-            long startTimeAssign = System.currentTimeMillis();
-            assignResult = _moodleController.AssignStudentsOnGroups();
-            long endTimeAssign = System.currentTimeMillis();
-            long betweenSecondsAssign = (endTimeAssign - startTimeAssign) / 1000;
-            result.addMessage("Assignment time = " + betweenSecondsAssign);
-        }
-        else {
+        if(createResult.getStatus() != StatusTypes.OK) {
             result.setStatus(StatusTypes.ERROR);
-            result.addMessage("Error while users was created");
+            result.addMessage("Error while students were created");
         }
-        if(assignResult.getStatus() == StatusTypes.OK) {
-            result.addMessage("All students was assigned? = " + (boolean)assignResult.getData());
-        }
-        else {
-            result.setStatus(StatusTypes.ERROR);
-            result.addMessage("Error while users was assigned");
-        }
-
         return result;
+    }
+
+
+    @RequestMapping(value = "assignStudentsOnGroups/{groupId}")
+    public ResponseStatusDTO AssignStudentsOnGroups(@PathVariable("groupId") long groupId) {
+        return _moodleController.AssignStudentsOnGroups(groupId);
     }
 
     @RequestMapping(value = "assignStudentsOnGroups")

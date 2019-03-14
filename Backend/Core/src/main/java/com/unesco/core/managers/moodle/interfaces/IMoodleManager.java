@@ -25,6 +25,13 @@ public interface IMoodleManager {
     MoodleUser[] GetAllUsers();
 
     /**
+     * Получить пользователя Moodle
+     * @param userId id пользователя этого web-приложения
+     * @return
+     */
+    MoodleUser GetUserById(long userId);
+
+    /**
      * Получить список всех групп Moodle
      * @return
      */
@@ -43,6 +50,13 @@ public interface IMoodleManager {
      * @return
      */
     MoodleUser[] CreateStudents(long groupId);
+
+    /**
+     * Регистрация пользователя в Moodle
+     * @param userId id пользователя этого web-приложения, которого необходимо зарегестрировать
+     * @return
+     */
+    MoodleUser CreateUser(long userId);
 
     /**
      * Регистрация всех пользователей-судентов в Moodle
