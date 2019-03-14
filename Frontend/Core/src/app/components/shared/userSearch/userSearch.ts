@@ -5,7 +5,6 @@ import {AccountService} from "../../../services/account.service";
 import {Dictionary} from "../../../models/admin/dictionary.model";
 import {LazyLoadEvent} from "primeng/api";
 import {DictionaryService} from "../../../services/dictionary.service";
-import {DomSanitizer} from "@angular/platform-browser";
 import {Role} from "../../../models/account/role.model";
 
 @Component({
@@ -40,8 +39,7 @@ export class UserSearchComponent implements OnInit {
 
     constructor(private accountService: AccountService,
                 private notificationService: NotificationService,
-                private dictionaryService: DictionaryService,
-                public sanitizer: DomSanitizer) {}
+                private dictionaryService: DictionaryService) {}
 
     ngOnInit() {
         this.listOfTypes = [];
@@ -128,9 +126,18 @@ export class UserSearchComponent implements OnInit {
         this.onClose.emit();
     }
 
+    public onChangeType() {
+        this.result = [];
+    }
+
     public Edit(users: User[]) {
         this.editable = true;
         this.result = users;
+        if (this.result != null) {
+            if (this.result.length > 0) {
+                this.Type = {};
+            }
+        }
     }
 
     public searchRoles(event: any) {

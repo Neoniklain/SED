@@ -42,13 +42,13 @@
     </div>
     <div *ngIf="isModal">
         <p-dialog   [(visible)]="editable" modal="modal" [resizable]="true" [draggable]="true"
-                    [closable]="false" (onHide)="closeForm()" [minWidth]="320" [positionTop]="150">
+                    [closable]="false" (onHide)="closeForm()" [minWidth]="320" [positionTop]="100">
             <p-header>
                 Выбор пользователей
                 <i class="fa fa-close fa-lg pull-right" aria-hidden="true" (click)="closeForm()" style="cursor: pointer;">  </i>
             </p-header>
             <div style="min-height: 300px; max-height: 600px;">
-                <p-selectButton [options]="listOfTypes" [(ngModel)]="Type" optionLabel="name" [disabled]="!editable || disabled"></p-selectButton>
+                <p-selectButton [options]="listOfTypes" [(ngModel)]="Type" optionLabel="name" [disabled]="!editable || disabled" (onChange)="onChangeType()"></p-selectButton>
                 <div *ngIf="Type.value == 1">
                     <p style="margin: 10px 0;">Введите ФИО пользователя:</p>
                     <p-autoComplete [(ngModel)]="lastSelected" [suggestions]="_foundedUsers" (completeMethod)="searchUserByFIO($event)" styleClass="w-100"
