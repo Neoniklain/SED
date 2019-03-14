@@ -62,9 +62,9 @@ public class LessonDataService implements ILessonDataService {
         return model;
     }
 
-    public LessonDTO getDisciplineIdAndGroupIdAndProfessorId(long disciplineId, long groupId, long professorId)
+    public LessonDTO getDisciplineIdAndGroupIdAndProfessorIdAndPeriodId(long disciplineId, long groupId, long professorId, long periodId)
     {
-        LessonEntity entity = lessonRepository.findByDisciplineIdAndGroupIdAndProfessorId(disciplineId, groupId, professorId);
+        LessonEntity entity = lessonRepository.findByDisciplineIdAndGroupIdAndProfessorIdAndEducationPeriodId(disciplineId, groupId, professorId, periodId);
         LessonDTO model = (LessonDTO) mapperService.toDto(entity);
         return model;
     }
@@ -123,13 +123,24 @@ public class LessonDataService implements ILessonDataService {
         LessonEntity entity = (LessonEntity) mapperService.toEntity(lesson);
         ResponseStatusDTO<LessonDTO> result = new ResponseStatusDTO<>(StatusTypes.OK);
         LessonEntity model;
+
+        EducationPeriodEntity period = getEducationPeriodForYearAndSemester(
+                lesson.getSemesterNumberYear().getSemester(),
+                lesson.getSemesterNumberYear().getYear());
+
+        if (period == null) {
+            result.setStatus(StatusTypes.ERROR);
+            result.addErrors("Не найден подходящий учебный период.");
+            return result;
+        }
+
+        entity.setEducationPeriod(period);
+
         try {
             model = lessonRepository.save(entity);
         } catch (Exception e) {
             result.setStatus(StatusTypes.ERROR);
-            if(e instanceof DataIntegrityViolationException)
-                result.addErrors("Удаление не удалось. У объекта есть зависимости.");
-            result.addErrors("Удаление не удалось");
+            result.addErrors("Сохранение не удалось");
             return result;
         }
         result.setData((LessonDTO) mapperService.toDto(model));

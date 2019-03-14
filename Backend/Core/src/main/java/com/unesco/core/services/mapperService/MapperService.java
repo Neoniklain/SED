@@ -31,6 +31,8 @@ import com.unesco.core.entities.task.TaskDescription;
 import com.unesco.core.entities.task.TaskUser;
 import com.unesco.core.repositories.schedule.PairRepository;
 import com.unesco.core.repositories.account.StudentRepository;
+import com.unesco.core.utils.DateHelper;
+import org.apache.poi.ss.usermodel.DateUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -540,6 +542,8 @@ public class MapperService implements IMapperService {
         LessonDTO Dto = new LessonDTO();
         Dto.setId((int) Entity.getId());
         Dto.setDiscipline(disciplineToDto(Entity.getDiscipline()));
+        Dto.setSemesterNumberYear(DateHelper.getYearAndSemesterForPeriod(Entity.getEducationPeriod().getStartDate(),
+                Entity.getEducationPeriod().getEndDate()));
 
         if (Entity.getGroup() != null)
             Dto.setGroup(groupToDto(Entity.getGroup()));

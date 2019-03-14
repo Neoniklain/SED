@@ -125,10 +125,21 @@ public class PairDataService implements IPairDataService {
         PairEntity entity = (PairEntity) mapperService.toEntity(pair);
         ResponseStatusDTO<PairDTO> result = new ResponseStatusDTO<>(StatusTypes.OK);
 
-        LessonDTO findLesson = lessonDataService.getDisciplineIdAndGroupIdAndProfessorId(
+        EducationPeriodEntity period = getEducationPeriodForYearAndSemester(
+                pair.getLesson().getSemesterNumberYear().getSemester(),
+                pair.getLesson().getSemesterNumberYear().getYear());
+
+        if (period == null) {
+            result.setStatus(StatusTypes.ERROR);
+            result.addErrors("Не найден подходящий семестр.");
+            return result;
+        }
+
+        LessonDTO findLesson = lessonDataService.getDisciplineIdAndGroupIdAndProfessorIdAndPeriodId(
                 entity.getLesson().getDiscipline().getId(),
                 entity.getLesson().getGroup().getId(),
-                entity.getLesson().getProfessor().getId());
+                entity.getLesson().getProfessor().getId(),
+                period.getId());
 
         if (findLesson == null) {
             LessonDTO lesson = pair.getLesson();
@@ -146,6 +157,9 @@ public class PairDataService implements IPairDataService {
 
         try {
             entity = pairRepository.save(entity);
+            LessonEntity lesson = entity.getLesson();
+            lesson.setEducationPeriod(period);
+            entity.setLesson(lesson);
         } catch (Exception e) {
             result.setStatus(StatusTypes.ERROR);
             result.addErrors(e.getMessage());

@@ -56,6 +56,7 @@ export class WeekScheduleComponent implements OnInit, OnChanges {
     public selectedType: string;
     public prityWeekNum: number;
 
+    public loading: boolean = false;
 
     constructor(
         private notification: NotificationService,

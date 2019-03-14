@@ -1,6 +1,6 @@
 package com.unesco.core.utils;
 
-import com.unesco.core.entities.plan.EducationPeriodEntity;
+import com.unesco.core.dto.plan.SemesterNumberYear;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -67,6 +67,15 @@ public class DateHelper {
             calendar.add(Calendar.DATE, -1);
             result.endDate = calendar.getTime();
         }
+        return result;
+    }
+
+    public static SemesterNumberYear getYearAndSemesterForPeriod(Date startDate, Date endDate) {
+        SemesterNumberYear result = new SemesterNumberYear();
+        Calendar end = Calendar.getInstance();
+        end.setTime(endDate);
+        result.setYear(end.get(Calendar.YEAR));
+        result.setSemester(end.get(Calendar.MONTH) > 8 ? 1 : 2 );
         return result;
     }
 

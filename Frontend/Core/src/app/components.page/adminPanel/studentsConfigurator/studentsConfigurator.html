@@ -15,7 +15,7 @@
             <div class="col-xs-4 col-xs-push-4">
                <div class="input-group input-group-md">
                   <span class="input-group-addon">Настройка группы: </span>
-                  <select class="form-control" (ngModelChange)="selectLessonForGroup($event)" [(ngModel)]="selectGroup" id="group" name="grouplist">
+                  <select class="form-control" (ngModelChange)="selectLessonForGroup()" [(ngModel)]="selectGroup" id="group" name="grouplist">
                      <option *ngFor="let group of groups" id="groupname" name="name" [ngValue]="group">{{group.name}}</option>
                   </select>
                </div>

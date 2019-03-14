@@ -118,7 +118,7 @@
         </div>
     </div>
 
-    <div *ngIf="!currentEducationPeriod && pair?.lesson?.group?.id != 0" style="color: darkred; font-size: 12px">
+    <div *ngIf="!currentEducationPeriod && pair?.lesson?.group?.id != 0 && !educationPeriodLoader" style="color: darkred; font-size: 12px">
         Не найден период обучения для данной группы!
     </div>
 

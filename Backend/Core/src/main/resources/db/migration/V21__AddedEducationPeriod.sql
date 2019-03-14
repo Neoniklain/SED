@@ -7,6 +7,6 @@ ALTER TABLE un_lesson add column education_period_id int8;
 alter table un_lesson add constraint FKg34j750bbuanm1313143qtr6r foreign key (education_period_id) references un_education_period;
 UPDATE un_lesson SET education_period_id = 1;
 
-INSERT INTO un_speciality(id, name, department_id, institute_id, code) VALUES (1, 'ФИИТ', 1, 1, '01.01.01');
+UPDATE un_speciality SET institute_id = 1;
+UPDATE un_speciality SET code = '01.01.01';
 UPDATE un_group SET speciality_id = 1;
-ALTER TABLE un_group DROP COLUMN department_id;

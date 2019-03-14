@@ -126,7 +126,7 @@
   </tr>
 </table>
 
-<div *ngIf="(!pairs || pairs.length == 0) && !editable" class="pairs-not-found">
+<div *ngIf="(!pairs || pairs.length == 0) && !editable && !loading" class="pairs-not-found">
   <h1>Расписание не заполнено.</h1>
 </div>
 

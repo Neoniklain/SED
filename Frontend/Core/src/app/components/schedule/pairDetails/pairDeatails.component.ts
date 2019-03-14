@@ -61,6 +61,7 @@ export class PairDetailsComponent implements OnInit, OnChanges {
     public windowHeight: number;
 
     public currentEducationPeriod: EducationPeriod;
+    public educationPeriodLoader = false;
 
     @ViewChild('pairDetails') pairDetailsView: ElementRef;
 
@@ -87,10 +88,17 @@ export class PairDetailsComponent implements OnInit, OnChanges {
         this.windowYOffset = window.pageYOffset;
         this.windowWidth = window.innerWidth;
         this.windowHeight = window.innerHeight;
+        if (this.editablePair != null) {
+            this.editablePair.lesson.semesterNumberYear = this.semesterNumberYear;
+        }
     }
 
     ngOnChanges() {
-        if (!isUndefined(this.editablePair)) {
+        if (!isUndefined(this.editablePair) && this.editablePair != null) {
+            if (this.editablePair.lesson != null) {
+                this.editablePair.lesson.semesterNumberYear = this.semesterNumberYear;
+                this.getEducationPeriod(this.editablePair.lesson.group);
+            }
             this.pair = JSON.parse(JSON.stringify(this.editablePair));
             if (this.pair != null)
                 this.curSubGroup = this.SubGroups.find(x => x.value == this.pair.subgroup);
@@ -145,6 +153,7 @@ export class PairDetailsComponent implements OnInit, OnChanges {
 
     AllUpdatePairs(skipWarnings?: boolean) {
         this.checkOnEmpty(true);
+        console.log("this.pair", this.pair);
         this.scheduleService.Save(this.pair, skipWarnings).subscribe(
             result => {
                 if (result.status === StatusType.OK.toString()) {
@@ -183,10 +192,17 @@ export class PairDetailsComponent implements OnInit, OnChanges {
 
     public selectGroup(group: Group) {
         this.pair.lesson.group = group;
+        this.getEducationPeriod(group);
+    }
+
+    public getEducationPeriod(group: Group) {
+        this.educationPeriodLoader = true;
         this.scheduleService.getEducationPeriodForGroup(group.id, this.semesterNumberYear).subscribe(
             result => {
-                console.log("getting education period:", result);
+                this.educationPeriodLoader = false;
                 this.currentEducationPeriod = result.data;
+            }, error => {
+                this.educationPeriodLoader = false;
             }
         );
     }

@@ -1,6 +1,7 @@
 package com.unesco.core.dto.shedule;
 
 import com.unesco.core.dto.account.ProfessorDTO;
+import com.unesco.core.dto.plan.SemesterNumberYear;
 
 public class LessonDTO {
 
@@ -8,6 +9,7 @@ public class LessonDTO {
     private DisciplineDTO discipline;
     private ProfessorDTO professor;
     private GroupDTO group;
+    private SemesterNumberYear semesterNumberYear;
 
     public long getId() {
         return id;
@@ -37,4 +39,10 @@ public class LessonDTO {
         this.group = group;
     }
 
+    public SemesterNumberYear getSemesterNumberYear() {
+        return semesterNumberYear;
+    }
+    public void setSemesterNumberYear(SemesterNumberYear semesterNumberYear) {
+        this.semesterNumberYear = semesterNumberYear;
+    }
 }
