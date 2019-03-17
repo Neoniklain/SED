@@ -11,6 +11,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.List;
 
@@ -38,25 +39,18 @@ public class FileControllerWeb {
     }
 
     @RequestMapping(value = "/download/{fileId}")
-    public ResponseStatusDTO download(@PathVariable("fileId") long fileId, HttpServletRequest request, HttpServletResponse response)
-    {
+    public ResponseStatusDTO download(@PathVariable("fileId") long fileId) {
         ResponseStatusDTO result = new ResponseStatusDTO();
-        try
-        {
-            FileByteCodeModel myFile = _fileController.getByteCode(fileId);
-            byte[] file = myFile.getData();
+        FileByteCodeModel myFile = _fileController.getByteCode(fileId);
+            /*byte[] file = myFile.getData();
             response.reset();
             response.setHeader("Content-disposition","attachment; filename="+myFile.getFileDescription().getFileName());
             response.setBufferSize(DEFAULT_BUFFER_SIZE);
             response.setContentType(myFile.getFileDescription().getFileType());
-            response.getOutputStream().write(file);
-            result.setStatus(StatusTypes.OK);
-            result.addMessage("Файл загружен");
-        }
-        catch (IOException e) {
-            result.setStatus(StatusTypes.ERROR);
-            result.addErrors("Ошибка загрузки файла");
-        }
+            response.getOutputStream().write(file);*/
+        result.setData(myFile);
+        result.setStatus(StatusTypes.OK);
+        result.addMessage("Файл загружен");
         return result;
     }
 }
