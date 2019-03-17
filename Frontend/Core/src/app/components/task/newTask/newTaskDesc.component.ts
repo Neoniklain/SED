@@ -42,6 +42,7 @@ export class NewTaskDescComponent {
     public TaskStatusType = TaskStatusType;
     public selectedType: any;
     public showSelectUserForm: boolean = false;
+    public ru: any;
 
     constructor(private taskService: TaskService,
                 private accountService: AccountService,
@@ -51,6 +52,16 @@ export class NewTaskDescComponent {
     }
 
     ngOnInit(): void {
+        this.ru = {
+            firstDayOfWeek: 1,
+            dayNames: ["Воскресенье", "Понедельник", "Вторник", "Среда", "Четверг", "Пятница", "Суббота"],
+            dayNamesShort: ["Вск", "Пн", "Вт", "СР", "Чт", "Пт", "Сб"],
+            dayNamesMin: ["Вск", "Пн", "Вт", "СР", "Чт", "Пт", "Сб"],
+            monthNames: ["Январь", "Февраль", "Март", "Апрель", "Май", "Июнь", "Июль", "Август", "Сентябрь", "Октябрь", "Ноябрь", "Декабрь"],
+            monthNamesShort: ["Янв", "Фев", "Мар", "Апр", "Май", "Июн", "Июл", "Авг", "Сен", "Окт", "Ноя", "Дек"],
+            today: 'Сегодня',
+            clear: 'Очистить'
+        };
         if (this.localTD == null) {
             this.localTD = new TaskDescription();
             this.title = "Создание задачи";

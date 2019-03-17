@@ -17,6 +17,8 @@ import {ApiRouteConstants, BaseApiUrl} from "../../../bootstrap/app.route.consta
 export class WorkTaskComponent implements OnInit {
     @Input()
     localTD: TaskDescription;
+    @Input()
+    disabled: boolean;
     @Output()
     onClose: EventEmitter<any> = new EventEmitter();
     @Output()

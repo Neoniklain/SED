@@ -14,11 +14,11 @@
             <label class="col-xs-12 col-sm-1 control-label">Ответ: </label>
             <div class="col-xs-12 col-sm-11">
                     <textarea [(ngModel)]="myTaskUser.response" rows="5" cols="150" pInputTextarea class="form-control"
-                              autoResize="autoResize" style="width: 100%; max-width: 100%; min-width: 100%;" [disabled]="!isNeedAnswer"></textarea>
+                              autoResize="autoResize" style="width: 100%; max-width: 100%; min-width: 100%;" [disabled]="!isNeedAnswer || disabled"></textarea>
             </div>
         </div>
 
-        <div class="row form-group" *ngIf="isNeedAnswer">
+        <div class="row form-group" *ngIf="isNeedAnswer && !disabled">
             <label class="col-xs-12 col-sm-1 control-label">Прикрепить: </label>
             <div class="col-xs-12 col-sm-11">
                 <p-fileUpload name="files"
@@ -55,7 +55,7 @@
         <button type="button" (click)="CloseDialog()" class="btn btn-default pull-right" style="margin-right: 15px;">
             Закрыть
         </button>
-        <button *ngIf="isNeedAnswer" type="button" (click)="AnswerTask()" class="btn btn-primary pull-right" style="margin-right: 15px;">
+        <button *ngIf="isNeedAnswer && !disabled" type="button" (click)="AnswerTask()" class="btn btn-primary pull-right" style="margin-right: 15px;">
             <i class="fa fa-check" aria-hidden="true"></i>Ответить
         </button>
     </div>

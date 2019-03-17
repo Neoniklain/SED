@@ -29,8 +29,10 @@ export class DetailTaskComponent {
     public myTaskUser: TaskUser;
     public user: User;
     public viewName: string = 'detail';
+    public viewDisabled: boolean;
     // ↓ Нужно для работы enum на View
     public TaskStatusType = TaskStatusType;
+    public ru: any;
 
     constructor(private taskService: TaskService,
                 private accountService: AccountService,
@@ -41,6 +43,16 @@ export class DetailTaskComponent {
     }
 
     ngOnInit(): void {
+        this.ru = {
+            firstDayOfWeek: 1,
+            dayNames: ["Воскресенье", "Понедельник", "Вторник", "Среда", "Четверг", "Пятница", "Суббота"],
+            dayNamesShort: ["Вск", "Пн", "Вт", "СР", "Чт", "Пт", "Сб"],
+            dayNamesMin: ["Вск", "Пн", "Вт", "СР", "Чт", "Пт", "Сб"],
+            monthNames: ["Январь", "Февраль", "Март", "Апрель", "Май", "Июнь", "Июль", "Август", "Сентябрь", "Октябрь", "Ноябрь", "Декабрь"],
+            monthNamesShort: ["Янв", "Фев", "Мар", "Апр", "Май", "Июн", "Июл", "Авг", "Сен", "Окт", "Ноя", "Дек"],
+            today: 'Сегодня',
+            clear: 'Очистить'
+        };
         if (this.localTD == null) {
             this.localTD = new TaskDescription();
             this.localTD.name = "Задача не существует";
@@ -52,8 +64,9 @@ export class DetailTaskComponent {
         }
     }
 
-    public setComp(name: string) {
+    public setComp(name: string, disabled?: boolean) {
         this.viewName = name;
+        this.viewDisabled = disabled;
     }
 
     public letShow(name: string): boolean {
@@ -85,11 +98,16 @@ export class DetailTaskComponent {
         else {
             if (this.localTD.status != TaskStatusType.Completed) {
                 if (this.myTaskUser != null) {
-                    if (this.myTaskUser.status == TaskStatusType.Processed) {
-                        this.isNeedAnswer = true;
-                    }
-                    if (this.myTaskUser.status == TaskStatusType.SentToRevision) {
-                        this.isNeedAnswer = true;
+                    if (this.localTD.type == TaskType.Answer) {
+                        if (this.myTaskUser.status == TaskStatusType.Processed) {
+                            this.isNeedAnswer = true;
+                        }
+                        if (this.myTaskUser.status == TaskStatusType.Viewed) {
+                            this.isNeedAnswer = true;
+                        }
+                        if (this.myTaskUser.status == TaskStatusType.SentToRevision) {
+                            this.isNeedAnswer = true;
+                        }
                     }
                 }
             }
@@ -112,6 +130,12 @@ export class DetailTaskComponent {
                             if (this.localTD.type == TaskType.Notice) {
                                 if (this.myTaskUser.status != TaskStatusType.Completed) {
                                     this.ChangeStatusTU(this.myTaskUser, TaskStatusType.Completed);
+                                }
+                            }
+                            else if (this.localTD.type == TaskType.Answer) {
+                                if (this.myTaskUser.status == TaskStatusType.Processed ||
+                                    this.myTaskUser.status == TaskStatusType.SentToRevision) {
+                                    this.ChangeStatusTU(this.myTaskUser, TaskStatusType.Viewed);
                                 }
                             }
                             this.CheckIsNeedAnswer();

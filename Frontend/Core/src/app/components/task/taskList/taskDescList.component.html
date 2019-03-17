@@ -56,7 +56,7 @@
                         <tr *ngFor="let item of listTaskDescExecutor">
                             <td class="text-center" id="e_name">{{item.name}}</td>
                             <td class="text-center hidden-xs" id="e_creator">{{item.creator.userFIO}}</td>
-                            <td class="text-center" id="e_dateRequired">{{item.dateRequired}}</td>
+                            <td class="text-center" id="e_dateRequired">{{item.dateRequired | date: 'dd.MM.yyyy'}}</td>
                             <td class="text-center" id="e_buttons">
                                 <button type="button" class="btn btn-info btn-sm" title="Посмотреть подробности" (click)="showDetails(item)">
                                     <i class="fa fa-eye"></i>

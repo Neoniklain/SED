@@ -288,6 +288,18 @@ body {
     cursor: default;
 }
 
+.my-calendar {
+    width: 100%;
+}
+
+.my-calendar.ui-calendar-w-btn {
+    padding-right: 30px;
+}
+
+.my-calendar input {
+    width: 100%;
+}
+
 #TasksList p-tabPanel .btn {
     cursor: pointer;
     margin: 2px 4px;

@@ -44,6 +44,15 @@
             </div>
 
             <div class="row form-group">
+                <label class="col-xs-12 col-sm-1 control-label">Контроль: </label>
+                <div class="col-xs-12 col-sm-11">
+                    <p-calendar [(ngModel)]="localTD.dateRequired" [showIcon]="true" [monthNavigator]="true"
+                                [yearNavigator]="true" yearRange="2018:2030" [showButtonBar]="true" [locale]="ru"
+                                dateFormat="dd.mm.yy" placeholder="Контрольная дата"></p-calendar>
+                </div>
+            </div>
+
+            <div class="row form-group">
                 <label class="col-xs-12 col-sm-1 control-label">Название: </label>
                 <div class="col-xs-12 col-sm-11">
                     <input type="text" class="form-control" name="header" placeholder="Название задчи"

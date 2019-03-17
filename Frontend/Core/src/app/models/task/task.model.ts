@@ -20,7 +20,7 @@ export class TaskDescription {
     this.description = "";
     this.taskUsers = [];
     this.files = [];
-    this.dateRequired = new Date();
+    this.dateRequired = null;
   }
 }
 

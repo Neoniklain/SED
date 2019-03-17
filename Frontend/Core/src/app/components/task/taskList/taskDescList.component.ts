@@ -52,11 +52,27 @@ export class TaskDescListComponent {
         return TaskStatusType[statusId];
     }
 
+    private correctingDate() {
+        for (let task of this.listTaskDescExecutor) {
+            task.dateCreate = new Date(task.dateCreate);
+            if (task.dateRequired != null) {
+                task.dateRequired = new Date(task.dateRequired);
+            }
+        }
+        for (let task of this.listTaskDescCreator) {
+            task.dateCreate = new Date(task.dateCreate);
+            if (task.dateRequired != null) {
+                task.dateRequired = new Date(task.dateRequired);
+            }
+        }
+    }
+
     public getTDExecutor() {
         this.loading = true;
         this.taskService.GetListExecutor().subscribe((res) => {
                 this.loading = false;
                 this.listTaskDescExecutor = res.data;
+                this.correctingDate();
             },
             (error) => {
                 console.error("Ошибка" + error);
@@ -68,6 +84,7 @@ export class TaskDescListComponent {
         this.taskService.GetListCreator().subscribe((res) => {
                 this.loading = false;
                 this.listTaskDescCreator = res.data;
+                this.correctingDate();
             },
             (error: any) => {
                 console.error("Ошибка" + error);
