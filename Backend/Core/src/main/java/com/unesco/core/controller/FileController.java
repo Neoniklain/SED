@@ -125,6 +125,6 @@ public class FileController {
     }
 
     public FileByteCodeModel getByteCode(long fileId) {
-        return _fileByteCodeService.get(fileId);
+        return _fileByteCodeService.getByDescriptionId(fileId);
     }
 }

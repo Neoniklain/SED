@@ -78,16 +78,17 @@
                     </div>
                     -->
                     <button *ngFor="let file of localTD.files" (click)="downloadFile(file)" title="Скачать {{file.fileName}}"
-                            type="button" class="btn btn-primary btn-sm"
-                            style="cursor: pointer; margin: 2px 4px;">
-                                <span [ngSwitch]="file.fileType">
-                                    <i *ngSwitchCase="'image/jpeg'" class="fa fa-file-image-o fa-lg" aria-hidden="true"></i>
-                                    <i *ngSwitchCase="'image/png'" class="fa fa-file-image-o fa-lg" aria-hidden="true"></i>
-                                    <i *ngSwitchCase="'application/pdf'" class="fa fa-file-pdf-o fa-lg" aria-hidden="true"></i>
-                                    <i *ngSwitchCase="'text/plain'" class="fa fa-file-text-o fa-lg" aria-hidden="true"></i>
-                                    <i *ngSwitchCase="'application/octet-stream'" class="fa fa-file-archive-o fa-lg" aria-hidden="true"></i>
-                                    <i *ngSwitchDefault class="fa fa-floppy-o fa-lg" aria-hidden="true"></i>
-                                </span>
+                            type="button" class="btn btn-danger btn-sm"
+                            style="cursor: pointer; margin: 2px 4px; max-width: 150px;">
+                        <span [ngSwitch]="file.fileType" style="margin-right: 4px; border-radius: 5px;">
+                            <i *ngSwitchCase="'image/jpeg'" class="fa fa-file-image-o fa-lg" aria-hidden="true"></i>
+                            <i *ngSwitchCase="'image/png'" class="fa fa-file-image-o fa-lg" aria-hidden="true"></i>
+                            <i *ngSwitchCase="'application/pdf'" class="fa fa-file-pdf-o fa-lg" aria-hidden="true"></i>
+                            <i *ngSwitchCase="'text/plain'" class="fa fa-file-text-o fa-lg" aria-hidden="true"></i>
+                            <i *ngSwitchCase="'application/octet-stream'" class="fa fa-file-archive-o fa-lg" aria-hidden="true"></i>
+                            <i *ngSwitchDefault class="fa fa-floppy-o fa-lg" aria-hidden="true"></i>
+                        </span>
+                        <div style="max-width: 100px; display: inline-flex; overflow: hidden;">{{file.fileName}}</div>
                     </button>
                 </div>
             </div>
@@ -118,6 +119,7 @@
                             <td class="text-center" >{{item.executor.userFIO}}</td>
                             <td class="text-center">{{item.response}}</td>
                             <td class="text-center">
+                                <!--
                                 <button *ngFor="let file of item.files" (click)="downloadFile(file)" title="Скачать {{file.fileName}}"
                                         type="button" class="btn btn-primary btn-sm"
                                         style="cursor: pointer; margin: 2px 4px;">
@@ -129,6 +131,21 @@
                                         <i *ngSwitchCase="'application/octet-stream'" class="fa fa-file-archive-o fa-lg" aria-hidden="true"></i>
                                         <i *ngSwitchDefault class="fa fa-floppy-o fa-lg" aria-hidden="true"></i>
                                     </span>
+                                </button>
+                                -->
+
+                                <button *ngFor="let file of item.files" (click)="downloadFile(file)" title="Скачать {{file.fileName}}"
+                                        type="button" class="btn btn-danger btn-sm"
+                                        style="cursor: pointer; margin: 2px 4px; max-width: 150px;">
+                                    <span [ngSwitch]="file.fileType" style="margin-right: 4px; border-radius: 5px;">
+                                        <i *ngSwitchCase="'image/jpeg'" class="fa fa-file-image-o fa-lg" aria-hidden="true"></i>
+                                        <i *ngSwitchCase="'image/png'" class="fa fa-file-image-o fa-lg" aria-hidden="true"></i>
+                                        <i *ngSwitchCase="'application/pdf'" class="fa fa-file-pdf-o fa-lg" aria-hidden="true"></i>
+                                        <i *ngSwitchCase="'text/plain'" class="fa fa-file-text-o fa-lg" aria-hidden="true"></i>
+                                        <i *ngSwitchCase="'application/octet-stream'" class="fa fa-file-archive-o fa-lg" aria-hidden="true"></i>
+                                        <i *ngSwitchDefault class="fa fa-floppy-o fa-lg" aria-hidden="true"></i>
+                                    </span>
+                                    <div style="max-width: 100px; display: inline-flex; overflow: hidden;">{{file.fileName}}</div>
                                 </button>
                             </td>
                             <td class="text-center">{{getStatusName(item.status) | translate}}</td>
