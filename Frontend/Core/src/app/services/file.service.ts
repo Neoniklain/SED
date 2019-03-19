@@ -74,10 +74,22 @@ export class  FileService {
             res => {
                 let a = document.createElement("a");
                 let blob = this.b64toBlob(res.data.data, res.data.fileDescription.fileType, 512);
-                a.href = window.URL.createObjectURL(blob);
-                a.download = res.data.fileDescription.fileName;
-                a.click();
-                a.remove();
+                console.log(blob);
+
+                const url = window.URL.createObjectURL(blob);
+                const blobAnchor = document.createElement('a');
+                blobAnchor.download = res.data.fileDescription.fileName;
+                blobAnchor.className = 'hidden';
+                blobAnchor.href = url;
+                document.body.appendChild(blobAnchor);
+                blobAnchor.onclick = function () {
+                    requestAnimationFrame(function () {
+                        URL.revokeObjectURL(url);
+                        setTimeout(() => blobAnchor.remove(), 300);
+                    });
+                };
+
+                blobAnchor.click();
             },
             error => {
                 console.error("download", error);
