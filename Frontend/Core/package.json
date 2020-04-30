@@ -54,7 +54,7 @@
     "core-js": "2.4.1",
     "expose-loader": "^0.7.4",
     "gulp-rename": "^1.4.0",
-    "jquery": "3.1.1",
+    "jquery": "3.5.0",
     "linqts": "1.7.4",
     "ng2-file-upload": "^1.2.1",
     "please-wait": "0.0.5",
